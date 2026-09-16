@@ -149,7 +149,6 @@ def _standardize(values: tuple[float, ...]) -> tuple[float, ...]:
 
 
 def _spatial_block(longitude: float) -> str:
-    # Fixed, interpretable longitude bands; east is fully held out.
     if longitude < -110.0:
         return "west"
     if longitude < -85.0:
@@ -183,6 +182,7 @@ def build_v031_semisynthetic_fixture(
 
     stations = parse_station_csv(source_csv_text, rows=manifest.station_rows)
     spaces = tuple(station.station_id for station in stations)
+    station_by_space = {station.station_id: station for station in stations}
     grid = Grid(space=spaces, doy=manifest.doy_bins, hour=manifest.hour_bins)
 
     precip_z = _standardize(tuple(station.average_precip for station in stations))
@@ -194,13 +194,10 @@ def build_v031_semisynthetic_fixture(
         }
         for index, station in enumerate(stations)
     }
-    covariates = {
-        key: dict(station_covariates[key[0]])
-        for key in grid.keys
-    }
+    covariates = {key: dict(station_covariates[key[0]]) for key in grid.keys}
     effort = EffortField(
         {
-            key: _effort_value(stations[spaces.index(key[0])], key[1], key[2])
+            key: _effort_value(station_by_space[key[0]], key[1], key[2])
             for key in grid.keys
         }
     )
@@ -254,7 +251,7 @@ def build_v031_semisynthetic_fixture(
         heldout_block=manifest.heldout_block,
         generating_theta={
             "sp": {
-                "intercept": 1.0,
+                "intercept": -1.5,
                 "beta_precip": 0.55,
                 "beta_lat": -0.25,
             }
