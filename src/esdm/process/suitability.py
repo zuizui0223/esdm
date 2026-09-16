@@ -46,10 +46,17 @@ class LinearSuitability:
             priors[parameter] = PriorSpec("Normal", {"loc": 0.0, "scale": 1.0})
         return priors
 
-    def log_intensity(self, ctx: Context, theta, covariates, latent_fields=None) -> float:
-        value = float(theta[self.intercept_parameter])
+    def log_intensity(self, ctx: Context, theta, covariates, latent_fields=None):
+        """Return this process' additive log-intensity contribution.
+
+        The arithmetic deliberately avoids coercing values to Python ``float`` so the
+        exact same process implementation can operate on ordinary scalars and on JAX
+        tracer values inside the optional NumPyro backend.
+        """
+
+        value = theta[self.intercept_parameter]
         for covariate in self.covariates:
-            value += float(theta[self.coefficient_parameters[covariate]]) * float(covariates[covariate])
+            value = value + theta[self.coefficient_parameters[covariate]] * covariates[covariate]
         return value
 
     def knockout(self) -> NoEffectProcess:
