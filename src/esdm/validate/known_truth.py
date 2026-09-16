@@ -1,6 +1,6 @@
-"""Generic v0.3 known-truth benchmark worlds.
+"""Generic v0.3 known-truth benchmark worlds and repeated-fit diagnostics.
 
-The worlds are deliberately ecological-domain neutral.  They exercise the generative
+The worlds are deliberately ecological-domain neutral. They exercise the generative
 contracts around suitability, observation effort, omitted environmental structure, and
 process knockout before any interaction family is added.
 """
@@ -9,13 +9,14 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from types import MappingProxyType
-from collections.abc import Mapping
+from collections.abc import Mapping, Sequence
 import math
 
 from esdm.domain import Grid
 from esdm.model import Model
 from esdm.observe import EffortField, PresenceOnly
 from esdm.process import LinearSuitability
+from esdm.simulate import simulate_presence_only
 from esdm.simulate.misspecified import (
     effort_gradient_apparent_slope,
     omitted_driver_apparent_slope,
@@ -56,6 +57,98 @@ class KnownTruthWorld:
             MappingProxyType({species: MappingProxyType(dict(values)) for species, values in self.generating_theta.items()}),
         )
         object.__setattr__(self, "truth", MappingProxyType(dict(self.truth)))
+
+
+@dataclass(frozen=True, slots=True)
+class BenchmarkReplicate:
+    world: str
+    replicate: int
+    posterior_mean: float
+    interval_low: float
+    interval_high: float
+    truth: float
+    expected_apparent: float
+    num_divergences: int
+    world_class: str = "unspecified"
+
+    @property
+    def covers_truth(self) -> bool:
+        return self.interval_low <= self.truth <= self.interval_high
+
+    @property
+    def covers_expected(self) -> bool:
+        return self.interval_low <= self.expected_apparent <= self.interval_high
+
+    @property
+    def nonzero(self) -> bool:
+        return self.interval_low > 0.0 or self.interval_high < 0.0
+
+
+@dataclass(frozen=True, slots=True)
+class BenchmarkSummary:
+    world: str
+    replicates: int
+    mean_posterior: float
+    mean_bias_from_truth: float
+    mean_bias_from_expected: float
+    truth_coverage: float
+    expected_coverage: float
+    nonzero_rate: float
+    total_divergences: int
+
+
+@dataclass(frozen=True, slots=True)
+class KnownTruthBenchmarkResult:
+    replicates: tuple[BenchmarkReplicate, ...]
+    summary: Mapping[str, BenchmarkSummary]
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "summary", MappingProxyType(dict(self.summary)))
+
+
+def summarize_known_truth_benchmark(
+    records: Sequence[BenchmarkReplicate],
+) -> dict[str, BenchmarkSummary]:
+    rows = tuple(records)
+    if not rows:
+        raise ValueError("benchmark records must be non-empty")
+    grouped: dict[str, list[BenchmarkReplicate]] = {}
+    for row in rows:
+        grouped.setdefault(row.world, []).append(row)
+    output: dict[str, BenchmarkSummary] = {}
+    for world, group in grouped.items():
+        n = len(group)
+        mean_posterior = sum(row.posterior_mean for row in group) / n
+        output[world] = BenchmarkSummary(
+            world=world,
+            replicates=n,
+            mean_posterior=mean_posterior,
+            mean_bias_from_truth=sum(row.posterior_mean - row.truth for row in group) / n,
+            mean_bias_from_expected=sum(row.posterior_mean - row.expected_apparent for row in group) / n,
+            truth_coverage=sum(row.covers_truth for row in group) / n,
+            expected_coverage=sum(row.covers_expected for row in group) / n,
+            nonzero_rate=sum(row.nonzero for row in group) / n,
+            total_divergences=sum(int(row.num_divergences) for row in group),
+        )
+    return output
+
+
+def _quantile(values, probability: float) -> float:
+    ordered = sorted(float(value) for value in values)
+    if not ordered:
+        raise ValueError("posterior draws must be non-empty")
+    p = float(probability)
+    if not 0.0 <= p <= 1.0:
+        raise ValueError("quantile probability must be in [0, 1]")
+    if len(ordered) == 1:
+        return ordered[0]
+    position = p * (len(ordered) - 1)
+    lower = int(math.floor(position))
+    upper = int(math.ceil(position))
+    if lower == upper:
+        return ordered[lower]
+    weight = position - lower
+    return ordered[lower] * (1.0 - weight) + ordered[upper] * weight
 
 
 def _grid_and_x() -> tuple[Grid, tuple[float, ...]]:
@@ -103,14 +196,13 @@ def _model(grid: Grid, process, effort_values) -> Model:
 def make_v03_known_truth_worlds() -> tuple[KnownTruthWorld, ...]:
     """Return the frozen generic v0.3 benchmark universe.
 
-    The first and fourth worlds are in-model/knockout controls.  The middle two are
+    The first and fourth worlds are in-model/knockout controls. The middle two are
     deliberate misspecifications and therefore are not SBC worlds.
     """
 
     grid, x = _grid_and_x()
     target = "sp.suitability.beta_x"
 
-    # 1) Correct observation geometry: heterogeneous effort is modelled as generated.
     correct_effort = (5.0, 8.0, 5.0, 8.0, 8.0, 5.0, 8.0, 5.0)
     correct_process = _suitability("x")
     correct_model = _model(grid, correct_process, correct_effort)
@@ -129,7 +221,6 @@ def make_v03_known_truth_worlds() -> tuple[KnownTruthWorld, ...]:
         world_class="in_model",
     )
 
-    # 2) Observation-process misspecification: effort is correlated with x but fit as flat.
     gamma_effort = 0.7
     effort_scale = 5.0
     true_effort = tuple(effort_scale * math.exp(gamma_effort * value) for value in x)
@@ -156,7 +247,6 @@ def make_v03_known_truth_worlds() -> tuple[KnownTruthWorld, ...]:
         world_class="misspecified",
     )
 
-    # 3) Ecological misspecification: a correlated environmental driver is omitted at fit.
     hidden = tuple(0.8 * value for value in x)
     hidden_generating_model = _model(grid, _suitability("x", "hidden"), correct_effort)
     hidden_fitting_model = _model(grid, _suitability("x"), correct_effort)
@@ -187,7 +277,6 @@ def make_v03_known_truth_worlds() -> tuple[KnownTruthWorld, ...]:
         world_class="misspecified",
     )
 
-    # 4) Structural negative control: suitability is removed from the generating graph.
     full_knockout_fit = _model(grid, _suitability("x"), correct_effort)
     knockout_generating = full_knockout_fit.knockout("sp", "suitability")
     knockout = KnownTruthWorld(
@@ -204,3 +293,80 @@ def make_v03_known_truth_worlds() -> tuple[KnownTruthWorld, ...]:
     )
 
     return (correct, wrong, hidden_world, knockout)
+
+
+def run_v03_known_truth_benchmark(
+    *,
+    world_names: Sequence[str] | None = None,
+    replicates: int,
+    base_seed: int = 0,
+    num_warmup: int = 250,
+    num_samples: int = 300,
+    credible_mass: float = 0.9,
+    progress_bar: bool = False,
+) -> KnownTruthBenchmarkResult:
+    """Repeatedly simulate and fit selected v0.3 known-truth worlds with NumPyro.
+
+    CI should use small smoke settings. Promotion studies can increase `replicates`,
+    warmup, and posterior draws without changing the estimand or world definitions.
+    """
+
+    from esdm.model.backend_numpyro import fit_numpyro
+
+    n_rep = int(replicates)
+    if n_rep < 1:
+        raise ValueError("replicates must be positive")
+    mass = float(credible_mass)
+    if not 0.0 < mass < 1.0:
+        raise ValueError("credible_mass must be in (0, 1)")
+    all_worlds = {world.name: world for world in make_v03_known_truth_worlds()}
+    selected_names = tuple(all_worlds) if world_names is None else tuple(world_names)
+    if not selected_names or len(set(selected_names)) != len(selected_names):
+        raise ValueError("world_names must be a non-empty unique sequence")
+    unknown = set(selected_names) - set(all_worlds)
+    if unknown:
+        raise KeyError(f"unknown known-truth worlds: {sorted(unknown)}")
+
+    alpha = (1.0 - mass) / 2.0
+    records: list[BenchmarkReplicate] = []
+    for world_index, name in enumerate(selected_names):
+        world = all_worlds[name]
+        for replicate in range(n_rep):
+            seed = int(base_seed) + world_index * 100_000 + replicate * 17
+            generated = simulate_presence_only(
+                world.generating_model,
+                world.generating_theta,
+                world.generating_covariates,
+                seed=seed,
+            )
+            fit = fit_numpyro(
+                world.fitting_model,
+                generated.counts,
+                world.fitting_covariates,
+                rng_seed=seed + 1,
+                num_warmup=int(num_warmup),
+                num_samples=int(num_samples),
+                num_chains=1,
+                progress_bar=bool(progress_bar),
+            )
+            draws = tuple(float(value) for value in fit.samples[world.target_parameter])
+            posterior_mean = sum(draws) / len(draws)
+            records.append(
+                BenchmarkReplicate(
+                    world=name,
+                    replicate=replicate,
+                    posterior_mean=posterior_mean,
+                    interval_low=_quantile(draws, alpha),
+                    interval_high=_quantile(draws, 1.0 - alpha),
+                    truth=float(world.truth[world.target_parameter]),
+                    expected_apparent=float(world.expected_apparent_value),
+                    num_divergences=fit.num_divergences,
+                    world_class=world.world_class,
+                )
+            )
+
+    record_tuple = tuple(records)
+    return KnownTruthBenchmarkResult(
+        replicates=record_tuple,
+        summary=summarize_known_truth_benchmark(record_tuple),
+    )
