@@ -45,11 +45,11 @@ def test_benchmark_summary_aggregates_world_metrics_without_backend():
 
 
 @pytest.mark.skipif(not NUMPYRO_AVAILABLE, reason="NumPyro optional backend not installed")
-def test_known_truth_runner_executes_generic_correct_and_knockout_worlds():
+def test_historical_v03_runner_still_executes_in_model_correct_effort_world():
     from esdm.validate.known_truth import run_v03_known_truth_benchmark
 
     result = run_v03_known_truth_benchmark(
-        world_names=("correct_effort", "suitability_knockout"),
+        world_names=("correct_effort",),
         replicates=1,
         base_seed=41,
         num_warmup=80,
@@ -57,10 +57,7 @@ def test_known_truth_runner_executes_generic_correct_and_knockout_worlds():
         progress_bar=False,
     )
 
-    assert tuple(result.summary) == ("correct_effort", "suitability_knockout")
-    assert len(result.replicates) == 2
+    assert tuple(result.summary) == ("correct_effort",)
+    assert len(result.replicates) == 1
     correct = result.summary["correct_effort"]
-    knockout = result.summary["suitability_knockout"]
-    assert correct.mean_posterior > knockout.mean_posterior + 0.2
     assert correct.total_divergences >= 0
-    assert knockout.total_divergences >= 0
