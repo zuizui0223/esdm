@@ -31,13 +31,13 @@ def build_parser() -> argparse.ArgumentParser:
         "--replicates",
         type=int,
         default=100,
-        help="Independent replicates per selected world.",
+        help="Independent replicates per selected world; default: 100.",
     )
     parser.add_argument(
         "--base-seed",
         type=int,
         default=20260916,
-        help="Frozen base seed used to derive replicate seeds.",
+        help="Frozen base seed used to derive replicate seeds; default: 20260916.",
     )
     parser.add_argument(
         "--num-warmup",
