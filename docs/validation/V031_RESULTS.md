@@ -1,6 +1,6 @@
 # v0.3.1 validation results
 
-Status: **NOT_READY — Gate F frozen full run is still in progress**
+Status: **NOT_READY — Gate F is scientifically UNEVALUATED after an infrastructure OOM**
 
 This document records outcomes against the pre-outcome criteria in
 `docs/validation/V031_PROMOTION_GATE.md`. Thresholds are not changed in response to these
@@ -85,11 +85,12 @@ ESS / post-thinning support ranges retained in the artifact:
 
 Mechanical Gate E decision: **PASS**.
 
-## Gate F — pinned real-geometry semi-synthetic transfer: IN_PROGRESS
+## Gate F — pinned real-geometry semi-synthetic transfer: INFRASTRUCTURE_BLOCKED / UNEVALUATED
 
 Frozen full run:
 
 - workflow run: `35089704914`
+- job: `104772854056`
 - workflow head: `ac61189bacfb00105c9225fc4b9ea315cddcddf0`
 - pinned source repository: `the-pudding/data`
 - pinned source commit: `3dcb0a80c838ff9503e3957d7e004a7f4b888b0a`
@@ -101,15 +102,32 @@ Frozen full run:
 - completely held-out block: east
 - replicates: 20
 
-At the time of this results snapshot, the benchmark step is still executing. No Gate F
-outcome is inferred from runtime duration or partial workflow state.
+The workflow did not reach a scientific Gate F decision. During the benchmark step, the
+JAX/LLVM backend terminated with memory-allocation failures and a `JaxRuntimeError` while
+materializing compiled symbols. The process exited before
+`artifacts/v031_semisynthetic_gate_f.json` was written, so no Gate F artifact exists for this
+attempt.
+
+Therefore this run is **not** a scientific Gate F failure. No parameter-recovery,
+held-out-transfer, divergence, or aggregate gate metric is inferred from the interrupted run.
+Gate F remains **UNEVALUATED** until the same frozen scientific profile completes under an
+execution strategy that does not exhaust runner memory.
+
+A non-promotional one-replicate memory diagnostic was added after the failure. Its first run
+(`35093254567`) stopped before model execution because the temporary diagnostic script could
+not import the repository `scripts` package; that run contains no model evidence. The import
+path was corrected, and run `35093359984` tests one exact-profile replicate on the same runner
+class. Diagnostic results do not count toward promotion.
 
 ## Exact-head CI
 
-At workflow head `ac61189bacfb00105c9225fc4b9ea315cddcddf0`, regular CI run
-`35089704760` completed successfully across the repository test matrix.
+The last fully completed regular CI before the diagnostic-only commits was run `35091004410`
+at head `d67f660d457ccfaf875d7c3a8fcadd894b095067`, and it completed successfully across the
+repository test matrix. Regular CI also runs on the diagnostic-only commits; their completion
+must be checked before any implementation fix is declared verified.
 
 ## Overall promotion status
 
-`v0.3.1 = NOT_READY` until Gate F completes and its frozen decision is recorded here.
-The promotion rule remains strict conjunction: **A AND B AND C AND D AND E AND F**.
+`v0.3.1 = NOT_READY`. Gates A/B/C/D/E pass; Gate F has no scientific decision because the
+frozen full run was interrupted by infrastructure OOM. The promotion rule remains strict
+conjunction: **A AND B AND C AND D AND E AND F**.
