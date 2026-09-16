@@ -1,6 +1,6 @@
 """Observation streams and compatibility next-observation primitives."""
 
-from .effort import EffortField
+from .effort import EffortField, LogLinearEffort
 from .presence_only import PresenceOnly
 from .candidates import (
     DiscriminatingObservationSet,
@@ -10,6 +10,7 @@ from .candidates import (
 
 __all__ = [
     "EffortField",
+    "LogLinearEffort",
     "PresenceOnly",
     "DiscriminatingObservationSet",
     "ObservationCandidate",
