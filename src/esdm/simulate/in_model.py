@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from types import MappingProxyType
 import math
 import random
 
@@ -53,7 +52,7 @@ def simulate_presence_only(model, theta, covariates, *, seed: int) -> GeneratedP
             continue
         counts[stream.name] = {}
         expected[stream.name] = {}
-        for species in model.species:
+        for species in model.stream_targets(stream):
             rates = stream.expected_rates(species, fields)
             expected[stream.name][species] = dict(rates)
             counts[stream.name][species] = {
