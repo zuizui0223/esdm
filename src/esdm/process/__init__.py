@@ -1,5 +1,11 @@
-"""Set-valued process explanation primitives."""
+"""Ecological generative processes.
 
+Set-valued process-support exports remain temporarily for compatibility; canonical
+claim-governance imports now live under ``esdm.claims``.
+"""
+
+from .base import NoEffectProcess, PriorSpec, Process
+from .suitability import LinearSuitability
 from .support import (
     ProcessRefinement,
     ProcessSupportSet,
@@ -8,6 +14,10 @@ from .support import (
 )
 
 __all__ = [
+    "NoEffectProcess",
+    "PriorSpec",
+    "Process",
+    "LinearSuitability",
     "ProcessRefinement",
     "ProcessSupportSet",
     "SeparatorEvidence",

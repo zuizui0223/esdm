@@ -1,333 +1,339 @@
 # esdm
 
-`esdm` develops **state-resolved community distribution modelling**: an upper layer over SDM/JSDM outputs that treats ordinary binary species occurrence as a special case and adds ecological state structure, community diversity decomposition, generic biotic-edge opportunity, interaction-network turnover, transfer-aware predictive dependence, and an auditable inference/observation loop.
+`esdm` develops a **process-based ecological state distribution model** for community ecology. Ordinary species-distribution modelling is treated as a low-resolution special case in which the only explicit state is occurrence and the only ecological process is environmental suitability.
 
-The repository name is historical/convenient. The project does **not** claim `ESDM` as a new acronym; that acronym is already used elsewhere in species-distribution modelling.
-
-## Core idea
-
-For a community context `c`, represent
+The central object is a generative graph:
 
 ```text
-G_c = (N_c, Z_c, R_c)
+ecological processes
+    -> latent community fields
+    -> observation processes
+    -> data
 
-N = nodes / taxa
-Z = node states
-R = biotic edges
+posterior
+    -> identification / validation / claims
+    -> diversity / network / maps
 ```
 
-A conventional SDM is recovered when a taxon has only a binary occurrence state and no explicit edge layer.
+The repository name is historical/convenient. The project does **not** claim `ESDM` as a new acronym.
 
-The package is learner-agnostic: external SDM, JSDM, Bayesian, machine-learning, or mechanistic models may supply probabilities or held-out scores. `esdm` evaluates the resulting community/state/network structure rather than imposing one universal fitting algorithm.
+## Seven design principles
 
-## Phase 1 — state-resolved community kernel
+1. **One generative graph.** Simulation, likelihood evaluation, prediction, and posterior prediction use the same process and observation modules. In-model known-truth worlds are generated from this graph rather than a separate analysis formula.
+2. **Every ecological process has a knockout.** The information ladder is a sequence of explicit process knockouts/additions, with a declared no-effect neutral element for each process.
+3. **No data-free process is admitted silently.** `Model.check_design()` requires a declared information path and a computational path `process -> latent channel -> stream`. A process with no path fails closed as design-uninformed.
+4. **Identification is measured, not assumed.** Design-path checks, prior-to-posterior contraction, and simulation-based calibration are separate diagnostics. If a data path exists but a target remains unresolved, the claim state is `NotIdentified`.
+5. **Validation is process-specific and frozen before held-out outcomes.** Transfer designs belong under `validate/`; they are not post-hoc model-selection conveniences.
+6. **Interactions act through partner latent fields.** Interaction processes may depend on another taxon's inferred intensity/state/activity field, not raw partner records used as ecological covariates.
+7. **Diversity, networks, and maps are posterior-derived outputs.** They live under `summarize/` and are never generative inputs.
 
-### State-resolved community diversity
-
-```python
-from esdm.core import CommunityStateDistribution
-from esdm.diversity import alpha_diversity_q1
-
-community = CommunityStateDistribution(
-    taxon_weights={"a": 0.5, "b": 0.5},
-    state_probabilities={
-        "a": {"early": 0.5, "late": 0.5},
-        "b": {"early": 0.5, "late": 0.5},
-    },
-)
-
-result = alpha_diversity_q1(community)
-# taxonomic = 2
-# state_given_taxon = 2
-# joint = 4
-```
-
-For q=1, the established Shannon/Hill identity is used directly:
+## Generative architecture
 
 ```text
-D_joint = D_taxon * D_state_given_taxon
+esdm/
+  domain/        space, time, ecological state declarations
+  process/       ecological contributions to latent intensity
+  observe/       observation effort and record-generation streams
+  model/         composition, design checks, inference backends
+  identify/      contraction and SBC diagnostics
+  validate/      held-out/process-ladder validation
+  claims/        typed claim states and bounded interpretation
+  simulate/      in-model and deliberately misspecified worlds
+  summarize/     posterior/downstream diversity and network summaries
 ```
 
-Beta diversity is likewise split into taxonomic turnover and state turnover conditional on taxon identity.
-
-### Same place, different ecological state
-
-```python
-from esdm.interaction import geographic_overlap, state_overlap
-
-geo = geographic_overlap([0.5, 0.5], [0.5, 0.5])
-state = state_overlap(
-    {"early": 1.0, "late": 0.0},
-    {"early": 0.0, "late": 1.0},
-)
-
-# geo == 1.0
-# state == 0.0
-```
-
-This distinguishes spatial coexistence from temporal, vertical, resource, phenological, or other state partitioning.
-
-### Generic potential biotic edges
-
-```python
-from esdm.interaction import interaction_opportunity
-
-opportunity = interaction_opportunity(
-    {"source_ready": 0.7, "source_other": 0.3},
-    {"target_ready": 0.6, "target_other": 0.4},
-    {
-        ("source_ready", "target_ready"): 0.9,
-        ("source_ready", "target_other"): 0.1,
-        ("source_other", "target_ready"): 0.2,
-        ("source_other", "target_other"): 0.0,
-    },
-)
-```
-
-This returns **potential interaction opportunity under the supplied state distributions and compatibility kernel**. It is not a realized-interaction probability.
-
-Pollination, competition, mutualism, predation, host-parasite association, and facilitation are possible domain applications of the same generic edge API. Pollination-specific labels live only in `examples/`; runtime source is deliberately domain-neutral.
-
-### Predictive biotic dependence
-
-```python
-from esdm.interaction import biotic_information_gain
-
-gain = biotic_information_gain(
-    [-1.0, -0.8],
-    [-0.7, -0.6],
-)
-```
-
-`gain > 0` means that adding the supplied biotic information improved held-out log score on the declared rows. It does **not** identify competition, mutualism, or another causal mechanism.
-
-The known-truth benchmark includes a hidden-shared-driver world in which biotic information gain is positive even though the generating truth contains no biotic interaction. This is an intentional guard against interpreting residual association as causality.
-
-### Non-skippable transfer ceiling
-
-```python
-from esdm.transfer import point_transfer_ceiling
-
-result = point_transfer_ceiling(
-    base_level="abiotic",
-    ordered_steps=[("add_state", "state"), ("add_biotic", "biotic")],
-    gains_by_step={
-        "add_state": [0.2, 0.1],
-        "add_biotic": [0.05, 0.08],
-    },
-)
-```
-
-A later positive information step cannot rescue an earlier failed one. The current implementation is a point diagnostic; calibrated uncertainty remains in the source ODSP project.
-
-## Phase 2 — community interaction-network distributions
-
-Phase 2 adds a generic edge-distribution layer without changing the evidence hierarchy.
-
-```python
-from esdm.network import InteractionNetworkDistribution
-
-network = InteractionNetworkDistribution(
-    taxa=("a", "b", "c"),
-    edge_probabilities={
-        ("a", "b"): 0.8,
-        ("b", "c"): 0.4,
-    },
-)
-
-network.expected_connectance()
-network.edge_mass_distribution()
-```
-
-Unspecified eligible edges have probability zero. Edge probabilities remain at the evidence tier supplied by the caller; they are not automatically realized, functional, or causal interactions.
-
-### Connectance and rewiring are different quantities
-
-Expected connectance uses the absolute edge probabilities. Rewiring uses the **normalized distribution of edge mass among partners**.
-
-Therefore multiplying every edge probability by the same scalar changes expected connectance but leaves rewiring unchanged. This prevents a general weakening of all interactions from being mislabelled as partner-network rewiring.
-
-### Interaction and partner diversity
-
-```python
-from esdm.network import interaction_diversity_q1, partner_diversity_q1
-
-interaction_diversity_q1(network)
-partner_diversity_q1(network, "a")
-```
-
-These are q=1 effective numbers computed from normalized positive edge mass.
-
-### Network turnover and shared-taxon rewiring
-
-```python
-from esdm.benchmarks import pure_rewiring_world
-from esdm.network import network_beta_q1, shared_taxon_rewiring_beta_q1
-
-before, after = pure_rewiring_world()
-network_beta_q1((before, after))
-shared_taxon_rewiring_beta_q1(before, after)
-```
-
-`network_beta_q1` compares the full declared edge distributions. `shared_taxon_rewiring_beta_q1` first conditions on taxa present in both communities, so taxon turnover is not silently relabelled as rewiring.
-
-Phase 2 deliberately reports taxon turnover, state turnover, and edge/network turnover as **separate axes**. It does not claim that the three multiply into one total community-beta identity.
-
-### Held-out community transfer
-
-`community_log_score_gain(...)` averages log score within each independent community before macro-averaging across communities, so large communities cannot dominate merely because they contain more rows. The ordered community information ceiling remains non-skippable and is still a point diagnostic rather than calibrated familywise inference.
-
-## Phase 3 — auditable inference / observation loop
-
-Phase 3 connects prediction to bounded ecological interpretation and the next observation:
+The older Phase-1/2/3 implementation is retained, but its canonical role changes:
 
 ```text
-raw observations
-  -> evidence authorization
-  -> set-valued process refinement
-  -> finite declared-world contraction
-  -> non-ranked discriminating observation set
+old diversity/network primitives  -> summarize/
+old transfer ceilings             -> validate/
+old authorization/process/worlds  -> claims/
 ```
 
-### Observation authorization
+Compatibility imports remain temporarily while the architecture is migrated.
+
+## v0.3 generative kernel
+
+### Domain
 
 ```python
-from esdm.authorization import ObservationRecord, authorize_observation
+from esdm.domain import Grid
 
-raw = ObservationRecord(
-    "edge_absence",
-    "negative",
-    negative_gate_passed=False,
-)
-assert authorize_observation(raw).evidence_state == "unavailable"
-```
-
-A raw non-detection is not a biological negative by default. Missing, unresolved, device-failure, occluded, and unqualified-negative records are retained as `unavailable`.
-
-`esdm` does **not** copy the exact 284b field-calibration sample-size or Clopper-Pearson machinery. It consumes the generic authorization boundary only.
-
-### Set-valued process explanations
-
-```python
-from esdm.process import ProcessSupportSet
-
-processes = ProcessSupportSet(
-    ("shared_environment", "competition", "mutualism")
+grid = Grid(
+    space=("site_a", "site_b"),
+    doy=(1, 8, 15),
+    hour=(0, 12),
 )
 ```
 
-The set may remain multi-member. `refine_process_support_set(...)` can remove a member only when every required separator is present, qualified, source-disjoint from the support evidence, frozen before outcomes, and returns `exclude`.
+The first implementation uses an explicit discrete `Space × DayOfYear × Hour` domain. State declarations use `StateSpace`, `Partition`, and `RefinementChain` so occurrence can later be refined into phenological, behavioural, life-stage, resource-use, or other ecological states without changing the domain contract.
 
-Missing, unavailable, indeterminate, compatible, or unqualified separator evidence retains the process. Refinement never adds a process and never forces a single winner.
-
-### Finite declared ecological worlds
+### Ecological process
 
 ```python
-from esdm.worlds import EcologicalWorld, EcologicalWorldSet
+from esdm.process import LinearSuitability
 
-worlds = EcologicalWorldSet(
-    (
-        EcologicalWorld("shared_environment", {"edge_presence": "negative"}),
-        EcologicalWorld("competition", {"edge_presence": "positive"}),
-        EcologicalWorld("mutualism", {"edge_presence": "positive"}),
-    )
+suitability = LinearSuitability(
+    covariates=("temperature",),
+    intercept_parameter="alpha",
+    coefficient_parameters={"temperature": "beta_temp"},
 )
 ```
 
-Authorized observations may shrink the declared world set. `unavailable` evidence cannot eliminate a world. A world that makes no declared prediction for an observation is retained rather than guessed against.
+A process contributes additively to ecological log intensity. `LinearSuitability.knockout()` returns an explicit no-effect process with
 
-One surviving world is labelled only as **identifiable within the declared finite universe**. It is not historical truth and is not a universal ecological impossibility claim against worlds that were never declared.
+```text
+log contribution = 0
+```
 
-### Non-ranked next-observation candidate sets
+rather than deleting a term by convention.
+
+### Observation process
 
 ```python
-from esdm.observe import ObservationCandidate, nominate_discriminating_observations
+from esdm.observe import EffortField, PresenceOnly
 
-candidate = ObservationCandidate(
-    "fitness_response",
-    {"competition": "negative", "mutualism": "positive"},
+effort = EffortField({
+    ("site_a", 1, 0): 1.0,
+    ("site_b", 1, 0): 4.0,
+})
+
+records = PresenceOnly(
+    "community_records",
+    effort=effort,
+    informs=frozenset({"suitability"}),
 )
 ```
 
-A candidate is admitted when surviving declared worlds make conflicting binary predictions for it. Output ordering is deterministic for reproducibility but `ranked=False`: this is not occupancy ranking, expected information gain, route optimization, or field-efficiency prediction.
+For the v0.3 presence-only stream,
 
-### One-cycle orchestration
+```text
+lambda_record
+  = lambda_ecological
+  × effort
+  × detection
+```
 
-`run_inference_observation_cycle(...)` keeps the process and world evidence streams separate while coordinating:
+and counts are Poisson. Effort is observation-process information, not ecological suitability.
 
-1. raw-observation authorization;
-2. process-set refinement;
-3. world-set contraction;
-4. nomination of the unresolved next observation.
+### Model composition and design checking
 
-See `examples/inference_observation_loop.py`.
+```python
+from esdm.model import Model
 
-## Evidence hierarchy for edges
+model = Model(
+    domain=grid,
+    species={"taxon_a": (suitability,)},
+    streams=(records,),
+)
 
-Runtime edges use an explicit evidence tier:
+report = model.check_design()
+```
+
+`check_design()` does not treat `Stream.informs` as proof of identification. It verifies only that a declared process has a static path through a latent channel actually consumed by a stream. Posterior identification is assessed later.
+
+The model also carries a latent-taxon dependency graph and rejects cycles. Directed interaction modules are not implemented in v0.3, but the DAG constraint is already part of the composition contract so unsupported reciprocal dependencies fail closed.
+
+### Same graph for simulation, likelihood, and NumPyro
+
+```python
+from esdm.simulate import simulate_presence_only
+
+generated = simulate_presence_only(
+    model,
+    theta={"taxon_a": {"alpha": 0.0, "beta_temp": 1.0}},
+    covariates={...},
+    seed=1,
+)
+
+log_lik = model.log_likelihood(
+    generated.counts,
+    theta={"taxon_a": {"alpha": 0.0, "beta_temp": 1.0}},
+    covariates={...},
+)
+```
+
+Simulation calls the same latent-field construction and the same stream `expected_rates()` code used by the ordinary likelihood and by the optional NumPyro backend. The ecological equation is not duplicated inside the backend.
+
+## NumPyro inference backend
+
+The optional NumPyro backend fits the current generative graph with NUTS/MCMC.
+
+```bash
+python -m pip install -e ".[inference]"
+```
+
+Core `esdm` remains importable on Python 3.10. The current NumPyro dependency requires Python 3.11+, so inference tests run only on supported Python versions while the rest of the package retains the broader core compatibility.
+
+```python
+from esdm.model.backend_numpyro import fit_numpyro
+
+fit = fit_numpyro(
+    model,
+    data,
+    covariates,
+    rng_seed=1,
+    num_warmup=500,
+    num_samples=500,
+)
+```
+
+The backend translates backend-neutral `PriorSpec` declarations into NumPyro distributions, then calls the existing process graph and observation-rate code. `posterior_record_rates(...)` derives posterior record-rate fields through the same graph.
+
+## Identification and simulation-based calibration
+
+`esdm.identify` keeps several questions separate:
+
+- does a parameter have a design path to data?
+- did its posterior contract relative to the prior?
+- is Bayesian inference calibrated under the declared model?
+- is the result robust to ecological or observation-process misspecification?
+
+The first three do not imply the fourth.
+
+`run_numpyro_sbc(...)` performs
+
+```text
+prior draw
+ -> same generative graph
+ -> in-model simulation
+ -> NumPyro fit
+ -> posterior rank of the true parameter
+```
+
+so SBC does not use a separate known-truth formula. `simulate/misspecified.py` is deliberately separate: misspecified effort, hidden drivers, omitted processes, and other out-of-model worlds must not be relabelled as SBC.
+
+Claim status is typed separately from interaction evidence tier:
+
+```text
+DesignUninformed
+Untested
+NotIdentified
+NotSupported
+Supported
+```
+
+The evidence tier remains:
 
 ```text
 COAVAILABLE
-  -> STATE_COMPATIBLE
-  -> PREDICTIVE_DEPENDENCE
-  -> REALIZED
-  -> FUNCTIONAL
-  -> CAUSAL
+STATE_COMPATIBLE
+PREDICTIVE_DEPENDENCE
+REALIZED
+FUNCTIONAL
+CAUSAL
 ```
 
-Higher tiers are never inferred automatically from lower tiers.
+A target can therefore be `NotIdentified × REALIZED`, for example, instead of being forced into a numerical mechanism estimate.
 
-## Known-truth / boundary tests
+## Application scope: community ecology, not one interaction system
 
-The repository includes deterministic method-boundary tests for:
+No biological interaction family is privileged by the runtime model. The intended scope includes, among others:
 
-- measured shared environment without interaction;
-- hidden shared driver causing predictive dependence without interaction;
-- spatial coexistence with state partitioning;
-- true directed coupling;
-- stable networks, pure rewiring, and connectance shift without rewiring;
-- taxon turnover versus shared-taxon rewiring;
-- held-out community transfer positive/null cases;
-- unavailable negative evidence that cannot eliminate ecological worlds;
-- monotone process-set and finite-world contraction;
-- next-observation sets that discriminate surviving worlds without being ranked.
+- competition and resource partitioning;
+- predator–prey and other consumer–resource systems;
+- host–parasite, host–pathogen, and vector-mediated systems;
+- herbivory;
+- facilitation and nurse/benefactor effects;
+- ecosystem engineering and habitat-mediated effects;
+- mutualisms;
+- seed dispersal and transport interactions;
+- commensal, nesting, and structure-dependent associations;
+- pollination as one example among these.
 
-These are method-boundary tests, not biological evidence.
+Domain labels never determine mechanism. The generic pattern is
 
-## Relationship to the existing research programme
+```text
+focal latent field
++ partner latent field
++ process/state compatibility
++ observation stream
+ -> posterior process contribution
+ -> evidence-tiered claim
+```
 
-`esdm` is an upper-layer integration point:
+Raw partner observations are not substituted for the partner latent ecological field when that latent field is the intended biological quantity.
 
-- ODSP -> information ladders and transfer semantics;
+See [`docs/APPLICATION_SCOPE.md`](docs/APPLICATION_SCOPE.md) for the broader benchmark universe.
+
+## In-model versus misspecified worlds
+
+`simulate/in_model.py` is reserved for SBC and other checks where the fitted model contains the data-generating process.
+
+`simulate/misspecified.py` is explicitly separate. The first negative control shows that replacing heterogeneous sampling effort with an incorrect constant shifts the expected fitted ecological intercept. Passing SBC therefore cannot be used to hide observation-process misspecification.
+
+Future generic benchmarks should cover measured and hidden shared-environment nulls, state/resource partitioning, antagonistic and beneficial directed effects, consumer-resource lags, host-parasite dependence with imperfect detection, habitat engineering, network rewiring, and intentionally unsupported reciprocal interactions.
+
+## Downstream summaries
+
+The earlier state-resolved diversity and interaction-network work remains available canonically from:
+
+```python
+from esdm.summarize import alpha_diversity_q1, network_beta_q1
+```
+
+These are downstream/posterior summary operators. `InteractionNetworkDistribution` is retained during migration but is no longer the conceptual entry point to the model.
+
+Likewise, transfer ceilings are downstream validation:
+
+```python
+from esdm.validate import point_transfer_ceiling
+```
+
+and authorization / set-valued process explanations / finite-world contraction are claim-governance tools under:
+
+```python
+from esdm.claims import ...
+```
+
+## Version plan
+
+| Version | New generative process | Promotion gate |
+| --- | --- | --- |
+| v0.3 | domain + suitability + effort-aware presence-only + NumPyro + simulate + identify + claims | shared generation/likelihood/inference code; large SBC calibration study; knockout recovery; effort-misspecification negative control; semi-synthetic real-geometry benchmark |
+| v0.4 | ecological state + activity + annotation streams | state/activity recovery and frozen cross-stream transfer; unresolved detection leaves bounded/`NotIdentified` output |
+| v0.5 | directed biotic interaction through partner latent fields + interaction-event streams | false interaction/kernel-shift control under state-only and hidden-common-driver worlds; evidence tier cannot rise without corresponding observed endpoint |
+| v0.6 | movement/accessibility | distinguish unsuitable from inaccessible only when data support it; otherwise return `NotIdentified` |
+
+## Existing research-programme provenance
+
+The downstream claim/validation semantics remain bounded by their source projects:
+
+- ODSP -> ordered information ladders and transfer semantics;
 - SDMR -> set-valued process support and independent-evidence refinement;
-- 284b -> observation/negative-evidence authorization;
-- EOG -> finite-world compatibility and monotone contraction;
-- ACSP -> candidate-set semantics for the next observation.
+- 284b -> authorization of negative evidence;
+- EOG -> finite declared-world compatibility/contraction;
+- ACSP -> bounded candidate-set semantics for follow-up observation.
 
-See [`docs/PROVENANCE.md`](docs/PROVENANCE.md) for exact boundaries and source results.
+See [`docs/PROVENANCE.md`](docs/PROVENANCE.md).
 
 ## Explicit non-claims
 
-The current package does not claim:
+Current v0.3 does **not** claim:
 
-- a universal new SDM/JSDM learner;
+- completion of the v0.3 promotion gate from the current small SBC smoke test;
+- identification from contraction alone;
+- ecological robustness from in-model SBC alone;
 - causal interaction from co-occurrence, residual association, predictive gain, or rewiring;
-- occupancy from a potential edge or observation candidate;
-- realized or functional interaction without corresponding evidence;
-- universal superiority over existing SDM/JSDM/network methods;
-- a total multiplicative taxon × state × edge beta identity;
-- exact parity with 284b calibration statistics;
-- a formal SDMR confidence/identified set;
-- universal EOG impossibility beyond the declared finite world universe;
-- ACSP field-efficiency or optimal experimental design for the Phase-3 selector;
-- pollination-specific validation;
-- certified uncertainty for the point transfer ceilings.
+- a bidirectional/fixed-point interaction model;
+- movement/accessibility inference;
+- a universal SDM/JSDM replacement;
+- validation for any one interaction family merely because it appears as an example.
 
 ## Development
+
+Core only:
+
+```bash
+python -m pip install -e .
+python -m pytest -q
+```
+
+Development plus NumPyro where supported:
 
 ```bash
 python -m pip install -e ".[dev]"
 python -m pytest -q
 ```
 
-CI runs the full suite on Python 3.10, 3.11, and 3.12.
+CI runs the core suite on Python 3.10 and the NumPyro-enabled suite on Python 3.11 and 3.12.
