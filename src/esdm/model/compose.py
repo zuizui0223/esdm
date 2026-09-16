@@ -17,6 +17,13 @@ class CyclicProcessDependencyError(ValueError):
     """Raised when latent-species dependencies are cyclic."""
 
 
+class MissingTargetDataError(ValueError):
+    """Raised when a stream-target species has no data block.
+
+    A missing species block is not interpreted as an observed all-zero record history.
+    """
+
+
 @dataclass(frozen=True, slots=True)
 class DesignReport:
     informed_processes: tuple[tuple[str, str], ...]
@@ -66,7 +73,27 @@ class Model:
             raise ValueError("stream names must be unique")
         object.__setattr__(self, "species", MappingProxyType(species))
         object.__setattr__(self, "streams", streams)
+        for stream in streams:
+            declared = getattr(stream, "targets", None)
+            if declared is not None:
+                unknown = set(declared) - set(species)
+                if unknown:
+                    raise ValueError(
+                        f"stream {stream.name!r} targets unknown species: {sorted(unknown)}"
+                    )
         self._check_acyclic()
+
+    def stream_targets(self, stream) -> tuple[str, ...]:
+        """Resolve the species whose observations are represented by one stream.
+
+        ``targets=None`` is retained as a backwards-compatible declaration meaning all
+        model species. New multi-species models should declare targets explicitly.
+        """
+
+        declared = getattr(stream, "targets", None)
+        if declared is None:
+            return tuple(self.species)
+        return tuple(species for species in self.species if species in declared)
 
     def _check_acyclic(self) -> None:
         graph: dict[str, set[str]] = {species: set() for species in self.species}
@@ -98,13 +125,14 @@ class Model:
         for species, processes in self.species.items():
             for process in processes:
                 has_path = any(
-                    process.name in getattr(stream, "informs", frozenset())
+                    species in self.stream_targets(stream)
+                    and process.name in getattr(stream, "informs", frozenset())
                     and process.output_channel in getattr(stream, "consumes", frozenset())
                     for stream in self.streams
                 )
                 if not has_path:
                     raise DesignUninformedError(
-                        f"process {species}:{process.name} has no process->channel->stream path"
+                        f"process {species}:{process.name} has no process->channel->targeted-stream path"
                     )
                 informed.append((species, process.name))
         return DesignReport(tuple(informed))
@@ -116,7 +144,7 @@ class Model:
     ) -> LatentFields:
         """Construct latent ecological fields using the declared process graph.
 
-        No scalar coercion occurs here.  This is intentional: the exact same process
+        No scalar coercion occurs here. This is intentional: the exact same process
         graph is used by ordinary simulation/likelihood code and by JAX/NumPyro.
         """
 
@@ -171,8 +199,29 @@ class Model:
     ) -> float:
         fields = self.latent_fields(theta, covariates)
         total = 0.0
+        known_streams = {stream.name for stream in self.streams}
+        unknown_streams = set(data) - known_streams
+        if unknown_streams:
+            raise ValueError(f"data contain unknown streams: {sorted(unknown_streams)}")
         for stream in self.streams:
-            stream_data = data.get(stream.name, {})
-            for species in self.species:
-                total += float(stream.log_lik(species, fields, stream_data.get(species, {})))
+            if stream.name not in data:
+                raise MissingTargetDataError(
+                    f"missing data block for stream {stream.name!r}"
+                )
+            stream_data = data[stream.name]
+            targets = set(self.stream_targets(stream))
+            unexpected_species = set(stream_data) - targets
+            if unexpected_species:
+                raise ValueError(
+                    f"data for stream {stream.name!r} contain non-target species: "
+                    f"{sorted(unexpected_species)}"
+                )
+            missing_species = targets - set(stream_data)
+            if missing_species:
+                raise MissingTargetDataError(
+                    f"stream {stream.name!r} is missing target species blocks: "
+                    f"{sorted(missing_species)}"
+                )
+            for species in self.stream_targets(stream):
+                total += float(stream.log_lik(species, fields, stream_data[species]))
         return total
