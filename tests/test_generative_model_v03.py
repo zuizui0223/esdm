@@ -45,7 +45,10 @@ def test_same_process_code_builds_latent_field_and_neutral_knockout():
 
     knocked = model.knockout("sp", "suitability")
     knocked_fields = knocked.latent_fields({"sp": {"alpha": math.log(2.0)}}, covariates)
-    assert set(knocked_fields.log_intensity["sp"].values()) == {pytest.approx(math.log(2.0))}
+    assert all(
+        value == pytest.approx(math.log(2.0))
+        for value in knocked_fields.log_intensity["sp"].values()
+    )
 
 
 def test_process_knockout_preserves_baseline_and_neutralizes_environmental_slopes():
