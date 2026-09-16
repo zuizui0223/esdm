@@ -1,4 +1,4 @@
-"""Poisson presence-only observation stream with explicit effort."""
+"""Poisson presence-only observation stream with explicit effort and target taxa."""
 
 from __future__ import annotations
 
@@ -16,6 +16,7 @@ class PresenceOnly:
     informs: frozenset[str]
     detection_probability: float = 1.0
     consumes: frozenset[str] = frozenset({"log_intensity"})
+    targets: frozenset[str] | None = None
 
     def __post_init__(self) -> None:
         name = str(self.name).strip()
@@ -24,15 +25,21 @@ class PresenceOnly:
         p = float(self.detection_probability)
         if not math.isfinite(p) or p < 0.0 or p > 1.0:
             raise ValueError("detection_probability must be in [0, 1]")
+        targets = None
+        if self.targets is not None:
+            targets = frozenset(str(value).strip() for value in self.targets)
+            if not targets or any(not value for value in targets):
+                raise ValueError("targets must be a non-empty set of species names when declared")
         object.__setattr__(self, "name", name)
         object.__setattr__(self, "detection_probability", p)
         object.__setattr__(self, "informs", frozenset(str(x) for x in self.informs))
+        object.__setattr__(self, "targets", targets)
 
     def expected_rates(self, species: str, fields, *, exp_fn=math.exp):
         """Return expected record rates using the observation-process contract.
 
         ``exp_fn`` defaults to :func:`math.exp`, but JAX/NumPyro can inject
-        ``jax.numpy.exp``.  The ecological formula therefore lives in one place rather
+        ``jax.numpy.exp``. The ecological formula therefore lives in one place rather
         than being reimplemented by the inference backend.
         """
 
