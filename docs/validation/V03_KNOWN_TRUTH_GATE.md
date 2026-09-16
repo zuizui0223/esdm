@@ -88,11 +88,17 @@ Passing this check means the benchmark successfully demonstrates the predicted o
 
 SBC is evaluated separately because in-model calibration and misspecification robustness answer different questions.
 
-Frozen SBC profile for the v0.3 target:
+Frozen SBC profile for the v0.3 target `sp.suitability.beta_x`:
 
+- model/covariate geometry: the declared `correct_effort` in-model world;
 - 100 prior-predictive replicates;
+- base seed: `20260917`;
+- one chain per fit;
+- 250 warmup draws;
+- 300 retained posterior draws;
 - 10 rank-histogram bins;
 - maximum total-variation distance from a uniform rank histogram: 0.20;
+- mean divergences per fit <= 0.10;
 - zero requirement that misspecified worlds pass SBC, because they are outside the fitted model by construction.
 
 SBC success cannot rescue failure of the known-truth knockout or observation-process controls, and vice versa.
