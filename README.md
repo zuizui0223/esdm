@@ -1,6 +1,6 @@
 # esdm
 
-`esdm` develops **state-resolved community distribution modelling**: an upper layer over SDM/JSDM outputs that treats ordinary binary species occurrence as a special case and adds ecological state structure, community diversity decomposition, generic biotic-edge opportunity, interaction-network turnover, and transfer-aware predictive dependence.
+`esdm` develops **state-resolved community distribution modelling**: an upper layer over SDM/JSDM outputs that treats ordinary binary species occurrence as a special case and adds ecological state structure, community diversity decomposition, generic biotic-edge opportunity, interaction-network turnover, transfer-aware predictive dependence, and an auditable inference/observation loop.
 
 The repository name is historical/convenient. The project does **not** claim `ESDM` as a new acronym; that acronym is already used elsewhere in species-distribution modelling.
 
@@ -65,7 +65,7 @@ state = state_overlap(
 # state == 0.0
 ```
 
-This is the basic representation needed to distinguish spatial coexistence from temporal, vertical, resource, phenological, or other state partitioning.
+This distinguishes spatial coexistence from temporal, vertical, resource, phenological, or other state partitioning.
 
 ### Generic potential biotic edges
 
@@ -118,7 +118,7 @@ result = point_transfer_ceiling(
 )
 ```
 
-A later positive information step cannot rescue an earlier failed one. The current implementation is a point diagnostic; calibrated uncertainty remains in the source ODSP project until a later `esdm` integration.
+A later positive information step cannot rescue an earlier failed one. The current implementation is a point diagnostic; calibrated uncertainty remains in the source ODSP project.
 
 ## Phase 2 — community interaction-network distributions
 
@@ -171,46 +171,96 @@ shared_taxon_rewiring_beta_q1(before, after)
 
 `network_beta_q1` compares the full declared edge distributions. `shared_taxon_rewiring_beta_q1` first conditions on taxa present in both communities, so taxon turnover is not silently relabelled as rewiring.
 
-Phase 2 deliberately reports taxon turnover, state turnover, and edge/network turnover as **separate axes**. It does not yet claim that the three multiply into one total community-beta identity.
-
-### State-conditioned connectance
-
-A set of network slices can be summarized separately by declared ecological state:
-
-```python
-from esdm.network import state_conditioned_connectance
-
-state_conditioned_connectance({"resting": network_a, "active": network_b})
-```
-
-The state labels are supplied by the caller. The framework does not infer a causal state transition.
+Phase 2 deliberately reports taxon turnover, state turnover, and edge/network turnover as **separate axes**. It does not claim that the three multiply into one total community-beta identity.
 
 ### Held-out community transfer
 
-```python
-from esdm.transfer import HeldoutCommunityPrediction, community_log_score_gain
+`community_log_score_gain(...)` averages log score within each independent community before macro-averaging across communities, so large communities cannot dominate merely because they contain more rows. The ordered community information ceiling remains non-skippable and is still a point diagnostic rather than calibrated familywise inference.
 
-result = community_log_score_gain(
+## Phase 3 — auditable inference / observation loop
+
+Phase 3 connects prediction to bounded ecological interpretation and the next observation:
+
+```text
+raw observations
+  -> evidence authorization
+  -> set-valued process refinement
+  -> finite declared-world contraction
+  -> non-ranked discriminating observation set
+```
+
+### Observation authorization
+
+```python
+from esdm.authorization import ObservationRecord, authorize_observation
+
+raw = ObservationRecord(
+    "edge_absence",
+    "negative",
+    negative_gate_passed=False,
+)
+assert authorize_observation(raw).evidence_state == "unavailable"
+```
+
+A raw non-detection is not a biological negative by default. Missing, unresolved, device-failure, occluded, and unqualified-negative records are retained as `unavailable`.
+
+`esdm` does **not** copy the exact 284b field-calibration sample-size or Clopper-Pearson machinery. It consumes the generic authorization boundary only.
+
+### Set-valued process explanations
+
+```python
+from esdm.process import ProcessSupportSet
+
+processes = ProcessSupportSet(
+    ("shared_environment", "competition", "mutualism")
+)
+```
+
+The set may remain multi-member. `refine_process_support_set(...)` can remove a member only when every required separator is present, qualified, source-disjoint from the support evidence, frozen before outcomes, and returns `exclude`.
+
+Missing, unavailable, indeterminate, compatible, or unqualified separator evidence retains the process. Refinement never adds a process and never forces a single winner.
+
+### Finite declared ecological worlds
+
+```python
+from esdm.worlds import EcologicalWorld, EcologicalWorldSet
+
+worlds = EcologicalWorldSet(
     (
-        HeldoutCommunityPrediction(
-            community_id="site_A",
-            outcomes=(1, 0),
-            baseline_probabilities=(0.6, 0.4),
-            enriched_probabilities=(0.85, 0.15),
-        ),
-        HeldoutCommunityPrediction(
-            community_id="site_B",
-            outcomes=(0, 1),
-            baseline_probabilities=(0.4, 0.6),
-            enriched_probabilities=(0.15, 0.85),
-        ),
+        EcologicalWorld("shared_environment", {"edge_presence": "negative"}),
+        EcologicalWorld("competition", {"edge_presence": "positive"}),
+        EcologicalWorld("mutualism", {"edge_presence": "positive"}),
     )
 )
 ```
 
-Scores are first averaged within each independent community and then macro-averaged across communities. A community with many rows therefore cannot dominate the transfer estimand merely because it is larger.
+Authorized observations may shrink the declared world set. `unavailable` evidence cannot eliminate a world. A world that makes no declared prediction for an observation is retained rather than guessed against.
 
-The ordered community information ceiling remains non-skippable: a later positive interaction/function step cannot rescue an earlier failed state or biotic step. This is still a point diagnostic, not calibrated familywise inference.
+One surviving world is labelled only as **identifiable within the declared finite universe**. It is not historical truth and is not a universal ecological impossibility claim against worlds that were never declared.
+
+### Non-ranked next-observation candidate sets
+
+```python
+from esdm.observe import ObservationCandidate, nominate_discriminating_observations
+
+candidate = ObservationCandidate(
+    "fitness_response",
+    {"competition": "negative", "mutualism": "positive"},
+)
+```
+
+A candidate is admitted when surviving declared worlds make conflicting binary predictions for it. Output ordering is deterministic for reproducibility but `ranked=False`: this is not occupancy ranking, expected information gain, route optimization, or field-efficiency prediction.
+
+### One-cycle orchestration
+
+`run_inference_observation_cycle(...)` keeps the process and world evidence streams separate while coordinating:
+
+1. raw-observation authorization;
+2. process-set refinement;
+3. world-set contraction;
+4. nomination of the unresolved next observation.
+
+See `examples/inference_observation_loop.py`.
 
 ## Evidence hierarchy for edges
 
@@ -227,31 +277,32 @@ COAVAILABLE
 
 Higher tiers are never inferred automatically from lower tiers.
 
-## Known-truth worlds
+## Known-truth / boundary tests
 
-Current analytic/deterministic worlds cover:
+The repository includes deterministic method-boundary tests for:
 
-1. measured shared environment: co-response without interaction, conditional gain = 0;
-2. hidden shared driver: predictive dependence without interaction, gain > 0;
-3. state partitioning: geographic overlap can be 1 while state overlap is 0;
-4. directed biotic coupling: partner state truly changes target-state distribution, gain > 0;
-5. stable interaction networks: edge beta = 1;
-6. pure rewiring: unchanged taxa but shared-taxon edge beta > 1;
-7. connectance shift without rewiring: absolute edge probability changes while normalized partner structure does not;
-8. taxon turnover with stable shared-taxon edge structure;
-9. transfer-positive and transfer-null held-out network worlds.
+- measured shared environment without interaction;
+- hidden shared driver causing predictive dependence without interaction;
+- spatial coexistence with state partitioning;
+- true directed coupling;
+- stable networks, pure rewiring, and connectance shift without rewiring;
+- taxon turnover versus shared-taxon rewiring;
+- held-out community transfer positive/null cases;
+- unavailable negative evidence that cannot eliminate ecological worlds;
+- monotone process-set and finite-world contraction;
+- next-observation sets that discriminate surviving worlds without being ranked.
 
 These are method-boundary tests, not biological evidence.
 
 ## Relationship to the existing research programme
 
-`esdm` is intended as an upper-layer integration point:
+`esdm` is an upper-layer integration point:
 
 - ODSP -> information ladders and transfer semantics;
-- SDMR -> later set-valued process attribution;
-- 284b -> later observation/negative-evidence authorization;
-- EOG -> later finite-world compatibility and contraction;
-- ACSP -> later next-observation candidate allocation.
+- SDMR -> set-valued process support and independent-evidence refinement;
+- 284b -> observation/negative-evidence authorization;
+- EOG -> finite-world compatibility and monotone contraction;
+- ACSP -> candidate-set semantics for the next observation.
 
 See [`docs/PROVENANCE.md`](docs/PROVENANCE.md) for exact boundaries and source results.
 
@@ -260,13 +311,16 @@ See [`docs/PROVENANCE.md`](docs/PROVENANCE.md) for exact boundaries and source r
 The current package does not claim:
 
 - a universal new SDM/JSDM learner;
-- causal interaction from co-occurrence, residual association, or rewiring;
-- occupancy from a potential edge;
+- causal interaction from co-occurrence, residual association, predictive gain, or rewiring;
+- occupancy from a potential edge or observation candidate;
 - realized or functional interaction without corresponding evidence;
 - universal superiority over existing SDM/JSDM/network methods;
 - a total multiplicative taxon × state × edge beta identity;
+- exact parity with 284b calibration statistics;
+- a formal SDMR confidence/identified set;
+- universal EOG impossibility beyond the declared finite world universe;
+- ACSP field-efficiency or optimal experimental design for the Phase-3 selector;
 - pollination-specific validation;
-- field-efficiency gains;
 - certified uncertainty for the point transfer ceilings.
 
 ## Development
