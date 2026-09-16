@@ -32,7 +32,7 @@ def test_model_design_requires_declared_and_computational_path():
         build_model(informs=frozenset()).check_design()
 
 
-def test_same_process_code_builds_latent_field_and_knockout():
+def test_same_process_code_builds_latent_field_and_neutral_knockout():
     model = build_model()
     covariates = {
         ("s1", 1, 0): {"temp": 0.0},
@@ -44,15 +44,17 @@ def test_same_process_code_builds_latent_field_and_knockout():
     assert fields.log_intensity["sp"][("s2", 1, 0)] == pytest.approx(math.log(6.0))
 
     knocked = model.knockout("sp", "suitability")
-    knocked_fields = knocked.latent_fields(theta, covariates)
-    assert set(knocked_fields.log_intensity["sp"].values()) == {0.0}
+    knocked_fields = knocked.latent_fields({"sp": {"alpha": math.log(2.0)}}, covariates)
+    assert set(knocked_fields.log_intensity["sp"].values()) == {pytest.approx(math.log(2.0))}
 
 
-def test_process_knockout_is_explicit_no_effect_semantics():
+def test_process_knockout_preserves_baseline_and_neutralizes_environmental_slopes():
     process = LinearSuitability(
         covariates=("temp",),
         intercept_parameter="alpha",
         coefficient_parameters={"temp": "beta_temp"},
     )
     knockout = process.knockout()
-    assert knockout.knockout_semantics == "no_effect_log_contribution_zero"
+    assert knockout.knockout_semantics == "preserve_baseline_neutralize_environmental_slopes"
+    assert knockout.requires == frozenset()
+    assert set(knockout.priors()) == {"alpha"}
