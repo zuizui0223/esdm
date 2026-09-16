@@ -15,6 +15,8 @@ import importlib.util
 import random as py_random
 import sys
 
+from .compose import MissingTargetDataError
+
 
 class NumPyroUnavailableError(RuntimeError):
     """Raised when the optional inference backend is requested but unavailable."""
@@ -108,17 +110,31 @@ def _validate_data(model, data) -> None:
     unknown_streams = set(data) - stream_names
     if unknown_streams:
         raise ValueError(f"data contain unknown streams: {sorted(unknown_streams)}")
-    for stream_name, by_species in data.items():
-        unknown_species = set(by_species) - set(model.species)
-        if unknown_species:
+
+    for stream in model.streams:
+        if stream.name not in data:
+            raise MissingTargetDataError(
+                f"missing data block for stream {stream.name!r}"
+            )
+        by_species = data[stream.name]
+        targets = set(model.stream_targets(stream))
+        unexpected_species = set(by_species) - targets
+        if unexpected_species:
             raise ValueError(
-                f"data for stream {stream_name!r} contain unknown species: {sorted(unknown_species)}"
+                f"data for stream {stream.name!r} contain non-target species: "
+                f"{sorted(unexpected_species)}"
+            )
+        missing_species = targets - set(by_species)
+        if missing_species:
+            raise MissingTargetDataError(
+                f"stream {stream.name!r} is missing target species blocks: "
+                f"{sorted(missing_species)}"
             )
         for species, counts in by_species.items():
             unknown_keys = set(counts) - keys
             if unknown_keys:
                 raise ValueError(
-                    f"data for {stream_name}:{species} contain contexts outside the model domain"
+                    f"data for {stream.name}:{species} contain contexts outside the model domain"
                 )
             if any(int(value) < 0 for value in counts.values()):
                 raise ValueError("presence-only counts must be non-negative")
@@ -142,10 +158,10 @@ def make_numpyro_model(model, data, covariates):
 
         fields = model.latent_fields(theta, covariates)
         for stream in model.streams:
-            for species in model.species:
+            for species in model.stream_targets(stream):
                 rate_map = stream.expected_rates(species, fields, exp_fn=jnp.exp)
                 rates = jnp.stack([jnp.asarray(rate_map[key]) for key in ordered_keys])
-                counts_map = data.get(stream.name, {}).get(species, {})
+                counts_map = data[stream.name][species]
                 counts = jnp.asarray(
                     [int(counts_map.get(key, 0)) for key in ordered_keys],
                     dtype=jnp.int32,
@@ -284,7 +300,7 @@ def posterior_record_rates(model, samples, covariates):
     output: dict[tuple[str, str], list[tuple[float, ...]]] = {
         (stream.name, species): []
         for stream in model.streams
-        for species in model.species
+        for species in model.stream_targets(stream)
     }
 
     for draw in range(n_draws):
@@ -293,7 +309,7 @@ def posterior_record_rates(model, samples, covariates):
             theta[species][parameter] = float(samples[site][draw])
         fields = model.latent_fields(theta, covariates)
         for stream in model.streams:
-            for species in model.species:
+            for species in model.stream_targets(stream):
                 rate_map = stream.expected_rates(species, fields)
                 output[(stream.name, species)].append(
                     tuple(float(rate_map[key]) for key in model.domain.keys)
