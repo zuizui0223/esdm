@@ -27,11 +27,36 @@ def build_parser() -> argparse.ArgumentParser:
         description="Run the frozen generic esdm v0.3 known-truth benchmark.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
-    parser.add_argument("--replicates", type=int, default=100)
-    parser.add_argument("--base-seed", type=int, default=20260916)
-    parser.add_argument("--num-warmup", type=int, default=250)
-    parser.add_argument("--num-samples", type=int, default=300)
-    parser.add_argument("--credible-mass", type=float, default=0.90)
+    parser.add_argument(
+        "--replicates",
+        type=int,
+        default=100,
+        help="Independent replicates per selected world.",
+    )
+    parser.add_argument(
+        "--base-seed",
+        type=int,
+        default=20260916,
+        help="Frozen base seed used to derive replicate seeds.",
+    )
+    parser.add_argument(
+        "--num-warmup",
+        type=int,
+        default=250,
+        help="NUTS warmup draws per fit.",
+    )
+    parser.add_argument(
+        "--num-samples",
+        type=int,
+        default=300,
+        help="Retained posterior draws per fit.",
+    )
+    parser.add_argument(
+        "--credible-mass",
+        type=float,
+        default=0.90,
+        help="Central posterior interval mass.",
+    )
     parser.add_argument(
         "--worlds",
         default=",".join(FROZEN_WORLDS),
@@ -41,8 +66,13 @@ def build_parser() -> argparse.ArgumentParser:
         "--output",
         type=Path,
         default=Path("artifacts/v03_known_truth.json"),
+        help="JSON artifact path.",
     )
-    parser.add_argument("--progress-bar", action="store_true")
+    parser.add_argument(
+        "--progress-bar",
+        action="store_true",
+        help="Show NumPyro progress bars.",
+    )
     return parser
 
 
