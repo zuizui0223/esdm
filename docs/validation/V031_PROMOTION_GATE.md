@@ -44,10 +44,17 @@ not zero total intensity. The v0.3.1 knockout benchmark must use the same baseli
 intercept and observation effort geometry as its non-knockout counterpart, with only
 `beta = 0` changed.
 
-For the repeated-fit check, pre-outcome criteria are:
+Frozen execution profile:
 
-- 100 replicates;
-- 90% posterior interval;
+- replicates: **100**;
+- base seed: **20260920**;
+- chains per fit: **2**, sequential;
+- warmup draws per chain: **250**;
+- retained draws per chain: **300**;
+- posterior interval: **90%**.
+
+Pre-outcome criteria:
+
 - `abs(mean posterior beta) <= 0.10`;
 - zero coverage in `[0.82, 0.98]`;
 - nonzero-interval rate `<= 0.12`;
