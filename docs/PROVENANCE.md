@@ -15,7 +15,7 @@ Relevant positive source result:
 - paired shared-block comparison: 227 advances and 0 regressions across 6,000 paired datasets;
 - these are methodological simulation results, not biological evidence.
 
-Phase-1 `esdm` implementation deliberately imports only the deterministic point-ceiling semantics. It does not yet reproduce ODSP's calibrated familywise bootstrap-t inference.
+Current `esdm` implementation deliberately imports deterministic point-ceiling semantics and a macro-heldout-community gain wrapper. It does not yet reproduce ODSP's calibrated familywise bootstrap-t inference.
 
 ## SDMR -> set-valued process interpretation
 
@@ -27,7 +27,7 @@ Relevant positive source result:
 - prospective v21 occurrence-based `supported` tier: precision 0.9079, true-process positive rate 0.4417, false-process positive rate 0.0448;
 - consumed-development v23 showed that preserving multi-member support retained substantial correct joint-process information, while the prior forced pairwise ranking line failed.
 
-Phase 1 does not yet expose a process-set API. This is reserved for a later `esdm.process` layer after the state/interaction kernel is stable.
+`esdm` does not yet expose a process-set API. This is reserved for a later `esdm.process` layer after the state/network kernel is stable.
 
 ## 284b -> evidence authorization
 
@@ -39,7 +39,7 @@ Relevant positive source result:
 - v8.2 prospectively hardened the calibration plan before field outcomes, preserving the exact sensitivity/specificity rules and mechanically enforcing resolved sampling targets;
 - this is design/authorization evidence, not a biological result.
 
-Phase 1 does not yet expose an authorization API. Future `esdm.authorization` should sit upstream of negative interaction evidence.
+`esdm` does not yet expose an authorization API. Future `esdm.authorization` should sit upstream of negative interaction evidence.
 
 ## EOG -> finite-world compatibility
 
@@ -51,7 +51,7 @@ Relevant source boundary:
 - Layer A remains a validated structural compatibility/contraction/falsification architecture;
 - fresh Layer-B endpoints were heterogeneous (two favorable, one adverse), so predictive augmentation is context-dependent rather than universally beneficial.
 
-Phase 1 uses this only as a claim-governance principle. Future `esdm.worlds` should represent competing explanations such as shared environment, competition, mutualism, and resource tracking without declaring a unique world from association alone.
+Current `esdm` uses this as a claim-governance principle. Future `esdm.worlds` should represent competing explanations such as shared environment, competition, mutualism, and resource tracking without declaring a unique world from association or network rewiring alone.
 
 ## ACSP -> next-observation sets
 
@@ -63,11 +63,11 @@ Relevant positive source result:
 - the validated Japanese robust candidate-patch product showed positive recovery lift over same-size random patches under its frozen boundary;
 - a later fresh automatic global adapter also passed its preregistered conditional confirmation gates within the tested provider/evidence-aware frame.
 
-Phase 1 does not yet allocate observations. Future `esdm.observe` should use unresolved state/edge/process uncertainty to nominate informative observation contexts without relabelling candidate sets as occupancy.
+`esdm` does not yet allocate observations. Future `esdm.observe` should use unresolved state/edge/process uncertainty to nominate informative observation contexts without relabelling candidate sets as occupancy.
 
 ## `esdm` Phase-1 scientific boundary
 
-Implemented now:
+Implemented in Phase 1:
 - generic ecological state axes;
 - community taxon/state distributions;
 - q=1 alpha and beta state-resolved diversity decomposition;
@@ -77,13 +77,33 @@ Implemented now:
 - analytic known-truth worlds separating measured shared environment, hidden shared driver, and true directed coupling;
 - deterministic non-skippable point transfer ceiling.
 
-Not yet implemented:
+## `esdm` Phase-2 scientific boundary
+
+Implemented in Phase 2:
+- generic directed interaction-network distributions over declared taxa;
+- expected connectance from absolute edge probabilities;
+- q=1 interaction and source-specific partner diversity from normalized positive edge mass;
+- q=1 network beta diversity;
+- shared-taxon rewiring that conditions out unique taxa before comparing edge distributions;
+- state-conditioned connectance for caller-declared state slices;
+- held-out Bernoulli log-score gain macro-averaged by independent community;
+- a non-skippable community-level point information ceiling;
+- deterministic known-truth worlds for stable networks, pure rewiring, connectance shift without rewiring, taxon turnover, positive transfer, and null transfer.
+
+Phase 2 deliberately keeps **absolute connectance** separate from **normalized rewiring**. A scalar weakening of all edge probabilities can change connectance without changing partner structure.
+
+Phase 2 also keeps taxon, state, and network turnover as separate axes. It does not claim that they multiply into a single total community-beta identity.
+
+## Still not implemented / not claimed
+
 - certified ODSP uncertainty;
 - SDMR process sets;
 - 284b observation authorization;
 - EOG world-set contraction;
 - ACSP active observation allocation;
 - a fitted universal learner;
-- causal interaction identification.
+- causal interaction identification;
+- realized or functional interaction from potential edge probabilities;
+- universal superiority over JSDM or ecological-network methods.
 
-Pollination is an example only. Core runtime code is intentionally free of pollination-specific logic.
+Pollination remains an example only. Core runtime code is intentionally free of pollination-specific logic.
