@@ -12,6 +12,7 @@ from dataclasses import dataclass
 from collections.abc import Mapping
 from types import MappingProxyType
 import importlib.util
+import math
 import random as py_random
 import sys
 
@@ -47,6 +48,16 @@ class NumPyroFit:
     num_warmup: int
     num_samples: int
     num_chains: int
+    samples_by_chain: Mapping[str, object] | None = None
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "samples", MappingProxyType(dict(self.samples)))
+        if self.samples_by_chain is not None:
+            object.__setattr__(
+                self,
+                "samples_by_chain",
+                MappingProxyType(dict(self.samples_by_chain)),
+            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -55,9 +66,42 @@ class NumPyroSBCResult:
     posterior_draw_count: int
     replicates: int
     divergences_by_replicate: tuple[int, ...]
+    draw_counts_by_site: Mapping[str, tuple[int, ...]] | None = None
+    effective_sample_sizes_by_site: Mapping[str, tuple[float, ...]] | None = None
+    num_chains: int = 1
 
     def __post_init__(self) -> None:
-        object.__setattr__(self, "ranks", MappingProxyType(dict(self.ranks)))
+        clean_ranks = {site: tuple(values) for site, values in self.ranks.items()}
+        object.__setattr__(self, "ranks", MappingProxyType(clean_ranks))
+        if self.draw_counts_by_site is None:
+            counts = {
+                site: tuple(int(self.posterior_draw_count) for _ in values)
+                for site, values in clean_ranks.items()
+            }
+        else:
+            counts = {
+                site: tuple(int(value) for value in values)
+                for site, values in self.draw_counts_by_site.items()
+            }
+        if self.effective_sample_sizes_by_site is None:
+            ess = {
+                site: tuple(float(value) for value in counts[site])
+                for site in clean_ranks
+            }
+        else:
+            ess = {
+                site: tuple(float(value) for value in values)
+                for site, values in self.effective_sample_sizes_by_site.items()
+            }
+        if set(counts) != set(clean_ranks) or set(ess) != set(clean_ranks):
+            raise ValueError("SBC rank, draw-count, and ESS sites must match")
+        for site in clean_ranks:
+            if not (
+                len(clean_ranks[site]) == len(counts[site]) == len(ess[site]) == self.replicates
+            ):
+                raise ValueError("SBC per-site vectors must match replicate count")
+        object.__setattr__(self, "draw_counts_by_site", MappingProxyType(counts))
+        object.__setattr__(self, "effective_sample_sizes_by_site", MappingProxyType(ess))
 
 
 def _parameter_layout(model):
@@ -245,20 +289,41 @@ def fit_numpyro(
         num_warmup=int(num_warmup),
         num_samples=int(num_samples),
         num_chains=int(num_chains),
+        chain_method="sequential",
         progress_bar=bool(progress_bar),
     )
     mcmc.run(random.PRNGKey(int(rng_seed)))
     samples = mcmc.get_samples(group_by_chain=False)
+    samples_by_chain = mcmc.get_samples(group_by_chain=True)
     extra = mcmc.get_extra_fields(group_by_chain=False)
     diverging = extra.get("diverging")
     num_divergences = 0 if diverging is None else int(diverging.sum())
     return NumPyroFit(
         samples=samples,
+        samples_by_chain=samples_by_chain,
         num_divergences=num_divergences,
         num_warmup=int(num_warmup),
         num_samples=int(num_samples),
         num_chains=int(num_chains),
     )
+
+
+def _effective_sample_size(chain_values) -> float:
+    """Return scalar ESS from NumPyro's chain-aware diagnostic."""
+
+    if not numpyro_available():
+        raise NumPyroUnavailableError("NumPyro is required to estimate effective sample size")
+    import jax.numpy as jnp
+    from numpyro.diagnostics import effective_sample_size
+
+    array = jnp.asarray(chain_values)
+    if array.ndim != 2:
+        raise ValueError("ESS thinning currently requires scalar parameters with chain x draw arrays")
+    value = float(effective_sample_size(array))
+    total = int(array.shape[0] * array.shape[1])
+    if not math.isfinite(value) or value <= 0.0:
+        raise ValueError("effective sample size must be finite and positive")
+    return min(float(total), value)
 
 
 def run_numpyro_sbc(
@@ -269,18 +334,32 @@ def run_numpyro_sbc(
     rng_seed: int = 0,
     num_warmup: int = 200,
     num_samples: int = 200,
+    num_chains: int = 1,
+    ess_thinning: bool = False,
     progress_bar: bool = False,
     target_accept_prob: float = 0.8,
 ) -> NumPyroSBCResult:
-    """Run prior-draw -> in-model simulate -> joint fit -> rank cycles."""
+    """Run prior-draw -> in-model simulate -> joint fit -> rank cycles.
 
+    When ``ess_thinning`` is enabled, ranks are computed from draws thinned using a
+    chain-aware ESS estimate. The retained finite support is recorded for every
+    parameter and replicate so downstream ECDF tests can use the exact discrete null.
+    """
+
+    from esdm.identify import ess_thin_draws
     from esdm.simulate.in_model import simulate_presence_only
 
     n_rep = int(replicates)
+    n_chains = int(num_chains)
     if n_rep < 1:
         raise ValueError("replicates must be positive")
+    if n_chains < 1:
+        raise ValueError("num_chains must be positive")
     rng = py_random.Random(int(rng_seed))
-    ranks: dict[str, list[int]] = {site: [] for site in _all_sample_sites(model)}
+    sites = _all_sample_sites(model)
+    ranks: dict[str, list[int]] = {site: [] for site in sites}
+    draw_counts: dict[str, list[int]] = {site: [] for site in sites}
+    ess_values: dict[str, list[float]] = {site: [] for site in sites}
     divergences: list[int] = []
 
     for _ in range(n_rep):
@@ -299,20 +378,39 @@ def run_numpyro_sbc(
             rng_seed=rng.randrange(0, 2**31 - 1),
             num_warmup=num_warmup,
             num_samples=num_samples,
-            num_chains=1,
+            num_chains=n_chains,
             progress_bar=progress_bar,
             target_accept_prob=target_accept_prob,
         )
         divergences.append(fit.num_divergences)
-        for site in ranks:
+        for site in sites:
             truth = truth_by_site[site]
-            ranks[site].append(sum(float(draw) < truth for draw in fit.samples[site]))
+            raw_draws = tuple(float(draw) for draw in fit.samples[site])
+            if ess_thinning:
+                if fit.samples_by_chain is None:
+                    raise RuntimeError("chain-structured samples are required for ESS thinning")
+                ess = _effective_sample_size(fit.samples_by_chain[site])
+                thinned = ess_thin_draws(raw_draws, effective_sample_size=ess)
+                rank_draws = thinned.draws
+                retained = thinned.draw_count
+            else:
+                ess = float(len(raw_draws))
+                rank_draws = raw_draws
+                retained = len(raw_draws)
+            ranks[site].append(sum(float(draw) < truth for draw in rank_draws))
+            draw_counts[site].append(retained)
+            ess_values[site].append(ess)
 
     return NumPyroSBCResult(
         ranks={site: tuple(values) for site, values in ranks.items()},
-        posterior_draw_count=int(num_samples),
+        posterior_draw_count=int(num_samples) * n_chains,
         replicates=n_rep,
         divergences_by_replicate=tuple(divergences),
+        draw_counts_by_site={site: tuple(values) for site, values in draw_counts.items()},
+        effective_sample_sizes_by_site={
+            site: tuple(values) for site, values in ess_values.items()
+        },
+        num_chains=n_chains,
     )
 
 
