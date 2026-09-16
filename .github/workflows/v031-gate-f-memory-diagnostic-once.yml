@@ -72,7 +72,7 @@ jobs:
           output.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
           print(json.dumps({"diagnostic_completed": True, "output": str(output)}, sort_keys=True))
           PY
-          /usr/bin/time -v python /tmp/v031_gate_f_memory_diagnostic.py
+          PYTHONPATH="$GITHUB_WORKSPACE" /usr/bin/time -v python /tmp/v031_gate_f_memory_diagnostic.py
       - name: Upload diagnostic artifact
         if: always()
         uses: actions/upload-artifact@v4
