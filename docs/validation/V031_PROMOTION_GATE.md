@@ -113,27 +113,93 @@ This is an esdm-specific simulation implementation of the simultaneous-ECDF stra
 it is not claimed to reproduce the optimization algorithm of Säilynoja, Bürkner &
 Vehtari (2022) line-for-line.
 
-## Gate F — semi-synthetic real geometry (mandatory, not yet satisfied)
+## Gate F — pinned semi-synthetic real geography and held-out transfer
 
-Promotion remains blocked until a semi-synthetic fixture is committed **before its
-outcomes are inspected**. It must use real spatial geometry / real environmental or
-effort geometry, while ecological coefficients and observation counts are generated
-from known truth through the same generative graph.
+Gate F uses real station geometry and a real long-run climate covariate but **does not
+use real biological outcomes**. Ecological coefficients, observation effort and all
+record counts are generated from known truth through the same esdm graph used for
+fitting. Passing Gate F is therefore a semi-synthetic transfer stress test, not empirical
+biological validation.
 
-Minimum design:
+### Frozen source and selection
 
-- at least 100 spatial locations or cells;
-- at least 6 day-of-year bins;
-- at least 4 hour bins where the selected observation process makes hour relevant, or a
-  documented reason why hour is not an estimand in the fixture;
-- spatially structured environmental covariates;
-- spatially structured observation effort not algebraically proportional to the focal
-  ecological covariate;
-- frozen train/held-out spatial blocks;
-- provenance and license recorded with the fixture.
+- source repository: `the-pudding/data`;
+- source commit: `3dcb0a80c838ff9503e3957d7e004a7f4b888b0a`;
+- source path: `rain/annual_precipitation.csv`;
+- pinned source blob SHA: `40b2adc5bf8a44a8bc9a1cfc3f99fc91b9fae949`;
+- station selection: **the first 120 data rows after the CSV header**, with no
+  outcome-dependent filtering;
+- real inputs used: station ID, latitude, longitude, and long-run average precipitation;
+- source repository license: MIT; underlying climate data provenance: NOAA/NCEI
+  GHCN-Daily / US Federal environmental data;
+- the source CSV is precipitation-ordered, so this fixture is explicitly a
+  **real-geometry stress fixture, not a representative sample of US climate stations**.
 
-Until Gate F is implemented and frozen, **v0.3.1 status is NOT_READY regardless of all
-other results**.
+### Frozen domain and split
+
+- spatial locations: **120 stations**;
+- day-of-year bins: **15, 75, 135, 195, 255, 315**;
+- hour bins: **0, 6, 12, 18**;
+- total model contexts: **2,880**;
+- longitude blocks:
+  - west: longitude `< -110`;
+  - central: `-110 <= longitude < -85`;
+  - east: longitude `>= -85`;
+- fitting blocks: **west + central**;
+- held-out block: **east**;
+- the east block is never used in fitting either the full model or its knockout
+  comparator.
+
+### Frozen data-generating truth
+
+The ecological field is
+
+`eta = -1.5 + 0.55*precip_z - 0.25*lat_z`.
+
+`precip_z` and `lat_z` are standardized using the frozen 120-station fixture before the
+space-time expansion. Observation effort is a deterministic positive function of real
+latitude/longitude plus day-of-year and hour; it is not algebraically proportional to
+`precip_z` or `lat_z`.
+
+### Frozen execution profile
+
+- replicated generated datasets: **20**;
+- base seed: **20260921**;
+- chains per fit: **2**, sequential;
+- warmup draws per chain: **200**;
+- retained draws per chain: **250**;
+- parameter intervals: **90%**;
+- every replicate fits two train-block models:
+  1. full suitability (`intercept + beta_precip + beta_lat`),
+  2. neutral suitability knockout (`intercept` only);
+- both models are evaluated on the same held-out east counts;
+- held-out score: Poisson log predictive density computed per context by averaging the
+  Poisson probability over posterior rate draws before taking the log; scores are then
+  averaged over held-out contexts.
+
+### Pre-outcome Gate F criteria
+
+For each ecological slope, across the 20 replicates:
+
+- `abs(mean posterior bias) <= 0.15` for `beta_precip`;
+- `abs(mean posterior bias) <= 0.15` for `beta_lat`;
+- 90% interval truth coverage `>= 0.75` for each slope.
+
+For held-out transfer:
+
+- full-model minus knockout held-out mean log predictive density is positive in
+  **at least 80% of replicates**;
+- mean full-minus-knockout held-out gain is **>= 0.01 per context**.
+
+Computation:
+
+- mean divergences per fit across the 40 full/knockout fits is `<= 0.10`.
+
+No threshold is applied to intercept recovery because the held-out comparison and slope
+recovery are the declared Gate F targets.
+
+Until the frozen Gate F runner has executed on the pinned source and all Gate F checks
+pass, **v0.3.1 status is NOT_READY regardless of Gates A–E**.
 
 ## Promotion rule
 
