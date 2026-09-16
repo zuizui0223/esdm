@@ -24,7 +24,7 @@ class DesignReport:
 
 @dataclass(frozen=True, slots=True)
 class LatentFields:
-    log_intensity: Mapping[str, Mapping[tuple[str, int, int], float]]
+    log_intensity: Mapping[str, Mapping[tuple[str, int, int], object]]
 
     def __post_init__(self) -> None:
         object.__setattr__(
@@ -111,28 +111,32 @@ class Model:
 
     def latent_fields(
         self,
-        theta: Mapping[str, Mapping[str, float]],
-        covariates: Mapping[tuple[str, int, int], Mapping[str, float]],
+        theta: Mapping[str, Mapping[str, object]],
+        covariates: Mapping[tuple[str, int, int], Mapping[str, object]],
     ) -> LatentFields:
+        """Construct latent ecological fields using the declared process graph.
+
+        No scalar coercion occurs here.  This is intentional: the exact same process
+        graph is used by ordinary simulation/likelihood code and by JAX/NumPyro.
+        """
+
         missing_contexts = set(self.domain.keys) - set(covariates)
         if missing_contexts:
             raise ValueError("covariates are missing domain contexts")
-        fields: dict[str, dict[tuple[str, int, int], float]] = {}
+        fields: dict[str, dict[tuple[str, int, int], object]] = {}
         for species, processes in self.species.items():
             if species not in theta:
                 raise KeyError(f"missing parameter block for species {species!r}")
-            block: dict[tuple[str, int, int], float] = {}
+            block: dict[tuple[str, int, int], object] = {}
             for ctx in self.domain.contexts():
                 context_covariates = covariates[ctx.key]
-                total = 0.0
+                total: object = 0.0
                 for process in processes:
-                    total += float(
-                        process.log_intensity(
-                            ctx,
-                            theta[species],
-                            context_covariates,
-                            latent_fields=None,
-                        )
+                    total = total + process.log_intensity(
+                        ctx,
+                        theta[species],
+                        context_covariates,
+                        latent_fields=None,
                     )
                 block[ctx.key] = total
             fields[species] = block
@@ -162,8 +166,8 @@ class Model:
     def log_likelihood(
         self,
         data: Mapping[str, Mapping[str, Mapping[tuple[str, int, int], int]]],
-        theta: Mapping[str, Mapping[str, float]],
-        covariates: Mapping[tuple[str, int, int], Mapping[str, float]],
+        theta: Mapping[str, Mapping[str, object]],
+        covariates: Mapping[tuple[str, int, int], Mapping[str, object]],
     ) -> float:
         fields = self.latent_fields(theta, covariates)
         total = 0.0
