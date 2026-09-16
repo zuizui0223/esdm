@@ -106,6 +106,36 @@ class KnownTruthBenchmarkResult:
         object.__setattr__(self, "summary", MappingProxyType(dict(self.summary)))
 
 
+@dataclass(frozen=True, slots=True)
+class V03PromotionGateConfig:
+    """Frozen numerical gate corresponding to docs/validation/V03_KNOWN_TRUTH_GATE.md."""
+
+    replicates_per_world: int = 100
+    correct_max_abs_bias: float = 0.15
+    correct_min_truth_coverage: float = 0.80
+    correct_max_truth_coverage: float = 0.98
+    correct_min_nonzero_rate: float = 0.80
+    knockout_max_abs_mean: float = 0.15
+    knockout_min_truth_coverage: float = 0.80
+    knockout_max_nonzero_rate: float = 0.15
+    misspecified_min_positive_bias: float = 0.25
+    max_mean_divergences_per_fit: float = 0.10
+
+
+@dataclass(frozen=True, slots=True)
+class PromotionGateCheck:
+    name: str
+    passed: bool
+    observed: float | bool | int
+    criterion: str
+
+
+@dataclass(frozen=True, slots=True)
+class V03PromotionGateDecision:
+    passed: bool
+    checks: tuple[PromotionGateCheck, ...]
+
+
 def summarize_known_truth_benchmark(
     records: Sequence[BenchmarkReplicate],
 ) -> dict[str, BenchmarkSummary]:
@@ -131,6 +161,125 @@ def summarize_known_truth_benchmark(
             total_divergences=sum(int(row.num_divergences) for row in group),
         )
     return output
+
+
+def evaluate_v03_promotion_gate(
+    summaries: Mapping[str, BenchmarkSummary],
+    *,
+    config: V03PromotionGateConfig | None = None,
+) -> V03PromotionGateDecision:
+    """Mechanically evaluate the pre-outcome v0.3 known-truth promotion rules."""
+
+    cfg = V03PromotionGateConfig() if config is None else config
+    required = (
+        "correct_effort",
+        "wrong_effort_geometry",
+        "hidden_driver",
+        "suitability_knockout",
+    )
+    missing = [name for name in required if name not in summaries]
+    if missing:
+        raise ValueError(f"promotion summaries missing worlds: {missing}")
+
+    checks: list[PromotionGateCheck] = []
+
+    def add(name: str, passed: bool, observed, criterion: str) -> None:
+        checks.append(PromotionGateCheck(name, bool(passed), observed, criterion))
+
+    def divergence_check(name: str, row: BenchmarkSummary) -> None:
+        mean_divergences = row.total_divergences / row.replicates if row.replicates else math.inf
+        add(
+            f"{name}_divergences",
+            mean_divergences <= cfg.max_mean_divergences_per_fit,
+            mean_divergences,
+            f"mean divergences per fit <= {cfg.max_mean_divergences_per_fit}",
+        )
+
+    correct = summaries["correct_effort"]
+    add(
+        "correct_effort_replicates",
+        correct.replicates == cfg.replicates_per_world,
+        correct.replicates,
+        f"replicates == {cfg.replicates_per_world}",
+    )
+    add(
+        "correct_effort_bias",
+        abs(correct.mean_bias_from_truth) <= cfg.correct_max_abs_bias,
+        correct.mean_bias_from_truth,
+        f"abs(mean bias from truth) <= {cfg.correct_max_abs_bias}",
+    )
+    add(
+        "correct_effort_coverage",
+        cfg.correct_min_truth_coverage <= correct.truth_coverage <= cfg.correct_max_truth_coverage,
+        correct.truth_coverage,
+        f"truth coverage in [{cfg.correct_min_truth_coverage}, {cfg.correct_max_truth_coverage}]",
+    )
+    add(
+        "correct_effort_nonzero",
+        correct.nonzero_rate >= cfg.correct_min_nonzero_rate,
+        correct.nonzero_rate,
+        f"nonzero interval rate >= {cfg.correct_min_nonzero_rate}",
+    )
+    divergence_check("correct_effort", correct)
+
+    knockout = summaries["suitability_knockout"]
+    add(
+        "suitability_knockout_replicates",
+        knockout.replicates == cfg.replicates_per_world,
+        knockout.replicates,
+        f"replicates == {cfg.replicates_per_world}",
+    )
+    add(
+        "suitability_knockout_mean",
+        abs(knockout.mean_posterior) <= cfg.knockout_max_abs_mean,
+        knockout.mean_posterior,
+        f"abs(mean posterior) <= {cfg.knockout_max_abs_mean}",
+    )
+    add(
+        "suitability_knockout_coverage",
+        knockout.truth_coverage >= cfg.knockout_min_truth_coverage,
+        knockout.truth_coverage,
+        f"zero coverage >= {cfg.knockout_min_truth_coverage}",
+    )
+    add(
+        "suitability_knockout_nonzero",
+        knockout.nonzero_rate <= cfg.knockout_max_nonzero_rate,
+        knockout.nonzero_rate,
+        f"nonzero interval rate <= {cfg.knockout_max_nonzero_rate}",
+    )
+    divergence_check("suitability_knockout", knockout)
+
+    for world_name, check_name in (
+        ("wrong_effort_geometry", "wrong_effort_negative_control"),
+        ("hidden_driver", "hidden_driver_negative_control"),
+    ):
+        row = summaries[world_name]
+        add(
+            f"{world_name}_replicates",
+            row.replicates == cfg.replicates_per_world,
+            row.replicates,
+            f"replicates == {cfg.replicates_per_world}",
+        )
+        negative_control_pass = (
+            row.mean_bias_from_truth >= cfg.misspecified_min_positive_bias
+            and abs(row.mean_bias_from_expected) < abs(row.mean_bias_from_truth)
+        )
+        add(
+            check_name,
+            negative_control_pass,
+            row.mean_bias_from_truth,
+            (
+                f"bias from truth >= {cfg.misspecified_min_positive_bias} and "
+                "mean posterior closer to predeclared apparent value than ecological truth"
+            ),
+        )
+        divergence_check(world_name, row)
+
+    check_tuple = tuple(checks)
+    return V03PromotionGateDecision(
+        passed=all(check.passed for check in check_tuple),
+        checks=check_tuple,
+    )
 
 
 def _quantile(values, probability: float) -> float:
