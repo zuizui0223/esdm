@@ -196,13 +196,21 @@ class Model:
         data: Mapping[str, Mapping[str, Mapping[tuple[str, int, int], int]]],
         theta: Mapping[str, Mapping[str, object]],
         covariates: Mapping[tuple[str, int, int], Mapping[str, object]],
+        *,
+        theta_obs: Mapping[str, Mapping[str, object]] | None = None,
     ) -> float:
         fields = self.latent_fields(theta, covariates)
         total = 0.0
+        observation_parameters = {} if theta_obs is None else theta_obs
         known_streams = {stream.name for stream in self.streams}
         unknown_streams = set(data) - known_streams
         if unknown_streams:
             raise ValueError(f"data contain unknown streams: {sorted(unknown_streams)}")
+        unknown_parameter_streams = set(observation_parameters) - known_streams
+        if unknown_parameter_streams:
+            raise ValueError(
+                f"observation parameters contain unknown streams: {sorted(unknown_parameter_streams)}"
+            )
         for stream in self.streams:
             if stream.name not in data:
                 raise MissingTargetDataError(
@@ -222,6 +230,28 @@ class Model:
                     f"stream {stream.name!r} is missing target species blocks: "
                     f"{sorted(missing_species)}"
                 )
+            stream_theta = dict(observation_parameters.get(stream.name, {}))
+            required_parameters = set(getattr(stream, "priors", lambda: {})())
+            missing_parameters = required_parameters - set(stream_theta)
+            if missing_parameters:
+                raise KeyError(
+                    f"stream {stream.name!r} missing observation parameters: "
+                    f"{sorted(missing_parameters)}"
+                )
+            unexpected_parameters = set(stream_theta) - required_parameters
+            if unexpected_parameters:
+                raise KeyError(
+                    f"stream {stream.name!r} received undeclared observation parameters: "
+                    f"{sorted(unexpected_parameters)}"
+                )
             for species in self.stream_targets(stream):
-                total += float(stream.log_lik(species, fields, stream_data[species]))
+                total += float(
+                    stream.log_lik(
+                        species,
+                        fields,
+                        stream_data[species],
+                        theta_obs=stream_theta,
+                        covariates=covariates,
+                    )
+                )
         return total
