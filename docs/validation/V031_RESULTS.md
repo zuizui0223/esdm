@@ -1,6 +1,6 @@
 # v0.3.1 validation results
 
-Status: **NOT_READY — Gate F is scientifically UNEVALUATED after an infrastructure OOM**
+Status: **NOT_READY — Gate F frozen rerun is in progress after an infrastructure-only fix**
 
 This document records outcomes against the pre-outcome criteria in
 `docs/validation/V031_PROMOTION_GATE.md`. Thresholds are not changed in response to these
@@ -85,13 +85,10 @@ ESS / post-thinning support ranges retained in the artifact:
 
 Mechanical Gate E decision: **PASS**.
 
-## Gate F — pinned real-geometry semi-synthetic transfer: INFRASTRUCTURE_BLOCKED / UNEVALUATED
+## Gate F — pinned real-geometry semi-synthetic transfer: RERUN_IN_PROGRESS / UNEVALUATED
 
-Frozen full run:
+Frozen scientific profile:
 
-- workflow run: `35089704914`
-- job: `104772854056`
-- workflow head: `ac61189bacfb00105c9225fc4b9ea315cddcddf0`
 - pinned source repository: `the-pudding/data`
 - pinned source commit: `3dcb0a80c838ff9503e3957d7e004a7f4b888b0a`
 - pinned source path: `rain/annual_precipitation.csv`
@@ -101,33 +98,66 @@ Frozen full run:
 - training blocks: west + central
 - completely held-out block: east
 - replicates: 20
+- base seed: `20260921`, replicate stride: `37`
+- warmup: `200`, posterior samples: `250`, chains: `2`
 
-The workflow did not reach a scientific Gate F decision. During the benchmark step, the
-JAX/LLVM backend terminated with memory-allocation failures and a `JaxRuntimeError` while
-materializing compiled symbols. The process exited before
-`artifacts/v031_semisynthetic_gate_f.json` was written, so no Gate F artifact exists for this
+### Interrupted first full attempt
+
+The first full run (`35089704914`, job `104772854056`, head
+`ac61189bacfb00105c9225fc4b9ea315cddcddf0`) did not reach a scientific Gate F decision.
+During the benchmark step, the JAX/LLVM backend terminated with memory-allocation failures and
+a `JaxRuntimeError` while materializing compiled symbols. The process exited before
+`artifacts/v031_semisynthetic_gate_f.json` was written, so no Gate F artifact exists for that
 attempt.
 
-Therefore this run is **not** a scientific Gate F failure. No parameter-recovery,
+Therefore that run is **not** a scientific Gate F failure. No parameter-recovery,
 held-out-transfer, divergence, or aggregate gate metric is inferred from the interrupted run.
-Gate F remains **UNEVALUATED** until the same frozen scientific profile completes under an
-execution strategy that does not exhaust runner memory.
 
-A non-promotional one-replicate memory diagnostic was added after the failure. Its first run
-(`35093254567`) stopped before model execution because the temporary diagnostic script could
-not import the repository `scripts` package; that run contains no model evidence. The import
-path was corrected, and run `35093359984` tests one exact-profile replicate on the same runner
-class. Diagnostic results do not count toward promotion.
+### Memory diagnosis
 
-## Exact-head CI
+A non-promotional one-replicate exact-profile diagnostic was run after the failure. The first
+diagnostic attempt (`35093254567`) stopped before model execution because of a diagnostic-only
+import-path error and contains no model evidence. After correcting that path, run
+`35093359984` completed successfully on the same GitHub-hosted runner class:
 
-The last fully completed regular CI before the diagnostic-only commits was run `35091004410`
-at head `d67f660d457ccfaf875d7c3a8fcadd894b095067`, and it completed successfully across the
-repository test matrix. Regular CI also runs on the diagnostic-only commits; their completion
-must be checked before any implementation fix is declared verified.
+- artifact: `v031-gate-f-memory-diagnostic-35093359984`
+- artifact id: `10445003190`
+- profile: one replicate, base seed `20260921`, warmup `200`, samples `250`, chains `2`
+- pinned source blob observed: `40b2adc5bf8a44a8bc9a1cfc3f99fc91b9fae949` (matches frozen expected blob)
+- train spaces: `67`; held-out east spaces: `53`
+- beta_precip posterior mean: `0.5509501427412034`
+- beta_lat posterior mean: `-0.25639462321996687`
+- full held-out log score: `-1.1757906118758865`
+- knockout held-out log score: `-1.5123634232500267`
+- diagnostic held-out gain: `0.3365728113741402`
+- full divergences: `0`; knockout divergences: `0`
+- maximum resident set size reported by `/usr/bin/time -v`: `3852368` kB
+
+These numbers are **diagnostic only** and do not count toward Gate F or promotion. The
+important infrastructure conclusion is narrower: one exact-profile replicate can complete,
+while its peak memory is already about 3.7 GiB. This supports cumulative JAX/XLA process
+memory as the cause of the 20-replicate in-process failure.
+
+### Infrastructure-only execution fix
+
+The frozen runner now executes each of the 20 predeclared replicates in a fresh sequential
+Python process and aggregates their records afterward. The scientific profile is unchanged:
+no threshold, seed, seed stride, geometry, warmup count, sample count, chain count, source, or
+gate criterion was modified. Regular CI at implementation head
+`d50dccf3e5aec675c7a12e368add148695abdb10` passes on Python 3.10, 3.11, and 3.12; the
+Python 3.10 job reports `165 passed, 8 skipped`.
+
+The frozen full rerun is:
+
+- workflow run: `35099678744`
+- workflow head: `52a86146a1497a2e434c9f904f6abff52b081572`
+- execution: sequential fresh Python process per replicate
+- scientific status: **UNEVALUATED until the final Gate F artifact exists**
+
+No scientific result is inferred from partial worker completion or elapsed runtime.
 
 ## Overall promotion status
 
-`v0.3.1 = NOT_READY`. Gates A/B/C/D/E pass; Gate F has no scientific decision because the
-frozen full run was interrupted by infrastructure OOM. The promotion rule remains strict
-conjunction: **A AND B AND C AND D AND E AND F**.
+`v0.3.1 = NOT_READY`. Gates A/B/C/D/E pass; Gate F remains scientifically unevaluated until
+the frozen rerun completes and its mechanical decision is recorded. The promotion rule remains
+strict conjunction: **A AND B AND C AND D AND E AND F**.
