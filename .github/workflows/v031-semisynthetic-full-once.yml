@@ -6,6 +6,7 @@ on:
       - feature/v031-identification-fixes
     paths:
       - .github/workflows/v031-semisynthetic-full-once.yml
+      - scripts/run_v031_semisynthetic.py
 
 jobs:
   gate-f:
