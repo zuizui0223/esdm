@@ -14,3 +14,7 @@ def test_pollination_example_executes_only_through_generic_api():
         str(ROOT / "examples" / "pollination_as_one_example.py"),
         run_name="__main__",
     )
+
+
+def test_community_rewiring_example_executes():
+    runpy.run_path(str(ROOT / "examples" / "community_rewiring.py"), run_name="__main__")
