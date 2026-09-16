@@ -18,3 +18,10 @@ def test_pollination_example_executes_only_through_generic_api():
 
 def test_community_rewiring_example_executes():
     runpy.run_path(str(ROOT / "examples" / "community_rewiring.py"), run_name="__main__")
+
+
+def test_inference_observation_loop_example_executes():
+    runpy.run_path(
+        str(ROOT / "examples" / "inference_observation_loop.py"),
+        run_name="__main__",
+    )
