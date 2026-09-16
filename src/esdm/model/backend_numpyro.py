@@ -1,9 +1,9 @@
 """Optional NumPyro backend for the process-based generative model.
 
-The backend translates backend-neutral prior declarations into NumPyro sample sites,
-but delegates ecological latent-field construction and observation-rate construction to
-the existing :mod:`esdm` process and stream objects. It therefore does not maintain a
-second ecological model implementation.
+The backend translates backend-neutral ecological and observation-process priors into
+NumPyro sample sites, but delegates latent-field construction and observation-rate
+construction to the existing :mod:`esdm` objects. It therefore does not maintain a
+second ecological or observation model implementation.
 """
 
 from __future__ import annotations
@@ -61,7 +61,7 @@ class NumPyroSBCResult:
 
 
 def _parameter_layout(model):
-    """Return fully qualified sample sites and backend-neutral prior specs."""
+    """Return fully qualified ecological sample sites and prior specs."""
 
     layout: list[tuple[str, str, str, object]] = []
     for species, processes in model.species.items():
@@ -76,6 +76,24 @@ def _parameter_layout(model):
                 site = f"{species}.{process.name}.{parameter}"
                 layout.append((site, species, parameter, prior))
     return tuple(layout)
+
+
+def _observation_parameter_layout(model):
+    """Return fully qualified observation-process sample sites and prior specs."""
+
+    layout: list[tuple[str, str, str, object]] = []
+    for stream in model.streams:
+        priors = dict(getattr(stream, "priors", lambda: {})())
+        for parameter, prior in priors.items():
+            site = f"stream.{stream.name}.{parameter}"
+            layout.append((site, stream.name, parameter, prior))
+    return tuple(layout)
+
+
+def _all_sample_sites(model) -> tuple[str, ...]:
+    return tuple(site for site, *_ in _parameter_layout(model)) + tuple(
+        site for site, *_ in _observation_parameter_layout(model)
+    )
 
 
 def _numpyro_distribution(prior, dist):
@@ -94,14 +112,27 @@ def _sample_prior_value(prior, rng: py_random.Random) -> float:
     raise NotImplementedError(f"unsupported PriorSpec distribution: {name}")
 
 
-def _sample_prior_theta(model, rng: py_random.Random):
+def _sample_prior_state(model, rng: py_random.Random):
     theta: dict[str, dict[str, float]] = {species: {} for species in model.species}
+    theta_obs: dict[str, dict[str, float]] = {stream.name: {} for stream in model.streams}
     truth_by_site: dict[str, float] = {}
     for site, species, parameter, prior in _parameter_layout(model):
         value = _sample_prior_value(prior, rng)
         theta[species][parameter] = value
         truth_by_site[site] = value
-    return theta, truth_by_site
+    for site, stream_name, parameter, prior in _observation_parameter_layout(model):
+        value = _sample_prior_value(prior, rng)
+        theta_obs[stream_name][parameter] = value
+        truth_by_site[site] = value
+    return theta, theta_obs, truth_by_site
+
+
+def _sample_prior_theta(model, rng: py_random.Random):
+    """Compatibility helper returning only ecological prior draws."""
+
+    theta, _theta_obs, truth_by_site = _sample_prior_state(model, rng)
+    ecological_sites = {site for site, *_ in _parameter_layout(model)}
+    return theta, {site: value for site, value in truth_by_site.items() if site in ecological_sites}
 
 
 def _validate_data(model, data) -> None:
@@ -145,21 +176,36 @@ def make_numpyro_model(model, data, covariates):
 
     jnp, _random, numpyro, dist, _MCMC, _NUTS = _imports()
     model.check_design()
-    layout = _parameter_layout(model)
+    ecological_layout = _parameter_layout(model)
+    observation_layout = _observation_parameter_layout(model)
     _validate_data(model, data)
     ordered_keys = tuple(model.domain.keys)
 
     def program():
         theta: dict[str, dict[str, object]] = {species: {} for species in model.species}
-        for site, species, parameter, prior in layout:
+        theta_obs: dict[str, dict[str, object]] = {
+            stream.name: {} for stream in model.streams
+        }
+        for site, species, parameter, prior in ecological_layout:
             theta[species][parameter] = numpyro.sample(
+                site, _numpyro_distribution(prior, dist)
+            )
+        for site, stream_name, parameter, prior in observation_layout:
+            theta_obs[stream_name][parameter] = numpyro.sample(
                 site, _numpyro_distribution(prior, dist)
             )
 
         fields = model.latent_fields(theta, covariates)
         for stream in model.streams:
+            stream_theta = theta_obs[stream.name]
             for species in model.stream_targets(stream):
-                rate_map = stream.expected_rates(species, fields, exp_fn=jnp.exp)
+                rate_map = stream.expected_rates(
+                    species,
+                    fields,
+                    theta_obs=stream_theta,
+                    covariates=covariates,
+                    exp_fn=jnp.exp,
+                )
                 rates = jnp.stack([jnp.asarray(rate_map[key]) for key in ordered_keys])
                 counts_map = data[stream.name][species]
                 counts = jnp.asarray(
@@ -187,7 +233,7 @@ def fit_numpyro(
     progress_bar: bool = True,
     target_accept_prob: float = 0.8,
 ) -> NumPyroFit:
-    """Fit the declared v0.3 generative graph with NUTS/MCMC."""
+    """Fit the declared generative graph with NUTS/MCMC."""
 
     _jnp, random, _numpyro, _dist, MCMC, NUTS = _imports()
     if num_warmup < 1 or num_samples < 1 or num_chains < 1:
@@ -226,29 +272,24 @@ def run_numpyro_sbc(
     progress_bar: bool = False,
     target_accept_prob: float = 0.8,
 ) -> NumPyroSBCResult:
-    """Run prior-draw -> in-model simulate -> fit -> rank cycles.
-
-    This helper is intentionally limited to in-model SBC. Misspecified worlds belong
-    under :mod:`esdm.simulate.misspecified` and must not be interpreted as calibration
-    failures of the declared generative model.
-    """
+    """Run prior-draw -> in-model simulate -> joint fit -> rank cycles."""
 
     from esdm.simulate.in_model import simulate_presence_only
 
     n_rep = int(replicates)
     if n_rep < 1:
         raise ValueError("replicates must be positive")
-    layout = _parameter_layout(model)
     rng = py_random.Random(int(rng_seed))
-    ranks: dict[str, list[int]] = {site: [] for site, *_ in layout}
+    ranks: dict[str, list[int]] = {site: [] for site in _all_sample_sites(model)}
     divergences: list[int] = []
 
     for _ in range(n_rep):
-        theta, truth_by_site = _sample_prior_theta(model, rng)
+        theta, theta_obs, truth_by_site = _sample_prior_state(model, rng)
         generated = simulate_presence_only(
             model,
             theta,
             covariates,
+            theta_obs=theta_obs,
             seed=rng.randrange(0, 2**31 - 1),
         )
         fit = fit_numpyro(
@@ -275,9 +316,9 @@ def run_numpyro_sbc(
     )
 
 
-def _draw_count(layout, samples) -> int:
+def _draw_count(site_names, samples) -> int:
     lengths = []
-    for site, _species, _parameter, _prior in layout:
+    for site in site_names:
         if site not in samples:
             raise KeyError(f"posterior samples missing site {site!r}")
         lengths.append(len(samples[site]))
@@ -289,14 +330,11 @@ def _draw_count(layout, samples) -> int:
 
 
 def posterior_record_rates(model, samples, covariates):
-    """Derive record-rate draws using the existing process/stream graph.
+    """Derive record-rate draws using the existing process/stream graph."""
 
-    Returns a mapping keyed by ``(stream_name, species)``. Each value is a tuple of
-    posterior draws; every draw is a tuple ordered exactly like ``model.domain.keys``.
-    """
-
-    layout = _parameter_layout(model)
-    n_draws = _draw_count(layout, samples)
+    ecological_layout = _parameter_layout(model)
+    observation_layout = _observation_parameter_layout(model)
+    n_draws = _draw_count(_all_sample_sites(model), samples)
     output: dict[tuple[str, str], list[tuple[float, ...]]] = {
         (stream.name, species): []
         for stream in model.streams
@@ -305,12 +343,22 @@ def posterior_record_rates(model, samples, covariates):
 
     for draw in range(n_draws):
         theta: dict[str, dict[str, float]] = {species: {} for species in model.species}
-        for site, species, parameter, _prior in layout:
+        theta_obs: dict[str, dict[str, float]] = {
+            stream.name: {} for stream in model.streams
+        }
+        for site, species, parameter, _prior in ecological_layout:
             theta[species][parameter] = float(samples[site][draw])
+        for site, stream_name, parameter, _prior in observation_layout:
+            theta_obs[stream_name][parameter] = float(samples[site][draw])
         fields = model.latent_fields(theta, covariates)
         for stream in model.streams:
             for species in model.stream_targets(stream):
-                rate_map = stream.expected_rates(species, fields)
+                rate_map = stream.expected_rates(
+                    species,
+                    fields,
+                    theta_obs=theta_obs[stream.name],
+                    covariates=covariates,
+                )
                 output[(stream.name, species)].append(
                     tuple(float(rate_map[key]) for key in model.domain.keys)
                 )
