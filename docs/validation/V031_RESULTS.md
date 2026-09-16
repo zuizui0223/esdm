@@ -1,21 +1,25 @@
 # v0.3.1 validation results
 
-Status: **NOT_READY — Gate F frozen rerun is in progress after an infrastructure-only fix**
+Status: **PASS — all frozen Gates A–F passed**
 
 This document records outcomes against the pre-outcome criteria in
-`docs/validation/V031_PROMOTION_GATE.md`. Thresholds are not changed in response to these
+`docs/validation/V031_PROMOTION_GATE.md`. Thresholds were not changed in response to these
 outcomes. The earlier v0.3 promotion interpretation is retired; its runs remain historical
 implementation diagnostics only.
+
+`PASS` here means that the implementation satisfies the declared **v0.3.1 methodological
+promotion gate**. It is not empirical validation of a biological system, not evidence that every
+future process is identifiable, and not a causal-interaction claim.
 
 ## Gate A — claim / identification separation: PASS
 
 The deterministic contract requires posterior contraction to return identification status,
-not scientific support. Current exact-head CI verifies that contraction can yield
+not scientific support. Exact-head CI verifies that contraction can yield
 `Identified` / `NotIdentified`, while `Supported` remains a separate claim type.
 
 ## Gate B — stream target sets: PASS
 
-Current exact-head CI verifies that:
+Exact-head CI verifies that:
 
 - non-target taxa contribute no likelihood term;
 - a missing block for a declared target raises `MissingTargetDataError`;
@@ -46,7 +50,7 @@ Mechanical Gate C decision: **PASS**.
 
 ## Gate D — structural-identification negative control: PASS
 
-Current exact-head CI verifies the predeclared design result:
+Exact-head CI verifies the predeclared design result:
 
 1. one opportunistic presence-only stream with unknown log-linear effort gradient has
    `beta_x` and `gamma_x` as `NotIdentified`, because only their sum is observable;
@@ -85,7 +89,7 @@ ESS / post-thinning support ranges retained in the artifact:
 
 Mechanical Gate E decision: **PASS**.
 
-## Gate F — pinned real-geometry semi-synthetic transfer: RERUN_IN_PROGRESS / UNEVALUATED
+## Gate F — pinned real-geometry semi-synthetic transfer: PASS
 
 Frozen scientific profile:
 
@@ -97,67 +101,76 @@ Frozen scientific profile:
 - geometry: 120 real stations x 6 day-of-year bins x 4 hour bins
 - training blocks: west + central
 - completely held-out block: east
+- train spaces: 67; held-out east spaces: 53
 - replicates: 20
 - base seed: `20260921`, replicate stride: `37`
 - warmup: `200`, posterior samples: `250`, chains: `2`
 
-### Interrupted first full attempt
+### Infrastructure history
 
-The first full run (`35089704914`, job `104772854056`, head
-`ac61189bacfb00105c9225fc4b9ea315cddcddf0`) did not reach a scientific Gate F decision.
-During the benchmark step, the JAX/LLVM backend terminated with memory-allocation failures and
-a `JaxRuntimeError` while materializing compiled symbols. The process exited before
-`artifacts/v031_semisynthetic_gate_f.json` was written, so no Gate F artifact exists for that
-attempt.
+The first full attempt (`35089704914`) did not reach a scientific decision. JAX/LLVM
+terminated with memory-allocation failures before the final JSON artifact was written. It is
+therefore recorded as an **infrastructure interruption, not a scientific Gate F failure**.
 
-Therefore that run is **not** a scientific Gate F failure. No parameter-recovery,
-held-out-transfer, divergence, or aggregate gate metric is inferred from the interrupted run.
+A non-promotional one-replicate exact-profile diagnostic then established that the scientific
+profile itself fits on the same runner class:
 
-### Memory diagnosis
-
-A non-promotional one-replicate exact-profile diagnostic was run after the failure. The first
-diagnostic attempt (`35093254567`) stopped before model execution because of a diagnostic-only
-import-path error and contains no model evidence. After correcting that path, run
-`35093359984` completed successfully on the same GitHub-hosted runner class:
-
-- artifact: `v031-gate-f-memory-diagnostic-35093359984`
+- successful diagnostic run: `35093359984`
 - artifact id: `10445003190`
-- profile: one replicate, base seed `20260921`, warmup `200`, samples `250`, chains `2`
-- pinned source blob observed: `40b2adc5bf8a44a8bc9a1cfc3f99fc91b9fae949` (matches frozen expected blob)
-- train spaces: `67`; held-out east spaces: `53`
-- beta_precip posterior mean: `0.5509501427412034`
-- beta_lat posterior mean: `-0.25639462321996687`
-- full held-out log score: `-1.1757906118758865`
-- knockout held-out log score: `-1.5123634232500267`
-- diagnostic held-out gain: `0.3365728113741402`
-- full divergences: `0`; knockout divergences: `0`
-- maximum resident set size reported by `/usr/bin/time -v`: `3852368` kB
+- maximum resident set size: `3852368` kB (about 3.7 GiB)
+- replicate-0 held-out gain: `0.3365728113741402`
+- divergences: 0
 
-These numbers are **diagnostic only** and do not count toward Gate F or promotion. The
-important infrastructure conclusion is narrower: one exact-profile replicate can complete,
-while its peak memory is already about 3.7 GiB. This supports cumulative JAX/XLA process
-memory as the cause of the 20-replicate in-process failure.
+The diagnosis supported cumulative JAX/XLA memory lifetime across repeated fits in one Python
+process. The execution layer was therefore changed to run each **predeclared replicate in a
+fresh sequential Python process**, then aggregate the resulting records. No source, seed,
+seed stride, geometry, warmup count, sample count, chain count, model, truth, held-out split,
+threshold, or Gate F criterion changed.
 
-### Infrastructure-only execution fix
-
-The frozen runner now executes each of the 20 predeclared replicates in a fresh sequential
-Python process and aggregates their records afterward. The scientific profile is unchanged:
-no threshold, seed, seed stride, geometry, warmup count, sample count, chain count, source, or
-gate criterion was modified. Regular CI at implementation head
-`d50dccf3e5aec675c7a12e368add148695abdb10` passes on Python 3.10, 3.11, and 3.12; the
-Python 3.10 job reports `165 passed, 8 skipped`.
-
-The frozen full rerun is:
+### Frozen isolated rerun
 
 - workflow run: `35099678744`
 - workflow head: `52a86146a1497a2e434c9f904f6abff52b081572`
-- execution: sequential fresh Python process per replicate
-- scientific status: **UNEVALUATED until the final Gate F artifact exists**
+- artifact: `v031-gate-f-35099678744`
+- artifact id: `10449104051`
+- artifact digest: `sha256:7e0f21dbafc31ba3e03cc0f5d7725295c3c2d9aa0b47912164885f19acb20762`
+- execution strategy: `sequential_fresh_python_process_per_replicate`
+- observed source Git blob SHA1: `40b2adc5bf8a44a8bc9a1cfc3f99fc91b9fae949`
+- source SHA256: `088263312c61c875cb5cda7d826ecdb7444ca4a55f7c4a594a1de96c7cf4e705`
 
-No scientific result is inferred from partial worker completion or elapsed runtime.
+Observed summary against the frozen criteria:
+
+- replicates: `20` (criterion `== 20`)
+- mean bias, `beta_precip`: `0.00043211981058116633` (criterion `abs(bias) <= 0.15`)
+- mean bias, `beta_lat`: `-5.4800346493719124e-05` (criterion `abs(bias) <= 0.15`)
+- 90% truth coverage, `beta_precip`: `0.90` (criterion `>= 0.75`)
+- 90% truth coverage, `beta_lat`: `0.90` (criterion `>= 0.75`)
+- positive held-out gain rate: `1.00` (criterion `>= 0.80`)
+- mean held-out full-minus-knockout gain: `0.3562608092382287` per context
+  (criterion `>= 0.01`)
+- total divergences across all full/knockout fits: `0`
+- mean divergences per fit: `0.0` (criterion `<= 0.10`)
+
+All 20 held-out east-block replicates favored the full suitability model over the neutral
+knockout. All eight mechanical Gate F checks in the artifact are `passed: true`.
+
+Mechanical Gate F decision: **PASS**.
 
 ## Overall promotion status
 
-`v0.3.1 = NOT_READY`. Gates A/B/C/D/E pass; Gate F remains scientifically unevaluated until
-the frozen rerun completes and its mechanical decision is recorded. The promotion rule remains
-strict conjunction: **A AND B AND C AND D AND E AND F**.
+The frozen rule is strict conjunction: **A AND B AND C AND D AND E AND F**.
+
+- Gate A: PASS
+- Gate B: PASS
+- Gate C: PASS
+- Gate D: PASS
+- Gate E: PASS
+- Gate F: PASS
+
+Therefore **`v0.3.1 = PASS` under the frozen identification-first promotion gate**.
+
+This closes the v0.3.1 foundation only: separation of ecological intensity from observation
+process, explicit target sets, neutral-process knockout semantics, structural refusal under
+confounding, all-parameter in-model calibration, and real-geometry semi-synthetic held-out
+transfer. It does not by itself authorize state/activity/interaction/movement claims in later
+versions; those require their own frozen gates.
