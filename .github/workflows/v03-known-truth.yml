@@ -1,0 +1,51 @@
+name: v0.3 known-truth promotion benchmark
+
+on:
+  workflow_dispatch:
+    inputs:
+      replicates:
+        description: "Replicates per frozen world"
+        required: true
+        default: "100"
+      base_seed:
+        description: "Frozen base seed"
+        required: true
+        default: "20260916"
+      num_warmup:
+        description: "NUTS warmup draws per fit"
+        required: true
+        default: "250"
+      num_samples:
+        description: "Retained posterior draws per fit"
+        required: true
+        default: "300"
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install inference dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[inference]"
+      - name: Run frozen benchmark
+        run: |
+          python scripts/run_v03_known_truth.py \
+            --replicates "${{ inputs.replicates }}" \
+            --base-seed "${{ inputs.base_seed }}" \
+            --num-warmup "${{ inputs.num_warmup }}" \
+            --num-samples "${{ inputs.num_samples }}" \
+            --credible-mass 0.90 \
+            --output artifacts/v03_known_truth.json
+      - name: Upload benchmark artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v03-known-truth-${{ github.run_id }}
+          path: artifacts/v03_known_truth.json
+          if-no-files-found: error
