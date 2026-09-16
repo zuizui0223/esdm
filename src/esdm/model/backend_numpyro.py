@@ -2,7 +2,7 @@
 
 The backend translates backend-neutral prior declarations into NumPyro sample sites,
 but delegates ecological latent-field construction and observation-rate construction to
-the existing :mod:`esdm` process and stream objects.  It therefore does not maintain a
+the existing :mod:`esdm` process and stream objects. It therefore does not maintain a
 second ecological model implementation.
 """
 
@@ -10,7 +10,9 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from collections.abc import Mapping
+from types import MappingProxyType
 import importlib.util
+import random as py_random
 import sys
 
 
@@ -45,6 +47,17 @@ class NumPyroFit:
     num_chains: int
 
 
+@dataclass(frozen=True, slots=True)
+class NumPyroSBCResult:
+    ranks: Mapping[str, tuple[int, ...]]
+    posterior_draw_count: int
+    replicates: int
+    divergences_by_replicate: tuple[int, ...]
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "ranks", MappingProxyType(dict(self.ranks)))
+
+
 def _parameter_layout(model):
     """Return fully qualified sample sites and backend-neutral prior specs."""
 
@@ -69,6 +82,24 @@ def _numpyro_distribution(prior, dist):
     if name == "Normal":
         return dist.Normal(float(parameters["loc"]), float(parameters["scale"]))
     raise NotImplementedError(f"unsupported PriorSpec distribution: {name}")
+
+
+def _sample_prior_value(prior, rng: py_random.Random) -> float:
+    name = str(prior.distribution)
+    parameters = dict(prior.parameters)
+    if name == "Normal":
+        return rng.gauss(float(parameters["loc"]), float(parameters["scale"]))
+    raise NotImplementedError(f"unsupported PriorSpec distribution: {name}")
+
+
+def _sample_prior_theta(model, rng: py_random.Random):
+    theta: dict[str, dict[str, float]] = {species: {} for species in model.species}
+    truth_by_site: dict[str, float] = {}
+    for site, species, parameter, prior in _parameter_layout(model):
+        value = _sample_prior_value(prior, rng)
+        theta[species][parameter] = value
+        truth_by_site[site] = value
+    return theta, truth_by_site
 
 
 def _validate_data(model, data) -> None:
@@ -168,6 +199,66 @@ def fit_numpyro(
     )
 
 
+def run_numpyro_sbc(
+    model,
+    covariates,
+    *,
+    replicates: int,
+    rng_seed: int = 0,
+    num_warmup: int = 200,
+    num_samples: int = 200,
+    progress_bar: bool = False,
+    target_accept_prob: float = 0.8,
+) -> NumPyroSBCResult:
+    """Run prior-draw -> in-model simulate -> fit -> rank cycles.
+
+    This helper is intentionally limited to in-model SBC. Misspecified worlds belong
+    under :mod:`esdm.simulate.misspecified` and must not be interpreted as calibration
+    failures of the declared generative model.
+    """
+
+    from esdm.simulate.in_model import simulate_presence_only
+
+    n_rep = int(replicates)
+    if n_rep < 1:
+        raise ValueError("replicates must be positive")
+    layout = _parameter_layout(model)
+    rng = py_random.Random(int(rng_seed))
+    ranks: dict[str, list[int]] = {site: [] for site, *_ in layout}
+    divergences: list[int] = []
+
+    for _ in range(n_rep):
+        theta, truth_by_site = _sample_prior_theta(model, rng)
+        generated = simulate_presence_only(
+            model,
+            theta,
+            covariates,
+            seed=rng.randrange(0, 2**31 - 1),
+        )
+        fit = fit_numpyro(
+            model,
+            generated.counts,
+            covariates,
+            rng_seed=rng.randrange(0, 2**31 - 1),
+            num_warmup=num_warmup,
+            num_samples=num_samples,
+            num_chains=1,
+            progress_bar=progress_bar,
+            target_accept_prob=target_accept_prob,
+        )
+        divergences.append(fit.num_divergences)
+        for site in ranks:
+            truth = truth_by_site[site]
+            ranks[site].append(sum(float(draw) < truth for draw in fit.samples[site]))
+
+    return NumPyroSBCResult(
+        ranks={site: tuple(values) for site, values in ranks.items()},
+        posterior_draw_count=int(num_samples),
+        replicates=n_rep,
+        divergences_by_replicate=tuple(divergences),
+    )
+
+
 def _draw_count(layout, samples) -> int:
     lengths = []
     for site, _species, _parameter, _prior in layout:
@@ -184,7 +275,7 @@ def _draw_count(layout, samples) -> int:
 def posterior_record_rates(model, samples, covariates):
     """Derive record-rate draws using the existing process/stream graph.
 
-    Returns a mapping keyed by ``(stream_name, species)``.  Each value is a tuple of
+    Returns a mapping keyed by ``(stream_name, species)``. Each value is a tuple of
     posterior draws; every draw is a tuple ordered exactly like ``model.domain.keys``.
     """
 
