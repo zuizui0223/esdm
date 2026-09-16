@@ -1,0 +1,31 @@
+name: v0.3.1 frozen Gate F semi-synthetic full run
+
+on:
+  push:
+    branches:
+      - feature/v031-identification-fixes
+    paths:
+      - .github/workflows/v031-semisynthetic-full-once.yml
+
+jobs:
+  gate-f:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install inference dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[inference]"
+      - name: Run frozen Gate F real-geometry semi-synthetic benchmark
+        run: python scripts/run_v031_semisynthetic.py --output artifacts/v031_semisynthetic_gate_f.json
+      - name: Upload Gate F audit artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v031-gate-f-${{ github.run_id }}
+          path: artifacts/v031_semisynthetic_gate_f.json
+          if-no-files-found: error
