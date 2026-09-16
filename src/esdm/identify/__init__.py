@@ -7,6 +7,7 @@ from .contraction import (
     contraction_diagnostic,
     identify_from_contraction,
 )
+from .design_rank import identify_parameter_from_design
 from .sbc import SBCRankHistogram, sbc_rank_histogram
 
 __all__ = [
@@ -15,6 +16,7 @@ __all__ = [
     "IdentificationStatus",
     "contraction_diagnostic",
     "identify_from_contraction",
+    "identify_parameter_from_design",
     "SBCRankHistogram",
     "sbc_rank_histogram",
 ]
