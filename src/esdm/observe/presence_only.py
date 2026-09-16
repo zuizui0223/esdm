@@ -51,11 +51,19 @@ class PresenceOnly:
         covariates: Mapping[tuple[str, int, int], Mapping[str, object]] | None = None,
         exp_fn=math.exp,
     ):
-        """Return expected record rates using ecological and observation processes."""
+        """Return expected record rates using ecological and observation processes.
+
+        There is no Python branch on the possibly inferred effort value, so this same
+        implementation remains valid for ordinary scalars and JAX tracer values.
+        """
 
         obs_parameters = {} if theta_obs is None else theta_obs
         observation_covariates = {} if covariates is None else covariates
         rates: dict[tuple[str, int, int], object] = {}
+        if self.detection_probability == 0.0:
+            return {
+                key: 0.0 for key in fields.log_intensity[species]
+            }
         for key, log_ecological in fields.log_intensity[species].items():
             effort = self.effort.at(
                 key,
@@ -63,10 +71,11 @@ class PresenceOnly:
                 covariates=observation_covariates,
                 exp_fn=exp_fn,
             )
-            if effort == 0.0 or self.detection_probability == 0.0:
-                rates[key] = 0.0
-            else:
-                rates[key] = exp_fn(log_ecological) * effort * self.detection_probability
+            rates[key] = (
+                exp_fn(log_ecological)
+                * effort
+                * self.detection_probability
+            )
         return rates
 
     def log_lik(
