@@ -239,18 +239,24 @@ def make_numpyro_model(model, data, covariates):
                 site, _numpyro_distribution(prior, dist)
             )
 
-        fields = model.latent_fields(theta, covariates)
+        fields = model.latent_field_arrays(
+            theta,
+            covariates,
+            array_module=jnp,
+        )
         for stream in model.streams:
             stream_theta = theta_obs[stream.name]
             for species in model.stream_targets(stream):
-                rate_map = stream.expected_rates(
+                rate_array = stream.expected_rate_array(
                     species,
                     fields,
                     theta_obs=stream_theta,
                     covariates=covariates,
-                    exp_fn=jnp.exp,
+                    array_module=jnp,
                 )
-                rates = jnp.stack([jnp.asarray(rate_map[key]) for key in ordered_keys])
+                if rate_array.keys != ordered_keys:
+                    raise RuntimeError("array rate order does not match model domain")
+                rates = rate_array.values
                 counts_map = data[stream.name][species]
                 counts = jnp.asarray(
                     [int(counts_map.get(key, 0)) for key in ordered_keys],
