@@ -75,24 +75,25 @@ class Model:
         object.__setattr__(self, "streams", streams)
         for stream in streams:
             declared = getattr(stream, "targets", None)
-            if declared is not None:
-                unknown = set(declared) - set(species)
-                if unknown:
-                    raise ValueError(
-                        f"stream {stream.name!r} targets unknown species: {sorted(unknown)}"
-                    )
+            if declared is None:
+                raise ValueError(
+                    f"stream {stream.name!r} must declare targets explicitly"
+                )
+            unknown = set(declared) - set(species)
+            if unknown:
+                raise ValueError(
+                    f"stream {stream.name!r} targets unknown species: {sorted(unknown)}"
+                )
         self._check_acyclic()
 
     def stream_targets(self, stream) -> tuple[str, ...]:
-        """Resolve the species whose observations are represented by one stream.
-
-        ``targets=None`` is retained as a backwards-compatible declaration meaning all
-        model species. New multi-species models should declare targets explicitly.
-        """
+        """Resolve the explicitly declared species represented by one stream."""
 
         declared = getattr(stream, "targets", None)
         if declared is None:
-            return tuple(self.species)
+            raise ValueError(
+                f"stream {stream.name!r} must declare targets explicitly"
+            )
         return tuple(species for species in self.species if species in declared)
 
     def _check_acyclic(self) -> None:
