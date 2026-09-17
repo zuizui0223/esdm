@@ -132,6 +132,10 @@ def _worker_command(
     return command
 
 
+# Stable private contract used by tests and orchestration code.
+_build_worker_command = _worker_command
+
+
 def _read_worker_source(path: Path) -> bytes:
     payload = Path(path).read_bytes()
     observed_blob = _git_blob_sha1(payload)
