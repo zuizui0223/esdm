@@ -65,6 +65,32 @@ class V03PromotionDecision:
         object.__setattr__(self, "axes", MappingProxyType(dict(self.axes)))
 
 
+@dataclass(frozen=True, slots=True)
+class V03WorldFitResult:
+    world_name: str
+    parameter_draws: Mapping[str, tuple[float, ...]]
+    num_divergences: int
+
+    def __post_init__(self) -> None:
+        name = str(self.world_name).strip()
+        if not name:
+            raise ValueError("world_name must be non-empty")
+        draws = {
+            str(parameter): tuple(float(value) for value in values)
+            for parameter, values in self.parameter_draws.items()
+        }
+        if not draws or any(not values for values in draws.values()):
+            raise ValueError("parameter_draws must contain non-empty draw sequences")
+        if any(not math.isfinite(value) for values in draws.values() for value in values):
+            raise ValueError("parameter draws must be finite")
+        divergences = int(self.num_divergences)
+        if divergences < 0:
+            raise ValueError("num_divergences must be non-negative")
+        object.__setattr__(self, "world_name", name)
+        object.__setattr__(self, "parameter_draws", MappingProxyType(draws))
+        object.__setattr__(self, "num_divergences", divergences)
+
+
 def _mean(values: Sequence[float], label: str) -> float:
     data = tuple(float(value) for value in values)
     if not data or any(not math.isfinite(value) for value in data):
@@ -79,6 +105,55 @@ def _draws(mapping: Mapping[str, Sequence[float]], name: str, label: str) -> tup
     if not data or any(not math.isfinite(value) for value in data):
         raise ValueError(f"{label}.{name} must contain finite posterior draws")
     return data
+
+
+def fit_v03_world_numpyro(
+    world,
+    *,
+    rng_seed: int = 0,
+    num_warmup: int = 200,
+    num_samples: int = 300,
+    num_chains: int = 1,
+    progress_bar: bool = False,
+    target_accept_prob: float = 0.8,
+) -> V03WorldFitResult:
+    """Fit one declared benchmark world with the production NumPyro backend.
+
+    The benchmark layer does not reimplement the ecological likelihood. It obtains the
+    fitted graph from ``fit_inputs_for_world`` and delegates directly to ``fit_numpyro``.
+    Backend-specific sample-site names are reduced to canonical ``alpha``/``beta`` names
+    before results leave the validation layer.
+    """
+
+    from esdm.model.backend_numpyro import fit_numpyro
+    from esdm.simulate.benchmark_v03 import fit_inputs_for_world
+
+    model, data, covariates = fit_inputs_for_world(world)
+    fit = fit_numpyro(
+        model,
+        data,
+        covariates,
+        rng_seed=rng_seed,
+        num_warmup=num_warmup,
+        num_samples=num_samples,
+        num_chains=num_chains,
+        progress_bar=progress_bar,
+        target_accept_prob=target_accept_prob,
+    )
+
+    alpha_site = "species.suitability.alpha"
+    beta_site = "species.suitability.beta_observed_env"
+    if alpha_site not in fit.samples or beta_site not in fit.samples:
+        raise KeyError("benchmark fit missing canonical suitability sample sites")
+
+    return V03WorldFitResult(
+        world_name=world.name,
+        parameter_draws={
+            "alpha": tuple(float(value) for value in fit.samples[alpha_site]),
+            "beta": tuple(float(value) for value in fit.samples[beta_site]),
+        },
+        num_divergences=fit.num_divergences,
+    )
 
 
 def reduce_v03_fit_results(
