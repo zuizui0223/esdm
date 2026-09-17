@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from types import MappingProxyType
 import math
 import random
 
@@ -39,11 +38,26 @@ class GeneratedPresenceOnly:
         object.__setattr__(self, "expected_rates", dict(self.expected_rates))
 
 
-def simulate_presence_only(model, theta, covariates, *, seed: int) -> GeneratedPresenceOnly:
-    """Generate counts through the exact same `expected_rates` path used by likelihoods."""
+def simulate_presence_only(
+    model,
+    theta,
+    covariates,
+    *,
+    seed: int,
+    theta_obs=None,
+) -> GeneratedPresenceOnly:
+    """Generate counts through the exact same process/stream path used by likelihoods."""
 
     model.check_design()
     fields = model.latent_fields(theta, covariates)
+    observation_parameters = {} if theta_obs is None else dict(theta_obs)
+    known_streams = {stream.name for stream in model.streams}
+    unknown_streams = set(observation_parameters) - known_streams
+    if unknown_streams:
+        raise KeyError(
+            f"observation parameters contain unknown streams: {sorted(unknown_streams)}"
+        )
+
     rng = random.Random(int(seed))
     counts: dict[str, dict[str, dict[tuple[str, int, int], int]]] = {}
     expected: dict[str, dict[str, dict[tuple[str, int, int], float]]] = {}
@@ -51,10 +65,28 @@ def simulate_presence_only(model, theta, covariates, *, seed: int) -> GeneratedP
     for stream in model.streams:
         if not isinstance(stream, PresenceOnly):
             continue
+        stream_theta = dict(observation_parameters.get(stream.name, {}))
+        required = set(stream.priors())
+        missing = required - set(stream_theta)
+        if missing:
+            raise KeyError(
+                f"stream {stream.name!r} missing observation parameters: {sorted(missing)}"
+            )
+        unexpected = set(stream_theta) - required
+        if unexpected:
+            raise KeyError(
+                f"stream {stream.name!r} received undeclared observation parameters: "
+                f"{sorted(unexpected)}"
+            )
         counts[stream.name] = {}
         expected[stream.name] = {}
-        for species in model.species:
-            rates = stream.expected_rates(species, fields)
+        for species in model.stream_targets(stream):
+            rates = stream.expected_rates(
+                species,
+                fields,
+                theta_obs=stream_theta,
+                covariates=covariates,
+            )
             expected[stream.name][species] = dict(rates)
             counts[stream.name][species] = {
                 key: _poisson(rng, rate) for key, rate in rates.items()

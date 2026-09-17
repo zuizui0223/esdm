@@ -1,0 +1,126 @@
+{
+  "schema": "esdm.v031.frozen_results.v1",
+  "promotion_gate": "docs/validation/V031_PROMOTION_GATE.md",
+  "human_results": "docs/validation/V031_RESULTS.md",
+  "human_results_commit": "e2e570074590374af39c92f5f9b4867afa186a82",
+  "promotion_rule": "A AND B AND C AND D AND E AND F",
+  "promotion_status": "PASS",
+  "scope_note": "Methodological v0.3.1 promotion only; not empirical biological validation, universal identifiability, or causal-interaction evidence.",
+  "deterministic_gates": {
+    "A_claim_identification_separation": "PASS",
+    "B_stream_target_sets": "PASS",
+    "D_structural_identification_refusal_and_restoration": "PASS"
+  },
+  "gate_c": {
+    "status": "PASS",
+    "workflow_run_id": "35089665238",
+    "workflow_head_sha": "4f6f165bb3574249e037462b5dd621672059f8aa",
+    "artifact_id": 10443743215,
+    "artifact_name": "v031-gate-c-35089665238",
+    "artifact_digest": "sha256:79707c5997e7fac9b3247fa4814f146e4b1977363e2c507cc9b9984d5a5eb663",
+    "frozen_profile": {
+      "replicates": 100,
+      "base_seed": 20260920,
+      "num_chains": 2,
+      "num_warmup": 250,
+      "num_samples": 300,
+      "credible_mass": 0.9
+    },
+    "summary": {
+      "replicates": 100,
+      "mean_posterior": -0.004444473068341464,
+      "zero_coverage": 0.92,
+      "nonzero_rate": 0.08,
+      "total_divergences": 0
+    },
+    "checks": [
+      {"name": "knockout_replicates", "observed": 100, "criterion": "replicates == 100", "passed": true},
+      {"name": "knockout_mean", "observed": -0.004444473068341464, "criterion": "abs(mean posterior beta) <= 0.1", "passed": true},
+      {"name": "knockout_zero_coverage", "observed": 0.92, "criterion": "zero coverage in [0.82, 0.98]", "passed": true},
+      {"name": "knockout_nonzero_rate", "observed": 0.08, "criterion": "nonzero interval rate <= 0.12", "passed": true},
+      {"name": "knockout_divergences", "observed": 0.0, "criterion": "mean divergences per fit <= 0.1", "passed": true}
+    ]
+  },
+  "gate_e": {
+    "status": "PASS",
+    "workflow_run_id": "35089684927",
+    "workflow_head_sha": "3b56b92c57c679aed317de7bcd52513baf3dc0e5",
+    "artifact_id": 10443399472,
+    "artifact_name": "v031-gate-e-35089684927",
+    "artifact_digest": "sha256:98309bb96bd9980402f88fe5c277dcf32365549a606f1ee2d3f8bfa0fd746884",
+    "frozen_profile": {
+      "replicates": 100,
+      "base_seed": 20260918,
+      "num_chains": 2,
+      "num_warmup": 300,
+      "num_samples": 400,
+      "ess_thinning": true,
+      "evaluation_points": 49,
+      "alpha": 0.05,
+      "envelope_simulations": 20000,
+      "envelope_seed": 20260919
+    },
+    "summary": {
+      "critical_max_deviation": 0.14154832656452426,
+      "observed_max_deviation": 0.069801670882707,
+      "parameter_max_deviation": {
+        "sp.suitability.beta_x": 0.05059413139894264,
+        "sp.suitability.intercept": 0.069801670882707,
+        "stream.opportunistic.gamma_x": 0.06875935054475224
+      },
+      "mean_divergences_per_fit": 0.03
+    },
+    "checks": [
+      {"name": "sbc_replicates", "observed": 100, "criterion": "replicates == 100", "passed": true},
+      {"name": "sbc_num_chains", "observed": 2, "criterion": "num_chains == 2", "passed": true},
+      {"name": "sbc_all_parameter_ecdf", "observed": 0.069801670882707, "criterion": "observed familywise max ECDF deviation <= 0.14154832656452426", "passed": true},
+      {"name": "sbc_divergences", "observed": 0.03, "criterion": "mean divergences per fit <= 0.1", "passed": true}
+    ]
+  },
+  "gate_f": {
+    "status": "PASS",
+    "workflow_run_id": "35099678744",
+    "workflow_head_sha": "52a86146a1497a2e434c9f904f6abff52b081572",
+    "artifact_id": 10449104051,
+    "artifact_name": "v031-gate-f-35099678744",
+    "artifact_digest": "sha256:7e0f21dbafc31ba3e03cc0f5d7725295c3c2d9aa0b47912164885f19acb20762",
+    "execution_strategy": "sequential_fresh_python_process_per_replicate",
+    "frozen_profile": {
+      "replicates": 20,
+      "base_seed": 20260921,
+      "seed_stride": 37,
+      "num_chains": 2,
+      "num_warmup": 200,
+      "num_samples": 250,
+      "credible_mass": 0.9
+    },
+    "source_audit": {
+      "repository": "the-pudding/data",
+      "commit": "3dcb0a80c838ff9503e3957d7e004a7f4b888b0a",
+      "path": "rain/annual_precipitation.csv",
+      "expected_git_blob_sha1": "40b2adc5bf8a44a8bc9a1cfc3f99fc91b9fae949",
+      "observed_git_blob_sha1": "40b2adc5bf8a44a8bc9a1cfc3f99fc91b9fae949",
+      "sha256": "088263312c61c875cb5cda7d826ecdb7444ca4a55f7c4a594a1de96c7cf4e705"
+    },
+    "summary": {
+      "replicates": 20,
+      "beta_precip_mean_bias": 0.00043211981058116633,
+      "beta_lat_mean_bias": -0.000054800346493719124,
+      "beta_precip_coverage": 0.9,
+      "beta_lat_coverage": 0.9,
+      "positive_gain_rate": 1.0,
+      "mean_heldout_gain": 0.3562608092382287,
+      "total_divergences": 0
+    },
+    "checks": [
+      {"name": "gate_f_replicates", "observed": 20, "criterion": "replicates == 20", "passed": true},
+      {"name": "beta_precip_bias", "observed": 0.00043211981058116633, "criterion": "abs(mean bias) <= 0.15", "passed": true},
+      {"name": "beta_lat_bias", "observed": -0.000054800346493719124, "criterion": "abs(mean bias) <= 0.15", "passed": true},
+      {"name": "beta_precip_coverage", "observed": 0.9, "criterion": "coverage >= 0.75", "passed": true},
+      {"name": "beta_lat_coverage", "observed": 0.9, "criterion": "coverage >= 0.75", "passed": true},
+      {"name": "heldout_positive_gain_rate", "observed": 1.0, "criterion": "positive heldout gain rate >= 0.8", "passed": true},
+      {"name": "heldout_mean_gain", "observed": 0.3562608092382287, "criterion": "mean heldout gain per context >= 0.01", "passed": true},
+      {"name": "gate_f_divergences", "observed": 0.0, "criterion": "mean divergences per fit <= 0.1", "passed": true}
+    ]
+  }
+}

@@ -5,7 +5,7 @@ claim-governance imports now live under ``esdm.claims``.
 """
 
 from .base import NoEffectProcess, PriorSpec, Process
-from .suitability import LinearSuitability
+from .suitability import LinearSuitability, NeutralSuitability
 from .support import (
     ProcessRefinement,
     ProcessSupportSet,
@@ -18,6 +18,7 @@ __all__ = [
     "PriorSpec",
     "Process",
     "LinearSuitability",
+    "NeutralSuitability",
     "ProcessRefinement",
     "ProcessSupportSet",
     "SeparatorEvidence",

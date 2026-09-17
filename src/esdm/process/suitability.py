@@ -7,7 +7,32 @@ from types import MappingProxyType
 from collections.abc import Mapping
 
 from esdm.domain import Context
-from .base import NoEffectProcess, PriorSpec
+from .base import PriorSpec
+
+
+@dataclass(frozen=True, slots=True)
+class NeutralSuitability:
+    """Suitability knockout that preserves baseline intensity but removes gradients."""
+
+    intercept_parameter: str
+    name: str = "suitability"
+    output_channel: str = "log_intensity"
+    requires: frozenset[str] = frozenset()
+    latent_species_dependencies: frozenset[str] = frozenset()
+    knockout_semantics: str = "preserve_baseline_neutralize_environmental_slopes"
+
+    def priors(self) -> dict[str, PriorSpec]:
+        return {
+            self.intercept_parameter: PriorSpec(
+                "Normal", {"loc": 0.0, "scale": 2.0}
+            )
+        }
+
+    def log_intensity(self, ctx: Context, theta, covariates, latent_fields=None):
+        return theta[self.intercept_parameter]
+
+    def knockout(self) -> "NeutralSuitability":
+        return self
 
 
 @dataclass(frozen=True, slots=True)
@@ -18,7 +43,7 @@ class LinearSuitability:
     name: str = "suitability"
     output_channel: str = "log_intensity"
     latent_species_dependencies: frozenset[str] = frozenset()
-    knockout_semantics: str = "no_effect_log_contribution_zero"
+    knockout_semantics: str = "preserve_baseline_neutralize_environmental_slopes"
 
     def __post_init__(self) -> None:
         covariates = tuple(str(value).strip() for value in self.covariates)
@@ -59,5 +84,5 @@ class LinearSuitability:
             value = value + theta[self.coefficient_parameters[covariate]] * covariates[covariate]
         return value
 
-    def knockout(self) -> NoEffectProcess:
-        return NoEffectProcess(name=self.name)
+    def knockout(self) -> NeutralSuitability:
+        return NeutralSuitability(intercept_parameter=self.intercept_parameter)

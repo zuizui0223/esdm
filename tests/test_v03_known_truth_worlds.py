@@ -1,7 +1,12 @@
-import math
+"""Historical v0.3 benchmark-shape checks.
+
+The v0.3 promotion interpretation is retired in v0.3.1. These tests keep the historical
+world declarations inspectable but do not treat the old knockout or misspecification
+worlds as current promotion evidence.
+"""
 
 
-def test_v03_known_truth_suite_has_four_generic_worlds():
+def test_v03_known_truth_suite_remains_inspectable_as_historical_four_world_universe():
     from esdm.validate.known_truth import make_v03_known_truth_worlds
 
     worlds = {world.name: world for world in make_v03_known_truth_worlds()}
@@ -11,56 +16,24 @@ def test_v03_known_truth_suite_has_four_generic_worlds():
         "hidden_driver",
         "suitability_knockout",
     )
-
     for world in worlds.values():
-        world.generating_model.check_design()
-        world.fitting_model.check_design()
         assert world.target_parameter.startswith("sp.suitability.")
         assert world.generating_model.domain.keys == world.fitting_model.domain.keys
 
 
-def test_wrong_effort_world_changes_observation_geometry_not_ecological_truth():
+def test_v03_wrong_effort_and_hidden_driver_are_recorded_as_misspecified_worlds():
     from esdm.validate.known_truth import make_v03_known_truth_worlds
 
     worlds = {world.name: world for world in make_v03_known_truth_worlds()}
-    world = worlds["wrong_effort_geometry"]
-
-    generating_stream = world.generating_model.streams[0]
-    fitting_stream = world.fitting_model.streams[0]
-    true_effort = tuple(generating_stream.effort.at(key) for key in world.generating_model.domain.keys)
-    fit_effort = tuple(fitting_stream.effort.at(key) for key in world.fitting_model.domain.keys)
-
-    assert true_effort != fit_effort
-    assert len(set(fit_effort)) == 1
-    assert world.truth[world.target_parameter] == 0.6
-    assert world.expected_apparent_value > world.truth[world.target_parameter]
+    assert worlds["wrong_effort_geometry"].world_class == "misspecified"
+    assert worlds["hidden_driver"].world_class == "misspecified"
 
 
-def test_hidden_driver_world_omits_one_generating_covariate_from_fit():
+def test_v03_knockout_world_is_historical_not_current_knockout_contract():
     from esdm.validate.known_truth import make_v03_known_truth_worlds
 
-    worlds = {world.name: world for world in make_v03_known_truth_worlds()}
-    world = worlds["hidden_driver"]
-    generating_process = world.generating_model.species["sp"][0]
-    fitting_process = world.fitting_model.species["sp"][0]
-
-    assert generating_process.requires == frozenset({"x", "hidden"})
-    assert fitting_process.requires == frozenset({"x"})
-    assert world.expected_apparent_value > world.truth[world.target_parameter]
-
-
-def test_suitability_knockout_generates_no_environmental_gradient():
-    from esdm.process import NoEffectProcess
-    from esdm.validate.known_truth import make_v03_known_truth_worlds
-
-    worlds = {world.name: world for world in make_v03_known_truth_worlds()}
-    world = worlds["suitability_knockout"]
-
-    assert isinstance(world.generating_model.species["sp"][0], NoEffectProcess)
+    world = {world.name: world for world in make_v03_known_truth_worlds()}[
+        "suitability_knockout"
+    ]
+    assert world.world_class == "knockout"
     assert world.truth[world.target_parameter] == 0.0
-    fields = world.generating_model.latent_fields(
-        world.generating_theta,
-        world.generating_covariates,
-    )
-    values = tuple(fields.log_intensity["sp"].values())
-    assert all(math.isclose(value, 0.0, abs_tol=1e-12) for value in values)

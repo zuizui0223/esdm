@@ -5,6 +5,7 @@ from .compose import (
     DesignReport,
     DesignUninformedError,
     LatentFields,
+    MissingTargetDataError,
     Model,
 )
 
@@ -13,5 +14,6 @@ __all__ = [
     "DesignReport",
     "DesignUninformedError",
     "LatentFields",
+    "MissingTargetDataError",
     "Model",
 ]
