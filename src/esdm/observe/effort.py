@@ -44,6 +44,16 @@ class EffortField:
     ) -> float:
         return float(self.values.get(key, 0.0))
 
+    def array(
+        self,
+        keys,
+        *,
+        theta=None,
+        covariates=None,
+        array_module,
+    ):
+        return array_module.asarray([self.values.get(key, 0.0) for key in keys])
+
 
 @dataclass(frozen=True, slots=True)
 class LogLinearEffort:
@@ -99,4 +109,30 @@ class LogLinearEffort:
             )
         return self.baseline * exp_fn(
             theta[self.coefficient_parameter] * covariates[key][self.covariate]
+        )
+
+    def array(
+        self,
+        keys,
+        *,
+        theta,
+        covariates,
+        array_module,
+    ):
+        if self.coefficient_parameter not in theta:
+            raise KeyError(
+                f"missing observation-effort parameter {self.coefficient_parameter!r}"
+            )
+        missing = [
+            key
+            for key in keys
+            if key not in covariates or self.covariate not in covariates[key]
+        ]
+        if missing:
+            raise KeyError(
+                f"missing observation-effort covariate {self.covariate!r} for {missing[0]!r}"
+            )
+        x = array_module.asarray([covariates[key][self.covariate] for key in keys])
+        return self.baseline * array_module.exp(
+            theta[self.coefficient_parameter] * x
         )

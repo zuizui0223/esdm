@@ -31,6 +31,18 @@ class NeutralSuitability:
     def log_intensity(self, ctx: Context, theta, covariates, latent_fields=None):
         return theta[self.intercept_parameter]
 
+    def log_intensity_array(
+        self,
+        keys,
+        theta,
+        covariates,
+        *,
+        array_module,
+        latent_fields=None,
+    ):
+        baseline = array_module.asarray(theta[self.intercept_parameter])
+        return array_module.broadcast_to(baseline, (len(keys),))
+
     def knockout(self) -> "NeutralSuitability":
         return self
 
@@ -82,6 +94,27 @@ class LinearSuitability:
         value = theta[self.intercept_parameter]
         for covariate in self.covariates:
             value = value + theta[self.coefficient_parameters[covariate]] * covariates[covariate]
+        return value
+
+    def log_intensity_array(
+        self,
+        keys,
+        theta,
+        covariates,
+        *,
+        array_module,
+        latent_fields=None,
+    ):
+        baseline = array_module.asarray(theta[self.intercept_parameter])
+        value = array_module.broadcast_to(baseline, (len(keys),))
+        for covariate in self.covariates:
+            if covariate not in covariates:
+                raise KeyError(f"missing suitability covariate array {covariate!r}")
+            value = (
+                value
+                + theta[self.coefficient_parameters[covariate]]
+                * covariates[covariate]
+            )
         return value
 
     def knockout(self) -> NeutralSuitability:
