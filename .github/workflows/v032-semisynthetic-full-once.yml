@@ -7,6 +7,9 @@ on:
     paths:
       - .github/workflows/v032-semisynthetic-full-once.yml
       - scripts/run_v032_semisynthetic.py
+      - src/esdm/model/backend_numpyro.py
+      - src/esdm/observe/effort.py
+      - src/esdm/observe/presence_only.py
 
 jobs:
   gate-f-prime:
@@ -51,7 +54,8 @@ jobs:
             tests/test_v032_semisynthetic_fixture.py \
             tests/test_v032_semisynthetic_gate.py \
             tests/test_v032_identification_profiles.py \
-            tests/test_v032_semisynthetic_script.py
+            tests/test_v032_semisynthetic_script.py \
+            tests/test_v032_partial_effort_numpyro.py
       - name: Run frozen Gate F-prime separation benchmark
         run: |
           python scripts/run_v032_semisynthetic.py \
