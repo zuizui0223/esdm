@@ -35,6 +35,11 @@ def _fixture():
     return model, covariates, theta, theta_obs
 
 
+def test_model_exposes_array_first_latent_field_api():
+    model, _covariates, _theta, _theta_obs = _fixture()
+    assert callable(model.latent_field_arrays)
+
+
 @pytest.mark.skipif(not JAX_AVAILABLE, reason="JAX optional backend not installed")
 def test_array_latent_fields_and_rates_match_mapping_path():
     import jax.numpy as jnp
