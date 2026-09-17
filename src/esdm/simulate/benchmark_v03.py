@@ -98,6 +98,21 @@ def _world_from_model(*, name, kind, model, theta, covariates, seed, fit_effort,
     )
 
 
+def fit_inputs_for_world(world: V03BenchmarkWorld):
+    """Build the deliberately declared fitted graph for a benchmark world.
+
+    Even knockout truth is fit with the ordinary suitability process so recovery of a
+    zero effect is an inferential result rather than a structural deletion. Misspecified
+    worlds use only the covariates and effort explicitly exposed by the world.
+    """
+
+    grid, keys, _observed, _effort = _geometry()
+    covariate_names = tuple(world.fit_covariates)
+    model = _model(grid, world.fit_effort, covariate_names)
+    covariates = _covariate_map(keys, **world.fit_covariates)
+    return model, world.counts, covariates
+
+
 def make_correct_effort_world(*, seed: int = 0) -> V03BenchmarkWorld:
     grid, keys, observed, effort = _geometry()
     model = _model(grid, effort, ("observed_env",))
