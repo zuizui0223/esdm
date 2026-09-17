@@ -216,7 +216,12 @@ def _validate_data(model, data) -> None:
 
 
 def make_numpyro_model(model, data, covariates):
-    """Build a NumPyro callable around the existing generative graph."""
+    """Build a NumPyro callable around the existing generative graph.
+
+    Statically known zero-exposure cells are omitted from the Poisson observation vector.
+    They represent no observation opportunity, not a rate-zero likelihood constraint at a
+    non-differentiable boundary. Positive counts in such cells fail closed.
+    """
 
     jnp, _random, numpyro, dist, _MCMC, _NUTS = _imports()
     model.check_design()
@@ -224,6 +229,36 @@ def make_numpyro_model(model, data, covariates):
     observation_layout = _observation_parameter_layout(model)
     _validate_data(model, data)
     ordered_keys = tuple(model.domain.keys)
+
+    active_indices: dict[tuple[str, str], tuple[int, ...]] = {}
+    active_counts: dict[tuple[str, str], tuple[int, ...]] = {}
+    for stream in model.streams:
+        mask = tuple(stream.structural_exposure_mask(ordered_keys))
+        if len(mask) != len(ordered_keys):
+            raise ValueError(
+                f"stream {stream.name!r} structural exposure mask has wrong length"
+            )
+        for species in model.stream_targets(stream):
+            counts_map = data[stream.name][species]
+            impossible = [
+                key
+                for key, exposed in zip(ordered_keys, mask, strict=True)
+                if not exposed and int(counts_map.get(key, 0)) > 0
+            ]
+            if impossible:
+                raise ValueError(
+                    f"positive count in zero-exposure context for {stream.name}:{species}: "
+                    f"{impossible[0]!r}"
+                )
+            indices = tuple(index for index, exposed in enumerate(mask) if exposed)
+            if not indices:
+                raise ValueError(
+                    f"stream {stream.name!r} has no structurally exposed contexts"
+                )
+            active_indices[(stream.name, species)] = indices
+            active_counts[(stream.name, species)] = tuple(
+                int(counts_map.get(ordered_keys[index], 0)) for index in indices
+            )
 
     def program():
         theta: dict[str, dict[str, object]] = {species: {} for species in model.species}
@@ -256,10 +291,11 @@ def make_numpyro_model(model, data, covariates):
                 )
                 if rate_array.keys != ordered_keys:
                     raise RuntimeError("array rate order does not match model domain")
-                rates = rate_array.values
-                counts_map = data[stream.name][species]
+                indices = active_indices[(stream.name, species)]
+                index_array = jnp.asarray(indices, dtype=jnp.int32)
+                rates = rate_array.values[index_array]
                 counts = jnp.asarray(
-                    [int(counts_map.get(key, 0)) for key in ordered_keys],
+                    active_counts[(stream.name, species)],
                     dtype=jnp.int32,
                 )
                 numpyro.sample(
