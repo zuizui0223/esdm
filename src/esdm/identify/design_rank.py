@@ -213,7 +213,12 @@ def design_jacobian_diagnostic(
     rtol: float = 1e-8,
     atol: float = 1e-10,
 ) -> DesignJacobianDiagnostic:
-    """Compute an exact local log-rate Jacobian with ``jax.jacfwd``."""
+    """Compute an exact local log-rate Jacobian with ``jax.jacfwd``.
+
+    Contexts with exactly zero nominal exposure are excluded from the diagnostic because
+    they cannot generate records and therefore contain no local identification
+    information. Negative or non-finite rates remain errors.
+    """
 
     if not _jax_available():
         raise RuntimeError("JAX is required for exact structural-identification diagnostics")
@@ -228,8 +233,6 @@ def design_jacobian_diagnostic(
     import jax
     import jax.numpy as jnp
 
-    # Exact-rank diagnostics are numerically fragile in float32. Use x64 locally for
-    # the diagnostic path; this does not make JAX a base-package dependency.
     jax.config.update("jax_enable_x64", True)
 
     obs_template = {} if theta_obs is None else _copy_nested(theta_obs)
@@ -271,11 +274,19 @@ def design_jacobian_diagnostic(
         return vectors[0] if len(vectors) == 1 else jnp.concatenate(vectors, axis=0)
 
     nominal_rates_array = rate_vector(nominal)
-    expected_rates = tuple(float(value) for value in nominal_rates_array)
-    if any((not math.isfinite(value) or value <= 0.0) for value in expected_rates):
-        raise ValueError("structural identification requires finite positive expected rates")
+    nominal_rates = tuple(float(value) for value in nominal_rates_array)
+    if any((not math.isfinite(value) or value < 0.0) for value in nominal_rates):
+        raise ValueError("structural identification requires finite non-negative expected rates")
+    active_indices = tuple(index for index, value in enumerate(nominal_rates) if value > 0.0)
+    if not active_indices:
+        raise ValueError("structural identification requires at least one positive-exposure observation")
+    active_index_array = jnp.asarray(active_indices, dtype=jnp.int32)
 
-    jacobian_array = jax.jacfwd(lambda vector: jnp.log(rate_vector(vector)))(nominal)
+    def active_rate_vector(vector):
+        return rate_vector(vector)[active_index_array]
+
+    expected_rates = tuple(nominal_rates[index] for index in active_indices)
+    jacobian_array = jax.jacfwd(lambda vector: jnp.log(active_rate_vector(vector)))(nominal)
     jacobian = tuple(tuple(float(value) for value in row) for row in jacobian_array)
     target_index = site_names.index(target_name)
     target_max = max(abs(row[target_index]) for row in jacobian) if jacobian else 0.0
