@@ -54,6 +54,15 @@ class EffortField:
     ):
         return array_module.asarray([self.values.get(key, 0.0) for key in keys])
 
+    def structural_exposure_mask(self, keys) -> tuple[bool, ...]:
+        """Return contexts that can structurally generate records.
+
+        Known zero effort is an absent observation opportunity, not a Poisson constraint
+        at the boundary rate zero.
+        """
+
+        return tuple(float(self.values.get(key, 0.0)) > 0.0 for key in keys)
+
 
 @dataclass(frozen=True, slots=True)
 class LogLinearEffort:
@@ -136,3 +145,8 @@ class LogLinearEffort:
         return self.baseline * array_module.exp(
             theta[self.coefficient_parameter] * x
         )
+
+    def structural_exposure_mask(self, keys) -> tuple[bool, ...]:
+        """Log-linear effort is strictly positive for every finite parameter value."""
+
+        return tuple(True for _ in keys)
