@@ -25,11 +25,11 @@ class PresenceOnly:
             raise ValueError("detection_probability must be in [0, 1]")
         if not hasattr(self.effort, "at") or not hasattr(self.effort, "priors"):
             raise TypeError("effort must provide at(...) and priors()")
-        targets = None
-        if self.targets is not None:
-            targets = frozenset(str(value).strip() for value in self.targets)
-            if not targets or any(not value for value in targets):
-                raise ValueError("targets must be a non-empty set of species names when declared")
+        if self.targets is None:
+            raise ValueError("targets must be declared explicitly")
+        targets = frozenset(str(value).strip() for value in self.targets)
+        if not targets or any(not value for value in targets):
+            raise ValueError("targets must be a non-empty set of species names")
         object.__setattr__(self, "name", name)
         object.__setattr__(self, "detection_probability", p)
         object.__setattr__(self, "informs", frozenset(str(x) for x in self.informs))
