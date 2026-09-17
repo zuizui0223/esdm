@@ -42,6 +42,25 @@ class PresenceOnly:
     def priors(self):
         return dict(self.effort.priors())
 
+    def structural_exposure_mask(self, keys) -> tuple[bool, ...]:
+        """Return statically known observation opportunities in ``keys`` order.
+
+        The mask is deliberately parameter-independent. Unknown effort models without a
+        mask are conservatively treated as exposed everywhere; known-effort models can
+        mark exact zero-effort contexts as absent observations.
+        """
+
+        keys = tuple(keys)
+        if self.detection_probability == 0.0:
+            return tuple(False for _ in keys)
+        mask_fn = getattr(self.effort, "structural_exposure_mask", None)
+        if mask_fn is None:
+            return tuple(True for _ in keys)
+        mask = tuple(bool(value) for value in mask_fn(keys))
+        if len(mask) != len(keys):
+            raise ValueError("effort structural exposure mask must match context count")
+        return mask
+
     def expected_rates(
         self,
         species: str,
