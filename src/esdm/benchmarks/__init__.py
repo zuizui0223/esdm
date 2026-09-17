@@ -8,6 +8,7 @@ from .network_worlds import (
     transfer_null_network_world,
     transfer_positive_network_world,
 )
+from .v032_array_trace import array_trace_equation_count
 from .worlds import (
     BinaryInteractionWorld,
     directed_biotic_coupling_world,
@@ -28,4 +29,5 @@ __all__ = [
     "taxon_turnover_network_world",
     "transfer_null_network_world",
     "transfer_positive_network_world",
+    "array_trace_equation_count",
 ]
