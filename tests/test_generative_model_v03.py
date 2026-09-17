@@ -15,7 +15,12 @@ def build_model(*, informs=frozenset({"suitability"})):
         coefficient_parameters={"temp": "beta_temp"},
     )
     effort = EffortField({("s1", 1, 0): 1.0, ("s2", 1, 0): 2.0})
-    stream = PresenceOnly("records", effort=effort, informs=informs)
+    stream = PresenceOnly(
+        "records",
+        effort=effort,
+        informs=informs,
+        targets=frozenset({"sp"}),
+    )
     return Model(
         domain=grid,
         species={"sp": (process,)},
