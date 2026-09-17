@@ -7,7 +7,15 @@ from .contraction import (
     contraction_diagnostic,
     identify_from_contraction,
 )
-from .design_rank import identify_parameter_from_design
+from .design_rank import (
+    DesignJacobianDiagnostic,
+    design_jacobian_diagnostic,
+    identify_parameter_from_design,
+)
+from .practical import (
+    PracticalIdentificationDiagnostic,
+    diagnose_practical_identification,
+)
 from .sbc import (
     ESSThinnedDraws,
     SBCRankHistogram,
@@ -23,7 +31,11 @@ __all__ = [
     "IdentificationStatus",
     "contraction_diagnostic",
     "identify_from_contraction",
+    "DesignJacobianDiagnostic",
+    "design_jacobian_diagnostic",
     "identify_parameter_from_design",
+    "PracticalIdentificationDiagnostic",
+    "diagnose_practical_identification",
     "ESSThinnedDraws",
     "SBCRankHistogram",
     "SBCSimultaneousECDFResult",
