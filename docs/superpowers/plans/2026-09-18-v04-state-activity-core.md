@@ -1520,7 +1520,7 @@ Every approved design requirement maps to a task:
 
 ### Placeholder scan
 
-The plan contains no `TBD`, `TODO`, `FIXME`, or unspecified “write tests for this” steps. Every task has explicit interfaces, test intent, commands, and commit boundary.
+The plan contains no unresolved placeholder markers or unspecified “write tests for this” steps. Every task has explicit interfaces, test intent, commands, and commit boundary.
 
 ### Type and naming consistency
 
