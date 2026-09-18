@@ -163,7 +163,11 @@ The first supported channel algebras are:
 
 - `log_intensity`: additive real predictor;
 - `activity`: additive logit predictor;
-- `state:<axis>`: additive reference-coded logit vector.
+- `state`: additive reference-coded logit vector.
+
+Because v0.4 supports exactly one categorical state axis per species, the semantic
+channel is the single name `state`. Multiple named state axes are intentionally deferred
+rather than encoded prematurely into the channel string.
 
 `LinearSuitability` is adapted to the generic contribution API without changing its
 numerical semantics.
