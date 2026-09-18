@@ -6,6 +6,7 @@ claim-governance imports now live under esdm.claims.
 
 from .activity import LinearActivity, NeutralActivity
 from .base import NoEffectProcess, PriorSpec, Process, ProcessContribution
+from .state import LinearState, NeutralState
 from .suitability import LinearSuitability, NeutralSuitability
 from .support import (
     ProcessRefinement,
@@ -23,6 +24,8 @@ __all__ = [
     "NeutralSuitability",
     "LinearActivity",
     "NeutralActivity",
+    "LinearState",
+    "NeutralState",
     "ProcessRefinement",
     "ProcessSupportSet",
     "SeparatorEvidence",
