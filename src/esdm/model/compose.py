@@ -2,12 +2,14 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from types import MappingProxyType
 from collections.abc import Mapping
+import math
 
 from esdm.domain import Grid
-from .arrays import ContextArray, LatentFieldArrays
+from esdm.process.base import ProcessContribution
+from .arrays import ContextArray, ContextStateArray, LatentFieldArrays
 
 
 class DesignUninformedError(ValueError):
@@ -30,18 +32,152 @@ class DesignReport:
     informed_processes: tuple[tuple[str, str], ...]
 
 
+def _freeze_context_fields(values):
+    return MappingProxyType(
+        {
+            str(species): MappingProxyType(dict(context_values))
+            for species, context_values in values.items()
+        }
+    )
+
+
+def _freeze_state_fields(values):
+    return MappingProxyType(
+        {
+            str(species): MappingProxyType(
+                {
+                    key: tuple(state_values)
+                    for key, state_values in context_values.items()
+                }
+            )
+            for species, context_values in values.items()
+        }
+    )
+
+
+def _sigmoid(value) -> float:
+    numeric = float(value)
+    if numeric >= 0.0:
+        z = math.exp(-numeric)
+        return 1.0 / (1.0 + z)
+    z = math.exp(numeric)
+    return z / (1.0 + z)
+
+
+def _softmax(values) -> tuple[float, ...]:
+    numeric = tuple(float(value) for value in values)
+    if not numeric:
+        raise ValueError("state logits must contain at least one state")
+    maximum = max(numeric)
+    weights = tuple(math.exp(value - maximum) for value in numeric)
+    total = math.fsum(weights)
+    if not math.isfinite(total) or total <= 0.0:
+        raise ValueError("state softmax normalization must be finite and positive")
+    return tuple(weight / total for weight in weights)
+
+
+def _scalar_process_contribution(process, ctx, theta, covariates):
+    generic = getattr(process, "contribution", None)
+    if generic is not None:
+        contribution = generic(
+            ctx, theta, covariates, latent_fields=None
+        )
+    elif (
+        getattr(process, "output_channel", None) == "log_intensity"
+        and hasattr(process, "log_intensity")
+    ):
+        contribution = ProcessContribution(
+            "log_intensity",
+            process.log_intensity(
+                ctx, theta, covariates, latent_fields=None
+            ),
+        )
+    else:
+        raise TypeError(
+            f"process {process.name!r} does not support scalar contribution evaluation"
+        )
+    if contribution.channel != process.output_channel:
+        raise ValueError("process contribution channel does not match output_channel")
+    return contribution
+
+
+def _array_process_contribution(
+    process, keys, theta, covariates, *, array_module
+):
+    generic = getattr(process, "contribution_array", None)
+    if generic is not None:
+        contribution = generic(
+            keys,
+            theta,
+            covariates,
+            array_module=array_module,
+            latent_fields=None,
+        )
+    elif (
+        getattr(process, "output_channel", None) == "log_intensity"
+        and hasattr(process, "log_intensity_array")
+    ):
+        contribution = ProcessContribution(
+            "log_intensity",
+            process.log_intensity_array(
+                keys,
+                theta,
+                covariates,
+                array_module=array_module,
+                latent_fields=None,
+            ),
+        )
+    else:
+        raise TypeError(
+            f"process {process.name!r} does not support array contribution evaluation"
+        )
+    if contribution.channel != process.output_channel:
+        raise ValueError("process contribution channel does not match output_channel")
+    return contribution
+
+
 @dataclass(frozen=True, slots=True)
 class LatentFields:
     log_intensity: Mapping[str, Mapping[tuple[str, int, int], object]]
+    activity_logit: Mapping[str, Mapping[tuple[str, int, int], object]] = field(
+        default_factory=dict
+    )
+    activity: Mapping[str, Mapping[tuple[str, int, int], object]] = field(
+        default_factory=dict
+    )
+    state_logits: Mapping[
+        str, Mapping[tuple[str, int, int], tuple[object, ...]]
+    ] = field(default_factory=dict)
+    state_probabilities: Mapping[
+        str, Mapping[tuple[str, int, int], tuple[object, ...]]
+    ] = field(default_factory=dict)
+    state_labels: Mapping[str, tuple[str, ...]] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         object.__setattr__(
+            self, "log_intensity", _freeze_context_fields(self.log_intensity)
+        )
+        object.__setattr__(
+            self, "activity_logit", _freeze_context_fields(self.activity_logit)
+        )
+        object.__setattr__(
+            self, "activity", _freeze_context_fields(self.activity)
+        )
+        object.__setattr__(
+            self, "state_logits", _freeze_state_fields(self.state_logits)
+        )
+        object.__setattr__(
             self,
-            "log_intensity",
+            "state_probabilities",
+            _freeze_state_fields(self.state_probabilities),
+        )
+        object.__setattr__(
+            self,
+            "state_labels",
             MappingProxyType(
                 {
-                    species: MappingProxyType(dict(values))
-                    for species, values in self.log_intensity.items()
+                    str(species): tuple(str(label) for label in labels)
+                    for species, labels in self.state_labels.items()
                 }
             ),
         )
@@ -66,6 +202,15 @@ class Model:
             process_names = [str(process.name) for process in processes]
             if len(set(process_names)) != len(process_names):
                 raise ValueError(f"species {name!r} has duplicate process names")
+            seen_parameters: set[str] = set()
+            for process in processes:
+                for parameter in getattr(process, "priors", lambda: {})():
+                    parameter_name = str(parameter)
+                    if parameter_name in seen_parameters:
+                        raise ValueError(
+                            f"species {name!r} has duplicate parameter name {parameter_name!r}"
+                        )
+                    seen_parameters.add(parameter_name)
         streams = tuple(self.streams)
         if not streams:
             raise ValueError("at least one observation stream is required")
@@ -149,24 +294,106 @@ class Model:
         missing_contexts = set(self.domain.keys) - set(covariates)
         if missing_contexts:
             raise ValueError("covariates are missing domain contexts")
-        fields: dict[str, dict[tuple[str, int, int], object]] = {}
+
+        log_fields = {}
+        activity_logits = {}
+        activities = {}
+        state_logits = {}
+        state_probabilities = {}
+        state_labels = {}
+
         for species, processes in self.species.items():
             if species not in theta:
                 raise KeyError(f"missing parameter block for species {species!r}")
-            block: dict[tuple[str, int, int], object] = {}
+            log_block = {}
+            activity_logit_block = {}
+            activity_block = {}
+            state_logit_block = {}
+            state_probability_block = {}
+            species_state_labels = None
+
             for ctx in self.domain.contexts():
                 context_covariates = covariates[ctx.key]
-                total: object = 0.0
+                log_total = 0.0
+                activity_total = 0.0
+                has_activity = False
+                state_total = None
+                context_state_labels = None
+
                 for process in processes:
-                    total = total + process.log_intensity(
-                        ctx,
-                        theta[species],
-                        context_covariates,
-                        latent_fields=None,
+                    contribution = _scalar_process_contribution(
+                        process, ctx, theta[species], context_covariates
                     )
-                block[ctx.key] = total
-            fields[species] = block
-        return LatentFields(fields)
+                    if contribution.channel == "log_intensity":
+                        if contribution.labels:
+                            raise ValueError(
+                                "log-intensity contributions cannot declare labels"
+                            )
+                        log_total = log_total + contribution.values
+                    elif contribution.channel == "activity":
+                        if contribution.labels:
+                            raise ValueError(
+                                "activity contributions cannot declare labels"
+                            )
+                        activity_total = activity_total + contribution.values
+                        has_activity = True
+                    elif contribution.channel == "state":
+                        labels = tuple(contribution.labels)
+                        values = tuple(contribution.values)
+                        if not labels or len(labels) != len(values):
+                            raise ValueError(
+                                "state contribution labels must match state values"
+                            )
+                        if context_state_labels is None:
+                            context_state_labels = labels
+                            state_total = [0.0 for _ in labels]
+                        elif labels != context_state_labels:
+                            raise ValueError(
+                                "state contribution labels must agree within species"
+                            )
+                        for index, value in enumerate(values):
+                            state_total[index] = state_total[index] + value
+                    else:
+                        raise ValueError(
+                            f"unsupported latent output channel {contribution.channel!r}"
+                        )
+
+                log_block[ctx.key] = log_total
+                if has_activity:
+                    activity_logit_block[ctx.key] = activity_total
+                    activity_block[ctx.key] = _sigmoid(activity_total)
+                else:
+                    activity_block[ctx.key] = 1.0
+
+                if state_total is not None:
+                    labels = context_state_labels
+                    if species_state_labels is None:
+                        species_state_labels = labels
+                    elif labels != species_state_labels:
+                        raise ValueError(
+                            "state contribution labels must agree within species"
+                        )
+                    logits = tuple(state_total)
+                    state_logit_block[ctx.key] = logits
+                    state_probability_block[ctx.key] = _softmax(logits)
+
+            log_fields[species] = log_block
+            activities[species] = activity_block
+            if activity_logit_block:
+                activity_logits[species] = activity_logit_block
+            if species_state_labels is not None:
+                state_labels[species] = species_state_labels
+                state_logits[species] = state_logit_block
+                state_probabilities[species] = state_probability_block
+
+        return LatentFields(
+            log_intensity=log_fields,
+            activity_logit=activity_logits,
+            activity=activities,
+            state_logits=state_logits,
+            state_probabilities=state_probabilities,
+            state_labels=state_labels,
+        )
 
     def latent_field_arrays(
         self,
@@ -175,12 +402,7 @@ class Model:
         *,
         array_module,
     ) -> LatentFieldArrays:
-        """Construct latent fields with all contexts on one array axis.
-
-        Python is used only to pack fixed design covariates into arrays. Parameter-
-        dependent arithmetic is vectorized so JAX traces one operation per process
-        term rather than one operation per context.
-        """
+        """Construct latent channels with all contexts on one array axis."""
 
         keys = tuple(self.domain.keys)
         missing_contexts = set(keys) - set(covariates)
@@ -190,36 +412,116 @@ class Model:
         required_covariates: set[str] = set()
         for processes in self.species.values():
             for process in processes:
-                required_covariates.update(getattr(process, "requires", frozenset()))
-        covariate_arrays: dict[str, object] = {}
+                required_covariates.update(
+                    getattr(process, "requires", frozenset())
+                )
+        covariate_arrays = {}
         for name in sorted(required_covariates):
             missing = [key for key in keys if name not in covariates[key]]
             if missing:
-                raise KeyError(f"missing ecological covariate {name!r} for {missing[0]!r}")
+                raise KeyError(
+                    f"missing ecological covariate {name!r} for {missing[0]!r}"
+                )
             covariate_arrays[name] = array_module.asarray(
                 [covariates[key][name] for key in keys]
             )
 
-        fields: dict[str, ContextArray] = {}
+        log_fields = {}
+        activity_logits = {}
+        activities = {}
+        state_logits = {}
+        state_probabilities = {}
+
         for species, processes in self.species.items():
             if species not in theta:
                 raise KeyError(f"missing parameter block for species {species!r}")
-            total = array_module.zeros((len(keys),))
+            log_total = array_module.zeros((len(keys),))
+            activity_total = array_module.zeros((len(keys),))
+            has_activity = False
+            state_total = None
+            state_labels = None
+
             for process in processes:
-                vectorized = getattr(process, "log_intensity_array", None)
-                if vectorized is None:
-                    raise TypeError(
-                        f"process {species}:{process.name} does not support array evaluation"
-                    )
-                total = total + vectorized(
+                contribution = _array_process_contribution(
+                    process,
                     keys,
                     theta[species],
                     covariate_arrays,
                     array_module=array_module,
-                    latent_fields=None,
                 )
-            fields[species] = ContextArray(keys, total)
-        return LatentFieldArrays(fields)
+                if contribution.channel == "log_intensity":
+                    if contribution.labels:
+                        raise ValueError(
+                            "log-intensity contributions cannot declare labels"
+                        )
+                    log_total = log_total + ContextArray(
+                        keys, contribution.values
+                    ).values
+                elif contribution.channel == "activity":
+                    if contribution.labels:
+                        raise ValueError(
+                            "activity contributions cannot declare labels"
+                        )
+                    activity_total = activity_total + ContextArray(
+                        keys, contribution.values
+                    ).values
+                    has_activity = True
+                elif contribution.channel == "state":
+                    labels = tuple(contribution.labels)
+                    if not labels:
+                        raise ValueError(
+                            "state contributions require ordered labels"
+                        )
+                    values = ContextStateArray(
+                        keys, labels, contribution.values
+                    ).values
+                    if state_labels is None:
+                        state_labels = labels
+                        state_total = array_module.zeros(
+                            (len(keys), len(labels))
+                        )
+                    elif labels != state_labels:
+                        raise ValueError(
+                            "state contribution labels must agree within species"
+                        )
+                    state_total = state_total + values
+                else:
+                    raise ValueError(
+                        f"unsupported latent output channel {contribution.channel!r}"
+                    )
+
+            log_fields[species] = ContextArray(keys, log_total)
+            if has_activity:
+                activity_logits[species] = ContextArray(keys, activity_total)
+                activity_values = 1.0 / (
+                    1.0 + array_module.exp(-activity_total)
+                )
+            else:
+                activity_values = array_module.ones((len(keys),))
+            activities[species] = ContextArray(keys, activity_values)
+
+            if state_total is not None:
+                shifted = state_total - array_module.max(
+                    state_total, axis=1, keepdims=True
+                )
+                weights = array_module.exp(shifted)
+                probabilities = weights / array_module.sum(
+                    weights, axis=1, keepdims=True
+                )
+                state_logits[species] = ContextStateArray(
+                    keys, state_labels, state_total
+                )
+                state_probabilities[species] = ContextStateArray(
+                    keys, state_labels, probabilities
+                )
+
+        return LatentFieldArrays(
+            log_intensity=log_fields,
+            activity_logit=activity_logits,
+            activity=activities,
+            state_logits=state_logits,
+            state_probabilities=state_probabilities,
+        )
 
     def knockout(self, species: str, process_name: str) -> "Model":
         if species not in self.species:
