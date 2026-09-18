@@ -3,7 +3,7 @@ import math
 import pytest
 
 from esdm.domain import Context
-from esdm.process import LinearSuitability, Process, ProcessContribution
+from esdm.process import LinearSuitability, NeutralSuitability, ProcessContribution
 
 
 class _Vector(tuple):
@@ -73,8 +73,9 @@ def test_suitability_array_contribution_preserves_context_axis():
     assert tuple(contribution.values) == pytest.approx((-0.3, 1.2))
 
 
-def test_process_protocol_retains_v03_intensity_compatibility_surface():
-    assert hasattr(Process, "contribution")
-    assert hasattr(Process, "contribution_array")
-    assert hasattr(Process, "log_intensity")
-    assert hasattr(Process, "log_intensity_array")
+def test_suitability_classes_retain_v03_intensity_compatibility_surface():
+    for process_type in (LinearSuitability, NeutralSuitability):
+        assert hasattr(process_type, "log_intensity")
+        assert hasattr(process_type, "log_intensity_array")
+        assert hasattr(process_type, "contribution")
+        assert hasattr(process_type, "contribution_array")
