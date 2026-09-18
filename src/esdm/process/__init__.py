@@ -4,6 +4,7 @@ Set-valued process-support exports remain temporarily for compatibility; canonic
 claim-governance imports now live under esdm.claims.
 """
 
+from .activity import LinearActivity, NeutralActivity
 from .base import NoEffectProcess, PriorSpec, Process, ProcessContribution
 from .suitability import LinearSuitability, NeutralSuitability
 from .support import (
@@ -20,6 +21,8 @@ __all__ = [
     "ProcessContribution",
     "LinearSuitability",
     "NeutralSuitability",
+    "LinearActivity",
+    "NeutralActivity",
     "ProcessRefinement",
     "ProcessSupportSet",
     "SeparatorEvidence",
