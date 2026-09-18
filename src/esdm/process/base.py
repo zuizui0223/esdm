@@ -31,6 +31,16 @@ class Process(Protocol):
         latent_fields: Any | None = None,
     ) -> float: ...
 
+    def log_intensity_array(
+        self,
+        keys,
+        theta,
+        covariates,
+        *,
+        array_module,
+        latent_fields: Any | None = None,
+    ): ...
+
     def knockout(self) -> "Process": ...
 
 
@@ -47,6 +57,17 @@ class NoEffectProcess:
 
     def log_intensity(self, ctx, theta, covariates, latent_fields=None) -> float:
         return 0.0
+
+    def log_intensity_array(
+        self,
+        keys,
+        theta,
+        covariates,
+        *,
+        array_module,
+        latent_fields=None,
+    ):
+        return array_module.zeros((len(keys),))
 
     def knockout(self) -> "NoEffectProcess":
         return self

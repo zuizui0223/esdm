@@ -7,6 +7,7 @@ from types import MappingProxyType
 from collections.abc import Mapping
 
 from esdm.domain import Grid
+from .arrays import ContextArray, LatentFieldArrays
 
 
 class DesignUninformedError(ValueError):
@@ -75,24 +76,25 @@ class Model:
         object.__setattr__(self, "streams", streams)
         for stream in streams:
             declared = getattr(stream, "targets", None)
-            if declared is not None:
-                unknown = set(declared) - set(species)
-                if unknown:
-                    raise ValueError(
-                        f"stream {stream.name!r} targets unknown species: {sorted(unknown)}"
-                    )
+            if declared is None:
+                raise ValueError(
+                    f"stream {stream.name!r} must declare targets explicitly"
+                )
+            unknown = set(declared) - set(species)
+            if unknown:
+                raise ValueError(
+                    f"stream {stream.name!r} targets unknown species: {sorted(unknown)}"
+                )
         self._check_acyclic()
 
     def stream_targets(self, stream) -> tuple[str, ...]:
-        """Resolve the species whose observations are represented by one stream.
-
-        ``targets=None`` is retained as a backwards-compatible declaration meaning all
-        model species. New multi-species models should declare targets explicitly.
-        """
+        """Resolve the explicitly declared species represented by one stream."""
 
         declared = getattr(stream, "targets", None)
         if declared is None:
-            return tuple(self.species)
+            raise ValueError(
+                f"stream {stream.name!r} must declare targets explicitly"
+            )
         return tuple(species for species in self.species if species in declared)
 
     def _check_acyclic(self) -> None:
@@ -142,11 +144,7 @@ class Model:
         theta: Mapping[str, Mapping[str, object]],
         covariates: Mapping[tuple[str, int, int], Mapping[str, object]],
     ) -> LatentFields:
-        """Construct latent ecological fields using the declared process graph.
-
-        No scalar coercion occurs here. This is intentional: the exact same process
-        graph is used by ordinary simulation/likelihood code and by JAX/NumPyro.
-        """
+        """Construct mapping-based latent ecological fields for scalar workflows."""
 
         missing_contexts = set(self.domain.keys) - set(covariates)
         if missing_contexts:
@@ -169,6 +167,59 @@ class Model:
                 block[ctx.key] = total
             fields[species] = block
         return LatentFields(fields)
+
+    def latent_field_arrays(
+        self,
+        theta: Mapping[str, Mapping[str, object]],
+        covariates: Mapping[tuple[str, int, int], Mapping[str, object]],
+        *,
+        array_module,
+    ) -> LatentFieldArrays:
+        """Construct latent fields with all contexts on one array axis.
+
+        Python is used only to pack fixed design covariates into arrays. Parameter-
+        dependent arithmetic is vectorized so JAX traces one operation per process
+        term rather than one operation per context.
+        """
+
+        keys = tuple(self.domain.keys)
+        missing_contexts = set(keys) - set(covariates)
+        if missing_contexts:
+            raise ValueError("covariates are missing domain contexts")
+
+        required_covariates: set[str] = set()
+        for processes in self.species.values():
+            for process in processes:
+                required_covariates.update(getattr(process, "requires", frozenset()))
+        covariate_arrays: dict[str, object] = {}
+        for name in sorted(required_covariates):
+            missing = [key for key in keys if name not in covariates[key]]
+            if missing:
+                raise KeyError(f"missing ecological covariate {name!r} for {missing[0]!r}")
+            covariate_arrays[name] = array_module.asarray(
+                [covariates[key][name] for key in keys]
+            )
+
+        fields: dict[str, ContextArray] = {}
+        for species, processes in self.species.items():
+            if species not in theta:
+                raise KeyError(f"missing parameter block for species {species!r}")
+            total = array_module.zeros((len(keys),))
+            for process in processes:
+                vectorized = getattr(process, "log_intensity_array", None)
+                if vectorized is None:
+                    raise TypeError(
+                        f"process {species}:{process.name} does not support array evaluation"
+                    )
+                total = total + vectorized(
+                    keys,
+                    theta[species],
+                    covariate_arrays,
+                    array_module=array_module,
+                    latent_fields=None,
+                )
+            fields[species] = ContextArray(keys, total)
+        return LatentFieldArrays(fields)
 
     def knockout(self, species: str, process_name: str) -> "Model":
         if species not in self.species:

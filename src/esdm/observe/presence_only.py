@@ -25,11 +25,11 @@ class PresenceOnly:
             raise ValueError("detection_probability must be in [0, 1]")
         if not hasattr(self.effort, "at") or not hasattr(self.effort, "priors"):
             raise TypeError("effort must provide at(...) and priors()")
-        targets = None
-        if self.targets is not None:
-            targets = frozenset(str(value).strip() for value in self.targets)
-            if not targets or any(not value for value in targets):
-                raise ValueError("targets must be a non-empty set of species names when declared")
+        if self.targets is None:
+            raise ValueError("targets must be declared explicitly")
+        targets = frozenset(str(value).strip() for value in self.targets)
+        if not targets or any(not value for value in targets):
+            raise ValueError("targets must be a non-empty set of species names")
         object.__setattr__(self, "name", name)
         object.__setattr__(self, "detection_probability", p)
         object.__setattr__(self, "informs", frozenset(str(x) for x in self.informs))
@@ -42,6 +42,25 @@ class PresenceOnly:
     def priors(self):
         return dict(self.effort.priors())
 
+    def structural_exposure_mask(self, keys) -> tuple[bool, ...]:
+        """Return statically known observation opportunities in ``keys`` order.
+
+        The mask is deliberately parameter-independent. Unknown effort models without a
+        mask are conservatively treated as exposed everywhere; known-effort models can
+        mark exact zero-effort contexts as absent observations.
+        """
+
+        keys = tuple(keys)
+        if self.detection_probability == 0.0:
+            return tuple(False for _ in keys)
+        mask_fn = getattr(self.effort, "structural_exposure_mask", None)
+        if mask_fn is None:
+            return tuple(True for _ in keys)
+        mask = tuple(bool(value) for value in mask_fn(keys))
+        if len(mask) != len(keys):
+            raise ValueError("effort structural exposure mask must match context count")
+        return mask
+
     def expected_rates(
         self,
         species: str,
@@ -51,19 +70,13 @@ class PresenceOnly:
         covariates: Mapping[tuple[str, int, int], Mapping[str, object]] | None = None,
         exp_fn=math.exp,
     ):
-        """Return expected record rates using ecological and observation processes.
-
-        There is no Python branch on the possibly inferred effort value, so this same
-        implementation remains valid for ordinary scalars and JAX tracer values.
-        """
+        """Return expected record rates using ecological and observation processes."""
 
         obs_parameters = {} if theta_obs is None else theta_obs
         observation_covariates = {} if covariates is None else covariates
         rates: dict[tuple[str, int, int], object] = {}
         if self.detection_probability == 0.0:
-            return {
-                key: 0.0 for key in fields.log_intensity[species]
-            }
+            return {key: 0.0 for key in fields.log_intensity[species]}
         for key, log_ecological in fields.log_intensity[species].items():
             effort = self.effort.at(
                 key,
@@ -77,6 +90,37 @@ class PresenceOnly:
                 * self.detection_probability
             )
         return rates
+
+    def expected_rate_array(
+        self,
+        species: str,
+        fields,
+        *,
+        theta_obs: Mapping[str, object] | None = None,
+        covariates: Mapping[tuple[str, int, int], Mapping[str, object]] | None = None,
+        array_module,
+    ):
+        """Return one vectorized expected-rate array in latent-field key order."""
+
+        from esdm.model.arrays import ContextArray
+
+        field = fields.log_intensity[species]
+        if self.detection_probability == 0.0:
+            return ContextArray(field.keys, array_module.zeros_like(field.values))
+        obs_parameters = {} if theta_obs is None else theta_obs
+        observation_covariates = {} if covariates is None else covariates
+        effort = self.effort.array(
+            field.keys,
+            theta=obs_parameters,
+            covariates=observation_covariates,
+            array_module=array_module,
+        )
+        values = (
+            array_module.exp(field.values)
+            * effort
+            * self.detection_probability
+        )
+        return ContextArray(field.keys, values)
 
     def log_lik(
         self,

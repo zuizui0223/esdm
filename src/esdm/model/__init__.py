@@ -1,5 +1,6 @@
 """Generative model composition."""
 
+from .arrays import ContextArray, LatentFieldArrays
 from .compose import (
     CyclicProcessDependencyError,
     DesignReport,
@@ -10,6 +11,8 @@ from .compose import (
 )
 
 __all__ = [
+    "ContextArray",
+    "LatentFieldArrays",
     "CyclicProcessDependencyError",
     "DesignReport",
     "DesignUninformedError",

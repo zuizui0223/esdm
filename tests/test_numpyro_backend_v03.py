@@ -25,6 +25,7 @@ def _simple_model():
         effort=EffortField({key: 1.0 for key in keys}),
         detection_probability=1.0,
         informs=frozenset({"suitability"}),
+        targets=frozenset({"sp"}),
     )
     model = Model(domain=grid, species={"sp": (process,)}, streams=(stream,))
     covariates = {
@@ -99,6 +100,7 @@ def test_posterior_predictive_rates_use_existing_stream_semantics():
                 effort=EffortField({keys[0]: 2.0, keys[1]: 4.0}),
                 detection_probability=0.5,
                 informs=frozenset({"suitability"}),
+                targets=frozenset({"sp"}),
             ),
         ),
     )

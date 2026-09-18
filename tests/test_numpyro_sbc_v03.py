@@ -32,6 +32,7 @@ def test_sbc_runner_uses_prior_simulate_fit_rank_cycle():
                 name="records",
                 effort=EffortField({key: 2.0 for key in keys}),
                 informs=frozenset({"suitability"}),
+                targets=frozenset({"taxon"}),
             ),
         ),
     )

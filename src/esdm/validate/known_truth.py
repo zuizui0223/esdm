@@ -338,6 +338,7 @@ def _model(grid: Grid, process, effort_values) -> Model:
         effort=effort,
         detection_probability=1.0,
         informs=frozenset({"suitability"}),
+        targets=frozenset({"sp"}),
     )
     return Model(domain=grid, species={"sp": (process,)}, streams=(stream,))
 

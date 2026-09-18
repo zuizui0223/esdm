@@ -1,4 +1,4 @@
-"""Ordered transfer ladders as downstream validation, not ecological processes."""
+"""Ordered validation ladders and reusable evidence primitives."""
 
 from esdm.transfer import (
     CommunityGainResult,
@@ -9,6 +9,16 @@ from esdm.transfer import (
     community_log_score_gain,
     point_transfer_ceiling,
 )
+from .evidence import (
+    EvidenceBundle,
+    IdentificationEvidence,
+    KnockoutEvidence,
+    TransferEvidence,
+    compare_knockout,
+    diagnose_identification,
+    evaluate_transfer,
+    poisson_log_predictive_density,
+)
 
 __all__ = [
     "CommunityGainResult",
@@ -18,4 +28,12 @@ __all__ = [
     "community_information_ceiling",
     "community_log_score_gain",
     "point_transfer_ceiling",
+    "EvidenceBundle",
+    "IdentificationEvidence",
+    "KnockoutEvidence",
+    "TransferEvidence",
+    "compare_knockout",
+    "diagnose_identification",
+    "evaluate_transfer",
+    "poisson_log_predictive_density",
 ]

@@ -16,7 +16,12 @@ def make_model():
         coefficient_parameters={"env": "beta"},
     )
     effort = EffortField({("a", 1, 0): 1.0, ("b", 1, 0): 4.0})
-    stream = PresenceOnly("inat", effort=effort, informs=frozenset({"suitability"}))
+    stream = PresenceOnly(
+        "inat",
+        effort=effort,
+        informs=frozenset({"suitability"}),
+        targets=frozenset({"sp"}),
+    )
     return Model(grid, {"sp": (process,)}, (stream,))
 
 
@@ -48,6 +53,7 @@ def test_zero_effort_cell_cannot_generate_records():
         "inat",
         effort=EffortField({("a", 1, 0): 0.0}),
         informs=frozenset({"suitability"}),
+        targets=frozenset({"sp"}),
     )
     model = Model(grid, {"sp": (process,)}, (stream,))
     generated = simulate_presence_only(
