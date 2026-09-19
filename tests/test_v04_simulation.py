@@ -1,5 +1,7 @@
 import math
 
+import pytest
+
 from esdm.domain import Grid, StateSpace
 from esdm.model import Model
 from esdm.observe import (
@@ -120,7 +122,7 @@ def test_generic_simulator_generates_state_annotated_blocks():
     first_key = model.domain.keys[0]
     assert generated.expected_rates["annotated"]["sp"]["resting"][
         first_key
-    ] == 0.75
+    ] == pytest.approx(0.75)
     assert generated.expected_rates["annotated"]["sp"]["foraging"][
         first_key
-    ] == 2.25
+    ] == pytest.approx(2.25)
