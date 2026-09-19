@@ -268,6 +268,41 @@ class Model:
             visit(node)
 
     def check_design(self) -> DesignReport:
+        for stream in self.streams:
+            required = frozenset(
+                getattr(stream, "required_latent_channels", frozenset())
+            )
+            if not required:
+                continue
+            for species in self.stream_targets(stream):
+                processes = self.species[species]
+                available = frozenset(
+                    str(process.output_channel) for process in processes
+                )
+                missing = required - available
+                if missing:
+                    raise DesignUninformedError(
+                        f"stream {stream.name!r} target {species!r} lacks required "
+                        f"latent channel(s): {sorted(missing)}"
+                    )
+                state_space = getattr(stream, "state_space", None)
+                if state_space is not None and "state" in required:
+                    state_processes = tuple(
+                        process
+                        for process in processes
+                        if getattr(process, "output_channel", None) == "state"
+                    )
+                    for process in state_processes:
+                        process_state_space = getattr(process, "state_space", None)
+                        if (
+                            process_state_space is not None
+                            and process_state_space.states != state_space.states
+                        ):
+                            raise DesignUninformedError(
+                                f"stream {stream.name!r} target {species!r} has "
+                                "incompatible state labels"
+                            )
+
         informed: list[tuple[str, str]] = []
         for species, processes in self.species.items():
             for process in processes:
