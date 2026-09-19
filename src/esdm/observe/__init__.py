@@ -1,5 +1,6 @@
 """Observation streams and compatibility next-observation primitives."""
 
+from .blocks import PoissonObservationBlock
 from .effort import EffortField, LogLinearEffort
 from .presence_only import PresenceOnly
 from .candidates import (
@@ -9,6 +10,7 @@ from .candidates import (
 )
 
 __all__ = [
+    "PoissonObservationBlock",
     "EffortField",
     "LogLinearEffort",
     "PresenceOnly",

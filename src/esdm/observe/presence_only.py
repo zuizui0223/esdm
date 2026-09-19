@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 from collections.abc import Mapping
+from dataclasses import dataclass
 import math
+
+from .blocks import PoissonObservationBlock
 
 
 @dataclass(frozen=True, slots=True)
@@ -43,12 +45,7 @@ class PresenceOnly:
         return dict(self.effort.priors())
 
     def structural_exposure_mask(self, keys) -> tuple[bool, ...]:
-        """Return statically known observation opportunities in ``keys`` order.
-
-        The mask is deliberately parameter-independent. Unknown effort models without a
-        mask are conservatively treated as exposed everywhere; known-effort models can
-        mark exact zero-effort contexts as absent observations.
-        """
+        """Return statically known observation opportunities in key order."""
 
         keys = tuple(keys)
         if self.detection_probability == 0.0:
@@ -84,11 +81,7 @@ class PresenceOnly:
                 covariates=observation_covariates,
                 exp_fn=exp_fn,
             )
-            rates[key] = (
-                exp_fn(log_ecological)
-                * effort
-                * self.detection_probability
-            )
+            rates[key] = exp_fn(log_ecological) * effort * self.detection_probability
         return rates
 
     def expected_rate_array(
@@ -115,12 +108,60 @@ class PresenceOnly:
             covariates=observation_covariates,
             array_module=array_module,
         )
-        values = (
-            array_module.exp(field.values)
-            * effort
-            * self.detection_probability
-        )
+        values = array_module.exp(field.values) * effort * self.detection_probability
         return ContextArray(field.keys, values)
+
+    def observation_blocks(
+        self,
+        species: str,
+        fields,
+        *,
+        data=None,
+        theta_obs: Mapping[str, object] | None = None,
+        covariates: Mapping[tuple[str, int, int], Mapping[str, object]] | None = None,
+        array_module=None,
+    ):
+        """Expose this stream as one backend-neutral Poisson block."""
+
+        if array_module is None:
+            rate_map = self.expected_rates(
+                species,
+                fields,
+                theta_obs=theta_obs,
+                covariates=covariates,
+            )
+            keys = tuple(rate_map)
+            rates = tuple(rate_map[key] for key in keys)
+        else:
+            rate_array = self.expected_rate_array(
+                species,
+                fields,
+                theta_obs=theta_obs,
+                covariates=covariates,
+                array_module=array_module,
+            )
+            keys = rate_array.keys
+            rates = rate_array.values
+
+        observed = None
+        if data is not None:
+            unknown = set(data) - set(keys)
+            if unknown:
+                raise ValueError("counts contain contexts outside the latent field")
+            observed_values = tuple(int(data.get(key, 0)) for key in keys)
+            if any(value < 0 for value in observed_values):
+                raise ValueError("presence-only counts must be non-negative")
+            observed = observed_values
+
+        return (
+            PoissonObservationBlock(
+                name=f"{self.name}.{species}",
+                keys=keys,
+                rates=rates,
+                observed=observed,
+                structural_exposure_mask=self.structural_exposure_mask(keys),
+            ),
+        )
 
     def log_lik(
         self,
