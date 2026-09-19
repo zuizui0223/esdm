@@ -111,6 +111,28 @@ class PresenceOnly:
         values = array_module.exp(field.values) * effort * self.detection_probability
         return ContextArray(field.keys, values)
 
+    def validate_species_data(self, species, data, keys) -> None:
+        keys = tuple(keys)
+        unknown = set(data) - set(keys)
+        if unknown:
+            raise ValueError(
+                f"data for {self.name}:{species} contain contexts outside the model domain"
+            )
+        values = tuple(int(data.get(key, 0)) for key in keys)
+        if any(value < 0 for value in values):
+            raise ValueError("presence-only counts must be non-negative")
+        mask = self.structural_exposure_mask(keys)
+        impossible = [
+            key
+            for key, exposed, value in zip(keys, mask, values, strict=True)
+            if not exposed and value > 0
+        ]
+        if impossible:
+            raise ValueError(
+                f"positive count in zero-exposure context for "
+                f"{self.name}:{species}: {impossible[0]!r}"
+            )
+
     def observation_blocks(
         self,
         species: str,

@@ -180,7 +180,8 @@ def _sample_prior_theta(model, rng: py_random.Random):
 
 
 def _validate_data(model, data) -> None:
-    keys = set(model.domain.keys)
+    ordered_keys = tuple(model.domain.keys)
+    key_set = set(ordered_keys)
     stream_names = {stream.name for stream in model.streams}
     unknown_streams = set(data) - stream_names
     if unknown_streams:
@@ -205,23 +206,22 @@ def _validate_data(model, data) -> None:
                 f"stream {stream.name!r} is missing target species blocks: "
                 f"{sorted(missing_species)}"
             )
-        for species, counts in by_species.items():
-            unknown_keys = set(counts) - keys
+        validator = getattr(stream, "validate_species_data", None)
+        for species, species_data in by_species.items():
+            if validator is not None:
+                validator(species, species_data, ordered_keys)
+                continue
+            unknown_keys = set(species_data) - key_set
             if unknown_keys:
                 raise ValueError(
                     f"data for {stream.name}:{species} contain contexts outside the model domain"
                 )
-            if any(int(value) < 0 for value in counts.values()):
-                raise ValueError("presence-only counts must be non-negative")
+            if any(int(value) < 0 for value in species_data.values()):
+                raise ValueError("observation counts must be non-negative")
 
 
 def make_numpyro_model(model, data, covariates):
-    """Build a NumPyro callable around the existing generative graph.
-
-    Statically known zero-exposure cells are omitted from the Poisson observation vector.
-    They represent no observation opportunity, not a rate-zero likelihood constraint at a
-    non-differentiable boundary. Positive counts in such cells fail closed.
-    """
+    """Build a NumPyro callable around the shared generative graph."""
 
     jnp, _random, numpyro, dist, _MCMC, _NUTS = _imports()
     model.check_design()
@@ -230,38 +230,10 @@ def make_numpyro_model(model, data, covariates):
     _validate_data(model, data)
     ordered_keys = tuple(model.domain.keys)
 
-    active_indices: dict[tuple[str, str], tuple[int, ...]] = {}
-    active_counts: dict[tuple[str, str], tuple[int, ...]] = {}
-    for stream in model.streams:
-        mask = tuple(stream.structural_exposure_mask(ordered_keys))
-        if len(mask) != len(ordered_keys):
-            raise ValueError(
-                f"stream {stream.name!r} structural exposure mask has wrong length"
-            )
-        for species in model.stream_targets(stream):
-            counts_map = data[stream.name][species]
-            impossible = [
-                key
-                for key, exposed in zip(ordered_keys, mask, strict=True)
-                if not exposed and int(counts_map.get(key, 0)) > 0
-            ]
-            if impossible:
-                raise ValueError(
-                    f"positive count in zero-exposure context for {stream.name}:{species}: "
-                    f"{impossible[0]!r}"
-                )
-            indices = tuple(index for index, exposed in enumerate(mask) if exposed)
-            if not indices:
-                raise ValueError(
-                    f"stream {stream.name!r} has no structurally exposed contexts"
-                )
-            active_indices[(stream.name, species)] = indices
-            active_counts[(stream.name, species)] = tuple(
-                int(counts_map.get(ordered_keys[index], 0)) for index in indices
-            )
-
     def program():
-        theta: dict[str, dict[str, object]] = {species: {} for species in model.species}
+        theta: dict[str, dict[str, object]] = {
+            species: {} for species in model.species
+        }
         theta_obs: dict[str, dict[str, object]] = {
             stream.name: {} for stream in model.streams
         }
@@ -279,30 +251,67 @@ def make_numpyro_model(model, data, covariates):
             covariates,
             array_module=jnp,
         )
+        seen_blocks: set[str] = set()
         for stream in model.streams:
             stream_theta = theta_obs[stream.name]
             for species in model.stream_targets(stream):
-                rate_array = stream.expected_rate_array(
+                blocks = stream.observation_blocks(
                     species,
                     fields,
+                    data=data[stream.name][species],
                     theta_obs=stream_theta,
                     covariates=covariates,
                     array_module=jnp,
                 )
-                if rate_array.keys != ordered_keys:
-                    raise RuntimeError("array rate order does not match model domain")
-                indices = active_indices[(stream.name, species)]
-                index_array = jnp.asarray(indices, dtype=jnp.int32)
-                rates = rate_array.values[index_array]
-                counts = jnp.asarray(
-                    active_counts[(stream.name, species)],
-                    dtype=jnp.int32,
-                )
-                numpyro.sample(
-                    f"obs.{stream.name}.{species}",
-                    dist.Poisson(rates).to_event(1),
-                    obs=counts,
-                )
+                for block in blocks:
+                    if block.name in seen_blocks:
+                        raise ValueError(
+                            f"duplicate observation block name {block.name!r}"
+                        )
+                    seen_blocks.add(block.name)
+                    if tuple(block.keys) != ordered_keys:
+                        raise RuntimeError(
+                            "observation block order does not match model domain"
+                        )
+                    if block.observed is None:
+                        raise RuntimeError(
+                            f"observation block {block.name!r} has no observed values"
+                        )
+                    indices = tuple(
+                        index
+                        for index, exposed in enumerate(
+                            block.structural_exposure_mask
+                        )
+                        if exposed
+                    )
+                    if not indices:
+                        raise ValueError(
+                            f"observation block {block.name!r} has no structurally "
+                            "exposed contexts"
+                        )
+                    impossible = [
+                        ordered_keys[index]
+                        for index, exposed in enumerate(
+                            block.structural_exposure_mask
+                        )
+                        if not exposed and int(block.observed[index]) > 0
+                    ]
+                    if impossible:
+                        raise ValueError(
+                            f"positive count in zero-exposure context for "
+                            f"{block.name}: {impossible[0]!r}"
+                        )
+                    index_array = jnp.asarray(indices, dtype=jnp.int32)
+                    rates = jnp.asarray(block.rates)[index_array]
+                    counts = jnp.asarray(
+                        [block.observed[index] for index in indices],
+                        dtype=jnp.int32,
+                    )
+                    numpyro.sample(
+                        f"obs.{block.name}",
+                        dist.Poisson(rates).to_event(1),
+                        obs=counts,
+                    )
 
     return program
 
@@ -469,38 +478,143 @@ def _draw_count(site_names, samples) -> int:
     return lengths[0]
 
 
-def posterior_record_rates(model, samples, covariates):
-    """Derive record-rate draws using the existing process/stream graph."""
+@dataclass(frozen=True, slots=True)
+class PosteriorLatentFields:
+    log_intensity: Mapping[str, object]
+    activity: Mapping[str, object]
+    state_probabilities: Mapping[str, object]
+    state_labels: Mapping[str, tuple[str, ...]]
 
-    ecological_layout = _parameter_layout(model)
-    observation_layout = _observation_parameter_layout(model)
-    n_draws = _draw_count(_all_sample_sites(model), samples)
-    output: dict[tuple[str, str], list[tuple[float, ...]]] = {
-        (stream.name, species): []
-        for stream in model.streams
-        for species in model.stream_targets(stream)
+    def __post_init__(self) -> None:
+        object.__setattr__(
+            self, "log_intensity", MappingProxyType(dict(self.log_intensity))
+        )
+        object.__setattr__(
+            self, "activity", MappingProxyType(dict(self.activity))
+        )
+        object.__setattr__(
+            self,
+            "state_probabilities",
+            MappingProxyType(dict(self.state_probabilities)),
+        )
+        object.__setattr__(
+            self,
+            "state_labels",
+            MappingProxyType(
+                {
+                    str(species): tuple(labels)
+                    for species, labels in self.state_labels.items()
+                }
+            ),
+        )
+
+
+def _posterior_parameter_state(model, samples, draw):
+    theta: dict[str, dict[str, object]] = {
+        species: {} for species in model.species
     }
+    theta_obs: dict[str, dict[str, object]] = {
+        stream.name: {} for stream in model.streams
+    }
+    for site, species, parameter, _prior in _parameter_layout(model):
+        theta[species][parameter] = samples[site][draw]
+    for site, stream_name, parameter, _prior in _observation_parameter_layout(model):
+        theta_obs[stream_name][parameter] = samples[site][draw]
+    return theta, theta_obs
+
+
+def posterior_latent_fields(model, samples, covariates) -> PosteriorLatentFields:
+    """Derive posterior ecological fields through the shared array graph."""
+
+    jnp, _random, _numpyro, _dist, _MCMC, _NUTS = _imports()
+    n_draws = _draw_count(_all_sample_sites(model), samples)
+    log_rows = {species: [] for species in model.species}
+    activity_rows = {species: [] for species in model.species}
+    state_rows: dict[str, list[object]] = {}
+    state_labels: dict[str, tuple[str, ...]] = {}
 
     for draw in range(n_draws):
-        theta: dict[str, dict[str, float]] = {species: {} for species in model.species}
-        theta_obs: dict[str, dict[str, float]] = {
-            stream.name: {} for stream in model.streams
-        }
-        for site, species, parameter, _prior in ecological_layout:
-            theta[species][parameter] = float(samples[site][draw])
-        for site, stream_name, parameter, _prior in observation_layout:
-            theta_obs[stream_name][parameter] = float(samples[site][draw])
+        theta, _theta_obs = _posterior_parameter_state(model, samples, draw)
+        fields = model.latent_field_arrays(
+            theta,
+            covariates,
+            array_module=jnp,
+        )
+        for species in model.species:
+            log_rows[species].append(fields.log_intensity[species].values)
+            activity_rows[species].append(fields.activity[species].values)
+            if species in fields.state_probabilities:
+                state_rows.setdefault(species, []).append(
+                    fields.state_probabilities[species].values
+                )
+                state_labels[species] = fields.state_probabilities[species].states
+
+    return PosteriorLatentFields(
+        log_intensity={
+            species: jnp.stack(rows, axis=0)
+            for species, rows in log_rows.items()
+        },
+        activity={
+            species: jnp.stack(rows, axis=0)
+            for species, rows in activity_rows.items()
+        },
+        state_probabilities={
+            species: jnp.stack(rows, axis=0)
+            for species, rows in state_rows.items()
+        },
+        state_labels=state_labels,
+    )
+
+
+def posterior_observation_rates(model, samples, covariates):
+    """Derive all posterior observation-block rate vectors."""
+
+    n_draws = _draw_count(_all_sample_sites(model), samples)
+    output: dict[str, list[tuple[float, ...]]] = {}
+
+    for draw in range(n_draws):
+        theta, theta_obs = _posterior_parameter_state(model, samples, draw)
         fields = model.latent_fields(theta, covariates)
+        seen: set[str] = set()
         for stream in model.streams:
             for species in model.stream_targets(stream):
-                rate_map = stream.expected_rates(
+                blocks = stream.observation_blocks(
                     species,
                     fields,
                     theta_obs=theta_obs[stream.name],
                     covariates=covariates,
                 )
-                output[(stream.name, species)].append(
-                    tuple(float(rate_map[key]) for key in model.domain.keys)
-                )
+                for block in blocks:
+                    if block.name in seen:
+                        raise ValueError(
+                            f"duplicate observation block name {block.name!r}"
+                        )
+                    seen.add(block.name)
+                    output.setdefault(block.name, []).append(
+                        tuple(float(rate) for rate in block.rates)
+                    )
 
-    return {key: tuple(draws) for key, draws in output.items()}
+    if any(len(draws) != n_draws for draws in output.values()):
+        raise RuntimeError("posterior observation block set changed across draws")
+    return {name: tuple(draws) for name, draws in output.items()}
+
+
+def posterior_record_rates(model, samples, covariates):
+    """Compatibility view of posterior rates for PresenceOnly streams."""
+
+    from esdm.observe import PresenceOnly
+
+    by_block = posterior_observation_rates(model, samples, covariates)
+    output = {}
+    for stream in model.streams:
+        if not isinstance(stream, PresenceOnly):
+            continue
+        for species in model.stream_targets(stream):
+            block_name = f"{stream.name}.{species}"
+            if block_name not in by_block:
+                raise KeyError(
+                    f"posterior observation rates missing block {block_name!r}"
+                )
+            output[(stream.name, species)] = by_block[block_name]
+    return output
+

@@ -112,6 +112,14 @@ class StateAnnotatedCount:
             output[state] = values
         return output
 
+    def validate_species_data(self, species, data, keys) -> None:
+        keys = tuple(keys)
+        self._validate_observed(
+            data,
+            keys,
+            self.structural_exposure_mask(keys),
+        )
+
     def observation_blocks(
         self,
         species: str,
