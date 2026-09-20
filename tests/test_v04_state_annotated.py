@@ -76,6 +76,13 @@ def test_annotated_rates_factor_intensity_activity_state_effort_detection():
     assert sum(float(block.rates[0]) for block in blocks) == pytest.approx(3.0)
 
 
+
+
+def test_known_detection_accepts_probability_keyword():
+    detection = KnownDetection(probability=0.5)
+
+    assert detection.probability({}) == pytest.approx(0.5)
+
 def test_logit_detection_is_an_observation_parameter():
     detection = LogitDetection("detection_intercept")
 
