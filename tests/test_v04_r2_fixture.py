@@ -6,7 +6,7 @@ from esdm.observe import (
     LogitDetection,
     LogLinearEffort,
 )
-from esdm.process import LinearActivity
+from esdm.process import LinearActivity, LinearSuitability
 
 
 def _sample_csv(rows=130):
@@ -124,24 +124,41 @@ def test_r2_calibrated_streams_are_partial_and_have_zero_east_exposure():
     assert min(heldout_eastness) > max(train_eastness)
 
 
-def test_r2_no_presence_calibration_removes_only_that_stream():
-    from esdm.validate.v04_state_activity_r2 import build_v04_r2_fixture
-
-    positive = build_v04_r2_fixture(_sample_csv(), profile="positive")
-    refused = build_v04_r2_fixture(_sample_csv(), profile="no_presence_calibration")
-
-    assert tuple(stream.name for stream in refused.model.streams) == (
-        "presence_opportunistic",
-        "annotated_opportunistic",
-        "annotated_calibrated",
+def test_r2_presence_effort_refusal_is_isolated_presence_submodel():
+    from esdm.validate.v04_state_activity_r2 import (
+        build_v04_r2_fixture,
+        v04_r2_presence_refusal_anchors,
     )
-    assert refused.covariates == positive.covariates
-    assert refused.generating_theta == positive.generating_theta
-    assert set(refused.generating_theta_obs) == {
+
+    fixture = build_v04_r2_fixture(
+        _sample_csv(),
+        profile="presence_effort_refusal",
+    )
+
+    assert len(fixture.model.species["sp"]) == 1
+    assert isinstance(fixture.model.species["sp"][0], LinearSuitability)
+    assert tuple(stream.name for stream in fixture.model.streams) == (
         "presence_opportunistic",
-        "annotated_opportunistic",
-        "annotated_calibrated",
+    )
+    assert fixture.generating_theta["sp"] == {
+        "intercept": -2.0,
+        "beta_precip": 0.45,
+        "beta_lat": -0.20,
+        "beta_eastness": 0.35,
+        "beta_season": 0.30,
     }
+    assert fixture.generating_theta_obs == {
+        "presence_opportunistic": {"gamma_presence_season": 0.35},
+    }
+
+    anchors = v04_r2_presence_refusal_anchors(fixture)
+    assert len(anchors) == 3
+    assert anchors[0][0]["sp"]["beta_season"] == 0.30
+    assert anchors[0][1]["presence_opportunistic"]["gamma_presence_season"] == 0.35
+    assert anchors[1][0]["sp"]["beta_season"] == 0.55
+    assert anchors[1][1]["presence_opportunistic"]["gamma_presence_season"] == 0.10
+    assert anchors[2][0]["sp"]["beta_season"] == 0.10
+    assert anchors[2][1]["presence_opportunistic"]["gamma_presence_season"] == 0.60
 
 
 def test_r2_activity_detection_refusal_is_intercept_only_without_calibrated_annotations():
