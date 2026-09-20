@@ -255,6 +255,18 @@ def _state() -> LinearState:
     )
 
 
+def _intensity_theta():
+    return {
+        "sp": {
+            "intercept": -2.0,
+            "beta_precip": 0.45,
+            "beta_lat": -0.20,
+            "beta_eastness": 0.35,
+            "beta_season": 0.30,
+        }
+    }
+
+
 def _theta(*, intercept_only_activity: bool):
     values = {
         "intercept": -2.0,
@@ -380,7 +392,7 @@ def build_v04_r2_fixture(
     normalized = str(profile).strip().lower()
     allowed = {
         "positive",
-        "no_presence_calibration",
+        "presence_effort_refusal",
         "activity_detection_refusal",
     }
     if normalized not in allowed:
@@ -406,19 +418,33 @@ def build_v04_r2_fixture(
         count=18,
     )
 
-    intercept_only = normalized == "activity_detection_refusal"
-    processes = (
-        _suitability(),
-        _activity(intercept_only=intercept_only),
-        _state(),
-    )
-    streams = _streams(
-        grid,
-        presence_calibration_spaces,
-        annotation_calibration_spaces,
-        include_presence_calibrated=normalized != "no_presence_calibration",
-        include_annotation_calibrated=normalized != "activity_detection_refusal",
-    )
+    if normalized == "presence_effort_refusal":
+        all_streams = _streams(
+            grid,
+            presence_calibration_spaces,
+            annotation_calibration_spaces,
+            include_presence_calibrated=False,
+            include_annotation_calibrated=False,
+        )
+        processes = (_suitability(),)
+        streams = (all_streams[0],)
+        generating_theta = _intensity_theta()
+    else:
+        intercept_only = normalized == "activity_detection_refusal"
+        processes = (
+            _suitability(),
+            _activity(intercept_only=intercept_only),
+            _state(),
+        )
+        streams = _streams(
+            grid,
+            presence_calibration_spaces,
+            annotation_calibration_spaces,
+            include_presence_calibrated=True,
+            include_annotation_calibrated=not intercept_only,
+        )
+        generating_theta = _theta(intercept_only_activity=intercept_only)
+
     model = Model(
         domain=grid,
         species={"sp": processes},
@@ -435,7 +461,7 @@ def build_v04_r2_fixture(
         presence_calibration_spaces=presence_calibration_spaces,
         annotation_calibration_spaces=annotation_calibration_spaces,
         profile=normalized,
-        generating_theta=_theta(intercept_only_activity=intercept_only),
+        generating_theta=generating_theta,
         generating_theta_obs=_theta_obs(streams),
         manifest=manifest,
     )
@@ -457,8 +483,8 @@ def _copy_state(fixture: V04R2Fixture):
 def v04_r2_positive_anchors(fixture: V04R2Fixture):
     """Return the three frozen R2 positive anchors."""
 
-    if fixture.profile not in {"positive", "no_presence_calibration"}:
-        raise ValueError("positive anchors require full-activity R2 fixture")
+    if fixture.profile != "positive":
+        raise ValueError("positive anchors require positive R2 fixture")
     truth_theta, truth_obs = _copy_state(fixture)
 
     theta_b = {name: dict(values) for name, values in truth_theta.items()}
@@ -504,6 +530,30 @@ def v04_r2_positive_anchors(fixture: V04R2Fixture):
             "detection_intercept": 0.90,
         }
     )
+    return (
+        (truth_theta, truth_obs),
+        (theta_b, obs_b),
+        (theta_c, obs_c),
+    )
+
+
+def v04_r2_presence_refusal_anchors(fixture: V04R2Fixture):
+    """Return the three frozen exact presence-effort refusal anchors."""
+
+    if fixture.profile != "presence_effort_refusal":
+        raise ValueError("presence refusal anchors require presence-effort refusal fixture")
+    truth_theta, truth_obs = _copy_state(fixture)
+
+    theta_b = {name: dict(values) for name, values in truth_theta.items()}
+    obs_b = {name: dict(values) for name, values in truth_obs.items()}
+    theta_b["sp"]["beta_season"] = 0.55
+    obs_b["presence_opportunistic"]["gamma_presence_season"] = 0.10
+
+    theta_c = {name: dict(values) for name, values in truth_theta.items()}
+    obs_c = {name: dict(values) for name, values in truth_obs.items()}
+    theta_c["sp"]["beta_season"] = 0.10
+    obs_c["presence_opportunistic"]["gamma_presence_season"] = 0.60
+
     return (
         (truth_theta, truth_obs),
         (theta_b, obs_b),
