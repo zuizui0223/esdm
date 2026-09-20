@@ -8,12 +8,12 @@ import math
 from esdm.process.base import PriorSpec
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(frozen=True, slots=True, init=False)
 class KnownDetection:
     value: float
 
-    def __post_init__(self) -> None:
-        value = float(self.value)
+    def __init__(self, probability: float) -> None:
+        value = float(probability)
         if not math.isfinite(value) or value < 0.0 or value > 1.0:
             raise ValueError("known detection probability must be in [0, 1]")
         object.__setattr__(self, "value", value)
