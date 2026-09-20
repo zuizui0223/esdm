@@ -1,12 +1,13 @@
 import math
 
+import pytest
+
 from esdm.observe import (
     EffortField,
     KnownDetection,
     LogitDetection,
-    LogLinearEffort,
+    MultiLogLinearEffort,
 )
-from esdm.process import LinearActivity, LinearSuitability
 
 
 def _sample_csv(rows=130):
@@ -23,201 +24,209 @@ def _sample_csv(rows=130):
     return "\n".join(lines) + "\n"
 
 
-def test_r2_positive_fixture_has_four_streams_unknown_observation_and_temporal_truth():
-    from esdm.validate.v04_state_activity_r2 import build_v04_r2_fixture
-
-    fixture = build_v04_r2_fixture(_sample_csv(), profile="positive")
-
-    assert len(fixture.model.domain.keys) == 120 * 6 * 4
-    assert len(fixture.presence_calibration_spaces) == 12
-    assert len(fixture.annotation_calibration_spaces) == 18
-    assert fixture.profile == "positive"
-
-    names = tuple(stream.name for stream in fixture.model.streams)
-    assert names == (
-        "presence_opportunistic",
-        "presence_calibrated",
-        "annotated_opportunistic",
-        "annotated_calibrated",
-    )
-
-    presence_opp, presence_cal, annotated_opp, annotated_cal = fixture.model.streams
-    assert isinstance(presence_opp.effort, LogLinearEffort)
-    assert presence_opp.effort.baseline == 4.0
-    assert presence_opp.effort.covariate == "season_sin"
-    assert presence_opp.effort.coefficient_parameter == "gamma_presence_season"
-    assert isinstance(presence_cal.effort, EffortField)
-
-    assert isinstance(annotated_opp.effort, LogLinearEffort)
-    assert annotated_opp.effort.baseline == 6.0
-    assert annotated_opp.effort.covariate == "diurnal_cos"
-    assert annotated_opp.effort.coefficient_parameter == "gamma_annotation_diurnal"
-    assert isinstance(annotated_opp.detection, LogitDetection)
-    assert isinstance(annotated_cal.effort, EffortField)
-    assert isinstance(annotated_cal.detection, KnownDetection)
-    assert annotated_cal.detection.probability({}) == 0.85
-
-    first_space = fixture.train_spaces[0]
-    cov_15_0 = fixture.covariates[(first_space, 15, 0)]
-    cov_15_6 = fixture.covariates[(first_space, 15, 6)]
-    cov_75_0 = fixture.covariates[(first_space, 75, 0)]
-
-    assert cov_15_0["season_sin"] == 0.0
-    assert cov_15_0["season_cos"] == 1.0
-    assert cov_15_0["diurnal_sin"] == 0.0
-    assert cov_15_0["diurnal_cos"] == 1.0
-    assert cov_15_6["diurnal_sin"] == 1.0
-    assert abs(cov_15_6["diurnal_cos"]) < 1e-12
-    assert cov_75_0["season_sin"] == math.sin(2.0 * math.pi * 60.0 / 365.0)
-
-    assert fixture.generating_theta["sp"] == {
-        "intercept": -2.0,
-        "beta_precip": 0.45,
-        "beta_lat": -0.20,
-        "beta_eastness": 0.35,
-        "beta_season": 0.30,
-        "activity_intercept": -0.35,
-        "activity_beta_precip": 0.40,
-        "activity_beta_eastness": 0.30,
-        "activity_beta_season": 0.50,
-        "activity_beta_diurnal": 0.45,
-        "alpha_foraging": 0.20,
-        "beta_foraging_precip": -0.35,
-        "beta_foraging_eastness": 0.40,
-        "beta_foraging_season": -0.50,
-        "beta_foraging_diurnal": 0.55,
+def _maximin_reference(train_spaces, covariates):
+    points = {
+        space: (
+            covariates[(space, 15, 0)]["precip_z_train"],
+            covariates[(space, 15, 0)]["eastness_z_train"],
+        )
+        for space in train_spaces
     }
-    assert fixture.generating_theta_obs == {
-        "presence_opportunistic": {"gamma_presence_season": 0.35},
-        "presence_calibrated": {},
-        "annotated_opportunistic": {
-            "gamma_annotation_diurnal": 0.30,
-            "detection_intercept": 0.40,
-        },
-        "annotated_calibrated": {},
-    }
+    first = min(
+        (
+            (-((p * p) + (e * e)), space)
+            for space, (p, e) in points.items()
+        )
+    )[1]
+    selected = [first]
+    remaining = set(train_spaces) - {first}
+    while len(selected) < 18:
+        scored = []
+        for space in remaining:
+            p, e = points[space]
+            min_d2 = min(
+                (p - points[other][0]) ** 2 + (e - points[other][1]) ** 2
+                for other in selected
+            )
+            scored.append((-min_d2, space))
+        chosen = min(scored)[1]
+        selected.append(chosen)
+        remaining.remove(chosen)
+    return tuple(selected)
 
 
-def test_r2_calibrated_streams_are_partial_and_have_zero_east_exposure():
-    from esdm.validate.v04_state_activity_r2 import build_v04_r2_fixture
-
-    fixture = build_v04_r2_fixture(_sample_csv(), profile="positive")
-    _, presence_cal, _, annotated_cal = fixture.model.streams
-
-    p_space = fixture.presence_calibration_spaces[0]
-    a_space = fixture.annotation_calibration_spaces[0]
-    east_space = fixture.heldout_spaces[0]
-
-    assert presence_cal.effort.at((p_space, 15, 0)) == 3.0
-    assert annotated_cal.effort.at((a_space, 15, 0)) == 5.0
-    assert presence_cal.effort.at((east_space, 15, 0)) == 0.0
-    assert annotated_cal.effort.at((east_space, 15, 0)) == 0.0
-
-    train_eastness = [
-        fixture.covariates[(space, 15, 0)]["eastness_z_train"]
-        for space in fixture.train_spaces
-    ]
-    heldout_eastness = [
-        fixture.covariates[(space, 15, 0)]["eastness_z_train"]
-        for space in fixture.heldout_spaces
-    ]
-    assert min(heldout_eastness) > max(train_eastness)
-
-
-def test_r2_presence_effort_refusal_is_isolated_presence_submodel():
-    from esdm.validate.v04_state_activity_r2 import (
+def test_r2_positive_fixture_has_three_streams_unknown_observation_and_time_truth():
+    from esdm.validate.v04_r2_state_activity import (
         build_v04_r2_fixture,
-        v04_r2_presence_refusal_anchors,
     )
 
-    fixture = build_v04_r2_fixture(
-        _sample_csv(),
-        profile="presence_effort_refusal",
+    fixture = build_v04_r2_fixture(_sample_csv(), profile="positive")
+    assert len(fixture.model.domain.keys) == 120 * 6 * 4
+    assert len(fixture.calibration_spaces) == 18
+
+    opportunistic, calibrated, annotated = fixture.model.streams
+    assert isinstance(opportunistic.effort, MultiLogLinearEffort)
+    assert isinstance(opportunistic.detection, LogitDetection)
+    assert set(opportunistic.priors()) == {
+        "gamma_precip",
+        "gamma_season",
+        "gamma_hour",
+        "detection_intercept",
+    }
+    assert isinstance(calibrated.effort, EffortField)
+    assert calibrated.detection_probability == 0.90
+    assert isinstance(annotated.effort, EffortField)
+    assert isinstance(annotated.detection, KnownDetection)
+    assert annotated.detection.probability({}) == pytest.approx(0.85)
+
+    theta = fixture.generating_theta["sp"]
+    assert theta["activity_beta_season"] == 0.55
+    assert theta["activity_beta_hour"] == 0.40
+    assert theta["beta_foraging_season"] == 0.50
+    assert theta["beta_foraging_hour"] == -0.45
+
+    obs = fixture.generating_theta_obs["opportunistic"]
+    assert obs == {
+        "gamma_precip": 0.35,
+        "gamma_season": 0.30,
+        "gamma_hour": -0.25,
+        "detection_intercept": -0.20,
+    }
+
+
+def test_r2_temporal_covariates_are_deterministic_and_nonconstant():
+    from esdm.validate.v04_r2_state_activity import build_v04_r2_fixture
+
+    fixture = build_v04_r2_fixture(_sample_csv(), profile="positive")
+    space = fixture.train_spaces[0]
+
+    at_15_0 = fixture.covariates[(space, 15, 0)]
+    at_15_6 = fixture.covariates[(space, 15, 6)]
+    at_75_0 = fixture.covariates[(space, 75, 0)]
+
+    assert at_15_0["season_sin"] == pytest.approx(0.0)
+    assert at_15_0["season_cos"] == pytest.approx(1.0)
+    assert at_15_0["hour_sin"] == pytest.approx(0.0)
+    assert at_15_0["hour_cos"] == pytest.approx(1.0)
+    assert at_15_6["hour_sin"] == pytest.approx(1.0)
+    assert at_15_6["hour_cos"] == pytest.approx(0.0, abs=1e-12)
+    assert at_75_0["season_sin"] != pytest.approx(at_15_0["season_sin"])
+
+
+def test_r2_positive_calibration_is_deterministic_maximin_and_exposure_is_partial():
+    from esdm.validate.v04_r2_state_activity import build_v04_r2_fixture
+
+    fixture = build_v04_r2_fixture(_sample_csv(), profile="positive")
+    expected = _maximin_reference(fixture.train_spaces, fixture.covariates)
+    assert fixture.calibration_spaces == expected
+
+    _opportunistic, calibrated, annotated = fixture.model.streams
+    calibration = fixture.calibration_spaces[0]
+    heldout = fixture.heldout_spaces[0]
+    uncalibrated = next(
+        space
+        for space in fixture.train_spaces
+        if space not in set(fixture.calibration_spaces)
     )
 
-    assert len(fixture.model.species["sp"]) == 1
-    assert isinstance(fixture.model.species["sp"][0], LinearSuitability)
-    assert tuple(stream.name for stream in fixture.model.streams) == (
-        "presence_opportunistic",
+    assert calibrated.effort.at((calibration, 15, 0)) == 3.0
+    assert calibrated.effort.at((uncalibrated, 15, 0)) == 0.0
+    assert calibrated.effort.at((heldout, 15, 0)) == 0.0
+
+    assert annotated.effort.at((calibration, 15, 0)) == 8.0
+    assert annotated.effort.at((uncalibrated, 15, 0)) == 0.0
+    assert annotated.effort.at((heldout, 15, 0)) == 8.0
+
+
+def test_r2_sparse_profile_selects_four_center_spaces_only():
+    from esdm.validate.v04_r2_state_activity import build_v04_r2_fixture
+
+    fixture = build_v04_r2_fixture(_sample_csv(), profile="sparse")
+    scored = []
+    for space in fixture.train_spaces:
+        values = fixture.covariates[(space, 15, 0)]
+        scored.append(
+            (
+                values["precip_z_train"] ** 2
+                + values["eastness_z_train"] ** 2,
+                space,
+            )
+        )
+    assert fixture.calibration_spaces == tuple(
+        space for _, space in sorted(scored)[:4]
     )
-    assert fixture.generating_theta["sp"] == {
+
+
+def test_r2_truth_and_identification_anchors_match_frozen_gate():
+    from esdm.validate.v04_r2_state_activity import (
+        build_v04_r2_fixture,
+        v04_r2_identification_anchors,
+    )
+
+    fixture = build_v04_r2_fixture(_sample_csv(), profile="positive")
+    theta = fixture.generating_theta["sp"]
+    assert theta == {
         "intercept": -2.0,
         "beta_precip": 0.45,
         "beta_lat": -0.20,
         "beta_eastness": 0.35,
-        "beta_season": 0.30,
-    }
-    assert fixture.generating_theta_obs == {
-        "presence_opportunistic": {"gamma_presence_season": 0.35},
+        "activity_intercept": -0.35,
+        "activity_beta_precip": 0.50,
+        "activity_beta_eastness": 0.35,
+        "activity_beta_season": 0.55,
+        "activity_beta_hour": 0.40,
+        "alpha_foraging": 0.20,
+        "beta_foraging_precip": -0.45,
+        "beta_foraging_eastness": 0.40,
+        "beta_foraging_season": 0.50,
+        "beta_foraging_hour": -0.45,
     }
 
-    anchors = v04_r2_presence_refusal_anchors(fixture)
+    anchors = v04_r2_identification_anchors(fixture)
     assert len(anchors) == 3
-    assert anchors[0][0]["sp"]["beta_season"] == 0.30
-    assert anchors[0][1]["presence_opportunistic"]["gamma_presence_season"] == 0.35
-    assert anchors[1][0]["sp"]["beta_season"] == 0.55
-    assert anchors[1][1]["presence_opportunistic"]["gamma_presence_season"] == 0.10
-    assert anchors[2][0]["sp"]["beta_season"] == 0.10
-    assert anchors[2][1]["presence_opportunistic"]["gamma_presence_season"] == 0.60
+    assert anchors[1][0]["sp"]["activity_beta_season"] == 0.30
+    assert anchors[1][1]["opportunistic"]["gamma_precip"] == 0.10
+    assert anchors[1][1]["opportunistic"]["detection_intercept"] == -0.70
+    assert anchors[2][0]["sp"]["beta_foraging_hour"] == -0.20
+    assert anchors[2][1]["opportunistic"]["gamma_hour"] == -0.50
 
 
-def test_r2_activity_detection_refusal_is_intercept_only_without_calibrated_annotations():
-    from esdm.validate.v04_state_activity_r2 import build_v04_r2_fixture
-
-    fixture = build_v04_r2_fixture(
-        _sample_csv(),
-        profile="activity_detection_refusal",
+def test_r2_unknown_annotation_detection_refusal_is_intercept_only():
+    from esdm.validate.v04_r2_state_activity import (
+        build_v04_r2_unknown_detection_fixture,
+        v04_r2_unknown_detection_anchors,
     )
-    activity = next(
-        process
-        for process in fixture.model.species["sp"]
-        if isinstance(process, LinearActivity)
-    )
+
+    fixture = build_v04_r2_unknown_detection_fixture(_sample_csv())
+    activity = fixture.model.species["sp"][1]
+    annotated = fixture.model.streams[2]
 
     assert activity.covariates == ()
     assert set(activity.priors()) == {"activity_intercept"}
-    assert tuple(stream.name for stream in fixture.model.streams) == (
-        "presence_opportunistic",
-        "presence_calibrated",
-        "annotated_opportunistic",
-    )
-    assert "activity_beta_diurnal" not in fixture.generating_theta["sp"]
+    assert isinstance(annotated.detection, LogitDetection)
     assert fixture.generating_theta["sp"]["activity_intercept"] == -0.35
-    assert fixture.generating_theta_obs["annotated_opportunistic"] == {
-        "gamma_annotation_diurnal": 0.30,
-        "detection_intercept": 0.40,
+    assert fixture.generating_theta_obs["annotated"] == {
+        "detection_intercept": 0.40
     }
 
-
-def test_r2_positive_and_refusal_anchors_are_frozen():
-    from esdm.validate.v04_state_activity_r2 import (
-        build_v04_r2_fixture,
-        v04_r2_detection_refusal_anchors,
-        v04_r2_positive_anchors,
-    )
-
-    positive = build_v04_r2_fixture(_sample_csv(), profile="positive")
-    anchors = v04_r2_positive_anchors(positive)
-
+    anchors = v04_r2_unknown_detection_anchors(fixture)
     assert len(anchors) == 3
-    assert anchors[1][0]["sp"]["beta_season"] == 0.55
-    assert anchors[1][1]["presence_opportunistic"]["gamma_presence_season"] == 0.10
-    assert anchors[1][0]["sp"]["activity_intercept"] == -0.05
-    assert anchors[1][0]["sp"]["activity_beta_diurnal"] == 0.70
-    assert anchors[1][1]["annotated_opportunistic"]["gamma_annotation_diurnal"] == 0.10
-    assert anchors[1][1]["annotated_opportunistic"]["detection_intercept"] == -0.20
-    assert anchors[2][0]["sp"]["beta_foraging_diurnal"] == 0.25
-    assert anchors[2][0]["sp"]["beta_foraging_eastness"] == 0.65
+    assert anchors[1][0]["sp"]["activity_intercept"] == 0.20
+    assert anchors[1][1]["annotated"]["detection_intercept"] == -0.30
+    assert anchors[2][0]["sp"]["activity_intercept"] == -0.90
+    assert anchors[2][1]["annotated"]["detection_intercept"] == 0.90
 
-    refusal = build_v04_r2_fixture(
-        _sample_csv(),
-        profile="activity_detection_refusal",
-    )
-    ranchors = v04_r2_detection_refusal_anchors(refusal)
-    assert len(ranchors) == 3
-    assert ranchors[0][0]["sp"]["activity_intercept"] == -0.35
-    assert ranchors[0][1]["annotated_opportunistic"]["detection_intercept"] == 0.40
-    assert ranchors[1][0]["sp"]["activity_intercept"] == 0.20
-    assert ranchors[1][1]["annotated_opportunistic"]["detection_intercept"] == -0.30
-    assert ranchors[2][0]["sp"]["activity_intercept"] == -0.90
-    assert ranchors[2][1]["annotated_opportunistic"]["detection_intercept"] == 0.90
+
+def test_r2_eastness_is_true_extrapolation():
+    from esdm.validate.v04_r2_state_activity import build_v04_r2_fixture
+
+    fixture = build_v04_r2_fixture(_sample_csv(), profile="positive")
+    train = [
+        fixture.covariates[(space, 15, 0)]["eastness_z_train"]
+        for space in fixture.train_spaces
+    ]
+    heldout = [
+        fixture.covariates[(space, 15, 0)]["eastness_z_train"]
+        for space in fixture.heldout_spaces
+    ]
+    assert min(heldout) > max(train)
