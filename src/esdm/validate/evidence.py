@@ -163,6 +163,92 @@ def poisson_log_predictive_density(
     return math.fsum(context_scores) / len(context_scores)
 
 
+def _observation_block_count_maps(model, data):
+    """Return held-out count mappings keyed by deterministic observation-block name."""
+
+    output = {}
+    for stream in model.streams:
+        if stream.name not in data:
+            continue
+        by_species = data[stream.name]
+        for species in model.stream_targets(stream):
+            if species not in by_species:
+                raise KeyError(f"missing held-out data for {stream.name}:{species}")
+            species_data = by_species[species]
+            state_space = getattr(stream, "state_space", None)
+            if state_space is None:
+                name = f"{stream.name}.{species}"
+                if name in output:
+                    raise ValueError(f"duplicate observation block name {name!r}")
+                output[name] = species_data
+                continue
+            for state in state_space.states:
+                if state not in species_data:
+                    raise KeyError(
+                        f"missing held-out state data for {stream.name}:{species}:{state}"
+                    )
+                name = f"{stream.name}.{species}.{state}"
+                if name in output:
+                    raise ValueError(f"duplicate observation block name {name!r}")
+                output[name] = species_data[state]
+    return output
+
+
+def poisson_block_log_predictive_density(
+    model,
+    samples,
+    covariates,
+    data,
+    *,
+    block_names,
+) -> float:
+    """Mean posterior Poisson log predictive density across named block-contexts."""
+
+    from esdm.model.backend_numpyro import posterior_observation_rates
+
+    names = tuple(str(name).strip() for name in block_names)
+    if not names or any(not name for name in names):
+        raise ValueError("block_names must contain non-empty names")
+    if len(set(names)) != len(names):
+        raise ValueError("block_names must be unique")
+
+    rate_by_block = posterior_observation_rates(model, samples, covariates)
+    counts_by_block = _observation_block_count_maps(model, data)
+    ordered_keys = tuple(model.domain.keys)
+    scores = []
+
+    for name in names:
+        if name not in rate_by_block:
+            raise KeyError(f"unknown posterior observation block {name!r}")
+        if name not in counts_by_block:
+            raise KeyError(f"missing held-out counts for observation block {name!r}")
+        draws = tuple(rate_by_block[name])
+        if not draws:
+            raise ValueError("posterior observation block rates need at least one draw")
+        if any(len(draw) != len(ordered_keys) for draw in draws):
+            raise ValueError("posterior block rate draws do not match the model domain")
+
+        counts_map = counts_by_block[name]
+        unknown = set(counts_map) - set(ordered_keys)
+        if unknown:
+            raise ValueError("held-out block counts contain contexts outside the model domain")
+        counts = tuple(int(counts_map.get(key, 0)) for key in ordered_keys)
+        if any(count < 0 for count in counts):
+            raise ValueError("held-out block counts must be non-negative")
+
+        for index, count in enumerate(counts):
+            scores.append(
+                _logmeanexp(
+                    _poisson_log_mass(count, draw[index])
+                    for draw in draws
+                )
+            )
+
+    if not scores:
+        raise ValueError("predictive scoring requires at least one block-context")
+    return math.fsum(scores) / len(scores)
+
+
 def _validate_comparison_domains(candidate_model, reference_model) -> int:
     candidate_keys = tuple(candidate_model.domain.keys)
     reference_keys = tuple(reference_model.domain.keys)
