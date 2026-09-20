@@ -1,0 +1,118 @@
+name: v0.4 frozen state activity full run
+
+on:
+  push:
+    branches:
+      - feature/v04-frozen-validation
+    paths:
+      - .github/workflows/v04-state-activity-full-once.yml
+      - docs/validation/V04_RUN_AUTHORIZED
+      - scripts/run_v04_state_activity.py
+      - src/esdm/model/backend_numpyro.py
+      - src/esdm/model/compose.py
+      - src/esdm/observe/blocks.py
+      - src/esdm/observe/detection.py
+      - src/esdm/observe/presence_only.py
+      - src/esdm/observe/state_annotated.py
+      - src/esdm/process/activity.py
+      - src/esdm/process/state.py
+      - src/esdm/identify/design_rank.py
+      - src/esdm/validate/evidence.py
+      - src/esdm/validate/v04_state_activity.py
+      - src/esdm/validate/v04_state_activity_gate.py
+      - src/esdm/validate/v04_state_activity_run.py
+      - tests/test_v04_validation_*.py
+      - tests/test_v04_state_predictive_score.py
+
+jobs:
+  precheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    outputs:
+      authorized: ${{ steps.authorization.outputs.authorized }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install validation and inference dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,inference]"
+      - name: Check explicit outcome authorization
+        id: authorization
+        run: |
+          if [ -f docs/validation/V04_RUN_AUTHORIZED ]; then
+            echo "authorized=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "authorized=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Verify frozen v0.4 contracts
+        run: |
+          python -m pytest -q \
+            tests/test_v04_process_contract.py \
+            tests/test_v04_activity_process.py \
+            tests/test_v04_state_process.py \
+            tests/test_v04_latent_channels.py \
+            tests/test_v04_observation_blocks.py \
+            tests/test_v04_state_annotated.py \
+            tests/test_v04_simulation.py \
+            tests/test_v04_numpyro.py \
+            tests/test_v04_identifiability.py \
+            tests/test_v04_jax_scaling.py \
+            tests/test_v04_validation_fixture.py \
+            tests/test_v04_validation_gate.py \
+            tests/test_v04_validation_identification.py \
+            tests/test_v04_state_predictive_score.py \
+            tests/test_v04_validation_run.py \
+            tests/test_v04_validation_script.py \
+            tests/test_v04_validation_workflow.py
+
+  gate-v04:
+    needs: precheck
+    if: needs.precheck.outputs.authorized == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Initialize fail-closed audit artifact
+        run: |
+          mkdir -p artifacts
+          python - <<'PY'
+          import json, os
+          payload = {
+              "schema": "esdm.v04.state_activity_gate.v1",
+              "git_sha": os.environ.get("GITHUB_SHA"),
+              "github_run_id": os.environ.get("GITHUB_RUN_ID"),
+              "gate_freeze_commit": "551ed43c9d602f39ee37e54e1f4ea230338d749d",
+              "status": "INFRASTRUCTURE_BLOCKED",
+              "infrastructure_block": {
+                  "stage": "workflow_precheck",
+                  "reason": "benchmark did not yet overwrite the fail-closed placeholder",
+              },
+          }
+          with open(
+              "artifacts/v04_state_activity_gate.json",
+              "w",
+              encoding="utf-8",
+          ) as handle:
+              json.dump(payload, handle, indent=2, sort_keys=True)
+              handle.write("\n")
+          PY
+      - name: Install validation and inference dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,inference]"
+      - name: Run frozen v0.4 state activity benchmark
+        run: |
+          python scripts/run_v04_state_activity.py --output artifacts/v04_state_activity_gate.json
+      - name: Upload v0.4 gate audit artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v04-state-activity-${{ github.run_id }}
+          path: artifacts/v04_state_activity_gate.json
+          if-no-files-found: error
