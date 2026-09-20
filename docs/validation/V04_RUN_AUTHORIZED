@@ -1,0 +1,8 @@
+v0.4 frozen validation outcome run authorized
+
+Gate freeze commit:
+551ed43c9d602f39ee37e54e1f4ea230338d749d
+
+This marker authorizes execution of the already-frozen v0.4 state/activity validation
+profile. It does not alter any scientific threshold, seed, geometry, truth, prior,
+calibration profile, knockout definition, or PASS rule.
