@@ -5,6 +5,37 @@ import pytest
 from esdm.observe import MultiLogLinearEffort
 
 
+class _Vector(tuple):
+    def __new__(cls, values):
+        return super().__new__(cls, (float(value) for value in values))
+
+    def __add__(self, other):
+        if isinstance(other, (int, float)):
+            return _Vector(value + float(other) for value in self)
+        return _Vector(a + b for a, b in zip(self, other, strict=True))
+
+    __radd__ = __add__
+
+    def __mul__(self, scalar):
+        return _Vector(value * float(scalar) for value in self)
+
+    __rmul__ = __mul__
+
+
+class _ArrayModule:
+    @staticmethod
+    def zeros(shape):
+        return _Vector(0.0 for _ in range(shape[0]))
+
+    @staticmethod
+    def asarray(values):
+        return _Vector(values)
+
+    @staticmethod
+    def exp(values):
+        return _Vector(math.exp(value) for value in values)
+
+
 def test_multi_log_linear_effort_scalar_and_priors():
     effort = MultiLogLinearEffort(
         baseline=4.0,
@@ -42,8 +73,6 @@ def test_multi_log_linear_effort_scalar_and_priors():
 
 
 def test_multi_log_linear_effort_array_is_context_vectorized():
-    import numpy as np
-
     effort = MultiLogLinearEffort(
         baseline=2.0,
         covariates=("x", "t"),
@@ -64,16 +93,14 @@ def test_multi_log_linear_effort_array_is_context_vectorized():
         keys,
         theta=theta,
         covariates=covariates,
-        array_module=np,
+        array_module=_ArrayModule,
     )
-    expected = np.asarray(
-        [
-            2.0 * math.exp(-0.4),
-            2.0 * math.exp(0.2 - 0.2),
-            2.0 * math.exp(0.8 + 0.2),
-        ]
+    expected = (
+        2.0 * math.exp(-0.4),
+        2.0 * math.exp(0.2 - 0.2),
+        2.0 * math.exp(0.8 + 0.2),
     )
-    np.testing.assert_allclose(observed, expected)
+    assert tuple(observed) == pytest.approx(expected)
     assert effort.structural_exposure_mask(keys) == (True, True, True)
 
 
