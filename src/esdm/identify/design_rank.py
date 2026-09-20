@@ -52,24 +52,43 @@ def _copy_nested(values):
 
 
 def _log_rate_vector(model, covariates, theta, theta_obs):
+    """Return exposed scalar log rates through the generic observation-block API."""
+
     fields = model.latent_fields(theta, covariates)
+    ordered_keys = tuple(model.domain.keys)
     values: list[float] = []
     for stream in model.streams:
         stream_theta = dict(theta_obs.get(stream.name, {}))
         for species in model.stream_targets(stream):
-            rates = stream.expected_rates(
+            blocks = stream.observation_blocks(
                 species,
                 fields,
                 theta_obs=stream_theta,
                 covariates=covariates,
             )
-            for key in model.domain.keys:
-                rate = float(rates[key])
-                if not math.isfinite(rate) or rate <= 0.0:
-                    raise ValueError(
-                        "structural identification requires finite positive expected rates"
+            for block in blocks:
+                if tuple(block.keys) != ordered_keys:
+                    raise RuntimeError(
+                        "observation block order does not match model domain"
                     )
-                values.append(math.log(rate))
+                for exposed, raw_rate in zip(
+                    block.structural_exposure_mask,
+                    block.rates,
+                    strict=True,
+                ):
+                    if not exposed:
+                        continue
+                    rate = float(raw_rate)
+                    if not math.isfinite(rate) or rate <= 0.0:
+                        raise ValueError(
+                            "structural identification requires finite positive "
+                            "rates in exposed contexts"
+                        )
+                    values.append(math.log(rate))
+    if not values:
+        raise ValueError(
+            "structural identification requires at least one exposed observation"
+        )
     return tuple(values)
 
 
@@ -215,9 +234,9 @@ def design_jacobian_diagnostic(
 ) -> DesignJacobianDiagnostic:
     """Compute an exact local log-rate Jacobian with ``jax.jacfwd``.
 
-    Contexts with exactly zero nominal exposure are excluded from the diagnostic because
-    they cannot generate records and therefore contain no local identification
-    information. Negative or non-finite rates remain errors.
+    Statically unexposed cells are excluded using each observation block's structural
+    exposure mask. Parameter-dependent zero rates are not used to redefine the design.
+    Negative, non-finite, or non-positive exposed rates remain errors.
     """
 
     if not _jax_available():
@@ -253,34 +272,90 @@ def design_jacobian_diagnostic(
             target_block[block_name][parameter] = vector[index]
         return ecological, observation
 
-    def rate_vector(vector):
+    ordered_keys = tuple(model.domain.keys)
+
+    def rate_blocks(vector):
         ecological, observation = unpack(vector)
-        fields = model.latent_field_arrays(ecological, covariates, array_module=jnp)
-        vectors = []
+        fields = model.latent_field_arrays(
+            ecological,
+            covariates,
+            array_module=jnp,
+        )
+        blocks = []
         for stream in model.streams:
             stream_theta = observation.get(stream.name, {})
             for species in model.stream_targets(stream):
-                vectors.append(
-                    stream.expected_rate_array(
+                blocks.extend(
+                    stream.observation_blocks(
                         species,
                         fields,
                         theta_obs=stream_theta,
                         covariates=covariates,
                         array_module=jnp,
-                    ).values
+                    )
                 )
-        if not vectors:
-            raise ValueError("structural identification requires at least one observation vector")
-        return vectors[0] if len(vectors) == 1 else jnp.concatenate(vectors, axis=0)
+        if not blocks:
+            raise ValueError(
+                "structural identification requires at least one observation block"
+            )
+        return tuple(blocks)
+
+    nominal_blocks = rate_blocks(nominal)
+    block_names = tuple(block.name for block in nominal_blocks)
+    active_indices_list: list[int] = []
+    offset = 0
+    for block in nominal_blocks:
+        if tuple(block.keys) != ordered_keys:
+            raise RuntimeError(
+                "observation block order does not match model domain"
+            )
+        mask = tuple(bool(value) for value in block.structural_exposure_mask)
+        if len(mask) != len(ordered_keys):
+            raise ValueError(
+                "observation block structural exposure mask has wrong length"
+            )
+        active_indices_list.extend(
+            offset + index
+            for index, exposed in enumerate(mask)
+            if exposed
+        )
+        offset += len(ordered_keys)
+    active_indices = tuple(active_indices_list)
+    if not active_indices:
+        raise ValueError(
+            "structural identification requires at least one exposed observation"
+        )
+    active_index_array = jnp.asarray(active_indices, dtype=jnp.int32)
+
+    def rate_vector(vector):
+        blocks = rate_blocks(vector)
+        if tuple(block.name for block in blocks) != block_names:
+            raise RuntimeError(
+                "observation block structure changed across parameter values"
+            )
+        vectors = []
+        for block in blocks:
+            if tuple(block.keys) != ordered_keys:
+                raise RuntimeError(
+                    "observation block order does not match model domain"
+                )
+            vectors.append(jnp.asarray(block.rates))
+        return (
+            vectors[0]
+            if len(vectors) == 1
+            else jnp.concatenate(vectors, axis=0)
+        )
 
     nominal_rates_array = rate_vector(nominal)
     nominal_rates = tuple(float(value) for value in nominal_rates_array)
     if any((not math.isfinite(value) or value < 0.0) for value in nominal_rates):
-        raise ValueError("structural identification requires finite non-negative expected rates")
-    active_indices = tuple(index for index, value in enumerate(nominal_rates) if value > 0.0)
-    if not active_indices:
-        raise ValueError("structural identification requires at least one positive-exposure observation")
-    active_index_array = jnp.asarray(active_indices, dtype=jnp.int32)
+        raise ValueError(
+            "structural identification requires finite non-negative expected rates"
+        )
+    if any(nominal_rates[index] <= 0.0 for index in active_indices):
+        raise ValueError(
+            "structural identification requires positive rates in exposed contexts"
+        )
 
     def active_rate_vector(vector):
         return rate_vector(vector)[active_index_array]
