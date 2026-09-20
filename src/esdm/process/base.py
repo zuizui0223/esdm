@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Protocol, Mapping, Any
+from typing import Any, Mapping, Protocol
 
 from esdm.domain import Context
 
@@ -12,6 +12,25 @@ from esdm.domain import Context
 class PriorSpec:
     distribution: str
     parameters: Mapping[str, float]
+
+
+@dataclass(frozen=True, slots=True)
+class ProcessContribution:
+    """One ecological process contribution to a semantic latent channel."""
+
+    channel: str
+    values: object
+    labels: tuple[str, ...] = ()
+
+    def __post_init__(self) -> None:
+        channel = str(self.channel).strip()
+        labels = tuple(str(label).strip() for label in self.labels)
+        if not channel:
+            raise ValueError("contribution channel must be non-empty")
+        if any(not label for label in labels) or len(set(labels)) != len(labels):
+            raise ValueError("contribution labels must be unique non-empty strings")
+        object.__setattr__(self, "channel", channel)
+        object.__setattr__(self, "labels", labels)
 
 
 class Process(Protocol):
@@ -23,15 +42,15 @@ class Process(Protocol):
 
     def priors(self) -> dict[str, PriorSpec]: ...
 
-    def log_intensity(
+    def contribution(
         self,
         ctx: Context,
         theta: Mapping[str, float],
         covariates: Mapping[str, float],
         latent_fields: Any | None = None,
-    ) -> float: ...
+    ) -> ProcessContribution: ...
 
-    def log_intensity_array(
+    def contribution_array(
         self,
         keys,
         theta,
@@ -39,7 +58,7 @@ class Process(Protocol):
         *,
         array_module,
         latent_fields: Any | None = None,
-    ): ...
+    ) -> ProcessContribution: ...
 
     def knockout(self) -> "Process": ...
 
@@ -68,6 +87,32 @@ class NoEffectProcess:
         latent_fields=None,
     ):
         return array_module.zeros((len(keys),))
+
+    def contribution(self, ctx, theta, covariates, latent_fields=None) -> ProcessContribution:
+        return ProcessContribution(
+            self.output_channel,
+            self.log_intensity(ctx, theta, covariates, latent_fields=latent_fields),
+        )
+
+    def contribution_array(
+        self,
+        keys,
+        theta,
+        covariates,
+        *,
+        array_module,
+        latent_fields=None,
+    ) -> ProcessContribution:
+        return ProcessContribution(
+            self.output_channel,
+            self.log_intensity_array(
+                keys,
+                theta,
+                covariates,
+                array_module=array_module,
+                latent_fields=latent_fields,
+            ),
+        )
 
     def knockout(self) -> "NoEffectProcess":
         return self

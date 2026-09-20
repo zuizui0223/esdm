@@ -1,0 +1,241 @@
+"""State-labelled Poisson count observation stream."""
+
+from __future__ import annotations
+
+from collections.abc import Mapping
+from dataclasses import dataclass
+import math
+
+from esdm.domain import StateSpace
+
+from .blocks import PoissonObservationBlock
+
+
+_REQUIRED_CHANNELS = frozenset({"log_intensity", "activity", "state"})
+
+
+@dataclass(frozen=True, slots=True)
+class StateAnnotatedCount:
+    name: str
+    state_space: StateSpace
+    effort: object
+    detection: object
+    informs: frozenset[str]
+    targets: frozenset[str] | None = None
+    consumes: frozenset[str] = _REQUIRED_CHANNELS
+    required_latent_channels: frozenset[str] = _REQUIRED_CHANNELS
+
+    def __post_init__(self) -> None:
+        name = str(self.name).strip()
+        if not name:
+            raise ValueError("stream name must be non-empty")
+        if not isinstance(self.state_space, StateSpace):
+            raise TypeError("state_space must be a StateSpace")
+        if not hasattr(self.effort, "at") or not hasattr(self.effort, "array"):
+            raise TypeError("effort must provide at(...) and array(...)")
+        if not hasattr(self.effort, "priors"):
+            raise TypeError("effort must provide priors()")
+        if not hasattr(self.detection, "probability") or not hasattr(
+            self.detection, "priors"
+        ):
+            raise TypeError("detection must provide probability(...) and priors()")
+        if self.targets is None:
+            raise ValueError("targets must be declared explicitly")
+        targets = frozenset(str(value).strip() for value in self.targets)
+        if not targets or any(not value for value in targets):
+            raise ValueError("targets must be a non-empty set of species names")
+        object.__setattr__(self, "name", name)
+        object.__setattr__(self, "informs", frozenset(str(x) for x in self.informs))
+        object.__setattr__(self, "targets", targets)
+        object.__setattr__(self, "consumes", _REQUIRED_CHANNELS)
+        object.__setattr__(self, "required_latent_channels", _REQUIRED_CHANNELS)
+
+    @property
+    def requires(self) -> frozenset[str]:
+        return frozenset(getattr(self.effort, "requires", frozenset())) | frozenset(
+            getattr(self.detection, "requires", frozenset())
+        )
+
+    def priors(self):
+        effort_priors = dict(self.effort.priors())
+        detection_priors = dict(self.detection.priors())
+        overlap = set(effort_priors) & set(detection_priors)
+        if overlap:
+            raise ValueError(
+                f"observation parameter names overlap: {sorted(overlap)}"
+            )
+        return {**effort_priors, **detection_priors}
+
+    def structural_exposure_mask(self, keys) -> tuple[bool, ...]:
+        keys = tuple(keys)
+        detector = getattr(self.detection, "structural_exposure", None)
+        if detector is not None and not bool(detector()):
+            return tuple(False for _ in keys)
+        mask_fn = getattr(self.effort, "structural_exposure_mask", None)
+        if mask_fn is None:
+            return tuple(True for _ in keys)
+        mask = tuple(bool(value) for value in mask_fn(keys))
+        if len(mask) != len(keys):
+            raise ValueError("effort structural exposure mask must match context count")
+        return mask
+
+    def _validate_state_labels(self, labels) -> tuple[str, ...]:
+        labels = tuple(labels)
+        if labels != self.state_space.states:
+            raise ValueError("latent state labels must match the stream state space")
+        return labels
+
+    def _validate_observed(self, data, keys, mask):
+        if data is None:
+            return {state: None for state in self.state_space.states}
+        if set(data) != set(self.state_space.states):
+            raise ValueError("annotated data state labels must match state_space exactly")
+        output = {}
+        key_set = set(keys)
+        for state in self.state_space.states:
+            counts = data[state]
+            unknown = set(counts) - key_set
+            if unknown:
+                raise ValueError("annotated counts contain contexts outside the latent field")
+            values = tuple(int(counts.get(key, 0)) for key in keys)
+            if any(value < 0 for value in values):
+                raise ValueError("annotated counts must be non-negative")
+            impossible = [
+                key
+                for key, exposed, value in zip(keys, mask, values, strict=True)
+                if not exposed and value > 0
+            ]
+            if impossible:
+                raise ValueError(
+                    f"positive annotated count in zero-exposure context: {impossible[0]!r}"
+                )
+            output[state] = values
+        return output
+
+    def validate_species_data(self, species, data, keys) -> None:
+        keys = tuple(keys)
+        self._validate_observed(
+            data,
+            keys,
+            self.structural_exposure_mask(keys),
+        )
+
+    def observation_blocks(
+        self,
+        species: str,
+        fields,
+        *,
+        data=None,
+        theta_obs: Mapping[str, object] | None = None,
+        covariates: Mapping[tuple[str, int, int], Mapping[str, object]] | None = None,
+        array_module=None,
+    ):
+        obs_parameters = {} if theta_obs is None else theta_obs
+        observation_covariates = {} if covariates is None else covariates
+
+        if species not in fields.state_probabilities:
+            raise ValueError(f"species {species!r} has no state probability field")
+        if species not in fields.activity:
+            raise ValueError(f"species {species!r} has no activity field")
+
+        if array_module is None:
+            log_field = fields.log_intensity[species]
+            activity_field = fields.activity[species]
+            state_field = fields.state_probabilities[species]
+            labels = self._validate_state_labels(fields.state_labels[species])
+            keys = tuple(log_field)
+            detection = self.detection.probability(obs_parameters)
+            rates_by_state = {state: [] for state in labels}
+            for key in keys:
+                effort = self.effort.at(
+                    key,
+                    theta=obs_parameters,
+                    covariates=observation_covariates,
+                )
+                base = (
+                    math.exp(float(log_field[key]))
+                    * float(activity_field[key])
+                    * effort
+                    * detection
+                )
+                for index, state in enumerate(labels):
+                    rates_by_state[state].append(
+                        base * float(state_field[key][index])
+                    )
+            rates_by_state = {
+                state: tuple(values) for state, values in rates_by_state.items()
+            }
+        else:
+            log_field = fields.log_intensity[species]
+            activity_field = fields.activity[species]
+            state_field = fields.state_probabilities[species]
+            labels = self._validate_state_labels(state_field.states)
+            keys = log_field.keys
+            if activity_field.keys != keys or state_field.keys != keys:
+                raise ValueError("annotated latent channel context orders must match")
+            effort = self.effort.array(
+                keys,
+                theta=obs_parameters,
+                covariates=observation_covariates,
+                array_module=array_module,
+            )
+            detection = self.detection.probability(
+                obs_parameters,
+                array_module=array_module,
+            )
+            base = (
+                array_module.exp(log_field.values)
+                * activity_field.values
+                * effort
+                * detection
+            )
+            rates_by_state = {
+                state: base * state_field.values[:, index]
+                for index, state in enumerate(labels)
+            }
+
+        mask = self.structural_exposure_mask(keys)
+        observed = self._validate_observed(data, keys, mask)
+        return tuple(
+            PoissonObservationBlock(
+                name=f"{self.name}.{species}.{state}",
+                keys=keys,
+                rates=rates_by_state[state],
+                observed=observed[state],
+                structural_exposure_mask=mask,
+            )
+            for state in labels
+        )
+
+    def log_lik(
+        self,
+        species: str,
+        fields,
+        counts,
+        *,
+        theta_obs: Mapping[str, object] | None = None,
+        covariates: Mapping[tuple[str, int, int], Mapping[str, object]] | None = None,
+    ) -> float:
+        total = 0.0
+        blocks = self.observation_blocks(
+            species,
+            fields,
+            data=counts,
+            theta_obs=theta_obs,
+            covariates=covariates,
+        )
+        for block in blocks:
+            for count, rate in zip(block.observed, block.rates, strict=True):
+                numeric_rate = float(rate)
+                if numeric_rate < 0.0 or not math.isfinite(numeric_rate):
+                    raise ValueError("annotated Poisson rates must be finite and non-negative")
+                if numeric_rate == 0.0:
+                    if count > 0:
+                        return -math.inf
+                    continue
+                total += (
+                    count * math.log(numeric_rate)
+                    - numeric_rate
+                    - math.lgamma(count + 1.0)
+                )
+        return total

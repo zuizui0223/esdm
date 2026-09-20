@@ -4,7 +4,7 @@ from __future__ import annotations
 
 
 def array_trace_equation_count(model, covariates, theta, theta_obs) -> int:
-    """Return the JAXPR equation count for all declared expected-rate vectors.
+    """Return the JAXPR equation count for all declared observation-block rates.
 
     The diagnostic treats ecological and observation parameters as traced PyTree
     inputs while covariates remain fixed design constants. A vectorized model should
@@ -27,15 +27,14 @@ def array_trace_equation_count(model, covariates, theta, theta_obs) -> int:
         for stream in model.streams:
             stream_theta = observation_parameters.get(stream.name, {})
             for species in model.stream_targets(stream):
-                vectors.append(
-                    stream.expected_rate_array(
-                        species,
-                        fields,
-                        theta_obs=stream_theta,
-                        covariates=covariates,
-                        array_module=jnp,
-                    ).values
+                blocks = stream.observation_blocks(
+                    species,
+                    fields,
+                    theta_obs=stream_theta,
+                    covariates=covariates,
+                    array_module=jnp,
                 )
+                vectors.extend(jnp.asarray(block.rates) for block in blocks)
         if not vectors:
             raise ValueError("model has no targeted observation-rate vectors")
         if len(vectors) == 1:

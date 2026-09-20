@@ -7,7 +7,7 @@ from types import MappingProxyType
 from collections.abc import Mapping
 
 from esdm.domain import Context
-from .base import PriorSpec
+from .base import PriorSpec, ProcessContribution
 
 
 @dataclass(frozen=True, slots=True)
@@ -42,6 +42,32 @@ class NeutralSuitability:
     ):
         baseline = array_module.asarray(theta[self.intercept_parameter])
         return array_module.broadcast_to(baseline, (len(keys),))
+
+    def contribution(self, ctx, theta, covariates, latent_fields=None):
+        return ProcessContribution(
+            self.output_channel,
+            self.log_intensity(ctx, theta, covariates, latent_fields=latent_fields),
+        )
+
+    def contribution_array(
+        self,
+        keys,
+        theta,
+        covariates,
+        *,
+        array_module,
+        latent_fields=None,
+    ):
+        return ProcessContribution(
+            self.output_channel,
+            self.log_intensity_array(
+                keys,
+                theta,
+                covariates,
+                array_module=array_module,
+                latent_fields=latent_fields,
+            ),
+        )
 
     def knockout(self) -> "NeutralSuitability":
         return self
@@ -86,9 +112,8 @@ class LinearSuitability:
     def log_intensity(self, ctx: Context, theta, covariates, latent_fields=None):
         """Return this process' additive log-intensity contribution.
 
-        The arithmetic deliberately avoids coercing values to Python ``float`` so the
-        exact same process implementation can operate on ordinary scalars and on JAX
-        tracer values inside the optional NumPyro backend.
+        Arithmetic avoids coercion to Python floats so this implementation can operate
+        on ordinary scalars and JAX tracer values inside the optional NumPyro backend.
         """
 
         value = theta[self.intercept_parameter]
@@ -116,6 +141,32 @@ class LinearSuitability:
                 * covariates[covariate]
             )
         return value
+
+    def contribution(self, ctx, theta, covariates, latent_fields=None):
+        return ProcessContribution(
+            self.output_channel,
+            self.log_intensity(ctx, theta, covariates, latent_fields=latent_fields),
+        )
+
+    def contribution_array(
+        self,
+        keys,
+        theta,
+        covariates,
+        *,
+        array_module,
+        latent_fields=None,
+    ):
+        return ProcessContribution(
+            self.output_channel,
+            self.log_intensity_array(
+                keys,
+                theta,
+                covariates,
+                array_module=array_module,
+                latent_fields=latent_fields,
+            ),
+        )
 
     def knockout(self) -> NeutralSuitability:
         return NeutralSuitability(intercept_parameter=self.intercept_parameter)

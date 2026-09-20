@@ -32,7 +32,7 @@ The repository name is historical/convenient. The project does **not** claim `ES
 ```text
 esdm/
   domain/        space, time, ecological state declarations
-  process/       ecological contributions to latent intensity
+  process/       ecological contributions to latent intensity, activity, and state
   observe/       observation effort and record-generation streams
   model/         composition, design checks, inference backends
   identify/      contraction and SBC diagnostics
@@ -102,6 +102,7 @@ records = PresenceOnly(
     "community_records",
     effort=effort,
     informs=frozenset({"suitability"}),
+    targets=frozenset({"taxon_a"}),
 )
 ```
 
@@ -153,7 +154,66 @@ log_lik = model.log_likelihood(
 )
 ```
 
-Simulation calls the same latent-field construction and the same stream `expected_rates()` code used by the ordinary likelihood and by the optional NumPyro backend. The ecological equation is not duplicated inside the backend.
+Simulation calls the same latent-field construction and observation-stream mathematics used by deterministic likelihoods and the optional NumPyro backend. In v0.4 these stream calculations are exposed as backend-neutral Poisson observation blocks, so simulation, inference, and identification do not maintain separate copies of the ecological/observation equations.
+
+## v0.4 state/activity core — implemented, promotion pending
+
+The v0.4 core refines ecological availability into separate conditional activity and
+categorical state channels:
+
+```text
+ecological intensity / availability
+  -> activity probability | available
+  -> state probabilities | active, available
+  -> observation process
+  -> data
+```
+
+The implementation is factorized rather than treating every record as the same latent
+quantity. `LinearActivity` contributes an activity logit, while `LinearState` uses
+reference-coded state logits followed by a softmax. A species with only
+`LinearSuitability` retains the v0.3.2 intensity-only behavior.
+
+`PresenceOnly` deliberately remains an intensity-only stream:
+
+```text
+lambda_presence
+  = exp(log_intensity)
+  × effort
+  × detection
+```
+
+Adding an activity or state process to the same species does not silently alter this rate.
+
+`StateAnnotatedCount` explicitly consumes all three ecological channels. For state
+`s` in context `c`:
+
+```text
+lambda_annotated[c, s]
+  = exp(log_intensity[c])
+  × activity[c]
+  × P(state=s | active, available, c)
+  × effort[c]
+  × detection
+```
+
+Known constant detection and an unknown global logit-detection intercept are represented
+as observation-process objects, not ecological parameters. Exact JAX Jacobian diagnostics
+therefore can refuse designs where activity and detection are structurally inseparable.
+The required negative control is an intercept-only activity process observed through
+unknown global detection; activity intercept and detection intercept are returned as
+`NotIdentified`, rather than being separated by prior regularization.
+
+Observation streams expose shared `PoissonObservationBlock` objects. The same blocks are
+used by generic in-model simulation, NumPyro likelihood construction, posterior
+observation-rate derivation, structural identification, and JAX trace-size diagnostics.
+State/activity parameter-dependent arithmetic remains array-first, including the
+2,880-context trace-scaling regression.
+
+This is an **implemented core contract, not a v0.4 promotion result**. Full promotion still
+requires a separate gate frozen before outcome-producing runs: replicated state/activity
+recovery, partial-annotation cross-stream transfer, practical-identification checks, and
+the unknown-detection refusal control under the frozen validation profile.
 
 ## NumPyro inference backend
 
@@ -178,7 +238,7 @@ fit = fit_numpyro(
 )
 ```
 
-The backend translates backend-neutral `PriorSpec` declarations into NumPyro distributions, then calls the existing process graph and observation-rate code. `posterior_record_rates(...)` derives posterior record-rate fields through the same graph.
+The backend translates backend-neutral `PriorSpec` declarations into NumPyro distributions, then calls the existing latent-channel graph and stream observation blocks. `posterior_latent_fields(...)` derives intensity/activity/state fields, `posterior_observation_rates(...)` derives all observation-block rates, and `posterior_record_rates(...)` remains the PresenceOnly compatibility view.
 
 ## Identification and simulation-based calibration
 
@@ -309,12 +369,13 @@ See [`docs/PROVENANCE.md`](docs/PROVENANCE.md).
 
 ## Explicit non-claims
 
-Current v0.3 does **not** claim:
+The current v0.4 core does **not** claim:
 
-- completion of the v0.3 promotion gate from the current small SBC smoke test;
-- identification from contraction alone;
-- ecological robustness from in-model SBC alone;
+- completion of the v0.4 promotion gate from core smoke/recovery tests;
+- scientific support from structural identification or posterior contraction alone;
+- empirical biological validity from in-model or semi-synthetic validation;
 - causal interaction from co-occurrence, residual association, predictive gain, or rewiring;
+- a directed biotic-interaction process yet;
 - a bidirectional/fixed-point interaction model;
 - movement/accessibility inference;
 - a universal SDM/JSDM replacement;
