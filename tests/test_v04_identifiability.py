@@ -25,17 +25,22 @@ def _fixture(*, unknown_detection: bool):
         hour=(0,),
     )
     states = StateSpace(("resting", "foraging"))
+    activity_process = (
+        LinearActivity((), "activity_intercept", {})
+        if unknown_detection
+        else LinearActivity(
+            ("x",),
+            "activity_intercept",
+            {"x": "activity_beta_x"},
+        )
+    )
     processes = (
         LinearSuitability(
             ("x",),
             "intercept",
             {"x": "beta_x"},
         ),
-        LinearActivity(
-            ("x",),
-            "activity_intercept",
-            {"x": "activity_beta_x"},
-        ),
+        activity_process,
         LinearState(
             states,
             "resting",
@@ -80,7 +85,7 @@ def _fixture(*, unknown_detection: bool):
             "intercept": 0.2,
             "beta_x": 0.35,
             "activity_intercept": -0.3,
-            "activity_beta_x": 0.55,
+            **({} if unknown_detection else {"activity_beta_x": 0.55}),
             "alpha_foraging": 0.1,
             "beta_foraging_z": -0.45,
         }
