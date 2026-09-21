@@ -1,0 +1,8 @@
+v0.4-R2 frozen hard separation outcome run authorized
+
+Gate freeze commit:
+9e6db6fbe8336c6eb8bbe354713d2863fc40033f
+
+This marker authorizes execution of the already-frozen v0.4-R2 hard separation profile.
+It does not alter any scientific threshold, seed, geometry, truth, prior, calibration
+profile, temporal covariate definition, knockout definition, or PASS rule.
