@@ -144,3 +144,5 @@ def test_r3a_qualification_summary_counts_actual_stream_exposure(monkeypatch):
 
     assert summary.annotated_context_count == 3
     assert summary.calibrated_context_count == 2
+    assert summary.calibrated_space_count == 2
+    assert summary.calibrated_time_count == 1
