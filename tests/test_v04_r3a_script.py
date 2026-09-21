@@ -60,3 +60,33 @@ def test_r3a_initial_payload_fails_closed():
     assert payload["status"] == "INFRASTRUCTURE_BLOCKED"
     assert payload["gate_freeze_commit"] == module.FROZEN_GATE_COMMIT
     assert payload["infrastructure_block"] is not None
+
+
+
+def test_r3a_script_verifies_current_gate_blob_before_qualification(tmp_path, monkeypatch):
+    module = _load_script()
+    gate = tmp_path / "V04_R3A_QUALIFICATION_GATE.md"
+    gate.write_text("frozen gate\n", encoding="utf-8")
+
+    monkeypatch.setattr(module, "GATE_PATH", gate)
+    monkeypatch.setattr(
+        module,
+        "FROZEN_GATE_BLOB_SHA",
+        module._git_blob_sha1(gate.read_bytes()),
+    )
+
+    assert module._verify_gate_blob() == module.FROZEN_GATE_BLOB_SHA
+
+
+def test_r3a_script_refuses_gate_blob_drift(tmp_path, monkeypatch):
+    import pytest
+
+    module = _load_script()
+    gate = tmp_path / "V04_R3A_QUALIFICATION_GATE.md"
+    gate.write_text("changed gate\n", encoding="utf-8")
+
+    monkeypatch.setattr(module, "GATE_PATH", gate)
+    monkeypatch.setattr(module, "FROZEN_GATE_BLOB_SHA", "0" * 40)
+
+    with pytest.raises(RuntimeError, match="gate blob mismatch"):
+        module._verify_gate_blob()
