@@ -46,7 +46,13 @@ def test_r3a_qualification_summary_counts_design_not_observed_records(monkeypatc
         calibrated_spaces=tuple(f"c{i}" for i in range(18)),
         annotated_spaces=tuple(f"a{i}" for i in range(36)),
         annotated_times=tuple((15 + i, 0) for i in range(12)),
-        model=SimpleNamespace(\n            domain=SimpleNamespace(\n                keys=(),\n                doy=(15, 75, 135, 195, 255, 315),\n                hour=(0, 6, 12, 18),\n            )\n        ),
+        model=SimpleNamespace(
+            domain=SimpleNamespace(
+                keys=(),
+                doy=(15, 75, 135, 195, 255, 315),
+                hour=(0, 6, 12, 18),
+            )
+        ),
     )
     monkeypatch.setattr(
         v04_r3a_gate,
