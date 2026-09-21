@@ -15,6 +15,7 @@ class PresenceOnly:
     effort: object
     informs: frozenset[str]
     detection_probability: float = 1.0
+    detection: object | None = None
     consumes: frozenset[str] = frozenset({"log_intensity"})
     targets: frozenset[str] | None = None
 
@@ -27,6 +28,23 @@ class PresenceOnly:
             raise ValueError("detection_probability must be in [0, 1]")
         if not hasattr(self.effort, "at") or not hasattr(self.effort, "priors"):
             raise TypeError("effort must provide at(...) and priors()")
+        if self.detection is not None:
+            if p != 1.0:
+                raise ValueError(
+                    "detection_probability must remain at its default 1.0 "
+                    "when an explicit detection model is supplied"
+                )
+            if not hasattr(self.detection, "probability") or not hasattr(
+                self.detection, "priors"
+            ):
+                raise TypeError(
+                    "detection must provide probability(...) and priors()"
+                )
+            overlap = set(self.effort.priors()) & set(self.detection.priors())
+            if overlap:
+                raise ValueError(
+                    f"observation parameter names overlap: {sorted(overlap)}"
+                )
         if self.targets is None:
             raise ValueError("targets must be declared explicitly")
         targets = frozenset(str(value).strip() for value in self.targets)
@@ -39,23 +57,62 @@ class PresenceOnly:
 
     @property
     def requires(self) -> frozenset[str]:
-        return frozenset(getattr(self.effort, "requires", frozenset()))
+        effort_requires = frozenset(
+            getattr(self.effort, "requires", frozenset())
+        )
+        detection_requires = (
+            frozenset()
+            if self.detection is None
+            else frozenset(
+                getattr(self.detection, "requires", frozenset())
+            )
+        )
+        return effort_requires | detection_requires
 
     def priors(self):
-        return dict(self.effort.priors())
+        effort_priors = dict(self.effort.priors())
+        if self.detection is None:
+            return effort_priors
+        detection_priors = dict(self.detection.priors())
+        overlap = set(effort_priors) & set(detection_priors)
+        if overlap:
+            raise ValueError(
+                f"observation parameter names overlap: {sorted(overlap)}"
+            )
+        return {**effort_priors, **detection_priors}
+
+    def _detection_value(self, theta_obs, *, array_module=None):
+        if self.detection is None:
+            return self.detection_probability
+        return self.detection.probability(
+            theta_obs,
+            array_module=array_module,
+        )
 
     def structural_exposure_mask(self, keys) -> tuple[bool, ...]:
         """Return statically known observation opportunities in key order."""
 
         keys = tuple(keys)
-        if self.detection_probability == 0.0:
-            return tuple(False for _ in keys)
+        if self.detection is None:
+            if self.detection_probability == 0.0:
+                return tuple(False for _ in keys)
+        else:
+            exposure_fn = getattr(
+                self.detection,
+                "structural_exposure",
+                None,
+            )
+            if exposure_fn is not None and not bool(exposure_fn()):
+                return tuple(False for _ in keys)
+
         mask_fn = getattr(self.effort, "structural_exposure_mask", None)
         if mask_fn is None:
             return tuple(True for _ in keys)
         mask = tuple(bool(value) for value in mask_fn(keys))
         if len(mask) != len(keys):
-            raise ValueError("effort structural exposure mask must match context count")
+            raise ValueError(
+                "effort structural exposure mask must match context count"
+            )
         return mask
 
     def expected_rates(
@@ -71,9 +128,8 @@ class PresenceOnly:
 
         obs_parameters = {} if theta_obs is None else theta_obs
         observation_covariates = {} if covariates is None else covariates
+        detection = self._detection_value(obs_parameters)
         rates: dict[tuple[str, int, int], object] = {}
-        if self.detection_probability == 0.0:
-            return {key: 0.0 for key in fields.log_intensity[species]}
         for key, log_ecological in fields.log_intensity[species].items():
             effort = self.effort.at(
                 key,
@@ -81,7 +137,7 @@ class PresenceOnly:
                 covariates=observation_covariates,
                 exp_fn=exp_fn,
             )
-            rates[key] = exp_fn(log_ecological) * effort * self.detection_probability
+            rates[key] = exp_fn(log_ecological) * effort * detection
         return rates
 
     def expected_rate_array(
@@ -98,8 +154,6 @@ class PresenceOnly:
         from esdm.model.arrays import ContextArray
 
         field = fields.log_intensity[species]
-        if self.detection_probability == 0.0:
-            return ContextArray(field.keys, array_module.zeros_like(field.values))
         obs_parameters = {} if theta_obs is None else theta_obs
         observation_covariates = {} if covariates is None else covariates
         effort = self.effort.array(
@@ -108,7 +162,11 @@ class PresenceOnly:
             covariates=observation_covariates,
             array_module=array_module,
         )
-        values = array_module.exp(field.values) * effort * self.detection_probability
+        detection = self._detection_value(
+            obs_parameters,
+            array_module=array_module,
+        )
+        values = array_module.exp(field.values) * effort * detection
         return ContextArray(field.keys, values)
 
     def validate_species_data(self, species, data, keys) -> None:
@@ -210,7 +268,11 @@ class PresenceOnly:
                 if count > 0:
                     return -math.inf
                 continue
-            total += count * math.log(numeric_rate) - numeric_rate - math.lgamma(count + 1.0)
+            total += (
+                count * math.log(numeric_rate)
+                - numeric_rate
+                - math.lgamma(count + 1.0)
+            )
         unknown = set(counts) - set(rates)
         if unknown:
             raise ValueError("counts contain contexts outside the latent field")

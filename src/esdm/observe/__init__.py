@@ -2,7 +2,7 @@
 
 from .blocks import PoissonObservationBlock
 from .detection import KnownDetection, LogitDetection
-from .effort import EffortField, LogLinearEffort
+from .effort import EffortField, LogLinearEffort, MultiLogLinearEffort
 from .presence_only import PresenceOnly
 from .state_annotated import StateAnnotatedCount
 from .candidates import (
@@ -17,6 +17,7 @@ __all__ = [
     "LogitDetection",
     "EffortField",
     "LogLinearEffort",
+    "MultiLogLinearEffort",
     "PresenceOnly",
     "StateAnnotatedCount",
     "DiscriminatingObservationSet",
