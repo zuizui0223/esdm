@@ -11,7 +11,7 @@ def test_r3a_workflow_requires_explicit_authorization_and_has_no_mcmc():
     text = path.read_text(encoding="utf-8")
 
     assert "feature/v04-r3-budget-neutral-design" in text
-    assert "docs/validation/V04_R3A_RUN_AUTHORIZED" in text
+    assert "docs/validation/V04_R3A_RUN_AUTHORIZED" in text\n    assert "7fac98708d4474dc175d48c0ec3854f63d0ba527" in text
     assert "needs: precheck" in text
     assert "if: needs.precheck.outputs.authorized == 'true'" in text
     assert "run_v04_r3a_qualification.py" in text
