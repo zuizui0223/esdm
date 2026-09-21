@@ -4,7 +4,8 @@
 from __future__ import annotations
 
 import argparse
-from dataclasses import asdict
+from dataclasses import fields, is_dataclass
+from enum import Enum
 import hashlib
 import json
 import os
@@ -13,6 +14,7 @@ import subprocess
 import sys
 import tempfile
 import urllib.request
+from collections.abc import Mapping
 
 
 FROZEN_GATE_COMMIT = "9e6db6fbe8336c6eb8bbe354713d2863fc40033f"
@@ -147,6 +149,93 @@ def _read_worker_source(path: Path) -> bytes:
     return payload
 
 
+def _json_safe(value):
+    """Recursively convert frozen runtime objects to ordinary JSON-safe containers."""
+
+    if is_dataclass(value):
+        return {
+            field.name: _json_safe(getattr(value, field.name))
+            for field in fields(value)
+        }
+    if isinstance(value, Enum):
+        return _json_safe(value.value)
+    if isinstance(value, Mapping):
+        return {
+            str(key): _json_safe(item)
+            for key, item in value.items()
+        }
+    if isinstance(value, (tuple, list)):
+        return [_json_safe(item) for item in value]
+    if (
+        value is None
+        or isinstance(value, (str, int, float, bool))
+    ):
+        return value
+    if hasattr(value, "value"):
+        return _json_safe(value.value)
+    return value
+
+
+def _identification_payload(identification) -> dict:
+    return {
+        "positive_structural_pass": bool(
+            identification.positive_structural_pass
+        ),
+        "positive_practical_pass": bool(
+            identification.positive_practical_pass
+        ),
+        "sparse_structural_pass": bool(
+            identification.sparse_structural_pass
+        ),
+        "sparse_practical_refused": bool(
+            identification.sparse_practical_refused
+        ),
+        "unknown_detection_refused": bool(
+            identification.unknown_detection_refused
+        ),
+        "positive_anchor_evidence": _json_safe(
+            identification.positive_anchor_evidence
+        ),
+        "sparse_anchor_evidence": _json_safe(
+            identification.sparse_anchor_evidence
+        ),
+        "unknown_anchor_evidence": _json_safe(
+            identification.unknown_anchor_evidence
+        ),
+    }
+
+
+def _pre_mcmc_failures(
+    identification,
+    *,
+    extrapolation_integrity: bool,
+) -> tuple[str, ...]:
+    checks = (
+        (
+            "positive_structural_pass",
+            bool(identification.positive_structural_pass),
+        ),
+        (
+            "positive_practical_pass",
+            bool(identification.positive_practical_pass),
+        ),
+        (
+            "sparse_structural_pass",
+            bool(identification.sparse_structural_pass),
+        ),
+        (
+            "sparse_practical_refused",
+            bool(identification.sparse_practical_refused),
+        ),
+        (
+            "unknown_detection_refused",
+            bool(identification.unknown_detection_refused),
+        ),
+        ("extrapolation_integrity", bool(extrapolation_integrity)),
+    )
+    return tuple(name for name, passed in checks if not passed)
+
+
 def _write_audit(path: Path, payload: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
@@ -179,7 +268,7 @@ def _run_worker(args: argparse.Namespace) -> int:
         "schema": "esdm.v04_r2.state_activity_gate.worker.v1",
         "replicate_index": index,
         "seed": seed,
-        "record": asdict(row),
+        "record": _json_safe(row),
     }
     output = Path(args._worker_output)
     _write_audit(output, payload)
@@ -271,7 +360,7 @@ def _run_coordinator(args: argparse.Namespace) -> int:
     base_payload.update(
         {
             "source_audit": source_audit,
-            "manifest": asdict(V031_SEMISYNTHETIC_MANIFEST),
+            "manifest": _json_safe(V031_SEMISYNTHETIC_MANIFEST),
             "train_space_count": len(fixture.train_spaces),
             "heldout_space_count": len(fixture.heldout_spaces),
             "calibration_space_count_positive": len(fixture.calibration_spaces),
@@ -280,16 +369,45 @@ def _run_coordinator(args: argparse.Namespace) -> int:
                 "heldout_min_eastness_z": heldout_min,
                 "integrity": extrapolation_integrity,
             },
-            "identification": {
-                "positive_structural_pass": identification.positive_structural_pass,
-                "positive_practical_pass": identification.positive_practical_pass,
-                "sparse_structural_pass": identification.sparse_structural_pass,
-                "sparse_practical_refused": identification.sparse_practical_refused,
-                "unknown_detection_refused": identification.unknown_detection_refused,
-            },
+            "identification": _identification_payload(identification),
         }
     )
     _write_audit(output, base_payload)
+
+    pre_mcmc_failures = _pre_mcmc_failures(
+        identification,
+        extrapolation_integrity=extrapolation_integrity,
+    )
+    if pre_mcmc_failures:
+        payload = dict(base_payload)
+        payload.update(
+            {
+                "status": "FAIL",
+                "infrastructure_block": None,
+                "decision_stage": "pre_mcmc_required_conditions",
+                "pre_mcmc_failures": list(pre_mcmc_failures),
+                "replicates_executed": 0,
+                "fits_executed": 0,
+                "reason": (
+                    "Frozen conjunction already contains a failed necessary "
+                    "pre-MCMC condition; downstream recovery fits cannot "
+                    "change the gate decision."
+                ),
+            }
+        )
+        _write_audit(output, payload)
+        print(
+            json.dumps(
+                {
+                    "output": str(output),
+                    "status": "FAIL",
+                    "decision_stage": payload["decision_stage"],
+                    "pre_mcmc_failures": payload["pre_mcmc_failures"],
+                },
+                sort_keys=True,
+            )
+        )
+        return 1
 
     records: list[V04R2Replicate] = []
     with tempfile.TemporaryDirectory(prefix="esdm-v04-r2-") as tmp:
@@ -316,7 +434,7 @@ def _run_coordinator(args: argparse.Namespace) -> int:
                     "reason": f"{type(exc).__name__}: {exc}",
                 }
                 payload["completed_replicates"] = [
-                    asdict(row) for row in records
+                    _json_safe(row) for row in records
                 ]
                 _write_audit(output, payload)
                 return 2
@@ -331,7 +449,7 @@ def _run_coordinator(args: argparse.Namespace) -> int:
                     "reason": "worker process did not complete normally",
                 }
                 payload["completed_replicates"] = [
-                    asdict(row) for row in records
+                    _json_safe(row) for row in records
                 ]
                 _write_audit(output, payload)
                 return 2
@@ -357,17 +475,17 @@ def _run_coordinator(args: argparse.Namespace) -> int:
             "status": "PASS" if decision.passed else "FAIL",
             "infrastructure_block": None,
             "replicates": [
-                asdict(row)
+                _json_safe(row)
                 | {
                     "activity_gain": row.activity_gain,
                     "state_gain": row.state_gain,
                 }
                 for row in records
             ],
-            "summary": asdict(summary),
+            "summary": _json_safe(summary),
             "gate": {
                 "passed": decision.passed,
-                "checks": [asdict(check) for check in decision.checks],
+                "checks": [_json_safe(check) for check in decision.checks],
             },
         }
     )
