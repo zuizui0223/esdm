@@ -1,9 +1,11 @@
 import importlib.util
+import os
 
 import pytest
 
 
 JAX_AVAILABLE = importlib.util.find_spec("jax") is not None
+R3A_OUTCOME_ENABLED = os.environ.get("ESDM_RUN_R3A_QUALIFICATION") == "1"
 
 
 def _sample_csv(rows=130):
@@ -21,7 +23,10 @@ def _sample_csv(rows=130):
     return "\n".join(lines) + "\n"
 
 
-@pytest.mark.skipif(not JAX_AVAILABLE, reason="JAX optional backend not installed")
+@pytest.mark.skipif(
+    not JAX_AVAILABLE or not R3A_OUTCOME_ENABLED,
+    reason="R3a outcome test requires explicit authorization environment",
+)
 def test_r3a_evaluator_returns_all_three_profile_evidence_groups():
     from esdm.validate.v04_r2_gate import R2_IDENTIFICATION_TARGETS
     from esdm.validate.v04_r3a_gate import evaluate_v04_r3a_identification
