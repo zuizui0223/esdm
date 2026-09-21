@@ -188,6 +188,20 @@ They are not used for:
 
 They are reserved for R3b if R3a passes.
 
+## Prospective freeze discipline
+
+R3a qualification results must not be computed before an R3a gate artifact is frozen.
+
+The implementation sequence is:
+
+1. implement and test the deterministic selectors and fixture mechanics without running the R3a practical-identification outcome;
+2. write and commit the R3a qualification gate, including the unchanged thresholds, anchors, refusal controls, and exact budget rules;
+3. verify the gate artifact is stable;
+4. only then execute the R3a structural/practical qualification;
+5. record PASS or FAIL without retuning the design.
+
+The deterministic selected site/time identities may be recorded for audit after applying the already-frozen selection algorithm, but identification outcomes must not influence the selection.
+
 ## R3a: prospective design qualification
 
 R3a contains **no MCMC outcome benchmark**.
@@ -263,11 +277,10 @@ The sparse profile is **not redesigned**.
 
 It remains exactly the frozen R2 sparse geometry:
 
-- same four central training sites;
-- calibrated PresenceOnly exposure unchanged;
-- StateAnnotatedCount exposure unchanged;
-- same temporal coverage;
-- same truth and thresholds.
+- the same four training sites minimizing `precip_z_train^2 + eastness_z_train^2`, with station-ID tie-breaker;
+- calibrated PresenceOnly exposure at those four sites × all 24 temporal contexts;
+- StateAnnotatedCount exposure at those four sites × all 24 temporal contexts;
+- the same truth and thresholds.
 
 Required behavior remains:
 
@@ -378,7 +391,7 @@ R3 instead keeps the training state-annotation context count fixed at 432.
 That makes the scientific interpretation sharper:
 
 > the arrangement of annotation effort across ecological dimensions can determine
-> practical recoverability even when total annotation count is unchanged.
+> practical recoverability even when the number of annotated context opportunities is unchanged.
 
 ## Why not optimize directly on Fisher information
 
