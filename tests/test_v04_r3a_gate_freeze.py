@@ -43,5 +43,7 @@ def test_r3a_gate_document_freezes_exact_budget_counts_and_decision_terms():
     assert "annotated site count = 36" in text
     assert "annotated temporal-context count = 12" in text
     assert "calibrated PresenceOnly context count = 432" in text
+    assert "calibrated PresenceOnly site count = 18" in text
+    assert "calibrated PresenceOnly temporal-context count = 24" in text
     assert "first-18 prefix equality" in text
-    assert "10 required terms" in text
+    assert "12 required terms" in text
