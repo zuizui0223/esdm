@@ -42,9 +42,21 @@ def test_r3a_workflow_precheck_covers_design_gate_and_refusal_contracts():
         "tests/test_v04_r3a_fixture.py",
         "tests/test_v04_r3a_gate.py",
         "tests/test_v04_r3a_gate_freeze.py",
-        "tests/test_v04_r3a_identification.py",
         "tests/test_v04_r3a_script.py",
         "tests/test_v04_r3a_workflow.py",
         "tests/test_v04_r2_identification.py",
     ):
         assert required in text
+
+
+
+def test_r3a_precheck_does_not_execute_identification_outcome_before_authorization():
+    path = (
+        Path(__file__).resolve().parents[1]
+        / ".github"
+        / "workflows"
+        / "v04-r3a-qualification-once.yml"
+    )
+    text = path.read_text(encoding="utf-8")
+
+    assert "tests/test_v04_r3a_identification.py" not in text
