@@ -26,6 +26,7 @@ def test_r3a_gate_document_contains_exact_frozen_contract():
     assert "unknown annotated-detection refusal" in text
     assert "R3a contains no MCMC" in text
     assert "first 18" in text
+    assert "Spatial distances are compared without tolerance quantization" in text
     assert "No threshold" in text or "no threshold" in text
 
 
