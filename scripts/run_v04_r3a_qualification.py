@@ -15,8 +15,8 @@ import urllib.request
 from collections.abc import Mapping
 
 
-FROZEN_GATE_COMMIT = "7fac98708d4474dc175d48c0ec3854f63d0ba527"
-FROZEN_GATE_BLOB_SHA = "72ea44d467b41f78a0e9ec71941d8bb2ab26a227"
+FROZEN_GATE_COMMIT = "aa38b790e094261addd07c301edc24afa110cb4c"
+FROZEN_GATE_BLOB_SHA = "ed470d4f6166c5107aeda9432ca44a985cb55e72"
 GATE_PATH = (
     Path(__file__).resolve().parents[1]
     / "docs"
@@ -28,6 +28,7 @@ ANNOTATED_SITE_COUNT = 36
 ANNOTATED_TIME_COUNT = 12
 ANNOTATED_CONTEXT_COUNT = 432
 CALIBRATED_SITE_COUNT = 18
+CALIBRATED_TIME_COUNT = 24
 CALIBRATED_CONTEXT_COUNT = 432
 
 FROZEN_SOURCE_COMMIT = "3dcb0a80c838ff9503e3957d7e004a7f4b888b0a"
@@ -180,6 +181,7 @@ def _initial_payload() -> dict:
             "annotated_time_count": ANNOTATED_TIME_COUNT,
             "annotated_context_count": ANNOTATED_CONTEXT_COUNT,
             "calibrated_site_count": CALIBRATED_SITE_COUNT,
+            "calibrated_time_count": CALIBRATED_TIME_COUNT,
             "calibrated_context_count": CALIBRATED_CONTEXT_COUNT,
         },
     }
