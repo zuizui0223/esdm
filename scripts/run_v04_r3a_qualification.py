@@ -17,6 +17,12 @@ from collections.abc import Mapping
 
 FROZEN_GATE_COMMIT = "7fac98708d4474dc175d48c0ec3854f63d0ba527"
 FROZEN_GATE_BLOB_SHA = "72ea44d467b41f78a0e9ec71941d8bb2ab26a227"
+GATE_PATH = (
+    Path(__file__).resolve().parents[1]
+    / "docs"
+    / "validation"
+    / "V04_R3A_QUALIFICATION_GATE.md"
+)
 
 ANNOTATED_SITE_COUNT = 36
 ANNOTATED_TIME_COUNT = 12
@@ -51,6 +57,18 @@ def _parser() -> argparse.ArgumentParser:
 def _git_blob_sha1(payload: bytes) -> str:
     header = f"blob {len(payload)}\0".encode("ascii")
     return hashlib.sha1(header + payload).hexdigest()
+
+
+def _verify_gate_blob() -> str:
+    if not GATE_PATH.exists():
+        raise RuntimeError(f"frozen R3a gate file is missing: {GATE_PATH}")
+    observed = _git_blob_sha1(GATE_PATH.read_bytes())
+    if observed != FROZEN_GATE_BLOB_SHA:
+        raise RuntimeError(
+            "R3a gate blob mismatch: "
+            f"expected {FROZEN_GATE_BLOB_SHA}, observed {observed}"
+        )
+    return observed
 
 
 def _git_sha() -> str:
@@ -189,6 +207,7 @@ def main() -> int:
     _write_audit(output, base_payload)
 
     try:
+        observed_gate_blob = _verify_gate_blob()
         source_bytes, source_audit = _fetch_source()
         source_text = source_bytes.decode("utf-8")
         identification = evaluate_v04_r3a_identification(source_text)
@@ -210,6 +229,7 @@ def main() -> int:
             "status": "PASS" if decision.passed else "FAIL",
             "infrastructure_block": None,
             "source_audit": source_audit,
+            "observed_gate_blob_sha": observed_gate_blob,
             "selected_annotated_spaces": list(fixture.annotated_spaces),
             "selected_annotated_times": [
                 [int(doy), int(hour)]
