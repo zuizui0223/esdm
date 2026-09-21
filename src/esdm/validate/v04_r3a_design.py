@@ -2,7 +2,14 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping
+from dataclasses import dataclass
+from types import MappingProxyType
 import math
+
+from esdm.model import Model
+from esdm.observe import EffortField, KnownDetection, StateAnnotatedCount
+from .v04_r2_state_activity import build_v04_r2_fixture
 
 
 def _spatial_point(space, covariates) -> tuple[float, float]:
@@ -118,7 +125,8 @@ def temporal_maximin_sequence(
                 )
                 for other in selected
             )
-            scored.append((-minimum_distance, candidate))
+            stable_distance = round(minimum_distance, 12)
+            scored.append((-stable_distance, candidate))
         chosen = min(scored)[1]
         selected.append(chosen)
         remaining.remove(chosen)
