@@ -311,7 +311,7 @@ Those are eligible only for a separately frozen R3b gate after an R3a PASS.
 
 ## Mechanical PASS rule
 
-R3a qualification has exactly 10 required terms:
+R3a qualification has exactly 12 required terms:
 
 1. positive_structural_pass is true;
 2. positive_practical_pass is true;
@@ -322,9 +322,11 @@ R3a qualification has exactly 10 required terms:
 7. annotated site count = 36;
 8. annotated temporal-context count = 12;
 9. calibrated PresenceOnly context count = 432;
-10. first-18 prefix equality is true.
+10. calibrated PresenceOnly site count = 18;
+11. calibrated PresenceOnly temporal-context count = 24;
+12. first-18 prefix equality is true.
 
-R3a = PASS only if all 10 terms pass.
+R3a = PASS only if all 12 terms pass.
 
 ## Outcome discipline
 
