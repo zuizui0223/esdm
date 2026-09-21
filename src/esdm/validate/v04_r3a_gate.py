@@ -4,6 +4,22 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from esdm.domain import Grid
+from esdm.identify import IdentificationStatus
+from esdm.model import Model
+from .evidence import IdentificationEvidence, diagnose_identification
+from .v04_r2_gate import (
+    R2_IDENTIFICATION_TARGETS,
+    R2_UNKNOWN_DETECTION_TARGETS,
+)
+from .v04_r2_state_activity import (
+    build_v04_r2_fixture,
+    build_v04_r2_unknown_detection_fixture,
+    v04_r2_identification_anchors,
+    v04_r2_unknown_detection_anchors,
+)
+from .v04_r3a_design import build_v04_r3a_fixture
+
 
 @dataclass(frozen=True, slots=True)
 class V04R3AQualificationSummary:
