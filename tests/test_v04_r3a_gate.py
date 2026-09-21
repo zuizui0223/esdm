@@ -14,6 +14,8 @@ def _passing_summary():
         annotated_space_count=36,
         annotated_time_count=12,
         calibrated_context_count=432,
+        calibrated_space_count=18,
+        calibrated_time_count=24,
         r2_prefix_preserved=True,
     )
 
@@ -24,7 +26,7 @@ def test_r3a_mechanical_gate_accepts_only_complete_design_qualification():
     decision = evaluate_v04_r3a_qualification(_passing_summary())
 
     assert decision.passed is True
-    assert len(decision.checks) == 10
+    assert len(decision.checks) == 12
     assert all(check.passed for check in decision.checks)
 
 
@@ -41,6 +43,8 @@ def test_r3a_each_term_is_required():
         "annotated_space_count": 35,
         "annotated_time_count": 11,
         "calibrated_context_count": 431,
+        "calibrated_space_count": 17,
+        "calibrated_time_count": 23,
         "r2_prefix_preserved": False,
     }
     for field, value in cases.items():
@@ -64,3 +68,5 @@ def test_r3a_gate_uses_exact_budget_criteria():
     assert by_name["annotated_space_count"].criterion == "== 36"
     assert by_name["annotated_time_count"].criterion == "== 12"
     assert by_name["calibrated_context_count"].criterion == "== 432"
+    assert by_name["calibrated_space_count"].criterion == "== 18"
+    assert by_name["calibrated_time_count"].criterion == "== 24"
