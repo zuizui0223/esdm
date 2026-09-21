@@ -396,7 +396,7 @@ Passing fixture:
         r2_prefix_preserved=True,
     )
 
-Assert exactly 10 checks pass. Then mutate each field independently to a failing value and assert the corresponding named check fails.
+Assert exactly 12 checks pass. Then mutate each field independently to a failing value and assert the corresponding named check fails.
 
 - [ ] **Step 2: Run and verify RED**
 
@@ -536,7 +536,7 @@ Evaluate sparse and unknown profiles using the exact R2 sparse/unknown fixtures,
 
 - [ ] **Step 3: Implement qualification_summary**
 
-Count actual positive training exposures from stream effort objects and populate the pure 10-term summary. Compute prefix equality from annotated_spaces[:18] == calibrated_spaces.
+Count actual positive training exposures from stream effort objects and populate the pure 12-term summary. Compute prefix equality from annotated_spaces[:18] == calibrated_spaces.
 
 - [ ] **Step 4: Write script contract tests**
 
@@ -621,7 +621,7 @@ Do not edit the gate or selectors while it runs.
 
 Verify GitHub artifact digest, independently downloaded ZIP SHA256, source Git blob SHA1, exact head SHA, and exact gate freeze SHA.
 
-- [ ] **Step 4: Recompute the 10-term decision**
+- [ ] **Step 4: Recompute the 12-term decision**
 
 Confirm:
 - five identification/refusal booleans;
