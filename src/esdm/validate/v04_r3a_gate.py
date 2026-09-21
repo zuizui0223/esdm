@@ -32,6 +32,8 @@ class V04R3AQualificationSummary:
     annotated_space_count: int
     annotated_time_count: int
     calibrated_context_count: int
+    calibrated_space_count: int
+    calibrated_time_count: int
     r2_prefix_preserved: bool
 
 
@@ -117,6 +119,18 @@ def evaluate_v04_r3a_qualification(
             summary.calibrated_context_count == 432,
             summary.calibrated_context_count,
             "== 432",
+        ),
+        _check(
+            "calibrated_space_count",
+            summary.calibrated_space_count == 18,
+            summary.calibrated_space_count,
+            "== 18",
+        ),
+        _check(
+            "calibrated_time_count",
+            summary.calibrated_time_count == 24,
+            summary.calibrated_time_count,
+            "== 24",
         ),
         _check(
             "r2_prefix_preserved",
@@ -290,12 +304,15 @@ def qualification_summary(
         if key[0] in train_spaces
         and annotated_stream.effort.at(key) > 0.0
     )
-    calibrated_context_count = sum(
-        1
+    calibrated_keys = tuple(
+        key
         for key in fixture.model.domain.keys
         if key[0] in train_spaces
         and calibrated_stream.effort.at(key) > 0.0
     )
+    calibrated_context_count = len(calibrated_keys)
+    calibrated_space_count = len({key[0] for key in calibrated_keys})
+    calibrated_time_count = len({(key[1], key[2]) for key in calibrated_keys})
 
     return V04R3AQualificationSummary(
         positive_structural_pass=identification.positive_structural_pass,
@@ -307,6 +324,8 @@ def qualification_summary(
         annotated_space_count=annotated_space_count,
         annotated_time_count=annotated_time_count,
         calibrated_context_count=calibrated_context_count,
+        calibrated_space_count=calibrated_space_count,
+        calibrated_time_count=calibrated_time_count,
         r2_prefix_preserved=(
             fixture.annotated_spaces[:18]
             == fixture.calibrated_spaces
