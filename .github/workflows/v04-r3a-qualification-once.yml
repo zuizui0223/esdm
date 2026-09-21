@@ -1,0 +1,99 @@
+name: v0.4-R3a frozen qualification
+
+on:
+  push:
+    branches:
+      - feature/v04-r3-budget-neutral-design
+    paths:
+      - .github/workflows/v04-r3a-qualification-once.yml
+      - docs/validation/V04_R3A_RUN_AUTHORIZED
+      - docs/validation/V04_R3A_QUALIFICATION_GATE.md
+      - scripts/run_v04_r3a_qualification.py
+      - src/esdm/validate/v04_r3a_design.py
+      - src/esdm/validate/v04_r3a_gate.py
+      - tests/test_v04_r3a_*.py
+
+jobs:
+  precheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    outputs:
+      authorized: ${{ steps.authorization.outputs.authorized }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install qualification dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,inference]"
+      - name: Check explicit R3a authorization
+        id: authorization
+        run: |
+          if [ -f docs/validation/V04_R3A_RUN_AUTHORIZED ]; then
+            echo "authorized=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "authorized=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Verify frozen R3a contracts
+        run: |
+          python -m pytest -q \
+            tests/test_v04_r3a_selectors.py \
+            tests/test_v04_r3a_fixture.py \
+            tests/test_v04_r3a_gate.py \
+            tests/test_v04_r3a_gate_freeze.py \
+            tests/test_v04_r3a_identification.py \
+            tests/test_v04_r3a_script.py \
+            tests/test_v04_r3a_workflow.py \
+            tests/test_v04_r2_fixture.py \
+            tests/test_v04_r2_identification.py
+
+  qualify-r3a:
+    needs: precheck
+    if: needs.precheck.outputs.authorized == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Initialize fail-closed R3a audit artifact
+        run: |
+          mkdir -p artifacts
+          python - <<'PY'
+          import json, os
+          payload = {
+              "schema": "esdm.v04_r3a.qualification.v1",
+              "git_sha": os.environ.get("GITHUB_SHA"),
+              "github_run_id": os.environ.get("GITHUB_RUN_ID"),
+              "gate_freeze_commit": "3c2bb83609d98b4f7e4751e61f904a120300b7b1",
+              "status": "INFRASTRUCTURE_BLOCKED",
+              "infrastructure_block": {
+                  "stage": "workflow_precheck",
+                  "reason": "qualification did not overwrite fail-closed placeholder",
+              },
+          }
+          with open(
+              "artifacts/v04_r3a_qualification.json",
+              "w",
+              encoding="utf-8",
+          ) as handle:
+              json.dump(payload, handle, indent=2, sort_keys=True)
+              handle.write("\n")
+          PY
+      - name: Install qualification dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,inference]"
+      - name: Run frozen R3a qualification
+        run: |
+          python scripts/run_v04_r3a_qualification.py --output artifacts/v04_r3a_qualification.json
+      - name: Upload R3a qualification artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v04-r3a-qualification-${{ github.run_id }}
+          path: artifacts/v04_r3a_qualification.json
+          if-no-files-found: error
