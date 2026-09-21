@@ -25,13 +25,14 @@ def test_r3a_script_freezes_gate_and_budget_constants():
 
     assert (
         module.FROZEN_GATE_COMMIT
-        == "7fac98708d4474dc175d48c0ec3854f63d0ba527"
+        == "aa38b790e094261addd07c301edc24afa110cb4c"
     )
-    assert module.FROZEN_GATE_BLOB_SHA == "72ea44d467b41f78a0e9ec71941d8bb2ab26a227"
+    assert module.FROZEN_GATE_BLOB_SHA == "ed470d4f6166c5107aeda9432ca44a985cb55e72"
     assert module.ANNOTATED_SITE_COUNT == 36
     assert module.ANNOTATED_TIME_COUNT == 12
     assert module.ANNOTATED_CONTEXT_COUNT == 432
     assert module.CALIBRATED_SITE_COUNT == 18
+    assert module.CALIBRATED_TIME_COUNT == 24
     assert module.CALIBRATED_CONTEXT_COUNT == 432
 
 
