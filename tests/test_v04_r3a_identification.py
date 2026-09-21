@@ -46,6 +46,11 @@ def test_r3a_qualification_summary_counts_design_not_observed_records(monkeypatc
     from types import SimpleNamespace
     from esdm.validate import v04_r3a_gate
 
+    class ZeroEffort:
+        @staticmethod
+        def at(key):
+            return 0.0
+
     fake = SimpleNamespace(
         train_spaces=("a", "b"),
         calibrated_spaces=tuple(f"c{i}" for i in range(18)),
@@ -56,7 +61,12 @@ def test_r3a_qualification_summary_counts_design_not_observed_records(monkeypatc
                 keys=(),
                 doy=(15, 75, 135, 195, 255, 315),
                 hour=(0, 6, 12, 18),
-            )
+            ),
+            streams=(
+                SimpleNamespace(),
+                SimpleNamespace(effort=ZeroEffort()),
+                SimpleNamespace(effort=ZeroEffort()),
+            ),
         ),
     )
     monkeypatch.setattr(
