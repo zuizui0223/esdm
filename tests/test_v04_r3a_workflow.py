@@ -60,3 +60,15 @@ def test_r3a_precheck_does_not_execute_identification_outcome_before_authorizati
     text = path.read_text(encoding="utf-8")
 
     assert "tests/test_v04_r3a_identification.py" not in text
+
+
+
+def test_r3a_identification_test_requires_explicit_outcome_environment():
+    path = (
+        Path(__file__).resolve().parents[1]
+        / "tests"
+        / "test_v04_r3a_identification.py"
+    )
+    text = path.read_text(encoding="utf-8")
+
+    assert "ESDM_RUN_R3A_QUALIFICATION" in text
