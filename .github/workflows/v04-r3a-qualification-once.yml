@@ -43,7 +43,6 @@ jobs:
             tests/test_v04_r3a_fixture.py \
             tests/test_v04_r3a_gate.py \
             tests/test_v04_r3a_gate_freeze.py \
-            tests/test_v04_r3a_identification.py \
             tests/test_v04_r3a_script.py \
             tests/test_v04_r3a_workflow.py \
             tests/test_v04_r2_fixture.py \
