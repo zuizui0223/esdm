@@ -108,8 +108,9 @@ Selection algorithm:
 6. Geometric ties are resolved by station ID.
 7. Continue until 36 sites are selected.
 
-Floating representations of theoretically equal geometric distances are treated as ties
-at 1e-12 distance precision before station-ID tie breaking.
+Spatial distances are compared without tolerance quantization so the first 18 selected
+sites remain exactly identical to the frozen R2 maximin sequence. Exact equal-distance
+ties are resolved by station ID.
 
 The first 18 selected R3a sites must equal the frozen R2 positive calibration sequence
 exactly and in the same order.
