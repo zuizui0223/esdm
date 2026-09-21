@@ -281,9 +281,20 @@ def qualification_summary(
     fixture = build_v04_r3a_fixture(source_csv_text)
     annotated_space_count = len(fixture.annotated_spaces)
     annotated_time_count = len(fixture.annotated_times)
-    calibrated_time_count = (
-        len(fixture.model.domain.doy)
-        * len(fixture.model.domain.hour)
+    train_spaces = set(fixture.train_spaces)
+    calibrated_stream = fixture.model.streams[1]
+    annotated_stream = fixture.model.streams[2]
+    annotated_context_count = sum(
+        1
+        for key in fixture.model.domain.keys
+        if key[0] in train_spaces
+        and annotated_stream.effort.at(key) > 0.0
+    )
+    calibrated_context_count = sum(
+        1
+        for key in fixture.model.domain.keys
+        if key[0] in train_spaces
+        and calibrated_stream.effort.at(key) > 0.0
     )
 
     return V04R3AQualificationSummary(
@@ -292,14 +303,10 @@ def qualification_summary(
         sparse_structural_pass=identification.sparse_structural_pass,
         sparse_practical_refused=identification.sparse_practical_refused,
         unknown_detection_refused=identification.unknown_detection_refused,
-        annotated_context_count=(
-            annotated_space_count * annotated_time_count
-        ),
+        annotated_context_count=annotated_context_count,
         annotated_space_count=annotated_space_count,
         annotated_time_count=annotated_time_count,
-        calibrated_context_count=(
-            len(fixture.calibrated_spaces) * calibrated_time_count
-        ),
+        calibrated_context_count=calibrated_context_count,
         r2_prefix_preserved=(
             fixture.annotated_spaces[:18]
             == fixture.calibrated_spaces
