@@ -76,3 +76,61 @@ def test_r3a_qualification_summary_counts_design_not_observed_records(monkeypatc
 
     assert summary.annotated_space_count == 36
     assert summary.annotated_time_count == 12
+
+
+
+def test_r3a_qualification_summary_counts_actual_stream_exposure(monkeypatch):
+    from types import SimpleNamespace
+
+    from esdm.validate import v04_r3a_gate
+
+    class FakeEffort:
+        def __init__(self, exposed):
+            self._exposed = set(exposed)
+
+        def at(self, key):
+            return 1.0 if key in self._exposed else 0.0
+
+    keys = (
+        ("a", 15, 0),
+        ("a", 15, 6),
+        ("b", 15, 0),
+        ("b", 15, 6),
+    )
+    annotated_exposed = {keys[0], keys[1], keys[2]}
+    calibrated_exposed = {keys[0], keys[2]}
+    fake = SimpleNamespace(
+        train_spaces=("a", "b"),
+        calibrated_spaces=("a",),
+        annotated_spaces=("a", "b"),
+        annotated_times=((15, 0), (15, 6)),
+        model=SimpleNamespace(
+            domain=SimpleNamespace(
+                keys=keys,
+                doy=(15,),
+                hour=(0, 6),
+            ),
+            streams=(
+                SimpleNamespace(),
+                SimpleNamespace(effort=FakeEffort(calibrated_exposed)),
+                SimpleNamespace(effort=FakeEffort(annotated_exposed)),
+            ),
+        ),
+    )
+    monkeypatch.setattr(
+        v04_r3a_gate,
+        "build_v04_r3a_fixture",
+        lambda source: fake,
+    )
+    identification = SimpleNamespace(
+        positive_structural_pass=True,
+        positive_practical_pass=True,
+        sparse_structural_pass=True,
+        sparse_practical_refused=True,
+        unknown_detection_refused=True,
+    )
+
+    summary = v04_r3a_gate.qualification_summary("ignored", identification)
+
+    assert summary.annotated_context_count == 3
+    assert summary.calibrated_context_count == 2
