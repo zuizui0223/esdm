@@ -64,3 +64,108 @@ def test_r2_replicate_seed_is_deterministic_and_bounded():
     module = _load_script()
     assert module._replicate_seed(0) == 20260926
     assert module._replicate_seed(15) == 20260926 + 15 * 47
+
+
+
+def test_r2_json_safe_serializes_mappingproxy_dataclass():
+    import json
+
+    from esdm.validate.v04_r2_gate import R2_RECOVERY_TRUTH
+    from esdm.validate.v04_r2_run import V04R2Replicate
+
+    module = _load_script()
+    truth = dict(R2_RECOVERY_TRUTH)
+    row = V04R2Replicate(
+        replicate=0,
+        posterior_means=truth,
+        posterior_lows={key: value - 0.1 for key, value in truth.items()},
+        posterior_highs={key: value + 0.1 for key, value in truth.items()},
+        full_heldout_log_score=-1.0,
+        activity_knockout_heldout_log_score=-1.1,
+        state_knockout_heldout_log_score=-1.2,
+        full_divergences=0,
+        activity_knockout_divergences=0,
+        state_knockout_divergences=0,
+    )
+
+    payload = module._json_safe(row)
+
+    assert payload["replicate"] == 0
+    assert payload["posterior_means"] == truth
+    json.dumps(payload)
+
+
+def test_r2_pre_mcmc_failure_short_circuits_on_frozen_required_boolean():
+    from types import SimpleNamespace
+
+    module = _load_script()
+    identification = SimpleNamespace(
+        positive_structural_pass=True,
+        positive_practical_pass=False,
+        sparse_structural_pass=True,
+        sparse_practical_refused=True,
+        unknown_detection_refused=True,
+    )
+
+    failures = module._pre_mcmc_failures(
+        identification,
+        extrapolation_integrity=True,
+    )
+
+    assert failures == ("positive_practical_pass",)
+
+
+def test_r2_identification_payload_keeps_anchor_level_practical_metrics():
+    from dataclasses import dataclass
+    from types import SimpleNamespace
+
+    module = _load_script()
+
+    @dataclass(frozen=True)
+    class Structural:
+        status: object
+        reason: str = "ok"
+
+    @dataclass(frozen=True)
+    class Practical:
+        weak: bool
+        relative_min_singular_value: float
+        condition_number: float
+        target_sd_proxy: float
+        reasons: tuple[str, ...]
+
+    @dataclass(frozen=True)
+    class Evidence:
+        target: str
+        structural: Structural
+        practical: Practical | None
+
+    identified = SimpleNamespace(value="Identified")
+    row = Evidence(
+        target="sp.activity.activity_beta_precip",
+        structural=Structural(status=identified),
+        practical=Practical(
+            weak=True,
+            relative_min_singular_value=0.0005,
+            condition_number=2000.0,
+            target_sd_proxy=0.3,
+            reasons=("too weak",),
+        ),
+    )
+    identification = SimpleNamespace(
+        positive_structural_pass=True,
+        positive_practical_pass=False,
+        sparse_structural_pass=True,
+        sparse_practical_refused=True,
+        unknown_detection_refused=True,
+        positive_anchor_evidence=((row,),),
+        sparse_anchor_evidence=((row,),),
+        unknown_anchor_evidence=((row,),),
+    )
+
+    payload = module._identification_payload(identification)
+
+    practical = payload["positive_anchor_evidence"][0][0]["practical"]
+    assert practical["weak"] is True
+    assert practical["target_sd_proxy"] == 0.3
+    assert payload["positive_practical_pass"] is False
