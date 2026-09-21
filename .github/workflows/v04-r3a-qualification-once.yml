@@ -68,7 +68,7 @@ jobs:
               "schema": "esdm.v04_r3a.qualification.v1",
               "git_sha": os.environ.get("GITHUB_SHA"),
               "github_run_id": os.environ.get("GITHUB_RUN_ID"),
-              "gate_freeze_commit": "3c2bb83609d98b4f7e4751e61f904a120300b7b1",
+              "gate_freeze_commit": "7fac98708d4474dc175d48c0ec3854f63d0ba527",
               "status": "INFRASTRUCTURE_BLOCKED",
               "infrastructure_block": {
                   "stage": "workflow_precheck",
