@@ -164,3 +164,71 @@ def test_temporal_maximin_rejects_duplicate_candidates():
 
     with pytest.raises(ValueError, match="unique"):
         temporal_maximin_sequence((15, 15), (0,), count=1)
+
+
+
+def test_spatial_maximin_matches_r2_unrounded_reference_sequence():
+    import statistics
+
+    from esdm.validate.v04_r3a_design import spatial_maximin_sequence
+
+    rows = []
+    for i in range(120):
+        longitude = -154.0 + (i % 43) * 2.25
+        average = 45.0 + ((i * 7) % 29) * 1.3
+        rows.append((f"S{i:04d}", average, longitude))
+
+    training = tuple(row for row in rows if row[2] < -85.0)
+    spaces = tuple(row[0] for row in training)
+
+    precip_values = tuple(row[1] for row in training)
+    precip_mean = statistics.fmean(precip_values)
+    precip_sd = statistics.pstdev(precip_values)
+    east_values = tuple(row[2] for row in training)
+    east_mean = statistics.fmean(east_values)
+    east_sd = statistics.pstdev(east_values)
+
+    points = {
+        station: (
+            (average - precip_mean) / precip_sd,
+            (longitude - east_mean) / east_sd,
+        )
+        for station, average, longitude in training
+    }
+    covariates = {
+        (station, 15, 0): {
+            "precip_z_train": point[0],
+            "eastness_z_train": point[1],
+        }
+        for station, point in points.items()
+    }
+
+    first = min(
+        (
+            (-(point[0] ** 2 + point[1] ** 2), station)
+            for station, point in points.items()
+        )
+    )[1]
+    reference = [first]
+    remaining = set(spaces) - {first}
+    while len(reference) < 18:
+        scored = []
+        for station in remaining:
+            p, e = points[station]
+            minimum_distance = min(
+                (p - points[other][0]) ** 2
+                + (e - points[other][1]) ** 2
+                for other in reference
+            )
+            scored.append((-minimum_distance, station))
+        chosen = min(scored)[1]
+        reference.append(chosen)
+        remaining.remove(chosen)
+
+    observed = spatial_maximin_sequence(
+        spaces,
+        covariates,
+        count=18,
+    )
+
+    assert observed == tuple(reference)
