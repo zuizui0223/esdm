@@ -413,6 +413,8 @@ Implement frozen dataclasses and checks:
 - annotated_space_count == 36;
 - annotated_time_count == 12;
 - calibrated_context_count == 432;
+- calibrated_space_count == 18;
+- calibrated_time_count == 24;
 - r2_prefix_preserved is true.
 
 Return passed = all(check.passed for check in checks).
@@ -465,7 +467,7 @@ Expected: FileNotFoundError.
 
 - [ ] **Step 3: Create the frozen gate document**
 
-Translate the approved design into an executable qualification gate. Include exact selector algorithms, exact counts, exact thresholds, exact refusal profiles, and the 10-term mechanical PASS rule.
+Translate the approved design into an executable qualification gate. Include exact selector algorithms, exact counts, exact thresholds, exact refusal profiles, and the 12-term mechanical PASS rule.
 
 The first line of status must be:
     Status: FROZEN BEFORE R3a IDENTIFICATION OUTCOME
