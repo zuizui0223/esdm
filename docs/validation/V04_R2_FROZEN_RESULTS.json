@@ -1,0 +1,128 @@
+{
+  "schema": "esdm.v04_r2.frozen_results.v1",
+  "promotion_status": "FAIL",
+  "scientific_scope": "semi-synthetic methodological validation only",
+  "gate": {
+    "path": "docs/validation/V04_R2_PROMOTION_GATE.md",
+    "freeze_commit": "9e6db6fbe8336c6eb8bbe354713d2863fc40033f",
+    "blob_sha": "92e937a19f89f125f44ecd746e0537cd989dc9cc"
+  },
+  "outcome": {
+    "git_sha": "621123e051ef11e6b842bdbd9d5bf4e84cc065f7",
+    "workflow_run_id": 35549957893,
+    "artifact_id": 10618082465,
+    "artifact_name": "v04-r2-state-activity-35549957893",
+    "artifact_sha256": "b9af099df6b7526141f0f66427bc86d20a38f66c307da41e87410c684e6cfb0e",
+    "decision_stage": "pre_mcmc_required_conditions",
+    "pre_mcmc_failures": [
+      "positive_practical_pass"
+    ],
+    "replicates_executed": 0,
+    "fits_executed": 0
+  },
+  "source": {
+    "repository": "the-pudding/data",
+    "commit": "3dcb0a80c838ff9503e3957d7e004a7f4b888b0a",
+    "path": "rain/annual_precipitation.csv",
+    "git_blob_sha1": "40b2adc5bf8a44a8bc9a1cfc3f99fc91b9fae949",
+    "sha256": "088263312c61c875cb5cda7d826ecdb7444ca4a55f7c4a594a1de96c7cf4e705"
+  },
+  "geometry": {
+    "train_spaces": 67,
+    "heldout_spaces": 53,
+    "positive_calibration_spaces": 18,
+    "training_max_eastness_z": 0.7690432636975336,
+    "heldout_min_eastness_z": 0.7831898085656614,
+    "extrapolation_integrity": true
+  },
+  "identification": {
+    "positive_structural_pass": true,
+    "positive_practical_pass": false,
+    "sparse_structural_pass": true,
+    "sparse_practical_refused": true,
+    "unknown_detection_refused": true,
+    "positive_anchor_summary": {
+      "A": {
+        "relative_min_singular_value": 0.059293,
+        "condition_number": 16.865,
+        "weak_targets": []
+      },
+      "B": {
+        "relative_min_singular_value": 0.054661,
+        "condition_number": 18.295,
+        "weak_targets": []
+      },
+      "C": {
+        "relative_min_singular_value": 0.053736884767063994,
+        "condition_number": 18.60919188625747,
+        "weak_targets": [
+          {
+            "target": "sp.state.beta_foraging_precip",
+            "target_sd_proxy": 0.26277152695059747,
+            "threshold": 0.25
+          },
+          {
+            "target": "sp.state.beta_foraging_eastness",
+            "target_sd_proxy": 0.32592184483507364,
+            "threshold": 0.25
+          },
+          {
+            "target": "sp.state.beta_foraging_season",
+            "target_sd_proxy": 0.3000975628964157,
+            "threshold": 0.25
+          },
+          {
+            "target": "sp.state.beta_foraging_hour",
+            "target_sd_proxy": 0.29095173467869706,
+            "threshold": 0.25
+          }
+        ]
+      }
+    },
+    "sparse_weak_target_counts_by_anchor": [
+      11,
+      10,
+      11
+    ],
+    "unknown_detection_status_by_anchor": [
+      [
+        "NotIdentified",
+        "NotIdentified"
+      ],
+      [
+        "NotIdentified",
+        "NotIdentified"
+      ],
+      [
+        "NotIdentified",
+        "NotIdentified"
+      ]
+    ]
+  },
+  "not_evaluated_due_to_pre_mcmc_failure": [
+    "13-target posterior recovery bias",
+    "13-target 90% interval coverage",
+    "activity-knockout heldout transfer",
+    "state-knockout heldout transfer",
+    "48-fit divergence criterion"
+  ],
+  "infrastructure_history": [
+    {
+      "workflow_run_id": 35495217922,
+      "status": "INFRASTRUCTURE_BLOCKED",
+      "replicate": 0,
+      "cause": "dataclasses.asdict attempted deepcopy of MappingProxyType in V04R2Replicate",
+      "error": "TypeError: cannot pickle 'mappingproxy' object"
+    }
+  ],
+  "exact_head_ci": {
+    "python_3_10": "271 passed, 23 skipped",
+    "python_3_11": "294 passed",
+    "python_3_12": "294 passed"
+  },
+  "claim_boundary": {
+    "supported": false,
+    "empirical_biological_validation": false,
+    "v04_promoted": false
+  }
+}
