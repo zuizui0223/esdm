@@ -1,0 +1,11 @@
+v0.4-R3a qualification run authorized
+
+Gate freeze commit:
+aa38b790e094261addd07c301edc24afa110cb4c
+
+Gate blob SHA:
+ed470d4f6166c5107aeda9432ca44a985cb55e72
+
+This marker authorizes execution of the already-frozen R3a identification qualification.
+It does not alter the 36 x 12 annotated design, the 18 x 24 calibrated design, any
+threshold, anchor, refusal profile, truth, selector, or PASS rule.
