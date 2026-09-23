@@ -1,0 +1,98 @@
+{
+  "schema": "esdm.v04_r5a.frozen_results.v1",
+  "status": "PASS",
+  "qualification_run_id": 35841753079,
+  "qualification_head_sha": "f98586a61a9a3be5c7573e9e271744bd501cf11b",
+  "gate_freeze_commit": "d013b5168d7d10848d1d366669d45f83f873692a",
+  "gate_blob_sha": "e5cef8c3ce8e1dd096ef45cc436a93ba6740bafb",
+  "observed_gate_blob_sha": "e5cef8c3ce8e1dd096ef45cc436a93ba6740bafb",
+  "artifact": {
+    "id": 10741962664,
+    "name": "v04-r5a-qualification-35841753079",
+    "github_digest": "sha256:937ac6311cadf09e759ad27c47ef2ca72d53204934b3fd768757f68495805fe2",
+    "independent_zip_sha256": "937ac6311cadf09e759ad27c47ef2ca72d53204934b3fd768757f68495805fe2",
+    "canonical_full_anchor_evidence": true
+  },
+  "source_audit": {
+    "commit": "3dcb0a80c838ff9503e3957d7e004a7f4b888b0a",
+    "path": "rain/annual_precipitation.csv",
+    "expected_git_blob_sha1": "40b2adc5bf8a44a8bc9a1cfc3f99fc91b9fae949",
+    "observed_git_blob_sha1": "40b2adc5bf8a44a8bc9a1cfc3f99fc91b9fae949",
+    "sha256": "088263312c61c875cb5cda7d826ecdb7444ca4a55f7c4a594a1de96c7cf4e705"
+  },
+  "summary": {
+    "positive_structural_pass": true,
+    "positive_practical_pass": true,
+    "sparse_structural_pass": true,
+    "sparse_practical_refused": true,
+    "unknown_detection_refused": true,
+    "annotated_context_count": 432,
+    "calibrated_context_count": 432,
+    "state_calibration_context_count": 432,
+    "state_calibration_expected_labels": 432.0,
+    "state_calibration_heldout_context_count": 0,
+    "r4_annotated_geometry_preserved": true,
+    "state_only_contract_preserved": true
+  },
+  "state_target_sd_proxy": {
+    "A": {
+      "precip": 0.09509037552146946,
+      "eastness": 0.10173238598211534,
+      "season": 0.12637917250908945,
+      "hour": 0.12690629220561697
+    },
+    "B": {
+      "precip": 0.08167708152889597,
+      "eastness": 0.1044474343227637,
+      "season": 0.1170960811404469,
+      "hour": 0.12262884764093503
+    },
+    "C": {
+      "precip": 0.1149880741543148,
+      "eastness": 0.10497498138580891,
+      "season": 0.1415505209074198,
+      "hour": 0.13405929733378924
+    }
+  },
+  "activity_target_sd_proxy": {
+    "A": {
+      "precip": 0.19313121738862174,
+      "eastness": 0.22094704608523044,
+      "season": 0.20886827510070358,
+      "hour": 0.20356208571493759
+    },
+    "B": {
+      "precip": 0.22976987971124124,
+      "eastness": 0.24654527980782107,
+      "season": 0.22432085488781894,
+      "hour": 0.23785668603904575
+    },
+    "C": {
+      "precip": 0.19216938358635166,
+      "eastness": 0.22755039623578527,
+      "season": 0.21123622935850933,
+      "hour": 0.2008519589586226
+    }
+  },
+  "positive_anchor_global_diagnostics": {
+    "A": {
+      "relative_min_singular_value": 0.0659942789723704,
+      "condition_number": 15.152828632595057
+    },
+    "B": {
+      "relative_min_singular_value": 0.06154708671086405,
+      "condition_number": 16.24772273459182
+    },
+    "C": {
+      "relative_min_singular_value": 0.06010389206476113,
+      "condition_number": 16.637857643603404
+    }
+  },
+  "claim_boundary": {
+    "r5a_only": true,
+    "mcmc_run": false,
+    "v04_promotion": false,
+    "r5b_permitted": true,
+    "full_anchor_evidence_preserved_in_verified_artifact": true
+  }
+}
