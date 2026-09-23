@@ -1,0 +1,99 @@
+{
+  "schema": "esdm.v04_r4a.frozen_results.v1",
+  "status": "FAIL",
+  "qualification_run_id": 35837783606,
+  "qualification_head_sha": "81f041ad24df8d0b28ea122782a336433a629be7",
+  "gate_freeze_commit": "65115f31425d4d8655137eeea9a0bdb40f56aa53",
+  "gate_blob_sha": "c55af9dfbc6347218fecebb27542ee7bb59310b0",
+  "observed_gate_blob_sha": "c55af9dfbc6347218fecebb27542ee7bb59310b0",
+  "artifact": {
+    "id": 10740852641,
+    "name": "v04-r4a-qualification-35837783606",
+    "github_digest": "sha256:69dd110fa2b54fe930282756e1c76c095b7eb0477cb9f9178929703aeab5d34b",
+    "independent_zip_sha256": "69dd110fa2b54fe930282756e1c76c095b7eb0477cb9f9178929703aeab5d34b",
+    "canonical_full_anchor_evidence": true
+  },
+  "source_audit": {
+    "commit": "3dcb0a80c838ff9503e3957d7e004a7f4b888b0a",
+    "path": "rain/annual_precipitation.csv",
+    "expected_git_blob_sha1": "40b2adc5bf8a44a8bc9a1cfc3f99fc91b9fae949",
+    "observed_git_blob_sha1": "40b2adc5bf8a44a8bc9a1cfc3f99fc91b9fae949",
+    "sha256": "088263312c61c875cb5cda7d826ecdb7444ca4a55f7c4a594a1de96c7cf4e705"
+  },
+  "summary": {
+    "positive_structural_pass": true,
+    "positive_practical_pass": false,
+    "sparse_structural_pass": true,
+    "sparse_practical_refused": true,
+    "unknown_detection_refused": true,
+    "annotated_context_count": 432,
+    "annotated_space_count": 36,
+    "annotated_time_count": 12,
+    "calibrated_context_count": 432,
+    "calibrated_space_count": 18,
+    "calibrated_time_count": 24,
+    "r3_spatial_sequence_preserved": true,
+    "phase_balance_preserved": true
+  },
+  "failing_check": "positive_practical_pass",
+  "positive_weak_targets": [
+    {
+      "anchor": "C",
+      "target": "sp.state.beta_foraging_precip",
+      "target_sd_proxy": 0.27617981172790895
+    },
+    {
+      "anchor": "C",
+      "target": "sp.state.beta_foraging_eastness",
+      "target_sd_proxy": 0.32579655407945796
+    },
+    {
+      "anchor": "C",
+      "target": "sp.state.beta_foraging_season",
+      "target_sd_proxy": 0.29677229212597117
+    },
+    {
+      "anchor": "C",
+      "target": "sp.state.beta_foraging_hour",
+      "target_sd_proxy": 0.27386238691129533
+    }
+  ],
+  "positive_anchor_global_diagnostics": [
+    {
+      "anchor": "A",
+      "relative_min_singular_value": 0.06569274194564666,
+      "condition_number": 15.222381809354028
+    },
+    {
+      "anchor": "B",
+      "relative_min_singular_value": 0.061126284798612,
+      "condition_number": 16.359574335240918
+    },
+    {
+      "anchor": "C",
+      "relative_min_singular_value": 0.0600135240057632,
+      "condition_number": 16.662910844961683
+    }
+  ],
+  "selected_annotated_times": [
+    [15, 0],
+    [15, 6],
+    [15, 12],
+    [15, 18],
+    [135, 0],
+    [135, 6],
+    [135, 12],
+    [135, 18],
+    [255, 0],
+    [255, 6],
+    [255, 12],
+    [255, 18]
+  ],
+  "claim_boundary": {
+    "r4a_only": true,
+    "mcmc_run": false,
+    "v04_promotion": false,
+    "r4b_created": false,
+    "full_anchor_evidence_preserved_in_verified_artifact": true
+  }
+}
