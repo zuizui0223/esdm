@@ -1,0 +1,19 @@
+R5a qualification authorization
+
+This marker authorizes exactly one identification-only qualification attempt for the
+already frozen R5a direct state-composition calibration gate.
+
+Frozen gate commit:
+d013b5168d7d10848d1d366669d45f83f873692a
+
+Frozen gate blob:
+e5cef8c3ce8e1dd096ef45cc436a93ba6740bafb
+
+Frozen direct-calibration contract:
+- 432 training contexts
+- label effort = 1.0 per context
+- total expected direct state labels = 432.0
+- held-out direct-calibration contexts = 0
+
+No threshold, anchor, truth coefficient, label effort, geometry, refusal control, or
+observation contract may be changed after this authorization in response to the outcome.
