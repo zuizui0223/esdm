@@ -20,6 +20,9 @@ def test_e2e_binding_pins_exact_source_and_odsp_commits():
     assert binding["source"]["artifact_digest"] == (
         "sha256:978a10cbd9c6d0fcd382a925b47e6311e26658ad5c91c8ec9b2a50f4442b73e5"
     )
+    assert binding["source"]["result_sha256"] == (
+        "243f90c6a246fa020043873ae63f4c14adb08999009392767644bc529c6341cc"
+    )
     assert binding["source"]["adapter_merge_sha"] == (
         "e9bec1be8136a85c265af3604394d3389319998d"
     )
