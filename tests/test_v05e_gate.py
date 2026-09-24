@@ -1,3 +1,5 @@
+from dataclasses import replace
+
 from esdm.validate.v05e_run import V05ESummary, V05EWorldSummary
 
 
@@ -62,11 +64,9 @@ def test_v05e_gate_rejects_functional_self_promotion():
     bad = V05ESummary(
         worlds={
             **summary.worlds,
-            "directed_realized": V05EWorldSummary(
-                **{
-                    **directed.__dict__,
-                    "functional_or_higher_rate": 0.0625,
-                }
+            "directed_realized": replace(
+                directed,
+                functional_or_higher_rate=0.0625,
             ),
         },
         total_fits=summary.total_fits,
