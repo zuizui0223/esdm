@@ -1,0 +1,112 @@
+name: v0.5e frozen evidence-separation benchmark
+
+on:
+  push:
+    branches:
+      - feature/v05e-event-evidence-separation
+    paths:
+      - .github/workflows/v05e-evidence-separation-once.yml
+      - docs/validation/V05E_RUN_AUTHORIZED
+      - docs/validation/V05E_EVIDENCE_SEPARATION_GATE.md
+      - scripts/run_v05e_replicate.py
+      - scripts/aggregate_v05e.py
+      - src/esdm/validate/v05e_*.py
+      - src/esdm/observe/pair_event.py
+      - src/esdm/claims/edge_authorization.py
+      - tests/test_v05e_*.py
+      - tests/test_v05d_pair_event_stream.py
+      - tests/test_edge_claim_authorization_v05c.py
+
+jobs:
+  precheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    outputs:
+      authorized: ${{ steps.authorization.outputs.authorized }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,inference]"
+      - name: Check explicit v0.5e authorization
+        id: authorization
+        run: |
+          if [ -f docs/validation/V05E_RUN_AUTHORIZED ]; then
+            echo "authorized=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "authorized=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Verify frozen v0.5e contracts
+        run: |
+          python -m pytest -q             tests/test_v05e_fixture.py             tests/test_v05e_gate.py             tests/test_v05e_gate_freeze.py             tests/test_v05e_scripts.py             tests/test_v05e_workflow.py             tests/test_v05d_pair_event_stream.py             tests/test_edge_claim_authorization_v05c.py
+
+  replicate:
+    needs: precheck
+    if: needs.precheck.outputs.authorized == 'true'
+    strategy:
+      fail-fast: false
+      max-parallel: 16
+      matrix:
+        world: [hidden_event_silent, realized_only, directed_realized]
+        replicate: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install inference dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[inference]"
+      - name: Run frozen v0.5e replicate
+        run: |
+          mkdir -p artifacts
+          python scripts/run_v05e_replicate.py             --world ${{ matrix.world }}             --replicate ${{ matrix.replicate }}             --output artifacts/${{ matrix.world }}-${{ matrix.replicate }}.json
+      - name: Upload v0.5e shard
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v05e-${{ matrix.world }}-${{ matrix.replicate }}-${{ github.run_id }}
+          path: artifacts/${{ matrix.world }}-${{ matrix.replicate }}.json
+          if-no-files-found: error
+
+  aggregate:
+    needs: [precheck, replicate]
+    if: always() && needs.precheck.outputs.authorized == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Initialize fail-closed result
+        run: |
+          mkdir -p artifacts/shards
+          printf '%s\n' '{"schema":"esdm.v05e.evidence_separation.v1","status":"INFRASTRUCTURE_BLOCKED"}'             > artifacts/v05e_result.json
+      - name: Download v0.5e shards
+        uses: actions/download-artifact@v4
+        with:
+          pattern: v05e-*-${{ github.run_id }}
+          path: artifacts/shards
+          merge-multiple: true
+      - name: Install aggregation dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,inference]"
+      - name: Aggregate frozen v0.5e result
+        run: |
+          python scripts/aggregate_v05e.py             --shard-dir artifacts/shards             --output artifacts/v05e_result.json
+      - name: Upload final v0.5e result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v05e-result-${{ github.run_id }}
+          path: artifacts/v05e_result.json
+          if-no-files-found: error
