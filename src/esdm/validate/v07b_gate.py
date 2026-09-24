@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import math
 
 from .v07b_fixture import V07B_RECOVERY_TRUTH
 from .v07b_qualification import V07BQualification
@@ -107,10 +108,12 @@ def evaluate_v07b_gate(
             ),
             _check(
                 "absolute_score_serialization",
-                (
+                math.isclose(
                     summary.mean_full_heldout_log_score
-                    - summary.mean_knockout_heldout_log_score
-                    == summary.mean_gain
+                    - summary.mean_knockout_heldout_log_score,
+                    summary.mean_gain,
+                    rel_tol=0.0,
+                    abs_tol=1e-12,
                 ),
                 {
                     "full": summary.mean_full_heldout_log_score,
