@@ -18,8 +18,8 @@ class OccupancyCount:
     informs: frozenset[str]
     detection_probability: float = 1.0
     detection: object | None = None
-    consumes: frozenset[str] = frozenset({"log_occupancy"})
-    required_latent_channels: frozenset[str] = frozenset({"log_occupancy"})
+    consumes: frozenset[str] = frozenset({"occupancy"})
+    required_latent_channels: frozenset[str] = frozenset({"occupancy"})
     targets: frozenset[str] | None = None
 
     def __post_init__(self) -> None:
