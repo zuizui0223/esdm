@@ -105,14 +105,25 @@ Implemented and semi-synthetically promoted in v0.4:
 - exact-JAX structural/practical identification;
 - replicated parameter recovery and east-heldout activity/state knockout transfer.
 
+Implemented and boundedly promoted in v0.5:
+- directed PartnerIntensityEffect through source-species latent ecological fields;
+- deterministic topological evaluation of acyclic species dependencies;
+- measured-shared-environment positive/null known-truth validation;
+- frozen hidden-common-driver stress demonstrating false beta and false predictive gain;
+- model-only evidence ceiling at PREDICTIVE_DEPENDENCE;
+- pair-specific event authorization;
+- generative PairEventCount likelihood;
+- known-truth separation of PREDICTIVE_DEPENDENCE and REALIZED evidence.
+
 Still not implemented / not claimed:
-- partner-latent-field interaction process;
 - field-specific camera/annotation adapters;
 - bidirectional or fixed-point interaction models;
 - movement/accessibility process;
 - calibrated ODSP familywise inference inside `esdm`;
-- causal interaction identification;
+- robustness of partner-effect coefficients to arbitrary hidden common drivers;
+- FUNCTIONAL interaction without a dedicated functional endpoint;
+- causal interaction identification without intervention evidence;
 - universal superiority over SDM/JSDM/ecological-network methods;
 - pollination-specific model or validation.
 
-Pollination remains one possible application of the generic future interaction process, not the purpose of `esdm`.
+Pollination remains one possible application of the generic interaction process, not the purpose of `esdm`.

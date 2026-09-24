@@ -221,6 +221,46 @@ benchmark. The promotion claim is therefore bounded: v0.4 is validated under its
 semi-synthetic known-truth programme, not established as an empirically correct model for
 any biological system.
 
+## v0.5 directed interaction evidence core — bounded semi-synthetic promotion complete
+
+The v0.5 core adds directed biotic dependence through partner latent ecological fields.
+
+`PartnerIntensityEffect` contributes a signed effect to focal log intensity from a
+source species latent field. Species are evaluated in topological order of the declared
+latent-species dependency DAG, so unsupported reciprocal cycles still fail closed.
+
+The validation programme deliberately separated four questions:
+
+1. is the directed partner coefficient identifiable and recoverable when the declared
+   model is correct?
+2. can measured shared environmental response be distinguished from a partner effect?
+3. can an omitted common driver create a false partner coefficient and false predictive
+   gain?
+4. can claim authorization remain correct even when that coefficient is wrong?
+
+The answer sequence was:
+
+- **v0.5a PASS**: true `beta_partner=+0.75` was recovered with negligible mean bias and
+  positive held-out knockout gain in 16/16 fresh replicates; a measured-shared-environment
+  `beta=0` null met the frozen refusal gate.
+- **v0.5b FAIL**: an omitted common driver produced a large false partner coefficient
+  (mean fitted beta about +0.985), nonzero intervals in 16/16 replicates, and strong
+  held-out predictive gain in 16/16 replicates.
+- **v0.5c** therefore hard-caps model-only interaction evidence at
+  `PREDICTIVE_DEPENDENCE`. REALIZED requires an independently authorized pair-specific
+  event; FUNCTIONAL and CAUSAL require additional endpoint/intervention evidence.
+- **v0.5d** adds `PairEventCount`, a generative pair-specific realized-event observation
+  stream over source/target latent availability.
+- **v0.5e PASS** validates the separation: hidden-driver false beta + no events stayed
+  PREDICTIVE_DEPENDENCE in 16/16; beta=0 + observed events reached REALIZED in 16/16;
+  beta>0 + observed events also reached REALIZED in 16/16; no replicate self-promoted to
+  FUNCTIONAL or CAUSAL.
+
+The promoted v0.5 contract is therefore **bounded interaction evidence**, not causal
+interaction identification. Strong model dependence and predictive gain may still be
+wrong under hidden confounding; the runtime claim layer must respect the independent
+evidence tier.
+
 ## NumPyro inference backend
 
 The optional NumPyro backend fits the current generative graph with NUTS/MCMC.
@@ -358,7 +398,7 @@ from esdm.claims import ...
 | --- | --- | --- |
 | v0.3 | domain + suitability + effort-aware presence-only + NumPyro + simulate + identify + claims | shared generation/likelihood/inference code; large SBC calibration study; knockout recovery; effort-misspecification negative control; semi-synthetic real-geometry benchmark |
 | v0.4 | ecological state + activity + annotation streams + direct state-composition calibration | **PROMOTED (semi-synthetic)**: hard identification, 13-target recovery, east-heldout activity/state transfer, refusal controls; unresolved detection remains bounded/`NotIdentified` |
-| v0.5 | directed biotic interaction through partner latent fields + interaction-event streams | false interaction/kernel-shift control under state-only and hidden-common-driver worlds; evidence tier cannot rise without corresponding observed endpoint |
+| v0.5 | directed partner-latent effects + pair-event streams + evidence-tier guard | **PROMOTED (bounded semi-synthetic)**: true directed effect recovery; measured-shared null refusal; hidden-driver failure establishes claim ceiling; pair-event evidence separates PREDICTIVE_DEPENDENCE from REALIZED; FUNCTIONAL/CAUSAL remain gated |
 | v0.6 | movement/accessibility | distinguish unsuitable from inaccessible only when data support it; otherwise return `NotIdentified` |
 
 ## Existing research-programme provenance
@@ -375,13 +415,15 @@ See [`docs/PROVENANCE.md`](docs/PROVENANCE.md).
 
 ## Explicit non-claims
 
-The promoted v0.4 core does **not** claim:
+The promoted v0.4/v0.5 core does **not** claim:
 
 - empirical correctness merely because the frozen semi-synthetic promotion gate passed;
 - scientific support from structural identification or posterior contraction alone;
 - empirical biological validity from in-model or semi-synthetic validation;
-- causal interaction from co-occurrence, residual association, predictive gain, or rewiring;
-- a directed biotic-interaction process yet;
+- causal interaction from co-occurrence, residual association, predictive gain, partner coefficients, or knockout gain;
+- robustness of partner coefficients to arbitrary hidden common drivers;
+- FUNCTIONAL interaction from realized pair events alone;
+- CAUSAL interaction without explicit intervention evidence;
 - a bidirectional/fixed-point interaction model;
 - movement/accessibility inference;
 - a universal SDM/JSDM replacement;
