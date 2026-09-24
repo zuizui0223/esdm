@@ -1,0 +1,26 @@
+v0.5b source-perturbation identification authorization
+
+This marker authorizes exactly one identification-only qualification attempt.
+
+Frozen gate commit:
+a3f83975c992827eab097081e2d41224205d739f
+
+Frozen gate blob:
+c73242983e928eea31634c03b2d179b821907a64
+
+Target:
+focal.partner_effect.beta_partner
+
+Frozen worlds:
+- directed_positive beta = +0.80
+- interaction_null beta = 0.0
+
+Frozen source-only perturbation:
+- training levels = -1, 0, +1
+- source_beta_perturbation = 1.0
+- held-out east perturbation = 0
+- no additional observation effort
+
+No threshold, world definition, perturbation assignment, perturbation coefficient,
+observation effort, or identification diagnostic may be changed after this authorization.
+No MCMC is authorized.

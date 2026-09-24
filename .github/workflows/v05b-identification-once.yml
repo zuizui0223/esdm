@@ -1,0 +1,71 @@
+name: v0.5b frozen perturbation identification
+
+on:
+  push:
+    branches:
+      - feature/v05b-source-perturbation-gate
+    paths:
+      - .github/workflows/v05b-identification-once.yml
+      - docs/validation/V05B_RUN_AUTHORIZED
+      - docs/validation/V05B_IDENTIFICATION_GATE.md
+      - scripts/run_v05b_identification.py
+      - src/esdm/validate/v05b_*.py
+      - tests/test_v05b_*.py
+
+jobs:
+  precheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    outputs:
+      authorized: ${{ steps.authorization.outputs.authorized }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,inference]"
+      - name: Check explicit v0.5b authorization
+        id: authorization
+        run: |
+          if [ -f docs/validation/V05B_RUN_AUTHORIZED ]; then
+            echo "authorized=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "authorized=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Verify frozen v0.5b contracts
+        run: |
+          python -m pytest -q             tests/test_v05_partner_latent_core.py             tests/test_v05a_directed.py             tests/test_v05b_perturbation.py             tests/test_v05b_gate.py             tests/test_v05b_gate_freeze.py             tests/test_v05b_script.py             tests/test_v05b_workflow.py
+
+  qualify:
+    needs: precheck
+    if: needs.precheck.outputs.authorized == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Initialize fail-closed artifact
+        run: |
+          mkdir -p artifacts
+          printf '%s\n' '{"schema":"esdm.v05b.identification_qualification.v1","status":"INFRASTRUCTURE_BLOCKED"}'             > artifacts/v05b_identification_qualification.json
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,inference]"
+      - name: Run frozen v0.5b qualification
+        env:
+          ESDM_RUN_V05B_QUALIFICATION: "1"
+        run: |
+          python scripts/run_v05b_identification.py             --output artifacts/v05b_identification_qualification.json
+      - name: Upload qualification artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v05b-identification-${{ github.run_id }}
+          path: artifacts/v05b_identification_qualification.json
+          if-no-files-found: error
