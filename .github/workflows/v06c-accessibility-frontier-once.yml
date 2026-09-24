@@ -1,0 +1,66 @@
+name: v0.6c frozen accessibility identification frontier
+
+on:
+  push:
+    branches:
+      - feature/v06c-accessibility-identification-frontier
+    paths:
+      - .github/workflows/v06c-accessibility-frontier-once.yml
+      - docs/validation/V06C_RUN_AUTHORIZED
+      - docs/validation/V06C_ACCESSIBILITY_FRONTIER_GATE.md
+      - scripts/run_v06c_frontier.py
+      - src/esdm/validate/v06c_frontier.py
+      - tests/test_v06c_*.py
+
+jobs:
+  precheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    outputs:
+      authorized: ${{ steps.authorization.outputs.authorized }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,inference]"
+      - name: Check explicit v0.6c authorization
+        id: authorization
+        run: |
+          if [ -f docs/validation/V06C_RUN_AUTHORIZED ]; then
+            echo "authorized=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "authorized=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Verify frozen v0.6c contracts
+        run: |
+          python -m pytest -q             tests/test_v06c_frontier.py             tests/test_v06c_gate_freeze.py             tests/test_v06c_scripts.py             tests/test_v06c_workflow.py
+
+  frontier:
+    needs: precheck
+    if: needs.precheck.outputs.authorized == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install frontier dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,inference]"
+      - name: Run frozen v0.6c frontier
+        run: |
+          mkdir -p artifacts
+          python scripts/run_v06c_frontier.py             --output artifacts/v06c_frontier.json
+      - name: Upload v0.6c frontier
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v06c-frontier-${{ github.run_id }}
+          path: artifacts/v06c_frontier.json
+          if-no-files-found: error
