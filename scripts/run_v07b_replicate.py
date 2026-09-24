@@ -13,7 +13,7 @@ from pathlib import Path
 import subprocess
 
 
-FROZEN_GATE_COMMIT = "29a4de553e790598ec017c0c12c7d4db5f039212"
+FROZEN_GATE_COMMIT = "7c454d78c61c259504fa3a621eb65caf954c058a"
 FROZEN_GATE_BLOB_SHA = "14e02c13b1314d6ca3d91491dd799f0b1b85cf4a"
 GATE_PATH = (
     Path(__file__).resolve().parents[1]
