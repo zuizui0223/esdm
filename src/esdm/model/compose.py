@@ -232,6 +232,12 @@ class Model:
                 raise ValueError(
                     f"stream {stream.name!r} targets unknown species: {sorted(unknown)}"
                 )
+            source_species = getattr(stream, "source_species", None)
+            if source_species is not None and source_species not in species:
+                raise ValueError(
+                    f"stream {stream.name!r} references unknown source species "
+                    f"{source_species!r}"
+                )
         self._check_acyclic()
 
     def stream_targets(self, stream) -> tuple[str, ...]:
@@ -307,6 +313,26 @@ class Model:
                         f"stream {stream.name!r} target {species!r} lacks required "
                         f"latent channel(s): {sorted(missing)}"
                     )
+                source_species = getattr(stream, "source_species", None)
+                source_required = frozenset(
+                    getattr(
+                        stream,
+                        "required_source_latent_channels",
+                        frozenset(),
+                    )
+                )
+                if source_species is not None and source_required:
+                    source_processes = self.species[source_species]
+                    source_available = frozenset(
+                        str(process.output_channel)
+                        for process in source_processes
+                    )
+                    source_missing = source_required - source_available
+                    if source_missing:
+                        raise DesignUninformedError(
+                            f"stream {stream.name!r} source {source_species!r} lacks "
+                            f"required latent channel(s): {sorted(source_missing)}"
+                        )
                 state_space = getattr(stream, "state_space", None)
                 if state_space is not None and "state" in required:
                     state_processes = tuple(
