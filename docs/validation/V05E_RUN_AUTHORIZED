@@ -1,0 +1,30 @@
+v0.5e evidence-separation authorization
+
+This marker authorizes exactly one frozen v0.5e evidence-separation outcome.
+
+Frozen gate commit:
+8d3ffa928dcb6ff9c36a8b10eaa1c76028eaecf0
+
+Frozen gate blob:
+c9dde4bf7ef95541fdcf183d1755b7c0a05c208b
+
+Frozen worlds:
+- hidden_event_silent
+- realized_only
+- directed_realized
+
+Frozen execution:
+- 16 replicates per world
+- 48 total fits
+- base seed 20261009
+- stride 83
+- world offsets 0 / 1000000 / 2000000
+- warmup 300
+- samples 350
+- chains 2
+- credible mass 0.90
+- target accept 0.90
+
+No world definition, event effort, event truth, claim rule, seed family,
+MCMC setting, or gate threshold may be changed after this authorization
+in response to outcome.
