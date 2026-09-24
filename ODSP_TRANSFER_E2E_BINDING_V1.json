@@ -9,7 +9,8 @@
     "artifact_name": "v06a-result-35989902607",
     "artifact_digest": "sha256:978a10cbd9c6d0fcd382a925b47e6311e26658ad5c91c8ec9b2a50f4442b73e5",
     "result_filename": "v06a_result.json",
-    "adapter_merge_sha": "e9bec1be8136a85c265af3604394d3389319998d"
+    "adapter_merge_sha": "e9bec1be8136a85c265af3604394d3389319998d",
+    "result_sha256": "243f90c6a246fa020043873ae63f4c14adb08999009392767644bc529c6341cc"
   },
   "odsp": {
     "repository": "zuizui0223/odsp",
