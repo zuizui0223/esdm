@@ -328,6 +328,40 @@ Structural identification from a joint endpoint is not itself independent ecolog
 evidence of accessibility. This remains a static accessibility layer, not a
 movement-kernel or dynamic colonization model.
 
+## v0.7 marginal colonization-extinction core — implementation only
+
+v0.7 begins a separate dynamic occupancy layer rather than stretching static accessibility
+into a temporal claim. `ColonizationExtinctionOccupancy` emits a marginal occupancy
+probability `psi` for each declared context. Within each spatial unit, contexts are
+ordered by `(doy, hour)` and updated by
+
+```text
+psi_t
+  = psi_(t-1) × (1 - epsilon_t)
+  + (1 - psi_(t-1)) × gamma_t
+```
+
+where colonization `gamma` and extinction `epsilon` are logistic functions of declared
+destination-context covariates. The explicit knockout sets `occupancy = 1`.
+
+`OccupiedPresenceOnly` consumes the new channel without changing the older streams:
+
+```text
+lambda_occupied
+  = exp(log_intensity)
+  × occupancy
+  × effort
+  × detection
+```
+
+This is a **core contract, not a promoted result**. `psi` is a marginal probability, not
+a realized binary occupancy history. One transition is applied per adjacent declared
+sampling context regardless of the physical time gap. No movement path, dispersal kernel,
+connectivity, source-sink process, or causal movement limitation is inferred.
+
+The next fresh gate is v0.7a: prospectively test identification and recovery of initial
+occupancy, colonization, and extinction before any dynamic promotion claim.
+
 ## NumPyro inference backend
 
 The optional NumPyro backend fits the current generative graph with NUTS/MCMC.

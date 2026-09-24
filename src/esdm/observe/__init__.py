@@ -6,6 +6,7 @@ from .effort import EffortField, LogLinearEffort, MultiLogLinearEffort
 from .accessibility_count import AccessibilityCount
 from .accessible_presence import AccessiblePresenceOnly
 from .pair_event import PairEventCount
+from .occupied_presence import OccupiedPresenceOnly
 from .presence_only import PresenceOnly
 from .state_annotated import StateAnnotatedCount
 from .state_composition import StateCompositionCount
@@ -25,6 +26,7 @@ __all__ = [
     "AccessibilityCount",
     "AccessiblePresenceOnly",
     "PairEventCount",
+    "OccupiedPresenceOnly",
     "PresenceOnly",
     "StateAnnotatedCount",
     "StateCompositionCount",

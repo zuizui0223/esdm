@@ -98,6 +98,7 @@ class LatentFieldArrays:
     log_intensity: Mapping[str, ContextArray]
     log_accessibility: Mapping[str, ContextArray] = field(default_factory=dict)
     accessibility: Mapping[str, ContextArray] = field(default_factory=dict)
+    occupancy: Mapping[str, ContextArray] = field(default_factory=dict)
     activity_logit: Mapping[str, ContextArray] = field(default_factory=dict)
     activity: Mapping[str, ContextArray] = field(default_factory=dict)
     state_logits: Mapping[str, ContextStateArray] = field(default_factory=dict)
@@ -112,6 +113,9 @@ class LatentFieldArrays:
         )
         accessibility = _freeze_context_mapping(
             self.accessibility, label="accessibility arrays"
+        )
+        occupancy = _freeze_context_mapping(
+            self.occupancy, label="occupancy arrays"
         )
         activity_logit = _freeze_context_mapping(
             self.activity_logit, label="activity-logit arrays"
@@ -130,6 +134,7 @@ class LatentFieldArrays:
         for label, mapping in (
             ("log-accessibility", log_accessibility),
             ("accessibility", accessibility),
+            ("occupancy", occupancy),
             ("activity-logit", activity_logit),
             ("activity", activity),
             ("state-logit", state_logits),
@@ -145,6 +150,7 @@ class LatentFieldArrays:
             for mapping in (
                 log_accessibility,
                 accessibility,
+                occupancy,
                 activity_logit,
                 activity,
             ):
@@ -164,6 +170,7 @@ class LatentFieldArrays:
         object.__setattr__(self, "log_intensity", log_intensity)
         object.__setattr__(self, "log_accessibility", log_accessibility)
         object.__setattr__(self, "accessibility", accessibility)
+        object.__setattr__(self, "occupancy", occupancy)
         object.__setattr__(self, "activity_logit", activity_logit)
         object.__setattr__(self, "activity", activity)
         object.__setattr__(self, "state_logits", state_logits)
