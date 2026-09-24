@@ -330,3 +330,75 @@ def build_v06a_accessibility_odsp_bundle(
         ),
         group_semantics="independent known-truth replicate",
     )
+
+
+
+def build_v07b_dynamic_occupancy_odsp_bundle(
+    aggregate_result: Mapping[str, object],
+) -> ODSPTransferBundle:
+    """Bind completed v0.7b dynamic occupancy scores to ODSP transfer levels."""
+
+    if aggregate_result.get("schema") != "esdm.v07b.dynamic_transfer.v1":
+        raise ValueError("expected esdm.v07b.dynamic_transfer.v1 aggregate result")
+    if aggregate_result.get("status") not in {"PASS", "FAIL"}:
+        raise ValueError("v0.7b aggregate must be a completed scientific result")
+    if aggregate_result.get("infrastructure_block") is not None:
+        raise ValueError("infrastructure-blocked v0.7b result cannot be exported")
+
+    records = aggregate_result.get("replicates")
+    if not isinstance(records, list) or not records:
+        raise ValueError("v0.7b aggregate must contain replicate records")
+
+    declared = aggregate_result.get("information_filtration")
+    expected = [
+        {
+            "name": "suitability_only",
+            "information": ["suitability"],
+            "score_field": "occupancy_knockout_heldout_log_score",
+        },
+        {
+            "name": "suitability_dynamic_occupancy",
+            "information": ["suitability", "dynamic_occupancy"],
+            "score_field": "full_heldout_log_score",
+        },
+    ]
+    if declared != expected:
+        raise ValueError("v0.7b information filtration drifted")
+
+    score_contract = aggregate_result.get("score_contract")
+    if not isinstance(score_contract, Mapping):
+        raise ValueError("v0.7b result is missing score_contract")
+    if (
+        score_contract.get("kind") != "log"
+        or score_contract.get("name") != "mean_heldout_log_predictive_density"
+        or score_contract.get("unit") != "nats_per_heldout_context"
+        or score_contract.get("orientation") != "higher_is_better"
+    ):
+        raise ValueError("v0.7b score contract drifted")
+
+    return build_odsp_transfer_bundle(
+        endpoint_id="esdm_v07b_dynamic_occupancy_transfer_v1",
+        levels=(
+            ODSPInformationLevel(
+                name="suitability_only",
+                information=("suitability",),
+                source_score_field="occupancy_knockout_heldout_log_score",
+            ),
+            ODSPInformationLevel(
+                name="suitability_dynamic_occupancy",
+                information=("suitability", "dynamic_occupancy"),
+                source_score_field="full_heldout_log_score",
+            ),
+        ),
+        records=records,
+        group_field="replicate",
+        analysis_mode="descriptive",
+        filtration_frozen_before_outcome_scoring=True,
+        source_schema="esdm.v07b.dynamic_transfer.v1",
+        source_git_sha=(
+            None
+            if aggregate_result.get("git_sha") is None
+            else str(aggregate_result.get("git_sha"))
+        ),
+        group_semantics="independent known-truth replicate",
+    )

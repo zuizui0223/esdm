@@ -20,6 +20,7 @@ __all__ = [
     "ODSPTransferBundle",
     "build_odsp_transfer_bundle",
     "build_v06a_accessibility_odsp_bundle",
+    "build_v07b_dynamic_occupancy_odsp_bundle",
 ]
 
 from .odsp_adapter import (
@@ -27,4 +28,5 @@ from .odsp_adapter import (
     ODSPTransferBundle,
     build_odsp_transfer_bundle,
     build_v06a_accessibility_odsp_bundle,
+    build_v07b_dynamic_occupancy_odsp_bundle,
 )
