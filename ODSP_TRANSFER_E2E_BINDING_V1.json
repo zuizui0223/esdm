@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "binding_id": "esdm-v06a-to-odsp-to-n3-transfer-value-v1",
+  "date": "2026-09-25",
+  "source": {
+    "esdm_result_schema": "esdm.v06a.accessibility.v1",
+    "workflow_run_id": 35989902607,
+    "artifact_id": 10804831269,
+    "artifact_name": "v06a-result-35989902607",
+    "artifact_digest": "sha256:978a10cbd9c6d0fcd382a925b47e6311e26658ad5c91c8ec9b2a50f4442b73e5",
+    "result_filename": "v06a_result.json",
+    "adapter_merge_sha": "e9bec1be8136a85c265af3604394d3389319998d",
+    "result_sha256": "243f90c6a246fa020043873ae63f4c14adb08999009392767644bc529c6341cc"
+  },
+  "odsp": {
+    "repository": "zuizui0223/odsp",
+    "pinned_commit": "0bd83e1ebb372c48839654ab0e42124fe37b8faf",
+    "stable_command": "odsp transfer",
+    "endpoint_id": "esdm_v06a_accessibility_transfer_v1"
+  },
+  "information_filtration": [
+    {
+      "name": "suitability_only",
+      "information": [
+        "suitability"
+      ],
+      "source_score": "accessibility_knockout_heldout_log_score"
+    },
+    {
+      "name": "suitability_accessibility",
+      "information": [
+        "suitability",
+        "accessibility"
+      ],
+      "source_score": "full_heldout_log_score"
+    }
+  ],
+  "expected_source_summary": {
+    "replicates": 16,
+    "positive_gain_rate": 1,
+    "mean_gain": 0.36244191577864204,
+    "minimum_gain": 0.03241652472572465
+  },
+  "expected_odsp_behavior": {
+    "point_transfer_ceiling": "suitability_accessibility",
+    "population_group_count": 16,
+    "population_positive_group_count": 16,
+    "population_positive_group_fraction": 1,
+    "population_mean_gain": 0.36244191577864204,
+    "population_status": "positive",
+    "population_transfer_ceiling": "suitability_accessibility",
+    "certification_all_steps_estimable": false,
+    "certified_transfer_ceiling": "suitability_only",
+    "reason_certification_stops": "one aggregate held-out score row per independent replicate cannot satisfy the legacy within-group minimum-block certification rule"
+  },
+  "n3_handoff": {
+    "schema_id": "n2-to-n3-transfer-value-payload-v1",
+    "group_semantics": "independent known-truth replicate",
+    "population_cluster_semantics": null,
+    "score_kind": "log",
+    "score_name": "mean_heldout_log_predictive_density",
+    "score_unit": "nats_per_heldout_context",
+    "expected_total_status": "positive",
+    "expected_conservative_value_positive": true,
+    "authorizes_spatial_patch_ranking": false,
+    "authorizes_survey_site_selection": false,
+    "n4_survey_action_owner": "ACSP"
+  },
+  "scientific_boundary": {
+    "reopens_v06a_gate": false,
+    "changes_v06a_promotion": false,
+    "changes_odsp_inference": false,
+    "cross_repository_result_role": "integration_smoke_and_downstream_serialization",
+    "empirical_biological_claim": false
+  }
+}
