@@ -10,6 +10,37 @@ from esdm.validate.v07a_qualification import evaluate_v07a_identification
 JAX_AVAILABLE = importlib.util.find_spec("jax") is not None
 
 
+def test_direct_occupancy_count_is_independent_of_intensity_scale():
+    fixture = build_v07a_fixture()
+    direct = next(
+        stream
+        for stream in fixture.positive_model.streams
+        if stream.name == "occupancy_calibration"
+    )
+    base = fixture.positive_model.latent_fields(
+        fixture.theta,
+        fixture.covariates,
+    )
+    shifted_theta = {
+        "sp": {
+            **fixture.theta["sp"],
+            "alpha": fixture.theta["sp"]["alpha"] + 2.0,
+        }
+    }
+    shifted = fixture.positive_model.latent_fields(
+        shifted_theta,
+        fixture.covariates,
+    )
+
+    assert direct.expected_rates(
+        "sp", base, covariates=fixture.covariates
+    ) == pytest.approx(
+        direct.expected_rates(
+            "sp", shifted, covariates=fixture.covariates
+        )
+    )
+
+
 def test_direct_occupancy_calibration_is_zero_outside_frozen_window():
     fixture = build_v07a_fixture()
     direct = next(
