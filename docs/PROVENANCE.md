@@ -105,13 +105,28 @@ Implemented and semi-synthetically promoted in v0.4:
 - exact-JAX structural/practical identification;
 - replicated parameter recovery and east-heldout activity/state knockout transfer.
 
+Implemented and evidence-tier promoted in v0.5:
+- acyclic directed partner-latent ecological effects;
+- deterministic topological evaluation of latent species dependencies;
+- explicit partner-effect knockout;
+- measured-shared-environment positive/null known-truth validation;
+- hidden-common-driver misspecification stress showing that predictive beta can be
+  confidently wrong;
+- pair-specific interaction-event authorization;
+- generative PairEventCount observation stream;
+- fail-closed edge-claim authorization:
+  model-only <= PREDICTIVE_DEPENDENCE, pair event -> REALIZED, higher tiers require
+  independent endpoints/intervention;
+- known-truth evidence-separation validation across hidden-event-silent,
+  realized-only, and directed+realized worlds.
+
 Still not implemented / not claimed:
-- partner-latent-field interaction process;
+- robustness of the partner coefficient to arbitrary hidden common causes;
 - field-specific camera/annotation adapters;
 - bidirectional or fixed-point interaction models;
 - movement/accessibility process;
 - calibrated ODSP familywise inference inside `esdm`;
-- causal interaction identification;
+- causal interaction identification without intervention;
 - universal superiority over SDM/JSDM/ecological-network methods;
 - pollination-specific model or validation.
 

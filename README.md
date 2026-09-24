@@ -221,6 +221,59 @@ benchmark. The promotion claim is therefore bounded: v0.4 is validated under its
 semi-synthetic known-truth programme, not established as an empirically correct model for
 any biological system.
 
+
+## v0.5 directed interaction layer — evidence-tiered promotion complete
+
+v0.5 adds one-way biotic dependence through a partner's **latent ecological field** rather
+than substituting raw partner records as focal covariates.
+
+`PartnerIntensityEffect` contributes to focal log intensity through
+
+```text
+partner pressure = softplus(source latent log-intensity)
+focal log-intensity += beta_partner × partner pressure
+```
+
+Species with latent dependencies are evaluated in deterministic topological order. Cyclic
+or reciprocal dependencies remain unsupported and fail closed.
+
+The v0.5 validation sequence deliberately includes a strong failure.
+
+- **v0.5a PASS:** with measured shared environment represented, a true directed
+  `beta_partner = +0.75` was recovered with negligible bias and positive held-out
+  contribution, while a measured-shared-environment null returned beta near zero.
+- **v0.5b FAIL:** an omitted common driver with true `beta_partner = 0` produced mean
+  fitted beta ≈ **+0.985**, nonzero intervals in 16/16 replicates, and strong positive
+  held-out gain in 16/16 replicates. Predictive skill therefore did not identify the
+  mechanism.
+- **v0.5c:** claim governance now hard-caps model-only interaction evidence at
+  `PREDICTIVE_DEPENDENCE`.
+- **v0.5d:** `PairEventCount` adds a separate source→target realized-event likelihood.
+- **v0.5e PASS:** known-truth worlds verified that false predictive dependence without
+  pair events stays `PREDICTIVE_DEPENDENCE`, while observed pair events can authorize
+  `REALIZED` even when beta is zero. Neither beta nor pair events self-promote to
+  `FUNCTIONAL` or `CAUSAL`.
+
+The promoted evidence contract is therefore:
+
+```text
+partner-latent model signal
+  -> at most PREDICTIVE_DEPENDENCE
+
+authorized positive pair-event evidence
+  -> REALIZED
+
+independent functional endpoint + realized evidence
+  -> FUNCTIONAL
+
+intervention + lower-tier prerequisites
+  -> CAUSAL
+```
+
+This is a promotion of the **directed interaction architecture and evidence boundaries**,
+not a promotion of `beta_partner` as a causal effect under arbitrary hidden
+confounding.
+
 ## NumPyro inference backend
 
 The optional NumPyro backend fits the current generative graph with NUTS/MCMC.
@@ -358,7 +411,7 @@ from esdm.claims import ...
 | --- | --- | --- |
 | v0.3 | domain + suitability + effort-aware presence-only + NumPyro + simulate + identify + claims | shared generation/likelihood/inference code; large SBC calibration study; knockout recovery; effort-misspecification negative control; semi-synthetic real-geometry benchmark |
 | v0.4 | ecological state + activity + annotation streams + direct state-composition calibration | **PROMOTED (semi-synthetic)**: hard identification, 13-target recovery, east-heldout activity/state transfer, refusal controls; unresolved detection remains bounded/`NotIdentified` |
-| v0.5 | directed biotic interaction through partner latent fields + interaction-event streams | false interaction/kernel-shift control under state-only and hidden-common-driver worlds; evidence tier cannot rise without corresponding observed endpoint |
+| v0.5 | directed biotic interaction through partner latent fields + pair-event streams | **PROMOTED (evidence-tiered known truth)**: directed-effect recovery under measured environment, explicit hidden-driver failure boundary, pair-event REALIZED evidence, fail-closed cap from model-only dependence to PREDICTIVE_DEPENDENCE |
 | v0.6 | movement/accessibility | distinguish unsuitable from inaccessible only when data support it; otherwise return `NotIdentified` |
 
 ## Existing research-programme provenance
@@ -375,16 +428,18 @@ See [`docs/PROVENANCE.md`](docs/PROVENANCE.md).
 
 ## Explicit non-claims
 
-The promoted v0.4 core does **not** claim:
+The promoted v0.5 architecture does **not** claim:
 
-- empirical correctness merely because the frozen semi-synthetic promotion gate passed;
+- empirical correctness merely because the frozen known-truth programmes passed;
 - scientific support from structural identification or posterior contraction alone;
-- empirical biological validity from in-model or semi-synthetic validation;
-- causal interaction from co-occurrence, residual association, predictive gain, or rewiring;
-- a directed biotic-interaction process yet;
+- causal interpretation of `beta_partner` under unmeasured common causes;
+- REALIZED interaction from co-occurrence, posterior beta, knockout gain, or predictive
+  skill alone;
+- FUNCTIONAL consequence from a pair event alone;
+- CAUSAL interaction without intervention evidence;
 - a bidirectional/fixed-point interaction model;
 - movement/accessibility inference;
-- a universal SDM/JSDM replacement;
+- a universal SDM/JSDM/ecological-network replacement;
 - validation for any one interaction family merely because it appears as an example.
 
 ## Development
