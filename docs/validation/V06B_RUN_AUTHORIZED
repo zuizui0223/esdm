@@ -1,0 +1,27 @@
+v0.6b joint-only identification audit authorization
+
+This marker authorizes exactly one frozen v0.6b deterministic audit.
+
+Frozen gate commit:
+a4cd5f2ac809fd4db65ce4418f0648a55978fd59
+
+Frozen gate blob:
+31d121519fe018c4cc20d75bfbfadbecc932f7a7
+
+Frozen designs:
+- exact v0.6a intercept-only joint-product refusal control
+- exact v0.6a structured 24-context ecological truth
+- AccessibilityCount removed
+- AccessiblePresenceOnly only
+
+Frozen diagnostics:
+- JAX jacobian
+- rank rtol 1e-8
+- rank atol 1e-10
+- relative minimum singular value threshold 1e-3
+- condition number threshold 1e3
+- target SD proxy threshold 0.25
+- Fisher ridge 1e-10
+
+No covariate, parameter truth, threshold, or interpretation rule may be changed
+after this authorization in response to outcome.
