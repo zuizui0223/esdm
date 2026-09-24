@@ -88,6 +88,25 @@ def _check(name, passed, observed, criterion):
     return V05AGateCheck(str(name), bool(passed), observed, str(criterion))
 
 
+def evaluate_v05a_identification_gate(
+    identification: V05AIdentificationSummary,
+) -> V05ADecision:
+    checks = (
+        _check("directed_structural", identification.directed_structural,
+               identification.directed_structural, "is True"),
+        _check("directed_practical", identification.directed_practical,
+               identification.directed_target_sd, "target SD <= 0.25"),
+        _check("null_structural", identification.null_structural,
+               identification.null_structural, "is True"),
+        _check("null_practical", identification.null_practical,
+               identification.null_target_sd, "target SD <= 0.25"),
+    )
+    return V05ADecision(
+        passed=all(check.passed for check in checks),
+        checks=checks,
+    )
+
+
 def evaluate_v05a_gate(
     identification: V05AIdentificationSummary,
     outcome: V05ASummary,

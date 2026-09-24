@@ -64,3 +64,16 @@ def test_v05a_gate_accepts_directed_signal_and_null_refusal():
     decision = evaluate_v05a_gate(_identification(), _summary())
     assert decision.passed is True
     assert all(check.passed for check in decision.checks)
+
+
+def test_v05a_identification_only_gate_has_exact_four_terms():
+    from esdm.validate.v05a_gate import evaluate_v05a_identification_gate
+
+    decision = evaluate_v05a_identification_gate(_identification())
+    assert decision.passed is True
+    assert tuple(check.name for check in decision.checks) == (
+        "directed_structural",
+        "directed_practical",
+        "null_structural",
+        "null_practical",
+    )
