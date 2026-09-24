@@ -45,8 +45,32 @@ Practical uncertainty was effectively unbounded:
 - suitability target-SD proxy = **4228.41**;
 - accessibility target-SD proxy = **10536.45**.
 
-Therefore v0.6 does not infer an inaccessible-versus-unsuitable decomposition from the
-joint product alone.
+Therefore v0.6 refuses an inaccessible-versus-unsuitable decomposition when the joint
+product contains no separating structure beyond the two intercepts.
+
+## v0.6b structured joint-only audit
+
+A fresh deterministic audit then removed AccessibilityCount from the exact structured
+v0.6a training geometry while retaining distinct non-collinear habitat and distance
+covariates.
+
+All four targets were **structurally Identified**:
+
+- full rank / without-target rank = **4 / 3**;
+- relative minimum singular value = **0.03757**;
+- condition number = **26.62**.
+
+But practical identification remained weak for three targets:
+
+- suitability intercept target-SD proxy = **0.49463**;
+- accessibility intercept = **1.47533**;
+- distance/accessibility slope = **0.91023**;
+- habitat slope = **0.11028** and was the only target below 0.25.
+
+Thus independent accessibility observations are **sufficient but not universally
+necessary for structural identification**. In this frozen geometry, however, they are
+required to meet the declared practical-estimability threshold across the full
+suitability/accessibility parameter block.
 
 ## Frozen positive design
 
