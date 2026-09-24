@@ -3,7 +3,7 @@ name: v0.7b frozen dynamic recovery transfer gate
 on:
   push:
     branches:
-      - feature/v07b-recovery-transfer-gate
+      - feature/v07b-recovery-transfer-gate-clean
     paths:
       - .github/workflows/v07b-dynamic-recovery-transfer-once.yml
       - docs/validation/V07B_RUN_AUTHORIZED
