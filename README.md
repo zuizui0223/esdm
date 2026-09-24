@@ -292,16 +292,25 @@ lambda_access
 
 The existing `PresenceOnly` stream remains intensity-only.
 
-The frozen v0.6a programme established the intended identification boundary.
+The frozen v0.6a and v0.6b programmes establish a more precise identification boundary.
 
 With only an intercept-only joint occurrence endpoint, suitability and accessibility were
 both returned as `NotIdentified`: the full Jacobian rank remained 1 when either target
 was removed, and target-SD proxies exceeded 4,000.
 
-With direct accessibility calibration in the 24 training contexts, all four declared
-suitability/accessibility targets became structurally and practically identified. Across
-16 fresh replicates, absolute mean bias stayed below 0.056, 90% coverage was at least
-0.875, and there were zero divergences.
+However, v0.6b showed that joint occurrence is not universally structurally
+non-identifying. With distinct non-collinear habitat/distance predictors and the declared
+linear-intensity/logistic-accessibility forms, all four parameters were locally
+structurally identified from the joint occurrence stream alone (rank **4 -> 3** for each
+target). That separation was mostly **practically weak**: target-SD proxies were **0.495**
+for the suitability intercept, **1.475** for the accessibility intercept, and **0.910**
+for the accessibility slope; only the habitat slope passed the frozen 0.25 practical
+threshold (**0.110**).
+
+Direct accessibility calibration in the 24 training contexts changed that picture. All
+four targets became both structurally and practically identified, with target-SD proxies
+**0.106–0.198**. Across 16 fresh replicates, absolute mean bias stayed below **0.056**,
+90% coverage was at least **0.875**, and there were zero divergences.
 
 Direct accessibility exposure was exactly zero in all 12 held-out contexts. Even so, the
 full model beat the accessibility knockout in **16/16** replicates on held-out joint
@@ -309,11 +318,15 @@ occurrence, with mean log predictive gain **+0.36244** and minimum gain **+0.032
 
 The promoted v0.6 claim is therefore bounded:
 
-> suitability and accessibility can be separated only when the observation design
-> contains independent accessibility information; otherwise the decomposition must remain
-> NotIdentified.
+> joint occurrence may mathematically separate suitability and accessibility when strong
+> covariate/link-function structure supplies the separation, but that structural
+> identification can be assumption-driven and practically weak. Independent
+> accessibility observations provide a separate information channel that made the frozen
+> decomposition practically estimable, recoverable, and transferable.
 
-This is a static accessibility layer, not a movement-kernel or dynamic colonization model.
+Structural identification from a joint endpoint is not itself independent ecological
+evidence of accessibility. This remains a static accessibility layer, not a
+movement-kernel or dynamic colonization model.
 
 ## NumPyro inference backend
 
@@ -453,7 +466,7 @@ from esdm.claims import ...
 | v0.3 | domain + suitability + effort-aware presence-only + NumPyro + simulate + identify + claims | shared generation/likelihood/inference code; large SBC calibration study; knockout recovery; effort-misspecification negative control; semi-synthetic real-geometry benchmark |
 | v0.4 | ecological state + activity + annotation streams + direct state-composition calibration | **PROMOTED (semi-synthetic)**: hard identification, 13-target recovery, east-heldout activity/state transfer, refusal controls; unresolved detection remains bounded/`NotIdentified` |
 | v0.5 | directed partner-latent effects + pair-event streams + evidence-tier guard | **PROMOTED (bounded semi-synthetic)**: true directed effect recovery; measured-shared null refusal; hidden-driver failure establishes claim ceiling; pair-event evidence separates PREDICTIVE_DEPENDENCE from REALIZED; FUNCTIONAL/CAUSAL remain gated |
-| v0.6 | static accessibility + accessibility-aware occurrence + direct accessibility calibration | **PROMOTED (bounded semi-synthetic)**: joint-only suitability/accessibility decomposition is refused as `NotIdentified`; direct accessibility information enables four-target recovery and 16/16 held-out transfer with zero held-out accessibility exposure |
+| v0.6 | static accessibility + accessibility-aware occurrence + direct accessibility calibration | **PROMOTED (bounded semi-synthetic)**: intercept-only joint product is `NotIdentified`; structured joint-only can be locally identified but was practically weak for 3/4 targets; direct accessibility information yielded practical four-target recovery and 16/16 held-out transfer with zero held-out accessibility exposure |
 
 ## Existing research-programme provenance
 

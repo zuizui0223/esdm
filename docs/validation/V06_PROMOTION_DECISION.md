@@ -2,7 +2,7 @@
 
 Status: **PROMOTED WITH A STATIC ACCESSIBILITY CLAIM**
 
-Authoritative endpoint: frozen v0.6a PASS.
+Authoritative endpoints: frozen v0.6a PASS plus frozen v0.6b assumption-reliance audit.
 
 ## Scientific question
 
@@ -45,8 +45,32 @@ Practical uncertainty was effectively unbounded:
 - suitability target-SD proxy = **4228.41**;
 - accessibility target-SD proxy = **10536.45**.
 
-Therefore v0.6 does not infer an inaccessible-versus-unsuitable decomposition from the
-joint product alone.
+Therefore v0.6 refuses an inaccessible-versus-unsuitable decomposition when the joint
+product contains no separating structure beyond the two intercepts.
+
+## v0.6b structured joint-only audit
+
+A fresh deterministic audit then removed AccessibilityCount from the exact structured
+v0.6a training geometry while retaining distinct non-collinear habitat and distance
+covariates.
+
+All four targets were **structurally Identified**:
+
+- full rank / without-target rank = **4 / 3**;
+- relative minimum singular value = **0.03757**;
+- condition number = **26.62**.
+
+But practical identification remained weak for three targets:
+
+- suitability intercept target-SD proxy = **0.49463**;
+- accessibility intercept = **1.47533**;
+- distance/accessibility slope = **0.91023**;
+- habitat slope = **0.11028** and was the only target below 0.25.
+
+Thus independent accessibility observations are **sufficient but not universally
+necessary for structural identification**. In this frozen geometry, however, they are
+required to meet the declared practical-estimability threshold across the full
+suitability/accessibility parameter block.
 
 ## Frozen positive design
 
@@ -95,24 +119,74 @@ Full versus accessibility knockout:
 Thus training accessibility information transferred to unseen contexts instead of merely
 explaining its direct calibration stream.
 
+## v0.6b assumption-reliance audit
+
+v0.6b removed the direct AccessibilityCount endpoint from the exact v0.6a positive
+training geometry while retaining the distinct habitat and distance covariates.
+
+The intercept-only refusal control remained unchanged:
+
+- both intercepts = **NotIdentified**;
+- rank = **1** with or without either target.
+
+The structured joint-only model behaved differently. All four parameters were locally
+structurally identified:
+
+- full rank = **4**;
+- rank without each target = **3**;
+- relative minimum singular value = **0.03757**;
+- condition number = **26.62**.
+
+But practical information was highly uneven:
+
+- suitability intercept target-SD proxy = **0.49463** — weak;
+- habitat slope = **0.11028** — passes;
+- accessibility intercept = **1.47533** — weak;
+- accessibility slope = **0.91023** — weak.
+
+The frozen interpretation is therefore **Outcome B: structurally identified but
+practically weak**.
+
+This means direct accessibility information is sufficient and highly valuable, but not a
+universal mathematical prerequisite for local structural identification. In the structured
+joint-only design, the decomposition is supplied by the declared functional forms and
+covariate geometry.
+
+Comparing the same positive geometry with and without direct AccessibilityCount:
+
+- suitability intercept SD proxy: **0.495 -> 0.106**;
+- habitat slope: **0.110 -> 0.108**;
+- accessibility intercept: **1.475 -> 0.178**;
+- accessibility slope: **0.910 -> 0.198**.
+
+The direct endpoint therefore primarily stabilizes the accessibility decomposition and the
+shared intercept, rather than merely creating Jacobian rank.
+
 ## Promoted v0.6 contract
 
 v0.6 may now serve as the stable base for later movement development under this bounded
 interpretation:
 
 1. ecological suitability and accessibility are distinct latent quantities;
-2. joint occurrence alone need not identify them separately;
-3. when only the product is informed, ESDM must return `NotIdentified`;
-4. an independent accessibility observation channel can authorize the decomposition;
-5. under the frozen static known-truth design, the accessibility component is recoverable;
-6. accessibility learned in training can improve joint occurrence prediction where direct
-   accessibility observations are absent.
+2. an unstructured joint product can be genuinely `NotIdentified`;
+3. structured joint occurrence can sometimes create local structural identification from
+   covariate and link-function shape alone;
+4. such structural identification is assumption-dependent and is not equivalent to
+   independent ecological evidence for accessibility;
+5. practical identifiability must therefore be evaluated separately from structural rank;
+6. an independent accessibility observation channel can strongly stabilize the
+   decomposition;
+7. under the frozen direct-calibration design, all four targets were recoverable;
+8. accessibility learned in training improved joint occurrence prediction where direct
+   accessibility observations were absent.
 
 ## Strongest supported methodological claim
 
-> A model should not explain low occurrence as either habitat unsuitability or
-> inaccessibility unless the observation design contains information that distinguishes
-> those processes.
+> Separating habitat suitability from accessibility requires either informative
+> model structure or an independent accessibility channel, and those are not
+> epistemically equivalent. Structural identifiability created by functional form should
+> be reported as assumption-dependent; process-specific observations provide stronger,
+> practically estimable evidence.
 
 ## Promotion boundary
 
