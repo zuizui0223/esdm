@@ -1,0 +1,34 @@
+{
+  "schema": "esdm.v06c.frozen_results.v1",
+  "status": "COMPLETE",
+  "outcome_run_id": 35995579705,
+  "outcome_head_sha": "6c0eb31ada689cdab2cecb82c2f51df27f588b43",
+  "gate_freeze_commit": "1441d7ca241b09cad54563f3b6c0ed53bae6aa90",
+  "gate_blob_sha": "f09f1857756bf1b14c2f8c9888f35cf1d6a44ab7",
+  "observed_gate_blob_sha": "f09f1857756bf1b14c2f8c9888f35cf1d6a44ab7",
+  "artifact": {
+    "id": 10805868158,
+    "name": "v06c-frontier-35995579705",
+    "github_digest": "sha256:0c7983dfdcdb4553700a0af89e9563bd43121921231493296645707337e10691",
+    "independent_zip_sha256": "0c7983dfdcdb4553700a0af89e9563bd43121921231493296645707337e10691"
+  },
+  "intercept_only_refused": true,
+  "cells": [
+    {"geometry":"distinct","access_intercept":-2.0,"joint_structural":4,"joint_practical":1,"direct_structural":4,"direct_practical":4},
+    {"geometry":"distinct","access_intercept":0.4,"joint_structural":4,"joint_practical":1,"direct_structural":4,"direct_practical":4},
+    {"geometry":"distinct","access_intercept":2.0,"joint_structural":4,"joint_practical":1,"direct_structural":4,"direct_practical":2},
+    {"geometry":"aligned","access_intercept":-2.0,"joint_structural":4,"joint_practical":0,"direct_structural":4,"direct_practical":3},
+    {"geometry":"aligned","access_intercept":0.4,"joint_structural":4,"joint_practical":0,"direct_structural":4,"direct_practical":4},
+    {"geometry":"aligned","access_intercept":2.0,"joint_structural":4,"joint_practical":0,"direct_structural":4,"direct_practical":2},
+    {"geometry":"flat_access","access_intercept":-2.0,"joint_structural":1,"joint_practical":0,"direct_structural":3,"direct_practical":0},
+    {"geometry":"flat_access","access_intercept":0.4,"joint_structural":1,"joint_practical":0,"direct_structural":3,"direct_practical":0},
+    {"geometry":"flat_access","access_intercept":2.0,"joint_structural":1,"joint_practical":0,"direct_structural":3,"direct_practical":0}
+  ],
+  "key_boundaries": {
+    "structural_rank_can_be_functional_form_driven": true,
+    "aligned_joint_only_all_structural_but_no_practical": true,
+    "high_access_saturation_can_defeat_direct_practical_identification": true,
+    "flat_access_distance_slope_is_design_uninformed": true,
+    "direct_observation_is_not_universally_sufficient": true
+  }
+}

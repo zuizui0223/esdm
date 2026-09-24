@@ -328,6 +328,23 @@ Structural identification from a joint endpoint is not itself independent ecolog
 evidence of accessibility. This remains a static accessibility layer, not a
 movement-kernel or dynamic colonization model.
 
+The frozen v0.6c frontier then mapped this distinction across a fixed **3 × 3** grid of
+covariate geometry and accessibility regime. With distinct habitat/distance gradients,
+joint-only occurrence structurally identified all four targets in every regime but only
+**1/4** targets met the practical threshold. With habitat and distance exactly aligned,
+joint-only still produced structural rank for all four targets yet **0/4** were
+practically identified. Adding direct accessibility observations raised practical
+identification to **4/4** in the low/middle distinct regimes and middle aligned regime,
+but it was not omnipotent: high accessibility saturation left the accessibility
+intercept/slope weak, and a flat distance predictor left its slope
+`DesignUninformed` even with direct observations.
+
+The v0.6 information boundary is therefore three-part: a process needs **design
+variation**, an **informative operating regime**, and enough **process-specific
+observation information** for stable separation. Structural rank supplied by functional
+form alone is not sufficient evidence that the ecological decomposition is well
+estimated.
+
 ## NumPyro inference backend
 
 The optional NumPyro backend fits the current generative graph with NUTS/MCMC.
@@ -466,7 +483,7 @@ from esdm.claims import ...
 | v0.3 | domain + suitability + effort-aware presence-only + NumPyro + simulate + identify + claims | shared generation/likelihood/inference code; large SBC calibration study; knockout recovery; effort-misspecification negative control; semi-synthetic real-geometry benchmark |
 | v0.4 | ecological state + activity + annotation streams + direct state-composition calibration | **PROMOTED (semi-synthetic)**: hard identification, 13-target recovery, east-heldout activity/state transfer, refusal controls; unresolved detection remains bounded/`NotIdentified` |
 | v0.5 | directed partner-latent effects + pair-event streams + evidence-tier guard | **PROMOTED (bounded semi-synthetic)**: true directed effect recovery; measured-shared null refusal; hidden-driver failure establishes claim ceiling; pair-event evidence separates PREDICTIVE_DEPENDENCE from REALIZED; FUNCTIONAL/CAUSAL remain gated |
-| v0.6 | static accessibility + accessibility-aware occurrence + direct accessibility calibration | **PROMOTED (bounded semi-synthetic)**: intercept-only joint product is `NotIdentified`; structured joint-only can be locally identified but was practically weak for 3/4 targets; direct accessibility information yielded practical four-target recovery and 16/16 held-out transfer with zero held-out accessibility exposure |
+| v0.6 | static accessibility + accessibility-aware occurrence + direct accessibility calibration | **PROMOTED (bounded semi-synthetic)**: intercept-only product refusal; structured joint-only rank can be functional-form driven and practically weak; direct calibration enables recovery/transfer but cannot rescue absent predictor variation or saturated accessibility regimes |
 
 ## Existing research-programme provenance
 
