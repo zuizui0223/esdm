@@ -1,0 +1,31 @@
+v0.5c event-gated claim-firewall authorization
+
+This marker authorizes exactly one frozen v0.5c event-gated validation outcome.
+
+Frozen gate commit:
+884872d28bc848539836e13e9f357b82f3794d01
+
+Frozen gate blob:
+c5446065cc81ea27a6c59861a3ae52a1437e8909
+
+Frozen worlds:
+- interaction_event: beta_partner = +0.75, event probability = 0.25
+- hidden_driver_null: beta_partner = 0.0, event probability = 0.005
+
+Frozen event support:
+- lower 90% posterior bound for P(event) > 0.05
+
+Frozen execution:
+- 16 replicates per world
+- 32 total fits
+- base seed 20261009
+- stride 83
+- hidden-null offset 1000000
+- warmup 300
+- samples 350
+- chains 2
+- credible mass 0.90
+- target accept 0.90
+
+No event threshold, world definition, claim-tier policy, seed family, prior, MCMC
+setting, or gate criterion may be changed after this authorization in response to outcome.
