@@ -1,0 +1,20 @@
+v0.6b joint-only identification audit authorization
+
+This marker authorizes exactly one frozen deterministic v0.6b audit outcome.
+
+Frozen gate commit:
+a4cd5f2ac809fd4db65ce4418f0648a55978fd59
+
+Frozen gate blob:
+31d121519fe018c4cc20d75bfbfadbecc932f7a7
+
+Frozen audit:
+- exact v0.6a intercept-only refusal control
+- exact v0.6a first 24 training contexts for structured joint-only audit
+- AccessibilityCount removed
+- AccessiblePresenceOnly only
+- exact JAX structural/practical thresholds from v0.6a
+- no MCMC
+- predeclared A/B/C interpretation map
+
+No covariate, truth value, threshold, functional form, or interpretation rule may be changed after this authorization in response to outcome.
