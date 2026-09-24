@@ -232,6 +232,9 @@ class Model:
                 raise ValueError(
                     f"stream {stream.name!r} targets unknown species: {sorted(unknown)}"
                 )
+            validator = getattr(stream, "validate_model", None)
+            if validator is not None:
+                validator(self)
         self._check_acyclic()
 
     def stream_targets(self, stream) -> tuple[str, ...]:
