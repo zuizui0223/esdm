@@ -1,0 +1,85 @@
+{
+  "schema": "esdm.v06c.budget_matched_frozen_results.v1",
+  "status": "PASS",
+  "outcome_run_id": 36015761438,
+  "outcome_head_sha": "ac9d2fd6000112371e16fb63539805cf6d93f529",
+  "gate_freeze_commit": "cd1088f1d60f771b4ab6d00d089c7a9f0b08150f",
+  "gate_blob_sha": "f5fb2ae16ec8c0b37eeb1a9d87f688763ce18d83",
+  "observed_gate_blob_sha": "f5fb2ae16ec8c0b37eeb1a9d87f688763ce18d83",
+  "infrastructure_repair": {
+    "blocked_run_id": 36014064564,
+    "repair_commit": "e1941a26b311001fce7f3a0931d96ee125d8c437",
+    "replacement_authorization_commit": "ac9d2fd6000112371e16fb63539805cf6d93f529",
+    "scientific_settings_changed": false
+  },
+  "artifact": {
+    "id": 10815097574,
+    "name": "v06c-result-36015761438",
+    "github_digest": "sha256:40e6ebb9e1626598f13650d42b8bcb1fabe9f0a6f9b3443972d5eccb897c95ae",
+    "independent_zip_sha256": "40e6ebb9e1626598f13650d42b8bcb1fabe9f0a6f9b3443972d5eccb897c95ae"
+  },
+  "qualification": {
+    "expected_direct_aux_count": 280.3655296666616,
+    "expected_matched_aux_count": 280.3655296666616,
+    "relative_budget_error": 0.0,
+    "access_sd_proxy_ratios": {
+      "sp.accessibility.access_intercept": 0.19131339107856307,
+      "sp.accessibility.beta_distance": 0.34587915892156074
+    }
+  },
+  "summary": {
+    "replicates": 16,
+    "fit_count": 32,
+    "direct_mean_biases": {
+      "sp.suitability.suitability_intercept": -0.054853570008920396,
+      "sp.suitability.beta_habitat": 0.03250874182741558,
+      "sp.accessibility.access_intercept": 0.021565657053428614,
+      "sp.accessibility.beta_distance": 0.0326368173477906
+    },
+    "matched_mean_biases": {
+      "sp.suitability.suitability_intercept": 0.4644716671865386,
+      "sp.suitability.beta_habitat": 0.029775393850037024,
+      "sp.accessibility.access_intercept": -0.7846182932880259,
+      "sp.accessibility.beta_distance": 0.2073154466474496
+    },
+    "direct_coverages": {
+      "sp.suitability.suitability_intercept": 0.9375,
+      "sp.suitability.beta_habitat": 0.9375,
+      "sp.accessibility.access_intercept": 0.875,
+      "sp.accessibility.beta_distance": 1.0
+    },
+    "matched_coverages": {
+      "sp.suitability.suitability_intercept": 0.875,
+      "sp.suitability.beta_habitat": 0.9375,
+      "sp.accessibility.access_intercept": 0.8125,
+      "sp.accessibility.beta_distance": 0.875
+    },
+    "direct_lower_sd_rates": {
+      "sp.accessibility.access_intercept": 1.0,
+      "sp.accessibility.beta_distance": 0.875
+    },
+    "mean_sd_ratios": {
+      "sp.accessibility.access_intercept": 0.17998545436461136,
+      "sp.accessibility.beta_distance": 0.6219590324227854
+    },
+    "mean_direct_aux_count": 281.0625,
+    "mean_matched_aux_count": 274.625,
+    "mean_heldout_gain_direct_minus_matched": 0.017524133795885466,
+    "direct_better_heldout_rate": 0.6875,
+    "total_divergences": 0
+  },
+  "gate": {
+    "passed": true,
+    "checks_passed": 21,
+    "checks_total": 21
+  },
+  "interpretation_boundary": {
+    "process_specific_accessibility_data_more_precise_at_matched_expected_record_budget": true,
+    "direct_endpoint_improves_accessibility_intercept_precision": true,
+    "direct_endpoint_improves_accessibility_slope_precision_on_average": true,
+    "direct_endpoint_universally_improves_each_replicate_slope_precision": false,
+    "heldout_predictive_superiority_established": false,
+    "more_records_alone_explain_direct_endpoint_advantage": false,
+    "causal_movement_identification": false
+  }
+}
