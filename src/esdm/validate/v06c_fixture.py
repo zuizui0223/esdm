@@ -147,7 +147,16 @@ def v06c_condition_model(fixture: V06CFixture, condition: str, spaces):
     elif name == "matched_joint":
         selected = (streams["base_joint"], streams["matched_joint"])
     else:
-        selected = (streams["base_joint"],)
+        base_joint = streams["base_joint"]
+        heldout_joint = AccessiblePresenceOnly(
+            "base_joint",
+            effort=base_joint.effort,
+            informs=frozenset({"suitability", "accessibility"}),
+            detection_probability=base_joint.detection_probability,
+            detection=base_joint.detection,
+            targets=base_joint.targets,
+        )
+        selected = (heldout_joint,)
     model = Model(
         grid,
         fixture.model.species,

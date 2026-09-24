@@ -32,3 +32,23 @@ def test_v06c_auxiliary_streams_have_zero_heldout_exposure():
             for key in fixture.model.domain.keys
             if key[0] in heldout
         )
+
+
+def test_v06c_heldout_scoring_model_preserves_joint_endpoint_and_design_path():
+    from esdm.validate.v06c_fixture import (
+        build_v06c_fixture,
+        v06c_condition_model,
+    )
+
+    fixture = build_v06c_fixture()
+    model, _covariates = v06c_condition_model(
+        fixture, "heldout", fixture.heldout_spaces
+    )
+
+    assert tuple(stream.name for stream in model.streams) == ("base_joint",)
+    stream = model.streams[0]
+    assert stream.informs == frozenset({"suitability", "accessibility"})
+    assert stream.effort is {
+        item.name: item for item in fixture.model.streams
+    }["base_joint"].effort
+    model.check_design()
