@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from types import MappingProxyType
 import math
 
@@ -126,9 +126,9 @@ class ColonizationExtinctionOccupancy:
     colonization_intercept_parameter: str
     extinction_intercept_parameter: str
     colonization_covariates: tuple[str, ...] = ()
-    colonization_coefficient_parameters: Mapping[str, str] = MappingProxyType({})
+    colonization_coefficient_parameters: Mapping[str, str] = field(default_factory=dict)
     extinction_covariates: tuple[str, ...] = ()
-    extinction_coefficient_parameters: Mapping[str, str] = MappingProxyType({})
+    extinction_coefficient_parameters: Mapping[str, str] = field(default_factory=dict)
     name: str = "occupancy"
     output_channel: str = "occupancy"
     latent_species_dependencies: frozenset[str] = frozenset()
