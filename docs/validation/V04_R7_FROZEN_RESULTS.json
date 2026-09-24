@@ -1,0 +1,50 @@
+{
+  "schema": "esdm.v04_r7.frozen_results.v1",
+  "status": "FAIL",
+  "outcome_run_id": 35948454316,
+  "outcome_head_sha": "cf07394195ab8055b3ced0c231b8aee68eaa7810",
+  "gate_freeze_commit": "2c6c1473cbe7a571ee8972476225574a7906a1cb",
+  "gate_blob_sha": "7c3261211cc8b1eb51e50f912457dd54dd8fdb33",
+  "observed_gate_blob_sha": "7c3261211cc8b1eb51e50f912457dd54dd8fdb33",
+  "artifact": {
+    "id": 10788960354,
+    "name": "v04-r7-budget-matched-35948454316",
+    "github_digest": "sha256:0f822e766962226738ac962b22ad1fc86a893bafbfc8834ab6fe7ada15c91e33",
+    "independent_zip_sha256": "0f822e766962226738ac962b22ad1fc86a893bafbfc8834ab6fe7ada15c91e33"
+  },
+  "summary": {
+    "replicates": 16,
+    "fit_count": 32,
+    "all_shared_base_data_equal": true,
+    "direct_expected_labels": 432.0,
+    "passive_expected_labels": 432.0,
+    "mean_direct_realized_labels": 433.5,
+    "mean_passive_realized_labels": 425.875,
+    "heldout_positive_gain_rate": 0.1875,
+    "mean_heldout_gain": -0.003015807281285518,
+    "state_error_positive_gain_rate": 0.5625,
+    "mean_state_error_gain": 0.03733763784799619,
+    "total_divergences": 0
+  },
+  "failed_checks": [
+    "heldout_positive_gain_rate",
+    "mean_heldout_gain",
+    "state_error_positive_gain_rate"
+  ],
+  "passed_checks": [
+    "replicates",
+    "fit_count",
+    "shared_base_data",
+    "direct_expected_label_budget",
+    "passive_expected_label_budget",
+    "mean_state_error_gain",
+    "mean_divergences_per_fit"
+  ],
+  "claim_boundary": {
+    "equal_expected_label_budget": true,
+    "paired_shared_base_data": true,
+    "direct_predictive_superiority_supported": false,
+    "direct_state_error_superiority_robustly_supported": false,
+    "generic_additional_label_explanation_excluded": false
+  }
+}
