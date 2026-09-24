@@ -19,7 +19,7 @@ def test_v07b_runners_pin_gate_seed_and_mcmc_profile():
     a = _load("v07b_a", "aggregate_v07b.py")
 
     for module in (q, s, a):
-        assert module.FROZEN_GATE_COMMIT == "29a4de553e790598ec017c0c12c7d4db5f039212"
+        assert module.FROZEN_GATE_COMMIT == "7c454d78c61c259504fa3a621eb65caf954c058a"
         assert module.FROZEN_GATE_BLOB_SHA == "14e02c13b1314d6ca3d91491dd799f0b1b85cf4a"
 
     assert s.FROZEN_REPLICATES == 16
