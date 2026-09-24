@@ -7,6 +7,8 @@ on:
       - 'src/esdm/transfer/__init__.py'
       - 'scripts/export_v06a_odsp_transfer.py'
       - 'tests/test_odsp_transfer_adapter.py'
+      - 'ODSP_TRANSFER_E2E_RESULT_V1.json'
+      - 'tests/test_odsp_transfer_e2e_result.py'
       - 'docs/integration/ODSP_TRANSFER_ADAPTER.md'
       - '.github/workflows/odsp-transfer-adapter.yml'
 
@@ -24,7 +26,10 @@ jobs:
           python-version: '3.12'
       - name: Install eSDM
         run: python -m pip install -e '.[dev]'
-      - name: Validate ODSP export adapter
-        run: python -m pytest -q tests/test_odsp_transfer_adapter.py
+      - name: Validate ODSP export adapter and frozen integration result
+        run: >-
+          python -m pytest -q
+          tests/test_odsp_transfer_adapter.py
+          tests/test_odsp_transfer_e2e_result.py
       - name: Compile export script
         run: python -m py_compile scripts/export_v06a_odsp_transfer.py
