@@ -2,116 +2,92 @@
 
 Status: **FAIL**
 
-v0.5b tested the directed PartnerIntensityEffect under a deliberately misspecified world
-with no true partner effect and a strong omitted environmental driver shared by source and
-focal.
+v0.5b prospectively tested whether the directed PartnerIntensityEffect would refuse a
+false interaction when source and focal were jointly driven by an omitted common
+environmental process.
 
-The refusal thresholds were copied unchanged from the successful v0.5a
-measured-shared-environment null.
+The true partner coefficient was exactly zero.
 
 ## Frozen provenance
 
-- outcome run: `35976569558`
-- outcome head: `7e7e647cd0ddf351af8a1e939458adb93d68bade`
+- outcome run: `35981265978`
+- outcome head: `c7ed991830e69ba241bb88db3b55239da222985f`
 - gate freeze commit: `0955decc9a3abfa3e30f3f4f57d90192cdecc46a`
 - gate blob expected/observed:
   `8cb04d4195fbd6e8e61f24f58c4202298e9e3776`
-- final artifact ID: `10798985190`
-- final artifact name: `v05b-result-35976569558`
+- final artifact ID: `10800257515`
+- artifact name: `v05b-result-35981265978`
 - artifact digest / independently verified ZIP SHA256:
-  `8b7dd657d2a25d22bc33a47772a7f301988734f773d2cd3f6df1f349d6377a49`
+  `f0c6ff0c9555df266d9e8a2c0c38b793a2b0e36008e0a1f344ffdedcfd3421c2`
 
-All 16 replicate jobs completed successfully. The aggregate job failed only because the
-frozen scientific gate failed. The final artifact reports
-`infrastructure_block = null`.
+All 16 replicate jobs completed successfully. The aggregate failed only because the
+frozen scientific refusal gate failed. `infrastructure_block = null`.
 
-## Hidden-driver null
+## Result
 
-True partner coefficient:
+True generating value:
 
-- **beta_partner = 0.0**
+- `beta_partner = 0.0`.
 
 Observed across 16 fresh replicates:
 
-- mean fitted beta = **+0.98541**
-- minimum replicate posterior mean beta = **+0.69785**
-- maximum replicate posterior mean beta = **+1.23613**
-- 90% zero coverage = **0/16**
-- nonzero interval rate = **16/16**
-- positive interval rate = **16/16**
+- mean fitted beta = **+0.98541**;
+- zero coverage = **0/16 = 0.00**;
+- nonzero 90% interval = **16/16 = 1.00**;
+- interval entirely positive = **16/16 = 1.00**;
+- Full > partner knockout heldout score = **16/16 = 1.00**;
+- material positive heldout gain (>0.005) = **16/16 = 1.00**;
+- mean Full-minus-knockout heldout gain = **+4.39472**;
+- total divergences across 32 fits = **0**.
 
-The directed coefficient therefore became a strong positive false interaction in every
-replicate.
+Every false-interaction criterion failed with a large margin.
 
-## Held-out knockout comparison
-
-Full model beat the partner knockout in:
-
-- **16/16 replicates**
-
-Material held-out gain (>0.005):
-
-- **16/16**
-
-Mean Full-minus-knockout held-out gain:
-
-- **+4.39472**
-
-Even the smallest replicate-level held-out gain was:
-
-- **+2.82213**
-
-Thus held-out predictive gain did not protect against this omitted-driver confounding.
-The misspecified interaction model predicted better precisely because the source latent
-field acted as a proxy for the hidden focal driver.
-
-## Sampling
-
-- fits = **32**
-- total divergences = **0**
-- mean divergences per fit = **0.0**
-
-This is not a sampling pathology.
+The fitted partner coefficient was not merely slightly biased. The model inferred a
+large, consistently positive directed effect in every replicate and the misspecified Full
+model strongly outperformed the knockout on held-out focal presence-only records.
 
 ## Interpretation
 
-v0.5a and v0.5b establish a sharp boundary.
+This is a clean claim-ceiling result.
 
-### What v0.5a showed
+v0.5a established that:
 
-When shared environmental structure is measured and included in both source and focal
-models:
+- a true directed partner-latent effect is recoverable;
+- measured shared environmental co-response does not reproduce the same signal.
 
-- beta is identifiable;
-- a true beta=+0.75 is recovered;
-- beta returns to approximately zero when the true effect is absent;
-- measured environmental co-response does not reproduce the same held-out signal.
+v0.5b now establishes the complementary limitation:
 
-### What v0.5b shows
+> An omitted common driver that is correlated with source latent intensity can be absorbed
+> almost perfectly by the directed partner-effect term.
 
-When an important shared driver is omitted:
-
-- source latent intensity can become a proxy for that missing focal environment;
-- the partner coefficient can be strongly nonzero even when true beta=0;
-- predictive knockout gain can strongly favor the false interaction model.
+Because the Full model also improves held-out prediction, ordinary predictive validation
+does **not** solve this problem. In this world, a false ecological mechanism is
+predictively useful.
 
 Therefore:
 
-> A predictive directed partner-latent coefficient from occurrence data is not sufficient
-> evidence for a realized or causal biotic interaction under hidden common-driver
-> misspecification.
+- predictive skill is not sufficient for a realized or causal interaction claim;
+- a nonzero posterior interaction coefficient is not sufficient;
+- a partner knockout comparison is not sufficient;
+- measured-environment controls are not sufficient against unmeasured common causes.
 
-This is a stronger and more useful result than pretending the current model is universally
-robust.
+The safe evidence ceiling for presence-only partner coupling is
+**PREDICTIVE_DEPENDENCE**, not REALIZED or CAUSAL.
+
+## Next requirement
+
+The next v0.5 programme should add an independent pair-specific interaction-event
+observation endpoint and test claim authorization rather than trying to retune the
+presence-only coefficient until the hidden-driver null passes.
+
+A hidden-driver false positive should remain a valid model fit but must fail promotion to
+a realized interaction edge when independent event evidence is absent.
 
 ## Claim boundary
 
-The directed PartnerIntensityEffect may support a **predictive-dependence** claim when its
-validation conditions are met.
+v0.5b does not invalidate the v0.5a positive result. It narrows what that result permits
+us to claim.
 
-Presence-only partner coupling alone cannot be promoted to realized/functional/causal
-interaction evidence.
-
-The next v0.5 step should add an independent interaction-event observation endpoint and
-test whether that extra evidence can distinguish a true directed interaction from the
-frozen hidden-driver null.
+The directed partner-latent process remains a useful predictive component. Its coefficient
+cannot be interpreted as a realized or causal biotic effect from presence-only records
+alone under omitted-driver risk.
