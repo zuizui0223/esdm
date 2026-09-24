@@ -1,0 +1,27 @@
+R6 matched benchmark authorization
+
+This marker authorizes exactly one frozen matched-model benchmark outcome.
+
+Frozen gate commit:
+3bae2166fdae6b568a0bb155d795e369445cadf1
+
+Frozen gate blob:
+d6c15b922895aee40c072a1cab4c92781507c2e5
+
+Frozen worlds:
+- structured
+- resolution_null
+
+Frozen execution:
+- 16 replicates per world
+- 64 total fits
+- base seed 20260924
+- stride 61
+- null offset 1000000
+- warmup 300
+- samples 350
+- chains 2
+- target accept 0.90
+
+No model class, world definition, seed, MCMC setting, held-out score, gain threshold,
+or gate criterion may be changed after this authorization in response to outcome.
