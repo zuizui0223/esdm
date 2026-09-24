@@ -3,6 +3,7 @@
 from .blocks import PoissonObservationBlock
 from .detection import KnownDetection, LogitDetection
 from .effort import EffortField, LogLinearEffort, MultiLogLinearEffort
+from .pair_event import PairEventCount
 from .presence_only import PresenceOnly
 from .state_annotated import StateAnnotatedCount
 from .state_composition import StateCompositionCount
@@ -19,6 +20,7 @@ __all__ = [
     "EffortField",
     "LogLinearEffort",
     "MultiLogLinearEffort",
+    "PairEventCount",
     "PresenceOnly",
     "StateAnnotatedCount",
     "StateCompositionCount",
