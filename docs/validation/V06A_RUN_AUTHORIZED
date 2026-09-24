@@ -1,0 +1,33 @@
+v0.6a accessibility known-truth authorization
+
+This marker authorizes exactly one frozen v0.6a qualification/outcome programme.
+
+Frozen gate commit:
+425fc21b4d6e2285a8e04690f08d30fd4b5a34ab
+
+Frozen gate blob:
+8b601d3919284af9129aca0bf94563305c7cf0f2
+
+Frozen positive design:
+- suitability intercept 0.30
+- habitat slope +0.75
+- accessibility intercept 0.40
+- distance slope -1.10
+- joint effort 8.0 in all 36 contexts
+- direct accessibility effort 20.0 in 24 training contexts
+- direct accessibility held-out exposure 0
+
+Frozen execution if qualification passes:
+- 16 replicates
+- 32 total fits
+- base seed 20261013
+- stride 89
+- warmup 300
+- samples 350
+- chains 2
+- credible mass 0.90
+- target accept 0.90
+
+No truth, geometry, observation effort, seed family, MCMC setting, held-out score,
+identification threshold, recovery threshold, or refusal condition may be changed after
+this authorization in response to outcome.
