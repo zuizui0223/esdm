@@ -96,6 +96,8 @@ class LatentFieldArrays:
     """Array-first latent ecological fields with contexts on axis zero."""
 
     log_intensity: Mapping[str, ContextArray]
+    log_accessibility: Mapping[str, ContextArray] = field(default_factory=dict)
+    accessibility: Mapping[str, ContextArray] = field(default_factory=dict)
     activity_logit: Mapping[str, ContextArray] = field(default_factory=dict)
     activity: Mapping[str, ContextArray] = field(default_factory=dict)
     state_logits: Mapping[str, ContextStateArray] = field(default_factory=dict)
@@ -104,6 +106,12 @@ class LatentFieldArrays:
     def __post_init__(self) -> None:
         log_intensity = _freeze_context_mapping(
             self.log_intensity, label="log-intensity arrays"
+        )
+        log_accessibility = _freeze_context_mapping(
+            self.log_accessibility, label="log-accessibility arrays"
+        )
+        accessibility = _freeze_context_mapping(
+            self.accessibility, label="accessibility arrays"
         )
         activity_logit = _freeze_context_mapping(
             self.activity_logit, label="activity-logit arrays"
@@ -120,6 +128,8 @@ class LatentFieldArrays:
 
         known = set(log_intensity)
         for label, mapping in (
+            ("log-accessibility", log_accessibility),
+            ("accessibility", accessibility),
             ("activity-logit", activity_logit),
             ("activity", activity),
             ("state-logit", state_logits),
@@ -132,7 +142,12 @@ class LatentFieldArrays:
                 )
 
         for species, base in log_intensity.items():
-            for mapping in (activity_logit, activity):
+            for mapping in (
+                log_accessibility,
+                accessibility,
+                activity_logit,
+                activity,
+            ):
                 if species in mapping and mapping[species].keys != base.keys:
                     raise ValueError("latent channel context orders must match")
             if species in state_logits and state_logits[species].keys != base.keys:
@@ -147,6 +162,8 @@ class LatentFieldArrays:
                     raise ValueError("state logit/probability labels must match")
 
         object.__setattr__(self, "log_intensity", log_intensity)
+        object.__setattr__(self, "log_accessibility", log_accessibility)
+        object.__setattr__(self, "accessibility", accessibility)
         object.__setattr__(self, "activity_logit", activity_logit)
         object.__setattr__(self, "activity", activity)
         object.__setattr__(self, "state_logits", state_logits)

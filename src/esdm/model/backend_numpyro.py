@@ -481,6 +481,7 @@ def _draw_count(site_names, samples) -> int:
 @dataclass(frozen=True, slots=True)
 class PosteriorLatentFields:
     log_intensity: Mapping[str, object]
+    accessibility: Mapping[str, object]
     activity: Mapping[str, object]
     state_probabilities: Mapping[str, object]
     state_labels: Mapping[str, tuple[str, ...]]
@@ -488,6 +489,9 @@ class PosteriorLatentFields:
     def __post_init__(self) -> None:
         object.__setattr__(
             self, "log_intensity", MappingProxyType(dict(self.log_intensity))
+        )
+        object.__setattr__(
+            self, "accessibility", MappingProxyType(dict(self.accessibility))
         )
         object.__setattr__(
             self, "activity", MappingProxyType(dict(self.activity))
@@ -529,6 +533,7 @@ def posterior_latent_fields(model, samples, covariates) -> PosteriorLatentFields
     jnp, _random, _numpyro, _dist, _MCMC, _NUTS = _imports()
     n_draws = _draw_count(_all_sample_sites(model), samples)
     log_rows = {species: [] for species in model.species}
+    accessibility_rows = {species: [] for species in model.species}
     activity_rows = {species: [] for species in model.species}
     state_rows: dict[str, list[object]] = {}
     state_labels: dict[str, tuple[str, ...]] = {}
@@ -542,6 +547,9 @@ def posterior_latent_fields(model, samples, covariates) -> PosteriorLatentFields
         )
         for species in model.species:
             log_rows[species].append(fields.log_intensity[species].values)
+            accessibility_rows[species].append(
+                fields.accessibility[species].values
+            )
             activity_rows[species].append(fields.activity[species].values)
             if species in fields.state_probabilities:
                 state_rows.setdefault(species, []).append(
@@ -553,6 +561,10 @@ def posterior_latent_fields(model, samples, covariates) -> PosteriorLatentFields
         log_intensity={
             species: jnp.stack(rows, axis=0)
             for species, rows in log_rows.items()
+        },
+        accessibility={
+            species: jnp.stack(rows, axis=0)
+            for species, rows in accessibility_rows.items()
         },
         activity={
             species: jnp.stack(rows, axis=0)
