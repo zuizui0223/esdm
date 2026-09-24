@@ -261,6 +261,60 @@ interaction identification. Strong model dependence and predictive gain may stil
 wrong under hidden confounding; the runtime claim layer must respect the independent
 evidence tier.
 
+## v0.6 static accessibility core — bounded semi-synthetic promotion complete
+
+The v0.6 core separates potential ecological intensity from accessibility.
+
+`LinearAccessibility` contributes a bounded accessibility probability through
+`log_accessibility = log(sigmoid(eta))`. Its explicit knockout sets
+`accessibility = 1`, representing no accessibility limitation.
+
+Two new observation contracts keep the distinction explicit:
+
+`AccessiblePresenceOnly`
+
+```text
+lambda_joint
+  = exp(log_intensity)
+  × accessibility
+  × effort
+  × detection
+```
+
+and direct `AccessibilityCount`
+
+```text
+lambda_access
+  = accessibility
+  × effort
+  × detection
+```
+
+The existing `PresenceOnly` stream remains intensity-only.
+
+The frozen v0.6a programme established the intended identification boundary.
+
+With only an intercept-only joint occurrence endpoint, suitability and accessibility were
+both returned as `NotIdentified`: the full Jacobian rank remained 1 when either target
+was removed, and target-SD proxies exceeded 4,000.
+
+With direct accessibility calibration in the 24 training contexts, all four declared
+suitability/accessibility targets became structurally and practically identified. Across
+16 fresh replicates, absolute mean bias stayed below 0.056, 90% coverage was at least
+0.875, and there were zero divergences.
+
+Direct accessibility exposure was exactly zero in all 12 held-out contexts. Even so, the
+full model beat the accessibility knockout in **16/16** replicates on held-out joint
+occurrence, with mean log predictive gain **+0.36244** and minimum gain **+0.03242**.
+
+The promoted v0.6 claim is therefore bounded:
+
+> suitability and accessibility can be separated only when the observation design
+> contains independent accessibility information; otherwise the decomposition must remain
+> NotIdentified.
+
+This is a static accessibility layer, not a movement-kernel or dynamic colonization model.
+
 ## NumPyro inference backend
 
 The optional NumPyro backend fits the current generative graph with NUTS/MCMC.
@@ -399,7 +453,7 @@ from esdm.claims import ...
 | v0.3 | domain + suitability + effort-aware presence-only + NumPyro + simulate + identify + claims | shared generation/likelihood/inference code; large SBC calibration study; knockout recovery; effort-misspecification negative control; semi-synthetic real-geometry benchmark |
 | v0.4 | ecological state + activity + annotation streams + direct state-composition calibration | **PROMOTED (semi-synthetic)**: hard identification, 13-target recovery, east-heldout activity/state transfer, refusal controls; unresolved detection remains bounded/`NotIdentified` |
 | v0.5 | directed partner-latent effects + pair-event streams + evidence-tier guard | **PROMOTED (bounded semi-synthetic)**: true directed effect recovery; measured-shared null refusal; hidden-driver failure establishes claim ceiling; pair-event evidence separates PREDICTIVE_DEPENDENCE from REALIZED; FUNCTIONAL/CAUSAL remain gated |
-| v0.6 | movement/accessibility | distinguish unsuitable from inaccessible only when data support it; otherwise return `NotIdentified` |
+| v0.6 | static accessibility + accessibility-aware occurrence + direct accessibility calibration | **PROMOTED (bounded semi-synthetic)**: joint-only suitability/accessibility decomposition is refused as `NotIdentified`; direct accessibility information enables four-target recovery and 16/16 held-out transfer with zero held-out accessibility exposure |
 
 ## Existing research-programme provenance
 
@@ -415,7 +469,7 @@ See [`docs/PROVENANCE.md`](docs/PROVENANCE.md).
 
 ## Explicit non-claims
 
-The promoted v0.4/v0.5 core does **not** claim:
+The promoted v0.4/v0.5/v0.6 core does **not** claim:
 
 - empirical correctness merely because the frozen semi-synthetic promotion gate passed;
 - scientific support from structural identification or posterior contraction alone;
@@ -425,7 +479,7 @@ The promoted v0.4/v0.5 core does **not** claim:
 - FUNCTIONAL interaction from realized pair events alone;
 - CAUSAL interaction without explicit intervention evidence;
 - a bidirectional/fixed-point interaction model;
-- movement/accessibility inference;
+- movement kernels, path connectivity, resistance surfaces, dynamic colonization/extinction, or source-sink inference from the static v0.6 accessibility layer;
 - a universal SDM/JSDM replacement;
 - validation for any one interaction family merely because it appears as an example.
 

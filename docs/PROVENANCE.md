@@ -115,10 +115,19 @@ Implemented and boundedly promoted in v0.5:
 - generative PairEventCount likelihood;
 - known-truth separation of PREDICTIVE_DEPENDENCE and REALIZED evidence.
 
+Implemented and boundedly promoted in v0.6:
+- LinearAccessibility as a separate latent accessibility probability;
+- explicit no-limitation accessibility knockout;
+- AccessiblePresenceOnly consuming suitability × accessibility;
+- direct AccessibilityCount calibration independent of suitability;
+- exact-JAX refusal of joint-only suitability/accessibility decomposition;
+- four-target known-truth recovery with direct accessibility information;
+- held-out transfer where direct accessibility exposure is zero.
+
 Still not implemented / not claimed:
 - field-specific camera/annotation adapters;
 - bidirectional or fixed-point interaction models;
-- movement/accessibility process;
+- movement kernels, path connectivity, resistance surfaces, dynamic colonization/extinction, or source-sink dynamics beyond the promoted static accessibility layer;
 - calibrated ODSP familywise inference inside `esdm`;
 - robustness of partner-effect coefficients to arbitrary hidden common drivers;
 - FUNCTIONAL interaction without a dedicated functional endpoint;
