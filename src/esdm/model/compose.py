@@ -76,11 +76,13 @@ def _softmax(values) -> tuple[float, ...]:
     return tuple(weight / total for weight in weights)
 
 
-def _scalar_process_contribution(process, ctx, theta, covariates):
+def _scalar_process_contribution(
+    process, ctx, theta, covariates, *, latent_fields
+):
     generic = getattr(process, "contribution", None)
     if generic is not None:
         contribution = generic(
-            ctx, theta, covariates, latent_fields=None
+            ctx, theta, covariates, latent_fields=latent_fields
         )
     elif (
         getattr(process, "output_channel", None) == "log_intensity"
@@ -89,7 +91,7 @@ def _scalar_process_contribution(process, ctx, theta, covariates):
         contribution = ProcessContribution(
             "log_intensity",
             process.log_intensity(
-                ctx, theta, covariates, latent_fields=None
+                ctx, theta, covariates, latent_fields=latent_fields
             ),
         )
     else:
@@ -102,7 +104,7 @@ def _scalar_process_contribution(process, ctx, theta, covariates):
 
 
 def _array_process_contribution(
-    process, keys, theta, covariates, *, array_module
+    process, keys, theta, covariates, *, array_module, latent_fields
 ):
     generic = getattr(process, "contribution_array", None)
     if generic is not None:
@@ -111,7 +113,7 @@ def _array_process_contribution(
             theta,
             covariates,
             array_module=array_module,
-            latent_fields=None,
+            latent_fields=latent_fields,
         )
     elif (
         getattr(process, "output_channel", None) == "log_intensity"
@@ -124,7 +126,7 @@ def _array_process_contribution(
                 theta,
                 covariates,
                 array_module=array_module,
-                latent_fields=None,
+                latent_fields=latent_fields,
             ),
         )
     else:
@@ -242,30 +244,50 @@ class Model:
             )
         return tuple(species for species in self.species if species in declared)
 
-    def _check_acyclic(self) -> None:
+    def _dependency_graph(self):
         graph: dict[str, set[str]] = {species: set() for species in self.species}
+        indegree: dict[str, int] = {species: 0 for species in self.species}
         for target, processes in self.species.items():
+            sources = set()
             for process in processes:
-                for source in getattr(process, "latent_species_dependencies", frozenset()):
+                for source in getattr(
+                    process, "latent_species_dependencies", frozenset()
+                ):
                     if source not in graph:
-                        raise ValueError(f"unknown latent species dependency {source!r}")
+                        raise ValueError(
+                            f"unknown latent species dependency {source!r}"
+                        )
+                    sources.add(source)
+            for source in sources:
+                if target not in graph[source]:
                     graph[source].add(target)
-        visiting: set[str] = set()
-        visited: set[str] = set()
+                    indegree[target] += 1
+        return graph, indegree
 
-        def visit(node: str) -> None:
-            if node in visiting:
-                raise CyclicProcessDependencyError("cyclic latent-species dependency")
-            if node in visited:
-                return
-            visiting.add(node)
-            for child in graph[node]:
-                visit(child)
-            visiting.remove(node)
-            visited.add(node)
+    def _species_topological_order(self) -> tuple[str, ...]:
+        graph, indegree = self._dependency_graph()
+        declared = tuple(self.species)
+        ready = [species for species in declared if indegree[species] == 0]
+        ordered: list[str] = []
 
-        for node in graph:
-            visit(node)
+        while ready:
+            node = ready.pop(0)
+            ordered.append(node)
+            for child in declared:
+                if child not in graph[node]:
+                    continue
+                indegree[child] -= 1
+                if indegree[child] == 0:
+                    ready.append(child)
+
+        if len(ordered) != len(declared):
+            raise CyclicProcessDependencyError(
+                "cyclic latent-species dependency"
+            )
+        return tuple(ordered)
+
+    def _check_acyclic(self) -> None:
+        self._species_topological_order()
 
     def check_design(self) -> DesignReport:
         for stream in self.streams:
@@ -337,7 +359,8 @@ class Model:
         state_probabilities = {}
         state_labels = {}
 
-        for species, processes in self.species.items():
+        for species in self._species_topological_order():
+            processes = self.species[species]
             if species not in theta:
                 raise KeyError(f"missing parameter block for species {species!r}")
             log_block = {}
@@ -346,6 +369,14 @@ class Model:
             state_logit_block = {}
             state_probability_block = {}
             species_state_labels = None
+            available_fields = LatentFields(
+                log_intensity=log_fields,
+                activity_logit=activity_logits,
+                activity=activities,
+                state_logits=state_logits,
+                state_probabilities=state_probabilities,
+                state_labels=state_labels,
+            )
 
             for ctx in self.domain.contexts():
                 context_covariates = covariates[ctx.key]
@@ -357,7 +388,11 @@ class Model:
 
                 for process in processes:
                     contribution = _scalar_process_contribution(
-                        process, ctx, theta[species], context_covariates
+                        process,
+                        ctx,
+                        theta[species],
+                        context_covariates,
+                        latent_fields=available_fields,
                     )
                     if contribution.channel == "log_intensity":
                         if contribution.labels:
@@ -467,7 +502,8 @@ class Model:
         state_logits = {}
         state_probabilities = {}
 
-        for species, processes in self.species.items():
+        for species in self._species_topological_order():
+            processes = self.species[species]
             if species not in theta:
                 raise KeyError(f"missing parameter block for species {species!r}")
             log_total = array_module.zeros((len(keys),))
@@ -475,6 +511,13 @@ class Model:
             has_activity = False
             state_total = None
             state_labels = None
+            available_fields = LatentFieldArrays(
+                log_intensity=log_fields,
+                activity_logit=activity_logits,
+                activity=activities,
+                state_logits=state_logits,
+                state_probabilities=state_probabilities,
+            )
 
             for process in processes:
                 contribution = _array_process_contribution(
@@ -483,6 +526,7 @@ class Model:
                     theta[species],
                     covariate_arrays,
                     array_module=array_module,
+                    latent_fields=available_fields,
                 )
                 if contribution.channel == "log_intensity":
                     if contribution.labels:
