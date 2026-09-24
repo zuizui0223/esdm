@@ -1,6 +1,7 @@
 """Claim governance and bounded interpretation."""
 
 from .types import Claim, ClaimStatus
+from .interaction import bounded_interaction_claim
 from .process_support import (
     ProcessRefinement,
     ProcessSupportSet,
@@ -14,6 +15,7 @@ from .pipeline import InferenceObservationCycle, run_inference_observation_cycle
 __all__ = [
     "Claim",
     "ClaimStatus",
+    "bounded_interaction_claim",
     "ProcessRefinement",
     "ProcessSupportSet",
     "SeparatorEvidence",
