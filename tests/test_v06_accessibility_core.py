@@ -112,6 +112,35 @@ def test_accessible_presence_multiplies_intensity_by_accessibility():
         assert rates[key] == pytest.approx(expected)
 
 
+@pytest.mark.skipif(not JAX_AVAILABLE, reason="JAX optional backend not installed")
+def test_accessibility_scalar_and_array_fields_match():
+    import jax.numpy as jnp
+
+    grid = _grid()
+    cov = _covariates(grid)
+    stream = AccessiblePresenceOnly(
+        "joint",
+        effort=EffortField({key: 1.0 for key in grid.keys}),
+        informs=frozenset({"suitability", "accessibility"}),
+        targets=frozenset({"sp"}),
+    )
+    model = Model(grid, {"sp": _processes()}, (stream,))
+
+    scalar = model.latent_fields(_theta(), cov)
+    array = model.latent_field_arrays(
+        _theta(),
+        cov,
+        array_module=jnp,
+    )
+
+    assert list(map(float, array.log_accessibility["sp"].values)) == pytest.approx(
+        [scalar.log_accessibility["sp"][key] for key in grid.keys]
+    )
+    assert list(map(float, array.accessibility["sp"].values)) == pytest.approx(
+        [scalar.accessibility["sp"][key] for key in grid.keys]
+    )
+
+
 def test_accessibility_count_does_not_depend_on_suitability():
     grid = _grid()
     cov = _covariates(grid)
