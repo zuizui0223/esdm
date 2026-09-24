@@ -114,3 +114,47 @@ eSDM held-out scores
 
 This keeps process fitting, information attribution, reachability and field
 action separate.
+
+
+## Validated end-to-end binding
+
+The first full cross-repository smoke is frozen in
+`ODSP_TRANSFER_E2E_BINDING_V1.json` and
+`ODSP_TRANSFER_E2E_RESULT_V1.json`.
+
+Pinned inputs:
+
+- frozen eSDM v0.6a result artifact: run `35989902607`;
+- eSDM adapter merge: `e9bec1be8136a85c265af3604394d3389319998d`;
+- ODSP transfer-value implementation: `0bd83e1ebb372c48839654ab0e42124fe37b8faf`.
+
+Observed result:
+
+```text
+frozen eSDM mean accessibility gain       +0.3624419158
+ODSP population mean gain                 +0.3624419158
+ODSP population 95% interval              [0.2704104400, 0.4494118616]
+ODSP population ceiling                   suitability_accessibility
+N3 conservative mean transfer value       +0.2704104400
+new-replicate prediction interval          [-0.0159813874, 0.7408652190]
+legacy ODSP certified ceiling             suitability_only
+```
+
+The source and ODSP population means agree exactly. The difference between the
+population and legacy certified ceilings is expected: v0.6a contributes one
+aggregate held-out score per independent replicate, so the older within-group
+minimum-block certification has zero estimable cells, whereas the population
+estimand has 16 independent replicate gains.
+
+The N3 payload preserves that distinction rather than treating certification
+failure as absence of transfer value.
+
+## Current EOG boundary
+
+The present EOG-WF scientific mainline is closed and must not be reopened by this
+integration. The transfer-value payload is therefore a **forward interface for a
+future separately authorized N3 protocol/version**, not a new input to the
+frozen EOG-WF endpoint denominator.
+
+In particular, the validated payload does not feed the existing EOG survey
+ranking implementation and does not authorize any N4 action.
