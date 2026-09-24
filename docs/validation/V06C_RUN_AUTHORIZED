@@ -1,0 +1,22 @@
+v0.6c covariate-alignment stress authorization
+
+This marker authorizes exactly one frozen deterministic v0.6c audit.
+
+Frozen gate commit:
+def179b40608c85ca2809e98517ea72deb3c4757
+
+Frozen gate blob:
+108828a22c857b76baa7e3ca1a4ebc86a19ceb3a
+
+Frozen alignment levels:
+- 0.00
+- 0.50
+- 0.90
+- 0.99
+
+Frozen primary checks:
+1. direct-calibrated = 4/4 structural + practical at every alignment
+2. rho=0.99 joint-only accessibility intercept and slope remain practically weak
+
+No geometry, truth, threshold, model, or interpretation rule may be changed after this
+authorization in response to outcome.
