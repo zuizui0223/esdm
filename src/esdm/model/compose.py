@@ -147,6 +147,9 @@ class LatentFields:
     accessibility: Mapping[
         str, Mapping[tuple[str, int, int], object]
     ] = field(default_factory=dict)
+    occupancy: Mapping[
+        str, Mapping[tuple[str, int, int], object]
+    ] = field(default_factory=dict)
     activity_logit: Mapping[str, Mapping[tuple[str, int, int], object]] = field(
         default_factory=dict
     )
@@ -174,6 +177,11 @@ class LatentFields:
             self,
             "accessibility",
             _freeze_context_fields(self.accessibility),
+        )
+        object.__setattr__(
+            self,
+            "occupancy",
+            _freeze_context_fields(self.occupancy),
         )
         object.__setattr__(
             self, "activity_logit", _freeze_context_fields(self.activity_logit)
@@ -374,6 +382,7 @@ class Model:
         log_fields = {}
         log_accessibility_fields = {}
         accessibility_fields = {}
+        occupancy_fields = {}
         activity_logits = {}
         activities = {}
         state_logits = {}
@@ -396,12 +405,53 @@ class Model:
                 log_intensity=log_fields,
                 log_accessibility=log_accessibility_fields,
                 accessibility=accessibility_fields,
+                occupancy=occupancy_fields,
                 activity_logit=activity_logits,
                 activity=activities,
                 state_logits=state_logits,
                 state_probabilities=state_probabilities,
                 state_labels=state_labels,
             )
+
+            occupancy_processes = tuple(
+                process
+                for process in processes
+                if getattr(process, "output_channel", None) == "occupancy"
+            )
+            if len(occupancy_processes) > 1:
+                raise ValueError(
+                    f"species {species!r} declares multiple occupancy processes"
+                )
+            occupancy_block = {}
+            if occupancy_processes:
+                occupancy_process = occupancy_processes[0]
+                evaluator = getattr(occupancy_process, "occupancy_values", None)
+                if evaluator is None:
+                    raise TypeError(
+                        f"occupancy process {occupancy_process.name!r} does not "
+                        "support sequence evaluation"
+                    )
+                occupancy_block = dict(
+                    evaluator(
+                        tuple(self.domain.keys),
+                        theta[species],
+                        covariates,
+                    )
+                )
+                if set(occupancy_block) != set(self.domain.keys):
+                    raise ValueError(
+                        "occupancy process must return exactly the model contexts"
+                    )
+                for key, value in occupancy_block.items():
+                    numeric = float(value)
+                    if (
+                        not math.isfinite(numeric)
+                        or numeric < 0.0
+                        or numeric > 1.0
+                    ):
+                        raise ValueError(
+                            f"occupancy probability must be in [0, 1] for {key!r}"
+                        )
 
             for ctx in self.domain.contexts():
                 context_covariates = covariates[ctx.key]
@@ -414,6 +464,8 @@ class Model:
                 context_state_labels = None
 
                 for process in processes:
+                    if getattr(process, "output_channel", None) == "occupancy":
+                        continue
                     contribution = _scalar_process_contribution(
                         process,
                         ctx,
@@ -492,6 +544,8 @@ class Model:
 
             log_fields[species] = log_block
             accessibility_fields[species] = accessibility_block
+            if occupancy_block:
+                occupancy_fields[species] = occupancy_block
             if log_accessibility_block:
                 log_accessibility_fields[species] = log_accessibility_block
             activities[species] = activity_block
@@ -506,6 +560,7 @@ class Model:
             log_intensity=log_fields,
             log_accessibility=log_accessibility_fields,
             accessibility=accessibility_fields,
+            occupancy=occupancy_fields,
             activity_logit=activity_logits,
             activity=activities,
             state_logits=state_logits,
@@ -547,6 +602,7 @@ class Model:
         log_fields = {}
         log_accessibility_fields = {}
         accessibility_fields = {}
+        occupancy_fields = {}
         activity_logits = {}
         activities = {}
         state_logits = {}
@@ -563,10 +619,12 @@ class Model:
             has_activity = False
             state_total = None
             state_labels = None
+            occupancy_values = None
             available_fields = LatentFieldArrays(
                 log_intensity=log_fields,
                 log_accessibility=log_accessibility_fields,
                 accessibility=accessibility_fields,
+                occupancy=occupancy_fields,
                 activity_logit=activity_logits,
                 activity=activities,
                 state_logits=state_logits,
@@ -600,6 +658,18 @@ class Model:
                         + ContextArray(keys, contribution.values).values
                     )
                     has_accessibility = True
+                elif contribution.channel == "occupancy":
+                    if contribution.labels:
+                        raise ValueError(
+                            "occupancy contributions cannot declare labels"
+                        )
+                    if occupancy_values is not None:
+                        raise ValueError(
+                            f"species {species!r} declares multiple occupancy processes"
+                        )
+                    occupancy_values = ContextArray(
+                        keys, contribution.values
+                    ).values
                 elif contribution.channel == "activity":
                     if contribution.labels:
                         raise ValueError(
@@ -646,6 +716,10 @@ class Model:
             accessibility_fields[species] = ContextArray(
                 keys, accessibility_values
             )
+            if occupancy_values is not None:
+                occupancy_fields[species] = ContextArray(
+                    keys, occupancy_values
+                )
             if has_activity:
                 activity_logits[species] = ContextArray(keys, activity_total)
                 activity_values = 1.0 / (
@@ -674,6 +748,7 @@ class Model:
             log_intensity=log_fields,
             log_accessibility=log_accessibility_fields,
             accessibility=accessibility_fields,
+            occupancy=occupancy_fields,
             activity_logit=activity_logits,
             activity=activities,
             state_logits=state_logits,
