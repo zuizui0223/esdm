@@ -138,6 +138,62 @@ Comparing the same positive geometry with and without direct AccessibilityCount:
 The direct endpoint therefore primarily stabilizes the accessibility decomposition and the
 shared intercept, rather than merely creating Jacobian rank.
 
+## v0.6c covariate-alignment stress
+
+v0.6c tested whether the v0.6b joint-only fragility becomes worse when habitat and
+accessibility predictors align, a common risk in fragmented-landscape and island
+applications where environmental quality and isolation may covary.
+
+Frozen habitat-distance correlations were:
+
+- **0.00**;
+- **0.50**;
+- **0.90**;
+- **0.99**.
+
+At every alignment, both the joint-only and direct-calibrated models remained locally
+structurally identified.
+
+Practical identification separated sharply.
+
+Joint-only number of practical targets:
+
+- rho 0.00: **1/4**;
+- rho 0.50: **1/4**;
+- rho 0.90: **1/4**;
+- rho 0.99: **0/4**.
+
+At rho 0.99, joint-only target-SD proxies were:
+
+- suitability intercept: **1.07957**;
+- habitat slope: **0.54742**;
+- accessibility intercept: **2.69012**;
+- accessibility slope: **0.53082**.
+
+The joint-only condition number rose to **43.29**.
+
+With direct AccessibilityCount, all four targets remained practical at every alignment.
+At rho 0.99, target-SD proxies were:
+
+- suitability intercept: **0.10903**;
+- habitat slope: **0.11476**;
+- accessibility intercept: **0.18895**;
+- accessibility slope: **0.18508**.
+
+The direct-calibrated condition number was only **5.10**.
+
+The frozen v0.6c gate therefore **PASSed**.
+
+This strengthens the v0.6 interpretation:
+
+> Functional-form structure can create local rank, but correlated habitat and
+> accessibility gradients can make occurrence-only decomposition practically unstable.
+> A process-specific accessibility endpoint can preserve practical separation under the
+> same geometry.
+
+This remains an identification result, not evidence that any empirical island system has
+the tested correlation structure.
+
 ## Promoted v0.6 contract
 
 v0.6 may now serve as the stable base for later movement development under this bounded

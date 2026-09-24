@@ -1,0 +1,32 @@
+{
+  "schema": "esdm.v06c.frozen_results.v1",
+  "status": "PASS",
+  "outcome_run_id": 36000626129,
+  "outcome_head_sha": "b9ae94cb67da4bd05570ec6b203bd5ff334b4981",
+  "gate_freeze_commit": "def179b40608c85ca2809e98517ea72deb3c4757",
+  "gate_blob_sha": "108828a22c857b76baa7e3ca1a4ebc86a19ceb3a",
+  "observed_gate_blob_sha": "108828a22c857b76baa7e3ca1a4ebc86a19ceb3a",
+  "artifact": {
+    "id": 10807694192,
+    "name": "v06c-alignment-stress-36000626129",
+    "github_digest": "sha256:fee5cd4490b8398a769bf6b001057ff19e42d1c128ae145caed517f30f9280ab",
+    "independent_zip_sha256": "fee5cd4490b8398a769bf6b001057ff19e42d1c128ae145caed517f30f9280ab"
+  },
+  "checks": {
+    "direct_all_practical": true,
+    "rho099_joint_accessibility_weak": true
+  },
+  "rows": [
+    {"rho":0.00,"joint_practical_count":1,"direct_practical_count":4,"joint_condition_number":19.144552304246965,"direct_condition_number":4.80549851601522,"joint_sd":[0.3264465938967332,0.08121865992857016,1.0623652776934613,0.5911021019119538],"direct_sd":[0.10788560559718871,0.0797993512681232,0.1936366630664143,0.16879754228482868]},
+    {"rho":0.50,"joint_practical_count":1,"direct_practical_count":4,"joint_condition_number":16.167345961530113,"direct_condition_number":4.499464278046276,"joint_sd":[0.4032269309329521,0.09429691808684186,1.230733818626629,0.5516938081802681],"direct_sd":[0.10595511002713606,0.08262664592408508,0.1849259390262254,0.15800762763910972]},
+    {"rho":0.90,"joint_practical_count":1,"direct_practical_count":4,"joint_condition_number":21.86972649152599,"direct_condition_number":4.844193999923046,"joint_sd":[0.5536230316904079,0.19438986164643174,1.528054804897609,0.5195599758062623],"direct_sd":[0.10756172627851983,0.10167393007306699,0.1856239305177953,0.17376228418033077]},
+    {"rho":0.99,"joint_practical_count":0,"direct_practical_count":4,"joint_condition_number":43.2923110746552,"direct_condition_number":5.095738003173244,"joint_sd":[1.0795696934305523,0.5474159482877237,2.690116059999895,0.5308211573316007],"direct_sd":[0.10902739061155432,0.11476273776393377,0.18895453648136507,0.18507793823967641]}
+  ],
+  "claim_boundary": {
+    "joint_only_structural_rank_survives_alignment": true,
+    "joint_only_practical_stability_survives_alignment": false,
+    "direct_accessibility_practical_protection": true,
+    "empirical_fragmentation_geometry_claim": false,
+    "causal_movement_claim": false
+  }
+}

@@ -123,7 +123,8 @@ Implemented and boundedly promoted in v0.6:
 - exact-JAX refusal of the intercept-only joint suitability/accessibility product;
 - v0.6b demonstration that structured joint-only occurrence can be locally structurally identified through covariate/link-function shape while remaining practically weak for 3/4 targets;
 - four-target known-truth recovery with direct accessibility information;
-- held-out transfer where direct accessibility exposure is zero.
+- held-out transfer where direct accessibility exposure is zero;
+- v0.6c covariate-alignment stress showing joint-only practical collapse to 0/4 targets at rho=0.99 while direct accessibility calibration retained 4/4 practical targets across rho=0–0.99.
 
 Still not implemented / not claimed:
 - field-specific camera/annotation adapters;
