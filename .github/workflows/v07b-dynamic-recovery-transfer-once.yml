@@ -1,0 +1,172 @@
+name: v0.7b frozen dynamic recovery transfer gate
+
+on:
+  push:
+    branches:
+      - feature/v07b-recovery-transfer-gate
+    paths:
+      - .github/workflows/v07b-dynamic-recovery-transfer-once.yml
+      - docs/validation/V07B_RUN_AUTHORIZED
+      - docs/validation/V07B_DYNAMIC_RECOVERY_TRANSFER_GATE.md
+      - scripts/run_v07b_qualification.py
+      - scripts/run_v07b_replicate.py
+      - scripts/aggregate_v07b.py
+      - scripts/export_v07b_odsp_transfer.py
+      - src/esdm/validate/v07b_*.py
+      - src/esdm/transfer/odsp_adapter.py
+      - src/esdm/process/dynamics.py
+      - src/esdm/observe/occupied_presence.py
+      - src/esdm/observe/occupancy_count.py
+      - tests/test_v07b_*.py
+
+jobs:
+  precheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    outputs:
+      authorized: ${{ steps.authorization.outputs.authorized }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,inference]"
+      - name: Check explicit v0.7b authorization
+        id: authorization
+        run: |
+          if [ -f docs/validation/V07B_RUN_AUTHORIZED ]; then
+            echo "authorized=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "authorized=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Verify frozen v0.7b contracts
+        run: |
+          python -m pytest -q \
+            tests/test_v07_dynamic_occupancy_core.py \
+            tests/test_v07a_dynamic_identification.py \
+            tests/test_v07b_recovery_transfer_fixture.py \
+            tests/test_v07b_gate.py \
+            tests/test_v07b_gate_freeze.py \
+            tests/test_v07b_odsp_adapter.py \
+            tests/test_v07b_scripts.py \
+            tests/test_v07b_workflow.py
+
+  qualification:
+    needs: precheck
+    if: needs.precheck.outputs.authorized == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install qualification dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,inference]"
+      - name: Run frozen v0.7b qualification
+        run: |
+          mkdir -p artifacts
+          python scripts/run_v07b_qualification.py \
+            --output artifacts/v07b_qualification.json
+      - name: Upload v0.7b qualification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v07b-qualification-${{ github.run_id }}
+          path: artifacts/v07b_qualification.json
+          if-no-files-found: error
+
+  replicate:
+    needs: [precheck, qualification]
+    if: needs.precheck.outputs.authorized == 'true' && needs.qualification.result == 'success'
+    strategy:
+      fail-fast: false
+      max-parallel: 16
+      matrix:
+        replicate: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install inference dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[inference]"
+      - name: Run frozen v0.7b replicate
+        run: |
+          mkdir -p artifacts
+          python scripts/run_v07b_replicate.py \
+            --replicate ${{ matrix.replicate }} \
+            --output artifacts/replicate-${{ matrix.replicate }}.json
+      - name: Upload v0.7b shard
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v07b-${{ matrix.replicate }}-${{ github.run_id }}
+          path: artifacts/replicate-${{ matrix.replicate }}.json
+          if-no-files-found: error
+
+  aggregate:
+    needs: [precheck, qualification, replicate]
+    if: always() && needs.precheck.outputs.authorized == 'true' && needs.qualification.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Initialize fail-closed result
+        run: |
+          mkdir -p artifacts/shards
+          printf '%s\n' '{"schema":"esdm.v07b.dynamic_transfer.v1","status":"INFRASTRUCTURE_BLOCKED"}' \
+            > artifacts/v07b_result.json
+      - name: Download v0.7b shards
+        uses: actions/download-artifact@v4
+        with:
+          pattern: v07b-*-${{ github.run_id }}
+          path: artifacts/shards
+          merge-multiple: true
+      - name: Remove qualification artifact if pattern matched it
+        run: |
+          find artifacts/shards -name 'v07b_qualification.json' -delete
+      - name: Install aggregation dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,inference]"
+      - name: Aggregate frozen v0.7b result
+        run: |
+          python scripts/aggregate_v07b.py \
+            --shard-dir artifacts/shards \
+            --output artifacts/v07b_result.json
+      - name: Export completed result to ODSP-compatible bundle
+        if: always()
+        run: |
+          if python - <<'PY'
+          import json
+          from pathlib import Path
+          result = json.loads(Path("artifacts/v07b_result.json").read_text())
+          raise SystemExit(0 if result.get("status") in {"PASS", "FAIL"} else 1)
+          PY
+          then
+            python scripts/export_v07b_odsp_transfer.py \
+              --result artifacts/v07b_result.json \
+              --out-dir artifacts/odsp-transfer
+          fi
+      - name: Upload final v0.7b result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v07b-result-${{ github.run_id }}
+          path: |
+            artifacts/v07b_result.json
+            artifacts/odsp-transfer/
+          if-no-files-found: error
