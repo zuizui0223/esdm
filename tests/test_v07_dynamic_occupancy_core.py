@@ -69,6 +69,47 @@ def test_colonization_extinction_recursion_matches_declared_transition():
     assert fields.occupancy["sp"][("a", 3, 0)] == pytest.approx(0.6375)
 
 
+def test_transition_covariates_act_on_destination_context():
+    grid = Grid(space=("a",), doy=(1, 2), hour=(0,))
+    covariates = {
+        ("a", 1, 0): {"resource": 0.0, "stress": 0.0},
+        ("a", 2, 0): {"resource": 1.0, "stress": -1.0},
+    }
+    processes = (
+        LinearSuitability(
+            covariates=(),
+            intercept_parameter="alpha",
+            coefficient_parameters={},
+        ),
+        ColonizationExtinctionOccupancy(
+            initial_logit_parameter="psi0_logit",
+            colonization_intercept_parameter="gamma_logit",
+            extinction_intercept_parameter="epsilon_logit",
+            colonization_covariates=("resource",),
+            colonization_coefficient_parameters={"resource": "beta_resource"},
+            extinction_covariates=("stress",),
+            extinction_coefficient_parameters={"stress": "beta_stress"},
+        ),
+    )
+    stream = _stream(grid)
+    model = Model(grid, {"sp": processes}, (stream,))
+    theta = {
+        "sp": {
+            "alpha": 0.0,
+            "psi0_logit": _logit(0.2),
+            "gamma_logit": 0.0,
+            "epsilon_logit": 0.0,
+            "beta_resource": math.log(3.0),
+            "beta_stress": math.log(3.0),
+        }
+    }
+
+    fields = model.latent_fields(theta, covariates)
+
+    # At the destination context gamma=0.75 and epsilon=0.25.
+    assert fields.occupancy["sp"][("a", 2, 0)] == pytest.approx(0.75)
+
+
 def test_dynamic_occupancy_uses_chronology_not_declared_grid_order():
     grid = Grid(space=("a",), doy=(3, 1, 2), hour=(0,))
     covariates = {key: {} for key in grid.keys}
