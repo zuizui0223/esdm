@@ -1,0 +1,30 @@
+{
+  "schema": "esdm.v05a.identification_frozen_results.v1",
+  "status": "FAIL",
+  "qualification_run_id": 35961662115,
+  "qualification_head_sha": "a90984450ba9e29644e0acf7f42ab5180a54762d",
+  "gate_freeze_commit": "d5f8d3e10c059cedfb8c3efbf5a1d232efa3507d",
+  "gate_blob_sha": "c5d43c4baa01d631704e6769db8eed49ec85837b",
+  "observed_gate_blob_sha": "c5d43c4baa01d631704e6769db8eed49ec85837b",
+  "artifact": {
+    "id": 10792168843,
+    "name": "v05a-identification-35961662115",
+    "github_digest": "sha256:a2d5ff9e78694ecc5f300333649996cec01b17026ed14541b121aa0c3b3db9f7",
+    "independent_zip_sha256": "a2d5ff9e78694ecc5f300333649996cec01b17026ed14541b121aa0c3b3db9f7"
+  },
+  "identification": {
+    "directed_structural": true,
+    "directed_practical": true,
+    "directed_target_sd": 0.21144395708952538,
+    "null_structural": true,
+    "null_practical": false,
+    "null_target_sd": 0.4846499940281865
+  },
+  "failed_check": "null_practical",
+  "claim_boundary": {
+    "mcmc_authorized": false,
+    "predictive_dependence_promoted": false,
+    "realized_interaction_claim": false,
+    "causal_interaction_claim": false
+  }
+}
