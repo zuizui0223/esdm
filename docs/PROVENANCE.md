@@ -120,7 +120,8 @@ Implemented and boundedly promoted in v0.6:
 - explicit no-limitation accessibility knockout;
 - AccessiblePresenceOnly consuming suitability × accessibility;
 - direct AccessibilityCount calibration independent of suitability;
-- exact-JAX refusal of joint-only suitability/accessibility decomposition;
+- exact-JAX refusal of the intercept-only joint suitability/accessibility product;
+- v0.6b demonstration that structured joint-only occurrence can be locally structurally identified through covariate/link-function shape while remaining practically weak for 3/4 targets;
 - four-target known-truth recovery with direct accessibility information;
 - held-out transfer where direct accessibility exposure is zero.
 

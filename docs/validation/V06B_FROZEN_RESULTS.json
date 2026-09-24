@@ -1,0 +1,51 @@
+{
+  "schema": "esdm.v06b.frozen_results.v1",
+  "status": "COMPLETE",
+  "interpretation": "B_structural_but_practically_weak",
+  "outcome_run_id": 35994013730,
+  "outcome_head_sha": "1bd3c7f164c3ae0ee1bed5a94c287ff07a9b5556",
+  "gate_freeze_commit": "a4cd5f2ac809fd4db65ce4418f0648a55978fd59",
+  "gate_blob_sha": "31d121519fe018c4cc20d75bfbfadbecc932f7a7",
+  "observed_gate_blob_sha": "31d121519fe018c4cc20d75bfbfadbecc932f7a7",
+  "artifact": {
+    "id": 10805592942,
+    "name": "v06b-joint-audit-35994013730",
+    "github_digest": "sha256:4aafe370268e5204c11a47ec5fb305874bb53b5f504a5e471a38dc9b84b12571",
+    "independent_zip_sha256": "4aafe370268e5204c11a47ec5fb305874bb53b5f504a5e471a38dc9b84b12571"
+  },
+  "intercept_only_control": {
+    "passed": true,
+    "full_rank": 1,
+    "rank_without_target": 1,
+    "suitability_status": "NotIdentified",
+    "accessibility_status": "NotIdentified",
+    "suitability_target_sd_proxy": 4228.406862194071,
+    "accessibility_target_sd_proxy": 10536.448648146692
+  },
+  "structured_joint_only": {
+    "all_structurally_identified": true,
+    "all_practically_identified": false,
+    "full_rank": 4,
+    "rank_without_each_target": 3,
+    "relative_min_singular_value": 0.03756595135358883,
+    "condition_number": 26.619850262476206,
+    "target_sd_proxy": {
+      "sp.suitability.suitability_intercept": 0.49463466978991744,
+      "sp.suitability.beta_habitat": 0.11028310569535982,
+      "sp.accessibility.access_intercept": 1.475331511265461,
+      "sp.accessibility.beta_distance": 0.9102304962650177
+    },
+    "weak_targets": [
+      "sp.suitability.suitability_intercept",
+      "sp.accessibility.access_intercept",
+      "sp.accessibility.beta_distance"
+    ]
+  },
+  "interpretation_boundary": {
+    "direct_accessibility_data_universally_required_for_structural_identification": false,
+    "joint_only_structural_identification_can_be_functional_form_driven": true,
+    "joint_only_practical_separation_established": false,
+    "direct_accessibility_endpoint_strongly_stabilizes_decomposition": true,
+    "structural_identification_is_independent_ecological_evidence": false
+  }
+}
