@@ -141,6 +141,12 @@ def _array_process_contribution(
 @dataclass(frozen=True, slots=True)
 class LatentFields:
     log_intensity: Mapping[str, Mapping[tuple[str, int, int], object]]
+    log_accessibility: Mapping[
+        str, Mapping[tuple[str, int, int], object]
+    ] = field(default_factory=dict)
+    accessibility: Mapping[
+        str, Mapping[tuple[str, int, int], object]
+    ] = field(default_factory=dict)
     activity_logit: Mapping[str, Mapping[tuple[str, int, int], object]] = field(
         default_factory=dict
     )
@@ -158,6 +164,16 @@ class LatentFields:
     def __post_init__(self) -> None:
         object.__setattr__(
             self, "log_intensity", _freeze_context_fields(self.log_intensity)
+        )
+        object.__setattr__(
+            self,
+            "log_accessibility",
+            _freeze_context_fields(self.log_accessibility),
+        )
+        object.__setattr__(
+            self,
+            "accessibility",
+            _freeze_context_fields(self.accessibility),
         )
         object.__setattr__(
             self, "activity_logit", _freeze_context_fields(self.activity_logit)
@@ -356,6 +372,8 @@ class Model:
             raise ValueError("covariates are missing domain contexts")
 
         log_fields = {}
+        log_accessibility_fields = {}
+        accessibility_fields = {}
         activity_logits = {}
         activities = {}
         state_logits = {}
@@ -367,6 +385,8 @@ class Model:
             if species not in theta:
                 raise KeyError(f"missing parameter block for species {species!r}")
             log_block = {}
+            log_accessibility_block = {}
+            accessibility_block = {}
             activity_logit_block = {}
             activity_block = {}
             state_logit_block = {}
@@ -374,6 +394,8 @@ class Model:
             species_state_labels = None
             available_fields = LatentFields(
                 log_intensity=log_fields,
+                log_accessibility=log_accessibility_fields,
+                accessibility=accessibility_fields,
                 activity_logit=activity_logits,
                 activity=activities,
                 state_logits=state_logits,
@@ -384,6 +406,8 @@ class Model:
             for ctx in self.domain.contexts():
                 context_covariates = covariates[ctx.key]
                 log_total = 0.0
+                log_accessibility_total = 0.0
+                has_accessibility = False
                 activity_total = 0.0
                 has_activity = False
                 state_total = None
@@ -403,6 +427,15 @@ class Model:
                                 "log-intensity contributions cannot declare labels"
                             )
                         log_total = log_total + contribution.values
+                    elif contribution.channel == "log_accessibility":
+                        if contribution.labels:
+                            raise ValueError(
+                                "log-accessibility contributions cannot declare labels"
+                            )
+                        log_accessibility_total = (
+                            log_accessibility_total + contribution.values
+                        )
+                        has_accessibility = True
                     elif contribution.channel == "activity":
                         if contribution.labels:
                             raise ValueError(
@@ -432,6 +465,13 @@ class Model:
                         )
 
                 log_block[ctx.key] = log_total
+                if has_accessibility:
+                    log_accessibility_block[ctx.key] = log_accessibility_total
+                    accessibility_block[ctx.key] = math.exp(
+                        float(log_accessibility_total)
+                    )
+                else:
+                    accessibility_block[ctx.key] = 1.0
                 if has_activity:
                     activity_logit_block[ctx.key] = activity_total
                     activity_block[ctx.key] = _sigmoid(activity_total)
@@ -451,6 +491,9 @@ class Model:
                     state_probability_block[ctx.key] = _softmax(logits)
 
             log_fields[species] = log_block
+            accessibility_fields[species] = accessibility_block
+            if log_accessibility_block:
+                log_accessibility_fields[species] = log_accessibility_block
             activities[species] = activity_block
             if activity_logit_block:
                 activity_logits[species] = activity_logit_block
@@ -461,6 +504,8 @@ class Model:
 
         return LatentFields(
             log_intensity=log_fields,
+            log_accessibility=log_accessibility_fields,
+            accessibility=accessibility_fields,
             activity_logit=activity_logits,
             activity=activities,
             state_logits=state_logits,
@@ -500,6 +545,8 @@ class Model:
             )
 
         log_fields = {}
+        log_accessibility_fields = {}
+        accessibility_fields = {}
         activity_logits = {}
         activities = {}
         state_logits = {}
@@ -510,12 +557,16 @@ class Model:
             if species not in theta:
                 raise KeyError(f"missing parameter block for species {species!r}")
             log_total = array_module.zeros((len(keys),))
+            log_accessibility_total = array_module.zeros((len(keys),))
+            has_accessibility = False
             activity_total = array_module.zeros((len(keys),))
             has_activity = False
             state_total = None
             state_labels = None
             available_fields = LatentFieldArrays(
                 log_intensity=log_fields,
+                log_accessibility=log_accessibility_fields,
+                accessibility=accessibility_fields,
                 activity_logit=activity_logits,
                 activity=activities,
                 state_logits=state_logits,
@@ -539,6 +590,16 @@ class Model:
                     log_total = log_total + ContextArray(
                         keys, contribution.values
                     ).values
+                elif contribution.channel == "log_accessibility":
+                    if contribution.labels:
+                        raise ValueError(
+                            "log-accessibility contributions cannot declare labels"
+                        )
+                    log_accessibility_total = (
+                        log_accessibility_total
+                        + ContextArray(keys, contribution.values).values
+                    )
+                    has_accessibility = True
                 elif contribution.channel == "activity":
                     if contribution.labels:
                         raise ValueError(
@@ -573,6 +634,18 @@ class Model:
                     )
 
             log_fields[species] = ContextArray(keys, log_total)
+            if has_accessibility:
+                log_accessibility_fields[species] = ContextArray(
+                    keys, log_accessibility_total
+                )
+                accessibility_values = array_module.exp(
+                    log_accessibility_total
+                )
+            else:
+                accessibility_values = array_module.ones((len(keys),))
+            accessibility_fields[species] = ContextArray(
+                keys, accessibility_values
+            )
             if has_activity:
                 activity_logits[species] = ContextArray(keys, activity_total)
                 activity_values = 1.0 / (
@@ -599,6 +672,8 @@ class Model:
 
         return LatentFieldArrays(
             log_intensity=log_fields,
+            log_accessibility=log_accessibility_fields,
+            accessibility=accessibility_fields,
             activity_logit=activity_logits,
             activity=activities,
             state_logits=state_logits,

@@ -3,6 +3,8 @@
 from .blocks import PoissonObservationBlock
 from .detection import KnownDetection, LogitDetection
 from .effort import EffortField, LogLinearEffort, MultiLogLinearEffort
+from .accessibility_count import AccessibilityCount
+from .accessible_presence import AccessiblePresenceOnly
 from .pair_event import PairEventCount
 from .presence_only import PresenceOnly
 from .state_annotated import StateAnnotatedCount
@@ -20,6 +22,8 @@ __all__ = [
     "EffortField",
     "LogLinearEffort",
     "MultiLogLinearEffort",
+    "AccessibilityCount",
+    "AccessiblePresenceOnly",
     "PairEventCount",
     "PresenceOnly",
     "StateAnnotatedCount",
