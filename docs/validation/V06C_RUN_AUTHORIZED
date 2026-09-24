@@ -1,0 +1,30 @@
+v0.6c accessibility identification frontier authorization
+
+This marker authorizes exactly one frozen deterministic v0.6c frontier.
+
+Frozen gate commit:
+1441d7ca241b09cad54563f3b6c0ed53bae6aa90
+
+Frozen gate blob:
+f09f1857756bf1b14c2f8c9888f35cf1d6a44ab7
+
+Frozen grid:
+- geometry: distinct / aligned / flat_access
+- accessibility intercept: -2.0 / +0.40 / +2.0
+- exactly 9 cells
+
+Frozen observation designs:
+- joint-only AccessiblePresenceOnly effort 8.0
+- direct-calibrated adds AccessibilityCount effort 20.0
+
+Frozen diagnostics:
+- JAX exact log-rate Jacobian
+- rank rtol 1e-8
+- rank atol 1e-10
+- relative singular threshold 1e-3
+- condition threshold 1e3
+- target SD threshold 0.25
+- Fisher ridge 1e-10
+
+No grid cell, truth, effort, target, diagnostic threshold, or interpretation rule
+may be changed after this authorization in response to outcome.
