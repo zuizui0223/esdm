@@ -1,0 +1,71 @@
+{
+  "schema": "esdm.v05e.frozen_results.v1",
+  "status": "PASS",
+  "outcome_run_id": 35987048798,
+  "outcome_head_sha": "1efaca62b3ece185e286c507a9ea38371718f0fe",
+  "gate_freeze_commit": "8d3ffa928dcb6ff9c36a8b10eaa1c76028eaecf0",
+  "gate_blob_sha": "c9dde4bf7ef95541fdcf183d1755b7c0a05c208b",
+  "observed_gate_blob_sha": "c9dde4bf7ef95541fdcf183d1755b7c0a05c208b",
+  "artifact": {
+    "id": 10802094588,
+    "name": "v05e-result-35987048798",
+    "github_digest": "sha256:8167a961348f5b55b46a486bdfd0c3352ac20cbf54dc7b9129f21c07deb38204",
+    "independent_zip_sha256": "8167a961348f5b55b46a486bdfd0c3352ac20cbf54dc7b9129f21c07deb38204"
+  },
+  "summary": {
+    "total_fits": 48,
+    "total_divergences": 0,
+    "hidden_event_silent": {
+      "replicates": 16,
+      "mean_beta_bias": 0.9525526134962482,
+      "beta_coverage": 0.0,
+      "beta_nonzero_interval_rate": 1.0,
+      "beta_positive_interval_rate": 1.0,
+      "mean_event_bias": 4.376752560266427,
+      "event_coverage": 0.0,
+      "positive_event_rate": 0.0,
+      "predictive_tier_rate": 1.0,
+      "realized_tier_rate": 0.0,
+      "functional_or_higher_rate": 0.0
+    },
+    "realized_only": {
+      "replicates": 16,
+      "mean_beta_bias": 0.05754082695870238,
+      "beta_coverage": 0.875,
+      "beta_nonzero_interval_rate": 0.125,
+      "beta_positive_interval_rate": 0.125,
+      "mean_event_bias": -0.15202139747395582,
+      "event_coverage": 0.9375,
+      "positive_event_rate": 1.0,
+      "predictive_tier_rate": 0.0,
+      "realized_tier_rate": 1.0,
+      "functional_or_higher_rate": 0.0
+    },
+    "directed_realized": {
+      "replicates": 16,
+      "mean_beta_bias": 0.027430163007229558,
+      "beta_coverage": 0.9375,
+      "beta_nonzero_interval_rate": 1.0,
+      "beta_positive_interval_rate": 1.0,
+      "mean_event_bias": -0.026265113989689524,
+      "event_coverage": 0.9375,
+      "positive_event_rate": 1.0,
+      "predictive_tier_rate": 0.0,
+      "realized_tier_rate": 1.0,
+      "functional_or_higher_rate": 0.0
+    }
+  },
+  "gate": {
+    "passed": true,
+    "checks_passed": 24,
+    "checks_total": 24
+  },
+  "claim_boundary": {
+    "predictive_dependence_and_realized_evidence_separated": true,
+    "hidden_driver_false_beta_does_not_self_promote": true,
+    "realized_events_can_exist_with_beta_zero": true,
+    "beta_plus_events_do_not_self_promote_to_functional_or_causal": true,
+    "hidden_driver_beta_repair": false,
+    "empirical_causality": false
+  }
+}
