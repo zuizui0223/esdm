@@ -140,3 +140,37 @@ def test_registry_boundary_cannot_authorize_new_science_or_action():
 def test_unknown_source_id_fails_closed():
     with pytest.raises(KeyError, match="unknown transfer source"):
         transfer_source_by_id(_sources(), "not-a-source")
+
+
+def test_registry_receipt_metadata_matches_frozen_files():
+    for source in _sources():
+        path = ROOT / source.frozen_receipt
+        assert path.is_file()
+
+        if path.suffix != ".json":
+            assert source.frozen_receipt_schema is None
+            continue
+
+        frozen = json.loads(path.read_text(encoding="utf-8"))
+        assert frozen["schema"] == source.frozen_receipt_schema
+        assert frozen["status"] == source.frozen_result_status
+
+
+def test_validated_integration_receipts_reference_expected_endpoint_ids():
+    for source in exportable_transfer_sources(_sources()):
+        receipt_path = ROOT / source.validated_integration_receipt
+        payload = json.loads(receipt_path.read_text(encoding="utf-8"))
+
+        if source.source_id == "v06a_static_accessibility":
+            assert payload["odsp_result"]["endpoint_id"] == source.endpoint_id
+        elif source.source_id == "v07b_dynamic_occupancy":
+            assert payload["odsp_result"]["endpoint_id"] == source.endpoint_id
+        elif source.source_id == "v04_r5b_activity":
+            assert (
+                payload["contrasts"]["activity"]["endpoint_id"]
+                == source.endpoint_id
+            )
+        elif source.source_id == "v04_r5b_state":
+            assert payload["contrasts"]["state"]["endpoint_id"] == source.endpoint_id
+        else:
+            raise AssertionError(f"unhandled exportable source {source.source_id}")
