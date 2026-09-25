@@ -52,6 +52,7 @@ def test_nonexportable_sources_fail_closed_through_registry_api():
     sources = _sources()
     expected = {
         "v05a_directed_interaction": "gain_only_not_exportable",
+        "v05f_directed_interaction_replication": "scientific_fail_not_exportable",
         "v05b_hidden_common_driver": "scientific_fail_not_exportable",
         "v05e_interaction_evidence_separation": "evidence_tier_not_transfer",
         "v06b_joint_accessibility_identification": "identification_only_not_transfer",
@@ -229,3 +230,30 @@ def test_v07e_pass_is_reciprocal_model_specificity_not_information_transfer():
     assert source.exportable is False
     assert source.information_levels == ()
     assert "same occupancy information" in source.reason
+
+
+def test_v05f_absolute_scores_do_not_override_scientific_fail():
+    source = transfer_source_by_id(
+        _sources(), "v05f_directed_interaction_replication"
+    )
+    frozen = json.loads((ROOT / source.frozen_receipt).read_text(encoding="utf-8"))
+
+    assert source.status == "scientific_fail_not_exportable"
+    assert source.frozen_result_status == "FAIL"
+    assert source.source_artifact_id == 10851963085
+    assert source.source_result_schema == (
+        "esdm.v05f.interaction_transfer_replication.v1"
+    )
+    assert source.absolute_score_fields == ()
+    assert source.adapter_function is None
+    assert source.validated_integration_receipt is None
+    assert source.exportable is False
+
+    assert frozen["status"] == "FAIL"
+    assert frozen["summary"]["interaction"]["positive_gain_rate"] == 1.0
+    assert frozen["summary"]["interaction"]["mean_heldout_gain"] > 1.0
+    assert frozen["summary"]["measured_shared_null"]["mean_heldout_gain"] < 0
+    assert frozen["summary"]["measured_shared_null"]["material_gain_count"] == 5
+    assert frozen["failed_check"]["maximum_allowed_count"] == 4
+    assert frozen["absolute_score_serialization"]["passed"] is True
+    assert frozen["decision"]["odsp_validated_export_authorized"] is False
