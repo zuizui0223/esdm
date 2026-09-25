@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass
+from functools import lru_cache
 from itertools import product
 import math
 
@@ -82,6 +83,7 @@ def _cell_id(psi0: float, gamma: float, epsilon: float) -> str:
     )
 
 
+@lru_cache(maxsize=1)
 def evaluate_v07l_candidate_surface() -> tuple[V07LAuditCell, ...]:
     rows = []
     for psi0, gamma, epsilon in product(
@@ -193,6 +195,7 @@ def select_v07l_confirmatory_worlds(
     return selected
 
 
+@lru_cache(maxsize=1)
 def evaluate_v07l_audit() -> V07LAudit:
     cells = evaluate_v07l_candidate_surface()
     selected = select_v07l_confirmatory_worlds(cells)
