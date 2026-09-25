@@ -483,3 +483,54 @@ def build_v04_r5b_state_odsp_bundle(
         source_git_sha=git_sha,
         group_semantics="independent semi-synthetic known-truth replicate",
     )
+
+
+
+def build_v05f_directed_interaction_odsp_bundle(
+    aggregate_result: Mapping[str, object],
+) -> ODSPTransferBundle:
+    """Bind completed v0.5f interaction-world scores to ODSP transfer levels."""
+
+    if aggregate_result.get("schema") != "esdm.v05f.interaction_transfer_replication.v1":
+        raise ValueError("expected esdm.v05f.interaction_transfer_replication.v1 result")
+    if aggregate_result.get("status") not in {"PASS", "FAIL"}:
+        raise ValueError("v0.5f aggregate must be a completed scientific result")
+    if aggregate_result.get("infrastructure_block") is not None:
+        raise ValueError("infrastructure-blocked v0.5f result cannot be exported")
+
+    records = aggregate_result.get("replicates")
+    if not isinstance(records, list) or not records:
+        raise ValueError("v0.5f aggregate must contain replicate records")
+    interaction = [
+        row for row in records
+        if isinstance(row, Mapping) and row.get("world") == "interaction"
+    ]
+    if len(interaction) != 16:
+        raise ValueError("v0.5f export requires exactly 16 interaction-world records")
+
+    return build_odsp_transfer_bundle(
+        endpoint_id="esdm_v05f_directed_interaction_transfer_v1",
+        levels=(
+            ODSPInformationLevel(
+                name="measured_environment",
+                information=("measured_environment",),
+                source_score_field="partner_knockout_heldout_log_score",
+            ),
+            ODSPInformationLevel(
+                name="measured_environment_directed_partner",
+                information=("measured_environment", "directed_partner_latent"),
+                source_score_field="full_heldout_log_score",
+            ),
+        ),
+        records=interaction,
+        group_field="replicate",
+        analysis_mode="descriptive",
+        filtration_frozen_before_outcome_scoring=True,
+        source_schema="esdm.v05f.interaction_transfer_replication.v1",
+        source_git_sha=(
+            None
+            if aggregate_result.get("git_sha") is None
+            else str(aggregate_result.get("git_sha"))
+        ),
+        group_semantics="independent interaction-world known-truth replicate",
+    )
