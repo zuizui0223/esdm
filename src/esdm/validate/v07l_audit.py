@@ -46,10 +46,10 @@ class V07LAuditCell:
     psi0: float
     gamma: float
     epsilon: float
-    local_oracle_placement: tuple[int, ...]
-    local_oracle_worst_dynamic_sd: float
+    local_oracle_placement: tuple[int, ...] | None
+    local_oracle_worst_dynamic_sd: float | None
     transferred_worst_dynamic_sd: float
-    local_oracle_to_transferred_ratio: float
+    local_oracle_to_transferred_ratio: float | None
     transferred_structural_pass: bool
     transferred_conditioning_pass: bool
     eligible: bool
@@ -96,21 +96,28 @@ def evaluate_v07l_candidate_surface() -> tuple[V07LAuditCell, ...]:
             gamma=gamma,
             epsilon=epsilon,
         )
-        selected = select_v07i_placement_from_theta(theta).selected
         transferred = _score_placement(
             V07G_SELECTED_PLACEMENT,
             theta=theta,
         )
+        try:
+            selected = select_v07i_placement_from_theta(theta).selected
+        except RuntimeError as exc:
+            if "no eligible placement" not in str(exc):
+                raise
+            selected = None
+
         eligible = bool(
-            transferred.structural_pass
+            selected is not None
+            and transferred.structural_pass
             and transferred.conditioning_pass
             and selected.structural_pass
             and selected.conditioning_pass
         )
         ratio = (
             selected.worst_dynamic_sd / transferred.worst_dynamic_sd
-            if eligible
-            else math.inf
+            if eligible and selected is not None
+            else None
         )
         rows.append(
             V07LAuditCell(
@@ -118,10 +125,18 @@ def evaluate_v07l_candidate_surface() -> tuple[V07LAuditCell, ...]:
                 psi0=float(psi0),
                 gamma=float(gamma),
                 epsilon=float(epsilon),
-                local_oracle_placement=tuple(selected.placement),
-                local_oracle_worst_dynamic_sd=float(selected.worst_dynamic_sd),
+                local_oracle_placement=(
+                    None if selected is None else tuple(selected.placement)
+                ),
+                local_oracle_worst_dynamic_sd=(
+                    None
+                    if selected is None
+                    else float(selected.worst_dynamic_sd)
+                ),
                 transferred_worst_dynamic_sd=float(transferred.worst_dynamic_sd),
-                local_oracle_to_transferred_ratio=float(ratio),
+                local_oracle_to_transferred_ratio=(
+                    None if ratio is None else float(ratio)
+                ),
                 transferred_structural_pass=bool(transferred.structural_pass),
                 transferred_conditioning_pass=bool(
                     transferred.conditioning_pass
@@ -142,16 +157,26 @@ def select_v07l_confirmatory_worlds(
         raise RuntimeError("v0.7l requires at least four eligible candidate worlds")
 
     below = sorted(
-        (row for row in eligible if row.local_oracle_to_transferred_ratio <= V07L_TRIGGER_RATIO),
+        (
+            row
+            for row in eligible
+            if row.local_oracle_to_transferred_ratio is not None
+            and row.local_oracle_to_transferred_ratio <= V07L_TRIGGER_RATIO
+        ),
         key=lambda row: (
-            row.local_oracle_to_transferred_ratio,
+            float(row.local_oracle_to_transferred_ratio),
             row.cell_id,
         ),
     )
     above = sorted(
-        (row for row in eligible if row.local_oracle_to_transferred_ratio > V07L_TRIGGER_RATIO),
+        (
+            row
+            for row in eligible
+            if row.local_oracle_to_transferred_ratio is not None
+            and row.local_oracle_to_transferred_ratio > V07L_TRIGGER_RATIO
+        ),
         key=lambda row: (
-            row.local_oracle_to_transferred_ratio,
+            float(row.local_oracle_to_transferred_ratio),
             row.cell_id,
         ),
     )
@@ -164,21 +189,21 @@ def select_v07l_confirmatory_worlds(
     threshold_below = min(
         (row for row in below if row.cell_id != strong.cell_id),
         key=lambda row: (
-            V07L_TRIGGER_RATIO - row.local_oracle_to_transferred_ratio,
+            V07L_TRIGGER_RATIO - float(row.local_oracle_to_transferred_ratio),
             row.cell_id,
         ),
     )
     threshold_above = min(
         above,
         key=lambda row: (
-            row.local_oracle_to_transferred_ratio - V07L_TRIGGER_RATIO,
+            float(row.local_oracle_to_transferred_ratio) - V07L_TRIGGER_RATIO,
             row.cell_id,
         ),
     )
     negligible = max(
         (row for row in above if row.cell_id != threshold_above.cell_id),
         key=lambda row: (
-            row.local_oracle_to_transferred_ratio,
+            float(row.local_oracle_to_transferred_ratio),
             row.cell_id,
         ),
     )
