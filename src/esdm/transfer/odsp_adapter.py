@@ -402,3 +402,84 @@ def build_v07b_dynamic_occupancy_odsp_bundle(
         ),
         group_semantics="independent known-truth replicate",
     )
+
+
+
+def _v04_r5b_records(
+    aggregate_result: Mapping[str, object],
+) -> tuple[list[object], str | None]:
+    if aggregate_result.get("schema") != "esdm.v04_r5b.outcome.v1":
+        raise ValueError("expected esdm.v04_r5b.outcome.v1 aggregate result")
+    if aggregate_result.get("status") != "PASS":
+        raise ValueError("v0.4-R5b export requires the frozen PASS outcome")
+    if aggregate_result.get("infrastructure_block") is not None:
+        raise ValueError("infrastructure-blocked v0.4-R5b result cannot be exported")
+    records = aggregate_result.get("replicates")
+    if not isinstance(records, list) or not records:
+        raise ValueError("v0.4-R5b aggregate must contain replicate records")
+    git_sha = (
+        None
+        if aggregate_result.get("git_sha") is None
+        else str(aggregate_result.get("git_sha"))
+    )
+    return records, git_sha
+
+
+def build_v04_r5b_activity_odsp_bundle(
+    aggregate_result: Mapping[str, object],
+) -> ODSPTransferBundle:
+    """Export the frozen activity increment from v0.4-R5b as a 2-level ODSP bundle."""
+
+    records, git_sha = _v04_r5b_records(aggregate_result)
+    return build_odsp_transfer_bundle(
+        endpoint_id="esdm_v04_r5b_activity_transfer_v1",
+        levels=(
+            ODSPInformationLevel(
+                name="suitability_state",
+                information=("suitability", "state"),
+                source_score_field="activity_knockout_heldout_log_score",
+            ),
+            ODSPInformationLevel(
+                name="suitability_state_activity",
+                information=("suitability", "state", "activity"),
+                source_score_field="full_heldout_log_score",
+            ),
+        ),
+        records=records,
+        group_field="replicate",
+        analysis_mode="descriptive",
+        filtration_frozen_before_outcome_scoring=True,
+        source_schema="esdm.v04_r5b.outcome.v1",
+        source_git_sha=git_sha,
+        group_semantics="independent semi-synthetic known-truth replicate",
+    )
+
+
+def build_v04_r5b_state_odsp_bundle(
+    aggregate_result: Mapping[str, object],
+) -> ODSPTransferBundle:
+    """Export the frozen latent-state increment from v0.4-R5b as a 2-level ODSP bundle."""
+
+    records, git_sha = _v04_r5b_records(aggregate_result)
+    return build_odsp_transfer_bundle(
+        endpoint_id="esdm_v04_r5b_state_transfer_v1",
+        levels=(
+            ODSPInformationLevel(
+                name="suitability_activity",
+                information=("suitability", "activity"),
+                source_score_field="state_knockout_heldout_log_score",
+            ),
+            ODSPInformationLevel(
+                name="suitability_activity_state",
+                information=("suitability", "activity", "state"),
+                source_score_field="full_heldout_log_score",
+            ),
+        ),
+        records=records,
+        group_field="replicate",
+        analysis_mode="descriptive",
+        filtration_frozen_before_outcome_scoring=True,
+        source_schema="esdm.v04_r5b.outcome.v1",
+        source_git_sha=git_sha,
+        group_semantics="independent semi-synthetic known-truth replicate",
+    )
