@@ -72,7 +72,11 @@ def test_v05f_binding_never_mixes_null_world_into_transfer_population():
 
 def test_v05f_binding_rejects_incomplete_or_blocked_results():
     incomplete = _result()
-    incomplete["replicates"] = incomplete["replicates"][:-1]
+    incomplete["replicates"] = [
+        row
+        for row in incomplete["replicates"]
+        if not (row["world"] == "interaction" and row["replicate"] == 15)
+    ]
     with pytest.raises(ValueError, match="exactly 16 interaction-world records"):
         build_v05f_directed_interaction_odsp_bundle(incomplete)
 
