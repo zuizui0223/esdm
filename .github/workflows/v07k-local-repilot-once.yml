@@ -1,13 +1,13 @@
-name: v0.7k frozen local re-pilot gate
+name: v0.7k frozen incremental local adaptation gate
 
 concurrency:
-  group: v07k-local-repilot-outcome
+  group: v07k-local-adaptation-outcome
   cancel-in-progress: false
 
 on:
   push:
     branches:
-      - feature/v07k-local-repilot
+      - feature/v07k-local-adaptation-clean
     paths:
       - .github/workflows/v07k-local-repilot-once.yml
       - docs/validation/V07K_RUN_AUTHORIZED
