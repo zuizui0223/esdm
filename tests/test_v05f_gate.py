@@ -1,3 +1,5 @@
+import pytest
+
 from esdm.validate.v05a_gate import V05AGateConfig
 from esdm.validate.v05a_qualification import V05AQualification
 from esdm.validate.v05f_gate import evaluate_v05f_gate
