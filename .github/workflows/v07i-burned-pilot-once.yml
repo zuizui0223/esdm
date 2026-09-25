@@ -1,0 +1,111 @@
+name: v0.7i frozen burned-pilot adaptive gate
+
+concurrency:
+  group: v07i-burned-pilot-outcome
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - feature/v07i-burned-pilot-placement
+    paths:
+      - .github/workflows/v07i-burned-pilot-once.yml
+      - docs/validation/V07I_RUN_AUTHORIZED
+      - docs/validation/V07I_BURNED_PILOT_GATE.md
+      - scripts/run_v07i_replicate.py
+      - scripts/aggregate_v07i.py
+      - src/esdm/validate/v07i_*.py
+      - tests/test_v07i_*.py
+
+jobs:
+  precheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    outputs:
+      authorized: ${{ steps.authorization.outputs.authorized }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,inference]"
+      - name: Check explicit v0.7i authorization
+        id: authorization
+        run: |
+          if [ -f docs/validation/V07I_RUN_AUTHORIZED ]; then
+            echo "authorized=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "authorized=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Verify frozen v0.7i contracts
+        run: |
+          python -m pytest -q             tests/test_v07i_fixture.py             tests/test_v07i_gate.py             tests/test_v07i_gate_freeze.py             tests/test_v07i_scripts.py             tests/test_v07i_workflow.py
+
+  replicate:
+    needs: precheck
+    if: needs.precheck.outputs.authorized == 'true'
+    strategy:
+      fail-fast: false
+      max-parallel: 16
+      matrix:
+        replicate: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install inference dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[inference]"
+      - name: Run frozen v0.7i replicate
+        run: |
+          mkdir -p artifacts
+          python scripts/run_v07i_replicate.py             --replicate ${{ matrix.replicate }}             --output artifacts/replicate-${{ matrix.replicate }}.json
+      - name: Upload v0.7i shard
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v07i-${{ matrix.replicate }}-${{ github.run_id }}
+          path: artifacts/replicate-${{ matrix.replicate }}.json
+          if-no-files-found: error
+
+  aggregate:
+    needs: [precheck, replicate]
+    if: always() && needs.precheck.outputs.authorized == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Initialize fail-closed result
+        run: |
+          mkdir -p artifacts/shards
+          printf '%s\n' '{"schema":"esdm.v07i.burned_pilot.v1","status":"INFRASTRUCTURE_BLOCKED"}'             > artifacts/v07i_result.json
+      - name: Download v0.7i shards
+        uses: actions/download-artifact@v4
+        with:
+          pattern: v07i-*-${{ github.run_id }}
+          path: artifacts/shards
+          merge-multiple: true
+      - name: Install aggregation dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,inference]"
+      - name: Aggregate frozen v0.7i result
+        run: |
+          python scripts/aggregate_v07i.py             --shard-dir artifacts/shards             --output artifacts/v07i_result.json
+      - name: Upload final v0.7i result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v07i-result-${{ github.run_id }}
+          path: artifacts/v07i_result.json
+          if-no-files-found: error

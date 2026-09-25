@@ -1,0 +1,65 @@
+{
+  "schema": "esdm.v07i.burned_pilot_frozen_results.v1",
+  "status": "PASS",
+  "outcome_run_id": 36110445348,
+  "outcome_head_sha": "a02da1065d7699e68c18a13aea324a52cd65b319",
+  "gate_freeze_commit": "aa3ac6917b9e990c6da9f0cf3e5ae7efcb281e4e",
+  "gate_blob_sha": "c6679964dbc62d08ad3dcf925d271f7a6c625353",
+  "observed_gate_blob_sha": "c6679964dbc62d08ad3dcf925d271f7a6c625353",
+  "result_artifact": {
+    "id": 10852871167,
+    "name": "v07i-result-36110445348",
+    "github_digest": "sha256:78c9b5fb6cb87351c8a7925d505dc5b8a8e96a4337965fbfb96c01961d22b368",
+    "independent_zip_sha256": "78c9b5fb6cb87351c8a7925d505dc5b8a8e96a4337965fbfb96c01961d22b368"
+  },
+  "summary": {
+    "replicates": 16,
+    "fit_count": 48,
+    "selected_lower_worst_sd_rate": 1.0,
+    "mean_worst_sd_ratio": 0.6692376079659923,
+    "minimum_worst_sd_ratio": 0.46033610791154006,
+    "maximum_worst_sd_ratio": 0.9297138648628923,
+    "mean_pilot_predicted_sd_ratio": 0.687008412370795,
+    "oracle_placement_selection_rate": 1.0,
+    "selection_counts": {
+      "2,6,7,8": 16
+    },
+    "selected_mean_biases": {
+      "sp.suitability.alpha": 0.002540094009975744,
+      "sp.occupancy.psi0_logit": -0.024724836333826605,
+      "sp.occupancy.gamma_logit": 0.03507898602987872,
+      "sp.occupancy.epsilon_logit": 0.08237437264749622
+    },
+    "selected_coverages": {
+      "sp.suitability.alpha": 0.9375,
+      "sp.occupancy.psi0_logit": 0.9375,
+      "sp.occupancy.gamma_logit": 0.8125,
+      "sp.occupancy.epsilon_logit": 0.875
+    },
+    "positive_heldout_gain_rate": 0.5,
+    "mean_heldout_gain": 0.038314444183171814,
+    "minimum_heldout_gain": -0.13212272365669886,
+    "total_divergences": 0
+  },
+  "gate": {
+    "passed": true,
+    "checks_passed": 13,
+    "checks_total": 13
+  },
+  "interpretation_boundary": {
+    "pilot_and_confirmatory_seed_families_disjoint": true,
+    "selector_uses_generating_truth": false,
+    "confirmatory_data_used_for_selection": false,
+    "equal_confirmatory_direct_field_effort": true,
+    "heldout_direct_occupancy_exposure": false,
+    "pilot_adaptive_calibration_placement_established": true,
+    "universal_schedule_optimality": false,
+    "population_shift_robustness": false,
+    "universal_cost_efficiency": false,
+    "realized_binary_occupancy_history_established": false,
+    "colonization_extinction_events_observed": false,
+    "movement_kernel_identified": false,
+    "connectivity_identified": false,
+    "empirical_biological_validity": false
+  }
+}
