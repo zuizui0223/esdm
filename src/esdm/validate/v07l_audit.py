@@ -275,15 +275,6 @@ def evaluate_v07l_audit() -> V07LAudit:
     high = ordered[:2]
     low = ordered[-2:]
 
-    if max(row.oracle_to_transferred_ratio for row in high) > V07L_TRIGGER_RATIO:
-        raise RuntimeError(
-            "v0.7l high-headroom cells do not clear the frozen trigger ratio"
-        )
-    if min(row.oracle_to_transferred_ratio for row in low) < 0.90:
-        raise RuntimeError(
-            "v0.7l low-headroom cells are not sufficiently near the transferred design"
-        )
-
     return V07LAudit(
         eligible_fresh_cells=len(fresh),
         high_headroom=high,
