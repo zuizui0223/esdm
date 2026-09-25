@@ -31,3 +31,23 @@ def test_v07h_candidate_placements_remain_frozen():
 
     assert tuple(key[1] for key in fixture.selected_keys) == (2, 6, 7, 8)
     assert tuple(key[1] for key in fixture.baseline_keys) == (1, 2, 3, 4)
+
+
+def test_v07h_validation_fixture_uses_separate_matched_calibration_streams():
+    from esdm.validate.v07h_fixture import build_v07h_validation_fixture
+
+    fixture = build_v07h_validation_fixture()
+
+    assert {stream.name for stream in fixture.generator_model.streams} == {
+        "joint",
+        "selected_calibration",
+        "baseline_calibration",
+    }
+    assert {stream.name for stream in fixture.selected_model.streams} == {
+        "joint",
+        "selected_calibration",
+    }
+    assert {stream.name for stream in fixture.baseline_model.streams} == {
+        "joint",
+        "baseline_calibration",
+    }
