@@ -1,5 +1,9 @@
 name: v0.7c frozen static dynamic occupancy gate
 
+concurrency:
+  group: v07c-static-dynamic-outcome
+  cancel-in-progress: true
+
 on:
   push:
     branches:
