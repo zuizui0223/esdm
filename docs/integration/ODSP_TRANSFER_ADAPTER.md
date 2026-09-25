@@ -209,3 +209,58 @@ new-replicate prediction interval       [2.9856269032, 11.1960290763]
 This establishes a software/inference interface for **marginal dynamic occupancy
 information**. It does not turn the v0.7 process into a movement kernel,
 connectivity model, realized colonization history, or field-survey priority.
+
+
+## Parallel validated contrasts: v0.4-R5b activity and latent state
+
+The frozen R5b outcome stores one full held-out log score and two distinct
+knockout scores for every replicate. That structure supports two separate
+information questions:
+
+```text
+suitability + state
+  subset
+suitability + state + activity
+```
+
+and
+
+```text
+suitability + activity
+  subset
+suitability + activity + state
+```
+
+These are **parallel contrasts**, not one three-level filtration. The activity
+knockout retains state information; the state knockout retains activity
+information. Therefore there is no frozen evidence that activity should precede
+state or vice versa.
+
+Pinned population audits:
+
+```text
+activity:
+  mean gain                         +0.0069985602
+  95% interval                     [0.0053987627, 0.0085360104]
+  conservative mean value          +0.0053987627
+  new-replicate prediction interval [0.0001736138, 0.0138235065]
+
+state:
+  mean gain                         +0.0289646685
+  95% interval                     [0.0257820421, 0.0317155012]
+  conservative mean value          +0.0257820421
+  new-replicate prediction interval [0.0158886397, 0.0420406973]
+```
+
+All 16 frozen semi-synthetic replicates were positive for both contrasts.
+
+The shared score currency is mean held-out log predictive density over annotated
+state-block/context observations:
+
+```text
+nats_per_heldout_state_block_context
+```
+
+As with the accessibility and dynamic-occupancy integrations, these values do
+not authorize spatial ranking or field action. They are portable information
+value summaries for a future N3 protocol.
