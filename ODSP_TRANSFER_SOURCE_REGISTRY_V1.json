@@ -310,6 +310,25 @@
       "parallel_family": null,
       "natural_order_with_parallel_sibling": null,
       "reason": "frozen artifact stores absolute occupancy-knockout and full late-time held-out log scores and has a validated ODSP/N3 integration receipt"
+    },
+    {
+      "source_id": "v07c_static_vs_dynamic_occupancy",
+      "programme": "v0.7c",
+      "status": "non_nested_comparison_not_transfer",
+      "frozen_receipt": "docs/validation/V07C_FROZEN_RESULTS.json",
+      "frozen_receipt_schema": "esdm.v07c.static_dynamic_frozen_results.v1",
+      "frozen_result_status": "PASS",
+      "source_artifact_id": 10841011706,
+      "source_result_schema": null,
+      "absolute_score_fields": [],
+      "information_levels": [],
+      "score_currency": null,
+      "adapter_function": null,
+      "endpoint_id": null,
+      "validated_integration_receipt": null,
+      "parallel_family": null,
+      "natural_order_with_parallel_sibling": null,
+      "reason": "Dynamic and matched static occupancy compare alternative representations of the same occupancy information under the same observation programme; neither candidate contains a strict superset of ecological information, so the PASS benchmark is a model-representation result rather than an ODSP information-transfer source"
     }
   ],
   "boundary": {
