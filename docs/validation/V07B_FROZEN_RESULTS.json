@@ -11,7 +11,7 @@
     "id": 10840405228,
     "name": "v07b-result-36074930922",
     "github_digest": "sha256:a5b2bed48b3acadc8b7c7461dd13074007d34e39a3a5ccfb303b984ff7c5d247",
-    "result_json_sha256": "c3a5c51b9d8ccbb422b0181ad93d9dc4b1cb405668667e30b4ede0ccb3fef32"
+    "result_json_sha256": "c3a5c51b9d8ccbb422b0181ad93d9dc4b1cb405668667e30b4ede0ccb3fef32b"
   },
   "qualification": {
     "positive_structural_pass": true,
