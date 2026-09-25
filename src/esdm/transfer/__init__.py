@@ -53,3 +53,10 @@ from .source_registry import (
     require_exportable_transfer_source,
     transfer_source_by_id,
 )
+
+from .evidence_portfolio import (
+    PORTFOLIO_SCHEMA,
+    TransferEvidenceItem,
+    TransferEvidencePortfolio,
+    build_transfer_evidence_portfolio,
+)
