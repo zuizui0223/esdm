@@ -16,7 +16,7 @@ from .v07i_selector import (
     select_v07i_placement_from_theta,
     theta_from_posterior_means,
 )
-from .v07j_confirm import truth_sites_for_v07j_world
+from .v07k_fixture import truth_sites_for_v07k_world
 from .v07k_fixture import (
     V07K_ORACLE_PLACEMENTS,
     V07K_WORLDS,
@@ -96,7 +96,7 @@ class V07KReplicate:
         )
 
     def adaptive_covers_truth(self, target: str) -> bool:
-        truth = truth_sites_for_v07j_world(self.world)[target]
+        truth = truth_sites_for_v07k_world(self.world)[target]
         return (
             self.adaptive_posterior_lows[target]
             <= truth
@@ -330,7 +330,7 @@ def run_v07k_replicate(
 
 def _summarize_world(world: str, rows) -> V07KWorldSummary:
     selected = tuple(row for row in rows if row.world == world)
-    truth = truth_sites_for_v07j_world(world)
+    truth = truth_sites_for_v07k_world(world)
     ratios = tuple(row.worst_sd_ratio for row in selected)
     predicted = tuple(
         row.pilot_predicted_adaptive_to_transferred_ratio
