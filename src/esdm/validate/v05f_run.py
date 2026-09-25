@@ -32,6 +32,7 @@ class V05FReplicate:
     interval_high: float
     full_heldout_log_score: float
     partner_knockout_heldout_log_score: float
+    heldout_gain: float
     full_divergences: int
     knockout_divergences: int
 
@@ -41,16 +42,24 @@ class V05FReplicate:
         for name, value in (
             ("full_heldout_log_score", self.full_heldout_log_score),
             ("partner_knockout_heldout_log_score", self.partner_knockout_heldout_log_score),
+            ("heldout_gain", self.heldout_gain),
         ):
             if not math.isfinite(float(value)):
                 raise ValueError(f"{name} must be finite")
-
-    @property
-    def heldout_gain(self) -> float:
-        return (
+        reconstructed = (
             float(self.full_heldout_log_score)
             - float(self.partner_knockout_heldout_log_score)
         )
+        if not math.isclose(
+            reconstructed,
+            float(self.heldout_gain),
+            rel_tol=0.0,
+            abs_tol=1e-12,
+        ):
+            raise ValueError(
+                "heldout_gain must equal full_heldout_log_score - "
+                "partner_knockout_heldout_log_score within 1e-12"
+            )
 
     @property
     def covers_truth(self) -> bool:
@@ -180,6 +189,7 @@ def run_v05f_replicate(
         interval_high=_quantile(draws, 1.0 - alpha),
         full_heldout_log_score=float(evidence.full_log_score),
         partner_knockout_heldout_log_score=float(evidence.knockout_log_score),
+        heldout_gain=float(evidence.gain),
         full_divergences=int(full_fit.num_divergences),
         knockout_divergences=int(knockout_fit.num_divergences),
     )
