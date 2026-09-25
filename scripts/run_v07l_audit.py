@@ -24,6 +24,8 @@ def main() -> int:
         "schema": "esdm.v07l.pilot_gated_adaptation_audit.v1",
         "status": "COMPLETE",
         "trigger_ratio": audit.trigger_ratio,
+        "low_headroom_min_ratio": audit.low_headroom_min_ratio,
+        "low_headroom_max_sd": audit.low_headroom_max_sd,
         "eligible_fresh_cells": audit.eligible_fresh_cells,
         "high_headroom": [asdict(row) for row in audit.high_headroom],
         "low_headroom": [asdict(row) for row in audit.low_headroom],
