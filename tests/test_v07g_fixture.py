@@ -48,3 +48,37 @@ def test_v07g_baseline_is_the_frozen_early_four_design():
 
     assert fixture.placement == (1, 2, 3, 4)
     assert fixture.total_direct_effort == 2000.0
+
+
+def test_v07g_validation_fixture_pairs_same_budget_designs():
+    from esdm.validate.v07g_fixture import (
+        V07G_BASELINE_PLACEMENT,
+        V07G_SELECTED_PLACEMENT,
+        build_v07g_validation_fixture,
+    )
+
+    fixture = build_v07g_validation_fixture()
+
+    assert V07G_SELECTED_PLACEMENT == (2, 6, 7, 8)
+    assert V07G_BASELINE_PLACEMENT == (1, 2, 3, 4)
+    assert tuple(key[1] for key in fixture.optimized_keys) == V07G_SELECTED_PLACEMENT
+    assert tuple(key[1] for key in fixture.baseline_keys) == V07G_BASELINE_PLACEMENT
+
+    generator_direct = next(
+        stream
+        for stream in fixture.generator_model.streams
+        if stream.name == "occupancy_calibration"
+    )
+    mask = generator_direct.structural_exposure_mask(
+        fixture.generator_model.domain.keys
+    )
+    exposed_days = tuple(
+        key[1]
+        for key, exposed in zip(
+            fixture.generator_model.domain.keys,
+            mask,
+            strict=True,
+        )
+        if exposed
+    )
+    assert exposed_days == tuple(range(1, 9))
