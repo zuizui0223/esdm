@@ -114,6 +114,20 @@ Registry status: `identification_only_not_transfer`.
 The programme established the identification boundary before a recovery or
 held-out transfer result existed.
 
+### v0.7c dynamic versus matched static occupancy
+
+Scientific result: PASS.
+
+Registry status: `non_nested_comparison_not_transfer`.
+
+The recursive dynamic model outperformed a fully estimable memoryless static
+occupancy comparator in 15/16 frozen replicates, with mean held-out gain
++3.32124 nats/context. That is evidence for the value of the dynamic
+**representation**, not an ODSP information filtration: both candidates target
+the same occupancy information under the same observation programme. A model
+representation can win predictively without containing a strict superset of
+ecological information.
+
 ## Usage
 
 List all sources:
