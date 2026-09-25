@@ -1,0 +1,14 @@
+v0.7e reciprocal static-world one-shot authorization
+
+authorized_date: 2026-09-25
+gate_contract: docs/validation/V07E_RECIPROCAL_STATIC_WORLD_GATE.md
+gate_freeze_commit: a047fdb0fd7843b83169d5b168d86de005143c3b
+gate_merge_commit: 0e2c1f7b994f2a505f044030cfd057b871e217ef
+authorized_branch: feature/v07e-reciprocal-static-world-clean
+
+This marker authorizes exactly the frozen v0.7e qualification and, only if it
+passes, the 16-replicate reciprocal static-world held-out outcome.
+
+No generator truth, candidate model, parameter count, observation programme,
+train/heldout split, seed family, MCMC setting, qualification threshold, or
+predictive threshold is changed by this authorization.
