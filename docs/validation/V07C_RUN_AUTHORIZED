@@ -1,0 +1,8 @@
+Authorized one-shot v0.7c matched static-versus-dynamic outcome.
+
+Frozen gate commit: 42772573e83b85174cfad8dc5d9ba5bcd77655af
+Frozen gate blob: 95c6e8b7d77a7164574e7afd013dc47fbfbdcb4a
+
+This marker authorizes exactly the frozen qualification and replicated outcome
+defined in docs/validation/V07C_STATIC_DYNAMIC_GATE.md. It does not authorize
+retuning after outcome.
