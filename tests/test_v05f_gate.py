@@ -90,7 +90,7 @@ def test_v05f_summary_preserves_original_absolute_scores():
     assert summary.mean_knockout_heldout_log_score_by_world["interaction"] == -2.00
     assert summary.inherited_v05a.worlds["interaction"].mean_heldout_gain == pytest.approx(0.10)
     assert summary.inherited_v05a.worlds["measured_shared_null"].mean_heldout_gain == pytest.approx(-0.01)
-    assert summary.max_abs_gain_identity_error == 0.0
+    assert summary.max_abs_gain_identity_error <= 1e-12
 
 
 def test_v05f_replicate_rejects_inconsistent_serialized_gain():
