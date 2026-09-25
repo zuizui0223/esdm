@@ -1,0 +1,323 @@
+{
+  "schema_version": 1,
+  "registry_id": "esdm-odsp-transfer-source-registry-v1",
+  "frozen_date": "2026-09-25",
+  "purpose": "machine-readable eligibility registry for exporting frozen eSDM held-out results into ODSP information-transfer contracts",
+  "eligibility_rule": {
+    "exportable_requires": [
+      "completed scientific result with an immutable source receipt/artifact",
+      "absolute held-out score for every declared lower and upper information level",
+      "same held-out observations across compared levels",
+      "same proper scoring rule and reference measure across compared levels",
+      "strict nested information sets",
+      "no reconstruction of absolute scores from gain-only summaries"
+    ],
+    "pass_status_alone_is_sufficient": false,
+    "gain_only_export_allowed": false,
+    "non_nested_model_or_evidence_comparison_export_allowed": false
+  },
+  "statuses": [
+    "validated_exportable",
+    "gain_only_not_exportable",
+    "scientific_fail_not_exportable",
+    "evidence_tier_not_transfer",
+    "identification_only_not_transfer",
+    "non_nested_comparison_not_transfer"
+  ],
+  "sources": [
+    {
+      "source_id": "v04_r5b_activity",
+      "programme": "v0.4-R5b",
+      "status": "validated_exportable",
+      "frozen_receipt": "docs/validation/V04_R5B_FROZEN_RESULTS.json",
+      "frozen_receipt_schema": "esdm.v04_r5b.frozen_results.v1",
+      "frozen_result_status": "PASS",
+      "source_artifact_id": 10761956596,
+      "source_result_schema": "esdm.v04_r5b.outcome.v1",
+      "absolute_score_fields": [
+        "activity_knockout_heldout_log_score",
+        "full_heldout_log_score"
+      ],
+      "information_levels": [
+        {
+          "name": "suitability_state",
+          "information": [
+            "suitability",
+            "state"
+          ],
+          "score_field": "activity_knockout_heldout_log_score"
+        },
+        {
+          "name": "suitability_state_activity",
+          "information": [
+            "suitability",
+            "state",
+            "activity"
+          ],
+          "score_field": "full_heldout_log_score"
+        }
+      ],
+      "score_currency": {
+        "kind": "log",
+        "name": "mean_heldout_log_predictive_density",
+        "unit": "nats_per_heldout_state_block_context"
+      },
+      "adapter_function": "build_v04_r5b_activity_odsp_bundle",
+      "endpoint_id": "esdm_v04_r5b_activity_transfer_v1",
+      "validated_integration_receipt": "ODSP_TRANSFER_R5B_PARALLEL_RESULT_V1.json",
+      "parallel_family": "v04_r5b_activity_state",
+      "natural_order_with_parallel_sibling": false,
+      "reason": "frozen artifact stores absolute full and activity-knockout held-out scores on identical east-heldout state-block/context observations"
+    },
+    {
+      "source_id": "v04_r5b_state",
+      "programme": "v0.4-R5b",
+      "status": "validated_exportable",
+      "frozen_receipt": "docs/validation/V04_R5B_FROZEN_RESULTS.json",
+      "frozen_receipt_schema": "esdm.v04_r5b.frozen_results.v1",
+      "frozen_result_status": "PASS",
+      "source_artifact_id": 10761956596,
+      "source_result_schema": "esdm.v04_r5b.outcome.v1",
+      "absolute_score_fields": [
+        "state_knockout_heldout_log_score",
+        "full_heldout_log_score"
+      ],
+      "information_levels": [
+        {
+          "name": "suitability_activity",
+          "information": [
+            "suitability",
+            "activity"
+          ],
+          "score_field": "state_knockout_heldout_log_score"
+        },
+        {
+          "name": "suitability_activity_state",
+          "information": [
+            "suitability",
+            "activity",
+            "state"
+          ],
+          "score_field": "full_heldout_log_score"
+        }
+      ],
+      "score_currency": {
+        "kind": "log",
+        "name": "mean_heldout_log_predictive_density",
+        "unit": "nats_per_heldout_state_block_context"
+      },
+      "adapter_function": "build_v04_r5b_state_odsp_bundle",
+      "endpoint_id": "esdm_v04_r5b_state_transfer_v1",
+      "validated_integration_receipt": "ODSP_TRANSFER_R5B_PARALLEL_RESULT_V1.json",
+      "parallel_family": "v04_r5b_activity_state",
+      "natural_order_with_parallel_sibling": false,
+      "reason": "frozen artifact stores absolute full and state-knockout held-out scores on identical east-heldout state-block/context observations"
+    },
+    {
+      "source_id": "v05a_directed_interaction",
+      "programme": "v0.5a",
+      "status": "gain_only_not_exportable",
+      "frozen_receipt": "docs/validation/V05A_FROZEN_RESULTS.json",
+      "frozen_receipt_schema": "esdm.v05a.frozen_results.v1",
+      "frozen_result_status": "PASS",
+      "source_artifact_id": 10795932206,
+      "source_result_schema": null,
+      "absolute_score_fields": [],
+      "information_levels": [],
+      "score_currency": null,
+      "adapter_function": null,
+      "endpoint_id": null,
+      "validated_integration_receipt": null,
+      "parallel_family": null,
+      "natural_order_with_parallel_sibling": null,
+      "reason": "frozen records retain Full-minus-knockout heldout_gain but not the two absolute held-out log scores; synthesizing zero and gain would violate the ODSP score contract"
+    },
+    {
+      "source_id": "v05b_hidden_common_driver",
+      "programme": "v0.5b",
+      "status": "scientific_fail_not_exportable",
+      "frozen_receipt": "docs/validation/V05B_FROZEN_RESULTS.json",
+      "frozen_receipt_schema": "esdm.v05b.frozen_results.v1",
+      "frozen_result_status": "FAIL",
+      "source_artifact_id": 10800257515,
+      "source_result_schema": null,
+      "absolute_score_fields": [],
+      "information_levels": [],
+      "score_currency": null,
+      "adapter_function": null,
+      "endpoint_id": null,
+      "validated_integration_receipt": null,
+      "parallel_family": null,
+      "natural_order_with_parallel_sibling": null,
+      "reason": "the frozen hidden-common-driver programme failed its scientific gate and also retained gain rather than an exportable absolute-score filtration"
+    },
+    {
+      "source_id": "v05e_interaction_evidence_separation",
+      "programme": "v0.5e",
+      "status": "evidence_tier_not_transfer",
+      "frozen_receipt": "docs/validation/V05E_FROZEN_RESULTS.json",
+      "frozen_receipt_schema": "esdm.v05e.frozen_results.v1",
+      "frozen_result_status": "PASS",
+      "source_artifact_id": 10802094588,
+      "source_result_schema": null,
+      "absolute_score_fields": [],
+      "information_levels": [],
+      "score_currency": null,
+      "adapter_function": null,
+      "endpoint_id": null,
+      "validated_integration_receipt": null,
+      "parallel_family": null,
+      "natural_order_with_parallel_sibling": null,
+      "reason": "programme separates predictive dependence from realized interaction-event evidence and does not define a common held-out nested-score contrast"
+    },
+    {
+      "source_id": "v06a_static_accessibility",
+      "programme": "v0.6a",
+      "status": "validated_exportable",
+      "frozen_receipt": "docs/validation/V06A_FROZEN_RESULTS.json",
+      "frozen_receipt_schema": "esdm.v06a.frozen_results.v1",
+      "frozen_result_status": "PASS",
+      "source_artifact_id": 10804831269,
+      "source_result_schema": "esdm.v06a.accessibility.v1",
+      "absolute_score_fields": [
+        "accessibility_knockout_heldout_log_score",
+        "full_heldout_log_score"
+      ],
+      "information_levels": [
+        {
+          "name": "suitability_only",
+          "information": [
+            "suitability"
+          ],
+          "score_field": "accessibility_knockout_heldout_log_score"
+        },
+        {
+          "name": "suitability_accessibility",
+          "information": [
+            "suitability",
+            "accessibility"
+          ],
+          "score_field": "full_heldout_log_score"
+        }
+      ],
+      "score_currency": {
+        "kind": "log",
+        "name": "mean_heldout_log_predictive_density",
+        "unit": "nats_per_heldout_context"
+      },
+      "adapter_function": "build_v06a_accessibility_odsp_bundle",
+      "endpoint_id": "esdm_v06a_accessibility_transfer_v1",
+      "validated_integration_receipt": "ODSP_TRANSFER_E2E_RESULT_V1.json",
+      "parallel_family": null,
+      "natural_order_with_parallel_sibling": null,
+      "reason": "frozen artifact stores commensurate absolute accessibility-knockout and full held-out log scores on the same held-out joint occurrence contexts"
+    },
+    {
+      "source_id": "v06b_joint_accessibility_identification",
+      "programme": "v0.6b",
+      "status": "identification_only_not_transfer",
+      "frozen_receipt": "docs/validation/V06B_FROZEN_RESULTS.json",
+      "frozen_receipt_schema": "esdm.v06b.frozen_results.v1",
+      "frozen_result_status": "COMPLETE",
+      "source_artifact_id": 10813480338,
+      "source_result_schema": null,
+      "absolute_score_fields": [],
+      "information_levels": [],
+      "score_currency": null,
+      "adapter_function": null,
+      "endpoint_id": null,
+      "validated_integration_receipt": null,
+      "parallel_family": null,
+      "natural_order_with_parallel_sibling": null,
+      "reason": "programme audits structural/practical identification under joint occurrence and is not a held-out information-transfer outcome"
+    },
+    {
+      "source_id": "v06c_budget_matched_accessibility",
+      "programme": "v0.6c",
+      "status": "non_nested_comparison_not_transfer",
+      "frozen_receipt": "docs/validation/V06C_BUDGET_MATCHED_FROZEN_RESULTS.json",
+      "frozen_receipt_schema": "esdm.v06c.budget_matched_frozen_results.v1",
+      "frozen_result_status": "PASS",
+      "source_artifact_id": 10815097574,
+      "source_result_schema": "esdm.v06c.budget_matched.v1",
+      "absolute_score_fields": [],
+      "information_levels": [],
+      "score_currency": null,
+      "adapter_function": null,
+      "endpoint_id": null,
+      "validated_integration_receipt": null,
+      "parallel_family": null,
+      "natural_order_with_parallel_sibling": null,
+      "reason": "Direct and MatchedJoint compare evidence designs for the same ecological information target; neither information set is a strict subset of the other"
+    },
+    {
+      "source_id": "v07a_dynamic_occupancy_identification",
+      "programme": "v0.7a",
+      "status": "identification_only_not_transfer",
+      "frozen_receipt": "docs/validation/V07A_DYNAMIC_IDENTIFICATION_GATE.md",
+      "frozen_receipt_schema": null,
+      "frozen_result_status": "FROZEN_DESIGN",
+      "source_artifact_id": null,
+      "source_result_schema": null,
+      "absolute_score_fields": [],
+      "information_levels": [],
+      "score_currency": null,
+      "adapter_function": null,
+      "endpoint_id": null,
+      "validated_integration_receipt": null,
+      "parallel_family": null,
+      "natural_order_with_parallel_sibling": null,
+      "reason": "programme establishes the direct-occupancy identification boundary before any recovery or held-out transfer outcome"
+    },
+    {
+      "source_id": "v07b_dynamic_occupancy",
+      "programme": "v0.7b",
+      "status": "validated_exportable",
+      "frozen_receipt": "docs/validation/V07B_FROZEN_RESULTS.json",
+      "frozen_receipt_schema": "esdm.v07b.frozen_results.v1",
+      "frozen_result_status": "PASS",
+      "source_artifact_id": 10840405228,
+      "source_result_schema": "esdm.v07b.dynamic_transfer.v1",
+      "absolute_score_fields": [
+        "occupancy_knockout_heldout_log_score",
+        "full_heldout_log_score"
+      ],
+      "information_levels": [
+        {
+          "name": "suitability_only",
+          "information": [
+            "suitability"
+          ],
+          "score_field": "occupancy_knockout_heldout_log_score"
+        },
+        {
+          "name": "suitability_dynamic_occupancy",
+          "information": [
+            "suitability",
+            "dynamic_occupancy"
+          ],
+          "score_field": "full_heldout_log_score"
+        }
+      ],
+      "score_currency": {
+        "kind": "log",
+        "name": "mean_heldout_log_predictive_density",
+        "unit": "nats_per_heldout_context"
+      },
+      "adapter_function": "build_v07b_dynamic_occupancy_odsp_bundle",
+      "endpoint_id": "esdm_v07b_dynamic_occupancy_transfer_v1",
+      "validated_integration_receipt": "ODSP_TRANSFER_V07B_E2E_RESULT_V1.json",
+      "parallel_family": null,
+      "natural_order_with_parallel_sibling": null,
+      "reason": "frozen artifact stores absolute occupancy-knockout and full late-time held-out log scores and has a validated ODSP/N3 integration receipt"
+    }
+  ],
+  "boundary": {
+    "registry_authorizes_new_scientific_result": false,
+    "registry_authorizes_rerun": false,
+    "registry_authorizes_score_reconstruction": false,
+    "registry_authorizes_new_information_order": false,
+    "registry_authorizes_eog_consumption": false,
+    "registry_authorizes_n4_action": false
+  }
+}
