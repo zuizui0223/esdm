@@ -1,0 +1,133 @@
+name: v0.7k frozen incremental local adaptation gate
+
+concurrency:
+  group: v07k-local-adaptation-outcome
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - feature/v07k-local-adaptation-clean
+    paths:
+      - .github/workflows/v07k-local-repilot-once.yml
+      - docs/validation/V07K_RUN_AUTHORIZED
+      - docs/validation/V07K_LOCAL_REPILOT_GATE.md
+      - docs/validation/V07J_SURFACE_RESULTS.json
+      - scripts/run_v07k_replicate.py
+      - scripts/aggregate_v07k.py
+      - src/esdm/validate/v07k_*.py
+      - src/esdm/process/occupancy.py
+      - src/esdm/process/dynamics.py
+      - src/esdm/observe/occupied_presence.py
+      - src/esdm/observe/occupancy_count.py
+      - tests/test_v07k_*.py
+
+jobs:
+  precheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    outputs:
+      authorized: ${{ steps.authorization.outputs.authorized }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,inference]"
+      - name: Check explicit v0.7k authorization
+        id: authorization
+        run: |
+          if [ -f docs/validation/V07K_RUN_AUTHORIZED ]; then
+            echo "authorized=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "authorized=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Verify frozen v0.7k contracts
+        run: |
+          python -m pytest -q \
+            tests/test_v07k_audit.py \
+            tests/test_v07k_fixture.py \
+            tests/test_v07k_gate.py \
+            tests/test_v07k_gate_freeze.py \
+            tests/test_v07k_parent_context.py \
+            tests/test_v07k_scripts.py \
+            tests/test_v07k_workflow.py
+
+  replicate:
+    needs: precheck
+    if: needs.precheck.outputs.authorized == 'true'
+    strategy:
+      fail-fast: false
+      max-parallel: 16
+      matrix:
+        world: [transfer_positive, reversal]
+        replicate: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install inference dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[inference]"
+      - name: Run frozen v0.7k replicate
+        run: |
+          mkdir -p artifacts
+          python scripts/run_v07k_replicate.py \
+            --world ${{ matrix.world }} \
+            --replicate ${{ matrix.replicate }} \
+            --output artifacts/${{ matrix.world }}-${{ matrix.replicate }}.json
+      - name: Upload v0.7k shard
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v07k-${{ matrix.world }}-${{ matrix.replicate }}-${{ github.run_id }}
+          path: artifacts/${{ matrix.world }}-${{ matrix.replicate }}.json
+          if-no-files-found: error
+
+  aggregate:
+    needs: [precheck, replicate]
+    if: always() && needs.precheck.outputs.authorized == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Initialize fail-closed result
+        run: |
+          mkdir -p artifacts/shards
+          printf '%s\n' '{"schema":"esdm.v07k.local_repilot.v1","status":"INFRASTRUCTURE_BLOCKED"}' \
+            > artifacts/v07k_result.json
+      - name: Download v0.7k shards
+        uses: actions/download-artifact@v4
+        with:
+          pattern: v07k-*-${{ github.run_id }}
+          path: artifacts/shards
+          merge-multiple: true
+      - name: Remove qualification artifact if pattern matched it
+        run: |
+          find artifacts/shards -name 'v07k_qualification.json' -delete
+      - name: Install aggregation dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,inference]"
+      - name: Aggregate frozen v0.7k result
+        run: |
+          python scripts/aggregate_v07k.py \
+            --shard-dir artifacts/shards \
+            --output artifacts/v07k_result.json
+      - name: Upload final v0.7k result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v07k-result-${{ github.run_id }}
+          path: artifacts/v07k_result.json
+          if-no-files-found: error

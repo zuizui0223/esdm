@@ -1,0 +1,112 @@
+{
+  "schema": "esdm.v07k.local_adaptation_frozen_results.v1",
+  "status": "FAIL",
+  "outcome_run_id": 36123495515,
+  "outcome_head_sha": "5cf6d2b9c66f233e0b24f799939c8d6b0466cedd",
+  "gate_freeze_commit": "0f45d8239f46b12236ef2d567e605e7c4b29949d",
+  "gate_blob_sha": "5e8d62c4610202e942935d16dd77664a3937227a",
+  "observed_gate_blob_sha": "5e8d62c4610202e942935d16dd77664a3937227a",
+  "audit_provenance": {
+    "run_id": 36118088393,
+    "artifact_id": 10855618140,
+    "artifact_sha256": "1a3505cda24e32b86f5ef18bfc79a0228786eb9357f718ce5003082b32621150"
+  },
+  "result_artifact": {
+    "id": 10859390456,
+    "name": "v07k-result-36123495515",
+    "github_digest": "sha256:387e3618cc657778fdacaf9f95d0c2e806286a9fad1cd93cd1f72dc444a095a9",
+    "independent_zip_sha256": "387e3618cc657778fdacaf9f95d0c2e806286a9fad1cd93cd1f72dc444a095a9"
+  },
+  "summary": {
+    "replicates": 32,
+    "fit_count": 96,
+    "total_divergences": 0,
+    "worlds": {
+      "transfer_positive": {
+        "replicates": 16,
+        "fit_count": 48,
+        "adaptive_lower_worst_sd_rate": 0.5625,
+        "mean_worst_sd_ratio": 1.0206814708095056,
+        "minimum_ratio": 0.7120207180417195,
+        "maximum_ratio": 1.3873381460161336,
+        "mean_pilot_predicted_ratio": 0.9234106963229237,
+        "oracle_placement_selection_rate": 0.6875,
+        "selection_counts": {
+          "1,3,4,8": 5,
+          "1,3,7,8": 11
+        },
+        "adaptive_mean_biases": {
+          "sp.suitability.alpha": 0.0006967474220308315,
+          "sp.occupancy.psi0_logit": -0.01735576668178071,
+          "sp.occupancy.gamma_logit": 0.022031495672672152,
+          "sp.occupancy.epsilon_logit": -0.10020429435060474
+        },
+        "adaptive_coverages": {
+          "sp.suitability.alpha": 0.875,
+          "sp.occupancy.psi0_logit": 0.875,
+          "sp.occupancy.gamma_logit": 1.0,
+          "sp.occupancy.epsilon_logit": 1.0
+        },
+        "positive_heldout_gain_rate": 0.875,
+        "mean_heldout_gain": 0.13457955025287105,
+        "total_divergences": 0
+      },
+      "reversal": {
+        "replicates": 16,
+        "fit_count": 48,
+        "adaptive_lower_worst_sd_rate": 1.0,
+        "mean_worst_sd_ratio": 0.6107470404803171,
+        "minimum_ratio": 0.3278647758475354,
+        "maximum_ratio": 0.9139150420131308,
+        "mean_pilot_predicted_ratio": 0.7065143418161579,
+        "oracle_placement_selection_rate": 0.75,
+        "selection_counts": {
+          "1,2,3,8": 2,
+          "1,2,7,8": 12,
+          "1,3,7,8": 2
+        },
+        "adaptive_mean_biases": {
+          "sp.suitability.alpha": 0.019561849757600776,
+          "sp.occupancy.psi0_logit": 0.004502899300808577,
+          "sp.occupancy.gamma_logit": 0.015206258922957822,
+          "sp.occupancy.epsilon_logit": 0.05015051587307591
+        },
+        "adaptive_coverages": {
+          "sp.suitability.alpha": 0.9375,
+          "sp.occupancy.psi0_logit": 0.9375,
+          "sp.occupancy.gamma_logit": 0.875,
+          "sp.occupancy.epsilon_logit": 0.9375
+        },
+        "positive_heldout_gain_rate": 0.5,
+        "mean_heldout_gain": -0.006485887573772248,
+        "total_divergences": 0
+      }
+    }
+  },
+  "gate": {
+    "passed": false,
+    "checks_passed": 23,
+    "checks_total": 25,
+    "failed_checks": [
+      {
+        "name": "transfer_positive:adaptive_lower_worst_sd_rate",
+        "observed": 0.5625,
+        "criterion": ">= 0.75"
+      },
+      {
+        "name": "transfer_positive:mean_worst_sd_ratio",
+        "observed": 1.0206814708095056,
+        "criterion": "<= 0.95"
+      }
+    ]
+  },
+  "interpretation": {
+    "local_adaptation_universally_incremental": false,
+    "reversal_world_local_adaptation_supported": true,
+    "transfer_positive_incremental_gain_supported": false,
+    "pilot_predicted_headroom_tracks_realized_gain_qualitatively": true,
+    "recovery_guardrails_passed_in_both_worlds": true,
+    "selective_repiloting_hypothesis_generated": true,
+    "empirical_field_validity": false
+  }
+}
