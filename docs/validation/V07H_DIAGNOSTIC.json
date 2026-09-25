@@ -1,0 +1,29 @@
+{
+  "schema": "esdm.v07h.expected_record_match_diagnostic.v1",
+  "status": "FROZEN_DIAGNOSTIC",
+  "run_id": 36106319723,
+  "head_sha": "107920071a8db62baf8d1993a57cac548e41566b",
+  "artifact": {
+    "id": 10850294862,
+    "name": "v07h-diagnostic-36106319723",
+    "github_digest": "sha256:8f3092876bc867a11cb90e7632b79bbd5ab471cea424477767fbb2657788d40c",
+    "independent_zip_sha256": "8f3092876bc867a11cb90e7632b79bbd5ab471cea424477767fbb2657788d40c"
+  },
+  "baseline": {
+    "placement": [1, 2, 3, 4],
+    "effort_per_context": 500.0,
+    "total_direct_effort": 2000.0,
+    "expected_direct_count": 931.2500000000001,
+    "worst_dynamic_sd": 0.23245395326115278
+  },
+  "selected": {
+    "placement": [2, 6, 7, 8],
+    "effort_per_context": 369.15453700836173,
+    "total_direct_effort": 1476.618148033447,
+    "expected_direct_count": 931.25,
+    "worst_dynamic_sd": 0.1703748190712751
+  },
+  "expected_count_relative_error": 1.2207982574133264e-16,
+  "selected_to_baseline_effort_ratio": 0.7383090740167234,
+  "selected_to_baseline_worst_sd_ratio": 0.7329400798783825
+}
