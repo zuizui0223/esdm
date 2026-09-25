@@ -14,7 +14,7 @@ def test_v05f_gate_inherits_v05a_science_and_adds_only_serialization():
     assert "36 spatial contexts" in text
     assert "24 training spaces" in text
     assert "12 held-out spaces" in text
-    assert "replicates per world = 16" in text
+    assert "16 replicates per world" in text
     assert "total fits = 64" in text
     assert "warmup = 300" in text
     assert "posterior samples = 350" in text
