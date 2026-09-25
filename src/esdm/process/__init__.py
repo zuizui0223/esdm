@@ -8,6 +8,7 @@ from .accessibility import LinearAccessibility, NeutralAccessibility
 from .activity import LinearActivity, NeutralActivity
 from .base import NoEffectProcess, PriorSpec, Process, ProcessContribution
 from .dynamics import ColonizationExtinctionOccupancy, NeutralOccupancy
+from .occupancy import StaticLinearOccupancy
 from .state import LinearState, NeutralState
 from .partner import PartnerIntensityEffect, NeutralPartnerIntensityEffect
 from .suitability import LinearSuitability, NeutralSuitability
@@ -24,6 +25,7 @@ __all__ = [
     "Process",
     "ProcessContribution",
     "ColonizationExtinctionOccupancy",
+    "StaticLinearOccupancy",
     "NeutralOccupancy",
     "LinearSuitability",
     "NeutralSuitability",
