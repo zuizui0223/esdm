@@ -133,6 +133,25 @@
       "reason": "frozen records retain Full-minus-knockout heldout_gain but not the two absolute held-out log scores; synthesizing zero and gain would violate the ODSP score contract"
     },
     {
+      "source_id": "v05f_directed_interaction_replication",
+      "programme": "v0.5f",
+      "status": "scientific_fail_not_exportable",
+      "frozen_receipt": "docs/validation/V05F_FROZEN_RESULTS.json",
+      "frozen_receipt_schema": "esdm.v05f.frozen_results.v1",
+      "frozen_result_status": "FAIL",
+      "source_artifact_id": 10851963085,
+      "source_result_schema": "esdm.v05f.interaction_transfer_replication.v1",
+      "absolute_score_fields": [],
+      "information_levels": [],
+      "score_currency": null,
+      "adapter_function": null,
+      "endpoint_id": null,
+      "validated_integration_receipt": null,
+      "parallel_family": null,
+      "natural_order_with_parallel_sibling": null,
+      "reason": "the independent-seed replication preserved original absolute Full and partner-knockout held-out scores, but failed the frozen null-specificity gate because 5/16 measured-shared-null replicates exceeded gain > 0.005 versus a maximum allowed 4/16; scientific FAIL blocks ODSP source promotion"
+    },
+    {
       "source_id": "v05b_hidden_common_driver",
       "programme": "v0.5b",
       "status": "scientific_fail_not_exportable",

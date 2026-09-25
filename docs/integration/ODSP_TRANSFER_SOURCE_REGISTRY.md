@@ -78,6 +78,23 @@ The frozen result retained held-out gain but not both absolute full and knockout
 log scores. Reconstructing an arbitrary baseline would violate the score
 contract.
 
+### v0.5f independent interaction replication
+
+Scientific result: FAIL.
+
+Registry status: `scientific_fail_not_exportable`.
+
+This replication intentionally fixed the old v0.5a serialization limitation:
+all 32 records preserved original absolute Full and partner-knockout held-out log
+scores, and the score identity was exact. The positive interaction world was
+strong (16/16 positive gains; mean +1.11906 nats/context), but the frozen
+measured-shared null specificity criterion failed by one replicate: 5/16 null
+replicates exceeded gain > +0.005, while at most 4/16 were allowed.
+
+Absolute score availability therefore does not override the scientific gate.
+The generated ODSP-compatible CSV/contract is retained only as serialization
+evidence and is not a validated transfer source.
+
 ### v0.5b hidden common driver
 
 Scientific result: FAIL.
