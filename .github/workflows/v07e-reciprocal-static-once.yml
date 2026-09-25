@@ -2,7 +2,7 @@ name: v0.7e frozen reciprocal static-world gate
 
 concurrency:
   group: v07e-reciprocal-static-outcome
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 on:
   push:
