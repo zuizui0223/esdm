@@ -13,7 +13,7 @@ def test_v07c_gate_document_freezes_matched_static_dynamic_programme():
     assert "contexts 9-12 are used only for joint-occurrence scoring" in text
     assert "direct occupancy exposure in contexts 9-12 is exactly zero" in text
     assert "static model has three ecological parameters" in text
-    assert "dynamic model has four ecological parameters" in text
+    assert "v0.7 colonization/extinction model has four ecological parameters" in text
     assert "target-SD threshold = 0.25" in text
     assert "replicates = 16" in text
     assert "total fits = 32" in text
