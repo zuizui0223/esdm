@@ -21,6 +21,7 @@ __all__ = [
     "build_odsp_transfer_bundle",
     "build_v04_r5b_activity_odsp_bundle",
     "build_v04_r5b_state_odsp_bundle",
+    "build_v05f_directed_interaction_odsp_bundle",
     "build_v06a_accessibility_odsp_bundle",
     "build_v07b_dynamic_occupancy_odsp_bundle",
     "ALLOWED_STATUSES",
@@ -39,6 +40,7 @@ from .odsp_adapter import (
     build_odsp_transfer_bundle,
     build_v04_r5b_activity_odsp_bundle,
     build_v04_r5b_state_odsp_bundle,
+    build_v05f_directed_interaction_odsp_bundle,
     build_v06a_accessibility_odsp_bundle,
     build_v07b_dynamic_occupancy_odsp_bundle,
 )
