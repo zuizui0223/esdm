@@ -23,6 +23,8 @@ V07L_PSI0_GRID = (0.05, 0.10, 0.20, 0.50, 0.80, 0.95)
 V07L_GAMMA_GRID = (0.05, 0.15, 0.35, 0.55, 0.75)
 V07L_EPSILON_GRID = (0.02, 0.05, 0.15, 0.30, 0.50)
 V07L_TRIGGER_RATIO = 0.80
+V07L_LOW_HEADROOM_MIN_RATIO = 0.95
+V07L_LOW_HEADROOM_MAX_SD = 0.25
 
 # Exact truth cells already consumed by earlier confirmatory programmes on this grid.
 V07L_EXCLUDED_CELLS = frozenset({
@@ -81,6 +83,8 @@ class V07LAudit:
     high_headroom: tuple[V07LAuditCell, ...]
     low_headroom: tuple[V07LAuditCell, ...]
     trigger_ratio: float
+    low_headroom_min_ratio: float
+    low_headroom_max_sd: float
     all_fresh_cells: tuple[V07LAuditCell, ...]
 
 
@@ -278,15 +282,32 @@ def evaluate_v07l_audit() -> V07LAudit:
         )
     )
     high = ordered[:2]
-    low = ordered[-2:]
+    low_candidates = tuple(
+        row
+        for row in fresh
+        if row.oracle_to_transferred_ratio >= V07L_LOW_HEADROOM_MIN_RATIO
+        and row.transferred_worst_sd <= V07L_LOW_HEADROOM_MAX_SD
+    )
+    low = tuple(
+        sorted(
+            low_candidates,
+            key=lambda row: (
+                -row.oracle_to_transferred_ratio,
+                row.transferred_worst_sd,
+                row.psi0,
+                row.gamma,
+                row.epsilon,
+            ),
+        )[:2]
+    )
 
     if max(row.oracle_to_transferred_ratio for row in high) > V07L_TRIGGER_RATIO:
         raise RuntimeError(
             "v0.7l expanded grid lacks two high-headroom fresh cells"
         )
-    if min(row.oracle_to_transferred_ratio for row in low) < 0.90:
+    if len(low) != 2:
         raise RuntimeError(
-            "v0.7l expanded grid lacks two low-headroom fresh cells"
+            "v0.7l expanded grid lacks two low-headroom precise fresh cells"
         )
 
     return V07LAudit(
@@ -294,5 +315,7 @@ def evaluate_v07l_audit() -> V07LAudit:
         high_headroom=high,
         low_headroom=low,
         trigger_ratio=V07L_TRIGGER_RATIO,
+        low_headroom_min_ratio=V07L_LOW_HEADROOM_MIN_RATIO,
+        low_headroom_max_sd=V07L_LOW_HEADROOM_MAX_SD,
         all_fresh_cells=ordered,
     )
