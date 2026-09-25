@@ -74,7 +74,7 @@ def test_v05a_gain_only_result_cannot_be_reconstructed_as_absolute_scores():
     source = transfer_source_by_id(_sources(), "v05a_directed_interaction")
 
     assert source.frozen_result_status == "PASS"
-    assert "gain-only" in source.status
+    assert source.status == "gain_only_not_exportable"
     assert "not the two absolute held-out log scores" in source.reason
     assert source.absolute_score_fields == ()
     assert source.score_currency is None
