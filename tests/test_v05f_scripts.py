@@ -36,3 +36,25 @@ def test_v05f_runners_pin_gate_seed_and_mcmc_profile():
     assert s._seed("interaction", 0) == 20271001
     assert s._seed("interaction", 15) == 20271001 + 15 * 73
     assert s._seed("measured_shared_null", 0) == 20271001 + 1000000
+
+
+def test_v05f_seed_family_is_disjoint_from_v05a():
+    s = _load("v05f_seed_check", "run_v05f_replicate.py")
+    old_base = 20261001
+    old_stride = 73
+    old_null_offset = 1000000
+
+    old = {
+        old_base + offset + old_stride * replicate
+        for offset in (0, old_null_offset)
+        for replicate in range(16)
+    }
+    new = {
+        s._seed(world, replicate)
+        for world in s.FROZEN_WORLDS
+        for replicate in range(s.FROZEN_REPLICATES)
+    }
+
+    assert len(old) == 32
+    assert len(new) == 32
+    assert old.isdisjoint(new)
