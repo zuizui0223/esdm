@@ -1,5 +1,9 @@
 name: v0.7l fresh headroom audit
 
+concurrency:
+  group: v07l-headroom-audit
+  cancel-in-progress: true
+
 on:
   push:
     branches:
