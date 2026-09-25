@@ -26,6 +26,8 @@ def main() -> int:
         "schema": "esdm.v07j.population_shift_surface.v1",
         "status": "COMPLETE",
         "cell_count": result.cell_count,
+        "eligible_count": result.eligible_count,
+        "ineligible_count": result.ineligible_count,
         "selected_better_count": result.selected_better_count,
         "selected_better_rate": result.selected_better_rate,
         "mean_ratio": result.mean_ratio,
