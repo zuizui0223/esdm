@@ -9,6 +9,7 @@ def test_v07l_audit_selects_fresh_extreme_headroom_cells():
     audit = evaluate_v07l_audit()
 
     assert audit.trigger_ratio == 0.80
+    assert audit.eligible_fresh_cells == 32
     assert len(audit.high_headroom) == 2
     assert len(audit.low_headroom) == 2
 
@@ -19,6 +20,7 @@ def test_v07l_audit_selects_fresh_extreme_headroom_cells():
             row.epsilon,
         ) not in V07L_EXCLUDED_CELLS
         assert row.transferred_conditioning_pass
+        assert row.local_eligible
 
     assert max(
         row.oracle_to_transferred_ratio
