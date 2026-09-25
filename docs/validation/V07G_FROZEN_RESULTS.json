@@ -1,0 +1,62 @@
+{
+  "schema": "esdm.v07g.calibration_placement_frozen_results.v1",
+  "status": "PASS",
+  "outcome_run_id": 36105638747,
+  "outcome_head_sha": "c033585d0a4fe958675d7c9f838be1532551785f",
+  "gate_freeze_commit": "5efbb6a34ab202c702d1206de325d3781185204a",
+  "gate_blob_sha": "a37866fb2bd368515f697aa5dbd3f3fb9da04ca8",
+  "selection": {
+    "run_id": 36105062429,
+    "head_sha": "2828b7dbe4badb982bba6fdb4f30a5cb94cd7cd2",
+    "artifact_id": 10850198439,
+    "artifact_digest": "sha256:45d19db95b45f03c0144a9e11e5636edd3387ff1c8e393eaefbbe0478356eae5",
+    "selected_placement": [2, 6, 7, 8],
+    "baseline_placement": [1, 2, 3, 4],
+    "selected_to_baseline_worst_sd_proxy_ratio": 0.6832796322194767
+  },
+  "result_artifact": {
+    "id": 10851250653,
+    "name": "v07g-result-36105638747",
+    "github_digest": "sha256:d3e736de84b62b399f3b61e1b22755069b0236e99616acf4680ae6dbcdb78bbf",
+    "independent_zip_sha256": "d3e736de84b62b399f3b61e1b22755069b0236e99616acf4680ae6dbcdb78bbf"
+  },
+  "summary": {
+    "replicates": 16,
+    "fit_count": 32,
+    "optimized_lower_worst_sd_rate": 1.0,
+    "mean_worst_sd_ratio": 0.6779513136682355,
+    "minimum_worst_sd_ratio": 0.5503209395402836,
+    "maximum_worst_sd_ratio": 0.8149465461832606,
+    "optimized_mean_biases": {
+      "sp.suitability.alpha": -0.0009143994442586297,
+      "sp.occupancy.psi0_logit": 0.04582510221862657,
+      "sp.occupancy.gamma_logit": -0.02671891441052488,
+      "sp.occupancy.epsilon_logit": -0.059245185964707195
+    },
+    "optimized_coverages": {
+      "sp.suitability.alpha": 0.875,
+      "sp.occupancy.psi0_logit": 0.8125,
+      "sp.occupancy.gamma_logit": 0.9375,
+      "sp.occupancy.epsilon_logit": 0.875
+    },
+    "positive_heldout_gain_rate": 0.5625,
+    "mean_heldout_gain": 0.019387443679042715,
+    "minimum_heldout_gain": -0.23815487576205552,
+    "total_divergences": 0
+  },
+  "gate": {
+    "passed": true,
+    "checks_passed": 13,
+    "checks_total": 13
+  },
+  "interpretation_boundary": {
+    "equal_direct_field_effort": true,
+    "equal_number_of_direct_calibration_contexts": true,
+    "optimized_parameter_precision_established": true,
+    "optimized_known_truth_recovery_established": true,
+    "predictive_superiority_established": false,
+    "equal_expected_direct_record_count": false,
+    "universal_placement_optimality": false,
+    "empirical_biological_validity": false
+  }
+}
