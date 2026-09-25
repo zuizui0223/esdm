@@ -1,8 +1,0 @@
-v0.7d one-shot scientific outcome authorization
-
-gate_freeze_commit=c50e05f049da05c5b5063d5034cacfae9e8ecd98
-gate_blob_sha=131f0376a5097aa97358ff2511a63c68f2922a53
-replicates=16
-base_seed=20261201
-seed_stride=163
-authorized_after_precheck=true
