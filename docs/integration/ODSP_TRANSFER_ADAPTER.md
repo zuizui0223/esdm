@@ -158,3 +158,54 @@ frozen EOG-WF endpoint denominator.
 
 In particular, the validated payload does not feed the existing EOG survey
 ranking implementation and does not authorize any N4 action.
+
+
+## Second validated level: v0.7b dynamic occupancy
+
+The same cross-repository path has now been validated for a second, independently
+frozen information contrast:
+
+```text
+suitability
+  subset
+suitability + dynamic occupancy
+```
+
+The source is the authorized v0.7b known-truth result. Direct occupancy
+calibration exists only in early training contexts; held-out contexts contain
+joint occurrence only.
+
+Frozen v0.7b result:
+
+```text
+replicates                              16
+positive dynamic-occupancy gain        16 / 16
+mean Full - occupancy-knockout gain    +7.0908279898 nats/context
+minimum replicate gain                 +3.5637099446
+divergences                            0 / 32 fits
+```
+
+Pinned ODSP audit:
+
+```text
+population mean gain                    +7.0908279898
+95% group-bootstrap interval            [6.1125664615, 7.9616799541]
+population ceiling                      suitability_dynamic_occupancy
+legacy certified ceiling                suitability_only
+```
+
+The older certified ceiling again stops at the base level because each
+known-truth replicate contributes one aggregate held-out score row. The
+population estimand instead uses the 16 independent replicate gains directly.
+
+The N2-to-N3 handoff carries:
+
+```text
+expected transfer value                 +7.0908279898
+conservative mean value                 +6.1125664615
+new-replicate prediction interval       [2.9856269032, 11.1960290763]
+```
+
+This establishes a software/inference interface for **marginal dynamic occupancy
+information**. It does not turn the v0.7 process into a movement kernel,
+connectivity model, realized colonization history, or field-survey priority.
