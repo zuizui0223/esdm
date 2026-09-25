@@ -51,6 +51,7 @@ jobs:
             tests/test_v07k_fixture.py \
             tests/test_v07k_gate.py \
             tests/test_v07k_gate_freeze.py \
+            tests/test_v07k_parent_context.py \
             tests/test_v07k_scripts.py \
             tests/test_v07k_workflow.py
 
