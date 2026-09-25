@@ -17,6 +17,7 @@ from .v07b_fixture import (
 V07G_CALIBRATION_COUNT = 4
 V07G_TOTAL_DIRECT_EFFORT = V07G_CALIBRATION_COUNT * V07B_DIRECT_EFFORT
 V07G_BASELINE_PLACEMENT = (1, 2, 3, 4)
+V07G_SELECTED_PLACEMENT = (2, 6, 7, 8)
 V07G_DYNAMIC_TARGETS = (
     "sp.occupancy.psi0_logit",
     "sp.occupancy.gamma_logit",
@@ -81,4 +82,75 @@ def build_v07g_fixture(placement) -> V07GFixture:
         generating_theta_obs=source.generating_theta_obs,
         placement=days,
         total_direct_effort=total_effort,
+    )
+
+
+@dataclass(frozen=True, slots=True)
+class V07GValidationFixture:
+    source: object
+    generator_model: Model
+    optimized_model: Model
+    baseline_model: Model
+    scoring_model: Model
+    covariates: dict
+    generating_theta: dict
+    generating_theta_obs: dict
+    optimized_keys: tuple
+    baseline_keys: tuple
+    heldout_keys: tuple
+
+
+def build_v07g_validation_fixture() -> V07GValidationFixture:
+    source = build_v07b_fixture()
+    all_training_days = set(range(1, V07B_JOINT_TRAIN_COUNT + 1))
+    direct = OccupancyCount(
+        "occupancy_calibration",
+        effort=EffortField({
+            key: float(V07B_DIRECT_EFFORT)
+            for key in source.generator_model.domain.keys
+            if int(key[1]) in all_training_days
+        }),
+        informs=frozenset({"occupancy"}),
+        targets=frozenset({"sp"}),
+    )
+    joint_generator = next(
+        stream
+        for stream in source.generator_model.streams
+        if stream.name == "joint"
+    )
+    generator = Model(
+        source.generator_model.domain,
+        source.generator_model.species,
+        (joint_generator, direct),
+    )
+    generator.check_design()
+
+    optimized = build_v07g_fixture(V07G_SELECTED_PLACEMENT)
+    baseline = build_v07g_fixture(V07G_BASELINE_PLACEMENT)
+    if optimized.total_direct_effort != baseline.total_direct_effort:
+        raise RuntimeError("v0.7g candidate effort budgets do not match")
+
+    optimized_keys = tuple(
+        key
+        for key in source.training_model.domain.keys
+        if int(key[1]) in set(V07G_SELECTED_PLACEMENT)
+    )
+    baseline_keys = tuple(
+        key
+        for key in source.training_model.domain.keys
+        if int(key[1]) in set(V07G_BASELINE_PLACEMENT)
+    )
+
+    return V07GValidationFixture(
+        source=source,
+        generator_model=generator,
+        optimized_model=optimized.training_model,
+        baseline_model=baseline.training_model,
+        scoring_model=source.scoring_model,
+        covariates=source.covariates,
+        generating_theta=source.generating_theta,
+        generating_theta_obs=source.generating_theta_obs,
+        optimized_keys=optimized_keys,
+        baseline_keys=baseline_keys,
+        heldout_keys=source.heldout_keys,
     )
