@@ -1,0 +1,75 @@
+{
+  "schema": "esdm.v07e.reciprocal_static_frozen_results.v1",
+  "status": "PASS",
+  "outcome_run_id": 36102363743,
+  "outcome_head_sha": "beb373cca11d4c12a56558565e13159a5fc37767",
+  "gate_freeze_commit": "3f542a4069bb77eda706e99347dda51414132ce9",
+  "gate_blob_sha": "e4bc1e342808353f65067a2379c9813a13e867a4",
+  "observed_gate_blob_sha": "e4bc1e342808353f65067a2379c9813a13e867a4",
+  "superseded_infrastructure_run": {
+    "run_id": 36088734964,
+    "head_sha": "1d6b69c85d7b7d1d6aad26de2cdb266910c66300",
+    "qualification_passed": true,
+    "replicates_started": false,
+    "reason": "authorization cleanup triggered workflow concurrency cancellation before replicate execution"
+  },
+  "infrastructure_repair": {
+    "commit": "4bcb4794d5d6eee51c4afcfe40eb12fcc836ab56",
+    "change": "cancel-in-progress true -> false",
+    "scientific_settings_changed": false
+  },
+  "qualification_artifact": {
+    "id": 10849895700,
+    "name": "v07e-qualification-36102363743",
+    "github_digest": "sha256:f434e06e55125e96e7301fb5fba3ea4b4e15eefd95bccdb20e88f02db4d7bba1",
+    "independent_zip_sha256": "f434e06e55125e96e7301fb5fba3ea4b4e15eefd95bccdb20e88f02db4d7bba1"
+  },
+  "result_artifact": {
+    "id": 10850405096,
+    "name": "v07e-result-36102363743",
+    "github_digest": "sha256:e05fecc31d680b52fd84f85e21b4ee4243c7ba2cc7029e512976967c378803b5",
+    "independent_zip_sha256": "e05fecc31d680b52fd84f85e21b4ee4243c7ba2cc7029e512976967c378803b5"
+  },
+  "qualification": {
+    "dynamic_structural_pass": true,
+    "dynamic_practical_pass": true,
+    "static_structural_pass": true,
+    "static_practical_pass": true
+  },
+  "summary": {
+    "replicates": 16,
+    "fit_count": 32,
+    "static_better_rate": 1.0,
+    "mean_static_gain": 13.166443526278998,
+    "minimum_static_gain": 9.862765546190762,
+    "total_divergences": 0
+  },
+  "gate": {
+    "passed": true,
+    "checks_passed": 9,
+    "checks_total": 9
+  },
+  "reciprocal_pair": {
+    "v07d_dynamic_world_dynamic_better_rate": 1.0,
+    "v07d_dynamic_world_mean_dynamic_gain": 14.144259876683904,
+    "v07e_static_world_static_better_rate": 1.0,
+    "v07e_static_world_mean_static_gain": 13.166443526278998,
+    "bidirectional_resolution_discrimination_established": true
+  },
+  "interpretation_boundary": {
+    "same_candidate_models_as_v07d": true,
+    "equal_parameter_count": true,
+    "same_observation_programme": true,
+    "heldout_direct_occupancy_exposure": false,
+    "static_truth_favors_static_representation": true,
+    "dynamic_truth_favors_dynamic_representation": true,
+    "benchmark_intrinsic_dynamic_bias_supported": false,
+    "universal_model_selection_consistency": false,
+    "realized_binary_occupancy_history_established": false,
+    "colonization_extinction_events_observed": false,
+    "movement_kernel_identified": false,
+    "connectivity_identified": false,
+    "source_sink_dynamics_identified": false,
+    "empirical_biological_validity": false
+  }
+}
