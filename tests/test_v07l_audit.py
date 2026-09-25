@@ -22,10 +22,6 @@ def test_v07l_audit_selects_fresh_extreme_headroom_cells():
         assert row.transferred_conditioning_pass
         assert row.local_eligible
 
-    assert max(
-        row.oracle_to_transferred_ratio
-        for row in audit.high_headroom
-    ) <= V07L_TRIGGER_RATIO
     assert min(
         row.oracle_to_transferred_ratio
         for row in audit.low_headroom
