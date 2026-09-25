@@ -329,6 +329,25 @@
       "parallel_family": null,
       "natural_order_with_parallel_sibling": null,
       "reason": "Dynamic and matched static occupancy compare alternative representations of the same occupancy information under the same observation programme; neither candidate contains a strict superset of ecological information, so the PASS benchmark is a model-representation result rather than an ODSP information-transfer source"
+    },
+    {
+      "source_id": "v07d_equal_dimension_static_vs_dynamic",
+      "programme": "v0.7d",
+      "status": "non_nested_comparison_not_transfer",
+      "frozen_receipt": "docs/validation/V07D_FROZEN_RESULTS.json",
+      "frozen_receipt_schema": "esdm.v07d.equal_dimension_frozen_results.v1",
+      "frozen_result_status": "PASS",
+      "source_artifact_id": 10842252655,
+      "source_result_schema": null,
+      "absolute_score_fields": [],
+      "information_levels": [],
+      "score_currency": null,
+      "adapter_function": null,
+      "endpoint_id": null,
+      "validated_integration_receipt": null,
+      "parallel_family": null,
+      "natural_order_with_parallel_sibling": null,
+      "reason": "Dynamic and equal-dimension static quadratic occupancy are alternative representations of the same occupancy information with identical parameter count and observation programme; neither information set strictly contains the other, so the PASS benchmark is not an ODSP information-transfer source"
     }
   ],
   "boundary": {
