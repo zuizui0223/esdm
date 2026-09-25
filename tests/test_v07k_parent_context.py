@@ -3,7 +3,10 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from esdm.validate.v07k_fixture import V07K_WORLDS
+from esdm.validate.v07k_fixture import (
+    V07K_WORLD_PROBABILITIES,
+    V07K_WORLDS,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -55,13 +58,14 @@ def test_v07k_stress_worlds_come_from_surface_not_v07j_confirmatory_worlds():
         0.30,
     )
 
-    assert V07K_WORLDS["transfer_positive"] == {
+    assert V07K_WORLDS == ("transfer_positive", "reversal")
+    assert V07K_WORLD_PROBABILITIES["transfer_positive"] == {
         "alpha": 0.30,
         "psi0": 0.20,
         "gamma": 0.15,
         "epsilon": 0.05,
     }
-    assert V07K_WORLDS["reversal"] == {
+    assert V07K_WORLD_PROBABILITIES["reversal"] == {
         "alpha": 0.30,
         "psi0": 0.80,
         "gamma": 0.15,
