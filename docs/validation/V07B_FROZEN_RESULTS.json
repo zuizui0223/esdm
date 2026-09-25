@@ -1,0 +1,74 @@
+{
+  "schema": "esdm.v07b.dynamic_recovery_frozen_results.v1",
+  "status": "PASS",
+  "outcome_run_id": 36076155807,
+  "outcome_head_sha": "c1622dea9168d1f8ad9a57ed5ecf823fa0953f49",
+  "gate_freeze_commit": "e1f805c6681d33bfc92758b2cdf9d95673353ccc",
+  "gate_blob_sha": "b0f721ac334a2e76e0387510f5a889980eaefe53",
+  "observed_gate_blob_sha": "b0f721ac334a2e76e0387510f5a889980eaefe53",
+  "qualification_artifact": {
+    "id": 10840113175,
+    "name": "v07b-qualification-36076155807",
+    "github_digest": "sha256:a956b81173d0d4a91b6f4964af340bf45646c7f325e6f6f3350ed095de09473a",
+    "independent_zip_sha256": "a956b81173d0d4a91b6f4964af340bf45646c7f325e6f6f3350ed095de09473a"
+  },
+  "result_artifact": {
+    "id": 10839488324,
+    "name": "v07b-result-36076155807",
+    "github_digest": "sha256:ac2f9d51fef951a188de037dcf04c6444531a741d8309cb7ae45383d2428784e",
+    "independent_zip_sha256": "ac2f9d51fef951a188de037dcf04c6444531a741d8309cb7ae45383d2428784e"
+  },
+  "qualification": {
+    "joint_only_rank": 3,
+    "joint_only_parameter_count": 4,
+    "joint_only_all_targets_not_identified": true,
+    "direct_rank": 4,
+    "direct_all_targets_identified": true,
+    "condition_number": 13.062138042608186,
+    "relative_min_singular_value": 0.07655714529566592,
+    "target_sd_proxies": {
+      "sp.suitability.alpha": 0.041484236550050714,
+      "sp.occupancy.psi0_logit": 0.08689968677426371,
+      "sp.occupancy.gamma_logit": 0.10322771779473243,
+      "sp.occupancy.epsilon_logit": 0.23245395326115278
+    }
+  },
+  "summary": {
+    "replicates": 16,
+    "fit_count": 32,
+    "mean_biases": {
+      "sp.suitability.alpha": -0.007477550512578864,
+      "sp.occupancy.psi0_logit": -0.004921413414113479,
+      "sp.occupancy.gamma_logit": 0.027819729313826713,
+      "sp.occupancy.epsilon_logit": 0.01441914403455237
+    },
+    "coverages": {
+      "sp.suitability.alpha": 0.9375,
+      "sp.occupancy.psi0_logit": 1.0,
+      "sp.occupancy.gamma_logit": 0.875,
+      "sp.occupancy.epsilon_logit": 0.875
+    },
+    "positive_late_transfer_rate": 1.0,
+    "mean_late_transfer_gain": 8.311793732461236,
+    "minimum_late_transfer_gain": 5.112501128440344,
+    "total_divergences": 0
+  },
+  "gate": {
+    "passed": true,
+    "checks_passed": 16,
+    "checks_total": 16
+  },
+  "interpretation_boundary": {
+    "marginal_dynamic_parameter_recovery_established": true,
+    "late_joint_occurrence_transfer_established": true,
+    "heldout_direct_occupancy_exposure": false,
+    "comparison_reference": "explicit occupancy knockout psi=1",
+    "dynamic_superiority_over_matched_static_occupancy_established": false,
+    "realized_binary_occupancy_history_established": false,
+    "colonization_extinction_events_observed": false,
+    "movement_kernel_identified": false,
+    "connectivity_identified": false,
+    "source_sink_dynamics_identified": false,
+    "empirical_biological_validity": false
+  }
+}
