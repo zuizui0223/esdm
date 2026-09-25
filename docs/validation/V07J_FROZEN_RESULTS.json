@@ -1,0 +1,99 @@
+{
+  "schema": "esdm.v07j.population_shift_frozen_results.v1",
+  "status": "FAIL",
+  "outcome_run_id": 36117154435,
+  "outcome_head_sha": "cb91c1f3df498c169e8c820a58f250382c8b2f47",
+  "gate_freeze_commit": "41d669b2b3fce602d969bd60b7c469de6e9ebc83",
+  "gate_blob_sha": "7d576aef64fdc16373ec56eb60ba5a5c40bb6666",
+  "observed_gate_blob_sha": "7d576aef64fdc16373ec56eb60ba5a5c40bb6666",
+  "surface_provenance": {
+    "run_id": 36111568220,
+    "artifact_id": 10853645888,
+    "artifact_sha256": "9166004059c6ee451594d6609b91ed9b40c963e130e6a3a5d62c8043a35eb445"
+  },
+  "result_artifact": {
+    "id": 10855459150,
+    "name": "v07j-result-36117154435",
+    "github_digest": "sha256:37832f6a825a395ea10c0261af47f4cd7ce6d6bc3ad20f35125bfdaa1529e52b",
+    "independent_zip_sha256": "37832f6a825a395ea10c0261af47f4cd7ce6d6bc3ad20f35125bfdaa1529e52b"
+  },
+  "summary": {
+    "replicates": 32,
+    "fit_count": 64,
+    "total_divergences": 0,
+    "worlds": {
+      "transfer_positive": {
+        "replicates": 16,
+        "fit_count": 32,
+        "correct_direction_rate": 0.75,
+        "mean_selected_to_baseline_ratio": 0.9682667664581317,
+        "minimum_ratio": 0.7430565399456882,
+        "maximum_ratio": 1.5371013241435025,
+        "winner_mean_biases": {
+          "sp.suitability.alpha": 0.0011198515744347843,
+          "sp.occupancy.psi0_logit": -0.029401429842558585,
+          "sp.occupancy.gamma_logit": -0.013942830393190275,
+          "sp.occupancy.epsilon_logit": -0.3489343450127833
+        },
+        "winner_coverages": {
+          "sp.suitability.alpha": 0.8125,
+          "sp.occupancy.psi0_logit": 0.875,
+          "sp.occupancy.gamma_logit": 0.75,
+          "sp.occupancy.epsilon_logit": 0.875
+        },
+        "mean_heldout_gain": -0.07421613821124301,
+        "positive_heldout_gain_rate": 0.4375,
+        "total_divergences": 0
+      },
+      "reversal": {
+        "replicates": 16,
+        "fit_count": 32,
+        "correct_direction_rate": 0.9375,
+        "mean_selected_to_baseline_ratio": 1.5813994797764315,
+        "minimum_ratio": 0.9318767253980024,
+        "maximum_ratio": 3.0598351565988415,
+        "winner_mean_biases": {
+          "sp.suitability.alpha": -0.007614978023006442,
+          "sp.occupancy.psi0_logit": 0.11685977911729584,
+          "sp.occupancy.gamma_logit": -0.050267019618668085,
+          "sp.occupancy.epsilon_logit": -0.022564042799417844
+        },
+        "winner_coverages": {
+          "sp.suitability.alpha": 1.0,
+          "sp.occupancy.psi0_logit": 0.875,
+          "sp.occupancy.gamma_logit": 0.8125,
+          "sp.occupancy.epsilon_logit": 0.8125
+        },
+        "mean_heldout_gain": 0.07209501481656788,
+        "positive_heldout_gain_rate": 0.5625,
+        "total_divergences": 0
+      }
+    }
+  },
+  "gate": {
+    "passed": false,
+    "checks_passed": 23,
+    "checks_total": 25,
+    "failed_checks": [
+      {
+        "name": "transfer_positive:mean_ratio",
+        "observed": 0.9682667664581317,
+        "criterion": "<= 0.95"
+      },
+      {
+        "name": "transfer_positive:winner_bias:sp.occupancy.epsilon_logit",
+        "observed": -0.3489343450127833,
+        "criterion": "abs(mean bias) <= 0.20"
+      }
+    ]
+  },
+  "interpretation": {
+    "fixed_schedule_universally_transportable": false,
+    "reversal_detected": true,
+    "transfer_positive_win_rate_threshold_met": true,
+    "transfer_positive_effect_threshold_met": false,
+    "transfer_positive_recovery_guardrail_met": false,
+    "population_shift_requires_reoptimization_in_some_regions": true,
+    "empirical_field_transportability_established": false
+  }
+}
