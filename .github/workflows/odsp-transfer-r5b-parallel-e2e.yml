@@ -1,0 +1,169 @@
+name: odsp-transfer-r5b-parallel-e2e
+
+on:
+  pull_request:
+    paths:
+      - 'src/esdm/transfer/odsp_adapter.py'
+      - 'src/esdm/transfer/__init__.py'
+      - 'scripts/export_v04_r5b_odsp_transfer.py'
+      - 'tests/test_r5b_odsp_adapter.py'
+      - 'ODSP_TRANSFER_R5B_PARALLEL_BINDING_V1.json'
+      - 'tests/test_r5b_odsp_parallel_binding.py'
+      - '.github/workflows/odsp-transfer-r5b-parallel-e2e.yml'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install eSDM and pinned ODSP
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e . pytest
+          python -m pip install 'git+https://github.com/zuizui0223/odsp.git@0bd83e1ebb372c48839654ab0e42124fe37b8faf'
+
+      - name: Validate R5b adapter and binding
+        run: >-
+          python -m pytest -q
+          tests/test_r5b_odsp_adapter.py
+          tests/test_r5b_odsp_parallel_binding.py
+
+      - name: Download frozen R5b outcome
+        uses: actions/download-artifact@v4
+        with:
+          name: v04-r5b-outcome-35879936964
+          path: build/source
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 35879936964
+
+      - name: Verify frozen R5b result hash
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          binding = json.loads(Path("ODSP_TRANSFER_R5B_PARALLEL_BINDING_V1.json").read_text())
+          path = Path("build/source/v04_r5b_outcome.json")
+          observed = hashlib.sha256(path.read_bytes()).hexdigest()
+          expected = binding["source"]["result_sha256"]
+          if observed != expected:
+              raise SystemExit(f"R5b result sha256 mismatch: {observed} != {expected}")
+          PY
+
+      - name: Export parallel R5b ODSP bundles
+        run: |
+          python scripts/export_v04_r5b_odsp_transfer.py             --result build/source/v04_r5b_outcome.json             --out-dir build/e2e
+
+      - name: Run pinned ODSP transfer audits
+        run: |
+          odsp transfer             --contract build/e2e/activity/endpoint.json             --out build/e2e/activity/receipt.json
+          odsp transfer             --contract build/e2e/state/endpoint.json             --out build/e2e/state/receipt.json
+
+      - name: Validate both population results and build N3 handoffs
+        run: |
+          python - <<'PY'
+          import json
+          import math
+          from pathlib import Path
+
+          from odsp import (
+              build_population_transfer_value_handoff,
+              validate_population_transfer_value_handoff,
+          )
+
+          binding = json.loads(Path("ODSP_TRANSFER_R5B_PARALLEL_BINDING_V1.json").read_text())
+          source = json.loads(Path("build/source/v04_r5b_outcome.json").read_text())
+          common = binding["common_n3_handoff"]
+
+          outputs = {}
+          for key in ("activity", "state"):
+              spec = binding["contrasts"][key]
+              receipt_path = Path(f"build/e2e/{key}/receipt.json")
+              receipt = json.loads(receipt_path.read_text())
+              population = receipt["population_result"]
+              total = population["total_gain"]
+              certified = receipt["certified_result"]["certification"]
+              point = receipt["point_result"]["predictive_result"]
+              expected = spec["expected_odsp"]
+
+              source_mean = (
+                  source["outcome_summary"]["mean_activity_gain"]
+                  if key == "activity"
+                  else source["outcome_summary"]["mean_state_gain"]
+              )
+              assert math.isclose(total["mean_gain"], source_mean, rel_tol=0.0, abs_tol=1e-12)
+              assert math.isclose(total["mean_gain"], expected["population_mean_gain"], rel_tol=0.0, abs_tol=1e-12)
+              assert math.isclose(total["mean_gain_lower"], expected["population_mean_interval"][0], rel_tol=0.0, abs_tol=1e-12)
+              assert math.isclose(total["mean_gain_upper"], expected["population_mean_interval"][1], rel_tol=0.0, abs_tol=1e-12)
+              assert total["positive_group_count"] == 16
+              assert total["positive_group_fraction"] == 1.0
+              assert total["mean_gain_status"] == expected["population_status"]
+              assert point["all_group_point_transfer_ceiling"] == expected["population_ceiling"]
+              assert population["population_mean_supported_ceiling"] == expected["population_ceiling"]
+              assert certified["all_steps_estimable"] is expected["certification_all_steps_estimable"]
+              assert certified["certified_transfer_ceiling"] == expected["certified_ceiling"]
+
+              observed_pi = [total["prediction_lower"], total["prediction_upper"]]
+              for observed, frozen in zip(observed_pi, expected["prediction_interval"]):
+                  assert math.isclose(observed, frozen, rel_tol=0.0, abs_tol=1e-12)
+
+              handoff = build_population_transfer_value_handoff(
+                  evidence_id=f"esdm-v04-r5b-{key}-transfer-v1",
+                  population_result=population,
+                  group_semantics=common["group_semantics"],
+                  population_cluster_semantics=common["population_cluster_semantics"],
+                  score_kind=common["score_kind"],
+                  score_name=common["score_name"],
+                  score_unit=common["score_unit"],
+                  source_receipt="receipt.json",
+                  source_contract="endpoint.json",
+              ).as_dict()
+              assert math.isclose(
+                  handoff["total_value"]["conservative_mean_value"],
+                  spec["n3"]["expected_conservative_mean_value"],
+                  rel_tol=0.0,
+                  abs_tol=1e-12,
+              )
+              assert handoff["boundary"]["authorizes_spatial_patch_ranking"] is False
+              assert handoff["boundary"]["authorizes_survey_site_selection"] is False
+              assert handoff["boundary"]["n4_survey_action_owner"] == "ACSP"
+              validate_population_transfer_value_handoff(handoff)
+
+              handoff_path = Path(f"build/e2e/{key}/N2_TO_N3_TRANSFER_VALUE_PAYLOAD.json")
+              handoff_path.write_text(
+                  json.dumps(handoff, indent=2, sort_keys=True, allow_nan=False) + "\n",
+                  encoding="utf-8",
+              )
+              outputs[key] = {
+                  "mean_gain": total["mean_gain"],
+                  "interval": [total["mean_gain_lower"], total["mean_gain_upper"]],
+                  "prediction_interval": observed_pi,
+                  "population_ceiling": population["population_mean_supported_ceiling"],
+                  "certified_ceiling": certified["certified_transfer_ceiling"],
+                  "conservative_value": handoff["total_value"]["conservative_mean_value"],
+                  "fingerprint": handoff["fingerprint"],
+              }
+          print(json.dumps(outputs, sort_keys=True))
+          PY
+
+      - name: Upload parallel R5b integration artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: esdm-r5b-odsp-parallel-e2e-v1
+          path: |
+            build/e2e/activity/
+            build/e2e/state/
+          if-no-files-found: error
+          retention-days: 90
