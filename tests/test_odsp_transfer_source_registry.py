@@ -57,6 +57,7 @@ def test_nonexportable_sources_fail_closed_through_registry_api():
         "v06b_joint_accessibility_identification": "identification_only_not_transfer",
         "v06c_budget_matched_accessibility": "non_nested_comparison_not_transfer",
         "v07a_dynamic_occupancy_identification": "identification_only_not_transfer",
+        "v07c_static_vs_dynamic_occupancy": "non_nested_comparison_not_transfer",
     }
 
     for source_id, status in expected.items():
@@ -174,3 +175,18 @@ def test_validated_integration_receipts_reference_expected_endpoint_ids():
             assert payload["contrasts"]["state"]["endpoint_id"] == source.endpoint_id
         else:
             raise AssertionError(f"unhandled exportable source {source.source_id}")
+
+
+def test_v07c_pass_is_model_representation_benchmark_not_information_transfer():
+    source = transfer_source_by_id(
+        _sources(), "v07c_static_vs_dynamic_occupancy"
+    )
+    frozen = json.loads((ROOT / source.frozen_receipt).read_text(encoding="utf-8"))
+
+    assert source.frozen_result_status == "PASS"
+    assert frozen["summary"]["dynamic_better_rate"] == 0.9375
+    assert frozen["summary"]["mean_dynamic_gain"] > 0
+    assert source.status == "non_nested_comparison_not_transfer"
+    assert source.exportable is False
+    assert source.information_levels == ()
+    assert "same occupancy information" in source.reason
