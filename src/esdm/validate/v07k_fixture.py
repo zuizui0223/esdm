@@ -3,16 +3,30 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import math
 
 from esdm.model import Model
 from esdm.observe import EffortField, OccupancyCount
 from .v07b_fixture import V07B_DIRECT_EFFORT, build_v07b_fixture
 from .v07g_fixture import V07G_SELECTED_PLACEMENT
 from .v07i_fixture import build_v07i_pilot_fixture
-from .v07j_confirm import V07J_WORLDS, theta_for_v07j_world
 
 
-V07K_WORLDS = V07J_WORLDS
+V07K_WORLDS = ("transfer_positive", "reversal")
+V07K_WORLD_PROBABILITIES = {
+    "transfer_positive": {
+        "alpha": 0.30,
+        "psi0": 0.20,
+        "gamma": 0.15,
+        "epsilon": 0.05,
+    },
+    "reversal": {
+        "alpha": 0.30,
+        "psi0": 0.80,
+        "gamma": 0.15,
+        "epsilon": 0.30,
+    },
+}
 V07K_TRANSFERRED_PLACEMENT = V07G_SELECTED_PLACEMENT
 V07K_DIRECT_EFFORT_PER_CONTEXT = float(V07B_DIRECT_EFFORT)
 V07K_TOTAL_DIRECT_EFFORT = 4 * V07K_DIRECT_EFFORT_PER_CONTEXT
@@ -20,6 +34,38 @@ V07K_ORACLE_PLACEMENTS = {
     "transfer_positive": (1, 3, 7, 8),
     "reversal": (1, 2, 7, 8),
 }
+
+
+def _logit(probability: float) -> float:
+    p = float(probability)
+    if not 0.0 < p < 1.0:
+        raise ValueError("v0.7k probability must lie strictly between zero and one")
+    return math.log(p / (1.0 - p))
+
+
+def theta_for_v07k_world(world: str) -> dict:
+    name = str(world)
+    if name not in V07K_WORLD_PROBABILITIES:
+        raise KeyError(f"unknown v0.7k stress world {name!r}")
+    truth = V07K_WORLD_PROBABILITIES[name]
+    return {
+        "sp": {
+            "alpha": float(truth["alpha"]),
+            "psi0_logit": _logit(float(truth["psi0"])),
+            "gamma_logit": _logit(float(truth["gamma"])),
+            "epsilon_logit": _logit(float(truth["epsilon"])),
+        }
+    }
+
+
+def truth_sites_for_v07k_world(world: str) -> dict[str, float]:
+    theta = theta_for_v07k_world(world)["sp"]
+    return {
+        "sp.suitability.alpha": float(theta["alpha"]),
+        "sp.occupancy.psi0_logit": float(theta["psi0_logit"]),
+        "sp.occupancy.gamma_logit": float(theta["gamma_logit"]),
+        "sp.occupancy.epsilon_logit": float(theta["epsilon_logit"]),
+    }
 
 
 def _direct_stream(name, domain, placement):
@@ -58,7 +104,7 @@ def build_v07k_local_pilot_fixture(world: str) -> V07KLocalPilotFixture:
         generator_model=source.generator_model,
         training_model=source.training_model,
         covariates=source.covariates,
-        generating_theta=theta_for_v07j_world(name),
+        generating_theta=theta_for_v07k_world(name),
         generating_theta_obs=source.generating_theta_obs,
         pilot_keys=source.pilot_keys,
         world=name,
@@ -151,7 +197,7 @@ def build_v07k_confirm_fixture(
         transferred_model=transferred,
         scoring_model=source.scoring_model,
         covariates=source.covariates,
-        generating_theta=theta_for_v07j_world(name),
+        generating_theta=theta_for_v07k_world(name),
         generating_theta_obs={
             "joint": {},
             "adaptive_calibration": {},
