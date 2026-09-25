@@ -39,7 +39,9 @@ class TransferEvidenceItem:
     receipt_sha256: str
 
     def as_dict(self) -> dict[str, object]:
-        return asdict(self)
+        value = asdict(self)
+        value["added_information"] = list(self.added_information)
+        return value
 
 
 @dataclass(frozen=True, slots=True)
