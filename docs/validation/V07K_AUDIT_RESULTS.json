@@ -1,0 +1,32 @@
+{
+  "schema": "esdm.v07k.local_repilot_audit_summary.v1",
+  "status": "COMPLETE",
+  "audit_run_id": 36118088393,
+  "audit_head_sha": "5bdb1c671e88bf8ad3c5a6755a0ff5438f67f460",
+  "audit_artifact": {
+    "id": 10855618140,
+    "name": "v07k-audit-36118088393",
+    "github_digest": "sha256:1a3505cda24e32b86f5ef18bfc79a0228786eb9357f718ce5003082b32621150",
+    "independent_zip_sha256": "1a3505cda24e32b86f5ef18bfc79a0228786eb9357f718ce5003082b32621150"
+  },
+  "worlds": {
+    "transfer_positive": {
+      "local_oracle_placement": [1, 3, 7, 8],
+      "local_oracle_to_transferred_ratio": 0.9247321772913307,
+      "local_oracle_to_baseline_ratio": 0.7941382408242843,
+      "transferred_to_baseline_ratio": 0.8587764763960369
+    },
+    "reversal": {
+      "local_oracle_placement": [1, 2, 7, 8],
+      "local_oracle_to_transferred_ratio": 0.6943717396344599,
+      "local_oracle_to_baseline_ratio": 0.9576958563624403,
+      "transferred_to_baseline_ratio": 1.3792264311715838
+    }
+  },
+  "interpretation": {
+    "local_reoptimization_has_deterministic_value_in_both_worlds": true,
+    "oracle_schedule_is_world_specific": true,
+    "fixed_transferred_schedule_universally_optimal": false,
+    "confirmatory_mcmc_outcome_seen": false
+  }
+}
