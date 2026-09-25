@@ -7,8 +7,9 @@ on:
     paths:
       - .github/workflows/v07g-calibration-frontier.yml
       - scripts/run_v07g_frontier.py
-      - src/esdm/validate/v07g_*.py
-      - tests/test_v07g_*.py
+      - src/esdm/validate/v07g_fixture.py
+      - src/esdm/validate/v07g_frontier.py
+      - tests/test_v07g_fixture.py
 
 jobs:
   frontier:
