@@ -1,0 +1,41 @@
+{
+  "schema": "esdm.v07g.calibration_frontier_selection.v1",
+  "status": "FROZEN_SELECTION",
+  "selection_run_id": 36105062429,
+  "selection_head_sha": "2828b7dbe4badb982bba6fdb4f30a5cb94cd7cd2",
+  "artifact": {
+    "id": 10850198439,
+    "name": "v07g-frontier-36105062429",
+    "github_digest": "sha256:45d19db95b45f03c0144a9e11e5636edd3387ff1c8e393eaefbbe0478356eae5",
+    "independent_zip_sha256": "45d19db95b45f03c0144a9e11e5636edd3387ff1c8e393eaefbbe0478356eae5"
+  },
+  "placements_evaluated": 70,
+  "eligible_placements": 70,
+  "total_direct_effort_per_design": 2000.0,
+  "selection_rule": "minimize max Fisher-like SD proxy across psi0_logit, gamma_logit, epsilon_logit; lexicographic tie break",
+  "selected": {
+    "placement": [2, 6, 7, 8],
+    "worst_dynamic_sd": 0.1588310516922439,
+    "condition_number": 9.719191686648054,
+    "relative_min_singular_value": 0.10288921468374487,
+    "target_sd_proxies": {
+      "sp.suitability.alpha": 0.03378923276548599,
+      "sp.occupancy.psi0_logit": 0.11248559929287363,
+      "sp.occupancy.gamma_logit": 0.12128716419473927,
+      "sp.occupancy.epsilon_logit": 0.1588310516922439
+    }
+  },
+  "baseline": {
+    "placement": [1, 2, 3, 4],
+    "worst_dynamic_sd": 0.23245395326115278,
+    "condition_number": 13.062138042608186,
+    "relative_min_singular_value": 0.07655714529566592,
+    "target_sd_proxies": {
+      "sp.suitability.alpha": 0.041484236550050714,
+      "sp.occupancy.psi0_logit": 0.08689968677426371,
+      "sp.occupancy.gamma_logit": 0.10322771779473243,
+      "sp.occupancy.epsilon_logit": 0.23245395326115278
+    }
+  },
+  "selected_to_baseline_worst_sd_ratio": 0.6832796322194767
+}
