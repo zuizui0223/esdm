@@ -370,23 +370,35 @@ coverage was at least **0.875**, and there were **0 divergences**. The full dyna
 beat its explicit occupancy knockout in **16/16** held-out replicates, with mean gain
 **+8.3118 nats/context** and minimum gain **+5.1125**.
 
-The promoted v0.7 claim is therefore bounded:
+v0.7c then tested the main alternative explanation directly. The recursive model was
+compared against a lower-dimensional, fully identifiable memoryless occupancy model with
+an intercept plus frozen linear time trend. Both candidates received exactly the same
+joint occurrence and direct occupancy calibration. The static comparator itself passed
+the exact-JAX structural/practical gate (rank **3/3**, condition number **6.89**, target-SD
+proxies **0.067–0.114**).
+
+Across **16 fresh paired replicates / 32 fits**, the recursive dynamic model beat the
+matched static occupancy model in **15/16 = 0.9375** replicates. Mean held-out gain was
+**+3.3212 nats/context**, the single negative replicate was only **−0.1168**, and there
+were **0 divergences**.
+
+The promoted v0.7 claim is therefore bounded but stronger:
 
 > Repeated joint occurrence through time does not by itself guarantee identification of
 > colonization/extinction dynamics. A small amount of process-specific occupancy-scale
-> evidence can anchor the missing scale, after which the declared marginal dynamic
-> parameters are recoverable and transfer to later joint occurrence where occupancy
-> itself is not directly observed.
+> evidence can anchor the missing scale. Under the frozen dynamic world, the recovered
+> recursive occupancy representation then predicts later occurrence better than a
+> simpler, fully estimable memoryless occupancy trend receiving the same observations.
+
+Thus the v0.7b late-time gain is not explained merely by adding any occupancy layer;
+temporal dependence carries predictive information in the frozen recursive world.
 
 `psi` remains a **marginal occupancy probability**, not a realized binary occupancy
 history. The current core applies one transition per adjacent declared sampling context
 regardless of the physical time gap. It does not identify realized transition events,
 movement paths, dispersal kernels, connectivity, source-sink dynamics, rescue effects, or
-causal movement limitation.
-
-The next fresh comparison should be a matched **static-occupancy versus dynamic-occupancy**
-benchmark before attributing the v0.7b predictive advantage specifically to temporal
-recursion rather than merely to having an occupancy layer.
+causal movement limitation. Empirical biological validation remains outside the current
+promotion.
 
 ## NumPyro inference backend
 
