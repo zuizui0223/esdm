@@ -1,0 +1,51 @@
+{
+  "schema": "esdm.v07j.population_shift_surface_summary.v1",
+  "status": "COMPLETE",
+  "surface_run_id": 36111568220,
+  "surface_head_sha": "202affcf042665049cae5ff63e79bad8016a1229",
+  "surface_artifact": {
+    "id": 10853645888,
+    "name": "v07j-surface-36111568220",
+    "github_digest": "sha256:9166004059c6ee451594d6609b91ed9b40c963e130e6a3a5d62c8043a35eb445",
+    "independent_zip_sha256": "9166004059c6ee451594d6609b91ed9b40c963e130e6a3a5d62c8043a35eb445"
+  },
+  "grid": {
+    "psi0": [0.10, 0.20, 0.50, 0.80],
+    "gamma": [0.15, 0.35, 0.55],
+    "epsilon": [0.05, 0.15, 0.30],
+    "cell_count": 36
+  },
+  "summary": {
+    "eligible_count": 35,
+    "ineligible_count": 1,
+    "selected_better_count": 30,
+    "selected_better_rate": 0.8571428571428571,
+    "mean_selected_to_baseline_ratio": 0.8646810980081063,
+    "minimum_ratio": 0.5804364759748728,
+    "maximum_ratio": 1.3792264311715838
+  },
+  "ineligible_cell": {
+    "psi0": 0.50,
+    "gamma": 0.15,
+    "epsilon": 0.15
+  },
+  "transfer_positive_stress": {
+    "selection_rule": "largest eligible ratio <= 0.90",
+    "psi0": 0.20,
+    "gamma": 0.15,
+    "epsilon": 0.05,
+    "selected_to_baseline_ratio": 0.8587764763960369
+  },
+  "reversal_stress": {
+    "selection_rule": "largest eligible selected-to-baseline ratio",
+    "psi0": 0.80,
+    "gamma": 0.15,
+    "epsilon": 0.30,
+    "selected_to_baseline_ratio": 1.3792264311715838
+  },
+  "interpretation": {
+    "fixed_schedule_universally_optimal": false,
+    "fixed_schedule_better_in_most_eligible_cells": true,
+    "practical_estimability_can_fail_under_population_shift": true
+  }
+}
