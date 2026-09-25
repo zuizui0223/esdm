@@ -8,6 +8,10 @@ def test_v07k_gate_document_freezes_local_repilot_programme():
     ).read_text(encoding="utf-8")
 
     assert "FROZEN AFTER DETERMINISTIC AUDIT, BEFORE CONFIRMATORY MCMC OUTCOME" in text
+    assert "incremental local-adaptation hypothesis" in text
+    assert "already shown robust precision transfer" in text
+    assert "35/36 paired replicates" in text
+    assert "not the three v0.7j confirmatory target populations" in text
     assert "local oracle placement: (1,3,7,8)" in text
     assert "local oracle placement: (1,2,7,8)" in text
     assert "pilot base seed = 20261321" in text
