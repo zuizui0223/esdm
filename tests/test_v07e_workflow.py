@@ -39,3 +39,9 @@ def test_v07e_aggregate_is_fail_closed():
 
     assert '"status":"INFRASTRUCTURE_BLOCKED"' in text
     assert "if: always()" in text
+
+
+def test_v07e_cleanup_cannot_cancel_authorized_outcome():
+    text = _text()
+
+    assert "cancel-in-progress: false" in text
