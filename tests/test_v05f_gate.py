@@ -29,6 +29,7 @@ def _records(identity_error: float = 0.0):
                 interval_high=0.90,
                 full_heldout_log_score=full + identity_error,
                 partner_knockout_heldout_log_score=knockout,
+                heldout_gain=(full + identity_error) - knockout,
                 full_divergences=0,
                 knockout_divergences=0,
             )
@@ -43,6 +44,7 @@ def _records(identity_error: float = 0.0):
                 interval_high=0.10,
                 full_heldout_log_score=-2.01,
                 partner_knockout_heldout_log_score=-2.00,
+                heldout_gain=-0.01,
                 full_divergences=0,
                 knockout_divergences=0,
             )
@@ -87,3 +89,22 @@ def test_v05f_summary_preserves_original_absolute_scores():
     assert summary.inherited_v05a.worlds["interaction"].mean_heldout_gain == 0.10
     assert summary.inherited_v05a.worlds["measured_shared_null"].mean_heldout_gain == -0.01
     assert summary.max_abs_gain_identity_error == 0.0
+
+
+def test_v05f_replicate_rejects_inconsistent_serialized_gain():
+    import pytest
+
+    with pytest.raises(ValueError, match="heldout_gain must equal"):
+        V05FReplicate(
+            world="interaction",
+            replicate=0,
+            truth_beta=0.75,
+            posterior_mean=0.75,
+            interval_low=0.50,
+            interval_high=0.90,
+            full_heldout_log_score=-1.90,
+            partner_knockout_heldout_log_score=-2.00,
+            heldout_gain=0.09,
+            full_divergences=0,
+            knockout_divergences=0,
+        )
