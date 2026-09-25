@@ -43,6 +43,9 @@ class V07JCell:
     baseline_worst_dynamic_sd: float
     selected_to_baseline_ratio: float
     selected_better: bool
+    selected_conditioning_pass: bool
+    baseline_conditioning_pass: bool
+    jointly_eligible: bool
     selected_condition_number: float
     baseline_condition_number: float
 
@@ -51,6 +54,8 @@ class V07JCell:
 class V07JSurface:
     cells: tuple[V07JCell, ...]
     cell_count: int
+    eligible_count: int
+    ineligible_count: int
     selected_better_count: int
     selected_better_rate: float
     mean_ratio: float
@@ -76,12 +81,10 @@ def evaluate_v07j_surface() -> V07JSurface:
             V07G_BASELINE_PLACEMENT,
             theta=theta,
         )
-        if not selected.conditioning_pass or not baseline.conditioning_pass:
-            raise RuntimeError(
-                "v0.7j surface requires both schedules practically estimable "
-                f"at psi0={psi0}, gamma={gamma}, epsilon={epsilon}"
-            )
         ratio = selected.worst_dynamic_sd / baseline.worst_dynamic_sd
+        eligible = bool(
+            selected.conditioning_pass and baseline.conditioning_pass
+        )
         cells.append(
             V07JCell(
                 psi0=float(psi0),
@@ -91,6 +94,9 @@ def evaluate_v07j_surface() -> V07JSurface:
                 baseline_worst_dynamic_sd=float(baseline.worst_dynamic_sd),
                 selected_to_baseline_ratio=float(ratio),
                 selected_better=bool(ratio < 1.0),
+                selected_conditioning_pass=bool(selected.conditioning_pass),
+                baseline_conditioning_pass=bool(baseline.conditioning_pass),
+                jointly_eligible=eligible,
                 selected_condition_number=float(selected.condition_number),
                 baseline_condition_number=float(baseline.condition_number),
             )
@@ -105,8 +111,11 @@ def evaluate_v07j_surface() -> V07JSurface:
     if len(rows) != expected or expected != 36:
         raise RuntimeError("v0.7j surface must contain exactly 36 cells")
 
-    positive = tuple(row for row in rows if row.selected_better)
-    failures = tuple(row for row in rows if not row.selected_better)
+    eligible = tuple(row for row in rows if row.jointly_eligible)
+    if not eligible:
+        raise RuntimeError("v0.7j surface has no jointly eligible cells")
+    positive = tuple(row for row in eligible if row.selected_better)
+    failures = tuple(row for row in eligible if not row.selected_better)
     hardest_positive = (
         max(positive, key=lambda row: row.selected_to_baseline_ratio)
         if positive
@@ -117,12 +126,14 @@ def evaluate_v07j_surface() -> V07JSurface:
         if failures
         else None
     )
-    ratios = tuple(row.selected_to_baseline_ratio for row in rows)
+    ratios = tuple(row.selected_to_baseline_ratio for row in eligible)
     return V07JSurface(
         cells=rows,
         cell_count=len(rows),
+        eligible_count=len(eligible),
+        ineligible_count=len(rows) - len(eligible),
         selected_better_count=len(positive),
-        selected_better_rate=len(positive) / len(rows),
+        selected_better_rate=len(positive) / len(eligible),
         mean_ratio=math.fsum(ratios) / len(ratios),
         minimum_ratio=min(ratios),
         maximum_ratio=max(ratios),
