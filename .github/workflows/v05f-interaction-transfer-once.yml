@@ -42,7 +42,7 @@ jobs:
       - name: Verify frozen v0.5f contracts
         run: |
           python -m pytest -q \
-            tests/test_v05a_directed.py \
+            tests/test_v05a_fixture.py \
             tests/test_v05a_gate.py \
             tests/test_v05f_gate.py \
             tests/test_v05f_gate_freeze.py \
