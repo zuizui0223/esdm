@@ -12,6 +12,7 @@ on:
       - .github/workflows/v07k-local-repilot-once.yml
       - docs/validation/V07K_RUN_AUTHORIZED
       - docs/validation/V07K_LOCAL_REPILOT_GATE.md
+      - docs/validation/V07J_SURFACE_RESULTS.json
       - scripts/run_v07k_replicate.py
       - scripts/aggregate_v07k.py
       - src/esdm/validate/v07k_*.py
