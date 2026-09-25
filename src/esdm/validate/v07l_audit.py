@@ -71,6 +71,7 @@ class V07LAuditCell:
     transferred_worst_sd: float
     oracle_to_transferred_ratio: float
     transferred_conditioning_pass: bool
+    local_eligible: bool
     excluded_prior_truth: bool
 
 
@@ -206,30 +207,35 @@ def score_v07l_cell(psi0: float, gamma: float, epsilon: float) -> V07LAuditCell:
     theta = theta_for_cell(psi0, gamma, epsilon)
     scores = _placement_scores(theta)
     eligible = tuple(row for row in scores if row.conditioning_pass)
-    if not eligible:
-        raise RuntimeError("v0.7l cell has no eligible placement")
-    local = min(
-        eligible,
-        key=lambda row: (row.worst_dynamic_sd, row.placement),
-    )
     transferred = next(
         row for row in scores
         if row.placement == V07G_SELECTED_PLACEMENT
     )
     key = (float(psi0), float(gamma), float(epsilon))
+    if eligible:
+        local = min(
+            eligible,
+            key=lambda row: (row.worst_dynamic_sd, row.placement),
+        )
+        local_placement = local.placement
+        local_sd = float(local.worst_dynamic_sd)
+        ratio = float(local.worst_dynamic_sd / transferred.worst_dynamic_sd)
+    else:
+        local_placement = ()
+        local_sd = math.inf
+        ratio = math.inf
     return V07LAuditCell(
         psi0=float(psi0),
         gamma=float(gamma),
         epsilon=float(epsilon),
-        local_oracle_placement=local.placement,
-        local_oracle_worst_sd=float(local.worst_dynamic_sd),
+        local_oracle_placement=local_placement,
+        local_oracle_worst_sd=local_sd,
         transferred_worst_sd=float(transferred.worst_dynamic_sd),
-        oracle_to_transferred_ratio=float(
-            local.worst_dynamic_sd / transferred.worst_dynamic_sd
-        ),
+        oracle_to_transferred_ratio=ratio,
         transferred_conditioning_pass=bool(
             transferred.conditioning_pass
         ),
+        local_eligible=bool(eligible),
         excluded_prior_truth=key in V07L_EXCLUDED_CELLS,
     )
 
@@ -249,6 +255,7 @@ def evaluate_v07l_audit() -> V07LAudit:
     fresh = tuple(
         row for row in rows
         if row.transferred_conditioning_pass
+        and row.local_eligible
         and not row.excluded_prior_truth
     )
     if len(fresh) < 4:
