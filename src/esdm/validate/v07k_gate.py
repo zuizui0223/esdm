@@ -1,4 +1,4 @@
-"""Mechanical local re-pilot rescue gate for v0.7k."""
+"""Mechanical local adaptation increment gate for v0.7k."""
 
 from __future__ import annotations
 
