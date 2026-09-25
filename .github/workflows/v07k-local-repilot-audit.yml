@@ -1,1 +1,38 @@
-name: v0.7k local re-pilot deterministic audit\n\non:\n  push:\n    branches:\n      - feature/v07k-local-repilot\n    paths:\n      - .github/workflows/v07k-local-repilot-audit.yml\n      - scripts/run_v07k_audit.py\n      - src/esdm/validate/v07k_*.py\n      - tests/test_v07k_*.py\n\njobs:\n  audit:\n    runs-on: ubuntu-latest\n    timeout-minutes: 60\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: "3.12"\n      - name: Install dependencies\n        run: |\n          python -m pip install --upgrade pip\n          python -m pip install -e ".[dev,inference]"\n      - name: Test v0.7k audit contracts\n        run: |\n          python -m pytest -q tests/test_v07k_audit.py\n      - name: Evaluate local re-pilot potential\n        run: |\n          mkdir -p artifacts\n          python scripts/run_v07k_audit.py --output artifacts/v07k_audit.json\n      - name: Upload audit\n        uses: actions/upload-artifact@v4\n        with:\n          name: v07k-audit-${{ github.run_id }}\n          path: artifacts/v07k_audit.json\n          if-no-files-found: error\n
+name: v0.7k local re-pilot deterministic audit
+
+on:
+  push:
+    branches:
+      - feature/v07k-local-repilot
+    paths:
+      - .github/workflows/v07k-local-repilot-audit.yml
+      - scripts/run_v07k_audit.py
+      - src/esdm/validate/v07k_*.py
+      - tests/test_v07k_*.py
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,inference]"
+      - name: Test v0.7k audit contracts
+        run: |
+          python -m pytest -q tests/test_v07k_audit.py
+      - name: Evaluate local re-pilot potential
+        run: |
+          mkdir -p artifacts
+          python scripts/run_v07k_audit.py --output artifacts/v07k_audit.json
+      - name: Upload audit
+        uses: actions/upload-artifact@v4
+        with:
+          name: v07k-audit-${{ github.run_id }}
+          path: artifacts/v07k_audit.json
+          if-no-files-found: error
