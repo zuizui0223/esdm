@@ -33,3 +33,12 @@ def test_v07k_aggregate_is_fail_closed():
 
     assert '"status":"INFRASTRUCTURE_BLOCKED"' in text
     assert "if: always()" in text
+
+
+def test_v07k_one_shot_targets_clean_local_adaptation_branch():
+    text = _text()
+
+    assert "name: v0.7k frozen incremental local adaptation gate" in text
+    assert "group: v07k-local-adaptation-outcome" in text
+    assert "- feature/v07k-local-adaptation-clean" in text
+    assert "- feature/v07k-local-repilot" not in text
