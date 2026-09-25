@@ -1,0 +1,158 @@
+name: v0.7f frozen misspecified-resolution gate
+
+concurrency:
+  group: v07f-misspecified-resolution-outcome
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - feature/v07f-misspecified-resolution
+    paths:
+      - .github/workflows/v07f-misspecified-resolution-once.yml
+      - docs/validation/V07F_RUN_AUTHORIZED
+      - docs/validation/V07F_MISSPECIFIED_RESOLUTION_GATE.md
+      - scripts/run_v07f_qualification.py
+      - scripts/run_v07f_replicate.py
+      - scripts/aggregate_v07f.py
+      - src/esdm/validate/v07f_*.py
+      - src/esdm/process/occupancy.py
+      - src/esdm/process/dynamics.py
+      - src/esdm/observe/occupied_presence.py
+      - src/esdm/observe/occupancy_count.py
+      - tests/test_v07f_*.py
+
+jobs:
+  precheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    outputs:
+      authorized: ${{ steps.authorization.outputs.authorized }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,inference]"
+      - name: Check explicit v0.7f authorization
+        id: authorization
+        run: |
+          if [ -f docs/validation/V07F_RUN_AUTHORIZED ]; then
+            echo "authorized=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "authorized=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Verify frozen v0.7f contracts
+        run: |
+          python -m pytest -q \
+            tests/test_v07f_fixture.py \
+            tests/test_v07f_gate.py \
+            tests/test_v07f_gate_freeze.py \
+            tests/test_v07f_scripts.py \
+            tests/test_v07f_workflow.py
+
+  qualification:
+    needs: precheck
+    if: needs.precheck.outputs.authorized == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install qualification dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,inference]"
+      - name: Run frozen v0.7f qualification
+        run: |
+          mkdir -p artifacts
+          python scripts/run_v07f_qualification.py \
+            --output artifacts/v07f_qualification.json
+      - name: Upload v0.7f qualification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v07f-qualification-${{ github.run_id }}
+          path: artifacts/v07f_qualification.json
+          if-no-files-found: error
+
+  replicate:
+    needs: [precheck, qualification]
+    if: needs.precheck.outputs.authorized == 'true' && needs.qualification.result == 'success'
+    strategy:
+      fail-fast: false
+      max-parallel: 16
+      matrix:
+        world: [dynamic_like, static_like]
+        replicate: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install inference dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[inference]"
+      - name: Run frozen v0.7f replicate
+        run: |
+          mkdir -p artifacts
+          python scripts/run_v07f_replicate.py \
+            --world ${{ matrix.world }} \
+            --replicate ${{ matrix.replicate }} \
+            --output artifacts/${{ matrix.world }}-${{ matrix.replicate }}.json
+      - name: Upload v0.7f shard
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v07f-${{ matrix.world }}-${{ matrix.replicate }}-${{ github.run_id }}
+          path: artifacts/${{ matrix.world }}-${{ matrix.replicate }}.json
+          if-no-files-found: error
+
+  aggregate:
+    needs: [precheck, qualification, replicate]
+    if: always() && needs.precheck.outputs.authorized == 'true' && needs.qualification.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Initialize fail-closed result
+        run: |
+          mkdir -p artifacts/shards
+          printf '%s\n' '{"schema":"esdm.v07f.misspecified_resolution.v1","status":"INFRASTRUCTURE_BLOCKED"}' \
+            > artifacts/v07f_result.json
+      - name: Download v0.7f shards
+        uses: actions/download-artifact@v4
+        with:
+          pattern: v07f-*-${{ github.run_id }}
+          path: artifacts/shards
+          merge-multiple: true
+      - name: Remove qualification artifact if pattern matched it
+        run: |
+          find artifacts/shards -name 'v07f_qualification.json' -delete
+      - name: Install aggregation dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,inference]"
+      - name: Aggregate frozen v0.7f result
+        run: |
+          python scripts/aggregate_v07f.py \
+            --shard-dir artifacts/shards \
+            --output artifacts/v07f_result.json
+      - name: Upload final v0.7f result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v07f-result-${{ github.run_id }}
+          path: artifacts/v07f_result.json
+          if-no-files-found: error
