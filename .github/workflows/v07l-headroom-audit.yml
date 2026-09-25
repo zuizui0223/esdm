@@ -1,0 +1,38 @@
+name: v0.7l fresh headroom audit
+
+on:
+  push:
+    branches:
+      - feature/v07l-pilot-gated-adaptation
+    paths:
+      - .github/workflows/v07l-headroom-audit.yml
+      - scripts/run_v07l_audit.py
+      - src/esdm/validate/v07l_audit.py
+      - tests/test_v07l_audit.py
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,inference]"
+      - name: Test v0.7l audit
+        run: |
+          python -m pytest -q tests/test_v07l_audit.py
+      - name: Run deterministic fresh-cell audit
+        run: |
+          mkdir -p artifacts
+          python scripts/run_v07l_audit.py --output artifacts/v07l_audit.json
+      - name: Upload audit
+        uses: actions/upload-artifact@v4
+        with:
+          name: v07l-audit-${{ github.run_id }}
+          path: artifacts/v07l_audit.json
+          if-no-files-found: error
