@@ -1,0 +1,73 @@
+{
+  "schema": "esdm.v07e.reciprocal_static_frozen_results.v1",
+  "status": "PASS",
+  "outcome_run_id": 36088717290,
+  "outcome_run_attempt": 1,
+  "outcome_head_sha": "0ca249e3acaadc69eace3166970f4bf6619924ab",
+  "authorization_consumed_commit": "7ad69a32f92c0cf3939e878b4fd0cb0a9ef957bc",
+  "gate_freeze_commit": "a047fdb0fd7843b83169d5b168d86de005143c3b",
+  "gate_merge_commit": "0e2c1f7b994f2a505f044030cfd057b871e217ef",
+  "gate_blob_sha": "e089e43ff009d11e87a16cd7f1c18276b0017f41",
+  "observed_gate_blob_sha": "e089e43ff009d11e87a16cd7f1c18276b0017f41",
+  "qualification_artifact": {
+    "id": 10844318765,
+    "name": "v07e-qualification-36088717290",
+    "github_digest": "sha256:6f224e599e5a78e5e796651565fcfb1019fe0b7f0a7adea2fefd81962b888f11"
+  },
+  "result_artifact": {
+    "id": 10844319589,
+    "name": "v07e-result-36088717290",
+    "github_digest": "sha256:e4b0c42dfff5442f1ac388b55cba296db0c2d66dfde1ff93b3c99a26e0db3dcc",
+    "result_json_sha256": "2f186f74d315d54ea76e3676a64870c79d858630f20b6b5872d869cdb169c92e"
+  },
+  "qualification": {
+    "dynamic_structural_pass": true,
+    "dynamic_practical_pass": true,
+    "static_structural_pass": true,
+    "static_practical_pass": true
+  },
+  "summary": {
+    "replicates": 16,
+    "fit_count": 32,
+    "static_better_rate": 1,
+    "mean_static_gain": 13.892651788335677,
+    "minimum_static_gain": 8.148554109093809,
+    "total_divergences": 0,
+    "mean_divergences_per_fit": 0
+  },
+  "gate": {
+    "passed": true,
+    "checks_passed": 9,
+    "checks_total": 9
+  },
+  "reciprocal_pair": {
+    "v07d_dynamic_world": {
+      "frozen_receipt": "docs/validation/V07D_FROZEN_RESULTS.json",
+      "dynamic_better_rate": 1,
+      "mean_dynamic_gain": 14.144259876683904,
+      "minimum_dynamic_gain": 3.125038874420687
+    },
+    "v07e_static_world": {
+      "static_better_rate": 1,
+      "mean_static_gain": 13.892651788335677,
+      "minimum_static_gain": 8.148554109093809
+    },
+    "reciprocal_specificity_supported": true
+  },
+  "interpretation_boundary": {
+    "equal_parameter_count_comparison": true,
+    "same_observation_programme": true,
+    "generator_is_static_quadratic": true,
+    "recursive_dynamic_model_favored_in_dynamic_world": true,
+    "memoryless_static_model_favored_in_static_world": true,
+    "reciprocal_model_resolution_specificity_supported": true,
+    "universal_model_superiority": false,
+    "realized_binary_occupancy_history_established": false,
+    "colonization_extinction_events_observed": false,
+    "movement_kernel_identified": false,
+    "connectivity_identified": false,
+    "source_sink_dynamics_identified": false,
+    "empirical_biological_validity": false,
+    "odsp_information_transfer_source": false
+  }
+}
