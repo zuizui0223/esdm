@@ -12,7 +12,7 @@ from .v07i_selector import (
     _score_placement,
     select_v07i_placement_from_theta,
 )
-from .v07j_confirm import (
+from .v07k_fixture import (
     V07K_WORLDS,
     theta_for_v07k_world,
 )
