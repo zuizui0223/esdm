@@ -175,3 +175,17 @@ same four-parameter dimension. They differ in representation:
 Neither model's information set is a strict subset of the other. The result is
 therefore a model-representation benchmark, not an information-transfer
 filtration. Its frozen PASS cannot be relabeled as a new ODSP information level.
+
+
+## v0.7e reciprocal static-world benchmark
+
+v0.7e is also deliberately **not** ODSP-exportable.
+
+Its reciprocal PASS strengthens the v0.7 model-resolution interpretation:
+the recursive model wins in the dynamic generator world, while the
+equal-dimension static model wins in the static generator world.
+
+That result is a comparison of alternative representations of the **same**
+occupancy information. Reversing the generator changes which representation is
+better but does not create a lower-information / higher-information nesting.
+Accordingly, no ODSP endpoint is authorized for v0.7e.

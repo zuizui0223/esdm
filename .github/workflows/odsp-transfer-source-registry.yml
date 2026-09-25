@@ -39,7 +39,7 @@ jobs:
           import json
           from pathlib import Path
           rows = json.loads(Path("/tmp/transfer-sources.json").read_text())
-          assert len(rows) == 12
+          assert len(rows) == 13
           assert sum(row["exportable"] for row in rows) == 4
           PY
 

@@ -348,6 +348,25 @@
       "parallel_family": null,
       "natural_order_with_parallel_sibling": null,
       "reason": "Dynamic and equal-dimension static quadratic occupancy are alternative representations of the same occupancy information with identical parameter count and observation programme; neither information set strictly contains the other, so the PASS benchmark is not an ODSP information-transfer source"
+    },
+    {
+      "source_id": "v07e_reciprocal_static_world",
+      "programme": "v0.7e",
+      "status": "non_nested_comparison_not_transfer",
+      "frozen_receipt": "docs/validation/V07E_FROZEN_RESULTS.json",
+      "frozen_receipt_schema": "esdm.v07e.reciprocal_static_frozen_results.v1",
+      "frozen_result_status": "PASS",
+      "source_artifact_id": 10844319589,
+      "source_result_schema": null,
+      "absolute_score_fields": [],
+      "information_levels": [],
+      "score_currency": null,
+      "adapter_function": null,
+      "endpoint_id": null,
+      "validated_integration_receipt": null,
+      "parallel_family": null,
+      "natural_order_with_parallel_sibling": null,
+      "reason": "Dynamic and equal-dimension static occupancy are alternative representations of the same occupancy information under a reciprocal static-world benchmark; reversing the generator changes which representation predicts better but does not create a nested information filtration"
     }
   ],
   "boundary": {
