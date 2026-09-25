@@ -14,6 +14,7 @@ on:
       - scripts/export_v05f_odsp_transfer.py
       - src/esdm/validate/v05f_*.py
       - src/esdm/transfer/odsp_adapter.py
+      - src/esdm/transfer/__init__.py
       - tests/test_v05f_*.py
 
 jobs:
