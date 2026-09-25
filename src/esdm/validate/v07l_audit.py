@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from itertools import combinations, product
+from functools import lru_cache
 import math
 
 import numpy as np
@@ -244,6 +245,7 @@ def score_v07l_cell(psi0: float, gamma: float, epsilon: float) -> V07LAuditCell:
     )
 
 
+@lru_cache(maxsize=1)
 def evaluate_v07l_audit() -> V07LAudit:
     rows = tuple(
         score_v07l_cell(psi0, gamma, epsilon)
