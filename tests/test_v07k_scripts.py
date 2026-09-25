@@ -19,10 +19,10 @@ def test_v07k_runners_pin_gate_seed_families_and_mcmc_profile():
 
     for module in (s, a):
         assert module.FROZEN_GATE_COMMIT == (
-            "7a1cd43514ec5d9c3ce12d96ec0aed5c60996b04"
+            "0f45d8239f46b12236ef2d567e605e7c4b29949d"
         )
         assert module.FROZEN_GATE_BLOB_SHA == (
-            "c11c885924b9806de65fbacbeb77ba0b7ca61a74"
+            "5e8d62c4610202e942935d16dd77664a3937227a"
         )
 
     assert s.FROZEN_WORLDS == ("transfer_positive", "reversal")
