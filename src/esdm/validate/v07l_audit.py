@@ -19,9 +19,9 @@ from .v07b_fixture import (
 from .v07g_fixture import V07G_DYNAMIC_TARGETS, V07G_SELECTED_PLACEMENT
 
 
-V07L_PSI0_GRID = (0.10, 0.20, 0.50, 0.80)
-V07L_GAMMA_GRID = (0.15, 0.35, 0.55)
-V07L_EPSILON_GRID = (0.05, 0.15, 0.30)
+V07L_PSI0_GRID = (0.05, 0.10, 0.20, 0.50, 0.80, 0.95)
+V07L_GAMMA_GRID = (0.05, 0.15, 0.35, 0.55, 0.75)
+V07L_EPSILON_GRID = (0.02, 0.05, 0.15, 0.30, 0.50)
 V07L_TRIGGER_RATIO = 0.80
 
 # Exact truth cells already consumed by earlier confirmatory programmes on this grid.
@@ -249,8 +249,13 @@ def evaluate_v07l_audit() -> V07LAudit:
             V07L_EPSILON_GRID,
         )
     )
-    if len(rows) != 36:
-        raise RuntimeError("v0.7l audit must evaluate exactly 36 grid cells")
+    expected_cells = (
+        len(V07L_PSI0_GRID)
+        * len(V07L_GAMMA_GRID)
+        * len(V07L_EPSILON_GRID)
+    )
+    if len(rows) != expected_cells or expected_cells != 150:
+        raise RuntimeError("v0.7l audit must evaluate exactly 150 grid cells")
 
     fresh = tuple(
         row for row in rows
@@ -274,6 +279,15 @@ def evaluate_v07l_audit() -> V07LAudit:
     )
     high = ordered[:2]
     low = ordered[-2:]
+
+    if max(row.oracle_to_transferred_ratio for row in high) > V07L_TRIGGER_RATIO:
+        raise RuntimeError(
+            "v0.7l expanded grid lacks two high-headroom fresh cells"
+        )
+    if min(row.oracle_to_transferred_ratio for row in low) < 0.90:
+        raise RuntimeError(
+            "v0.7l expanded grid lacks two low-headroom fresh cells"
+        )
 
     return V07LAudit(
         eligible_fresh_cells=len(fresh),
