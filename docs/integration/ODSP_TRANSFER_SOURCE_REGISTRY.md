@@ -159,3 +159,19 @@ The registry cannot:
 A new programme becomes exportable only after its own frozen result schema stores
 commensurate absolute held-out scores and a separate integration validation
 passes.
+
+
+## v0.7d equal-dimension static-versus-dynamic benchmark
+
+v0.7d is deliberately **not** ODSP-exportable even though its frozen result is a
+strong PASS.
+
+The paired models have the same ecological-information target—occupancy—and the
+same four-parameter dimension. They differ in representation:
+
+- recursive colonization/extinction dynamics;
+- memoryless quadratic occupancy trend.
+
+Neither model's information set is a strict subset of the other. The result is
+therefore a model-representation benchmark, not an information-transfer
+filtration. Its frozen PASS cannot be relabeled as a new ODSP information level.

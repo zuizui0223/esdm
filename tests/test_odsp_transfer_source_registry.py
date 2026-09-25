@@ -58,6 +58,7 @@ def test_nonexportable_sources_fail_closed_through_registry_api():
         "v06c_budget_matched_accessibility": "non_nested_comparison_not_transfer",
         "v07a_dynamic_occupancy_identification": "identification_only_not_transfer",
         "v07c_static_vs_dynamic_occupancy": "non_nested_comparison_not_transfer",
+        "v07d_equal_dimension_static_vs_dynamic": "non_nested_comparison_not_transfer",
     }
 
     for source_id, status in expected.items():
@@ -186,6 +187,22 @@ def test_v07c_pass_is_model_representation_benchmark_not_information_transfer():
     assert source.frozen_result_status == "PASS"
     assert frozen["summary"]["dynamic_better_rate"] == 0.9375
     assert frozen["summary"]["mean_dynamic_gain"] > 0
+    assert source.status == "non_nested_comparison_not_transfer"
+    assert source.exportable is False
+    assert source.information_levels == ()
+    assert "same occupancy information" in source.reason
+
+
+def test_v07d_pass_is_equal_dimension_model_representation_benchmark_not_transfer():
+    source = transfer_source_by_id(
+        _sources(), "v07d_equal_dimension_static_vs_dynamic"
+    )
+    frozen = json.loads((ROOT / source.frozen_receipt).read_text(encoding="utf-8"))
+
+    assert source.frozen_result_status == "PASS"
+    assert frozen["summary"]["dynamic_better_rate"] == 1.0
+    assert frozen["summary"]["mean_dynamic_gain"] > 0
+    assert frozen["interpretation_boundary"]["equal_parameter_count_comparison"] is True
     assert source.status == "non_nested_comparison_not_transfer"
     assert source.exportable is False
     assert source.information_levels == ()
