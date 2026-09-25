@@ -328,12 +328,12 @@ Structural identification from a joint endpoint is not itself independent ecolog
 evidence of accessibility. This remains a static accessibility layer, not a
 movement-kernel or dynamic colonization model.
 
-## v0.7 marginal colonization-extinction core — implementation only
+## v0.7 marginal colonization-extinction core — bounded semi-synthetic promotion complete
 
-v0.7 begins a separate dynamic occupancy layer rather than stretching static accessibility
-into a temporal claim. `ColonizationExtinctionOccupancy` emits a marginal occupancy
-probability `psi` for each declared context. Within each spatial unit, contexts are
-ordered by `(doy, hour)` and updated by
+v0.7 adds a dynamic occupancy layer rather than stretching static accessibility into a
+temporal claim. `ColonizationExtinctionOccupancy` emits a marginal occupancy probability
+`psi` for each declared context. Within each spatial unit, contexts are ordered by
+`(doy, hour)` and updated by
 
 ```text
 psi_t
@@ -354,13 +354,39 @@ lambda_occupied
   × detection
 ```
 
-This is a **core contract, not a promoted result**. `psi` is a marginal probability, not
-a realized binary occupancy history. One transition is applied per adjacent declared
-sampling context regardless of the physical time gap. No movement path, dispersal kernel,
-connectivity, source-sink process, or causal movement limitation is inferred.
+v0.7a established the first identification boundary. In the frozen intercept-only system,
+eight joint-occurrence time points still supplied only rank **3** for four free quantities
+(`alpha`, initial occupancy, colonization, extinction), so every target remained
+`NotIdentified`. Adding direct `OccupancyCount` at only the first four contexts restored
+rank **4 -> 3** for every target. Practical target-SD proxies were **0.0415**, **0.0869**,
+**0.1032**, and **0.2325** for alpha, initial occupancy, colonization, and extinction,
+respectively.
 
-The next fresh gate is v0.7a: prospectively test identification and recovery of initial
-occupancy, colonization, and extinction before any dynamic promotion claim.
+v0.7b then passed the frozen replicated recovery/transfer programme. The model was trained
+with joint occurrence at contexts 1–8 and direct occupancy only at contexts 1–4, then
+scored on joint occurrence at contexts 9–12 with zero held-out occupancy calibration.
+Across **16 fresh replicates / 32 fits**, absolute mean bias was at most **0.0279**, 90%
+coverage was at least **0.875**, and there were **0 divergences**. The full dynamic model
+beat its explicit occupancy knockout in **16/16** held-out replicates, with mean gain
+**+8.3118 nats/context** and minimum gain **+5.1125**.
+
+The promoted v0.7 claim is therefore bounded:
+
+> Repeated joint occurrence through time does not by itself guarantee identification of
+> colonization/extinction dynamics. A small amount of process-specific occupancy-scale
+> evidence can anchor the missing scale, after which the declared marginal dynamic
+> parameters are recoverable and transfer to later joint occurrence where occupancy
+> itself is not directly observed.
+
+`psi` remains a **marginal occupancy probability**, not a realized binary occupancy
+history. The current core applies one transition per adjacent declared sampling context
+regardless of the physical time gap. It does not identify realized transition events,
+movement paths, dispersal kernels, connectivity, source-sink dynamics, rescue effects, or
+causal movement limitation.
+
+The next fresh comparison should be a matched **static-occupancy versus dynamic-occupancy**
+benchmark before attributing the v0.7b predictive advantage specifically to temporal
+recursion rather than merely to having an occupancy layer.
 
 ## NumPyro inference backend
 
@@ -501,6 +527,7 @@ from esdm.claims import ...
 | v0.4 | ecological state + activity + annotation streams + direct state-composition calibration | **PROMOTED (semi-synthetic)**: hard identification, 13-target recovery, east-heldout activity/state transfer, refusal controls; unresolved detection remains bounded/`NotIdentified` |
 | v0.5 | directed partner-latent effects + pair-event streams + evidence-tier guard | **PROMOTED (bounded semi-synthetic)**: true directed effect recovery; measured-shared null refusal; hidden-driver failure establishes claim ceiling; pair-event evidence separates PREDICTIVE_DEPENDENCE from REALIZED; FUNCTIONAL/CAUSAL remain gated |
 | v0.6 | static accessibility + accessibility-aware occurrence + direct accessibility calibration | **PROMOTED (bounded semi-synthetic)**: intercept-only joint product is `NotIdentified`; structured joint-only can be locally identified but was practically weak for 3/4 targets; direct accessibility information yielded practical four-target recovery and 16/16 held-out transfer with zero held-out accessibility exposure |
+| v0.7 | marginal colonization/extinction occupancy + direct occupancy calibration + occupancy-conditioned occurrence | **PROMOTED (bounded semi-synthetic)**: joint-only temporal trajectory remains rank-deficient (3/4); four-context direct occupancy calibration restores four-target identification; 16-replicate recovery passes and late joint-occurrence transfer beats the occupancy knockout 16/16 with zero held-out occupancy calibration |
 
 ## Existing research-programme provenance
 
@@ -516,7 +543,7 @@ See [`docs/PROVENANCE.md`](docs/PROVENANCE.md).
 
 ## Explicit non-claims
 
-The promoted v0.4/v0.5/v0.6 core does **not** claim:
+The promoted v0.4/v0.5/v0.6/v0.7 core does **not** claim:
 
 - empirical correctness merely because the frozen semi-synthetic promotion gate passed;
 - scientific support from structural identification or posterior contraction alone;
@@ -527,6 +554,7 @@ The promoted v0.4/v0.5/v0.6 core does **not** claim:
 - CAUSAL interaction without explicit intervention evidence;
 - a bidirectional/fixed-point interaction model;
 - movement kernels, path connectivity, resistance surfaces, dynamic colonization/extinction, or source-sink inference from the static v0.6 accessibility layer;
+- realized occupancy histories, observed transition events, movement kernels, path connectivity, source-sink dynamics, or causal movement limitation from the marginal v0.7 occupancy recursion;
 - a universal SDM/JSDM replacement;
 - validation for any one interaction family merely because it appears as an example.
 
