@@ -13,8 +13,8 @@ from .v07i_selector import (
     select_v07i_placement_from_theta,
 )
 from .v07j_confirm import (
-    V07J_WORLDS,
-    theta_for_v07j_world,
+    V07K_WORLDS,
+    theta_for_v07k_world,
 )
 
 
@@ -38,8 +38,8 @@ class V07KAudit:
 
 def evaluate_v07k_local_oracle_audit() -> V07KAudit:
     rows = {}
-    for world in V07J_WORLDS:
-        theta = theta_for_v07j_world(world)
+    for world in V07K_WORLDS:
+        theta = theta_for_v07k_world(world)
         selection = select_v07i_placement_from_theta(theta)
         transferred = _score_placement(
             V07G_SELECTED_PLACEMENT,
