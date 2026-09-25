@@ -1,0 +1,96 @@
+{
+  "schema": "esdm.v07b.frozen_results.v1",
+  "status": "PASS",
+  "outcome_run_id": 36074930922,
+  "outcome_head_sha": "87ff01ffb9f10db9b8c2d6ca1bf1d981a7dcb06f",
+  "gate_merge_commit": "3c7e84203588498c319de8deebd58ae46f244a88",
+  "gate_freeze_commit": "7c454d78c61c259504fa3a621eb65caf954c058a",
+  "gate_blob_sha": "14e02c13b1314d6ca3d91491dd799f0b1b85cf4a",
+  "observed_gate_blob_sha": "14e02c13b1314d6ca3d91491dd799f0b1b85cf4a",
+  "result_artifact": {
+    "id": 10840405228,
+    "name": "v07b-result-36074930922",
+    "github_digest": "sha256:a5b2bed48b3acadc8b7c7461dd13074007d34e39a3a5ccfb303b984ff7c5d247",
+    "result_json_sha256": "c3a5c51b9d8ccbb422b0181ad93d9dc4b1cb405668667e30b4ede0ccb3fef32"
+  },
+  "qualification": {
+    "positive_structural_pass": true,
+    "positive_practical_pass": true,
+    "joint_only_refusal_pass": true,
+    "target_sd_proxy": {
+      "sp.suitability.alpha": 0.041484236550050714,
+      "sp.occupancy.psi0_logit": 0.08689968677426371,
+      "sp.occupancy.gamma_logit": 0.10322771779473243,
+      "sp.occupancy.epsilon_logit": 0.23245395326115278
+    }
+  },
+  "summary": {
+    "replicates": 16,
+    "fit_count": 32,
+    "mean_biases": {
+      "sp.suitability.alpha": 0.003816354217539947,
+      "sp.occupancy.psi0_logit": -0.0069573808609771776,
+      "sp.occupancy.gamma_logit": 0.0033946839003294177,
+      "sp.occupancy.epsilon_logit": -0.031180604324642536
+    },
+    "coverages": {
+      "sp.suitability.alpha": 0.9375,
+      "sp.occupancy.psi0_logit": 1,
+      "sp.occupancy.gamma_logit": 1,
+      "sp.occupancy.epsilon_logit": 0.9375
+    },
+    "positive_gain_rate": 1,
+    "mean_gain": 7.090827989764034,
+    "minimum_gain": 3.5637099445650993,
+    "mean_full_heldout_log_score": -4.63777548780233,
+    "mean_occupancy_knockout_heldout_log_score": -11.728603477566365,
+    "total_divergences": 0,
+    "mean_divergences_per_fit": 0
+  },
+  "odsp_ready_result_schema": {
+    "information_filtration": [
+      {
+        "name": "suitability_only",
+        "information": [
+          "suitability"
+        ],
+        "score_field": "occupancy_knockout_heldout_log_score"
+      },
+      {
+        "name": "suitability_dynamic_occupancy",
+        "information": [
+          "suitability",
+          "dynamic_occupancy"
+        ],
+        "score_field": "full_heldout_log_score"
+      }
+    ],
+    "score_contract": {
+      "kind": "log",
+      "name": "mean_heldout_log_predictive_density",
+      "unit": "nats_per_heldout_context",
+      "orientation": "higher_is_better"
+    },
+    "adapter_manifest_sha256": "994446ed651b03c5b2eaeffae2fba37f2e5138287d239f1dc99f789f559523b9",
+    "endpoint_json_sha256": "958a2aed787577dda6cb235ca118c443f758f98966d2eee3b33256dd18581784",
+    "scores_csv_sha256": "c839ac1199f831c1bb18529bde61a58285e01c1929660518d6dddfa11c3dc050"
+  },
+  "gate": {
+    "passed": true,
+    "checks_passed": 17,
+    "checks_total": 17
+  },
+  "claim_boundary": {
+    "marginal_dynamic_parameter_recovery": true,
+    "late_joint_occurrence_predictive_transfer": true,
+    "direct_occupancy_exposure_in_heldout": false,
+    "realized_binary_occupancy_history": false,
+    "observed_colonization_extinction_events": false,
+    "movement_or_dispersal_kernel": false,
+    "connectivity_or_resistance": false,
+    "source_sink_or_rescue_dynamics": false,
+    "causal_movement_limitation": false,
+    "empirical_biological_validity": false,
+    "odsp_audit_changes_v07b_promotion": false
+  }
+}
