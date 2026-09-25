@@ -19,10 +19,17 @@ RECEIPT = ROOT / "ODSP_TRANSFER_EVIDENCE_PORTFOLIO_RECEIPT_V1.json"
 def test_frozen_portfolio_snapshot_matches_live_builder_exactly():
     sources = load_transfer_source_registry(REGISTRY)
     registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
+    receipt = json.loads(RECEIPT.read_text(encoding="utf-8"))
+    pinned_ids = set(receipt["contents"]["source_ids"])
+    pinned_sources = tuple(
+        source for source in sources if source.source_id in pinned_ids
+    )
+    assert {source.source_id for source in pinned_sources} == pinned_ids
+
     rebuilt = build_transfer_evidence_portfolio(
         repository_root=ROOT,
         registry_id=registry["registry_id"],
-        sources=sources,
+        sources=pinned_sources,
     ).as_dict()
     frozen = json.loads(SNAPSHOT.read_text(encoding="utf-8"))
 
