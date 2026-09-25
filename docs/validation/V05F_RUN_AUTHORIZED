@@ -1,0 +1,14 @@
+v0.5f interaction transfer replication one-shot authorization
+
+authorized_date: 2026-09-25
+gate_contract: docs/validation/V05F_INTERACTION_TRANSFER_REPLICATION_GATE.md
+gate_freeze_commit: 2247728b88c1b0acce7cf4f8362bb9d5cd541092
+gate_merge_commit: 85e7477a45aecd93873d1e159f31520f3d077bae
+authorized_branch: feature/v05f-interaction-transfer-replication-gate
+
+This marker authorizes exactly the frozen v0.5f qualification and, only if it
+passes, the 16 interaction-world plus 16 measured-shared-null replicates.
+
+No model, world, geometry, identification criterion, seed family, MCMC setting,
+recovery threshold, null-refusal threshold, held-out score definition, ODSP
+filtration, or interpretation boundary is changed by this authorization.
