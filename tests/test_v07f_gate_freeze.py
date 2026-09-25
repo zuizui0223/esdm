@@ -12,7 +12,7 @@ def test_v07f_gate_document_freezes_out_of_family_programme():
     assert "colonization time coefficient = +0.55" in text
     assert "extinction time coefficient = -0.35" in text
     assert "cubic time slope = +0.35" in text
-    assert "joint occurrence is exposed for fitting at contexts 1-8 only" in text
+    assert "joint occurrence exposed for fitting at contexts 1-8 only" in text
     assert "direct OccupancyCount exposed at contexts 1-4 only" in text
     assert "contexts 9-12 used only for joint-occurrence scoring" in text
     assert "base seed = 20261217" in text
