@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import math
 from pathlib import Path
 
 
@@ -52,10 +53,12 @@ def test_v07b_absolute_scores_are_frozen_for_odsp_without_reconstruction():
     summary = result["summary"]
     schema = result["odsp_ready_result_schema"]
 
-    assert (
+    assert math.isclose(
         summary["mean_full_heldout_log_score"]
-        - summary["mean_occupancy_knockout_heldout_log_score"]
-        == summary["mean_gain"]
+        - summary["mean_occupancy_knockout_heldout_log_score"],
+        summary["mean_gain"],
+        rel_tol=0.0,
+        abs_tol=1e-12,
     )
     assert schema["information_filtration"] == [
         {
