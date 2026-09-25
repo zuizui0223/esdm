@@ -75,3 +75,12 @@ def test_v07j_changes_generator_truth_not_model_or_score_semantics():
     assert low.scoring_model == high.scoring_model
     assert low.covariates == high.covariates
     assert low.generating_theta != high.generating_theta
+
+
+def test_v07j_fixture_exposes_underlying_training_source_for_v07g_helper():
+    fixture = build_v07j_fixture("low_occupancy")
+
+    assert hasattr(fixture.source, "joint_train_keys")
+    assert hasattr(fixture.source, "heldout_keys")
+    assert fixture.selected_keys
+    assert fixture.baseline_keys
