@@ -1,6 +1,6 @@
 import importlib.util
 
-from esdm.validate.v07j_confirm import theta_for_v07j_world
+from esdm.validate.v07k_fixture import theta_for_v07k_world
 from esdm.validate.v07k_fixture import (
     V07K_ORACLE_PLACEMENTS,
     V07K_TOTAL_DIRECT_EFFORT,
@@ -22,7 +22,7 @@ def test_v07k_local_pilot_uses_shifted_world_truth():
     for world in V07K_WORLDS:
         fixture = build_v07k_local_pilot_fixture(world)
 
-        assert fixture.generating_theta == theta_for_v07j_world(world)
+        assert fixture.generating_theta == theta_for_v07k_world(world)
         assert len(fixture.pilot_keys) == 4
         assert fixture.world == world
 
