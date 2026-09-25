@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "receipt_id": "v07j-run-36117506781-invalidation-v1",
+  "date": "2026-09-25",
+  "programme": "v0.7j pilot-to-population shift robustness",
+  "invalidated_run": {
+    "workflow_run_id": 36117506781,
+    "head_sha": "f6f416736f64038f57f7f0c6e705729bae1fd269",
+    "conclusion": "failure",
+    "scientific_outcome_generated": false,
+    "precheck_passed": true,
+    "replicate_jobs_entered_mcmc": false
+  },
+  "failure_class": "implementation_infrastructure_bug",
+  "failure_reason": "V07JFixture.source pointed to the V07GValidationFixture wrapper, while the reused v07g training-data helper requires the underlying v07b source with joint_train_keys",
+  "repair": {
+    "repair_commit_on_authorization_branch": "cb9f40e8af8ba902427e1a11e4bec40614002218",
+    "scientific_gate_changed": false,
+    "target_worlds_changed": false,
+    "schedule_changed": false,
+    "baseline_changed": false,
+    "effort_changed": false,
+    "seeds_changed": false,
+    "mcmc_profile_changed": false,
+    "thresholds_changed": false
+  },
+  "replacement": {
+    "authorized_head_sha": "e68990272bbe00a65b2e60bc80eabbc48fb290ec",
+    "workflow_run_id": 36118096281,
+    "explicit_replacement_authorization": true
+  }
+}

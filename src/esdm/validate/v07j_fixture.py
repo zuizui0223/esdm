@@ -86,7 +86,7 @@ def build_v07j_fixture(world: str) -> V07JFixture:
     source = build_v07g_validation_fixture()
     return V07JFixture(
         world=str(world),
-        source=source,
+        source=source.source,
         generator_model=source.generator_model,
         selected_model=source.optimized_model,
         baseline_model=source.baseline_model,
