@@ -1,0 +1,139 @@
+{
+  "schema": "esdm.v07j.population_shift_frozen_results.v1",
+  "status": "PASS",
+  "outcome_run_id": 36118096281,
+  "outcome_head_sha": "e68990272bbe00a65b2e60bc80eabbc48fb290ec",
+  "replacement_authorization": "r1",
+  "invalidated_predecessor_run_id": 36117506781,
+  "invalidation_receipt": "docs/validation/V07J_INVALIDATED_RUN_36117506781.json",
+  "gate_merge_commit": "1f17d517b9825a6ac4ac2c876a67be5559271bac",
+  "gate_freeze_commit": "14dfe742bd1f676ffa1cd94ea99ee9f5f9e0d5c7",
+  "gate_blob_sha": "ef2c8f6aa412a3a05a1201778ff430d4d4385613",
+  "observed_gate_blob_sha": "ef2c8f6aa412a3a05a1201778ff430d4d4385613",
+  "result_artifact": {
+    "id": 10855703479,
+    "name": "v07j-result-36118096281",
+    "github_digest": "sha256:aae71e79c77061fe074292a53f0e01e4be26c34776014ffcf05a365795881960",
+    "result_json_sha256": "10baa9eaded4c3c07d79cc02a97f917b12ce668214d79bf5fcea4b3b56036330"
+  },
+  "source_schedule": [
+    2,
+    6,
+    7,
+    8
+  ],
+  "baseline_schedule": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "target_worlds": {
+    "low_occupancy": {
+      "alpha": 0.3,
+      "psi0": 0.1,
+      "gamma": 0.2,
+      "epsilon": 0.3
+    },
+    "high_occupancy": {
+      "alpha": 0.3,
+      "psi0": 0.5,
+      "gamma": 0.55,
+      "epsilon": 0.1
+    },
+    "high_turnover": {
+      "alpha": 0.3,
+      "psi0": 0.2,
+      "gamma": 0.55,
+      "epsilon": 0.4
+    }
+  },
+  "summary": {
+    "total_replicates": 36,
+    "total_fit_count": 72,
+    "total_divergences": 0,
+    "pooled_selected_lower_worst_sd_rate": 0.9722222222222222,
+    "pooled_mean_worst_sd_ratio": 0.7991896040628926,
+    "world_summaries": {
+      "low_occupancy": {
+        "replicates": 12,
+        "selected_lower_worst_sd_rate": 1,
+        "mean_worst_sd_ratio": 0.8050227851366554,
+        "minimum_worst_sd_ratio": 0.6896496170735906,
+        "maximum_worst_sd_ratio": 0.9706813897030543,
+        "selected_mean_biases": {
+          "sp.suitability.alpha": -0.0044698438465240325,
+          "sp.occupancy.psi0_logit": -0.004084786505791342,
+          "sp.occupancy.gamma_logit": 0.02332642504260235,
+          "sp.occupancy.epsilon_logit": 0.03884675426575043
+        },
+        "selected_coverages": {
+          "sp.suitability.alpha": 0.9166666666666666,
+          "sp.occupancy.psi0_logit": 0.9166666666666666,
+          "sp.occupancy.gamma_logit": 0.9166666666666666,
+          "sp.occupancy.epsilon_logit": 0.9166666666666666
+        },
+        "positive_heldout_gain_rate": 0.6666666666666666,
+        "mean_heldout_gain": 0.01819024635504936,
+        "minimum_heldout_gain": -0.09809658410554345
+      },
+      "high_occupancy": {
+        "replicates": 12,
+        "selected_lower_worst_sd_rate": 0.9166666666666666,
+        "mean_worst_sd_ratio": 0.7261308065846589,
+        "minimum_worst_sd_ratio": 0.501512459402474,
+        "maximum_worst_sd_ratio": 1.1090797530681975,
+        "selected_mean_biases": {
+          "sp.suitability.alpha": 0.004083414872487395,
+          "sp.occupancy.psi0_logit": -0.0039039974508702506,
+          "sp.occupancy.gamma_logit": 0.06631074244550307,
+          "sp.occupancy.epsilon_logit": 0.012767759970391165
+        },
+        "selected_coverages": {
+          "sp.suitability.alpha": 0.8333333333333334,
+          "sp.occupancy.psi0_logit": 0.9166666666666666,
+          "sp.occupancy.gamma_logit": 1,
+          "sp.occupancy.epsilon_logit": 0.9166666666666666
+        },
+        "positive_heldout_gain_rate": 0.5833333333333334,
+        "mean_heldout_gain": 0.004494779429101407,
+        "minimum_heldout_gain": -0.09745307624991018
+      },
+      "high_turnover": {
+        "replicates": 12,
+        "selected_lower_worst_sd_rate": 1,
+        "mean_worst_sd_ratio": 0.8664152204673635,
+        "minimum_worst_sd_ratio": 0.6831604693839244,
+        "maximum_worst_sd_ratio": 0.9665973535273428,
+        "selected_mean_biases": {
+          "sp.suitability.alpha": -0.008599651010618313,
+          "sp.occupancy.psi0_logit": 0.06709973208364567,
+          "sp.occupancy.gamma_logit": -0.0008246266548880046,
+          "sp.occupancy.epsilon_logit": -0.02967907771493065
+        },
+        "selected_coverages": {
+          "sp.suitability.alpha": 0.9166666666666666,
+          "sp.occupancy.psi0_logit": 0.9166666666666666,
+          "sp.occupancy.gamma_logit": 0.75,
+          "sp.occupancy.epsilon_logit": 0.9166666666666666
+        },
+        "positive_heldout_gain_rate": 0.3333333333333333,
+        "mean_heldout_gain": 0.01995218596465313,
+        "minimum_heldout_gain": -0.0377505055227525
+      }
+    }
+  },
+  "gate": {
+    "passed": true,
+    "checks_passed": 36,
+    "checks_total": 36
+  },
+  "interpretation_boundary": {
+    "pilot_selected_schedule_transfer_across_frozen_population_shifts": true,
+    "universal_population_shift_robustness": false,
+    "predictive_superiority_established": false,
+    "odsp_information_transfer_source": false,
+    "movement_or_connectivity": false,
+    "empirical_biological_validity": false
+  }
+}
