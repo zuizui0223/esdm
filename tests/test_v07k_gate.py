@@ -49,7 +49,7 @@ def _summary(**overrides):
     return SimpleNamespace(**values)
 
 
-def test_v07k_gate_accepts_local_repilot_rescue():
+def test_v07k_gate_accepts_incremental_local_adaptation_gain():
     decision = evaluate_v07k_gate(_summary())
 
     assert decision.passed
