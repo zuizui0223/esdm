@@ -328,3 +328,145 @@ def standardize_weekly_precipitation(
         "training_contexts": [list(key) for key in training_keys],
         "precip_z_train": standardized,
     }
+
+
+
+def deployment_week_contexts(
+    selected_deployments: Iterable[Mapping[str, object]],
+) -> dict[str, tuple[tuple[str, int, int], ...]]:
+    """Derive unique site-week contexts from response-blind deployment metadata."""
+
+    all_contexts: set[tuple[str, int, int]] = set()
+    training_contexts: set[tuple[str, int, int]] = set()
+
+    rows = tuple(selected_deployments)
+    if not rows:
+        raise ValueError("selected_deployments must be non-empty")
+
+    for index, row in enumerate(rows):
+        spatial_unit = str(row.get("spatial_unit", "")).strip()
+        partition = str(row.get("partition", "")).strip()
+        if not spatial_unit:
+            raise ValueError(f"deployment[{index}] spatial_unit must be non-empty")
+        if partition not in {"training", "heldout"}:
+            raise ValueError(
+                f"deployment[{index}] partition must be training or heldout"
+            )
+        start = date.fromisoformat(str(row.get("start_date", "")).strip())
+        end = date.fromisoformat(str(row.get("end_date", "")).strip())
+        if end < start:
+            raise ValueError(f"deployment[{index}] end_date precedes start_date")
+
+        cursor = start
+        while cursor <= end:
+            iso_year, iso_week, _ = cursor.isocalendar()
+            key = (spatial_unit, int(iso_year), int(iso_week))
+            all_contexts.add(key)
+            if partition == "training":
+                training_contexts.add(key)
+            cursor += timedelta(days=1)
+
+    if not training_contexts:
+        raise ValueError("selected deployments contain no training site-week contexts")
+
+    return {
+        "all": tuple(sorted(all_contexts)),
+        "training": tuple(sorted(training_contexts)),
+    }
+
+
+def build_precipitation_covariate_table(
+    *,
+    selected_sites: Iterable[Mapping[str, object]],
+    selected_deployments: Iterable[Mapping[str, object]],
+    raw_by_spatial_unit: Mapping[str, bytes],
+    contract: Mapping[str, object] | None = None,
+) -> dict[str, object]:
+    """Build the frozen pre-response Daymet cache and standardized weekly table."""
+
+    cfg = _contract() if contract is None else dict(contract)
+    site_rows = tuple(selected_sites)
+    requests = tuple(
+        daymet_site_request(
+            str(row["spatial_unit"]),
+            float(row["latitude"]),
+            float(row["longitude"]),
+            contract=cfg,
+        )
+        for row in site_rows
+    )
+    manifest = build_cache_manifest(
+        requests,
+        raw_by_spatial_unit,
+        contract=cfg,
+    )
+
+    daily_by_site = {
+        request.spatial_unit: parse_daymet_prcp_response(
+            raw_by_spatial_unit[request.spatial_unit],
+            contract=cfg,
+        )
+        for request in requests
+    }
+    contexts = deployment_week_contexts(selected_deployments)
+    weekly = iso_week_precipitation(daily_by_site, contexts["all"])
+    standardized = standardize_weekly_precipitation(
+        weekly,
+        contexts["training"],
+    )
+
+    partition_by_site = {}
+    for row in site_rows:
+        spatial_unit = str(row["spatial_unit"]).strip()
+        partition = str(row["partition"]).strip()
+        if partition not in {"training", "heldout"}:
+            raise ValueError(f"site {spatial_unit!r} has invalid partition {partition!r}")
+        prior = partition_by_site.get(spatial_unit)
+        if prior is not None and prior != partition:
+            raise ValueError(f"site {spatial_unit!r} has inconsistent partition")
+        partition_by_site[spatial_unit] = partition
+
+    table = [
+        {
+            "spatial_unit": key[0],
+            "iso_year": key[1],
+            "iso_week": key[2],
+            "partition": partition_by_site[key[0]],
+            "weekly_prcp_mm": float(weekly[key]),
+            "precip_z_train": float(standardized["precip_z_train"][key]),
+        }
+        for key in sorted(weekly)
+    ]
+    core = {
+        "schema": "esdm.empirical_snapshot_usa_daymet_covariates.v1",
+        "contract_id": cfg["contract_id"],
+        "cache_manifest_sha256": manifest["manifest_sha256"],
+        "training_scaler": {
+            "mean_mm": standardized["mean_mm"],
+            "sd_mm": standardized["sd_mm"],
+            "training_context_count": standardized["training_context_count"],
+        },
+        "context_count": len(table),
+        "training_context_count": sum(
+            row["partition"] == "training" for row in table
+        ),
+        "heldout_context_count": sum(
+            row["partition"] == "heldout" for row in table
+        ),
+        "rows": table,
+        "response_rows_opened": 0,
+        "response_values_opened": False,
+        "model_fits": 0,
+        "heldout_scores": 0,
+    }
+    canonical = json.dumps(
+        core,
+        sort_keys=True,
+        separators=(",", ":"),
+        allow_nan=False,
+    ).encode("utf-8")
+    return {
+        **core,
+        "table_sha256": _sha256(canonical),
+        "cache_manifest": manifest,
+    }
