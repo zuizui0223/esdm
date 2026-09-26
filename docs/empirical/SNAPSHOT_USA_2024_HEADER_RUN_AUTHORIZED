@@ -1,0 +1,15 @@
+Snapshot USA 2024 R5b response-blind header/deployment authorization
+
+authorized_date: 2026-09-26
+qualification_merge_commit: c0755025ab174700d041c9834c552d7898e49a29
+contract: docs/empirical/SNAPSHOT_USA_2024_HEADER_CONTRACT.json
+candidate_registry: docs/empirical/EMPIRICAL_R5B_CANDIDATE_REGISTRY_V1.json
+
+This marker authorizes exactly one response-blind metadata/header attempt:
+- deployment metadata file may be opened in full;
+- sequence file may be read through its first header line only, max 4096 bytes;
+- sequence response rows opened must remain 0;
+- response values opened must remain false;
+- model fits and heldout scores must remain 0.
+
+It does not authorize precipitation retrieval, sequence response opening, model fitting, or empirical endpoint evaluation.
