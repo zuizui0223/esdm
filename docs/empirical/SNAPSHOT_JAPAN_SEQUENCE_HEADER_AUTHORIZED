@@ -1,0 +1,3 @@
+Snapshot Japan sequences physical header access authorized once.
+Only bytes through the first LF are authorized. No data row, species value, age value, model fit, or heldout score is authorized.
+Scientific freeze: V04 R5b.
