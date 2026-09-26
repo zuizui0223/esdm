@@ -1,0 +1,35 @@
+name: odsp-transfer-adapter
+
+on:
+  pull_request:
+    paths:
+      - 'src/esdm/transfer/odsp_adapter.py'
+      - 'src/esdm/transfer/__init__.py'
+      - 'scripts/export_v06a_odsp_transfer.py'
+      - 'tests/test_odsp_transfer_adapter.py'
+      - 'ODSP_TRANSFER_E2E_RESULT_V1.json'
+      - 'tests/test_odsp_transfer_e2e_result.py'
+      - 'docs/integration/ODSP_TRANSFER_ADAPTER.md'
+      - '.github/workflows/odsp-transfer-adapter.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install eSDM
+        run: python -m pip install -e '.[dev]'
+      - name: Validate ODSP export adapter and frozen integration result
+        run: >-
+          python -m pytest -q
+          tests/test_odsp_transfer_adapter.py
+          tests/test_odsp_transfer_e2e_result.py
+      - name: Compile export script
+        run: python -m py_compile scripts/export_v06a_odsp_transfer.py

@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "receipt_id": "esdm-v04-r5b-parallel-odsp-transfer-result-v1",
+  "validated_date": "2026-09-25",
+  "binding": "ODSP_TRANSFER_R5B_PARALLEL_BINDING_V1.json",
+  "source": {
+    "esdm_schema": "esdm.v04_r5b.outcome.v1",
+    "workflow_run_id": 35879936964,
+    "artifact_id": 10761956596,
+    "artifact_digest": "sha256:ead0e17a4da17b3c27b84bcbb0c4aa034379f9930ce32987e1940215ba839477",
+    "result_sha256": "65580510b56076ecd0d8f893af991a930eb50ba055b060ce11d78d0f2646c2e0",
+    "outcome_head_sha": "3c757ccf243c9bab415d59f40d4ab39ae2a06a69"
+  },
+  "integration": {
+    "validation_head_sha": "379f9af9f76811a96d99eaca37371119deb54fef",
+    "workflow_run_id": 36077749897,
+    "run_attempt": 1,
+    "conclusion": "success",
+    "artifact_id": 10841275246,
+    "artifact_name": "esdm-r5b-odsp-parallel-e2e-v1",
+    "artifact_digest": "sha256:6d03a43607261e42e020b3cc73dd652205d72873607584f0ed9b55a1dc748231",
+    "pinned_odsp_commit": "0bd83e1ebb372c48839654ab0e42124fe37b8faf"
+  },
+  "contrasts": {
+    "activity": {
+      "endpoint_id": "esdm_v04_r5b_activity_transfer_v1",
+      "output_hashes": {
+        "adapter_manifest.json": "7378aa59986f5d341090086475e1f46c637838accf9142ef211e20c5fdb057c5",
+        "endpoint.json": "dc391f4ec81f2589864e7f00ac93878a91aa957d434c7664cde379e68b9607b8",
+        "scores.csv": "58a24033247a1d81e1eed275de6df615dbfc5cb57ed92f668ce8f2f82990ebaf",
+        "receipt.json": "8f471bbddf141dd645d0d2c6919b7ca52df1d627b74e9f15bc6508f0fa64248b",
+        "N2_TO_N3_TRANSFER_VALUE_PAYLOAD.json": "0e220102b8dc020af90f5cd5023fe0dae78acec22422e2f1e7d1162cc3f41f41"
+      },
+      "odsp_result": {
+        "lower_level": "suitability_state",
+        "upper_level": "suitability_state_activity",
+        "population_mean_gain": 0.00699856015906225,
+        "population_mean_interval": [
+          0.00539876274739076,
+          0.008536010424256283
+        ],
+        "population_status": "positive",
+        "population_positive_group_count": 16,
+        "population_positive_group_fraction": 1,
+        "population_mean_supported_ceiling": "suitability_state_activity",
+        "certified_transfer_ceiling": "suitability_state",
+        "certification_all_steps_estimable": false,
+        "prediction_interval": [
+          0.00017361380150801055,
+          0.01382350651661649
+        ]
+      },
+      "n3_transfer_value": {
+        "fingerprint": "29c92c636969c192503ad5104e2f168490c78e233784ad1d4270fffd7dd42437",
+        "source_population_fingerprint": "a1db37ab019cb39f58eeb94ab509dbdace55d81ad14b56fce26e3538661863f1",
+        "total_expected_gain": 0.00699856015906225,
+        "conservative_mean_value": 0.00539876274739076,
+        "prediction_interval": [
+          0.00017361380150801055,
+          0.01382350651661649
+        ]
+      }
+    },
+    "state": {
+      "endpoint_id": "esdm_v04_r5b_state_transfer_v1",
+      "output_hashes": {
+        "adapter_manifest.json": "1ffa344df50e003719b553b435f62b1fd66ce9a592d89eb9277568dc4bf333db",
+        "endpoint.json": "2868dd8efbd98cbfb2c8f8fb65e8f70623466d894e13dc5e6412c87bff65e14a",
+        "scores.csv": "05438b7c2b91f8526e387aa2af11b4567ef1a545ed431e3bbf1abef35367fa2b",
+        "receipt.json": "a6c10cda5abf0922066d4e035e78fcbafaacb19a65b23405e1cd8687ee2add55",
+        "N2_TO_N3_TRANSFER_VALUE_PAYLOAD.json": "c28a165781c1790e5f0e639cc26f33e338ad8b8999f39d60faefa4d8af41611c"
+      },
+      "odsp_result": {
+        "lower_level": "suitability_activity",
+        "upper_level": "suitability_activity_state",
+        "population_mean_gain": 0.02896466849576273,
+        "population_mean_interval": [
+          0.025782042061382092,
+          0.03171550122818008
+        ],
+        "population_status": "positive",
+        "population_positive_group_count": 16,
+        "population_positive_group_fraction": 1,
+        "population_mean_supported_ceiling": "suitability_activity_state",
+        "certified_transfer_ceiling": "suitability_activity",
+        "certification_all_steps_estimable": false,
+        "prediction_interval": [
+          0.01588863971665459,
+          0.042040697274870864
+        ]
+      },
+      "n3_transfer_value": {
+        "fingerprint": "5897016f39ac542af4e4f590145c8c0cc66dc9ab5fc8ea8bece0be92a8f1e6c5",
+        "source_population_fingerprint": "502cd5456ae2a0789a0ac5cd9751a40eb3e4df5bbe996f8d349c5db1b534d5a1",
+        "total_expected_gain": 0.02896466849576273,
+        "conservative_mean_value": 0.025782042061382092,
+        "prediction_interval": [
+          0.01588863971665459,
+          0.042040697274870864
+        ]
+      }
+    }
+  },
+  "ordering_boundary": {
+    "activity_and_state_are_parallel": true,
+    "combined_three_level_filtration_authorized": false
+  },
+  "score_currency": {
+    "kind": "log",
+    "name": "mean_heldout_log_predictive_density",
+    "unit": "nats_per_heldout_state_block_context",
+    "orientation": "higher_is_better"
+  },
+  "action_boundary": {
+    "authorizes_state_promotion": false,
+    "authorizes_spatial_patch_ranking": false,
+    "authorizes_survey_site_selection": false,
+    "authorizes_n4_action": false,
+    "n4_survey_action_owner": "ACSP",
+    "current_eog_mainline_consumer_authorized": false
+  },
+  "interpretation": {
+    "supported": [
+      "the frozen R5b activity increment remains positive at the population level across 16 independent semi-synthetic replicates",
+      "the frozen R5b latent-state increment remains positive at the population level across the same 16 independent replicates",
+      "activity and state values can be serialized separately as downstream transfer-value evidence without imposing an arbitrary order"
+    ],
+    "not_supported": [
+      "a single activity-before-state or state-before-activity filtration",
+      "empirical biological validity",
+      "causal behavioural mechanisms",
+      "survey-site ranking or field action",
+      "a change to the original R5b gate decision"
+    ]
+  }
+}

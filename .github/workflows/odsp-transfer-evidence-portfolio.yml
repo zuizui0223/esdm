@@ -1,0 +1,50 @@
+name: odsp-transfer-evidence-portfolio
+
+on:
+  pull_request:
+    paths:
+      - 'src/esdm/transfer/evidence_portfolio.py'
+      - 'src/esdm/transfer/__init__.py'
+      - 'scripts/build_odsp_transfer_evidence_portfolio.py'
+      - 'tests/test_odsp_transfer_evidence_portfolio.py'
+      - 'ODSP_TRANSFER_SOURCE_REGISTRY_V1.json'
+      - 'ODSP_TRANSFER_R5B_PARALLEL_RESULT_V1.json'
+      - 'ODSP_TRANSFER_E2E_RESULT_V1.json'
+      - 'ODSP_TRANSFER_V07B_E2E_RESULT_V1.json'
+      - 'ODSP_TRANSFER_EVIDENCE_PORTFOLIO_V1.json'
+      - 'ODSP_TRANSFER_EVIDENCE_PORTFOLIO_RECEIPT_V1.json'
+      - 'tests/test_odsp_transfer_evidence_portfolio_snapshot.py'
+      - 'docs/integration/ODSP_TRANSFER_EVIDENCE_PORTFOLIO.md'
+      - '.github/workflows/odsp-transfer-evidence-portfolio.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install eSDM
+        run: python -m pip install -e . pytest
+      - name: Validate evidence portfolio semantics and frozen snapshot
+        run: >-
+          python -m pytest -q
+          tests/test_odsp_transfer_evidence_portfolio.py
+          tests/test_odsp_transfer_evidence_portfolio_snapshot.py
+      - name: Build deterministic portfolio
+        run: |
+          mkdir -p build
+          python scripts/build_odsp_transfer_evidence_portfolio.py \
+            --registry ODSP_TRANSFER_SOURCE_REGISTRY_V1.json \
+            --out build/ODSP_TRANSFER_EVIDENCE_PORTFOLIO_V1.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: odsp-transfer-evidence-portfolio-v1
+          path: build/ODSP_TRANSFER_EVIDENCE_PORTFOLIO_V1.json
+          if-no-files-found: error
+          retention-days: 90

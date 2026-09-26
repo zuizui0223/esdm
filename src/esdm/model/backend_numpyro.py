@@ -8,7 +8,7 @@ second ecological or observation model implementation.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from collections.abc import Mapping
 from types import MappingProxyType
 import importlib.util
@@ -485,6 +485,7 @@ class PosteriorLatentFields:
     activity: Mapping[str, object]
     state_probabilities: Mapping[str, object]
     state_labels: Mapping[str, tuple[str, ...]]
+    occupancy: Mapping[str, object] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         object.__setattr__(
@@ -495,6 +496,9 @@ class PosteriorLatentFields:
         )
         object.__setattr__(
             self, "activity", MappingProxyType(dict(self.activity))
+        )
+        object.__setattr__(
+            self, "occupancy", MappingProxyType(dict(self.occupancy))
         )
         object.__setattr__(
             self,
@@ -535,6 +539,7 @@ def posterior_latent_fields(model, samples, covariates) -> PosteriorLatentFields
     log_rows = {species: [] for species in model.species}
     accessibility_rows = {species: [] for species in model.species}
     activity_rows = {species: [] for species in model.species}
+    occupancy_rows: dict[str, list[object]] = {}
     state_rows: dict[str, list[object]] = {}
     state_labels: dict[str, tuple[str, ...]] = {}
 
@@ -551,6 +556,10 @@ def posterior_latent_fields(model, samples, covariates) -> PosteriorLatentFields
                 fields.accessibility[species].values
             )
             activity_rows[species].append(fields.activity[species].values)
+            if species in fields.occupancy:
+                occupancy_rows.setdefault(species, []).append(
+                    fields.occupancy[species].values
+                )
             if species in fields.state_probabilities:
                 state_rows.setdefault(species, []).append(
                     fields.state_probabilities[species].values
@@ -575,6 +584,10 @@ def posterior_latent_fields(model, samples, covariates) -> PosteriorLatentFields
             for species, rows in state_rows.items()
         },
         state_labels=state_labels,
+        occupancy={
+            species: jnp.stack(rows, axis=0)
+            for species, rows in occupancy_rows.items()
+        },
     )
 
 

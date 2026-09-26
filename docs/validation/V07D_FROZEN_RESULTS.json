@@ -1,0 +1,63 @@
+{
+  "schema": "esdm.v07d.equal_dimension_frozen_results.v1",
+  "status": "PASS",
+  "outcome_run_id": 36081729221,
+  "outcome_head_sha": "3a525662bdb1de68c0b3727d540f5410a46bfe64",
+  "gate_freeze_commit": "c50e05f049da05c5b5063d5034cacfae9e8ecd98",
+  "gate_blob_sha": "131f0376a5097aa97358ff2511a63c68f2922a53",
+  "observed_gate_blob_sha": "131f0376a5097aa97358ff2511a63c68f2922a53",
+  "qualification_artifact": {
+    "id": 10842770224,
+    "name": "v07d-qualification-36081729221",
+    "github_digest": "sha256:af3111005042859b2f08a32e09eff3355cceda6d219e176de304639222c8a74a",
+    "independent_zip_sha256": "af3111005042859b2f08a32e09eff3355cceda6d219e176de304639222c8a74a"
+  },
+  "result_artifact": {
+    "id": 10842252655,
+    "name": "v07d-result-36081729221",
+    "github_digest": "sha256:44bb5ef0214fbbdc6519a2f70d705476b3698db94994959ae59925cd530d1dd4",
+    "independent_zip_sha256": "44bb5ef0214fbbdc6519a2f70d705476b3698db94994959ae59925cd530d1dd4"
+  },
+  "qualification": {
+    "dynamic_structural_pass": true,
+    "dynamic_practical_pass": true,
+    "static_structural_pass": true,
+    "static_practical_pass": true,
+    "static_rank": 4,
+    "static_parameter_count": 4,
+    "condition_number": 16.79902638364069,
+    "relative_min_singular_value": 0.05952725932818493,
+    "target_sd_proxies": {
+      "sp.suitability.alpha": 0.06484991523515762,
+      "sp.occupancy.occupancy_intercept": 0.11060162516893356,
+      "sp.occupancy.beta_time": 0.21229182652087572,
+      "sp.occupancy.beta_time2": 0.2226285339313956
+    }
+  },
+  "summary": {
+    "replicates": 16,
+    "fit_count": 32,
+    "dynamic_better_rate": 1.0,
+    "mean_dynamic_gain": 14.144259876683904,
+    "minimum_dynamic_gain": 3.125038874420687,
+    "total_divergences": 0
+  },
+  "gate": {
+    "passed": true,
+    "checks_passed": 9,
+    "checks_total": 9
+  },
+  "interpretation_boundary": {
+    "equal_parameter_count_comparison": true,
+    "same_observation_programme": true,
+    "heldout_direct_occupancy_exposure": false,
+    "recursive_dynamic_advantage_over_memoryless_quadratic_established": true,
+    "universal_dynamic_superiority": false,
+    "realized_binary_occupancy_history_established": false,
+    "colonization_extinction_events_observed": false,
+    "movement_kernel_identified": false,
+    "connectivity_identified": false,
+    "source_sink_dynamics_identified": false,
+    "empirical_biological_validity": false
+  }
+}

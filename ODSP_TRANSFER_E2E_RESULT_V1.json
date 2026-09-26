@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "receipt_id": "esdm-v06a-to-odsp-to-n3-transfer-value-result-v1",
+  "validated_date": "2026-09-25",
+  "binding": "ODSP_TRANSFER_E2E_BINDING_V1.json",
+  "source": {
+    "esdm_schema": "esdm.v06a.accessibility.v1",
+    "workflow_run_id": 35989902607,
+    "artifact_id": 10804831269,
+    "artifact_digest": "sha256:978a10cbd9c6d0fcd382a925b47e6311e26658ad5c91c8ec9b2a50f4442b73e5",
+    "result_sha256": "243f90c6a246fa020043873ae63f4c14adb08999009392767644bc529c6341cc",
+    "adapter_merge_sha": "e9bec1be8136a85c265af3604394d3389319998d"
+  },
+  "integration": {
+    "integration_merge_sha": "3f939082d8509553f5e2a95ebb9ea58f46b40859",
+    "validation_head_sha": "063aca6e69927ebf66d645c8a34843a9ba180564",
+    "workflow_run_id": 36070032488,
+    "run_attempt": 1,
+    "conclusion": "success",
+    "artifact_id": 10837529197,
+    "artifact_name": "esdm-odsp-transfer-e2e-v1",
+    "artifact_digest": "sha256:655af1311a8d9f5d9cb910ca5ccf3a50e6caede73474dba8ab2fd7ffb5840af8",
+    "pinned_odsp_commit": "0bd83e1ebb372c48839654ab0e42124fe37b8faf"
+  },
+  "output_hashes": {
+    "scores.csv": "597c613e9bd88d17553eb62c52d8fd6e5c1d6dc7cb7887e85db1612dedefe976",
+    "endpoint.json": "d78312125919f34c4d203e32500f5a1fe10907baa580ca051d9448e29f9d5e85",
+    "adapter_manifest.json": "f157ab652402cb7e8b776080035c22d3eb3bb6847e08578c275adfc522eb57fb",
+    "receipt.json": "470bab944a54222e1d9c3707ea410ef770f98136f172569c51be2584cebe7155",
+    "N2_TO_N3_TRANSFER_VALUE_PAYLOAD.json": "ef7e1e1ec1f7ad475296e1e815bf296638678229e2efcb9fb54ce0176846d349"
+  },
+  "odsp_result": {
+    "endpoint_id": "esdm_v06a_accessibility_transfer_v1",
+    "point_transfer_ceiling": "suitability_accessibility",
+    "certified_transfer_ceiling": "suitability_only",
+    "certification_all_steps_estimable": false,
+    "certification_estimable_cell_count": 0,
+    "certification_cell_count": 16,
+    "population_group_count": 16,
+    "population_cluster_count": 16,
+    "population_cluster_declared": false,
+    "population_mean_gain": 0.36244191577864204,
+    "population_mean_interval": [
+      0.27041044003054493,
+      0.44941186157505086
+    ],
+    "population_status": "positive",
+    "population_positive_group_count": 16,
+    "population_positive_group_fraction": 1,
+    "population_positive_fraction_lower": 0.8063923194655637,
+    "population_mean_supported_ceiling": "suitability_accessibility",
+    "prediction_interval": [
+      -0.015981387429271854,
+      0.7408652189865559
+    ]
+  },
+  "n3_transfer_value": {
+    "schema_id": "n2-to-n3-transfer-value-payload-v1",
+    "fingerprint": "38475957cd89abf3421ba7d9729cf7d302401a4d24a1ab29ec49362ef1e7b106",
+    "source_population_fingerprint": "3e379e4b32d666933a4f4c2b421639103412e7f07b0bedd05c4177d480773c9b",
+    "score": {
+      "kind": "log",
+      "name": "mean_heldout_log_predictive_density",
+      "unit": "nats_per_heldout_context",
+      "orientation": "higher_is_better"
+    },
+    "total_expected_gain": 0.36244191577864204,
+    "total_conservative_mean_value": 0.27041044003054493,
+    "total_status": "positive",
+    "adjacent_step_conservative_mean_value": 0.2744844449313707,
+    "authorizes_state_promotion": false,
+    "authorizes_spatial_patch_ranking": false,
+    "authorizes_survey_site_selection": false,
+    "authorizes_n4_action": false,
+    "n4_survey_action_owner": "ACSP"
+  },
+  "interpretation": {
+    "supported": [
+      "the generic eSDM adapter preserves the frozen v0.6a accessibility held-out gain exactly when passed through ODSP",
+      "ODSP population inference recognizes positive accessibility transfer across 16 independent known-truth replicates",
+      "the population-level transfer ceiling reaches suitability_accessibility even though the legacy within-group certification cannot estimate any cell from one aggregate row per replicate",
+      "the N2-to-N3 handoff preserves both positive conservative mean value and a new-replicate prediction interval that crosses zero",
+      "the payload can be consumed as information-transfer value for future reachability integration without authorizing state promotion or survey action"
+    ],
+    "not_supported": [
+      "a new v0.6a promotion result",
+      "a new empirical biological claim",
+      "spatial survey priority from transfer value alone",
+      "direct use by the scientifically frozen current EOG mainline",
+      "comparison of numeric transfer value across incompatible score currencies"
+    ]
+  }
+}

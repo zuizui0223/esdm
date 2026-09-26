@@ -1,0 +1,79 @@
+{
+  "schema": "esdm.v07c.static_dynamic_frozen_results.v1",
+  "status": "PASS",
+  "outcome_run_id": 36078426459,
+  "outcome_head_sha": "08a3fca65cb4fcb3ba1cdd135d92e7bde9513775",
+  "gate_freeze_commit": "42772573e83b85174cfad8dc5d9ba5bcd77655af",
+  "gate_blob_sha": "95c6e8b7d77a7164574e7afd013dc47fbfbdcb4a",
+  "observed_gate_blob_sha": "95c6e8b7d77a7164574e7afd013dc47fbfbdcb4a",
+  "authorization": {
+    "marker_commit": "08a3fca65cb4fcb3ba1cdd135d92e7bde9513775",
+    "marker_consumed_commit": "867c9853fed3bd4aae8ed8f19bea26f512dd10a2",
+    "unique_scientific_run": 36078426459
+  },
+  "qualification_artifact": {
+    "id": 10841151051,
+    "name": "v07c-qualification-36078426459",
+    "github_digest": "sha256:6e85671b476a703a4f431011e4eaa10b7a95e52550f03e7ac51fd7c00ef52617",
+    "independent_zip_sha256": "6e85671b476a703a4f431011e4eaa10b7a95e52550f03e7ac51fd7c00ef52617"
+  },
+  "result_artifact": {
+    "id": 10841011706,
+    "name": "v07c-result-36078426459",
+    "github_digest": "sha256:470e3e3ce22f0a9b28791d539a1f09280b55c99de3fce12124fe60e1816e022c",
+    "independent_zip_sha256": "470e3e3ce22f0a9b28791d539a1f09280b55c99de3fce12124fe60e1816e022c"
+  },
+  "information_split": {
+    "generated_joint_contexts": "1-12",
+    "fitted_joint_contexts": "1-8",
+    "direct_occupancy_contexts": "1-4",
+    "heldout_joint_contexts": "9-12",
+    "heldout_direct_occupancy_exposure": false
+  },
+  "models": {
+    "dynamic_parameter_count": 4,
+    "static_parameter_count": 3,
+    "static_form": "memoryless logistic occupancy with intercept plus frozen linear time slope",
+    "generator": "frozen v0.7b colonization-extinction world"
+  },
+  "qualification": {
+    "dynamic_structural_pass": true,
+    "dynamic_practical_pass": true,
+    "static_structural_pass": true,
+    "static_practical_pass": true,
+    "static_rank": 3,
+    "static_parameter_count": 3,
+    "static_condition_number": 6.893419415321438,
+    "static_relative_min_singular_value": 0.145065886717611,
+    "static_target_sd_proxies": {
+      "sp.suitability.alpha": 0.06672646213121719,
+      "sp.occupancy.occupancy_intercept": 0.11365804735516273,
+      "sp.occupancy.beta_time": 0.11194503567718209
+    }
+  },
+  "summary": {
+    "replicates": 16,
+    "fit_count": 32,
+    "dynamic_better_count": 15,
+    "dynamic_better_rate": 0.9375,
+    "mean_dynamic_gain": 3.3212365823630834,
+    "minimum_dynamic_gain": -0.1168403622198042,
+    "total_divergences": 0
+  },
+  "gate": {
+    "passed": true,
+    "checks_passed": 9,
+    "checks_total": 9
+  },
+  "interpretation_boundary": {
+    "recursive_dynamics_outperform_matched_memoryless_occupancy_in_frozen_world": true,
+    "universal_dynamic_superiority": false,
+    "realized_binary_occupancy_history_established": false,
+    "colonization_extinction_events_observed": false,
+    "movement_kernel_identified": false,
+    "connectivity_identified": false,
+    "source_sink_dynamics_identified": false,
+    "causal_movement_limitation": false,
+    "empirical_biological_validity": false
+  }
+}

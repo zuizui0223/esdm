@@ -1,0 +1,52 @@
+name: odsp-transfer-source-registry
+
+on:
+  pull_request:
+    paths:
+      - 'ODSP_TRANSFER_SOURCE_REGISTRY_V1.json'
+      - 'src/esdm/transfer/source_registry.py'
+      - 'src/esdm/transfer/__init__.py'
+      - 'scripts/list_odsp_transfer_sources.py'
+      - 'tests/test_odsp_transfer_source_registry.py'
+      - 'docs/validation/V05F_FROZEN_RESULTS.json'
+      - 'tests/test_v05f_frozen_results.py'
+      - 'docs/integration/ODSP_TRANSFER_SOURCE_REGISTRY.md'
+      - '.github/workflows/odsp-transfer-source-registry.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install eSDM
+        run: python -m pip install -e '.[dev]'
+
+      - name: Validate transfer-source registry and v0.5f frozen result
+        run: >-
+          python -m pytest -q
+          tests/test_odsp_transfer_source_registry.py
+          tests/test_v05f_frozen_results.py
+
+      - name: Verify registry listing surfaces
+        run: |
+          python scripts/list_odsp_transfer_sources.py --exportable-only
+          python scripts/list_odsp_transfer_sources.py --json > /tmp/transfer-sources.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          rows = json.loads(Path("/tmp/transfer-sources.json").read_text())
+          assert len(rows) == 14
+          assert sum(row["exportable"] for row in rows) == 4
+          PY
+
+      - name: Compile registry script
+        run: python -m py_compile scripts/list_odsp_transfer_sources.py
