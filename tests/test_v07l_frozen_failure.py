@@ -95,3 +95,20 @@ def test_v07l_next_step_is_not_post_result_trigger_retuning():
         audit["conclusion"]["next_development_need"]
         == "separate absolute recovery adequacy from relative placement headroom"
     )
+
+
+def test_v07l_failure_audit_provenance_is_pinned():
+    audit = _read(AUDIT)
+    provenance = audit["validation_provenance"]
+
+    assert provenance["validation_head_sha"] == (
+        "6a85b15315dfb8c473662ac7baee41500a6209b8"
+    )
+    assert provenance["workflow_run_id"] == 36225469983
+    assert provenance["artifact_id"] == 10900536847
+    assert provenance["artifact_digest"] == (
+        "sha256:f5f20afecc224d6695ae56cea5981d332770b5dfb5fe9c4b4ed9067c48bfb500"
+    )
+    assert provenance["audit_json_sha256"] == (
+        "a96a1ec52bdc84194ee1a2f8d317b875d3f5a4c2dbb53da5fadb78415399326b"
+    )
