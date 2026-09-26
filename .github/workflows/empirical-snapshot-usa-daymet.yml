@@ -1,0 +1,40 @@
+name: empirical-snapshot-usa-daymet
+
+on:
+  pull_request:
+    paths:
+      - 'docs/empirical/SNAPSHOT_USA_2024_DAYMET_PRECIPITATION_CONTRACT.json'
+      - 'src/esdm/validate/empirical_snapshot_usa.py'
+      - 'src/esdm/validate/empirical_snapshot_usa_daymet.py'
+      - 'scripts/cache_snapshot_usa_2024_daymet.py'
+      - 'tests/test_empirical_snapshot_usa_metadata.py'
+      - 'tests/test_empirical_snapshot_usa_daymet.py'
+      - '.github/workflows/empirical-snapshot-usa-daymet.yml'
+      - '.github/workflows/empirical-snapshot-usa-daymet-once.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install package and tests
+        run: python -m pip install -e '.[dev]'
+      - name: Validate response-blind precipitation freeze
+        run: >-
+          python -m pytest -q
+          tests/test_empirical_snapshot_usa_metadata.py
+          tests/test_empirical_snapshot_usa_daymet.py
+      - name: Compile Daymet cache runner
+        run: python -m py_compile scripts/cache_snapshot_usa_2024_daymet.py
+      - name: Confirm climate workflow is dormant and has no manual dispatch
+        run: |
+          test ! -e docs/empirical/SNAPSHOT_USA_2024_DAYMET_RUN_AUTHORIZED.json
+          grep -q "SNAPSHOT_USA_2024_DAYMET_RUN_AUTHORIZED.json" .github/workflows/empirical-snapshot-usa-daymet-once.yml
+          ! grep -q "workflow_dispatch" .github/workflows/empirical-snapshot-usa-daymet-once.yml

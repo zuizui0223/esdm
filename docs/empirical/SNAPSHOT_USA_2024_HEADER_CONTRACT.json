@@ -1,0 +1,192 @@
+{
+  "schema_version": 1,
+  "contract_id": "empirical-r5b-snapshot-usa-2024-metadata-header-v1",
+  "status": "FROZEN_PRE_RESPONSE_HEADER",
+  "frozen_date": "2026-09-26",
+  "r5b_empirical_freeze_commit": "59d2e2e4716e6b64a5f017cc5ee3c745fe49ff40",
+  "candidate_registry": "docs/empirical/EMPIRICAL_R5B_CANDIDATE_REGISTRY_V1.json",
+  "dataset": {
+    "doi": "10.5061/dryad.bnzs7h4qf",
+    "title": "SNAPSHOT USA 2024: Year 6 of the coordinated national camera trap survey of the United States",
+    "published_date": "2026-06-01",
+    "deployment_file": {
+      "name": "ssusa_2024_deployments.csv",
+      "dryad_file_stream_id": 4788613,
+      "url": "https://datadryad.org/downloads/file_stream/4788613",
+      "contains_focal_response": false,
+      "full_file_open_allowed": true
+    },
+    "sequence_file": {
+      "name": "ssusa_2024_sequences.csv",
+      "dryad_file_stream_id": 4788614,
+      "url": "https://datadryad.org/downloads/file_stream/4788614",
+      "contains_focal_response": true,
+      "max_header_bytes": 4096,
+      "response_data_rows_allowed": 0
+    }
+  },
+  "required_deployment_columns": [
+    "Camera_Trap_Array",
+    "Site_Name",
+    "Deployment_ID",
+    "Start_Date",
+    "End_Date",
+    "Survey_Nights",
+    "Latitude",
+    "Longitude"
+  ],
+  "required_sequence_header_columns": [
+    "Camera_Trap_Array",
+    "Deployment_ID",
+    "Sequence_ID",
+    "Start_Time",
+    "End_Time",
+    "Genus",
+    "Species",
+    "Group_Size"
+  ],
+  "focal_taxon": {
+    "genus": "Odocoileus",
+    "species": "virginianus",
+    "common_name": "white-tailed deer",
+    "selected_before_response_row_access": true
+  },
+  "state_contract": {
+    "states": [
+      "solitary",
+      "group"
+    ],
+    "mapping": {
+      "solitary": "integer Group_Size == 1",
+      "group": "integer Group_Size >= 2"
+    },
+    "unknown_state_allowed": false,
+    "mapping_selected_before_response_row_access": true
+  },
+  "spatial_contract": {
+    "spatial_unit": "Camera_Trap_Array + '|' + Site_Name",
+    "coordinate_source": [
+      "Latitude",
+      "Longitude"
+    ],
+    "candidate_longitude_minimum": -105,
+    "minimum_eligible_unique_sites": 64,
+    "selected_unique_sites": 64,
+    "site_selection": "among eligible unique sites with Longitude >= -105, sort ascending by SHA256('snapshot-usa-2024-r5b-v1|' + spatial_unit) and take first 64",
+    "east_holdout_fraction_target": 0.2,
+    "east_holdout_rule": "sort selected sites by Longitude; start with easternmost ceil(0.20*N); if the westernmost heldout longitude is tied with training, move all sites at that longitude into heldout",
+    "strict_separation_required": "max training Longitude < min heldout Longitude",
+    "holdout_response_used_for_fit": false
+  },
+  "training_stream_partition": {
+    "unit": "Deployment_ID",
+    "hash": "SHA256('snapshot-usa-2024-r5b-stream-v1|' + Deployment_ID), first byte",
+    "buckets": [
+      {
+        "stream": "opportunistic_presence",
+        "byte_range": [
+          0,
+          63
+        ],
+        "fraction": 0.25,
+        "role": "PresenceOnly-like counts; deployment effort deliberately not supplied to this stream"
+      },
+      {
+        "stream": "calibrated_presence",
+        "byte_range": [
+          64,
+          127
+        ],
+        "fraction": 0.25,
+        "role": "PresenceOnly-like counts with deployment-derived explicit effort"
+      },
+      {
+        "stream": "state_annotated",
+        "byte_range": [
+          128,
+          207
+        ],
+        "fraction": 0.3125,
+        "role": "StateAnnotatedCount-like counts informing activity and solitary/group state"
+      },
+      {
+        "stream": "state_calibration",
+        "byte_range": [
+          208,
+          255
+        ],
+        "fraction": 0.1875,
+        "role": "StateCompositionCount-like conditional labels; consumes state only"
+      }
+    ],
+    "partitions_disjoint": true,
+    "heldout_deployments_assigned_to_training_streams": false,
+    "state_calibration_exposure_in_holdout": 0
+  },
+  "temporal_contract": {
+    "timestamp_source": "Start_Time",
+    "timestamp_interpretation": "camera-local civil time as supplied by SNAPSHOT USA",
+    "week_definition": "ISO calendar week",
+    "hour_bins": [
+      {
+        "start": 0,
+        "end": 5,
+        "representative_hour": 3
+      },
+      {
+        "start": 6,
+        "end": 11,
+        "representative_hour": 9
+      },
+      {
+        "start": 12,
+        "end": 17,
+        "representative_hour": 15
+      },
+      {
+        "start": 18,
+        "end": 23,
+        "representative_hour": 21
+      }
+    ],
+    "context": "spatial_unit x ISO week x six-hour bin",
+    "doy": "day-of-year of the Thursday midpoint of the ISO week, clipped to calendar year",
+    "effort_reconstruction": "deployment active fraction = Survey_Nights / inclusive calendar nights between Start_Date and End_Date; distribute that fraction across calendar days and four six-hour bins so total camera-day effort equals Survey_Nights",
+    "effort_fraction_must_lie_in_0_1": true
+  },
+  "environment_contract": {
+    "eastness": "Longitude standardized using training selected sites only",
+    "latitude": "Latitude standardized using training selected sites only",
+    "seasonal_phase": "cyclic transform of representative day-of-year",
+    "diurnal_phase": "cyclic transform of representative hour",
+    "precipitation": {
+      "required": true,
+      "source_not_opened_yet": true,
+      "next_stage_requirement": "pin a public daily precipitation product/version and cache input hashes before sequence response rows are opened"
+    }
+  },
+  "response_opening_prerequisites": [
+    "deployment file full-byte transport succeeds and SHA256 is frozen",
+    "sequence header is captured without reading a response data row",
+    "all required columns match the frozen schema",
+    "at least 64 eligible unique sites exist east of -105 longitude",
+    "exact 64-site selection and exact east holdout are frozen from deployment metadata",
+    "all four training stream deployment partitions are non-empty",
+    "training/heldout longitude separation is strict",
+    "precipitation source/product/version and covariate-cache procedure are frozen"
+  ],
+  "valid_terminal_statuses": [
+    "HEADER_AND_DEPLOYMENT_METADATA_QUALIFIED",
+    "STOP_PRE_RESPONSE_TRANSPORT",
+    "REJECT_PRE_RESPONSE_SCHEMA_OR_GEOMETRY"
+  ],
+  "hard_stop": {
+    "sequence_response_row_opened": true,
+    "sequence_header_over_max_bytes": true,
+    "required_column_missing": true,
+    "insufficient_spatial_units": true,
+    "non_strict_east_holdout": true,
+    "empty_training_stream_partition": true,
+    "post_failure_scientific_rule_change": false
+  }
+}

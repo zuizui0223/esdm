@@ -95,13 +95,19 @@ Implemented now:
 
 The v0.3 SBC layer checks calibration under the declared model only. It is not evidence of robustness to ecological or observation-process misspecification.
 
-## Explicitly not yet implemented / not claimed
+## Current implementation / remaining boundaries
 
-- full NumPyro fitting backend;
-- posterior fitting in this branch;
-- state-process / activity-process generative modules;
+Implemented and semi-synthetically promoted in v0.4:
+- NumPyro fitting backend and posterior prediction;
+- activity and categorical state generative modules;
+- state-annotated count observations;
+- direct conditional state-composition calibration;
+- exact-JAX structural/practical identification;
+- replicated parameter recovery and east-heldout activity/state knockout transfer.
+
+Still not implemented / not claimed:
 - partner-latent-field interaction process;
-- camera/annotation observation streams;
+- field-specific camera/annotation adapters;
 - bidirectional or fixed-point interaction models;
 - movement/accessibility process;
 - calibrated ODSP familywise inference inside `esdm`;

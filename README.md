@@ -156,7 +156,7 @@ log_lik = model.log_likelihood(
 
 Simulation calls the same latent-field construction and observation-stream mathematics used by deterministic likelihoods and the optional NumPyro backend. In v0.4 these stream calculations are exposed as backend-neutral Poisson observation blocks, so simulation, inference, and identification do not maintain separate copies of the ecological/observation equations.
 
-## v0.4 state/activity core — implemented, promotion pending
+## v0.4 state/activity core — semi-synthetic promotion complete
 
 The v0.4 core refines ecological availability into separate conditional activity and
 categorical state channels:
@@ -210,10 +210,16 @@ observation-rate derivation, structural identification, and JAX trace-size diagn
 State/activity parameter-dependent arithmetic remains array-first, including the
 2,880-context trace-scaling regression.
 
-This is an **implemented core contract, not a v0.4 promotion result**. Full promotion still
-requires a separate gate frozen before outcome-producing runs: replicated state/activity
-recovery, partial-annotation cross-stream transfer, practical-identification checks, and
-the unknown-detection refusal control under the frozen validation profile.
+The v0.4 core has now passed its frozen semi-synthetic promotion programme. R5a passed
+the hard identification gate after adding a direct conditional state-composition
+calibration stream, and R5b then passed 16-replicate recovery and east-heldout transfer
+with 48 total fits and zero divergences.
+
+The promoted observation contract includes `StateCompositionCount`, which consumes only
+the latent state-composition channel and has zero held-out exposure in the frozen R5b
+benchmark. The promotion claim is therefore bounded: v0.4 is validated under its declared
+semi-synthetic known-truth programme, not established as an empirically correct model for
+any biological system.
 
 ## NumPyro inference backend
 
@@ -351,7 +357,7 @@ from esdm.claims import ...
 | Version | New generative process | Promotion gate |
 | --- | --- | --- |
 | v0.3 | domain + suitability + effort-aware presence-only + NumPyro + simulate + identify + claims | shared generation/likelihood/inference code; large SBC calibration study; knockout recovery; effort-misspecification negative control; semi-synthetic real-geometry benchmark |
-| v0.4 | ecological state + activity + annotation streams | state/activity recovery and frozen cross-stream transfer; unresolved detection leaves bounded/`NotIdentified` output |
+| v0.4 | ecological state + activity + annotation streams + direct state-composition calibration | **PROMOTED (semi-synthetic)**: hard identification, 13-target recovery, east-heldout activity/state transfer, refusal controls; unresolved detection remains bounded/`NotIdentified` |
 | v0.5 | directed biotic interaction through partner latent fields + interaction-event streams | false interaction/kernel-shift control under state-only and hidden-common-driver worlds; evidence tier cannot rise without corresponding observed endpoint |
 | v0.6 | movement/accessibility | distinguish unsuitable from inaccessible only when data support it; otherwise return `NotIdentified` |
 
@@ -369,9 +375,9 @@ See [`docs/PROVENANCE.md`](docs/PROVENANCE.md).
 
 ## Explicit non-claims
 
-The current v0.4 core does **not** claim:
+The promoted v0.4 core does **not** claim:
 
-- completion of the v0.4 promotion gate from core smoke/recovery tests;
+- empirical correctness merely because the frozen semi-synthetic promotion gate passed;
 - scientific support from structural identification or posterior contraction alone;
 - empirical biological validity from in-model or semi-synthetic validation;
 - causal interaction from co-occurrence, residual association, predictive gain, or rewiring;

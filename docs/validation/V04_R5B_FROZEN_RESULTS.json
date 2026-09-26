@@ -1,0 +1,102 @@
+{
+  "schema": "esdm.v04_r5b.frozen_results.v1",
+  "status": "PASS",
+  "outcome_run_id": 35879936964,
+  "outcome_head_sha": "3c757ccf243c9bab415d59f40d4ab39ae2a06a69",
+  "gate_freeze_commit": "98c828797e73d6b40cf9a73651662d7877473bbc",
+  "gate_blob_sha": "227938d2b104d6e900dbbc7ca9d82d019db9f526",
+  "observed_gate_blob_sha": "227938d2b104d6e900dbbc7ca9d82d019db9f526",
+  "artifact": {
+    "id": 10761956596,
+    "name": "v04-r5b-outcome-35879936964",
+    "github_digest": "sha256:ead0e17a4da17b3c27b84bcbb0c4aa034379f9930ce32987e1940215ba839477",
+    "independent_zip_sha256": "ead0e17a4da17b3c27b84bcbb0c4aa034379f9930ce32987e1940215ba839477"
+  },
+  "source_audit": {
+    "commit": "3dcb0a80c838ff9503e3957d7e004a7f4b888b0a",
+    "path": "rain/annual_precipitation.csv",
+    "expected_git_blob_sha1": "40b2adc5bf8a44a8bc9a1cfc3f99fc91b9fae949",
+    "observed_git_blob_sha1": "40b2adc5bf8a44a8bc9a1cfc3f99fc91b9fae949",
+    "sha256": "088263312c61c875cb5cda7d826ecdb7444ca4a55f7c4a594a1de96c7cf4e705"
+  },
+  "qualification": {
+    "positive_structural_pass": true,
+    "positive_practical_pass": true,
+    "sparse_structural_pass": true,
+    "sparse_practical_refused": true,
+    "unknown_detection_refused": true,
+    "annotated_context_count": 432,
+    "calibrated_context_count": 432,
+    "state_calibration_context_count": 432,
+    "state_calibration_expected_labels": 432.0,
+    "state_calibration_heldout_context_count": 0,
+    "r4_annotated_geometry_preserved": true,
+    "state_only_contract_preserved": true
+  },
+  "outcome_summary": {
+    "replicates": 16,
+    "fit_count": 48,
+    "positive_structural_pass": true,
+    "positive_practical_pass": true,
+    "sparse_structural_pass": true,
+    "sparse_practical_refused": true,
+    "unknown_detection_refused": true,
+    "extrapolation_integrity": true,
+    "mean_biases": {
+      "sp.suitability.beta_precip": 0.03395447914222521,
+      "stream.opportunistic.gamma_precip": -0.02098743637558071,
+      "stream.opportunistic.gamma_season": -0.013135741694007124,
+      "stream.opportunistic.gamma_hour": 0.016520331738574895,
+      "stream.opportunistic.detection_intercept": 0.12227351909865061,
+      "sp.activity.activity_beta_precip": 0.042620748929506846,
+      "sp.activity.activity_beta_eastness": 0.03775259483668835,
+      "sp.activity.activity_beta_season": 0.048039169806874484,
+      "sp.activity.activity_beta_hour": 0.02854462477535888,
+      "sp.state.beta_foraging_precip": 0.015153085917887181,
+      "sp.state.beta_foraging_eastness": 0.08024404443547609,
+      "sp.state.beta_foraging_season": 0.034803302307658934,
+      "sp.state.beta_foraging_hour": 0.0022489433591233454
+    },
+    "coverages": {
+      "sp.suitability.beta_precip": 0.875,
+      "stream.opportunistic.gamma_precip": 0.9375,
+      "stream.opportunistic.gamma_season": 0.8125,
+      "stream.opportunistic.gamma_hour": 1.0,
+      "stream.opportunistic.detection_intercept": 0.9375,
+      "sp.activity.activity_beta_precip": 0.875,
+      "sp.activity.activity_beta_eastness": 0.9375,
+      "sp.activity.activity_beta_season": 0.9375,
+      "sp.activity.activity_beta_hour": 0.875,
+      "sp.state.beta_foraging_precip": 0.875,
+      "sp.state.beta_foraging_eastness": 0.8125,
+      "sp.state.beta_foraging_season": 0.875,
+      "sp.state.beta_foraging_hour": 0.9375
+    },
+    "activity_positive_gain_rate": 1.0,
+    "mean_activity_gain": 0.00699856015906225,
+    "state_positive_gain_rate": 1.0,
+    "mean_state_gain": 0.02896466849576273,
+    "total_divergences": 0
+  },
+  "extrema": {
+    "max_abs_mean_bias_target": "stream.opportunistic.detection_intercept",
+    "max_abs_mean_bias": 0.12227351909865061,
+    "min_coverage_target": "sp.state.beta_foraging_eastness",
+    "min_coverage": 0.8125,
+    "min_activity_gain": 0.0003542106372884657,
+    "min_state_gain": 0.017968794872260885
+  },
+  "gate": {
+    "qualification_passed": true,
+    "outcome_passed": true,
+    "passed": true
+  },
+  "claim_boundary": {
+    "semi_synthetic_known_truth": true,
+    "parameter_recovery_supported": true,
+    "east_heldout_activity_information_supported": true,
+    "east_heldout_state_information_supported": true,
+    "empirical_biological_validity": false,
+    "universal_method_superiority": false
+  }
+}

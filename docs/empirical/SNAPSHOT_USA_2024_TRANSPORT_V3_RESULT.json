@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "receipt_id": "empirical-r5b-snapshot-usa-2024-transport-v3-stop",
+  "status": "STOP_PRE_RESPONSE_TRANSPORT",
+  "workflow_run_id": 36270725551,
+  "workflow_head_sha": "3290ac53521bf567e9552aeba94c5e86aaa8b072",
+  "artifact": {
+    "id": 10915303467,
+    "name": "empirical-snapshot-usa-transport-v3-36270725551",
+    "github_digest": "sha256:4bbd289d3fa73b29967b35ea954999b178571cbcfe7974e2efee9541d29ee58c",
+    "independent_zip_sha256": "4bbd289d3fa73b29967b35ea954999b178571cbcfe7974e2efee9541d29ee58c"
+  },
+  "transport_error": "HTTPError: HTTP Error 401: Unauthorized",
+  "deployment_status": null,
+  "sequence_status": null,
+  "sequence_application_bytes_read": 0,
+  "response_rows_opened": 0,
+  "response_values_opened": false,
+  "model_fits": 0,
+  "heldout_scores": 0,
+  "scientific_contract_changed": false,
+  "retry_same_candidate_transport_after_v3_allowed": false,
+  "interpretation": "Snapshot USA 2024 remains scientifically eligible but is terminally unavailable to this frozen empirical attempt through the three preregistered Dryad transport routes. No biological response was opened."
+}
