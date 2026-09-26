@@ -69,7 +69,11 @@
       "2024-08-01",
       "2024-12-19"
     ],
-    "fail_if_any_required_week_day_absent": true
+    "fail_if_any_required_week_day_absent": true,
+    "daymet_required_date_window_for_full_iso_weeks": [
+      "2024-07-29",
+      "2024-12-22"
+    ]
   },
   "standardization": {
     "quantity": "weekly precipitation total in mm",
