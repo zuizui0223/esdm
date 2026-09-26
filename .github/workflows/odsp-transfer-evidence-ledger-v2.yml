@@ -10,6 +10,8 @@ on:
       - 'ODSP_TRANSFER_SOURCE_REGISTRY_V1.json'
       - 'docs/validation/V05F_FROZEN_RESULTS.json'
       - 'docs/integration/ODSP_TRANSFER_EVIDENCE_LEDGER_V2.md'
+      - 'ODSP_TRANSFER_EVIDENCE_LEDGER_RECEIPT_V2.json'
+      - 'tests/test_odsp_transfer_evidence_ledger_receipt_v2.py'
       - '.github/workflows/odsp-transfer-evidence-ledger-v2.yml'
 
 permissions:
@@ -31,6 +33,7 @@ jobs:
           python -m pytest -q
           tests/test_odsp_transfer_evidence_portfolio.py
           tests/test_odsp_transfer_evidence_portfolio_v2.py
+          tests/test_odsp_transfer_evidence_ledger_receipt_v2.py
       - name: Build deterministic v2 ledger
         run: |
           mkdir -p build
