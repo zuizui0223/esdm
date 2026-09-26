@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "receipt_id": "snapshot-japan-camtrapdp-worldclim-frozen-v1",
+  "status": "CLIMATE_QUALIFIED",
+  "workflow_run_id": 36271741095,
+  "workflow_head_sha": "b43190e6424d432ef53ba58a800f5d56f9b89a3c",
+  "artifact": {
+    "id": 10916116137,
+    "name": "empirical-snapshot-japan-camtrapdp-climate-36271741095",
+    "github_digest": "sha256:ea56dd7d4b231787434b4f24911d74caaa886802e991997193dc04a21eedaaaa",
+    "independent_zip_sha256": "ea56dd7d4b231787434b4f24911d74caaa886802e991997193dc04a21eedaaaa"
+  },
+  "safe_deployment": {
+    "md5": "9ee54945758d9d146badd3aeb17a7923",
+    "sha256": "b9e48f28a6420107c1fada09c6e2972c78f226a4767f7da7d88f16bd34aab354"
+  },
+  "worldclim": {
+    "product": "WorldClim v2.1 10 arc-minute BIO12",
+    "archive_sha256": "00513224583665ec0f2f955a4ec252730c4deb2004cce9e793492a3f26df4dcf",
+    "bio12_raster_sha256": "1e823e951ace0186c6eadd7368b4d0385c8f51cc952282c0f2d640bf7790fea5"
+  },
+  "training": {
+    "camera_count": 70,
+    "bio12_mean_mm": 1637.6857142857143,
+    "bio12_population_sd_mm": 158.20064501016628
+  },
+  "heldout_camera_count": 20,
+  "camera_climate_sha256": "abecf035ebf7862df52a61be6ea34e89086961b67891359776582da08ab27ea4",
+  "camtrapdp_response_bytes_opened": 0,
+  "camtrapdp_response_rows_opened": 0,
+  "camtrapdp_response_values_opened": false,
+  "model_fits": 0,
+  "heldout_scores": 0
+}
