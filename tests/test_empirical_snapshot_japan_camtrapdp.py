@@ -204,8 +204,8 @@ def test_empirical_fixture_builds_frozen_r5b_streams_from_camtrapdp():
     assert fixture.model.streams[2].state_space.states == ("solitary", "group")
     assert fixture.model.streams[3].state_space.states == ("solitary", "group")
     assert fixture.diagnostics["presence_event_totals"] == {
-        "opportunistic_presence": 12,
-        "calibrated_presence": 12,
+        "presence_opportunistic": 12,
+        "presence_calibrated": 12,
     }
     assert fixture.diagnostics["state_counts"]["training_state_annotated"] == {
         "solitary": 10,
