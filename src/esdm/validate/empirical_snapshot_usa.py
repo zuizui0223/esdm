@@ -246,6 +246,19 @@ def parse_deployment_metadata(
         "eligible_unique_site_count": len(eligible_sites),
         "selected_site_count": len(selected),
         "selected_spatial_units": sorted(row.spatial_unit for row in selected),
+        "selected_sites": [
+            {
+                "spatial_unit": row.spatial_unit,
+                "latitude": row.latitude,
+                "longitude": row.longitude,
+                "partition": (
+                    "training"
+                    if row.spatial_unit in training_units
+                    else "heldout"
+                ),
+            }
+            for row in sorted(selected, key=lambda item: item.spatial_unit)
+        ],
         "training_site_count": len(training),
         "heldout_site_count": len(heldout),
         "training_spatial_units": sorted(training_units),
