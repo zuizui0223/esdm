@@ -3,7 +3,7 @@ name: empirical-snapshot-usa-daymet-once
 on:
   push:
     branches:
-      - empirical/snapshot-usa-2024-daymet-freeze
+      - feature/v04-r5b-recovery-transfer
     paths:
       - 'docs/empirical/SNAPSHOT_USA_2024_DAYMET_RUN_AUTHORIZED.json'
 
