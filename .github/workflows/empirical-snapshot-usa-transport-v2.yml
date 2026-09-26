@@ -28,8 +28,10 @@ jobs:
         run: python -m pytest -q tests/test_empirical_snapshot_usa_transport_v2.py
       - name: Compile transport runner
         run: python -m py_compile scripts/run_snapshot_usa_2024_transport_v2.py
-      - name: Confirm transport workflow is dormant and has no manual dispatch
+      - name: Confirm transport workflow lifecycle and no manual dispatch
         run: |
-          test ! -e docs/empirical/SNAPSHOT_USA_2024_TRANSPORT_V2_RUN_AUTHORIZED
           grep -q "SNAPSHOT_USA_2024_TRANSPORT_V2_RUN_AUTHORIZED" .github/workflows/empirical-snapshot-usa-transport-v2-once.yml
           ! grep -q "workflow_dispatch" .github/workflows/empirical-snapshot-usa-transport-v2-once.yml
+          if [ -e docs/empirical/SNAPSHOT_USA_2024_TRANSPORT_V2_RUN_AUTHORIZED ]; then
+            test -e docs/empirical/SNAPSHOT_USA_2024_TRANSPORT_V2_RESULT.json
+          fi

@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "receipt_id": "empirical-r5b-snapshot-usa-2024-transport-v2-result",
+  "date": "2026-09-26",
+  "contract_id": "empirical-r5b-snapshot-usa-2024-transport-v2",
+  "authorization_commit": "0969a869908d83cc4e6d5c7fae140ed66d4376d6",
+  "workflow_run_id": 36240304960,
+  "run_attempt": 1,
+  "conclusion": "success",
+  "terminal_status": "REJECT_PRE_RESPONSE_SCHEMA_OR_GEOMETRY",
+  "artifact": {
+    "id": 10905890027,
+    "name": "empirical-snapshot-usa-transport-v2-36240304960",
+    "digest": "sha256:ce11859404b8a5fc3ca70989783c29e36024eff81cc440ee0956187d5b108ec6",
+    "result_filename": "SNAPSHOT_USA_2024_HEADER_RESULT.json",
+    "result_sha256": "9a899225c4ed2f07eb865aff3c06c129985172830d86d16de352dd7f23f56e60"
+  },
+  "transport_trace": {
+    "landing_status": 200,
+    "deployment_status": 200,
+    "sequence_status": null,
+    "sequence_content_range": null,
+    "sequence_application_bytes_read": 0
+  },
+  "rejection": {
+    "qualification_error": "ValueError: deployment file missing required columns: ['Camera_Trap_Array', 'Site_Name', 'Deployment_ID', 'Start_Date', 'End_Date', 'Survey_Nights', 'Latitude', 'Longitude']",
+    "interpretation": "the HTTP 200 deployment response was not parseable as the frozen deployments CSV schema; rejection occurred before any sequence response row was opened"
+  },
+  "frozen_response_boundary": {
+    "response_rows_opened": 0,
+    "response_values_opened": false,
+    "model_fits": 0,
+    "heldout_scores": 0
+  },
+  "scientific_boundary": {
+    "candidate_consumes_empirical_response_opening": false,
+    "changes_r5b_model": false,
+    "changes_state_definition": false,
+    "changes_holdout_rule": false,
+    "changes_stream_partition": false,
+    "changes_daymet_contract": false,
+    "may_try_new_transport_route": true,
+    "new_transport_route_must_have_new_contract_and_authorization": true
+  }
+}
