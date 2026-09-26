@@ -246,6 +246,19 @@ def parse_deployment_metadata(
         "eligible_unique_site_count": len(eligible_sites),
         "selected_site_count": len(selected),
         "selected_spatial_units": sorted(row.spatial_unit for row in selected),
+        "selected_sites": [
+            {
+                "spatial_unit": row.spatial_unit,
+                "latitude": row.latitude,
+                "longitude": row.longitude,
+                "partition": (
+                    "training"
+                    if row.spatial_unit in training_units
+                    else "heldout"
+                ),
+            }
+            for row in sorted(selected, key=lambda item: item.spatial_unit)
+        ],
         "training_site_count": len(training),
         "heldout_site_count": len(heldout),
         "training_spatial_units": sorted(training_units),
@@ -255,6 +268,21 @@ def parse_deployment_metadata(
         "east_holdout_boundary_longitude": boundary,
         "training_deployment_count": len(training_deployments),
         "heldout_deployment_count": len(heldout_deployments),
+        "selected_deployments": [
+            {
+                "deployment_id": deployment,
+                **deployment_rows[deployment],
+                "partition": (
+                    "training"
+                    if deployment in set(training_deployments)
+                    else "heldout"
+                ),
+                "training_stream": stream_by_deployment.get(deployment),
+            }
+            for deployment in sorted(
+                set(training_deployments) | set(heldout_deployments)
+            )
+        ],
         "training_stream_deployment_counts": stream_counts,
         "training_stream_by_deployment": stream_by_deployment,
         "heldout_deployments": heldout_deployments,

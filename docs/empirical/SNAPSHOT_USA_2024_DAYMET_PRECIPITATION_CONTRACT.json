@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "contract_id": "empirical-r5b-snapshot-usa-2024-daymet-prcp-v1",
+  "status": "FROZEN_PRE_RESPONSE_CLIMATE",
+  "frozen_date": "2026-09-26",
+  "parent_header_contract": "docs/empirical/SNAPSHOT_USA_2024_HEADER_CONTRACT.json",
+  "scientific_role": "freeze the precipitation source and transformation before any Snapshot USA sequence response row is opened",
+  "product": {
+    "provider": "NASA ORNL DAAC Daymet",
+    "dataset": "Daymet: Daily Surface Weather Data on a 1-km Grid for North America, Version 4 R1",
+    "version": "4.1",
+    "dataset_doi": "10.3334/ORNLDAAC/2129",
+    "earthdata_concept_id": "C2532426483-ORNL_CLOUD",
+    "variable": "prcp",
+    "variable_definition": "daily total precipitation, water-equivalent",
+    "native_unit": "mm/day",
+    "spatial_resolution": "1 km",
+    "temporal_resolution": "daily",
+    "year": 2024,
+    "continental_filename": "daymet_v4_daily_na_prcp_2024.nc",
+    "single_pixel_tool": {
+      "service": "Daymet Single Pixel Extraction Tool",
+      "tool_doi": "10.3334/ORNLDAAC/2361",
+      "api_base": "https://daymet.ornl.gov/single-pixel/api/data",
+      "fixed_query_parameters": {
+        "vars": "prcp",
+        "years": "2024"
+      },
+      "coordinate_crs": "WGS84 decimal degrees supplied by Snapshot USA deployments",
+      "returned_grid_rule": "nearest Daymet 1-km grid cell"
+    }
+  },
+  "eligibility": {
+    "selected_sites_only": true,
+    "selected_site_count": 64,
+    "selection_source": "frozen Snapshot USA deployment-metadata site selection",
+    "longitude_domain_required": [
+      -131,
+      -53
+    ],
+    "latitude_domain_required": [
+      14.5,
+      52
+    ],
+    "fail_if_selected_site_outside_single_pixel_domain": true,
+    "fail_if_any_selected_site_missing_cache": true
+  },
+  "raw_cache_contract": {
+    "one_raw_response_per_selected_spatial_unit": true,
+    "canonical_query_coordinate_format": "decimal degrees with 8 digits after decimal point",
+    "raw_bytes_hashed_before_parse": true,
+    "hash": "sha256",
+    "response_manifest_sorted_by": "spatial_unit",
+    "response_rows_required": 365,
+    "year_required": 2024,
+    "yday_required": "exact integers 1..365",
+    "precipitation_nonnegative_finite": true,
+    "no_missing_precipitation": true,
+    "daymet_leap_calendar_note": "Daymet keeps leap day and omits Dec 31 in leap years; Snapshot USA response timestamps end Dec 19, so every required response date is covered",
+    "sequence_response_rows_must_remain_unopened_during_cache_build": true
+  },
+  "temporal_transformation": {
+    "daily_date_mapping": "Gregorian date = 2024-01-01 + (yday - 1) days",
+    "context_week": "ISO calendar week from Snapshot Start_Time",
+    "precipitation_context_value": "sum Daymet daily prcp over all seven Monday-Sunday dates in the ISO week",
+    "hour_dependence": "none; the same weekly precipitation value is repeated across the four six-hour bins within site-week",
+    "partial_week_clipping": false,
+    "survey_required_date_window": [
+      "2024-08-01",
+      "2024-12-19"
+    ],
+    "fail_if_any_required_week_day_absent": true,
+    "daymet_required_date_window_for_full_iso_weeks": [
+      "2024-07-29",
+      "2024-12-22"
+    ]
+  },
+  "standardization": {
+    "quantity": "weekly precipitation total in mm",
+    "training_only": true,
+    "fit_population": "training contexts with strictly positive reconstructed observation effort in at least one frozen training stream",
+    "mean": "arithmetic mean over unique spatial_unit x ISO-week training contexts",
+    "sd": "population standard deviation over the same unique training contexts",
+    "output_name": "precip_z_train",
+    "heldout_values_used_to_fit_scaler": false,
+    "fail_if_sd_nonpositive_or_nonfinite": true
+  },
+  "provenance_requirements": {
+    "pin_dataset_version": true,
+    "pin_product_doi": true,
+    "pin_api_base": true,
+    "pin_each_raw_response_sha256": true,
+    "pin_cache_manifest_sha256": true,
+    "pin_derived_weekly_table_sha256": true,
+    "no_response_conditioned_precipitation_selection": true
+  },
+  "scientific_boundary": {
+    "precipitation_covariate_is_predeclared": true,
+    "precipitation_is_not_an_outcome": true,
+    "precipitation_data_may_be_opened_before_sequence_response": true,
+    "response_data_rows_allowed_during_this_stage": 0,
+    "model_fits_allowed_during_this_stage": 0,
+    "heldout_scores_allowed_during_this_stage": 0,
+    "changing_precipitation_product_after_response_opening_allowed": false
+  },
+  "execution": {
+    "authorization_marker": "docs/empirical/SNAPSHOT_USA_2024_DAYMET_RUN_AUTHORIZED.json",
+    "marker_must_be_newly_added": true,
+    "marker_required_fields": [
+      "header_workflow_run_id",
+      "header_artifact_name",
+      "header_artifact_digest",
+      "header_result_sha256"
+    ],
+    "header_result_status_required": "HEADER_AND_DEPLOYMENT_METADATA_QUALIFIED",
+    "workflow_dispatch_enabled": false,
+    "rerun_same_authorization_after_material_failure_allowed": false,
+    "network_access_allowed_only_for_daymet_precipitation": true
+  }
+}
