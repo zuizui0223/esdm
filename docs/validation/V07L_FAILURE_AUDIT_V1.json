@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "receipt_id": "esdm-v07l-failure-audit-v1",
+  "date": "2026-09-26",
+  "role": "post_outcome_diagnostic_no_new_mcmc",
+  "source": {
+    "frozen_result_receipt": "docs/validation/V07L_FROZEN_RESULTS.json",
+    "workflow_run_id": 36223841269,
+    "artifact_id": 10900450588,
+    "artifact_digest": "sha256:66c2e40b7e88b3d9bf1d7b6b7da652b71b887db55128227d55db4b94d1e59cd3",
+    "result_json_sha256": "c1776855b710b6c54c4971eed4586087d2947c0070a6e065800b400b6218f877"
+  },
+  "original_policy": {
+    "trigger_threshold": 0.8,
+    "trigger_sensitivity": 0.7407407407407407,
+    "trigger_specificity": 0.8648648648648649,
+    "trigger_balanced_accuracy": 0.8028028028028028,
+    "mean_policy_to_transferred_ratio": 0.8675812739621402,
+    "policy_harm_rate": 0.046875,
+    "mean_policy_regret": 0.055624395981999294,
+    "recovery_guardrails_pass": false
+  },
+  "invariant_failure": {
+    "threshold_below_actual_material_headroom_rate": 0.6875,
+    "frozen_required_rate": 0.75,
+    "depends_on_trigger_threshold": false,
+    "implication": "the threshold_below world cannot satisfy the frozen material-headroom frequency criterion under any trigger threshold"
+  },
+  "scalar_threshold_exhaustive_audit": {
+    "action_equivalence_candidate_count": 119,
+    "any_threshold_recovery_guardrails_pass": false,
+    "threshold_only_rescue_possible": false,
+    "best_balanced_accuracy_threshold": 0.8883703176845025,
+    "best_balanced_accuracy_metrics": {
+      "sensitivity": 0.8518518518518519,
+      "specificity": 0.7837837837837838,
+      "balanced_accuracy": 0.8178178178178178,
+      "mean_policy_to_transferred_ratio": 0.8511530293310929,
+      "policy_harm_rate": 0.0625,
+      "mean_policy_regret": 0.03919615135095207,
+      "recovery_guardrails_pass": false
+    }
+  },
+  "oracle_material_headroom_policy": {
+    "trigger_sensitivity": 1,
+    "trigger_specificity": 1,
+    "trigger_balanced_accuracy": 1,
+    "mean_policy_to_transferred_ratio": 0.8119568779801409,
+    "policy_harm_rate": 0,
+    "mean_policy_regret": 0,
+    "recovery_guardrails_pass": false,
+    "failed_recovery_checks": [
+      {
+        "world": "threshold_above",
+        "target": "sp.occupancy.psi0_logit",
+        "kind": "bias",
+        "observed": 0.29274261261780393,
+        "criterion": "abs(mean bias) <= 0.20"
+      },
+      {
+        "world": "threshold_above",
+        "target": "sp.occupancy.gamma_logit",
+        "kind": "bias",
+        "observed": 0.504593085703646,
+        "criterion": "abs(mean bias) <= 0.20"
+      },
+      {
+        "world": "threshold_above",
+        "target": "sp.occupancy.epsilon_logit",
+        "kind": "bias",
+        "observed": 0.2515111378560426,
+        "criterion": "abs(mean bias) <= 0.20"
+      }
+    ]
+  },
+  "extreme_policy_audit": {
+    "always_adaptive_recovery_guardrails_pass": false,
+    "always_adaptive_failed_biases": [
+      {
+        "world": "threshold_above",
+        "target": "sp.occupancy.gamma_logit",
+        "observed": 0.44026925018637186
+      },
+      {
+        "world": "negligible_headroom",
+        "target": "sp.occupancy.epsilon_logit",
+        "observed": -0.2255320946841252
+      }
+    ],
+    "always_transferred_recovery_guardrails_pass": false
+  },
+  "conclusion": {
+    "trigger_retune_is_sufficient": false,
+    "placement_only_policy_family_is_sufficient": false,
+    "same_v07l_rerun_allowed": false,
+    "next_confirmatory_program_requires_fresh_worlds": true,
+    "next_development_need": "separate absolute recovery adequacy from relative placement headroom"
+  },
+  "scientific_boundary": {
+    "changes_v07l_result": false,
+    "recommends_new_trigger_threshold": false,
+    "opens_new_confirmatory_outcome": false,
+    "odsp_information_transfer": false,
+    "eog_or_n4_action": false
+  }
+}
