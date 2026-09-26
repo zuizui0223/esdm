@@ -1,6 +1,12 @@
 from __future__ import annotations
 
+import importlib.util
 import math
+
+import pytest
+
+
+JAX_AVAILABLE = importlib.util.find_spec("jax") is not None
 
 from esdm.validate.v07l_fixture import V07L_WORLD_PROBABILITIES
 from esdm.validate.v07m_policy import (
@@ -38,6 +44,7 @@ def test_v07m_absolute_adequacy_precedes_relative_headroom():
     assert result.reason == "no_placement_meets_absolute_precision"
 
 
+@pytest.mark.skipif(not JAX_AVAILABLE, reason="JAX optional backend not installed")
 def test_v07m_fresh_roles_are_deterministically_disjoint_from_v07l_worlds():
     roles = frozen_v07m_role_cells()
 
@@ -64,6 +71,7 @@ def test_v07m_fresh_roles_are_deterministically_disjoint_from_v07l_worlds():
         assert row["decision"].action == V07M_EXPECTED_ACTIONS[role]
 
 
+@pytest.mark.skipif(not JAX_AVAILABLE, reason="JAX optional backend not installed")
 def test_v07m_frozen_role_geometry_matches_contract_numbers():
     roles = frozen_v07m_role_cells()
 
