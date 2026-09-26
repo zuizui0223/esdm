@@ -8,8 +8,10 @@ import pytest
 
 from esdm.validate.empirical_snapshot_usa_daymet import (
     build_cache_manifest,
+    build_precipitation_covariate_table,
     cache_manifest_entry,
     daymet_site_request,
+    deployment_week_contexts,
     iso_week_precipitation,
     parse_daymet_prcp_response,
     standardize_weekly_precipitation,
@@ -176,3 +178,101 @@ def test_snapshot_survey_window_avoids_daymet_leap_year_dec31_gap():
     assert start == date(2024, 8, 1)
     assert end == date(2024, 12, 19)
     assert end < date(2024, 12, 31)
+
+
+def test_deployment_metadata_expands_to_unique_site_week_contexts():
+    rows = [
+        {
+            "spatial_unit": "train-a",
+            "partition": "training",
+            "start_date": "2024-08-01",
+            "end_date": "2024-08-10",
+        },
+        {
+            "spatial_unit": "heldout-a",
+            "partition": "heldout",
+            "start_date": "2024-12-16",
+            "end_date": "2024-12-19",
+        },
+    ]
+    contexts = deployment_week_contexts(rows)
+
+    assert contexts["training"] == (
+        ("train-a", 2024, 31),
+        ("train-a", 2024, 32),
+    )
+    assert contexts["all"] == (
+        ("heldout-a", 2024, 51),
+        ("train-a", 2024, 31),
+        ("train-a", 2024, 32),
+    )
+
+
+def test_full_precipitation_table_is_pre_response_and_training_scaled():
+    sites = []
+    deployments = []
+    raw = {}
+    for index in range(64):
+        spatial_unit = f"array|site-{index:02d}"
+        partition = "training" if index < 48 else "heldout"
+        latitude = 35.0 + 0.01 * index
+        longitude = -90.0
+        sites.append(
+            {
+                "spatial_unit": spatial_unit,
+                "latitude": latitude,
+                "longitude": longitude,
+                "partition": partition,
+            }
+        )
+        deployments.append(
+            {
+                "deployment_id": f"dep-{index:02d}",
+                "spatial_unit": spatial_unit,
+                "partition": partition,
+                "training_stream": (
+                    "state_annotated" if partition == "training" else None
+                ),
+                "start_date": "2024-08-01",
+                "end_date": "2024-08-10",
+                "survey_nights": 10,
+                "inclusive_nights": 10,
+                "active_fraction": 1.0,
+            }
+        )
+        request = daymet_site_request(spatial_unit, latitude, longitude)
+        raw[spatial_unit] = _daymet_csv(1.0 + index / 100.0)
+
+    result = build_precipitation_covariate_table(
+        selected_sites=sites,
+        selected_deployments=deployments,
+        raw_by_spatial_unit=raw,
+    )
+
+    assert result["response_rows_opened"] == 0
+    assert result["response_values_opened"] is False
+    assert result["model_fits"] == 0
+    assert result["heldout_scores"] == 0
+    assert result["context_count"] == 64 * 2
+    assert result["training_context_count"] == 48 * 2
+    assert result["heldout_context_count"] == 16 * 2
+    assert result["training_scaler"]["sd_mm"] > 0
+    assert len(result["table_sha256"]) == 64
+    assert len(result["cache_manifest_sha256"]) == 64
+
+    training = [row for row in result["rows"] if row["partition"] == "training"]
+    heldout = [row for row in result["rows"] if row["partition"] == "heldout"]
+    assert training and heldout
+    assert abs(sum(row["precip_z_train"] for row in training) / len(training)) < 1e-12
+
+
+def test_full_iso_week_window_is_frozen_beyond_response_timestamp_window():
+    contract = json.loads(CONTRACT.read_text(encoding="utf-8"))
+
+    assert contract["temporal_transformation"]["survey_required_date_window"] == [
+        "2024-08-01",
+        "2024-12-19",
+    ]
+    assert contract["temporal_transformation"][
+        "daymet_required_date_window_for_full_iso_weeks"
+    ] == ["2024-07-29", "2024-12-22"]
