@@ -1,0 +1,79 @@
+name: empirical-snapshot-usa-header-once
+
+on:
+  push:
+    branches:
+      - empirical/snapshot-usa-2024-metadata-gate
+    paths:
+      - 'docs/empirical/SNAPSHOT_USA_2024_HEADER_RUN_AUTHORIZED'
+
+permissions:
+  contents: read
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify one-shot authorization addition
+        run: |
+          python - <<'PY'
+          import subprocess
+          from pathlib import Path
+
+          marker = Path("docs/empirical/SNAPSHOT_USA_2024_HEADER_RUN_AUTHORIZED")
+          if not marker.is_file():
+              raise SystemExit("authorization marker absent")
+          added = subprocess.check_output(
+              ["git", "diff", "--diff-filter=A", "--name-only", "HEAD^", "HEAD"],
+              text=True,
+          ).splitlines()
+          if marker.as_posix() not in added:
+              raise SystemExit("authorization marker was not newly added; refusing rerun")
+          PY
+
+      - name: Install package
+        run: python -m pip install -e .
+
+      - name: Run response-blind deployment/header gate
+        run: |
+          mkdir -p build/empirical-snapshot-usa
+          python scripts/run_snapshot_usa_2024_header_gate.py \
+            --output build/empirical-snapshot-usa/SNAPSHOT_USA_2024_HEADER_RESULT.json
+
+      - name: Assert response remained unopened
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          result = json.loads(
+              Path(
+                  "build/empirical-snapshot-usa/SNAPSHOT_USA_2024_HEADER_RESULT.json"
+              ).read_text()
+          )
+          assert result["response_rows_opened"] == 0
+          assert result["response_values_opened"] is False
+          assert result["model_fits"] == 0
+          assert result["heldout_scores"] == 0
+          assert result["status"] in {
+              "HEADER_AND_DEPLOYMENT_METADATA_QUALIFIED",
+              "STOP_PRE_RESPONSE_TRANSPORT",
+              "REJECT_PRE_RESPONSE_SCHEMA_OR_GEOMETRY",
+          }
+          PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: empirical-snapshot-usa-header-${{ github.run_id }}
+          path: build/empirical-snapshot-usa/SNAPSHOT_USA_2024_HEADER_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
