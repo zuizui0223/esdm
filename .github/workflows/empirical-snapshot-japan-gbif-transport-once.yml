@@ -1,0 +1,50 @@
+name: empirical R5b Snapshot Japan GBIF transport
+
+concurrency:
+  group: empirical-r5b-snapshot-japan-gbif-transport
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - release/empirical-r5b-freeze
+    paths:
+      - docs/empirical/SNAPSHOT_JAPAN_GBIF_TRANSPORT_CONTRACT.json
+      - docs/empirical/SNAPSHOT_JAPAN_GBIF_TRANSPORT_AUTHORIZED
+      - scripts/preflight_snapshot_japan_gbif.py
+      - tests/test_empirical_snapshot_japan_gbif_transport.py
+      - .github/workflows/empirical-snapshot-japan-gbif-transport-once.yml
+
+jobs:
+  transport:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]"
+      - name: Verify transport firewall
+        run: python -m pytest -q tests/test_empirical_snapshot_japan_gbif_transport.py
+      - name: Check transport authorization
+        id: auth
+        run: |
+          if [ -f docs/empirical/SNAPSHOT_JAPAN_GBIF_TRANSPORT_AUTHORIZED ]; then
+            echo "authorized=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "authorized=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Run HEAD-only preflight
+        if: steps.auth.outputs.authorized == 'true'
+        run: python scripts/preflight_snapshot_japan_gbif.py
+      - name: Upload transport certificate
+        if: steps.auth.outputs.authorized == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: empirical-snapshot-japan-gbif-transport-${{ github.run_id }}
+          path: artifacts/snapshot_japan_gbif_transport.json
+          if-no-files-found: error
