@@ -1,0 +1,22 @@
+{
+  "schema": "esdm.empirical_r5b.snapshot_japan_sequence_header_stop.v1",
+  "status": "STOP_PRE_RESPONSE_HEADER_SCHEMA",
+  "workflow_run_id": 36240275865,
+  "workflow_head_sha": "2db9da643c0d998e2b6ee3b1d3e7ea05a8ef4dec",
+  "artifact": {
+    "id": 10905568414,
+    "name": "empirical-snapshot-japan-sequence-header-36240275865",
+    "github_digest": "sha256:5ef65156ff1e3448bda50fd628fd3a42c9c0f1eb2a9b6ebc77d6f2fd2b9c780f",
+    "independent_zip_sha256": "5ef65156ff1e3448bda50fd628fd3a42c9c0f1eb2a9b6ebc77d6f2fd2b9c780f"
+  },
+  "reason": "Physical sequence CSV header did not exactly match the publisher-metadata-frozen 26-column schema.",
+  "header_only_attempt_consumed": true,
+  "response_rows_opened": 0,
+  "response_values_opened": false,
+  "species_values_opened": false,
+  "age_values_opened": false,
+  "model_fits": 0,
+  "heldout_scores": 0,
+  "post_stop_header_repair_or_retry_allowed": false,
+  "counts_as_empirical_result": false
+}
