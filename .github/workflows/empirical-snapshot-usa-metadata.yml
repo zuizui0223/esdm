@@ -1,0 +1,35 @@
+name: empirical-snapshot-usa-metadata
+
+on:
+  pull_request:
+    paths:
+      - 'docs/empirical/EMPIRICAL_R5B_CANDIDATE_REGISTRY_V1.json'
+      - 'docs/empirical/SNAPSHOT_USA_2024_HEADER_CONTRACT.json'
+      - 'src/esdm/validate/empirical_snapshot_usa.py'
+      - 'scripts/run_snapshot_usa_2024_header_gate.py'
+      - 'tests/test_empirical_snapshot_usa_metadata.py'
+      - '.github/workflows/empirical-snapshot-usa-metadata.yml'
+      - '.github/workflows/empirical-snapshot-usa-header-once.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install package and tests
+        run: python -m pip install -e '.[dev]'
+      - name: Validate response-blind candidate registry and qualifier
+        run: python -m pytest -q tests/test_empirical_snapshot_usa_metadata.py
+      - name: Compile response-blind runner
+        run: python -m py_compile scripts/run_snapshot_usa_2024_header_gate.py
+      - name: Confirm one-shot workflow has no manual dispatch
+        run: |
+          grep -q "SNAPSHOT_USA_2024_HEADER_RUN_AUTHORIZED" .github/workflows/empirical-snapshot-usa-header-once.yml
+          ! grep -q "workflow_dispatch" .github/workflows/empirical-snapshot-usa-header-once.yml
