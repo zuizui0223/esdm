@@ -1,0 +1,43 @@
+name: odsp-transfer-evidence-ledger-v2
+
+on:
+  pull_request:
+    paths:
+      - 'src/esdm/transfer/evidence_portfolio.py'
+      - 'src/esdm/transfer/__init__.py'
+      - 'scripts/build_odsp_transfer_evidence_portfolio_v2.py'
+      - 'tests/test_odsp_transfer_evidence_portfolio_v2.py'
+      - 'ODSP_TRANSFER_SOURCE_REGISTRY_V1.json'
+      - 'docs/validation/V05F_FROZEN_RESULTS.json'
+      - 'docs/integration/ODSP_TRANSFER_EVIDENCE_LEDGER_V2.md'
+      - '.github/workflows/odsp-transfer-evidence-ledger-v2.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install eSDM
+        run: python -m pip install -e . pytest
+      - name: Validate complete transfer evidence ledger
+        run: >-
+          python -m pytest -q
+          tests/test_odsp_transfer_evidence_portfolio.py
+          tests/test_odsp_transfer_evidence_portfolio_v2.py
+      - name: Build deterministic v2 ledger
+        run: |
+          mkdir -p build
+          python scripts/build_odsp_transfer_evidence_portfolio_v2.py             --registry ODSP_TRANSFER_SOURCE_REGISTRY_V1.json             --out build/ODSP_TRANSFER_EVIDENCE_PORTFOLIO_V2.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: odsp-transfer-evidence-ledger-v2
+          path: build/ODSP_TRANSFER_EVIDENCE_PORTFOLIO_V2.json
+          if-no-files-found: error
+          retention-days: 90

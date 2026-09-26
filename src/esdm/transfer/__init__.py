@@ -25,9 +25,13 @@ __all__ = [
     "build_v06a_accessibility_odsp_bundle",
     "build_v07b_dynamic_occupancy_odsp_bundle",
     "PORTFOLIO_SCHEMA",
+    "PORTFOLIO_SCHEMA_V2",
     "TransferEvidenceItem",
+    "ExcludedTransferEvidenceItem",
     "TransferEvidencePortfolio",
+    "TransferEvidencePortfolioV2",
     "build_transfer_evidence_portfolio",
+    "build_transfer_evidence_portfolio_v2",
     "ALLOWED_STATUSES",
     "EXPORTABLE_STATUS",
     "REGISTRY_ID",
@@ -62,7 +66,11 @@ from .source_registry import (
 
 from .evidence_portfolio import (
     PORTFOLIO_SCHEMA,
+    PORTFOLIO_SCHEMA_V2,
     TransferEvidenceItem,
+    ExcludedTransferEvidenceItem,
     TransferEvidencePortfolio,
+    TransferEvidencePortfolioV2,
     build_transfer_evidence_portfolio,
+    build_transfer_evidence_portfolio_v2,
 )
