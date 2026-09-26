@@ -1,0 +1,46 @@
+name: empirical R5b Algar header only
+
+concurrency:
+  group: empirical-r5b-algar-header
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - release/empirical-r5b-freeze
+    paths:
+      - docs/empirical/ALGAR_HEADER_CONTRACT.json
+      - docs/empirical/ALGAR_HEADER_AUTHORIZED
+      - scripts/inspect_algar_header.py
+      - tests/test_empirical_algar_header.py
+      - .github/workflows/empirical-algar-header-once.yml
+
+jobs:
+  header:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify header firewall
+        run: python -m pytest -q tests/test_empirical_algar_header.py
+      - name: Check one-shot header authorization
+        id: auth
+        run: |
+          if [ -f docs/empirical/ALGAR_HEADER_AUTHORIZED ]; then
+            echo "authorized=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "authorized=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Read header only
+        if: steps.auth.outputs.authorized == 'true'
+        run: python scripts/inspect_algar_header.py
+      - name: Upload header result
+        if: steps.auth.outputs.authorized == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: empirical-algar-header-${{ github.run_id }}
+          path: artifacts/algar_header_result.json
+          if-no-files-found: error
