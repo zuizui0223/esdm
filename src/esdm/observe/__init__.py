@@ -5,6 +5,7 @@ from .detection import KnownDetection, LogitDetection
 from .effort import EffortField, LogLinearEffort, MultiLogLinearEffort
 from .presence_only import PresenceOnly
 from .state_annotated import StateAnnotatedCount
+from .state_composition import StateCompositionCount
 from .candidates import (
     DiscriminatingObservationSet,
     ObservationCandidate,
@@ -20,6 +21,7 @@ __all__ = [
     "MultiLogLinearEffort",
     "PresenceOnly",
     "StateAnnotatedCount",
+    "StateCompositionCount",
     "DiscriminatingObservationSet",
     "ObservationCandidate",
     "nominate_discriminating_observations",

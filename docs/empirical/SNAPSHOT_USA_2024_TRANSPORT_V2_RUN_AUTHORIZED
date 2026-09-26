@@ -1,0 +1,23 @@
+Snapshot USA 2024 response-blind transport v2 one-shot authorization
+
+authorized_date: 2026-09-26
+contract_id: empirical-r5b-snapshot-usa-2024-transport-v2
+contract_merge_commit: 9dfa132a58be31723147766483522e34415005f8
+authorized_branch: feature/v04-r5b-recovery-transfer
+
+This marker authorizes exactly one response-blind transport retry.
+
+Allowed application reads:
+- Dryad landing-page bounded prefix for session/cookies;
+- full deployments.csv, which is frozen as nonresponse metadata;
+- sequences.csv HTTP range bytes=0-4095, with the application reading only the first line.
+
+Required response boundary:
+- response rows opened = 0;
+- response values opened = false;
+- model fits = 0;
+- heldout scores = 0.
+
+No focal taxon, state definition, site-selection rule, geographic holdout, stream
+partition, Daymet contract, model, or scientific endpoint is changed by this
+authorization.
