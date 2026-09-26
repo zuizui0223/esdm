@@ -102,5 +102,19 @@
     "model_fits_allowed_during_this_stage": 0,
     "heldout_scores_allowed_during_this_stage": 0,
     "changing_precipitation_product_after_response_opening_allowed": false
+  },
+  "execution": {
+    "authorization_marker": "docs/empirical/SNAPSHOT_USA_2024_DAYMET_RUN_AUTHORIZED.json",
+    "marker_must_be_newly_added": true,
+    "marker_required_fields": [
+      "header_workflow_run_id",
+      "header_artifact_name",
+      "header_artifact_digest",
+      "header_result_sha256"
+    ],
+    "header_result_status_required": "HEADER_AND_DEPLOYMENT_METADATA_QUALIFIED",
+    "workflow_dispatch_enabled": false,
+    "rerun_same_authorization_after_material_failure_allowed": false,
+    "network_access_allowed_only_for_daymet_precipitation": true
   }
 }
