@@ -268,6 +268,21 @@ def parse_deployment_metadata(
         "east_holdout_boundary_longitude": boundary,
         "training_deployment_count": len(training_deployments),
         "heldout_deployment_count": len(heldout_deployments),
+        "selected_deployments": [
+            {
+                "deployment_id": deployment,
+                **deployment_rows[deployment],
+                "partition": (
+                    "training"
+                    if deployment in set(training_deployments)
+                    else "heldout"
+                ),
+                "training_stream": stream_by_deployment.get(deployment),
+            }
+            for deployment in sorted(
+                set(training_deployments) | set(heldout_deployments)
+            )
+        ],
         "training_stream_deployment_counts": stream_counts,
         "training_stream_by_deployment": stream_by_deployment,
         "heldout_deployments": heldout_deployments,
