@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "registry_id": "r5b-empirical-candidate-metadata-registry-v1",
+  "frozen_date": "2026-09-26",
+  "status": "FROZEN_PRE_RESPONSE",
+  "r5b_empirical_freeze_commit": "59d2e2e4716e6b64a5f017cc5ee3c745fe49ff40",
+  "rule": "candidate eligibility is decided from public metadata/schema only; no response rows or response values may be inspected during this registry stage",
+  "criteria": [
+    "stable_spatial_unit",
+    "coordinates_available",
+    "date_available",
+    "hour_available",
+    "known_effort_available",
+    "two_state_mapping_predeclared_without_response_distribution",
+    "state_annotated_observations_possible",
+    "disjoint_direct_state_calibration_possible",
+    "geographic_east_holdout_possible"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "ALGAR_BEHAVIORAL_BYCATCH",
+      "source_doi": "10.5061/dryad.98sf7m0mg",
+      "status": "STOP_PRE_RESPONSE_HEADER_TRANSPORT",
+      "eligible": false,
+      "reason": "Dryad file-stream request returned HTTP 403 before any header or response byte was opened; source switching inside the attempt is forbidden",
+      "prior_stop_receipt": "docs/empirical/ALGAR_HEADER_STOP.json",
+      "response_rows_opened": 0,
+      "response_values_opened": false
+    },
+    {
+      "candidate_id": "CHICAGO_COYOTE_MANGE",
+      "source_doi": "10.5061/dryad.x3ffbg7js",
+      "source_repository": "mfidino/coyote-mange",
+      "source_repository_tree_sha": "a068e2aba265551e3b29b1c3ec8c4b1f34eafcdb",
+      "status": "REJECT_METADATA",
+      "eligible": false,
+      "metadata_findings": {
+        "stable_spatial_unit": true,
+        "coordinates_available": true,
+        "date_available": true,
+        "hour_available": false,
+        "known_effort_available": true,
+        "two_state_mapping_predeclared_without_response_distribution": true,
+        "state_annotated_observations_possible": true,
+        "disjoint_direct_state_calibration_possible": true,
+        "geographic_east_holdout_possible": true
+      },
+      "reason": "the public image-data schema contains date but no image timestamp/hour, while the frozen R5b empirical contract requires day-of-year and hour for every observation",
+      "response_rows_opened": 0,
+      "response_values_opened": false
+    },
+    {
+      "candidate_id": "SMALL_MAMMAL_BOLDNESS",
+      "source_doi": "10.5061/dryad.18931zd8w",
+      "status": "REJECT_METADATA",
+      "eligible": false,
+      "metadata_findings": {
+        "stable_spatial_unit": true,
+        "coordinates_available": false,
+        "date_available": true,
+        "hour_available": true,
+        "known_effort_available": true,
+        "two_state_mapping_predeclared_without_response_distribution": true,
+        "state_annotated_observations_possible": true,
+        "disjoint_direct_state_calibration_possible": true,
+        "geographic_east_holdout_possible": false
+      },
+      "reason": "the published data dictionary exposes site/station, timestamp, behavior and effort but no coordinates for the spatial units; an R5b geographic extrapolation holdout therefore cannot be frozen from the public schema",
+      "response_rows_opened": 0,
+      "response_values_opened": false
+    },
+    {
+      "candidate_id": "SNAPSHOT_USA_2024_WHITE_TAILED_DEER",
+      "source_doi": "10.5061/dryad.bnzs7h4qf",
+      "dataset_title": "SNAPSHOT USA 2024: Year 6 of the coordinated national camera trap survey of the United States",
+      "status": "ADVANCE_TO_NONRESPONSE_DEPLOYMENT_AND_HEADER_GATE",
+      "eligible": true,
+      "metadata_findings": {
+        "stable_spatial_unit": true,
+        "coordinates_available": true,
+        "date_available": true,
+        "hour_available": true,
+        "known_effort_available": true,
+        "two_state_mapping_predeclared_without_response_distribution": true,
+        "state_annotated_observations_possible": true,
+        "disjoint_direct_state_calibration_possible": true,
+        "geographic_east_holdout_possible": true
+      },
+      "source_files": {
+        "deployment": "ssusa_2024_deployments.csv",
+        "response": "ssusa_2024_sequences.csv"
+      },
+      "focal_taxon": {
+        "genus": "Odocoileus",
+        "species": "virginianus",
+        "common_name": "white-tailed deer",
+        "selection_basis": "predeclared common focal ungulate expected to occur broadly enough for a geographic extrapolation test; no response-row count was inspected before selection"
+      },
+      "state_space": [
+        "solitary",
+        "group"
+      ],
+      "state_mapping": {
+        "solitary": "Group_Size == 1",
+        "group": "Group_Size >= 2"
+      },
+      "state_mapping_reason": "Group_Size is defined by the public schema as an integer from 1 to 50, so the binary mapping requires no inspection of the empirical response distribution",
+      "response_rows_opened": 0,
+      "response_values_opened": false
+    }
+  ],
+  "selected_candidate": "SNAPSHOT_USA_2024_WHITE_TAILED_DEER"
+}

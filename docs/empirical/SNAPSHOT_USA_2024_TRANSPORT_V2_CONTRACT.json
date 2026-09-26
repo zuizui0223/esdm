@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "contract_id": "empirical-r5b-snapshot-usa-2024-transport-v2",
+  "status": "FROZEN_PRE_RESPONSE_TRANSPORT_RETRY",
+  "frozen_date": "2026-09-26",
+  "parent_header_contract": "docs/empirical/SNAPSHOT_USA_2024_HEADER_CONTRACT.json",
+  "parent_daymet_contract": "docs/empirical/SNAPSHOT_USA_2024_DAYMET_PRECIPITATION_CONTRACT.json",
+  "supersedes_transport_attempt": {
+    "workflow_run_id": 36229789655,
+    "artifact_id": 10901827133,
+    "artifact_digest": "sha256:21ff6e2041404f0c5c31d5e3a8f9819556b8a3ac77845bf4dedde2581d942615",
+    "outcome": "STOP_PRE_RESPONSE_TRANSPORT",
+    "transport_error": "HTTPError: HTTP Error 403: Forbidden",
+    "response_rows_opened": 0,
+    "response_values_opened": false,
+    "scientific_rule_changed": false
+  },
+  "dataset": {
+    "doi": "10.5061/dryad.bnzs7h4qf",
+    "landing_url": "https://datadryad.org/dataset/doi:10.5061/dryad.bnzs7h4qf",
+    "deployment_url": "https://datadryad.org/downloads/file_stream/4788613",
+    "sequence_url": "https://datadryad.org/downloads/file_stream/4788614"
+  },
+  "transport": {
+    "establish_cookie_session_from_landing_page": true,
+    "user_agent": "Mozilla/5.0 (compatible; esdm-r5b-snapshot-usa/2.0; +https://github.com/zuizui0223/esdm)",
+    "deployment": {
+      "mode": "full download",
+      "referer_required": true,
+      "response_content_is_nonresponse_metadata": true
+    },
+    "sequence": {
+      "mode": "HTTP byte range",
+      "range": "bytes=0-4095",
+      "require_final_http_status": 206,
+      "require_content_range_header": true,
+      "application_reads_first_line_only": true,
+      "max_header_bytes": 4096,
+      "response_data_rows_allowed": 0,
+      "fail_if_range_not_honored": true
+    }
+  },
+  "unchanged_scientific_contract": {
+    "focal_taxon": "Odocoileus virginianus",
+    "states": [
+      "solitary",
+      "group"
+    ],
+    "selected_site_count": 64,
+    "site_selection_rule_changed": false,
+    "east_holdout_rule_changed": false,
+    "training_stream_partition_changed": false,
+    "temporal_contract_changed": false,
+    "precipitation_contract_changed": false,
+    "model_changed": false,
+    "response_conditioned_decision_allowed": false
+  },
+  "valid_terminal_statuses": [
+    "HEADER_AND_DEPLOYMENT_METADATA_QUALIFIED",
+    "STOP_PRE_RESPONSE_TRANSPORT",
+    "REJECT_PRE_RESPONSE_SCHEMA_OR_GEOMETRY"
+  ],
+  "execution": {
+    "authorization_marker": "docs/empirical/SNAPSHOT_USA_2024_TRANSPORT_V2_RUN_AUTHORIZED",
+    "marker_must_be_newly_added": true,
+    "workflow_dispatch_enabled": false,
+    "rerun_same_attempt_after_material_failure_allowed": false
+  }
+}

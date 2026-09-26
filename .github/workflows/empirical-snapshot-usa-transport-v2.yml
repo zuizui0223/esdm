@@ -1,0 +1,35 @@
+name: empirical-snapshot-usa-transport-v2
+
+on:
+  pull_request:
+    paths:
+      - 'docs/empirical/SNAPSHOT_USA_2024_TRANSPORT_V2_CONTRACT.json'
+      - 'src/esdm/validate/empirical_snapshot_usa_transport_v2.py'
+      - 'scripts/run_snapshot_usa_2024_transport_v2.py'
+      - 'tests/test_empirical_snapshot_usa_transport_v2.py'
+      - '.github/workflows/empirical-snapshot-usa-transport-v2.yml'
+      - '.github/workflows/empirical-snapshot-usa-transport-v2-once.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install package and tests
+        run: python -m pip install -e '.[dev]'
+      - name: Validate response-blind transport retry
+        run: python -m pytest -q tests/test_empirical_snapshot_usa_transport_v2.py
+      - name: Compile transport runner
+        run: python -m py_compile scripts/run_snapshot_usa_2024_transport_v2.py
+      - name: Confirm transport workflow is dormant and has no manual dispatch
+        run: |
+          test ! -e docs/empirical/SNAPSHOT_USA_2024_TRANSPORT_V2_RUN_AUTHORIZED
+          grep -q "SNAPSHOT_USA_2024_TRANSPORT_V2_RUN_AUTHORIZED" .github/workflows/empirical-snapshot-usa-transport-v2-once.yml
+          ! grep -q "workflow_dispatch" .github/workflows/empirical-snapshot-usa-transport-v2-once.yml
