@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "contract_id": "empirical-r5b-snapshot-japan-camtrapdp-worldclim-v1",
+  "status": "FROZEN_PRE_RESPONSE_CLIMATE",
+  "frozen_date": "2026-09-27",
+  "scientific_parent": {
+    "r5b_branch": "feature/v04-r5b-recovery-transfer",
+    "r5b_empirical_contract": "docs/validation/EMPIRICAL_ENTRY_R5B_FREEZE.md",
+    "snapshot_usa_terminal_receipt": "docs/empirical/SNAPSHOT_USA_2024_TRANSPORT_V3_RESULT.json"
+  },
+  "candidate": {
+    "candidate_id": "SNAPSHOT_JAPAN_2023_CAMTRAPDP_SIKA_DEER",
+    "article_doi": "10.3897/BDJ.13.e141168",
+    "camtrapdp_supplement_doi": "10.3897/BDJ.13.e141168.suppl4",
+    "camtrapdp_zenodo_record": 15030971,
+    "camtrapdp_file": "oo_1246258.zip",
+    "camtrapdp_md5": "742f186013ef3b60e9754df73e5269de",
+    "camtrapdp_response_opened": false
+  },
+  "safe_geometry_source": {
+    "deployment_file": "oo_1202827.csv",
+    "url": "https://zenodo.org/api/records/15030965/files/oo_1202827.csv/content",
+    "md5": "9ee54945758d9d146badd3aeb17a7923",
+    "expected_rows": 90,
+    "expected_unique_coordinates": 90,
+    "east_holdout_threshold_longitude": 140.25698549999998,
+    "expected_training_count": 70,
+    "expected_heldout_count": 20,
+    "training_rule": "Longitude < 140.25698549999998",
+    "heldout_rule": "Longitude > 140.25698549999998"
+  },
+  "climate_source": {
+    "product": "WorldClim v2.1 base bioclimatic variables",
+    "archive_url": "https://geodata.ucdavis.edu/climate/worldclim/2_1/base/wc2.1_10m_bio.zip",
+    "resolution": "10 arc-minute",
+    "member": "wc2.1_10m_bio_12.tif",
+    "variable": "BIO12 annual precipitation",
+    "units": "mm"
+  },
+  "preprocessing": {
+    "sample_method": "nearest raster cell containing each camera coordinate",
+    "training_standardization_only": true,
+    "standardization": "(BIO12 - training_mean) / training_population_sd",
+    "heldout_values_may_not_enter_mean_or_sd": true
+  },
+  "firewall": {
+    "camtrapdp_archive_requests": 0,
+    "camtrapdp_response_bytes_opened": 0,
+    "camtrapdp_response_rows_opened": 0,
+    "camtrapdp_response_values_opened": false,
+    "model_fits": 0,
+    "heldout_scores": 0
+  },
+  "valid_terminal_statuses": [
+    "CLIMATE_QUALIFIED",
+    "STOP_PRE_RESPONSE_CLIMATE_TRANSPORT_OR_SCHEMA"
+  ]
+}
