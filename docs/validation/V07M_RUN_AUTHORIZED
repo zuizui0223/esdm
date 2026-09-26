@@ -1,0 +1,22 @@
+v0.7m absolute-adequacy-first calibration policy one-shot authorization
+
+authorized_date: 2026-09-26
+gate_contract: docs/validation/V07M_ABSOLUTE_ADEQUACY_POLICY_GATE.md
+gate_merge_commit: 32b9376e98968ab7f58429bca45af57eb1de7b2e
+authorized_branch: feature/v07m-absolute-adequacy-gate-clean
+
+This marker authorizes exactly the frozen v0.7m four-role confirmatory programme.
+
+Frozen policy remains:
+- abstain when local-best predicted worst dynamic SD > 0.35;
+- otherwise adaptive when transferred predicted worst dynamic SD > 0.35;
+- otherwise adaptive when local/transferred SD ratio <= 0.80;
+- otherwise transferred.
+
+Exactly 16 independent pilot/confirm pairs per role are authorized.
+Both adaptive and transferred confirmatory fits remain audit fits in every world.
+Recovery claims remain restricted to policy non-abstain deployments.
+
+No threshold, world, expected action, seed family, placement selector, MCMC setting,
+recovery criterion, action-rate criterion, safety criterion, or ODSP boundary is
+changed by this authorization.
