@@ -1,3 +1,6 @@
+from esdm.validate.v07j_fixture import V07J_TARGET_WORLDS
+from esdm.validate.v07k_fixture import V07K_WORLD_PROBABILITIES
+from esdm.validate.v07l_fixture import V07L_WORLD_PROBABILITIES
 from esdm.validate.v07m_fixture import (
     V07M_EXPECTED_ACTIONS,
     V07M_ORACLE_PLACEMENTS,
@@ -42,15 +45,19 @@ def test_v07m_pilot_and_confirmatory_datasets_are_separate():
         )
 
 
-def test_v07m_world_probabilities_are_not_v07l_confirmatory_worlds():
-    old = {
-        (0.85, 0.25, 0.38),
-        (0.85, 0.25, 0.22),
-        (0.85, 0.25, 0.08),
-        (0.85, 0.65, 0.22),
-    }
-    current = {
+def _probability_triples(rows):
+    return {
         (row["psi0"], row["gamma"], row["epsilon"])
-        for row in V07M_WORLD_PROBABILITIES.values()
+        for row in rows.values()
     }
-    assert old.isdisjoint(current)
+
+
+def test_v07m_world_probabilities_are_fresh_against_prior_confirmatory_worlds():
+    current = _probability_triples(V07M_WORLD_PROBABILITIES)
+    prior = (
+        _probability_triples(V07L_WORLD_PROBABILITIES)
+        | _probability_triples(V07J_TARGET_WORLDS)
+        | _probability_triples(V07K_WORLD_PROBABILITIES)
+    )
+
+    assert current.isdisjoint(prior)
