@@ -1,0 +1,89 @@
+{
+  "schema_version": 2,
+  "receipt_id": "esdm-odsp-transfer-evidence-ledger-v2",
+  "validated_date": "2026-09-26",
+  "ledger_schema": "esdm.odsp_transfer_evidence_portfolio.v2",
+  "registry": "ODSP_TRANSFER_SOURCE_REGISTRY_V1.json",
+  "implementation_merge_sha": "2bef09c65746ef8c5bab8beeb06962263a05d7d2",
+  "generation": {
+    "source_head_sha": "70e6520e30ec29a2afd79b716a4a3816a36c9599",
+    "workflow_run_id": 36222395619,
+    "artifact_id": 10899980400,
+    "artifact_name": "odsp-transfer-evidence-ledger-v2",
+    "artifact_digest": "sha256:daf6d6c66a0cea3582e26511b501631a4988ee57a5e46ec77126f84c8a0fb2f0",
+    "portfolio_json_sha256": "c6a76b7245c5b4dac0edc5b5584232933f3f3594f7fa757e5a6c1c1bef9630d1",
+    "portfolio_fingerprint": "5285de0dd8b64a366e957a3ce5610d00e24b8d3a0665878b0ccb17d00360b41d",
+    "builder": "scripts/build_odsp_transfer_evidence_portfolio_v2.py",
+    "canonical_snapshot_in_repository": false,
+    "deterministic_rebuild_authorized": true
+  },
+  "coverage": {
+    "registry_source_count": 14,
+    "validated_item_count": 4,
+    "excluded_source_count": 10,
+    "scientific_fail_count": 2,
+    "status_counts": {
+      "evidence_tier_not_transfer": 1,
+      "gain_only_not_exportable": 1,
+      "identification_only_not_transfer": 2,
+      "non_nested_comparison_not_transfer": 4,
+      "scientific_fail_not_exportable": 2,
+      "validated_exportable": 4
+    },
+    "every_registry_source_accounted_for": true
+  },
+  "validated_source_ids": [
+    "v04_r5b_activity",
+    "v04_r5b_state",
+    "v06a_static_accessibility",
+    "v07b_dynamic_occupancy"
+  ],
+  "interaction_fail_sentinel": {
+    "source_id": "v05f_directed_interaction_replication",
+    "registry_status": "scientific_fail_not_exportable",
+    "frozen_result_status": "FAIL",
+    "exclusion_class": "scientific_gate_failed",
+    "numeric_transfer_value": null,
+    "numeric_transfer_value_authorized": false,
+    "unsupported_not_zero": true,
+    "positive_world": {
+      "positive_gain_rate": 1,
+      "mean_heldout_gain": 1.1190587549523654
+    },
+    "specificity_null": {
+      "material_gain_threshold": 0.005,
+      "material_gain_count": 5,
+      "maximum_allowed_count": 4,
+      "mean_heldout_gain": -0.032686561643512385
+    },
+    "failed_check": "null_material_gain_rate"
+  },
+  "boundaries": {
+    "success_only_display_authorized": false,
+    "unsupported_source_equals_zero_transfer": false,
+    "scientific_fail_numeric_promotion_authorized": false,
+    "gain_only_reconstruction_authorized": false,
+    "non_nested_relabelling_authorized": false,
+    "cross_programme_numeric_ranking_authorized": false,
+    "global_information_ladder_authorized": false,
+    "lattice_inference_created": false,
+    "eog_consumption_authorized": false,
+    "n4_action_authorized": false,
+    "n4_survey_action_owner": "ACSP"
+  },
+  "interpretation": {
+    "supported": [
+      "the validated transfer portfolio contains four numeric transfer sources",
+      "ten additional frozen programmes are retained as explicit exclusions rather than disappearing from the evidence display",
+      "v0.5f interaction replication remains visible as a scientific FAIL despite a strong positive interaction-world signal",
+      "lack of an authorized transfer value means unsupported for this transfer estimand, not zero ecological value"
+    ],
+    "not_supported": [
+      "ranking validated transfer sources by magnitude",
+      "treating excluded sources as zero-valued",
+      "promoting scientific FAILs to N3 transfer value",
+      "constructing a global information ladder",
+      "EOG consumption or N4 survey action"
+    ]
+  }
+}
