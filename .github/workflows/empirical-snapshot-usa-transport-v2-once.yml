@@ -3,7 +3,7 @@ name: empirical-snapshot-usa-transport-v2-once
 on:
   push:
     branches:
-      - empirical/snapshot-usa-2024-transport-v2
+      - feature/v04-r5b-recovery-transfer
     paths:
       - 'docs/empirical/SNAPSHOT_USA_2024_TRANSPORT_V2_RUN_AUTHORIZED'
 
