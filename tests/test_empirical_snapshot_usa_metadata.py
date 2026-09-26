@@ -114,6 +114,18 @@ def test_deployment_metadata_freezes_64_sites_strict_east_holdout_and_four_strea
     result = parse_deployment_metadata(_deployment_csv())
 
     assert result["selected_site_count"] == 64
+    assert len(result["selected_sites"]) == 64
+    assert [row["spatial_unit"] for row in result["selected_sites"]] == sorted(
+        result["selected_spatial_units"]
+    )
+    assert {row["partition"] for row in result["selected_sites"]} == {
+        "training",
+        "heldout",
+    }
+    assert all(
+        isinstance(row["latitude"], float) and isinstance(row["longitude"], float)
+        for row in result["selected_sites"]
+    )
     assert result["training_site_count"] > 0
     assert result["heldout_site_count"] >= 13
     assert result["training_longitude_max"] < result["heldout_longitude_min"]
