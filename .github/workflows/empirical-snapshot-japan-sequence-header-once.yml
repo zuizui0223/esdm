@@ -1,0 +1,50 @@
+name: empirical R5b Snapshot Japan sequence header
+
+concurrency:
+  group: empirical-r5b-snapshot-japan-sequence-header
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - release/empirical-r5b-freeze
+    paths:
+      - docs/empirical/SNAPSHOT_JAPAN_SEQUENCE_HEADER_CONTRACT.json
+      - docs/empirical/SNAPSHOT_JAPAN_SEQUENCE_HEADER_AUTHORIZED
+      - scripts/inspect_snapshot_japan_sequence_header.py
+      - tests/test_empirical_snapshot_japan_sequence_header.py
+      - .github/workflows/empirical-snapshot-japan-sequence-header-once.yml
+
+jobs:
+  header:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]"
+      - name: Verify exact publisher-frozen header contract
+        run: python -m pytest -q tests/test_empirical_snapshot_japan_sequence_header.py
+      - name: Check header authorization
+        id: auth
+        run: |
+          if [ -f docs/empirical/SNAPSHOT_JAPAN_SEQUENCE_HEADER_AUTHORIZED ]; then
+            echo "authorized=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "authorized=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Read physical header only
+        if: steps.auth.outputs.authorized == 'true'
+        run: python scripts/inspect_snapshot_japan_sequence_header.py
+      - name: Upload header certificate
+        if: steps.auth.outputs.authorized == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: empirical-snapshot-japan-sequence-header-${{ github.run_id }}
+          path: artifacts/snapshot_japan_sequence_header.json
+          if-no-files-found: error
