@@ -1,3 +1,5 @@
+from dataclasses import replace
+
 from esdm.validate.v07b_fixture import V07B_TRUTH
 from esdm.validate.v07m_gate import V07MGateConfig, evaluate_v07m_gate
 from esdm.validate.v07m_run import V07MSummary, V07MWorldSummary
@@ -93,10 +95,11 @@ def test_v07m_non_abstain_recovery_failure_fails_gate():
     bad = worlds["transfer_adequate"]
     biases = dict(bad.policy_mean_biases)
     biases["sp.occupancy.gamma_logit"] = 0.21
-    worlds["transfer_adequate"] = V07MWorldSummary(
-        **{**bad.__dict__, "policy_mean_biases": biases}
+    worlds["transfer_adequate"] = replace(
+        bad,
+        policy_mean_biases=biases,
     )
-    summary = V07MSummary(**{**summary.__dict__, "worlds": worlds})
+    summary = replace(summary, worlds=worlds)
 
     decision = evaluate_v07m_gate(summary)
 
