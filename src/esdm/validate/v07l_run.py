@@ -59,6 +59,16 @@ class V07LReplicate:
         action = str(self.policy_action)
         if action not in {"adaptive", "transferred"}:
             raise ValueError("v0.7l policy_action must be adaptive or transferred")
+        expected_action = (
+            "adaptive"
+            if float(self.pilot_predicted_adaptive_to_transferred_ratio)
+            <= V07L_TRIGGER_RATIO
+            else "transferred"
+        )
+        if action != expected_action:
+            raise ValueError(
+                "v0.7l policy_action disagrees with frozen pilot trigger"
+            )
         object.__setattr__(self, "policy_action", action)
 
         expected = set(V07B_TRUTH)
