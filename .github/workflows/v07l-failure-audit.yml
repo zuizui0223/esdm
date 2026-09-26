@@ -1,0 +1,127 @@
+name: v0.7l frozen failure audit
+
+on:
+  pull_request:
+    paths:
+      - 'docs/validation/V07L_FROZEN_RESULTS.json'
+      - 'docs/validation/V07L_FAILURE_AUDIT_V1.json'
+      - 'src/esdm/validate/v07l_failure_audit.py'
+      - 'scripts/audit_v07l_failure.py'
+      - 'tests/test_v07l_frozen_failure.py'
+      - '.github/workflows/v07l-failure-audit.yml'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install eSDM and tests
+        run: python -m pip install -e '.[dev]'
+
+      - name: Validate frozen FAIL receipt
+        run: python -m pytest -q tests/test_v07l_frozen_failure.py
+
+      - name: Download frozen v0.7l result
+        uses: actions/download-artifact@v4
+        with:
+          name: v07l-result-36223841269
+          path: build/source
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36223841269
+
+      - name: Verify frozen result hash
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          receipt = json.loads(
+              Path("docs/validation/V07L_FROZEN_RESULTS.json").read_text()
+          )
+          path = Path("build/source/v07l_result.json")
+          observed = hashlib.sha256(path.read_bytes()).hexdigest()
+          expected = receipt["one_shot"]["result_json_sha256"]
+          if observed != expected:
+              raise SystemExit(f"v0.7l result sha256 mismatch: {observed} != {expected}")
+          PY
+
+      - name: Recompute post-outcome failure audit
+        run: |
+          mkdir -p build/audit
+          python scripts/audit_v07l_failure.py             --result build/source/v07l_result.json             --out build/audit/v07l_failure_audit.json
+
+      - name: Compare audit with frozen diagnostic receipt
+        run: |
+          python - <<'PY'
+          import json
+          import math
+          from pathlib import Path
+
+          frozen = json.loads(
+              Path("docs/validation/V07L_FAILURE_AUDIT_V1.json").read_text()
+          )
+          audit = json.loads(
+              Path("build/audit/v07l_failure_audit.json").read_text()
+          )
+
+          assert audit["threshold_only_rescue_possible"] is False
+          assert audit["any_scalar_threshold_recovery_guardrails_pass"] is False
+          assert audit["scalar_threshold_candidate_count"] == (
+              frozen["scalar_threshold_exhaustive_audit"][
+                  "action_equivalence_candidate_count"
+              ]
+          )
+          assert math.isclose(
+              audit["threshold_below_actual_material_headroom_rate"],
+              frozen["invariant_failure"][
+                  "threshold_below_actual_material_headroom_rate"
+              ],
+              rel_tol=0.0,
+              abs_tol=1e-15,
+          )
+
+          best = audit["best_balanced_accuracy_scalar_threshold"]
+          frozen_best = frozen["scalar_threshold_exhaustive_audit"]
+          assert math.isclose(
+              best["trigger_threshold"],
+              frozen_best["best_balanced_accuracy_threshold"],
+              rel_tol=0.0,
+              abs_tol=1e-15,
+          )
+          assert math.isclose(
+              best["trigger_balanced_accuracy"],
+              frozen_best["best_balanced_accuracy_metrics"]["balanced_accuracy"],
+              rel_tol=0.0,
+              abs_tol=1e-15,
+          )
+          assert best["recovery_guardrails_pass"] is False
+
+          oracle = audit["oracle_material_headroom"]
+          assert oracle["trigger_sensitivity"] == 1.0
+          assert oracle["trigger_specificity"] == 1.0
+          assert oracle["mean_policy_regret"] == 0.0
+          assert oracle["recovery_guardrails_pass"] is False
+          assert (
+              audit["interpretation"]["next_development_need"]
+              == "separate absolute recovery adequacy from relative placement headroom; do not retune the v0.7l trigger on the opened confirmatory worlds"
+          )
+          PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: v07l-failure-audit-v1
+          path: build/audit/v07l_failure_audit.json
+          if-no-files-found: error
+          retention-days: 90
