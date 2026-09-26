@@ -1,0 +1,117 @@
+name: v0.7l frozen selective adaptation gate
+
+on:
+  push:
+    branches:
+      - feature/v07l-selective-adaptation-gate
+    paths:
+      - .github/workflows/v07l-selective-adaptation-once.yml
+      - docs/validation/V07L_RUN_AUTHORIZED
+      - docs/validation/V07L_SELECTIVE_ADAPTATION_GATE.md
+      - scripts/run_v07l_replicate.py
+      - scripts/aggregate_v07l.py
+      - src/esdm/validate/v07l_fixture.py
+      - src/esdm/validate/v07l_run.py
+      - src/esdm/validate/v07l_gate.py
+      - tests/test_v07l_*.py
+
+permissions:
+  contents: read
+
+jobs:
+  precheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    outputs:
+      authorized: ${{ steps.authorization.outputs.authorized }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,inference]"
+      - name: Check explicit v0.7l authorization
+        id: authorization
+        run: |
+          if [ -f docs/validation/V07L_RUN_AUTHORIZED ]; then
+            echo "authorized=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "authorized=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Verify frozen v0.7l contracts
+        run: |
+          python -m pytest -q             tests/test_v07l_audit.py             tests/test_v07l_fixture.py             tests/test_v07l_gate.py             tests/test_v07l_gate_freeze.py             tests/test_v07l_scripts.py             tests/test_v07l_workflow.py
+
+  replicate:
+    needs: precheck
+    if: needs.precheck.outputs.authorized == 'true'
+    strategy:
+      fail-fast: false
+      max-parallel: 16
+      matrix:
+        world:
+          - strong_headroom
+          - threshold_below
+          - threshold_above
+          - negligible_headroom
+        replicate: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install inference dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[inference]"
+      - name: Run frozen v0.7l replicate
+        run: |
+          mkdir -p artifacts
+          python scripts/run_v07l_replicate.py             --world ${{ matrix.world }}             --replicate ${{ matrix.replicate }}             --output artifacts/${{ matrix.world }}-${{ matrix.replicate }}.json
+      - name: Upload v0.7l shard
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v07l-${{ matrix.world }}-${{ matrix.replicate }}-${{ github.run_id }}
+          path: artifacts/${{ matrix.world }}-${{ matrix.replicate }}.json
+          if-no-files-found: error
+
+  aggregate:
+    needs: [precheck, replicate]
+    if: always() && needs.precheck.outputs.authorized == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Initialize fail-closed result
+        run: |
+          mkdir -p artifacts/shards
+          printf '%s\n' '{"schema":"esdm.v07l.selective_adaptation.v1","status":"INFRASTRUCTURE_BLOCKED"}'             > artifacts/v07l_result.json
+      - name: Download v0.7l shards
+        uses: actions/download-artifact@v4
+        with:
+          pattern: v07l-*-${{ github.run_id }}
+          path: artifacts/shards
+          merge-multiple: true
+      - name: Install aggregation dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]"
+      - name: Aggregate frozen v0.7l result
+        run: |
+          python scripts/aggregate_v07l.py             --shard-dir artifacts/shards             --output artifacts/v07l_result.json
+      - name: Upload final v0.7l result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v07l-result-${{ github.run_id }}
+          path: artifacts/v07l_result.json
+          if-no-files-found: error
