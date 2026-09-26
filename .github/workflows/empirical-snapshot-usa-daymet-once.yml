@@ -1,0 +1,174 @@
+name: empirical-snapshot-usa-daymet-once
+
+on:
+  push:
+    branches:
+      - empirical/snapshot-usa-2024-daymet-freeze
+    paths:
+      - 'docs/empirical/SNAPSHOT_USA_2024_DAYMET_RUN_AUTHORIZED.json'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  precheck:
+    runs-on: ubuntu-latest
+    outputs:
+      header_run_id: ${{ steps.auth.outputs.header_run_id }}
+      header_artifact_name: ${{ steps.auth.outputs.header_artifact_name }}
+      header_result_sha256: ${{ steps.auth.outputs.header_result_sha256 }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Verify one-shot authorization addition
+        id: auth
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import subprocess
+          from pathlib import Path
+
+          marker = Path("docs/empirical/SNAPSHOT_USA_2024_DAYMET_RUN_AUTHORIZED.json")
+          if not marker.is_file():
+              raise SystemExit("authorization marker absent")
+          added = subprocess.check_output(
+              ["git", "diff", "--diff-filter=A", "--name-only", "HEAD^", "HEAD"],
+              text=True,
+          ).splitlines()
+          if marker.as_posix() not in added:
+              raise SystemExit("authorization marker was not newly added; refusing rerun")
+
+          payload = json.loads(marker.read_text())
+          required = (
+              "header_workflow_run_id",
+              "header_artifact_name",
+              "header_artifact_digest",
+              "header_result_sha256",
+          )
+          missing = [key for key in required if not payload.get(key)]
+          if missing:
+              raise SystemExit(f"authorization marker missing fields: {missing}")
+
+          output = Path(os.environ["GITHUB_OUTPUT"])
+          with output.open("a", encoding="utf-8") as handle:
+              handle.write(f"header_run_id={int(payload['header_workflow_run_id'])}\n")
+              handle.write(f"header_artifact_name={payload['header_artifact_name']}\n")
+              handle.write(f"header_result_sha256={payload['header_result_sha256']}\n")
+          PY
+
+      - name: Verify pinned header artifact digest
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import subprocess
+          from pathlib import Path
+
+          marker = json.loads(
+              Path("docs/empirical/SNAPSHOT_USA_2024_DAYMET_RUN_AUTHORIZED.json").read_text()
+          )
+          run_id = int(marker["header_workflow_run_id"])
+          artifact_name = marker["header_artifact_name"]
+          expected_digest = marker["header_artifact_digest"]
+
+          raw = subprocess.check_output(
+              [
+                  "gh",
+                  "api",
+                  f"/repos/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{run_id}/artifacts",
+              ],
+              text=True,
+          )
+          artifacts = json.loads(raw)["artifacts"]
+          matches = [row for row in artifacts if row["name"] == artifact_name]
+          if len(matches) != 1:
+              raise SystemExit(
+                  f"expected one pinned header artifact {artifact_name!r}, found {len(matches)}"
+              )
+          observed = matches[0].get("digest")
+          if observed != expected_digest:
+              raise SystemExit(
+                  f"header artifact digest mismatch: {observed} != {expected_digest}"
+              )
+          PY
+
+  cache:
+    needs: precheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install package
+        run: python -m pip install -e .
+
+      - name: Download pinned qualified header artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.precheck.outputs.header_artifact_name }}
+          path: build/header
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ needs.precheck.outputs.header_run_id }}
+
+      - name: Verify qualified header result hash and pre-response status
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          path = Path("build/header/SNAPSHOT_USA_2024_HEADER_RESULT.json")
+          observed = hashlib.sha256(path.read_bytes()).hexdigest()
+          expected = "${{ needs.precheck.outputs.header_result_sha256 }}"
+          if observed != expected:
+              raise SystemExit(f"header result sha256 mismatch: {observed} != {expected}")
+
+          result = json.loads(path.read_text())
+          assert result["status"] == "HEADER_AND_DEPLOYMENT_METADATA_QUALIFIED"
+          assert result["response_rows_opened"] == 0
+          assert result["response_values_opened"] is False
+          assert result["model_fits"] == 0
+          assert result["heldout_scores"] == 0
+          assert len(result["deployment"]["selected_sites"]) == 64
+          assert result["deployment"]["selected_deployments"]
+          PY
+
+      - name: Cache frozen Daymet precipitation and build weekly covariates
+        run: |
+          mkdir -p build/daymet/raw
+          python scripts/cache_snapshot_usa_2024_daymet.py             --header-result build/header/SNAPSHOT_USA_2024_HEADER_RESULT.json             --cache-dir build/daymet/raw             --output build/daymet/SNAPSHOT_USA_2024_DAYMET_RESULT.json
+
+      - name: Assert climate stage remained response-blind
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          result = json.loads(
+              Path("build/daymet/SNAPSHOT_USA_2024_DAYMET_RESULT.json").read_text()
+          )
+          assert result["cache_manifest"]["selected_site_count"] == 64
+          assert result["response_rows_opened"] == 0
+          assert result["response_values_opened"] is False
+          assert result["model_fits"] == 0
+          assert result["heldout_scores"] == 0
+          assert result["training_scaler"]["sd_mm"] > 0
+          PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: empirical-snapshot-usa-daymet-${{ github.run_id }}
+          path: |
+            build/daymet/SNAPSHOT_USA_2024_DAYMET_RESULT.json
+            build/daymet/raw/
+          if-no-files-found: error
+          retention-days: 90
