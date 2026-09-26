@@ -102,5 +102,13 @@
     "opens_new_confirmatory_outcome": false,
     "odsp_information_transfer": false,
     "eog_or_n4_action": false
+  },
+  "validation_provenance": {
+    "validation_head_sha": "6a85b15315dfb8c473662ac7baee41500a6209b8",
+    "workflow_run_id": 36225469983,
+    "artifact_id": 10900536847,
+    "artifact_name": "v07l-failure-audit-v1",
+    "artifact_digest": "sha256:f5f20afecc224d6695ae56cea5981d332770b5dfb5fe9c4b4ed9067c48bfb500",
+    "audit_json_sha256": "a96a1ec52bdc84194ee1a2f8d317b875d3f5a4c2dbb53da5fadb78415399326b"
   }
 }
