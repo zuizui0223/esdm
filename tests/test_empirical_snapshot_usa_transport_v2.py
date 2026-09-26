@@ -192,7 +192,7 @@ def test_transport_v2_stops_if_206_lacks_content_range():
     assert "Content-Range" in result["transport_error"]
 
 
-def test_transport_v2_has_no_manual_dispatch_and_no_authorization_marker_yet():
+def test_transport_v2_has_no_manual_dispatch_and_authorization_is_receipted():
     workflow = (
         ROOT
         / ".github"
@@ -202,9 +202,18 @@ def test_transport_v2_has_no_manual_dispatch_and_no_authorization_marker_yet():
 
     assert "SNAPSHOT_USA_2024_TRANSPORT_V2_RUN_AUTHORIZED" in workflow
     assert "workflow_dispatch" not in workflow
-    assert not (
+
+    marker = (
         ROOT
         / "docs"
         / "empirical"
         / "SNAPSHOT_USA_2024_TRANSPORT_V2_RUN_AUTHORIZED"
-    ).exists()
+    )
+    if marker.exists():
+        result = (
+            ROOT
+            / "docs"
+            / "empirical"
+            / "SNAPSHOT_USA_2024_TRANSPORT_V2_RESULT.json"
+        )
+        assert result.is_file()
