@@ -34,7 +34,7 @@ def _rows(raw: bytes):
 def _choose_east_cut(records):
     longitudes = sorted({float(row["longitude"]) for row in records})
     candidates = []
-    for west, east in zip(longitudes, longitudes[1:], strict=True):
+    for west, east in zip(longitudes, longitudes[1:]):
         train = [row for row in records if float(row["longitude"]) <= west]
         held = [row for row in records if float(row["longitude"]) >= east]
         if len(train) >= 50 and len(held) >= 12:
