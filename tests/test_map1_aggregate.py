@@ -55,7 +55,7 @@ def test_map1_aggregate_accepts_complete_frozen_plan(tmp_path):
     result = aggregate_map1_shards(tmp_path)
     assert result["status"] == "PASS"
     assert result["shard_count"] == EXPECTED_SHARD_COUNT == 48
-    assert result["fit_count"] == EXPECTED_FIT_COUNT == 128
+    assert result["fit_count"] == EXPECTED_FIT_COUNT == 144
     assert result["claims"]["COHERENT_MAP_SUPPORTED"] is True
 
 
