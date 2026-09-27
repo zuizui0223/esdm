@@ -24,8 +24,14 @@ No FIELD1 confirmatory outcome was opened:
 - replicate jobs completed: **0**
 - scientific shards produced: **0**
 - scientific PASS/FAIL decision: **none**
+- aggregate artifact ID: **10930667862**
+- aggregate artifact digest:
+  `sha256:910e007f1bd75ff019e9944194c1eee50dba3bfb529a0f840ccd6b4b291310e1`
+- aggregate receipt status: **INFRASTRUCTURE_BLOCKED**
+- aggregate receipt reason: all 144 frozen replicate shards were absent
 
-The replicate matrix was skipped because the failure occurred in precheck.
+The replicate matrix was skipped because the failure occurred in precheck. The aggregate
+receipt therefore contains no scientific gain, fit, divergence, or claim result.
 
 ## Frozen infrastructure repair
 
