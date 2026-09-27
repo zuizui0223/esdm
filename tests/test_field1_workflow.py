@@ -40,3 +40,13 @@ def test_field1_workflow_freezes_complete_world_replicate_matrix():
     assert "scripts/run_field1_replicate.py" in text
     assert "scripts/aggregate_field1.py" in text
     assert "merge-multiple: false" in text
+
+
+
+def test_field1_workflow_preserves_infrastructure_blocked_receipt():
+    text = WORKFLOW.read_text(encoding="utf-8")
+
+    assert "continue-on-error: true" in text
+    assert '"status": "INFRASTRUCTURE_BLOCKED"' in text
+    assert '"scientific_decision": None' in text
+    assert "if: always()" in text
