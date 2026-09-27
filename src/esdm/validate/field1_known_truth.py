@@ -419,12 +419,29 @@ def barrier_transfer_geometry_audit(fixture: Field1Fixture):
 def matched_barrier_distance_strata(
     fixture: Field1Fixture,
     *,
+    spaces=None,
     decimal_places: int = 8,
 ):
-    """K6 design audit: distances containing barrier and non-barrier edges."""
+    """K6 audit: matched barrier/non-barrier distances in an eligible graph view."""
+
+    eligible = (
+        None
+        if spaces is None
+        else {str(space) for space in spaces}
+    )
+    if eligible is not None:
+        unknown = eligible - set(fixture.graph.nodes)
+        if unknown:
+            raise ValueError(
+                f"unknown FIELD1 K6 audit spaces: {sorted(unknown)}"
+            )
 
     grouped = {}
     for edge in fixture.graph.edges:
+        if eligible is not None and not (
+            edge.left in eligible and edge.right in eligible
+        ):
+            continue
         distance = round(float(edge.distance), int(decimal_places))
         grouped.setdefault(distance, {0: 0, 1: 0})
         group = 1 if edge.barrier_exposure > 0.0 else 0
