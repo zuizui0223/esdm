@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "contract_id": "e2-mica-temporal-integrity-v1",
+  "frozen_date": "2026-09-27",
+  "status": "FROZEN_PRE_TEMPORAL_OPEN",
+  "parent_contract": "docs/replication/E2_EMPIRICAL_REPLICATION_CONTRACT.json",
+  "child_contract": "docs/replication/E2_MICA_MUSKRAT_CANDIDATE_CONTRACT.json",
+  "response_blind_result": "docs/replication/E2_MICA_RESPONSE_BLIND_GEOMETRY_HEADER_RESULT.json",
+  "response_blind_merge_sha": "7f36f41c21b06dc95995726a4576da70f4e3b5e0",
+  "purpose": "Run the already frozen E2 temporal-integrity rule on MICA animal-event metadata without opening scientificName, count or ecological response values.",
+  "source": {
+    "archive_url": "https://ipt.inbo.be/archive.do?r=mica-agouti&v=3",
+    "expected_archive_sha256": "8346f3fe467a201525d6bedd4ebd6e2078457ee8bb778501d41d55ace7d962c9",
+    "expected_deployments_sha256": "f199b4277eb2f800c3593ad9225de1e12eb3a0fa9fbfd4b2234dc213490ffcca",
+    "expected_response_blind_fingerprints": {
+      "training_ids_sha256": "a1e08526edb3d1f329fc7a4e9a2efa2bc4dc50313b393026a429f3a87d57f566",
+      "heldout_ids_sha256": "c4990c23de1787db84f9ae23310730b284c6ea159c7c0a806a7fcb01ffaf1db2",
+      "training_role_map_sha256": "1fcd776854484ed5b0e19c20b49aed81fa22d5947b5d26120c50155e1369c7e4",
+      "manifest_sha256": "73bd722aaa3083bcef7e154ac0fcdae60b21e13503fe2625fe41803dc5c2fa89",
+      "observation_header_sha256": "d90d51afbde14f01c5d1c3254ef6b6251ff5399ca9759e2998311d7a6b8e700c"
+    }
+  },
+  "allowed_observation_columns": [
+    "deploymentID",
+    "eventID",
+    "eventStart",
+    "observationLevel",
+    "observationType"
+  ],
+  "forbidden_observation_value_access": [
+    "scientificName",
+    "count",
+    "individualID",
+    "lifeStage",
+    "sex",
+    "behavior"
+  ],
+  "population": {
+    "row_filter": "observationLevel == event AND observationType == animal",
+    "event_identity": [
+      "deploymentID",
+      "eventID"
+    ],
+    "deduplicate": "all matching rows with the same identity must agree on eventStart",
+    "denominator": "unique complete animal-event identities before focal-taxon filtering"
+  },
+  "temporal_rule": {
+    "inside": "deploymentStart <= eventStart <= deploymentEnd",
+    "tolerated_violation_direction": "after_end_only",
+    "maximum_lateness_seconds": 86400,
+    "maximum_quarantined_fraction": 0.005,
+    "before_start_allowed": 0,
+    "missing_deployment_allowed": 0,
+    "missing_event_identity_allowed": 0,
+    "unparseable_event_time_allowed": 0,
+    "inconsistent_event_start_allowed": 0
+  },
+  "quarantine": {
+    "identity_fields": [
+      "deploymentID",
+      "eventID"
+    ],
+    "freeze_sorted_identity_list": true,
+    "sha256_required": true,
+    "downstream_action": "exclude quarantined identities from every ecological stream without widening deployment effort",
+    "reintroduction_allowed": false
+  },
+  "valid_terminal_statuses": [
+    "TEMPORAL_INTEGRITY_PASS",
+    "STOP_TEMPORAL_INTEGRITY",
+    "INFRASTRUCTURE_BLOCKED"
+  ],
+  "pass_requires": [
+    "archive/deployment/response-blind fingerprints exactly match the frozen response-blind result",
+    "zero before-start events",
+    "zero after-end events later than 24 hours",
+    "zero missing deployment references",
+    "zero missing event identities",
+    "zero unparseable event timestamps",
+    "zero inconsistent timestamps within an event identity",
+    "quarantined unique-event fraction <= 0.005"
+  ],
+  "response_boundary": {
+    "scientific_name_values_read": false,
+    "count_values_read": false,
+    "focal_taxon_filtering_allowed": false,
+    "state_mapping_allowed": false,
+    "taxon_frequencies_allowed": false,
+    "model_fits_allowed": false,
+    "heldout_scores_allowed": false,
+    "full_response_opening_allowed": false
+  },
+  "next_stage": {
+    "full_response_authorization_requires_temporal_pass": true,
+    "separate_authorization_required": true,
+    "pass_does_not_itself_authorize_full_response": true
+  },
+  "execution": {
+    "authorization_marker": "docs/replication/E2_MICA_TEMPORAL_INTEGRITY_AUTHORIZED.json",
+    "marker_must_be_newly_added_in_pure_commit": true,
+    "one_authorized_run": true,
+    "workflow_dispatch_enabled": false
+  }
+}
