@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "authorization_id": "e2-mica-temporal-integrity-one-shot-v1",
+  "authorized_date": "2026-09-27",
+  "candidate_id": "MICA_MUSKRAT",
+  "stage": "temporal_integrity_only",
+  "one_shot": true,
+  "implementation_parent_sha": "d35116636de7bb184b1047d240bc3ba9176c6958",
+  "response_blind_result_merge_sha": "7f36f41c21b06dc95995726a4576da70f4e3b5e0",
+  "odsp_serialization_amendment_merge_sha": "f07e73b7470133b5466da701ce67eace8cc16533",
+  "full_response_authorized": false,
+  "model_fitting_authorized": false,
+  "heldout_scoring_authorized": false,
+  "permitted_observation_columns": [
+    "deploymentID",
+    "eventID",
+    "eventStart",
+    "observationLevel",
+    "observationType"
+  ],
+  "prohibited_response_values": [
+    "scientificName",
+    "count"
+  ],
+  "contract": "docs/replication/E2_MICA_TEMPORAL_INTEGRITY_CONTRACT.json"
+}
