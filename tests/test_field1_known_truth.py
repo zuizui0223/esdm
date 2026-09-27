@@ -4,6 +4,7 @@ from esdm.simulate import simulate_presence_only
 from esdm.validate.field1_known_truth import (
     MODEL_IDS,
     PRIMARY_WORLD_IDS,
+    barrier_transfer_geometry_audit,
     field1_truth_theta,
     make_field1_fixture,
     make_field1_mean_covariance_factorial,
@@ -78,6 +79,20 @@ def test_h1_h2_exposure_masks_are_complementary_and_response_free():
         assert set(train_model.domain.space) == set(training)
         assert set(heldout_model.domain.space) == set(heldout)
         assert set(train_model.domain.space).isdisjoint(heldout_model.domain.space)
+
+
+
+def test_h2_barrier_holdout_learns_one_barrier_and_tests_another():
+    fixture = make_field1_fixture()
+    audit = barrier_transfer_geometry_audit(fixture)
+
+    assert tuple(fixture.h2_heldout_spaces) == ("c3r0", "c3r1", "c3r2")
+    assert audit["passed"] is True
+    assert audit["training_barrier_edge_count"] >= 1
+    assert audit["heldout_boundary_barrier_edge_count"] >= 1
+    assert set(audit["training_barrier_edges"]).isdisjoint(
+        audit["heldout_boundary_barrier_edges"]
+    )
 
 
 def test_k6_contains_distance_matched_barrier_and_nonbarrier_edges():
