@@ -14,6 +14,7 @@ from esdm.validate.field1_gate import (
     summarize_field1_gains,
 )
 from esdm.validate.field1_known_truth import (
+    barrier_transfer_geometry_audit,
     make_field1_fixture,
     make_field1_mean_covariance_factorial,
     make_field1_primary_worlds,
@@ -166,6 +167,8 @@ def aggregate_field1_shards(root: Path):
     fixture = make_field1_fixture()
     k6_strata = matched_barrier_distance_strata(fixture)
     k6_pass = bool(k6_strata)
+    h2_barrier_audit = barrier_transfer_geometry_audit(fixture)
+    h2_barrier_pass = bool(h2_barrier_audit["passed"])
     mean_divergences = (
         total_divergences / fit_count if fit_count else math.inf
     )
@@ -183,6 +186,7 @@ def aggregate_field1_shards(root: Path):
     decision = evaluate_field1_gate(
         summaries,
         k6_distance_match_passed=k6_pass,
+        h2_barrier_transfer_passed=h2_barrier_pass,
         mean_divergences_per_fit=mean_divergences,
     )
 
@@ -196,6 +200,8 @@ def aggregate_field1_shards(root: Path):
         "total_divergences": total_divergences,
         "mean_divergences_per_fit": mean_divergences,
         "k6_distance_match_passed": k6_pass,
+        "h2_barrier_transfer_passed": h2_barrier_pass,
+        "h2_barrier_transfer_geometry": dict(h2_barrier_audit),
         "k6_matched_distance_strata": {
             str(distance): dict(counts)
             for distance, counts in k6_strata.items()
