@@ -80,14 +80,16 @@ Q = sigma_u^(-2) [ I - alpha S ]
 with frozen `alpha = 0.95`.
 
 For a non-negative symmetric graph, the normalized adjacency has spectral radius at most
-one, so `alpha < 1` keeps the precision proper. The sampled node field is centered
-before addition to log intensity:
+one, so `alpha < 1` keeps the precision proper. The field is sampled directly in a
+fixed `m-1` dimensional zero-sum Helmert basis, so
 
 ```text
-u_centered = u_node - mean(u_node)
+sum_i u_i = 0
 ```
 
-to prevent the field's constant mode from replacing the ecological intercept.
+by construction. This removes the constant spatial mode rather than sampling it and
+centering afterward, keeping the ecological intercept separate without a prior-only
+latent direction.
 
 The first implementation may use dense factorization on a deliberately small mesh.
 Sparse/JAX scaling is a later engineering gate, not an assumption of FIELD1 validity.
@@ -292,18 +294,25 @@ Two held-out geometries are required.
 
 ### H1 — spatial block interpolation/extrapolation
 
-A contiguous spatial block is excluded from fitting. This tests whether a coherent field
-improves the map over environment-only prediction.
+A contiguous spatial block is excluded from fitting. In the response-free Phase-A
+fixture this is the top-middle two-node block `(c1r2, c2r2)`; this choice preserves
+full-rank distance/environment/barrier edge axes in H1 training. This tests whether a
+coherent field improves the map over environment-only prediction.
 
-### H2 — barrier-side holdout
+### H2 — learned-barrier transfer holdout
 
-An entire island, valley side, or other region beyond the predeclared barrier is excluded
-from fitting while preserving overlap in the main environmental covariates where
-possible.
+The Phase-A fixture contains two barriers of the same frozen type. One lies entirely
+inside training, and a separate barrier defines the held-out rightmost region. Thus H2
+tests whether a barrier-modified dependence rule learned on one barrier transfers across
+another, while preserving overlap in the main environmental covariates where possible.
 
 Barrier evidence is based primarily on H2.
 
 All scores are normalized per held-out observation.
+
+Training-edge rank is audited before fitting: M1/M2/M3/M4 must have centered active-axis
+ranks 1/2/2/3 on both H1 and H2 training graphs. Exact rank failure blocks the relevant
+claim before stochastic outcomes are opened.
 
 ## Promotion logic
 
