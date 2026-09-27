@@ -8,6 +8,7 @@ from .activity import LinearActivity, NeutralActivity
 from .base import NoEffectProcess, PriorSpec, Process, ProcessContribution
 from .state import LinearState, NeutralState
 from .suitability import LinearSuitability, NeutralSuitability
+from .spatial_field import GraphSpatialField
 from .support import (
     ProcessRefinement,
     ProcessSupportSet,
@@ -26,6 +27,7 @@ __all__ = [
     "NeutralActivity",
     "LinearState",
     "NeutralState",
+    "GraphSpatialField",
     "ProcessRefinement",
     "ProcessSupportSet",
     "SeparatorEvidence",

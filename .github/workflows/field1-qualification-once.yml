@@ -1,0 +1,186 @@
+name: FIELD1 frozen Phase-A qualification
+
+concurrency:
+  group: field1-frozen-phase-a-qualification
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - field1/qualification-v1
+    paths:
+      - docs/field/FIELD1_RUN_AUTHORIZED
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  precheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify one-shot authorization addition
+        run: |
+          python - <<'PY'
+          import subprocess
+          from pathlib import Path
+
+          marker = Path("docs/field/FIELD1_RUN_AUTHORIZED")
+          if not marker.is_file():
+              raise SystemExit("FIELD1 authorization marker absent")
+
+          changed = subprocess.check_output(
+              ["git", "diff", "--name-only", "HEAD^", "HEAD"],
+              text=True,
+          ).splitlines()
+          if changed != [marker.as_posix()]:
+              raise SystemExit(
+                  "FIELD1 authorization commit must change only the marker"
+              )
+
+          added = subprocess.check_output(
+              ["git", "diff", "--diff-filter=A", "--name-only", "HEAD^", "HEAD"],
+              text=True,
+          ).splitlines()
+          if added != [marker.as_posix()]:
+              raise SystemExit(
+                  "FIELD1 authorization marker was not newly added; refusing rerun"
+              )
+
+          values = {}
+          for raw in marker.read_text(encoding="utf-8").splitlines():
+              line = raw.strip()
+              if not line or line.startswith("#"):
+                  continue
+              if ":" not in line:
+                  raise SystemExit(
+                      f"invalid FIELD1 authorization marker line: {raw!r}"
+                  )
+              key, value = line.split(":", 1)
+              values[key.strip()] = value.strip()
+
+          parent = subprocess.check_output(
+              ["git", "rev-parse", "HEAD^"],
+              text=True,
+          ).strip()
+          if values.get("programme") != "FIELD1":
+              raise SystemExit("FIELD1 authorization programme mismatch")
+          if values.get("implementation_parent_sha") != parent:
+              raise SystemExit(
+                  "FIELD1 authorization parent does not match frozen implementation"
+              )
+          if values.get("gate") != "docs/field/FIELD1_QUALIFICATION_GATE.md":
+              raise SystemExit("FIELD1 authorization gate mismatch")
+          if (
+              values.get("amendment")
+              != "docs/field/FIELD1_QUALIFICATION_GATE_AMENDMENT_1.md"
+          ):
+              raise SystemExit("FIELD1 authorization amendment mismatch")
+          PY
+      - name: Install package
+        run: python -m pip install -e ".[dev]"
+      - name: Verify frozen FIELD1 contracts and execution code
+        run: |
+          python -m pytest -q \
+            tests/test_field1_spatial_field.py \
+            tests/test_field1_known_truth.py \
+            tests/test_field1_gate.py \
+            tests/test_field1_run.py \
+            tests/test_field1_aggregate.py \
+            tests/test_field1_workflow.py
+
+  replicate:
+    needs: precheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      max-parallel: 12
+      matrix:
+        world:
+          - K0
+          - K1
+          - K2
+          - K3
+          - K4
+          - K5_mean0_cov0
+          - K5_mean1_cov0
+          - K5_mean0_cov1
+          - K5_mean1_cov1
+        replicate:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 10
+          - 11
+          - 12
+          - 13
+          - 14
+          - 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install inference dependencies
+        run: python -m pip install -e ".[dev]"
+      - name: Run frozen FIELD1 replicate
+        run: |
+          mkdir -p artifacts
+          python scripts/run_field1_replicate.py \
+            --world '${{ matrix.world }}' \
+            --replicate '${{ matrix.replicate }}' \
+            --output "artifacts/field1_${{ matrix.world }}_${{ matrix.replicate }}.json"
+      - name: Upload FIELD1 shard
+        uses: actions/upload-artifact@v4
+        with:
+          name: field1-shard-${{ matrix.world }}-${{ matrix.replicate }}
+          path: artifacts/field1_*.json
+          if-no-files-found: error
+          retention-days: 90
+
+  aggregate:
+    if: always()
+    needs: replicate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install package
+        run: python -m pip install -e .
+      - name: Download FIELD1 shards
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          pattern: field1-shard-*
+          path: artifacts/shards
+          merge-multiple: false
+      - name: Aggregate frozen FIELD1 result
+        run: |
+          mkdir -p artifacts/result
+          python scripts/aggregate_field1.py \
+            --shard-dir artifacts/shards \
+            --output artifacts/result/FIELD1_QUALIFICATION_RESULT.json
+      - name: Upload frozen FIELD1 aggregate
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: field1-result-${{ github.run_id }}
+          path: artifacts/result/FIELD1_QUALIFICATION_RESULT.json
+          if-no-files-found: error
+          retention-days: 90

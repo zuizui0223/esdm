@@ -3,6 +3,34 @@
 from .ladder import *
 from . import known_truth as _known_truth
 from .known_truth import KnownTruthWorld, make_v03_known_truth_worlds
+from .field1_gate import (
+    Field1ComparisonSummary,
+    Field1GateCheck,
+    Field1GateConfig,
+    Field1GateDecision,
+    evaluate_field1_gate,
+    summarize_field1_gains,
+)
+from .field1_run import (
+    FROZEN_FIELD1_MCMC_PROFILE,
+    Field1MCMCProfile,
+    Field1ReplicateResult,
+    field1_required_fit_plan,
+    run_field1_replicate,
+)
+from .field1_known_truth import (
+    Field1Fixture,
+    Field1KnownTruthWorld,
+    barrier_transfer_geometry_audit,
+    field1_truth_theta,
+    make_field1_fixture,
+    make_field1_mean_covariance_factorial,
+    make_field1_model,
+    make_field1_primary_worlds,
+    matched_barrier_distance_strata,
+    subset_presence_data,
+    training_edge_axis_rank_audit,
+)
 from .sbc_gate import V03SBCGateConfig, V03SBCGateDecision, evaluate_v03_sbc_gate
 from .v031_sbc_gate import (
     V031GateCheck,

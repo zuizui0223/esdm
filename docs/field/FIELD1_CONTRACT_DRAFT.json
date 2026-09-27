@@ -1,0 +1,416 @@
+{
+  "schema": "esdm.field1.continuous_map_contract.v1",
+  "status": "DRAFT_NOT_AUTHORIZED",
+  "drafted_date": "2026-09-27",
+  "relationship_to_active_programme": {
+    "active_model_generation": "v0.4-R5b",
+    "changes_active_empirical_endpoint": false,
+    "reopens_snapshot_japan": false,
+    "new_named_programme": "FIELD1"
+  },
+  "scientific_target": {
+    "primary": "continuous coherent spatial prediction field",
+    "infer_dispersal_mechanism": false,
+    "infer_gene_flow": false,
+    "infer_movement": false,
+    "allowed_terms": [
+      "geographic-distance dependence",
+      "environmental-similarity dependence",
+      "barrier-modified dependence"
+    ]
+  },
+  "field_model": {
+    "response_scale": "log_intensity",
+    "temporal_structure": "spatial field broadcast across doy/hour in FIELD1",
+    "edge_weight": "exp(-distance/rho - gamma*environmental_dissimilarity - beta*barrier_exposure)",
+    "precision": "sigma_u^-2 * (I - alpha * D^-1/2 W D^-1/2)",
+    "alpha": 0.95,
+    "centered_before_addition": true,
+    "interpolation": "frozen mesh/basis operator A(s)",
+    "field_family_label": "graph-diffusion GMRF",
+    "matern_or_spde_claim": false
+  },
+  "axes": {
+    "distance": {
+      "parameter": "rho",
+      "positive": true
+    },
+    "environment": {
+      "parameter": "gamma",
+      "nonnegative": true
+    },
+    "barrier": {
+      "parameter": "beta",
+      "nonnegative": true
+    }
+  },
+  "models": {
+    "M0": {
+      "field": false,
+      "environment_dependence": false,
+      "barrier_dependence": false
+    },
+    "M1": {
+      "field": true,
+      "environment_dependence": false,
+      "barrier_dependence": false
+    },
+    "M2": {
+      "field": true,
+      "environment_dependence": true,
+      "barrier_dependence": false
+    },
+    "M3": {
+      "field": true,
+      "environment_dependence": false,
+      "barrier_dependence": true
+    },
+    "M4": {
+      "field": true,
+      "environment_dependence": true,
+      "barrier_dependence": true
+    }
+  },
+  "primary_nested_ladder": [
+    "M0",
+    "M1",
+    "M2",
+    "M4"
+  ],
+  "required_factorial_diagnostic": "M3",
+  "knockout_semantics": {
+    "field": "u(s)=0",
+    "environment_dependence": "gamma=0",
+    "barrier": "beta=0"
+  },
+  "graph_contract": {
+    "response_blind_nodes": true,
+    "response_density_adaptive_mesh_forbidden": true,
+    "edge_list_identical_across_models": true,
+    "environmental_standardization": "training region only",
+    "empirical_first_application_preference": "archipelago terrestrial system",
+    "default_island_barrier_exposure": "fraction of straight edge segment intersecting sea/non-habitat barrier",
+    "alternative_barrier_requires_child_contract": true,
+    "geographic_distance_scaling": {
+      "physical_distance_unit": "child-contract specific",
+      "reference_distance": "response-blind median positive graph-edge length by default",
+      "model_distance": "physical_edge_length / frozen_reference_distance",
+      "change_after_response": false
+    }
+  },
+  "known_truth_worlds": [
+    "K0_independent_residual",
+    "K1_distance_only",
+    "K2_environment_dependence_only",
+    "K3_barrier_dependence_only",
+    "K4_environment_plus_barrier",
+    "K5_mean_x_environment_covariance_2x2",
+    "K6_distance_matched_barrier_control"
+  ],
+  "heldout_geometry": {
+    "H1": "contiguous top-middle two-node block (c1r2,c2r2), frozen to preserve full-rank H1 training edge axes",
+    "H2": "rightmost column beyond a second predeclared barrier; H2 training contains a separate barrier of the same type",
+    "implementation": "separate train and heldout Grid domain views sharing the same graph and parameter sites",
+    "zero_effort_padding": false,
+    "scores_normalized_per_heldout_context": true
+  },
+  "claim_gates": [
+    "FIELD_PRESENT",
+    "ENV_DEPENDENCE_SUPPORTED",
+    "BARRIER_DEPENDENCE_SUPPORTED",
+    "FULL_MAP_STRUCTURE_SUPPORTED"
+  ],
+  "empirical_nonclaims": [
+    "latent field equals dispersal limitation",
+    "environmental dependence proves evolutionary IBE",
+    "barrier parameter is migration probability",
+    "gene-flow inference",
+    "causal movement/connectivity"
+  ],
+  "implementation": {
+    "phase_A": {
+      "precision_storage": "dense",
+      "node_count_cap_required_before_execution": true,
+      "parameterization": "m-1 iid innovations transformed through the precision projected onto a fixed zero-sum Helmert basis",
+      "existing_scalar_prior_backend_reused": true,
+      "backend_special_case_required": false,
+      "innovation_prior": "independent Normal(0,1), exactly node_count-1 sites",
+      "positive_hyperparameter_transforms": {
+        "rho": "exp(log_rho)",
+        "sigma_u": "exp(log_sigma)",
+        "gamma_when_active": "direct HalfNormal(scale=1)",
+        "beta_when_active": "direct HalfNormal(scale=1)"
+      },
+      "centered_field": "exact zero-sum subspace, not post-hoc centering",
+      "jax_end_to_end_gradient_test_required": true,
+      "scalable_sparse_claim": false,
+      "static_identifiability_refusals": [
+        "no edge-distance variation for estimated rho",
+        "no environmental-dissimilarity variation when gamma is active",
+        "no barrier-exposure variation when beta is active",
+        "exact centered collinearity among active distance/environment/barrier edge covariates"
+      ],
+      "nested_axis_boundary": "gamma=0 and beta=0 are boundary special cases of active-axis models"
+    },
+    "phase_B": {
+      "sparse_backend_change_allowed_only_after_phase_A_scientific_pass": true,
+      "scientific_model_change_allowed": false
+    }
+  },
+  "execution": {
+    "exact_numeric_gate_thresholds_frozen": true,
+    "confirmatory_outcome_authorized": false,
+    "empirical_response_authorized": false,
+    "qualification_gate": "docs/field/FIELD1_QUALIFICATION_GATE.md",
+    "mcmc_profile": {
+      "num_warmup": 300,
+      "num_samples": 350,
+      "num_chains": 2,
+      "target_accept_probability": 0.9
+    },
+    "gate_thresholds": {
+      "replicates_per_world": 16,
+      "positive_min_rate": 0.75,
+      "positive_min_mean_gain": 0.005,
+      "null_max_material_gain_rate": 0.25,
+      "null_max_mean_gain": 0.005,
+      "material_gain_threshold": 0.005,
+      "max_mean_divergences_per_fit": 0.1
+    },
+    "expected_shards": 144,
+    "expected_fits": 704,
+    "qualification_gate_amendments": [
+      "docs/field/FIELD1_QUALIFICATION_GATE_AMENDMENT_1.md"
+    ],
+    "implementation_pr_branch": "feature/field1-continuous-map-prior",
+    "qualification_branch": "field1/qualification-v1",
+    "qualification_branch_must_start_from_merged_main": true,
+    "authorization_marker_commit_must_only_authorize_frozen_programme": true,
+    "authorization_marker_contract": {
+      "path": "docs/field/FIELD1_RUN_AUTHORIZED",
+      "must_be_new_file": true,
+      "authorization_commit_changes_only_marker": true,
+      "required_fields": {
+        "programme": "FIELD1",
+        "implementation_parent_sha": "must equal HEAD^",
+        "gate": "docs/field/FIELD1_QUALIFICATION_GATE.md",
+        "amendment": "docs/field/FIELD1_QUALIFICATION_GATE_AMENDMENT_1.md"
+      }
+    }
+  },
+  "literature": [
+    {
+      "citation": "Lindgren, Rue & Lindstrom 2011",
+      "doi": "10.1111/j.1467-9868.2011.00777.x"
+    },
+    {
+      "citation": "Paciorek & Schervish 2006",
+      "doi": "10.1002/env.785"
+    },
+    {
+      "citation": "Ingebrigtsen, Lindgren & Steinsland 2014",
+      "doi": "10.1016/j.spasta.2013.06.002"
+    },
+    {
+      "citation": "Hanks & Hooten 2013",
+      "doi": "10.1080/01621459.2012.724647"
+    },
+    {
+      "citation": "Bakka et al. 2019",
+      "doi": "10.1016/j.spasta.2019.01.002"
+    }
+  ],
+  "known_truth": {
+    "fixture": {
+      "graph_nodes": 12,
+      "layout": "4x3 lattice",
+      "temporal_contexts_per_space": 4,
+      "barrier": "two vertical barriers: columns 0/1 inside H2 training and columns 2/3 at the H2 transfer boundary",
+      "response_free": true,
+      "h1_heldout": [
+        "c1r2",
+        "c2r2"
+      ]
+    },
+    "primary_worlds": {
+      "K0": {
+        "truth_model": "M0",
+        "positive": [],
+        "null": [
+          [
+            "M1",
+            "M0",
+            "H1"
+          ],
+          [
+            "M2",
+            "M1",
+            "H1"
+          ],
+          [
+            "M3",
+            "M1",
+            "H2"
+          ],
+          [
+            "M4",
+            "M2",
+            "H2"
+          ]
+        ]
+      },
+      "K1": {
+        "truth_model": "M1",
+        "positive": [
+          [
+            "M1",
+            "M0",
+            "H1"
+          ]
+        ],
+        "null": [
+          [
+            "M2",
+            "M1",
+            "H1"
+          ],
+          [
+            "M3",
+            "M1",
+            "H2"
+          ],
+          [
+            "M4",
+            "M1",
+            "H2"
+          ]
+        ]
+      },
+      "K2": {
+        "truth_model": "M2",
+        "positive": [
+          [
+            "M1",
+            "M0",
+            "H1"
+          ],
+          [
+            "M2",
+            "M1",
+            "H1"
+          ]
+        ],
+        "null": [
+          [
+            "M3",
+            "M1",
+            "H2"
+          ],
+          [
+            "M4",
+            "M2",
+            "H2"
+          ]
+        ]
+      },
+      "K3": {
+        "truth_model": "M3",
+        "positive": [
+          [
+            "M1",
+            "M0",
+            "H1"
+          ],
+          [
+            "M3",
+            "M1",
+            "H2"
+          ]
+        ],
+        "null": [
+          [
+            "M2",
+            "M1",
+            "H1"
+          ],
+          [
+            "M4",
+            "M3",
+            "H1"
+          ]
+        ]
+      },
+      "K4": {
+        "truth_model": "M4",
+        "positive": [
+          [
+            "M1",
+            "M0",
+            "H1"
+          ],
+          [
+            "M2",
+            "M1",
+            "H1"
+          ],
+          [
+            "M3",
+            "M1",
+            "H2"
+          ],
+          [
+            "M4",
+            "M2",
+            "H2"
+          ],
+          [
+            "M4",
+            "M3",
+            "H1"
+          ]
+        ],
+        "null": []
+      }
+    },
+    "K5": {
+      "design": "2x2 environmental mean absent/present x environmental covariance absent/present",
+      "focal_comparison": [
+        "M2",
+        "M1",
+        "H1"
+      ],
+      "requirement": "comparison sign tracks covariance truth, not mean-effect truth"
+    },
+    "K6": {
+      "design": "matched geographic edge-distance strata plus learned-barrier transfer geometry",
+      "fixture_has_matching_stratum": true,
+      "h2_training_contains_barrier": true,
+      "h2_boundary_contains_separate_barrier": true,
+      "requirement": "barrier comparison sign is evaluated only when barrier dependence can be learned on training geometry and transferred across a separate heldout barrier",
+      "distance_match_scope": "H2 training edges only"
+    },
+    "replicate_hierarchy": {
+      "world_hyperparameters": "fixed within world",
+      "latent_field_innovations": "independent draw per replicate",
+      "observation_counts": "independent Poisson draw conditional on replicate latent field",
+      "generation_seed_formula": "base_seed + world_index*1000000 + replicate*10000",
+      "latent_field_seed_offset": 503
+    },
+    "training_edge_axis_rank": {
+      "scope": "training edges only",
+      "H1": {
+        "M1": 1,
+        "M2": 2,
+        "M3": 2,
+        "M4": 3
+      },
+      "H2": {
+        "M1": 1,
+        "M2": 2,
+        "M3": 2,
+        "M4": 3
+      },
+      "required_before_claims": true
+    }
+  }
+}
