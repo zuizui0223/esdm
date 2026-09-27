@@ -12,6 +12,7 @@ from esdm.validate.field1_known_truth import (
     make_field1_primary_worlds,
     matched_barrier_distance_strata,
     subset_presence_data,
+    training_edge_axis_rank_audit,
 )
 
 
@@ -80,6 +81,28 @@ def test_h1_h2_exposure_masks_are_complementary_and_response_free():
         assert set(heldout_model.domain.space) == set(heldout)
         assert set(train_model.domain.space).isdisjoint(heldout_model.domain.space)
 
+
+
+
+def test_h1_block_and_training_axis_ranks_are_estimable():
+    fixture = make_field1_fixture()
+    audit = training_edge_axis_rank_audit(fixture)
+
+    assert tuple(fixture.h1_heldout_spaces) == ("c1r2", "c2r2")
+    assert audit["H1"]["passed"] is True
+    assert dict(audit["H1"]["ranks"]) == {
+        "M1": 1,
+        "M2": 2,
+        "M3": 2,
+        "M4": 3,
+    }
+    assert audit["H2"]["passed"] is True
+    assert dict(audit["H2"]["ranks"]) == {
+        "M1": 1,
+        "M2": 2,
+        "M3": 2,
+        "M4": 3,
+    }
 
 
 def test_h2_barrier_holdout_learns_one_barrier_and_tests_another():
