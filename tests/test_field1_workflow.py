@@ -7,11 +7,11 @@ MARKER = ROOT / "docs" / "field" / "FIELD1_RUN_AUTHORIZED"
 AGGREGATOR = ROOT / "scripts" / "aggregate_field1.py"
 
 
-def test_field1_workflow_is_one_shot_and_not_currently_authorized():
+def test_field1_workflow_is_one_shot_and_marker_gated():
     text = WORKFLOW.read_text(encoding="utf-8")
 
     assert "FIELD1_RUN_AUTHORIZED" in text
-    assert "field1/qualification-v1" in text
+    assert "field1/qualification-v1-r2" in text
     assert "feature/field1-continuous-map-prior" not in text
     assert "workflow_dispatch" not in text
     assert "fetch-depth: 2" in text
@@ -20,7 +20,7 @@ def test_field1_workflow_is_one_shot_and_not_currently_authorized():
     assert "implementation_parent_sha" in text
     assert "git\", \"rev-parse\", \"HEAD^" in text
     assert "marker was not newly added" in text
-    assert not MARKER.exists()
+    assert "replacement_amendment" in text
 
 
 def test_field1_workflow_freezes_complete_world_replicate_matrix():
