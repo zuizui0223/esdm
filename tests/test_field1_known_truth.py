@@ -102,6 +102,40 @@ def test_truth_theta_matches_each_model_parameter_surface():
         assert set(theta) == expected
 
 
+def test_field1_truth_latent_realization_is_seeded_per_replicate():
+    fixture = make_field1_fixture()
+    first = field1_truth_theta(
+        fixture,
+        "M4",
+        innovation_seed=101,
+    )["sp"]
+    repeat = field1_truth_theta(
+        fixture,
+        "M4",
+        innovation_seed=101,
+    )["sp"]
+    second = field1_truth_theta(
+        fixture,
+        "M4",
+        innovation_seed=102,
+    )["sp"]
+
+    innovation_names = sorted(
+        name for name in first if name.startswith("field_z_")
+    )
+    assert innovation_names
+    assert [first[name] for name in innovation_names] == [
+        repeat[name] for name in innovation_names
+    ]
+    assert [first[name] for name in innovation_names] != [
+        second[name] for name in innovation_names
+    ]
+    assert first["field_log_rho"] == second["field_log_rho"]
+    assert first["field_log_sigma"] == second["field_log_sigma"]
+    assert first["field_gamma"] == second["field_gamma"]
+    assert first["field_beta"] == second["field_beta"]
+
+
 def test_training_subset_drops_heldout_counts_instead_of_zero_coding_them():
     fixture = make_field1_fixture()
     truth_model = make_field1_model(fixture, "M4")
