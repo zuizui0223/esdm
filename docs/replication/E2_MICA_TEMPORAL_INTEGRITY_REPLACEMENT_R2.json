@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "amendment_id": "e2-mica-temporal-integrity-r2-infrastructure-amendment-v1",
+  "frozen_date": "2026-09-27",
+  "status": "FROZEN_INFRASTRUCTURE_REPLACEMENT",
+  "parent_contract": "docs/replication/E2_MICA_TEMPORAL_INTEGRITY_CONTRACT.json",
+  "failed_run_receipt": "docs/replication/E2_MICA_TEMPORAL_INTEGRITY_INFRASTRUCTURE_STOP_V1.json",
+  "scientific_changes": {
+    "temporal_population": false,
+    "temporal_rule": false,
+    "lateness_threshold": false,
+    "quarantine_fraction": false,
+    "stop_conditions": false,
+    "allowed_observation_columns": false,
+    "response_boundary": false
+  },
+  "replacement_execution": {
+    "branch": "e2/mica-temporal-integrity-v1-r2",
+    "authorization_marker": "docs/replication/E2_MICA_TEMPORAL_INTEGRITY_AUTHORIZED_R2.json",
+    "checkout_fetch_depth": 0,
+    "reason": "make frozen response-blind ancestor SHA available to git merge-base precheck",
+    "one_shot": true,
+    "workflow_dispatch_enabled": false
+  },
+  "governance": {
+    "original_failed_authorization_not_reused": true,
+    "new_authorization_commit_must_be_pure": true,
+    "archive_download_forbidden_before_precheck_passes": true,
+    "full_response_authorized": false
+  }
+}
