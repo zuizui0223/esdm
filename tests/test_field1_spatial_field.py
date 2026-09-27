@@ -118,6 +118,23 @@ def test_active_dependence_axes_require_edge_level_variation():
         )
 
 
+def test_active_dependence_axes_fail_closed_when_centered_design_is_collinear():
+    collinear = FrozenSpatialGraph(
+        nodes=("a", "b", "c", "d"),
+        edges=(
+            SpatialEdge("a", "b", 1.0, environmental_dissimilarity=7.0),
+            SpatialEdge("b", "c", 2.0, environmental_dissimilarity=9.0),
+            SpatialEdge("c", "d", 3.0, environmental_dissimilarity=11.0),
+            SpatialEdge("a", "d", 4.0, environmental_dissimilarity=13.0),
+        ),
+    )
+    with pytest.raises(ValueError, match="exactly collinear"):
+        GraphSpatialField(
+            collinear,
+            use_environment_dependence=True,
+        )
+
+
 def test_spatial_field_is_centered_and_repeated_over_time():
     process = GraphSpatialField(
         _graph(),
