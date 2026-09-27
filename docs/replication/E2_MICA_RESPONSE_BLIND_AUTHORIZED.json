@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "authorization_id": "e2-mica-response-blind-v1",
+  "authorized_date": "2026-09-27",
+  "candidate_id": "MICA_MUSKRAT",
+  "implementation_parent_sha": "cdf55af51b8b5b4eb453b4660922ce0214e5f961",
+  "one_shot": true,
+  "authorizes": "response-blind archive transport, full deployments read, observations header-only read, strict-east geometry qualification, deterministic training-role assignment",
+  "does_not_authorize": [
+    "observations data-row ecological access",
+    "scientificName values",
+    "count/state values",
+    "taxon frequencies",
+    "temporal integrity opening",
+    "full ecological response opening",
+    "model fitting",
+    "heldout scoring"
+  ]
+}
