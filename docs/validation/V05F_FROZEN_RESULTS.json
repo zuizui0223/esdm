@@ -1,0 +1,122 @@
+{
+  "schema": "esdm.v05f.frozen_results.v1",
+  "status": "FAIL",
+  "validated_date": "2026-09-25",
+  "replication_of": "esdm.v05a.directed_known_truth.v1",
+  "gate": {
+    "freeze_commit": "2247728b88c1b0acce7cf4f8362bb9d5cd541092",
+    "merge_commit": "85e7477a45aecd93873d1e159f31520f3d077bae",
+    "blob_sha": "f94a598acaef95ca3d3387b8aedfed9d0dd73dd9"
+  },
+  "execution": {
+    "workflow_run_id": 36107440569,
+    "run_attempt": 1,
+    "outcome_head_sha": "bb1e2fd6a18eb9905608a894f3329d8c9bffe16f",
+    "qualification_artifact_id": 10851941319,
+    "qualification_artifact_digest": "sha256:f73c9e3246cd22ed413f1841ad1b16ac13c151263799933c4a238cd9fc72279d",
+    "result_artifact_id": 10851963085,
+    "result_artifact_digest": "sha256:bffb1b2d16f08f3f0e0e0659b64aa956d81e53dfbfa060ffaed71d8186639c6d",
+    "result_json_sha256": "169d7589395b013dec37a95cfc1b273d966434a9a430a5f05a9a6fd20994b931",
+    "infrastructure_block": null,
+    "qualification_passed": true,
+    "all_32_replicates_completed": true
+  },
+  "summary": {
+    "total_fits": 64,
+    "total_divergences": 0,
+    "max_abs_gain_identity_error": 0,
+    "interaction": {
+      "truth_beta": 0.75,
+      "mean_bias": -0.03804346349888613,
+      "coverage": 0.9375,
+      "positive_interval_rate": 1,
+      "positive_gain_rate": 1,
+      "material_gain_rate": 1,
+      "mean_heldout_gain": 1.1190587549523654,
+      "mean_full_heldout_log_score": -2.612658319741323,
+      "mean_partner_knockout_heldout_log_score": -3.7317170746936883
+    },
+    "measured_shared_null": {
+      "truth_beta": 0,
+      "mean_bias": -0.010503812228075816,
+      "coverage": 1,
+      "nonzero_interval_rate": 0,
+      "positive_gain_rate": 0.375,
+      "material_gain_rate": 0.3125,
+      "material_gain_count": 5,
+      "material_gain_threshold": 0.005,
+      "allowed_material_gain_rate": 0.25,
+      "allowed_material_gain_count": 4,
+      "mean_heldout_gain": -0.032686561643512385,
+      "mean_full_heldout_log_score": -2.415426051643974,
+      "mean_partner_knockout_heldout_log_score": -2.382739490000462,
+      "material_positive_replicates": [
+        {
+          "replicate": 0,
+          "gain": 0.03817575395758377
+        },
+        {
+          "replicate": 2,
+          "gain": 0.011449354506082532
+        },
+        {
+          "replicate": 5,
+          "gain": 0.03487562237145703
+        },
+        {
+          "replicate": 9,
+          "gain": 0.0721598901961702
+        },
+        {
+          "replicate": 10,
+          "gain": 0.01951565544082534
+        }
+      ]
+    }
+  },
+  "failed_check": {
+    "name": "null_material_gain_rate",
+    "observed": 0.3125,
+    "criterion": "<= 0.25",
+    "observed_count": 5,
+    "maximum_allowed_count": 4,
+    "other_frozen_checks_passed": 18
+  },
+  "absolute_score_serialization": {
+    "passed": true,
+    "max_abs_gain_identity_error": 0,
+    "interaction_score_fields": [
+      "partner_knockout_heldout_log_score",
+      "full_heldout_log_score"
+    ],
+    "generated_odsp_bundle": true,
+    "odsp_bundle_role": "serialization artifact only; scientific FAIL prevents validated ODSP transfer-source promotion",
+    "adapter_manifest_sha256": "848dbbc39a73b20f77d92010df0044bbf573cd60634b0bd98a2b6b6e09c7a27b",
+    "endpoint_json_sha256": "3c7b6102948470645512e0044ca90fed5b453c4fe15152113abcc27e3668194b",
+    "scores_csv_sha256": "47aebdb5dbbccad4686048a1fec724329819ec4c001562986e72d5fa1c3c0142"
+  },
+  "decision": {
+    "pass": false,
+    "retune_allowed": false,
+    "rerun_same_v05f_allowed": false,
+    "original_v05a_reopened": false,
+    "odsp_validated_export_authorized": false,
+    "n3_transfer_value_authorized": false
+  },
+  "interpretation": {
+    "supported": [
+      "the positive directed-partner world independently reproduced strong parameter recovery and positive held-out gain under a disjoint seed family",
+      "absolute Full and partner-knockout held-out scores were successfully preserved without reconstruction",
+      "the measured-shared null retained mean gain below zero and zero nonzero-interval rate"
+    ],
+    "not_supported": [
+      "v0.5f replication PASS",
+      "frozen null-specificity control at the predeclared material-gain rate",
+      "promotion of v0.5f as a validated ODSP transfer source",
+      "hidden-common-driver robustness",
+      "causal interaction in empirical data",
+      "EOG consumption or N4 action"
+    ],
+    "failure_reason": "5 of 16 measured-shared-null replicates exceeded the frozen held-out material-gain threshold of +0.005, versus a maximum allowed 4 of 16"
+  }
+}

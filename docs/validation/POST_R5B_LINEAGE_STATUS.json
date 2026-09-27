@@ -1,0 +1,54 @@
+{
+  "schema": "esdm.post_r5b_lineage_status.v1",
+  "date": "2026-09-27",
+  "active_scientific_endpoint": {
+    "model_generation": "v0.4-R5b",
+    "semisynthetic_status": "PASS",
+    "empirical_status": "EMPIRICAL_ENDPOINT_CONSUMED_STOP",
+    "authoritative_status": "docs/empirical/PROGRAMME_TERMINAL_STATUS.json",
+    "rule": "post-R5b methodological branches do not reopen, replace, or modify the consumed empirical endpoint"
+  },
+  "archived_methodological_lineage": {
+    "merge_policy": "preserve frozen contracts/results on main; do not promote the branch runtime code into the active empirical programme",
+    "programmes": [
+      {
+        "id": "v0.5f",
+        "status": "FAIL",
+        "source_head": "e8c2ec320edc23026306a4d96a5fc67533871f64",
+        "gate": "docs/validation/V05F_INTERACTION_TRANSFER_REPLICATION_GATE.md",
+        "result": "docs/validation/V05F_FROZEN_RESULTS.json",
+        "terminal_reason": "measured-shared-null material-gain rate 5/16 = 0.3125 exceeded frozen maximum 4/16 = 0.25",
+        "same_program_rerun_allowed": false
+      },
+      {
+        "id": "v0.7l",
+        "status": "FAIL",
+        "source_head": "d6095546133b1224c4679648511b488dc87c8b07",
+        "gate": "docs/validation/V07L_SELECTIVE_ADAPTATION_GATE.md",
+        "authorization": "docs/validation/V07L_RUN_AUTHORIZED",
+        "result": "docs/validation/V07L_FROZEN_RESULTS.json",
+        "terminal_reason": "the frozen selective-adaptation policy failed multiple trigger, recovery and regret checks",
+        "same_program_rerun_allowed": false
+      },
+      {
+        "id": "v0.7m",
+        "status": "FAIL",
+        "source_head": "770ce41db8346090267d8830e4ad47b912693dec",
+        "gate": "docs/validation/V07M_ABSOLUTE_ADEQUACY_POLICY_GATE.md",
+        "authorization": "docs/validation/V07M_RUN_AUTHORIZED",
+        "result": "docs/validation/V07M_FROZEN_RESULTS.json",
+        "workflow_run_id": 36239810097,
+        "artifact_id": 10905841795,
+        "one_shot_authorization_consumed": true,
+        "infrastructure_block": null,
+        "terminal_reason": "64/64 replicates and 192 fits completed, but the preregistered action-classification gate failed",
+        "same_program_rerun_allowed": false
+      }
+    ]
+  },
+  "branch_cleanup_policy": {
+    "runtime_code_merge_to_main": false,
+    "preserve_contracts_and_frozen_results_on_main": true,
+    "delete_source_branches_only_after_an_immutable_archive_ref_exists": true
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "receipt_id": "esdm-v07l-selective-adaptation-fail-v1",
+  "validated_date": "2026-09-26",
+  "status": "FAIL",
+  "gate": {
+    "contract": "docs/validation/V07L_SELECTIVE_ADAPTATION_GATE.md",
+    "freeze_commit": "363318c3c30aa9ff37b3d39153ecc8ab3100a14a",
+    "merge_commit": "af07a36d192b3a4cd6f9e53ed6c60febda4f335c",
+    "blob_sha": "62f2183328ab7abcf6d727573031b149bfacebd3"
+  },
+  "one_shot": {
+    "workflow_run_id": 36223841269,
+    "run_attempt": 1,
+    "head_sha": "2599afe83829177e9977aef281f7f2a2ffa958c7",
+    "conclusion": "failure",
+    "infrastructure_block": null,
+    "artifact_id": 10900450588,
+    "artifact_name": "v07l-result-36223841269",
+    "artifact_digest": "sha256:66c2e40b7e88b3d9bf1d7b6b7da652b71b887db55128227d55db4b94d1e59cd3",
+    "result_json_sha256": "c1776855b710b6c54c4971eed4586087d2947c0070a6e065800b400b6218f877"
+  },
+  "summary": {
+    "replicates": 64,
+    "fit_count": 192,
+    "total_divergences": 0,
+    "trigger_confusion": {
+      "true_positive": 20,
+      "false_positive": 5,
+      "true_negative": 32,
+      "false_negative": 7,
+      "sensitivity": 0.7407407407407407,
+      "specificity": 0.8648648648648649,
+      "balanced_accuracy": 0.8028028028028028
+    },
+    "mean_policy_to_transferred_ratio": 0.8675812739621402,
+    "policy_harm_rate": 0.046875,
+    "mean_policy_regret": 0.055624395981999294,
+    "worlds": {
+      "strong_headroom": {
+        "trigger_rate": 1,
+        "actual_material_headroom_rate": 0.8125,
+        "mean_predicted_ratio": 0.6741900931188127,
+        "mean_actual_ratio": 0.6403484002706453,
+        "mean_policy_to_transferred_ratio": 0.6403484002706453,
+        "policy_harm_rate": 0.125,
+        "mean_policy_regret": 0.05463691143125962
+      },
+      "threshold_below": {
+        "trigger_rate": 0.5625,
+        "actual_material_headroom_rate": 0.6875,
+        "mean_predicted_ratio": 0.782068554149891,
+        "mean_actual_ratio": 0.726276487453439,
+        "mean_policy_to_transferred_ratio": 0.8299766955779155,
+        "policy_harm_rate": 0.0625,
+        "mean_policy_regret": 0.10799091523408685
+      },
+      "threshold_above": {
+        "trigger_rate": 0,
+        "actual_material_headroom_rate": 0.125,
+        "mean_predicted_ratio": 0.9646300648345509,
+        "mean_actual_ratio": 1.1027018717313526,
+        "mean_policy_to_transferred_ratio": 1,
+        "policy_harm_rate": 0,
+        "mean_policy_regret": 0.04411989668319215
+      },
+      "negligible_headroom": {
+        "trigger_rate": 0,
+        "actual_material_headroom_rate": 0.0625,
+        "mean_predicted_ratio": 0.9694870860709071,
+        "mean_actual_ratio": 1.047494721632241,
+        "mean_policy_to_transferred_ratio": 1,
+        "policy_harm_rate": 0,
+        "mean_policy_regret": 0.015749860579458548
+      }
+    }
+  },
+  "failed_checks": [
+    {
+      "name": "threshold_below:trigger_rate",
+      "observed": 0.5625,
+      "criterion": ">= 0.75"
+    },
+    {
+      "name": "threshold_below:actual_material_headroom_rate",
+      "observed": 0.6875,
+      "criterion": ">= 0.75"
+    },
+    {
+      "name": "threshold_above:policy_bias:sp.occupancy.psi0_logit",
+      "observed": 0.25174094264381464,
+      "criterion": "abs(mean bias) <= 0.2"
+    },
+    {
+      "name": "threshold_above:policy_bias:sp.occupancy.gamma_logit",
+      "observed": 0.6370876507110118,
+      "criterion": "abs(mean bias) <= 0.2"
+    },
+    {
+      "name": "threshold_above:policy_bias:sp.occupancy.epsilon_logit",
+      "observed": 0.30163780544730767,
+      "criterion": "abs(mean bias) <= 0.2"
+    },
+    {
+      "name": "negligible_headroom:policy_bias:sp.occupancy.gamma_logit",
+      "observed": 0.20956975589285087,
+      "criterion": "abs(mean bias) <= 0.2"
+    },
+    {
+      "name": "trigger_sensitivity",
+      "observed": 0.7407407407407407,
+      "criterion": ">= 0.75"
+    },
+    {
+      "name": "mean_policy_regret",
+      "observed": 0.055624395981999294,
+      "criterion": "<= 0.05"
+    }
+  ],
+  "interpretation": {
+    "supported": [
+      "the selective placement policy reduced mean worst-dynamic-SD relative to always transferring the old placement",
+      "the 0.80 trigger achieved specificity and balanced accuracy above their frozen thresholds",
+      "the policy did not produce excessive overall harm and all 192 fits completed without divergences"
+    ],
+    "not_supported": [
+      "the frozen 0.80 trigger satisfies the preregistered selective-adaptation gate",
+      "threshold-below worlds reliably contain material headroom at the preregistered 0.75 replicate frequency",
+      "placement selection alone guarantees the frozen absolute recovery-bias guardrails after population shift",
+      "retuning the trigger inside v0.7l",
+      "ODSP information transfer",
+      "EOG consumption or N4 action"
+    ]
+  },
+  "next_development_boundary": {
+    "same_v07l_rerun_allowed": false,
+    "post_result_trigger_retune_inside_v07l_allowed": false,
+    "post_outcome_audit_allowed": true,
+    "next_confirmatory_program_must_use_fresh_worlds": true
+  }
+}

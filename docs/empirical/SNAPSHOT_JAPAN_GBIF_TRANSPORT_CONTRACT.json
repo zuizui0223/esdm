@@ -1,0 +1,34 @@
+{
+  "schema": "esdm.empirical_r5b.snapshot_japan_gbif_transport.v1",
+  "status": "FROZEN_PRE_TRANSPORT",
+  "dataset": {
+    "gbif_dataset_key": "f0a42d7d-1eda-4ec8-ac66-c1343acea3bc",
+    "doi": "10.15468/y4erss",
+    "publisher": "National Institute for Environmental Studies",
+    "source_archive_url": "https://gbif.jp/ipt/archive.do?r=snapshot_japan_2023",
+    "source_archive_format": "Camera Trap Data Package"
+  },
+  "transport": {
+    "method": "HEAD",
+    "max_requests": 1,
+    "follow_redirects": true,
+    "allowed_final_hosts": ["gbif.jp"],
+    "require_http_200": true,
+    "require_positive_content_length": true,
+    "body_bytes_allowed": 0
+  },
+  "firewall": {
+    "response_payload_gets": 0,
+    "response_payload_bytes": 0,
+    "response_rows_opened": 0,
+    "response_values_opened": false,
+    "species_values_opened": false,
+    "age_values_opened": false,
+    "model_fits": 0,
+    "heldout_scores": 0
+  },
+  "valid_terminal_statuses": [
+    "SOURCE_ARCHIVE_TRANSPORT_QUALIFIED",
+    "STOP_PRE_RESPONSE_SOURCE_ARCHIVE_TRANSPORT"
+  ]
+}
