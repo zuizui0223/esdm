@@ -178,6 +178,16 @@ def _write_package(tmp_path: Path):
             "heldout_deployment_count": qualified["geometry"][
                 "heldout_deployment_count"
             ],
+            "max_training_longitude": qualified["geometry"][
+                "max_training_longitude"
+            ],
+            "min_heldout_longitude": qualified["geometry"][
+                "min_heldout_longitude"
+            ],
+            "longitude_gap": qualified["geometry"]["longitude_gap"],
+            "training_role_counts": dict(
+                qualified["roles"]["training_counts"]
+            ),
             "fingerprints": dict(qualified["fingerprints"]),
         }
     }
@@ -339,6 +349,16 @@ def test_e2_mica_count_conflict_is_consumed_hard_stop(tmp_path):
             "heldout_deployment_count": qualified["geometry"][
                 "heldout_deployment_count"
             ],
+            "max_training_longitude": qualified["geometry"][
+                "max_training_longitude"
+            ],
+            "min_heldout_longitude": qualified["geometry"][
+                "min_heldout_longitude"
+            ],
+            "longitude_gap": qualified["geometry"]["longitude_gap"],
+            "training_role_counts": dict(
+                qualified["roles"]["training_counts"]
+            ),
             "fingerprints": dict(qualified["fingerprints"]),
         }
     }
