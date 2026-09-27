@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "contract_id": "e2-mica-muskrat-candidate-v1",
+  "status": "FROZEN_PRE_RESPONSE_GEOMETRY_HEADER",
+  "frozen_date": "2026-09-27",
+  "parent_contract": "docs/replication/E2_EMPIRICAL_REPLICATION_CONTRACT.json",
+  "candidate": {
+    "candidate_id": "MICA_MUSKRAT",
+    "dataset_title": "MICA - Muskrat and coypu camera trap observations in Belgium, the Netherlands and Germany",
+    "dataset_version": 3,
+    "publisher": "Research Institute for Nature and Forest (INBO)",
+    "gbif_uuid": "8a5cbaec-2839-4471-9e1d-98df301095dd",
+    "dataset_doi": "10.15468/5tb6ze",
+    "publication_date": "2025-06-27",
+    "license": "CC0-1.0",
+    "ipt_resource": "mica-agouti",
+    "archive_url": "https://ipt.inbo.be/archive.do?r=mica-agouti&v=3",
+    "metadata_url": "https://ipt.inbo.be/resource?r=mica-agouti",
+    "public_metadata": {
+      "deployment_records": 1539,
+      "observation_records": 183813,
+      "media_records": 3782461,
+      "geographic_bbox": {
+        "west": 3.518,
+        "east": 8.33,
+        "south": 50.699,
+        "north": 53.407
+      },
+      "project_design": "four locations in Flanders with 26 cameras and one location in Germany with 7 cameras, targeting suspected muskrat/coypu presence"
+    }
+  },
+  "focal_taxon": {
+    "scientific_name": "Ondatra zibethicus",
+    "common_name": "muskrat",
+    "selection_basis": "named target species of LIFE MICA and explicitly listed in public taxonomic scope; selected without observation-frequency access",
+    "selected_before_observation_rows": true
+  },
+  "state_contract": {
+    "states": [
+      "solitary",
+      "group"
+    ],
+    "event_identity": "deploymentID + eventID",
+    "focal_event_count_rule": "among event-level animal observations with exact scientificName Ondatra zibethicus, require at most one distinct positive integer count per event identity; conflicting distinct positive counts fail closed",
+    "mapping": {
+      "solitary": "unique positive event count == 1",
+      "group": "unique positive event count >= 2",
+      "unlabeled": "missing, zero or nonpositive count"
+    }
+  },
+  "pre_response_transport": {
+    "full_archive_download_allowed": true,
+    "rationale": "candidate is already frozen; archive bytes may be transported and hashed, but ecological observation fields remain unopened",
+    "archive_sha256_required": true,
+    "zip_entry_names_may_be_listed": true,
+    "allowed_entry_reads_before_temporal_authorization": [
+      "datapackage.json",
+      "deployments.csv full rows",
+      "observations.csv header only"
+    ],
+    "forbidden_entry_reads_before_temporal_authorization": [
+      "observations.csv data rows",
+      "media.csv rows"
+    ],
+    "observations_header_max_bytes": 16384
+  },
+  "geometry_header_gate": {
+    "required_deployment_columns": [
+      "deploymentID",
+      "latitude",
+      "longitude",
+      "deploymentStart",
+      "deploymentEnd"
+    ],
+    "required_observation_header_columns": [
+      "observationID",
+      "deploymentID",
+      "eventID",
+      "eventStart",
+      "observationLevel",
+      "observationType",
+      "scientificName",
+      "count"
+    ],
+    "minimum_training_deployments": 50,
+    "minimum_heldout_deployments": 12,
+    "east_holdout": {
+      "candidate_cuts": "strict gaps between unique longitude values satisfying deployment-count minima",
+      "selection": "maximum longitude gap; tie -> easternmost cut",
+      "integrity": "max training longitude < min heldout longitude"
+    },
+    "training_role_assignment": {
+      "salt": "esdm-e2-r5b-stream-v1|",
+      "hash": "SHA256(salt + UTF-8 deploymentID), first byte",
+      "opportunistic_presence": [
+        0,
+        63
+      ],
+      "calibrated_presence": [
+        64,
+        127
+      ],
+      "state_annotated": [
+        128,
+        207
+      ],
+      "state_calibration": [
+        208,
+        255
+      ],
+      "minimum_each_role": 8
+    }
+  },
+  "valid_terminal_statuses": [
+    "RESPONSE_BLIND_GEOMETRY_HEADER_PASS",
+    "REJECT_PRE_RESPONSE_TRANSPORT",
+    "REJECT_PRE_RESPONSE_SCHEMA_OR_GEOMETRY"
+  ],
+  "scientific_boundary": {
+    "observation_rows_opened": 0,
+    "taxon_frequencies_opened": false,
+    "focal_event_counts_opened": false,
+    "state_frequencies_opened": false,
+    "model_fits_allowed": false,
+    "heldout_scores_allowed": false,
+    "temporal_opening_authorized_by_this_contract": false,
+    "full_response_opening_authorized_by_this_contract": false
+  }
+}
