@@ -5,6 +5,7 @@ from .graph import (
     FrozenSpatialProjection,
     ProjectionRow,
     SpatialEdge,
+    centered_edge_design_rank,
 )
 from .precision import (
     dense_precision_array,
@@ -20,6 +21,7 @@ __all__ = [
     "FrozenSpatialProjection",
     "ProjectionRow",
     "SpatialEdge",
+    "centered_edge_design_rank",
     "dense_precision_array",
     "dense_precision_python",
     "whitened_field_array",
