@@ -7,7 +7,7 @@ concurrency:
 on:
   push:
     branches:
-      - field1/qualification-v1
+      - field1/qualification-v1-r2
     paths:
       - docs/field/FIELD1_RUN_AUTHORIZED
 
@@ -82,6 +82,13 @@ jobs:
               != "docs/field/FIELD1_QUALIFICATION_GATE_AMENDMENT_1.md"
           ):
               raise SystemExit("FIELD1 authorization amendment mismatch")
+          if (
+              values.get("replacement_amendment")
+              != "docs/field/FIELD1_QUALIFICATION_GATE_AMENDMENT_2.md"
+          ):
+              raise SystemExit(
+                  "FIELD1 replacement authorization amendment mismatch"
+              )
           PY
       - name: Install package
         run: python -m pip install -e ".[dev]"
