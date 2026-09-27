@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "contract_id": "e2-mica-worldclim-bio12-v1",
+  "frozen_date": "2026-09-27",
+  "status": "FROZEN_PRE_RESPONSE_CLIMATE",
+  "parent_contract": "docs/replication/E2_EMPIRICAL_REPLICATION_CONTRACT.json",
+  "child_contract": "docs/replication/E2_MICA_MUSKRAT_CANDIDATE_CONTRACT.json",
+  "response_blind_result": "docs/replication/E2_MICA_RESPONSE_BLIND_GEOMETRY_HEADER_RESULT.json",
+  "response_blind_merge_sha": "7f36f41c21b06dc95995726a4576da70f4e3b5e0",
+  "candidate": {
+    "candidate_id": "MICA_MUSKRAT",
+    "archive_url": "https://ipt.inbo.be/archive.do?r=mica-agouti&v=3",
+    "expected_archive_sha256": "8346f3fe467a201525d6bedd4ebd6e2078457ee8bb778501d41d55ace7d962c9",
+    "deployment_count": 1539,
+    "training_count": 805,
+    "heldout_count": 734,
+    "training_ids_sha256": "a1e08526edb3d1f329fc7a4e9a2efa2bc4dc50313b393026a429f3a87d57f566",
+    "heldout_ids_sha256": "c4990c23de1787db84f9ae23310730b284c6ea159c7c0a806a7fcb01ffaf1db2"
+  },
+  "climate_source": {
+    "product": "WorldClim v2.1 base bioclimatic variables",
+    "archive_url": "https://geodata.ucdavis.edu/climate/worldclim/2_1/base/wc2.1_10m_bio.zip",
+    "resolution": "10 arc-minute",
+    "member": "wc2.1_10m_bio_12.tif",
+    "variable": "BIO12 annual precipitation",
+    "units": "mm",
+    "relationship_to_r5b": "same product/resolution/variable as frozen Snapshot Japan R5b empirical climate pipeline"
+  },
+  "preprocessing": {
+    "sample_method": "nearest raster cell containing each deployment coordinate",
+    "training_standardization_only": true,
+    "standardization": "(BIO12 - training_mean) / training_population_sd",
+    "heldout_values_may_not_enter_mean_or_sd": true,
+    "deployment_partition_source": "frozen response-blind training/heldout deployment ID manifest",
+    "sort_output_by": "deploymentID"
+  },
+  "output_required": [
+    "worldclim_archive_sha256",
+    "worldclim_bio12_raster_sha256",
+    "training_bio12_mean_mm",
+    "training_bio12_population_sd_mm",
+    "deployment_climate_sha256",
+    "deployment_climate"
+  ],
+  "response_firewall": {
+    "scientific_name_values_read": false,
+    "count_values_read": false,
+    "observation_rows_read_for_climate": 0,
+    "focal_taxon_filtering": false,
+    "model_fits": 0,
+    "heldout_scores": 0,
+    "full_response_opened": false
+  },
+  "valid_terminal_statuses": [
+    "CLIMATE_QUALIFIED",
+    "STOP_PRE_RESPONSE_CLIMATE_TRANSPORT_OR_SCHEMA"
+  ],
+  "next_stage": {
+    "climate_pass_required_before_full_response_fit": true,
+    "climate_pass_does_not_authorize_full_response": true,
+    "separate_full_response_authorization_required": true
+  },
+  "execution": {
+    "authorization_marker": "docs/replication/E2_MICA_WORLDCLIM_AUTHORIZED.json",
+    "marker_must_be_newly_added_in_pure_commit": true,
+    "one_authorized_run": true,
+    "workflow_dispatch_enabled": false
+  }
+}
