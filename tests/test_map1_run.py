@@ -45,13 +45,13 @@ def test_map1_frozen_mcmc_profile():
     assert profile.target_accept_prob == 0.90
 
 
-def test_map1_fit_plans_are_finite_and_total_128():
+def test_map1_fit_plans_are_finite_and_total_144():
     total = 0
     for world in make_map1_worlds():
         plan = map1_required_fit_plan(world.world_id)
         assert len(plan) == len(set(plan))
         total += len(plan) * 16
-    assert total == 128
+    assert total == 144
 
 
 def test_map1_replicate_runner_scores_declared_comparisons_only():
