@@ -147,7 +147,8 @@
       "static_identifiability_refusals": [
         "no edge-distance variation for estimated rho",
         "no environmental-dissimilarity variation when gamma is active",
-        "no barrier-exposure variation when beta is active"
+        "no barrier-exposure variation when beta is active",
+        "exact centered collinearity among active distance/environment/barrier edge covariates"
       ],
       "nested_axis_boundary": "gamma=0 and beta=0 are boundary special cases of active-axis models"
     },
@@ -175,7 +176,9 @@
       "null_max_mean_gain": 0.005,
       "material_gain_threshold": 0.005,
       "max_mean_divergences_per_fit": 0.1
-    }
+    },
+    "expected_shards": 144,
+    "expected_fits": 704
   },
   "literature": [
     {
