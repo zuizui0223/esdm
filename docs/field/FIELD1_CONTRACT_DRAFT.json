@@ -178,7 +178,10 @@
       "max_mean_divergences_per_fit": 0.1
     },
     "expected_shards": 144,
-    "expected_fits": 704
+    "expected_fits": 704,
+    "qualification_gate_amendments": [
+      "docs/field/FIELD1_QUALIFICATION_GATE_AMENDMENT_1.md"
+    ]
   },
   "literature": [
     {
