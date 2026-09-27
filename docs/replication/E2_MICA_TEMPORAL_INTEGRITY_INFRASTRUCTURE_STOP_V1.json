@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "receipt_id": "e2-mica-temporal-integrity-infrastructure-stop-v1",
+  "validated_date": "2026-09-27",
+  "scientific_contract": "docs/replication/E2_MICA_TEMPORAL_INTEGRITY_CONTRACT.json",
+  "authorization": {
+    "branch": "e2/mica-temporal-integrity-v1",
+    "head_sha": "a0054e6dfaa0f04df1a0d462d48c07562f6ce08e",
+    "implementation_parent_sha": "d35116636de7bb184b1047d240bc3ba9176c6958",
+    "workflow_run_id": 36317883452,
+    "run_attempt": 1,
+    "conclusion": "failure"
+  },
+  "failure": {
+    "stage": "authorization_precheck",
+    "class": "INFRASTRUCTURE_ONLY",
+    "reason": "checkout fetch-depth 2 did not contain frozen response-blind merge commit 7f36f41c21b06dc95995726a4576da70f4e3b5e0, so git merge-base --is-ancestor failed before any archive transport",
+    "scientific_rule_evaluated": false,
+    "candidate_archive_downloaded": false,
+    "observation_rows_scanned": 0,
+    "scientific_name_values_read": false,
+    "count_values_read": false,
+    "model_fits": 0,
+    "heldout_scores": 0,
+    "temporal_outcome_consumed": false
+  },
+  "replacement_allowed": {
+    "yes": true,
+    "reason": "failure occurred before archive download and before any temporal response opening",
+    "scientific_contract_changes_allowed": false,
+    "allowed_changes": [
+      "fetch complete git history needed for frozen-ancestor verification",
+      "use a new replacement branch and authorization marker",
+      "record this failed attempt permanently"
+    ]
+  }
+}
