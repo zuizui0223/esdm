@@ -370,6 +370,13 @@
       "design": "matched geographic edge-distance strata containing barrier and non-barrier edges",
       "fixture_has_matching_stratum": true,
       "requirement": "barrier comparison sign tracks barrier truth after distance matching"
+    },
+    "replicate_hierarchy": {
+      "world_hyperparameters": "fixed within world",
+      "latent_field_innovations": "independent draw per replicate",
+      "observation_counts": "independent Poisson draw conditional on replicate latent field",
+      "generation_seed_formula": "base_seed + world_index*1000000 + replicate*10000",
+      "latent_field_seed_offset": 503
     }
   }
 }
