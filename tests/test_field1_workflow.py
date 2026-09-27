@@ -4,6 +4,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 WORKFLOW = ROOT / ".github" / "workflows" / "field1-qualification-once.yml"
 MARKER = ROOT / "docs" / "field" / "FIELD1_RUN_AUTHORIZED"
+AGGREGATOR = ROOT / "scripts" / "aggregate_field1.py"
 
 
 def test_field1_workflow_is_one_shot_and_not_currently_authorized():
@@ -47,9 +48,10 @@ def test_field1_workflow_freezes_complete_world_replicate_matrix():
 
 
 def test_field1_workflow_preserves_infrastructure_blocked_receipt():
-    text = WORKFLOW.read_text(encoding="utf-8")
+    workflow = WORKFLOW.read_text(encoding="utf-8")
+    aggregator = AGGREGATOR.read_text(encoding="utf-8")
 
-    assert "continue-on-error: true" in text
-    assert '"status": "INFRASTRUCTURE_BLOCKED"' in text
-    assert '"scientific_decision": None' in text
-    assert "if: always()" in text
+    assert "continue-on-error: true" in workflow
+    assert "if: always()" in workflow
+    assert '"status": "INFRASTRUCTURE_BLOCKED"' in aggregator
+    assert '"scientific_decision": None' in aggregator
