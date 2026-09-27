@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "contract_id": "r5b-temporal-linkage-audit-v1",
+  "status": "FROZEN_REPLICATION_AUDIT",
+  "programme_class": "separately_named_replication_audit",
+  "scientific_parent": {
+    "first_empirical_result": "docs/empirical/R5B_FIRST_EMPIRICAL_RESULT.md",
+    "terminal_receipt": "docs/empirical/SNAPSHOT_JAPAN_CAMTRAPDP_TERMINAL_RESULT.json",
+    "first_empirical_status_remains": "CONSUMED_STOP_SCHEMA_OR_ESTIMABILITY",
+    "this_audit_cannot_modify_first_empirical_result": true
+  },
+  "source": {
+    "article_doi": "10.3897/BDJ.13.e141168",
+    "supplement_doi": "10.3897/BDJ.13.e141168.suppl4",
+    "zenodo_record": 15030971,
+    "file_name": "oo_1246258.zip",
+    "url": "https://zenodo.org/api/records/15030971/files/oo_1246258.zip/content",
+    "expected_md5": "742f186013ef3b60e9754df73e5269de",
+    "expected_sha256": "2e99786857764151b66bfda0caaba4f23288ed9d671bb86c9ea5605727b9c07c",
+    "required_members": ["deployments.csv", "observations.csv"]
+  },
+  "audit_population": {
+    "all_animal_events": "unique deploymentID + eventID among event-level animal observations with parseable eventStart",
+    "focal_events": "same event identity restricted to scientificName == Cervus nippon",
+    "focal_species": "Cervus nippon"
+  },
+  "frozen_integrity_rule": {
+    "event_is_inside": "deploymentStart <= eventStart <= deploymentEnd",
+    "before_start": "eventStart < deploymentStart",
+    "after_end": "eventStart > deploymentEnd",
+    "no_interval_padding": true,
+    "no_timezone_conversion_beyond_timestamp_offsets": true,
+    "no_row_deletion": true,
+    "no_timestamp_repair": true
+  },
+  "reported_metrics": [
+    "deployment_count",
+    "observation_row_count",
+    "unique_all_animal_event_count",
+    "unique_focal_event_count",
+    "all_animal_violation_count_and_rate",
+    "focal_violation_count_and_rate",
+    "before_start_and_after_end_counts",
+    "signed_offset_seconds_from_nearest_interval_boundary",
+    "absolute_offset_seconds_summary",
+    "violation_counts_by_deployment",
+    "timezone_offset_pairs_for_violations",
+    "full_detail_for_focal_violations"
+  ],
+  "prohibited": {
+    "model_fit": true,
+    "heldout_scoring": true,
+    "row_exclusion_for_reanalysis": true,
+    "deployment_interval_widening": true,
+    "timestamp_correction": true,
+    "reclassification_of_first_empirical_endpoint": true
+  },
+  "execution": {
+    "authorization_marker": "docs/replication/R5B_TEMPORAL_LINKAGE_AUDIT_AUTHORIZED",
+    "marker_must_be_newly_added": true,
+    "workflow_dispatch_enabled": false,
+    "one_authorized_run": true
+  }
+}
