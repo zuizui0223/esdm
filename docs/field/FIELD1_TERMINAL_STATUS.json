@@ -1,0 +1,141 @@
+{
+  "schema": "esdm.field1.terminal_status.v1",
+  "date": "2026-09-27",
+  "programme": "FIELD1",
+  "phase": "Phase-A known-truth qualification",
+  "status": "FAIL",
+  "source": {
+    "workflow_run_id": 36316137677,
+    "qualification_branch": "field1/qualification-v1-r2",
+    "authorization_commit": "125d9e259bb187a9da855d2fb2091d15e9230737",
+    "artifact_id": 10932280009,
+    "artifact_name": "field1-result-36316137677",
+    "aggregate_json_sha256": "56da89919350f9e3c5d293f759654068180a648d03e553b3d08aff441f29cef2"
+  },
+  "execution": {
+    "worlds": 9,
+    "replicates_per_world": 16,
+    "shard_count": 144,
+    "successful_replicates": 144,
+    "failed_replicates": 0,
+    "fit_count": 704,
+    "total_divergences": 360,
+    "mean_divergences_per_fit": 0.5113636363636364,
+    "sampling_guardrail": "FAIL (> 0.10)"
+  },
+  "geometry_audits": {
+    "h1_training_axis_rank_passed": true,
+    "h2_training_axis_rank_passed": true,
+    "k6_distance_match_passed": true,
+    "h2_barrier_transfer_passed": true,
+    "matched_distance_stratum_1_0": {
+      "nonbarrier_edges": 3,
+      "barrier_edges": 3
+    }
+  },
+  "claims": {
+    "FIELD_PRESENT": true,
+    "ENV_DEPENDENCE_SUPPORTED": false,
+    "BARRIER_DEPENDENCE_SUPPORTED": false,
+    "FULL_MAP_STRUCTURE_SUPPORTED": false
+  },
+  "key_evidence": {
+    "FIELD_PRESENT": {
+      "positive_world_K1_M1_minus_M0_H1": {
+        "positive_gain_rate": 0.75,
+        "mean_gain": 4.719712239631082,
+        "passed": true
+      },
+      "null_world_K0_M1_minus_M0_H1": {
+        "material_gain_rate": 0.0625,
+        "mean_gain": -0.0754848352130171,
+        "passed": true
+      }
+    },
+    "ENV_DEPENDENCE_SUPPORTED": {
+      "K2_M2_minus_M1_H1": {
+        "positive_gain_rate": 0.75,
+        "mean_gain": 0.01762801687868301,
+        "passed": true
+      },
+      "false_promotion_K0_M2_minus_M1_H1": {
+        "material_gain_rate": 0.5625,
+        "mean_gain": 0.0087256248739572,
+        "passed": false
+      },
+      "false_promotion_K1_M2_minus_M1_H1": {
+        "material_gain_rate": 0.6875,
+        "mean_gain": 0.023060546787712882,
+        "passed": false
+      },
+      "K5_mean0_cov0": {
+        "material_gain_rate": 0.5625,
+        "mean_gain": 0.0076214830448000925,
+        "passed": false
+      },
+      "K5_mean0_cov1": {
+        "positive_gain_rate": 0.5625,
+        "mean_gain": 0.02257491592294364,
+        "passed": false
+      },
+      "K5_mean1_cov0": {
+        "material_gain_rate": 0.3125,
+        "mean_gain": -0.05168850625119345,
+        "passed": false
+      },
+      "K5_mean1_cov1": {
+        "positive_gain_rate": 0.5625,
+        "mean_gain": -0.000877822947621204,
+        "passed": false
+      }
+    },
+    "BARRIER_DEPENDENCE_SUPPORTED": {
+      "K3_M3_minus_M1_H2": {
+        "positive_gain_rate": 0.4375,
+        "mean_gain": -0.014885711580730626,
+        "passed": false
+      },
+      "K4_M3_minus_M1_H2": {
+        "positive_gain_rate": 0.625,
+        "mean_gain": 0.17011694700436514,
+        "passed": false
+      },
+      "K4_M4_minus_M2_H2": {
+        "positive_gain_rate": 0.4375,
+        "mean_gain": 0.0026430698586187296,
+        "passed": false
+      }
+    },
+    "FULL_MAP_STRUCTURE_SUPPORTED": {
+      "K4_M4_minus_M3_H1": {
+        "positive_gain_rate": 0.5625,
+        "mean_gain": 0.009384567891291246,
+        "passed": false
+      }
+    }
+  },
+  "interpretation": {
+    "supported": [
+      "A distance-only continuous residual field can improve held-out mapping beyond the environment-only SDM under the frozen FIELD1 known-truth programme."
+    ],
+    "not_supported": [
+      "Environmental-similarity dependence as a separately qualified predictive axis.",
+      "Barrier-modified dependence as a separately qualified predictive axis.",
+      "The full distance+environment+barrier dependence structure.",
+      "Overall FIELD1 Phase-A qualification."
+    ],
+    "nonclaims": [
+      "The latent field is dispersal limitation.",
+      "Environmental dependence is evolutionary IBE.",
+      "Barrier dependence measures migration or gene flow."
+    ]
+  },
+  "stop_rule": {
+    "same_programme_rerun_authorized": false,
+    "post_result_threshold_retuning_allowed": false,
+    "post_result_geometry_retuning_allowed": false,
+    "field1b_or_field2_rescue_authorized": false,
+    "empirical_response_authorized": false,
+    "future_use": "The supported distance-only field may be retained as a bounded methodological result; any new environment/barrier programme must be scientifically distinct rather than a rescue rerun."
+  }
+}
