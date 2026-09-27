@@ -66,6 +66,16 @@ The project stop rule remains in force:
 Machine-readable/current audit records live under `docs/empirical/` and
 `docs/replication/`.
 
+### Archived post-R5b methodological lineage
+
+The v0.5-v0.7 methodological branches are not part of the active empirical endpoint.
+Their frozen scientific receipts are retained under `docs/validation/` without promoting
+the branch runtime code into `main`: v0.5f = **FAIL**, v0.7l = **FAIL**, and v0.7m =
+**FAIL**. The v0.7m one-shot authorization was consumed: all 64 replicates / 192 fits
+completed with zero divergences, but the preregistered action-classification gate failed.
+See `docs/validation/POST_R5B_LINEAGE_STATUS.json` for the machine-readable lineage.
+
+
 ## Seven design principles
 
 1. **One generative graph.** Simulation, likelihood evaluation, prediction, and posterior prediction use the same process and observation modules. In-model known-truth worlds are generated from this graph rather than a separate analysis formula.
