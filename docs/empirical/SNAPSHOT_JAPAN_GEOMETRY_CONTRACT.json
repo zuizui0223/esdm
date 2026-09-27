@@ -1,0 +1,51 @@
+{
+  "schema": "esdm.empirical_r5b.snapshot_japan_geometry_gate.v1",
+  "status": "FROZEN_PRE_GEOMETRY",
+  "scientific_freeze": {
+    "r5b_branch_head": "3320431b300f34b326363713fb1d993ea5e43a87",
+    "r5b_status": "PASS",
+    "empirical_entry": "docs/validation/EMPIRICAL_ENTRY_R5B_FREEZE.md"
+  },
+  "dataset": {
+    "title": "Snapshot Japan 2023: the first camera trap dataset under a globally standardised protocol in Japan",
+    "publication_doi": "10.3897/BDJ.13.e141168",
+    "deployment_file": "oo_1202827.csv",
+    "deployment_url": "https://zenodo.org/api/records/15030965/files/oo_1202827.csv/content",
+    "deployment_expected_md5": "9ee54945758d9d146badd3aeb17a7923",
+    "expected_deployments": 90,
+    "expected_unique_coordinates": 90,
+    "response_file": "oo_1165478.csv",
+    "response_file_requests_allowed": 0,
+    "response_bytes_allowed": 0
+  },
+  "focal_biology": {
+    "species": "Cervus nippon",
+    "common_name": "sika deer",
+    "selection_basis": "named by the published data paper as one of the most commonly observed wild taxa; frozen before eSDM response access",
+    "state_space": ["adult", "juvenile"],
+    "state_rule": "trimmed case-insensitive exact age label adult or juvenile; blank and unknown are unlabeled and never reassigned"
+  },
+  "east_holdout": {
+    "selection_uses": "deployment longitude only",
+    "candidate_rule": "consider every strict gap between unique deployment longitudes with at least 50 training deployments west of the gap and at least 12 heldout deployments east of the gap",
+    "selection_rule": "choose the candidate with the largest longitude gap; ties choose the easternmost cut",
+    "integrity": "min heldout longitude must be strictly greater than max training longitude"
+  },
+  "training_camera_roles": {
+    "unit": "deployment",
+    "assignment": "sort training deployment IDs by SHA256(UTF-8 deployment_id), then assign first floor(n/2) to calibrated_presence, next floor((n-first)/2) to state_annotated, remainder to state_composition",
+    "roles_are_mutually_exclusive": true,
+    "roles_exhaust_training_deployments": true,
+    "minimum_each_role": 12,
+    "heldout_role": "state_annotated_only",
+    "direct_state_composition_heldout_exposure": 0
+  },
+  "firewall": {
+    "response_payload_requests": 0,
+    "response_header_requests": 0,
+    "response_rows_opened": 0,
+    "response_values_opened": false,
+    "model_fits": 0,
+    "heldout_scores": 0
+  }
+}
