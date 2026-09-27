@@ -1,0 +1,135 @@
+name: E2 MICA temporal integrity once
+
+on:
+  push:
+    branches:
+      - e2/mica-temporal-integrity-v1
+    paths:
+      - 'docs/replication/E2_MICA_TEMPORAL_INTEGRITY_AUTHORIZED.json'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify pure temporal authorization commit
+        run: |
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+
+          marker_path = Path(
+              "docs/replication/E2_MICA_TEMPORAL_INTEGRITY_AUTHORIZED.json"
+          )
+          marker = json.loads(marker_path.read_text())
+
+          parent = subprocess.check_output(
+              ["git", "rev-parse", "HEAD^"], text=True
+          ).strip()
+          if marker["implementation_parent_sha"] != parent:
+              raise SystemExit(
+                  "temporal authorization parent mismatch: "
+                  f"{marker['implementation_parent_sha']} != {parent}"
+              )
+
+          changed = subprocess.check_output(
+              ["git", "diff-tree", "--no-commit-id", "--name-only", "-r", "HEAD"],
+              text=True,
+          ).splitlines()
+          if changed != [marker_path.as_posix()]:
+              raise SystemExit(
+                  "temporal authorization commit must change only "
+                  "E2_MICA_TEMPORAL_INTEGRITY_AUTHORIZED.json"
+              )
+
+          if marker["candidate_id"] != "MICA_MUSKRAT":
+              raise SystemExit("temporal authorization candidate mismatch")
+          if marker["stage"] != "temporal_integrity_only":
+              raise SystemExit("temporal authorization stage mismatch")
+          if marker["one_shot"] is not True:
+              raise SystemExit("temporal authorization must be one-shot")
+          if marker["full_response_authorized"] is not False:
+              raise SystemExit("temporal marker cannot authorize full response")
+
+          frozen = "7f36f41c21b06dc95995726a4576da70f4e3b5e0"
+          subprocess.run(
+              ["git", "merge-base", "--is-ancestor", frozen, "HEAD"],
+              check=True,
+          )
+          PY
+
+      - name: Install package
+        run: python -m pip install -e .
+
+      - name: Download frozen MICA v3 archive
+        run: |
+          mkdir -p build/e2
+          curl \
+            --fail \
+            --location \
+            --retry 3 \
+            --retry-delay 2 \
+            --output build/e2/mica-v3.zip \
+            'https://ipt.inbo.be/archive.do?r=mica-agouti&v=3'
+
+      - name: Run temporal-integrity-only audit
+        run: |
+          python scripts/audit_e2_mica_temporal_integrity.py \
+            --archive build/e2/mica-v3.zip \
+            --out build/e2/E2_MICA_TEMPORAL_INTEGRITY_RESULT.json
+
+      - name: Assert ecological response boundary remains closed
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          result = json.loads(
+              Path("build/e2/E2_MICA_TEMPORAL_INTEGRITY_RESULT.json").read_text()
+          )
+          if result["status"] not in {
+              "TEMPORAL_INTEGRITY_PASS",
+              "STOP_TEMPORAL_INTEGRITY",
+          }:
+              raise SystemExit(f"temporal audit did not complete: {result['status']}")
+
+          boundary = result["response_boundary"]
+          for key in (
+              "scientific_name_values_read",
+              "count_values_read",
+              "taxon_frequencies_computed",
+              "focal_event_counts_computed",
+              "state_frequencies_computed",
+              "full_response_opened",
+          ):
+              if boundary[key] is not False:
+                  raise SystemExit(f"response boundary drifted: {key}")
+          if boundary["model_fits"] != 0 or boundary["heldout_scores"] != 0:
+              raise SystemExit("temporal stage performed forbidden model work")
+
+          decision = result["decision"]
+          if decision["authorizes_full_response"] is not False:
+              raise SystemExit("temporal result cannot self-authorize full response")
+          if decision["requires_separate_full_response_authorization"] is not True:
+              raise SystemExit("separate full-response authorization was lost")
+          PY
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: e2-mica-temporal-integrity-${{ github.run_id }}
+          path: build/e2/E2_MICA_TEMPORAL_INTEGRITY_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
