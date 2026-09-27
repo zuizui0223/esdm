@@ -81,3 +81,20 @@ At this amendment freeze:
 - qualification outcome shards: 0;
 - qualification aggregate: absent;
 - empirical response: unopened.
+
+
+## A5. Implementation/outcome branch separation
+
+The implementation and frozen gate are reviewed and merged without consuming the
+qualification outcome.
+
+The one-shot workflow listens only to:
+
+`field1/qualification-v1`
+
+That branch must be created from the merged FIELD1 implementation commit on `main`.
+The authorization marker is then added as a separate commit. The implementation PR branch
+`feature/field1-continuous-map-prior` cannot trigger the frozen outcome workflow.
+
+This keeps code/gate review, outcome authorization, and result freezing as distinct
+audit events.
