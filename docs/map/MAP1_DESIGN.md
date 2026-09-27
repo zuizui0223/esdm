@@ -52,7 +52,8 @@ For an orthonormal zero-sum basis `H`:
 Q_c = H^T Q0 H
 Q_c = L L^T
 a = L^-T z,        z ~ Normal(0, I)
-u_coherent = sigma * H a
+c = sqrt((m-1) / tr(Q_c^-1))
+u_coherent = sigma * c * H a
 sigma ~ HalfNormal(0.75)
 ```
 
@@ -67,7 +68,10 @@ u_exchangeable = sigma * H z
 ```
 
 It has the same amplitude prior and the same number of latent innovations but contains no
-geographic borrowing.
+geographic borrowing. The fixed constant `c` makes
+`E[||u||^2 | sigma=1] = m-1` for BC, exactly matching BX, so `sigma` has the same
+zero-sum RMS-amplitude meaning in both models. The only intended difference is the
+response-blind correlation structure.
 
 This makes the central contrast:
 
