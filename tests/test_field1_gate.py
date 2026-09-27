@@ -56,6 +56,7 @@ def test_field1_gate_passes_only_when_all_frozen_checks_pass():
     decision = evaluate_field1_gate(
         _passing_rows(),
         k6_distance_match_passed=True,
+        h2_barrier_transfer_passed=True,
         mean_divergences_per_fit=0.0,
     )
     assert decision.passed
@@ -87,6 +88,7 @@ def test_field1_gate_keeps_axis_claims_separate():
     decision = evaluate_field1_gate(
         rows,
         k6_distance_match_passed=True,
+        h2_barrier_transfer_passed=True,
         mean_divergences_per_fit=0.0,
     )
 
@@ -101,6 +103,7 @@ def test_field1_gate_requires_k6_before_barrier_claim():
     decision = evaluate_field1_gate(
         _passing_rows(),
         k6_distance_match_passed=False,
+        h2_barrier_transfer_passed=True,
         mean_divergences_per_fit=0.0,
     )
 
@@ -116,6 +119,7 @@ def test_field1_gate_rejects_missing_or_extra_comparisons():
         evaluate_field1_gate(
             rows[:-1],
             k6_distance_match_passed=True,
+            h2_barrier_transfer_passed=True,
             mean_divergences_per_fit=0.0,
         )
     except ValueError as exc:
@@ -137,6 +141,7 @@ def test_field1_gate_rejects_missing_or_extra_comparisons():
         evaluate_field1_gate(
             [*rows, extra],
             k6_distance_match_passed=True,
+            h2_barrier_transfer_passed=True,
             mean_divergences_per_fit=0.0,
         )
     except ValueError as exc:
@@ -169,3 +174,19 @@ def test_field1_gain_summary_uses_frozen_material_threshold():
     assert row.positive_gain_rate == 0.75
     assert row.material_gain_rate == 0.5
     assert row.mean_gain == (-0.01 + 0.001 + 0.006 + 0.02) / 4
+
+
+
+def test_field1_gate_requires_h2_barrier_transfer_geometry():
+    decision = evaluate_field1_gate(
+        _passing_rows(),
+        k6_distance_match_passed=True,
+        h2_barrier_transfer_passed=False,
+        mean_divergences_per_fit=0.0,
+    )
+
+    assert not decision.passed
+    assert decision.claims["FIELD_PRESENT"]
+    assert decision.claims["ENV_DEPENDENCE_SUPPORTED"]
+    assert not decision.claims["BARRIER_DEPENDENCE_SUPPORTED"]
+    assert not decision.claims["FULL_MAP_STRUCTURE_SUPPORTED"]
