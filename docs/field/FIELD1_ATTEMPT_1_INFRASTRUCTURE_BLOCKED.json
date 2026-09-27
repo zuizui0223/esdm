@@ -1,0 +1,40 @@
+{
+  "schema": "esdm.field1.qualification_attempt_receipt.v1",
+  "attempt": 1,
+  "status": "INFRASTRUCTURE_BLOCKED",
+  "scientific_decision": null,
+  "date": "2026-09-27",
+  "workflow_run_id": 36315550882,
+  "authorization_commit": "a495f42f09ba6a553c76a2a787476e1620848ae9",
+  "implementation_parent_sha": "2b8152613b6a3c71915d509065e18c41c96538b1",
+  "aggregate_artifact": {
+    "id": 10930667862,
+    "name": "field1-result-36315550882",
+    "digest": "sha256:910e007f1bd75ff019e9944194c1eee50dba3bfb529a0f840ccd6b4b291310e1"
+  },
+  "precheck": {
+    "authorization_marker_check": "PASS",
+    "package_install": "PASS",
+    "frozen_test_suite": "FAIL",
+    "failure": "tests/test_field1_workflow.py asserted that FIELD1_RUN_AUTHORIZED must not exist even when executed on the authorized qualification branch"
+  },
+  "scientific_execution": {
+    "replicate_jobs_started": 0,
+    "replicate_jobs_completed": 0,
+    "shard_count": 0,
+    "model_fits": 0,
+    "heldout_scores": 0,
+    "outcome_values_opened": false
+  },
+  "aggregate_receipt": {
+    "status": "INFRASTRUCTURE_BLOCKED",
+    "scientific_decision": null,
+    "reason": "complete frozen shard set absent because replicate stage was skipped after precheck failure"
+  },
+  "replacement": {
+    "allowed": true,
+    "condition": "preserve all scientific worlds, graph geometry, heldout splits, model semantics, seeds, MCMC settings, thresholds, and claim rules",
+    "same_run_rerun_allowed": false,
+    "replacement_branch": "field1/qualification-v1r1"
+  }
+}
