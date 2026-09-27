@@ -1,0 +1,38 @@
+{
+  "schema": "esdm.field1.authorization_stop.v1",
+  "date": "2026-09-27",
+  "status": "INFRASTRUCTURE_PRECHECK_STOP",
+  "scientific_decision": null,
+  "programme": "FIELD1",
+  "qualification_branch": "field1/qualification-v1",
+  "authorization_commit": "a495f42f09ba6a553c76a2a787476e1620848ae9",
+  "implementation_parent_sha": "2b8152613b6a3c71915d509065e18c41c96538b1",
+  "workflow_run_id": 36315550882,
+  "precheck": {
+    "authorization_purity_passed": true,
+    "failed_step": "Verify frozen FIELD1 contracts and execution code",
+    "failure": "tests/test_field1_workflow.py required FIELD1_RUN_AUTHORIZED to be absent on the authorized qualification branch",
+    "infrastructure_bug": true
+  },
+  "outcome_boundary": {
+    "replicate_job_conclusion": "skipped",
+    "replicate_jobs_started": 0,
+    "scientific_shards_produced": 0,
+    "fits_started": 0,
+    "heldout_gains_opened": 0,
+    "scientific_pass_fail_opened": false
+  },
+  "aggregate": {
+    "artifact_id": 10930667862,
+    "artifact_digest": "sha256:910e007f1bd75ff019e9944194c1eee50dba3bfb529a0f840ccd6b4b291310e1",
+    "receipt_status": "INFRASTRUCTURE_BLOCKED",
+    "scientific_decision": null,
+    "reason": "all 144 frozen replicate shards were absent"
+  },
+  "replacement": {
+    "authorized": true,
+    "amendment": "docs/field/FIELD1_QUALIFICATION_GATE_AMENDMENT_2.md",
+    "branch": "field1/qualification-v1-r2",
+    "scientific_contract_changed": false
+  }
+}
