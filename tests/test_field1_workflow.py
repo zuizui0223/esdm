@@ -10,6 +10,8 @@ def test_field1_workflow_is_one_shot_and_not_currently_authorized():
     text = WORKFLOW.read_text(encoding="utf-8")
 
     assert "FIELD1_RUN_AUTHORIZED" in text
+    assert "field1/qualification-v1" in text
+    assert "feature/field1-continuous-map-prior" not in text
     assert "workflow_dispatch" not in text
     assert "fetch-depth: 2" in text
     assert "--diff-filter=A" in text
