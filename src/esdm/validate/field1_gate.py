@@ -128,6 +128,8 @@ def _expected_comparisons():
 def evaluate_field1_gate(
     summaries,
     *,
+    h1_training_axis_rank_passed: bool,
+    h2_training_axis_rank_passed: bool,
     k6_distance_match_passed: bool,
     h2_barrier_transfer_passed: bool,
     mean_divergences_per_fit: float,
@@ -215,6 +217,18 @@ def evaluate_field1_gate(
             comparison_pass[key] = replicate_ok and material_ok and mean_ok
 
     add(
+        "training:H1_active_axis_rank",
+        bool(h1_training_axis_rank_passed),
+        bool(h1_training_axis_rank_passed),
+        "M1-M4 active edge axes are full-rank on H1 training edges",
+    )
+    add(
+        "training:H2_active_axis_rank",
+        bool(h2_training_axis_rank_passed),
+        bool(h2_training_axis_rank_passed),
+        "M1-M4 active edge axes are full-rank on H2 training edges",
+    )
+    add(
         "K6:distance_match",
         bool(k6_distance_match_passed),
         bool(k6_distance_match_passed),
@@ -243,7 +257,8 @@ def evaluate_field1_gate(
         return comparison_pass[(world, candidate, reference, holdout)]
 
     field_present = (
-        ok("K1", "M1", "M0", "H1")
+        bool(h1_training_axis_rank_passed)
+        and ok("K1", "M1", "M0", "H1")
         and ok("K0", "M1", "M0", "H1")
     )
 
@@ -254,13 +269,15 @@ def evaluate_field1_gate(
         "K5_mean1_cov1",
     )
     env_supported = (
-        ok("K2", "M2", "M1", "H1")
+        bool(h1_training_axis_rank_passed)
+        and ok("K2", "M2", "M1", "H1")
         and ok("K1", "M2", "M1", "H1")
         and all(ok(world, "M2", "M1", "H1") for world in k5_worlds)
     )
 
     barrier_supported = (
-        ok("K3", "M3", "M1", "H2")
+        bool(h2_training_axis_rank_passed)
+        and ok("K3", "M3", "M1", "H2")
         and ok("K1", "M3", "M1", "H2")
         and bool(k6_distance_match_passed)
         and bool(h2_barrier_transfer_passed)
