@@ -207,7 +207,10 @@
       "authorization_purity_passed": true,
       "replicate_jobs_started": 0,
       "scientific_shards": 0,
-      "scientific_decision": null
+      "scientific_decision": null,
+      "aggregate_artifact_id": 10930667862,
+      "aggregate_artifact_digest": "sha256:910e007f1bd75ff019e9944194c1eee50dba3bfb529a0f840ccd6b4b291310e1",
+      "aggregate_status": "INFRASTRUCTURE_BLOCKED"
     }
   },
   "literature": [
