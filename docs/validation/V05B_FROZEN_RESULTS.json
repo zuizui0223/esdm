@@ -1,0 +1,45 @@
+{
+  "schema": "esdm.v05b.frozen_results.v1",
+  "status": "FAIL",
+  "outcome_run_id": 35981265978,
+  "outcome_head_sha": "c7ed991830e69ba241bb88db3b55239da222985f",
+  "gate_freeze_commit": "0955decc9a3abfa3e30f3f4f57d90192cdecc46a",
+  "gate_blob_sha": "8cb04d4195fbd6e8e61f24f58c4202298e9e3776",
+  "observed_gate_blob_sha": "8cb04d4195fbd6e8e61f24f58c4202298e9e3776",
+  "artifact": {
+    "id": 10800257515,
+    "name": "v05b-result-35981265978",
+    "github_digest": "sha256:f0c6ff0c9555df266d9e8a2c0c38b793a2b0e36008e0a1f344ffdedcfd3421c2",
+    "independent_zip_sha256": "f0c6ff0c9555df266d9e8a2c0c38b793a2b0e36008e0a1f344ffdedcfd3421c2"
+  },
+  "summary": {
+    "replicates": 16,
+    "fit_count": 32,
+    "mean_beta": 0.9854065187461674,
+    "zero_coverage": 0.0,
+    "nonzero_interval_rate": 1.0,
+    "positive_interval_rate": 1.0,
+    "heldout_positive_gain_rate": 1.0,
+    "heldout_material_gain_rate": 1.0,
+    "mean_heldout_gain": 4.394719980541117,
+    "total_divergences": 0
+  },
+  "failed_checks": [
+    "mean_beta",
+    "zero_coverage",
+    "nonzero_interval_rate",
+    "mean_heldout_gain",
+    "material_gain_rate"
+  ],
+  "passed_checks": [
+    "replicates",
+    "fit_count",
+    "mean_divergences_per_fit"
+  ],
+  "claim_boundary": {
+    "hidden_common_driver_robustness": false,
+    "presence_only_partner_effect_causal_interpretation": false,
+    "predictive_dependence_only_without_independent_event_evidence": true,
+    "interaction_event_endpoint_required_for_higher_evidence_tier": true
+  }
+}
