@@ -75,6 +75,31 @@ the branch runtime code into `main`: v0.5f = **FAIL**, v0.7l = **FAIL**, and v0.
 completed with zero divergences, but the preregistered action-classification gate failed.
 See `docs/validation/POST_R5B_LINEAGE_STATUS.json` for the machine-readable lineage.
 
+### Frozen ODSP transfer evidence
+
+The active empirical endpoint above is unchanged, but the already-frozen held-out
+transfer evidence is now readable from `main` without checking out the historical
+v0.6/v0.7 stack.
+
+The machine-readable registry is `ODSP_TRANSFER_SOURCE_REGISTRY_V1.json`.
+Its complete evidence ledger contains:
+
+- **4 validated numeric transfer sources**: R5b activity, R5b state, v0.6a
+  accessibility, and v0.7b dynamic occupancy;
+- **10 explicit exclusions** for gain-only, identification-only, non-nested,
+  different-estimand, or scientifically failed sources.
+
+Excluded sources are **unsupported, not zero**. In particular, a scientific FAIL
+cannot be silently promoted to a numeric transfer value, and alternative model
+representations are not relabelled as nested information.
+
+The transfer layer is archival/downstream only: it does not reopen the first
+empirical endpoint, authorize a new model fit, create a global information ladder,
+feed the frozen EOG mainline, or authorize N4 survey action.
+
+See `docs/integration/ODSP_TRANSFER_SOURCE_REGISTRY.md` and
+`docs/integration/ODSP_TRANSFER_EVIDENCE_LEDGER_V2.md`.
+
 
 ## Seven design principles
 
