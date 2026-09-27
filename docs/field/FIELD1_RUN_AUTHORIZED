@@ -1,0 +1,9 @@
+programme: FIELD1
+implementation_parent_sha: 670cfbfe48a547e117c9b3e258fb2239ce9df3e5
+gate: docs/field/FIELD1_QUALIFICATION_GATE.md
+amendment: docs/field/FIELD1_QUALIFICATION_GATE_AMENDMENT_1.md
+replacement_amendment: docs/field/FIELD1_QUALIFICATION_GATE_AMENDMENT_2.md
+authorized_date: 2026-09-27
+authorization_scope: frozen Phase-A known-truth qualification replacement only
+replaces_workflow_run: 36315550882
+empirical_response_authorized: false
