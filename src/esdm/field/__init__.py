@@ -1,5 +1,10 @@
 """Spatial latent-field primitives for FIELD1."""
 
+from .diagnostics import (
+    PrecisionSensitivityDiagnostics,
+    edge_axis_correlation,
+    precision_sensitivity_diagnostics,
+)
 from .graph import (
     FrozenSpatialGraph,
     FrozenSpatialProjection,
@@ -17,6 +22,9 @@ from .precision import (
 )
 
 __all__ = [
+    "PrecisionSensitivityDiagnostics",
+    "edge_axis_correlation",
+    "precision_sensitivity_diagnostics",
     "FrozenSpatialGraph",
     "FrozenSpatialProjection",
     "ProjectionRow",
