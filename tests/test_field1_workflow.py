@@ -16,6 +16,9 @@ def test_field1_workflow_is_one_shot_and_not_currently_authorized():
     assert "workflow_dispatch" not in text
     assert "fetch-depth: 2" in text
     assert "--diff-filter=A" in text
+    assert "authorization commit must change only the marker" in text
+    assert "implementation_parent_sha" in text
+    assert "git\", \"rev-parse\", \"HEAD^" in text
     assert "marker was not newly added" in text
     assert not MARKER.exists()
 
