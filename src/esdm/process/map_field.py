@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import math
 
 from esdm.field import (
@@ -21,6 +21,43 @@ def _validate_positive(name: str, value: float) -> float:
     if not math.isfinite(numeric) or numeric <= 0.0:
         raise ValueError(f"{name} must be finite and positive")
     return numeric
+
+
+def _coherent_unit_rms_scale(
+    graph: FrozenSpatialGraph,
+    *,
+    fixed_rho: float,
+    alpha: float,
+) -> float:
+    """Match coherent and exchangeable prior energy for sigma=1.
+
+    For the exchangeable zero-sum field, E[||u||^2] = m-1 when sigma=1.
+    The fixed-coherence transform generally changes that total variance.  MAP1 rescales
+    the coherent transform by a response-blind constant so sigma has the same RMS
+    amplitude meaning in BC and BX; only correlation structure differs.
+    """
+
+    dimension = graph.node_count - 1
+    if dimension < 1:
+        raise ValueError("MAP1 coherent field requires at least two graph nodes")
+    total_energy = 0.0
+    for column in range(dimension):
+        innovations = [0.0 for _ in range(dimension)]
+        innovations[column] = 1.0
+        values = whitened_field_python(
+            graph,
+            innovations,
+            rho=float(fixed_rho),
+            gamma=0.0,
+            beta=0.0,
+            sigma=1.0,
+            alpha=float(alpha),
+        )
+        total_energy += math.fsum(float(value) * float(value) for value in values)
+    if not math.isfinite(total_energy) or total_energy <= 0.0:
+        raise ValueError("MAP1 coherent prior energy must be finite and positive")
+    return math.sqrt(dimension / total_energy)
+
 
 
 @dataclass(frozen=True, slots=True)
@@ -44,6 +81,7 @@ class FixedCoherenceMapField:
     requires: frozenset[str] = frozenset()
     latent_species_dependencies: frozenset[str] = frozenset()
     knockout_semantics: str = "set_coherent_map_field_to_zero"
+    _rms_normalization: float = field(init=False, repr=False)
 
     def __post_init__(self) -> None:
         _validate_positive("fixed_rho", self.fixed_rho)
@@ -56,6 +94,15 @@ class FixedCoherenceMapField:
             projection = FrozenSpatialProjection.identity(self.graph)
             object.__setattr__(self, "projection", projection)
         projection.validate_graph(self.graph)
+        object.__setattr__(
+            self,
+            "_rms_normalization",
+            _coherent_unit_rms_scale(
+                self.graph,
+                fixed_rho=float(self.fixed_rho),
+                alpha=float(self.alpha),
+            ),
+        )
         for value in (
             self.sigma_parameter,
             self.innovation_prefix,
@@ -63,6 +110,10 @@ class FixedCoherenceMapField:
         ):
             if not str(value).strip():
                 raise ValueError("MAP1 parameter/process names must be non-empty")
+
+    @property
+    def rms_normalization(self) -> float:
+        return float(self._rms_normalization)
 
     def innovation_parameter(self, index: int) -> str:
         return f"{self.innovation_prefix}_{int(index):04d}"
@@ -90,7 +141,7 @@ class FixedCoherenceMapField:
             rho=float(self.fixed_rho),
             gamma=0.0,
             beta=0.0,
-            sigma=float(theta[self.sigma_parameter]),
+            sigma=float(theta[self.sigma_parameter]) * self.rms_normalization,
             alpha=float(self.alpha),
         )
 
@@ -107,7 +158,7 @@ class FixedCoherenceMapField:
             rho=array_module.asarray(float(self.fixed_rho)),
             gamma=array_module.asarray(0.0),
             beta=array_module.asarray(0.0),
-            sigma=theta[self.sigma_parameter],
+            sigma=theta[self.sigma_parameter] * self.rms_normalization,
             alpha=float(self.alpha),
             array_module=array_module,
         )
