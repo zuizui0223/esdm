@@ -1,0 +1,8 @@
+programme: MAP1
+implementation_parent_sha: 86bbfe43d24af5547da3ebf0f67a80a778c97400
+gate: docs/map/MAP1_QUALIFICATION_GATE.md
+amendment: docs/map/MAP1_QUALIFICATION_GATE_AMENDMENT_1.md
+amendment_2: docs/map/MAP1_QUALIFICATION_GATE_AMENDMENT_2.md
+authorized_date: 2026-09-27
+authorization_scope: frozen MAP1 known-truth qualification only
+empirical_response_authorized: false
