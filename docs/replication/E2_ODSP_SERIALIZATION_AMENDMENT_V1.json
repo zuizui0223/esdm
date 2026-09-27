@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "amendment_id": "e2-mica-odsp-serialization-amendment-v1",
+  "frozen_date": "2026-09-27",
+  "status": "FROZEN_PRE_TEMPORAL_RESPONSE",
+  "parent_contract": "docs/replication/E2_EMPIRICAL_REPLICATION_CONTRACT.json",
+  "child_contract": "docs/replication/E2_MICA_MUSKRAT_CANDIDATE_CONTRACT.json",
+  "response_blind_result": "docs/replication/E2_MICA_RESPONSE_BLIND_GEOMETRY_HEADER_RESULT.json",
+  "response_blind_result_merge_sha": "7f36f41c21b06dc95995726a4576da70f4e3b5e0",
+  "purpose": "Freeze downstream heldout-score serialization and ODSP export semantics after MICA candidate/geometry selection but before temporal or ecological response opening.",
+  "scientific_state_preservation": {
+    "selected_candidate": "MICA_MUSKRAT",
+    "candidate_selection_status": "FROZEN_RESPONSE_BLIND",
+    "response_blind_geometry_header_status": "RESPONSE_BLIND_GEOMETRY_HEADER_PASS",
+    "temporal_integrity_opening": false,
+    "full_ecological_response_opening": false,
+    "model_fitting": false,
+    "modifies_r5b_model": false,
+    "modifies_e2_geometry": false,
+    "modifies_e2_temporal_rule": false,
+    "modifies_candidate_selection": false
+  },
+  "heldout_score_serialization": {
+    "required_absolute_fields": [
+      "full_heldout_log_score",
+      "activity_knockout_heldout_log_score",
+      "state_knockout_heldout_log_score"
+    ],
+    "derived_gain_fields": {
+      "activity_gain": "full_heldout_log_score - activity_knockout_heldout_log_score",
+      "state_gain": "full_heldout_log_score - state_knockout_heldout_log_score"
+    },
+    "same_heldout_observations_across_all_three_fits": true,
+    "gain_only_serialization_allowed": false,
+    "reconstruct_absolute_scores_from_gain_allowed": false,
+    "score_contract": {
+      "kind": "log",
+      "name": "mean_heldout_log_predictive_density",
+      "orientation": "higher_is_better",
+      "common_scoring_rule": true,
+      "common_reference_measure": true,
+      "unit": "nats_per_east_heldout_state_block_context"
+    },
+    "row_level_odsp_table": {
+      "required": true,
+      "row_unit": "one east-heldout deployment",
+      "row_id": "deploymentID",
+      "group_semantics": "east-heldout camera deployment",
+      "minimum_group_count": 12,
+      "weight": "1.0 per deployment",
+      "population_cluster": null,
+      "score_definition_per_model": "mean posterior log predictive density over the same two heldout state blocks and all scored day-of-year/hour contexts within that deployment",
+      "required_columns": [
+        "deploymentID",
+        "full_heldout_log_score",
+        "activity_knockout_heldout_log_score",
+        "state_knockout_heldout_log_score"
+      ],
+      "same_state_block_context_cells_across_all_three_fits": true,
+      "zero_count_cells_retained": true,
+      "post_response_row_grouping_changes_allowed": false,
+      "post_response_score_aggregation_changes_allowed": false
+    },
+    "aggregate_consistency": {
+      "equal_weight_mean_of_deployment_rows_must_equal_aggregate_score": true,
+      "absolute_tolerance": 1e-12,
+      "required_for": [
+        "full_heldout_log_score",
+        "activity_knockout_heldout_log_score",
+        "state_knockout_heldout_log_score"
+      ]
+    }
+  },
+  "odsp_downstream_export": {
+    "status": "PROSPECTIVE_SERIALIZATION_ONLY",
+    "changes_e2_scientific_decision": false,
+    "export_requires_completed_full_response_fit": true,
+    "export_requires_finite_absolute_scores": true,
+    "export_requires_same_heldout_observations": true,
+    "activity_contrast": {
+      "lower_information": [
+        "suitability",
+        "state"
+      ],
+      "upper_information": [
+        "suitability",
+        "state",
+        "activity"
+      ],
+      "lower_score_field": "activity_knockout_heldout_log_score",
+      "upper_score_field": "full_heldout_log_score"
+    },
+    "state_contrast": {
+      "lower_information": [
+        "suitability",
+        "activity"
+      ],
+      "upper_information": [
+        "suitability",
+        "activity",
+        "state"
+      ],
+      "lower_score_field": "state_knockout_heldout_log_score",
+      "upper_score_field": "full_heldout_log_score"
+    },
+    "activity_and_state_are_parallel_not_ordered": true,
+    "global_information_ladder_authorized": false,
+    "downstream_population_audit_role": "descriptive_only",
+    "eog_consumption_authorized": false,
+    "n4_action_authorized": false,
+    "group_semantics": "east-heldout camera deployment",
+    "minimum_population_group_count": 12,
+    "population_cluster": null,
+    "population_inference_role": "descriptive population-of-heldout-deployments audit; not a literature-prevalence or causal claim and not an authorization for spatial survey ranking",
+    "aggregate_only_export_allowed": false,
+    "requires_row_level_score_table": true
+  },
+  "one_open_governance": {
+    "temporal_integrity_must_pass_before_full_response_fit": true,
+    "response_conditioned_retuning_allowed": false,
+    "post_response_score_field_changes_allowed": false,
+    "post_response_odsp_information_order_changes_allowed": false,
+    "post_response_row_grouping_changes_allowed": false,
+    "replacement_candidate_after_full_response_consumption_allowed": false,
+    "failure_remains_failure": true
+  },
+  "current_authorization": {
+    "temporal_integrity_opening": false,
+    "full_ecological_response_opening": false,
+    "model_fitting": false,
+    "odsp_export_execution": false
+  }
+}
