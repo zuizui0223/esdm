@@ -8,16 +8,16 @@ This amendment records implementation-integrity and pre-fit identifiability hard
 added after the initial FIELD1 qualification gate was written but before any
 `FIELD1_RUN_AUTHORIZED` marker or confirmatory K0-K5 outcome existed.
 
-It does **not** change:
+The amendments below are all frozen before any confirmatory outcome. They do not change:
 
-- the K0-K5 truth worlds;
-- the K6 barrier geometry audit;
-- H1 or H2 held-out definitions;
+- the K0-K5 truth-model identities or coefficient/hyperparameter values;
 - M0-M4 model semantics;
 - the 16-replicate design;
 - positive/null gain thresholds;
 - the 300/350 x 2-chain MCMC profile;
-- any claim-promotion rule.
+- the scientific interpretation boundary.
+
+They do prospectively harden response-free geometry and execution integrity where noted.
 
 ## A1. Exact edge-axis rank refusal
 
@@ -158,3 +158,32 @@ claim before MCMC.
 
 This amendment changes no M0-M4 semantics, truth hyperparameter, comparison direction,
 gain threshold, replicate count, MCMC profile, or claim wording.
+
+
+## A8. H1 training-edge identifiability
+
+A pre-outcome audit found that holding out the entire top row left the H1 training graph
+with exact centered collinearity between geographic edge distance and environmental
+dissimilarity. In that geometry, M2 could not cleanly distinguish `rho` from `gamma`.
+
+H1 is therefore frozen as the contiguous top-middle two-node block:
+
+```text
+(c1r2, c2r2)
+```
+
+For both H1 and H2 training graphs, the deterministic active-axis ranks must be:
+
+```text
+M1 = 1
+M2 = 2
+M3 = 2
+M4 = 3
+```
+
+Failure of this training-only rank audit blocks the corresponding FIELD1 claim before
+MCMC. The audit uses geometry/covariates only and does not inspect any simulated
+confirmatory response.
+
+This pre-outcome hardening changes no truth coefficient/hyperparameter, comparison
+direction, gain threshold, replicate count, or MCMC profile.
