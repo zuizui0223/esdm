@@ -39,8 +39,26 @@
   "execution": {
     "confirmatory_outcome_authorized": false,
     "empirical_response_authorized": false,
-    "thresholds_frozen": false,
-    "mcmc_profile_frozen": false
+    "thresholds_frozen": true,
+    "qualification_gate": "docs/map/MAP1_QUALIFICATION_GATE.md",
+    "qualification_branch": "map1/qualification-v1",
+    "replicates_per_world": 16,
+    "expected_shards": 48,
+    "expected_fits": 128,
+    "gate_thresholds": {
+      "positive_min_rate": 0.75,
+      "positive_min_mean_gain": 0.005,
+      "null_max_material_gain_rate": 0.25,
+      "null_max_mean_gain": 0.005,
+      "material_gain_threshold": 0.005,
+      "max_mean_divergences_per_fit": 0.1
+    },
+    "mcmc_profile": {
+      "num_warmup": 300,
+      "num_samples": 350,
+      "num_chains": 2,
+      "target_accept_probability": 0.9
+    }
   },
   "nonclaims": [
     "spatial range",
