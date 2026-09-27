@@ -98,3 +98,36 @@ The authorization marker is then added as a separate commit. The implementation 
 
 This keeps code/gate review, outcome authorization, and result freezing as distinct
 audit events.
+
+
+## A6. Fresh latent-field realization per replicate
+
+Each stochastic FIELD1 replicate must draw a fresh zero-sum latent-field innovation
+vector from the declared generating distribution.
+
+Frozen hierarchy:
+
+```text
+world hyperparameters + graph + mean coefficients
+    fixed within world
+latent innovations z
+    independently redrawn for every replicate
+Poisson observations
+    independently generated conditional on that replicate's latent field
+```
+
+The latent-field seed is deterministically separated from the observation seed:
+
+```text
+generation_seed
+    = base_seed + world_index * 1,000,000 + replicate * 10,000
+latent_field_seed
+    = generation_seed + 503
+```
+
+This prevents the 16 replicate gate from reducing to repeated observation noise around
+one fixed spatial map. The qualification therefore evaluates predictive behavior across
+independent realizations of the declared dependence structure.
+
+This amendment changes no truth hyperparameter, graph, holdout, comparison, threshold,
+MCMC profile, or claim rule.
