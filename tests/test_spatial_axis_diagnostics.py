@@ -7,6 +7,7 @@ from esdm.field import (
     SpatialEdge,
     edge_axis_correlation,
     precision_sensitivity_diagnostics,
+    precision_sensitivity_sweep,
 )
 from esdm.validate.field1_known_truth import make_field1_fixture
 
@@ -117,6 +118,60 @@ def test_precision_sensitivity_uses_forward_difference_at_nonnegative_boundary()
     assert result.cosine[("log_rho", "gamma")] > 0.95
 
 
+
+
+
+
+def test_precision_sensitivity_sweep_reports_worst_predeclared_point():
+    fixture = make_field1_fixture()
+    sweep = precision_sensitivity_sweep(
+        fixture.graph,
+        (
+            {"log_rho": math.log(1.4), "gamma": 0.0, "beta": 0.0},
+            {"log_rho": math.log(1.4), "gamma": 1.2, "beta": 0.0},
+            {"log_rho": math.log(1.4), "gamma": 1.2, "beta": 1.4},
+        ),
+        axes=("log_rho", "gamma"),
+    )
+
+    assert len(sweep.diagnostics) == 3
+    assert sweep.worst_point_index == 0
+    assert sweep.max_condition_number == pytest.approx(
+        sweep.diagnostics[0].normalized_condition_number
+    )
+    assert sweep.max_condition_number > 6.0
+    assert sweep.min_gram_eigenvalue == pytest.approx(
+        min(
+            min(diagnostic.normalized_gram_eigenvalues)
+            for diagnostic in sweep.diagnostics
+        )
+    )
+
+
+def test_precision_sensitivity_sweep_fails_closed_on_bad_points():
+    fixture = make_field1_fixture()
+
+    with pytest.raises(ValueError, match="at least one point"):
+        precision_sensitivity_sweep(fixture.graph, ())
+
+    with pytest.raises(ValueError, match="missing keys"):
+        precision_sensitivity_sweep(
+            fixture.graph,
+            ({"log_rho": 0.0, "gamma": 0.0},),
+        )
+
+    with pytest.raises(KeyError, match="unknown keys"):
+        precision_sensitivity_sweep(
+            fixture.graph,
+            (
+                {
+                    "log_rho": 0.0,
+                    "gamma": 0.0,
+                    "beta": 0.0,
+                    "mystery": 1.0,
+                },
+            ),
+        )
 
 
 def test_exactly_dependent_precision_axes_have_infinite_condition_number():
