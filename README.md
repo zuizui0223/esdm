@@ -17,6 +17,55 @@ posterior
 
 The repository name is historical/convenient. The project does **not** claim `ESDM` as a new acronym.
 
+
+## Current scientific status
+
+The active scientific endpoint is **not another semi-synthetic generation**.
+
+The process/state design was frozen at **v0.4-R5b**, which passed its known-truth recovery
+and strict east-heldout transfer programme. The first preregistered empirical opening then
+used Snapshot Japan 2023 Camtrap DP 1.0.1 and consumed the real biological response
+exactly once. The frozen adapter stopped **before model fitting** because focal event
+`7815128` lay outside its declared deployment interval.
+
+Therefore the first empirical endpoint remains:
+
+```text
+R5b semi-synthetic PASS
+  -> one-shot real-data opening
+  -> CONSUMED_STOP_SCHEMA_OR_ESTIMABILITY
+  -> model fits = 0
+  -> heldout scores = 0
+```
+
+This is a data-contract result, not evidence for or against the ecological activity/state
+decomposition.
+
+Two separately named follow-up audits clarify the failure without changing that endpoint:
+
+- Snapshot Japan temporal-linkage audit: **13/7,620** unique animal events were outside
+  deployment intervals, all after deployment end and all within 24 h. For
+  `Cervus nippon`, **4/1,430** events violated the exact rule.
+- Independent Camtrap DP replication on Amsterdamse Waterleidingduinen pilot2
+  (DOI `10.5281/zenodo.11440456`): **0/86** unique animal events violated the same exact
+  deployment interval rule.
+
+The combined evidence therefore does **not** support the strongest explanation that exact
+deployment/event temporal matching is intrinsically incompatible with Camtrap DP.
+A Snapshot-Japan-specific, export-specific, or curation-specific boundary issue is more
+plausible, while the precise mechanism remains unresolved.
+
+The project stop rule remains in force:
+
+- do not create a new semi-synthetic v0.x gate to rescue this endpoint;
+- do not delete or repair the offending rows and rerun the first endpoint;
+- do not widen deployment intervals post hoc;
+- any future adjudication rule or empirical retry must be a separately named replication
+  programme frozen before its own outcome.
+
+Machine-readable/current audit records live under `docs/empirical/` and
+`docs/replication/`.
+
 ## Seven design principles
 
 1. **One generative graph.** Simulation, likelihood evaluation, prediction, and posterior prediction use the same process and observation modules. In-model known-truth worlds are generated from this graph rather than a separate analysis formula.
