@@ -1,0 +1,62 @@
+name: R5b temporal-linkage replication audit
+
+concurrency:
+  group: r5b-temporal-linkage-audit
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - replication/r5b-temporal-linkage-audit
+    paths:
+      - docs/replication/R5B_TEMPORAL_LINKAGE_AUDIT_CONTRACT.json
+      - docs/replication/R5B_TEMPORAL_LINKAGE_AUDIT_AUTHORIZED
+      - scripts/audit_r5b_temporal_linkage.py
+      - tests/test_r5b_temporal_linkage_audit.py
+      - .github/workflows/r5b-temporal-linkage-audit-once.yml
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]"
+      - name: Verify non-rescue audit contract
+        run: python -m pytest -q tests/test_r5b_temporal_linkage_audit.py
+      - name: Verify newly-added authorization
+        id: auth
+        run: |
+          marker=docs/replication/R5B_TEMPORAL_LINKAGE_AUDIT_AUTHORIZED
+          if [ ! -f "$marker" ]; then
+            echo "authorized=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if git diff --diff-filter=A --name-only HEAD^ HEAD | grep -Fxq "$marker"; then
+            echo "authorized=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "authorization marker was not newly added" >&2
+            exit 1
+          fi
+      - name: Run descriptive temporal-linkage audit
+        if: steps.auth.outputs.authorized == 'true'
+        run: python scripts/audit_r5b_temporal_linkage.py
+      - name: Upload audit result
+        if: steps.auth.outputs.authorized == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: r5b-temporal-linkage-audit-${{ github.run_id }}
+          path: artifacts/r5b_temporal_linkage_audit.json
+          if-no-files-found: error
+          retention-days: 90
