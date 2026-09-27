@@ -96,7 +96,11 @@ def test_h2_barrier_holdout_learns_one_barrier_and_tests_another():
 
 
 def test_k6_contains_distance_matched_barrier_and_nonbarrier_edges():
-    strata = matched_barrier_distance_strata(make_field1_fixture())
+    fixture = make_field1_fixture()
+    strata = matched_barrier_distance_strata(
+        fixture,
+        spaces=fixture.training_spaces("H2"),
+    )
     assert strata
     assert any(
         counts[0] > 0 and counts[1] > 0
@@ -173,3 +177,13 @@ def test_training_subset_drops_heldout_counts_instead_of_zero_coding_them():
 
     assert kept_spaces == set(training)
     assert kept_spaces.isdisjoint(fixture.h2_heldout_spaces)
+
+
+
+def test_k6_training_filter_rejects_unknown_space():
+    fixture = make_field1_fixture()
+    with pytest.raises(ValueError, match="unknown FIELD1 K6 audit spaces"):
+        matched_barrier_distance_strata(
+            fixture,
+            spaces=("not-a-node",),
+        )
