@@ -228,9 +228,30 @@ def aggregate_field1_shards(root: Path):
 
 def main() -> int:
     args = _parser().parse_args()
-    result = aggregate_field1_shards(Path(args.shard_dir))
     target = Path(args.output)
     target.parent.mkdir(parents=True, exist_ok=True)
+
+    try:
+        result = aggregate_field1_shards(Path(args.shard_dir))
+    except Exception as exc:
+        result = {
+            "schema": "esdm.field1.qualification_result.v1",
+            "status": "INFRASTRUCTURE_BLOCKED",
+            "scientific_decision": None,
+            "error_type": type(exc).__name__,
+            "reason": str(exc),
+        }
+        target.write_text(
+            json.dumps(result, indent=2, sort_keys=True, allow_nan=False) + "\n",
+            encoding="utf-8",
+        )
+        print(json.dumps({
+            "status": result["status"],
+            "error_type": result["error_type"],
+            "reason": result["reason"],
+        }, sort_keys=True))
+        return 2
+
     target.write_text(
         json.dumps(result, indent=2, sort_keys=True, allow_nan=False) + "\n",
         encoding="utf-8",
