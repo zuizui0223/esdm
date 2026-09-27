@@ -10,6 +10,7 @@ from esdm.validate.field1_known_truth import (
     make_field1_mean_covariance_factorial,
     make_field1_primary_worlds,
 )
+from esdm.validate.field1_run import field1_required_fit_plan
 
 
 def _worlds():
@@ -46,10 +47,13 @@ def _write_passing_shards(root):
                 ],
                 "fits": [
                     {
-                        "holdout": "H1",
-                        "model_id": "M0",
+                        "holdout": holdout,
+                        "model_id": model_id,
                         "divergences": 0,
                     }
+                    for holdout, model_id in field1_required_fit_plan(
+                        world.world_id
+                    )
                 ],
             }
             path = root / world.world_id / f"{replicate}.json"
@@ -82,3 +86,21 @@ def test_field1_aggregator_fails_closed_on_missing_shard(tmp_path):
         assert "missing shards" in str(exc)
     else:
         raise AssertionError("missing FIELD1 shard must fail closed")
+
+
+
+def test_field1_aggregator_rejects_extra_fit_that_could_dilute_divergence_rate(tmp_path):
+    _write_passing_shards(tmp_path)
+    path = tmp_path / "K1" / "0.json"
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload["fits"].append(
+        {"holdout": "H2", "model_id": "M0", "divergences": 0}
+    )
+    path.write_text(json.dumps(payload), encoding="utf-8")
+
+    try:
+        aggregate_field1_shards(tmp_path)
+    except ValueError as exc:
+        assert "fit plan drift" in str(exc)
+    else:
+        raise AssertionError("extra FIELD1 fit must fail closed")
