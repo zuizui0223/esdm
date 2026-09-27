@@ -94,6 +94,78 @@ class FrozenSpatialGraph:
         )
 
 
+def centered_edge_design_rank(
+    graph: FrozenSpatialGraph,
+    *,
+    include_environment: bool = False,
+    include_barrier: bool = False,
+    tolerance: float = 1e-10,
+) -> int:
+    """Rank of active edge covariates after removing the irrelevant common-weight mode.
+
+    Multiplying every edge conductance by the same constant cancels from normalized
+    adjacency. Dependence axes therefore need linear independence after column centering,
+    not merely raw variation.
+    """
+
+    columns = [
+        [float(edge.distance) for edge in graph.edges],
+    ]
+    if include_environment:
+        columns.append(
+            [float(edge.environmental_dissimilarity) for edge in graph.edges]
+        )
+    if include_barrier:
+        columns.append(
+            [float(edge.barrier_exposure) for edge in graph.edges]
+        )
+
+    centered = []
+    for values in columns:
+        mean = math.fsum(values) / len(values)
+        centered.append([value - mean for value in values])
+
+    matrix = [
+        [centered[column][row] for column in range(len(centered))]
+        for row in range(len(graph.edges))
+    ]
+    if not matrix:
+        return 0
+
+    scale = max(
+        1.0,
+        max(abs(value) for row in matrix for value in row),
+    )
+    cutoff = float(tolerance) * scale
+    work = [list(row) for row in matrix]
+    n_rows = len(work)
+    n_cols = len(work[0])
+    rank = 0
+    pivot_row = 0
+
+    for column in range(n_cols):
+        pivot = max(
+            range(pivot_row, n_rows),
+            key=lambda row: abs(work[row][column]),
+            default=None,
+        )
+        if pivot is None or abs(work[pivot][column]) <= cutoff:
+            continue
+        work[pivot_row], work[pivot] = work[pivot], work[pivot_row]
+        pivot_value = work[pivot_row][column]
+        for row in range(pivot_row + 1, n_rows):
+            factor = work[row][column] / pivot_value
+            if abs(factor) <= cutoff:
+                continue
+            for j in range(column, n_cols):
+                work[row][j] -= factor * work[pivot_row][j]
+        rank += 1
+        pivot_row += 1
+        if pivot_row == n_rows:
+            break
+    return rank
+
+
 @dataclass(frozen=True, slots=True)
 class ProjectionRow:
     """One response-blind interpolation row A(s) over FIELD1 graph nodes."""
