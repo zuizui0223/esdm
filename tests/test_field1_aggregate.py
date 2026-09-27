@@ -5,6 +5,7 @@ from scripts.aggregate_field1 import (
     EXPECTED_SHARD_COUNT,
     REPLICATES,
     aggregate_field1_shards,
+    main as aggregate_main,
 )
 from esdm.validate.field1_known_truth import (
     make_field1_mean_covariance_factorial,
@@ -104,3 +105,32 @@ def test_field1_aggregator_rejects_extra_fit_that_could_dilute_divergence_rate(t
         assert "fit plan drift" in str(exc)
     else:
         raise AssertionError("extra FIELD1 fit must fail closed")
+
+
+
+def test_field1_aggregate_cli_writes_infrastructure_blocked_receipt(
+    tmp_path,
+    monkeypatch,
+):
+    shard_dir = tmp_path / "shards"
+    shard_dir.mkdir()
+    output = tmp_path / "FIELD1_QUALIFICATION_RESULT.json"
+    monkeypatch.setattr(
+        "sys.argv",
+        [
+            "aggregate_field1.py",
+            "--shard-dir",
+            str(shard_dir),
+            "--output",
+            str(output),
+        ],
+    )
+
+    code = aggregate_main()
+    payload = json.loads(output.read_text(encoding="utf-8"))
+
+    assert code == 2
+    assert payload["status"] == "INFRASTRUCTURE_BLOCKED"
+    assert payload["scientific_decision"] is None
+    assert payload["error_type"] == "ValueError"
+    assert "missing shards" in payload["reason"]
