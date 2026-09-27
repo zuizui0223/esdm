@@ -1,0 +1,247 @@
+{
+  "schema": "esdm.e2.empirical_replication_contract.v1",
+  "status": "FROZEN_CANDIDATE_SELECTED_PRE_RESPONSE",
+  "frozen_date": "2026-09-27",
+  "purpose": "Prospective independent empirical replication of the frozen v0.4-R5b activity/state decomposition after the first Snapshot Japan endpoint terminated on a temporal-integrity rule.",
+  "relationship_to_active_programme": {
+    "active_model_generation": "v0.4-R5b",
+    "active_empirical_endpoint": "EMPIRICAL_ENDPOINT_CONSUMED_STOP",
+    "authoritative_status": "docs/empirical/PROGRAMME_TERMINAL_STATUS.json",
+    "rescue_of_first_endpoint": false,
+    "modifies_first_endpoint": false,
+    "modifies_r5b_model": false,
+    "new_semisynthetic_generation": false,
+    "separate_named_programme": true
+  },
+  "prior_evidence_used_only_to_define_e2_rules": {
+    "snapshot_japan": {
+      "unique_animal_events": 7620,
+      "outside_deployment_events": 13,
+      "violation_rate": 0.001706,
+      "direction": "after_deployment_end_only",
+      "all_within_seconds": 86400
+    },
+    "awd_pilot2": {
+      "unique_animal_events": 86,
+      "outside_deployment_events": 0,
+      "violation_rate": 0
+    },
+    "interpretation": "The E2 temporal adjudication rule is prospectively frozen from prior audits and is not a reinterpretation of the first empirical endpoint."
+  },
+  "candidate_selection": {
+    "selected_candidate": "MICA_MUSKRAT",
+    "candidate_selection_status": "FROZEN_RESPONSE_BLIND",
+    "candidate_child_contract": "docs/replication/E2_MICA_MUSKRAT_CANDIDATE_CONTRACT.json",
+    "selection_basis": [
+      "independent camera-trap study/package from Snapshot Japan and AWD pilot2",
+      "public Camtrap DP version 3 with deployments, observations and media resources",
+      "1539 deployments reported in publication metadata",
+      "geographic scope spans Belgium and Germany and therefore permits response-blind strict east-gap qualification",
+      "muskrat is an explicit project target and taxonomic-scope species, allowing focal-taxon selection without response-frequency inspection",
+      "CC0 data license"
+    ],
+    "rejected_metadata_only_alternative": {
+      "candidate": "GMU8_LEUVEN",
+      "reason": "public issue metadata reports 211 observations with missing eventStart; E2 requires zero unparseable/missing event timestamps, so temporal failure is predictable before any new response opening"
+    },
+    "prior_response_opened_datasets_ineligible": [
+      "Snapshot Japan 2023 Camtrap DP 1.0.1",
+      "Amsterdamse Waterleidingduinen pilot2"
+    ],
+    "previously_attempted_but_unopened_dataset_rule": "A dataset whose response rows were never opened may remain scientifically eligible in E2, but MICA is selected instead to avoid inheriting Snapshot USA transport history.",
+    "required_independence": "different camera-trap study/package from every dataset whose observation rows have already been opened by the esdm empirical programme",
+    "allowed_before_candidate_freeze": [
+      "publication and repository metadata",
+      "datapackage.json metadata",
+      "deployments.csv",
+      "observations resource schema or header only",
+      "file sizes, checksums and transport metadata"
+    ],
+    "forbidden_before_candidate_freeze": [
+      "observations.csv data rows",
+      "taxon frequencies",
+      "focal-taxon event counts",
+      "count/state frequencies",
+      "heldout response values",
+      "model scores"
+    ],
+    "minimum_geometry": {
+      "training_deployments": 50,
+      "heldout_deployments": 12,
+      "strict_east_extrapolation": true
+    },
+    "required_camtrapdp_fields": {
+      "deployments": [
+        "deploymentID",
+        "latitude",
+        "longitude",
+        "deploymentStart",
+        "deploymentEnd"
+      ],
+      "observations": [
+        "observationID",
+        "deploymentID",
+        "eventID",
+        "eventStart",
+        "observationLevel",
+        "observationType",
+        "scientificName",
+        "count"
+      ]
+    },
+    "focal_taxon_rule": "A candidate-specific child contract must name one focal mammal from publication/metadata grounds before any observation data row is opened. Selection from observed response abundance is forbidden.",
+    "state_space": [
+      "solitary",
+      "group"
+    ],
+    "state_mapping": {
+      "solitary": "event-level focal observation count == 1",
+      "group": "event-level focal observation count >= 2",
+      "missing_or_nonpositive_count": "unlabeled; never reassigned"
+    }
+  },
+  "response_blind_geometry_and_streams": {
+    "east_holdout_rule": {
+      "candidate_cuts": "every strict gap between unique deployment longitudes leaving at least 50 training deployments west and at least 12 heldout deployments east",
+      "selection": "largest longitude gap; ties choose the easternmost cut",
+      "integrity": "min heldout longitude > max training longitude"
+    },
+    "training_role_assignment": {
+      "salt": "esdm-e2-r5b-stream-v1|",
+      "hash": "SHA256(salt + UTF-8 deploymentID), first byte",
+      "opportunistic_presence": "0..63",
+      "calibrated_presence": "64..127",
+      "state_annotated": "128..207",
+      "state_calibration": "208..255",
+      "minimum_each_training_role": 8,
+      "heldout_role": "state_annotated_only",
+      "direct_state_calibration_heldout_exposure": 0
+    },
+    "if_geometry_or_role_minimum_fails": "REJECT_PRE_RESPONSE_GEOMETRY"
+  },
+  "temporal_integrity_stage": {
+    "timing": "after candidate child contract and response-blind geometry/header receipt are frozen and authorized, but before scientificName/count/state values are read",
+    "allowed_columns": [
+      "deploymentID",
+      "eventID",
+      "eventStart",
+      "observationLevel",
+      "observationType"
+    ],
+    "exact_validity_rule": "deploymentStart <= eventStart <= deploymentEnd",
+    "prospective_quarantine_rule": {
+      "applies_to": "unique event-level animal event identities across the whole candidate package, before focal-taxon filtering",
+      "tolerated_direction": "after deployment end only",
+      "maximum_lateness_seconds": 86400,
+      "maximum_quarantined_fraction": 0.005,
+      "before_deployment_start_allowed": 0,
+      "missing_deployment_allowed": 0,
+      "unparseable_event_time_allowed": 0,
+      "action": "freeze qualifying event identities into a quarantine set; exclude those identities from every ecological stream without extending deployment effort"
+    },
+    "stop_conditions": [
+      "any event occurs before deployment start",
+      "any after-end event exceeds 24 hours",
+      "quarantined fraction exceeds 0.5%",
+      "any animal event has missing deployment identity",
+      "any required event timestamp is unparseable"
+    ],
+    "prohibited_repairs": [
+      "deployment interval widening",
+      "timestamp editing",
+      "taxon-specific temporal exceptions",
+      "post-response changes to the 24-hour boundary",
+      "post-response changes to the 0.5% candidate-level fraction",
+      "reintroduction of quarantined events"
+    ],
+    "pass_receipt_required_before_full_response": true,
+    "quarantine_event_id_set_sha256_required": true
+  },
+  "frozen_r5b_information_architecture": {
+    "streams": [
+      "opportunistic PresenceOnly-like count stream with unknown effort component",
+      "calibrated PresenceOnly-like count stream with explicit deployment effort",
+      "state-annotated count stream consuming suitability, activity and state",
+      "direct conditional state-composition calibration stream consuming state only"
+    ],
+    "ecological_channels": [
+      "suitability",
+      "activity",
+      "conditional state composition"
+    ],
+    "domain_requires": [
+      "space",
+      "day-of-year",
+      "hour"
+    ],
+    "process_covariate_roles": {
+      "suitability": [
+        "precipitation",
+        "latitude",
+        "eastness",
+        "seasonal phase"
+      ],
+      "activity": [
+        "precipitation",
+        "eastness",
+        "seasonal phase",
+        "diurnal phase"
+      ],
+      "state": [
+        "precipitation",
+        "eastness",
+        "seasonal phase",
+        "diurnal phase"
+      ]
+    },
+    "climate_source_rule": "The candidate-specific precipitation source and extraction receipt must be frozen before full response opening; response-conditioned feature search is forbidden."
+  },
+  "frozen_fit_and_endpoints": {
+    "mcmc": {
+      "warmup": 300,
+      "posterior_samples": 350,
+      "chains": 2,
+      "target_accept_probability": 0.9
+    },
+    "fits": [
+      "full",
+      "activity knockout",
+      "state knockout"
+    ],
+    "primary": [
+      "sampling/convergence diagnostics",
+      "east-heldout full log predictive density",
+      "east-heldout full-minus-activity-knockout gain",
+      "east-heldout full-minus-state-knockout gain"
+    ],
+    "secondary": [
+      "posterior parameter summaries",
+      "activity probabilities",
+      "state probabilities",
+      "derived spatial/temporal summaries"
+    ],
+    "empirical_interpretation": {
+      "activity_process_predictive_support": "activity gain > 0 with acceptable fit diagnostics",
+      "state_process_predictive_support": "state gain > 0 with acceptable fit diagnostics",
+      "no_parameter_recovery_claim": true,
+      "no_causal_claim": true
+    }
+  },
+  "one_open_governance": {
+    "candidate_child_contract_required": true,
+    "response_blind_geometry_header_receipt_required": true,
+    "temporal_integrity_authorization_required": true,
+    "full_response_authorization_required_after_temporal_pass": true,
+    "response_conditioned_retuning_allowed": false,
+    "replacement_candidate_after_full_response_consumption_allowed": false,
+    "failure_remains_failure": true
+  },
+  "current_authorization": {
+    "candidate_search": false,
+    "candidate_selected": true,
+    "response_blind_geometry_header_opening": false,
+    "temporal_integrity_opening": false,
+    "full_ecological_response_opening": false,
+    "model_fitting": false
+  }
+}
