@@ -1,0 +1,101 @@
+{
+  "schema": "esdm.field1.postmortem_diagnostics.v1",
+  "date": "2026-09-27",
+  "status": "POST_OUTCOME_DESCRIPTIVE_ONLY",
+  "source_result": "docs/field/FIELD1_PHASE_A_FROZEN_RESULTS.json",
+  "reopens_field1": false,
+  "authorizes_rerun": false,
+  "frozen_outcome": {
+    "status": "FAIL",
+    "claims": {
+      "FIELD_PRESENT": true,
+      "ENV_DEPENDENCE_SUPPORTED": false,
+      "BARRIER_DEPENDENCE_SUPPORTED": false,
+      "FULL_MAP_STRUCTURE_SUPPORTED": false
+    },
+    "fit_count": 704,
+    "total_divergences": 360,
+    "mean_divergences_per_fit": 0.5113636363636364
+  },
+  "deterministic_geometry": {
+    "edge_distance_environment_correlation": {
+      "full_graph": -0.9520338803397449,
+      "H1_training": -0.9494452321020922,
+      "H2_training": -0.9493573365260932
+    },
+    "precision_sensitivity_cosine": {
+      "K1_boundary_rho_gamma": 0.9594570955089043,
+      "K2_rho_gamma": 0.941863654093204,
+      "K4_rho_gamma": 0.8999357779095545,
+      "K4_rho_beta": 0.4151587421926987,
+      "K4_gamma_beta": 0.4432588703855775
+    },
+    "interpretation": [
+      "distance and environmental-dissimilarity axes are full-rank but practically near-collinear in the frozen fixture",
+      "rho and gamma perturb the normalized projected precision in very similar directions",
+      "the barrier axis is less aligned with rho at K4, so its failure is not explained by the same simple near-collinearity"
+    ]
+  },
+  "frozen_outcome_patterns": {
+    "field_control": {
+      "K0_M1_minus_M0_H1": {
+        "material_gain_rate": 0.0625,
+        "mean_gain": -0.0754848352130171
+      },
+      "K1_M1_minus_M0_H1": {
+        "positive_gain_rate": 0.75,
+        "mean_gain": 4.719712239631082
+      }
+    },
+    "environmental_axis": {
+      "K0_M2_minus_M1_H1": {
+        "material_gain_rate": 0.5625,
+        "mean_gain": 0.0087256248739572
+      },
+      "K1_M2_minus_M1_H1": {
+        "material_gain_rate": 0.6875,
+        "mean_gain": 0.023060546787712882
+      },
+      "K5_mean0_cov0": {
+        "positive_gain_rate": 0.5625,
+        "material_gain_rate": 0.5625,
+        "mean_gain": 0.0076214830448000925
+      },
+      "K5_mean0_cov1": {
+        "positive_gain_rate": 0.5625,
+        "material_gain_rate": 0.5,
+        "mean_gain": 0.02257491592294364
+      },
+      "K5_mean1_cov0": {
+        "positive_gain_rate": 0.375,
+        "material_gain_rate": 0.3125,
+        "mean_gain": -0.05168850625119345
+      },
+      "K5_mean1_cov1": {
+        "positive_gain_rate": 0.5625,
+        "material_gain_rate": 0.5625,
+        "mean_gain": -0.000877822947621204
+      }
+    },
+    "barrier_axis": {
+      "K3_M3_minus_M1_H2": {
+        "positive_gain_rate": 0.4375,
+        "mean_gain": -0.014885711580730626
+      },
+      "K4_M3_minus_M1_H2": {
+        "positive_gain_rate": 0.625,
+        "mean_gain": 0.17011694700436514
+      },
+      "K4_M4_minus_M2_H2": {
+        "positive_gain_rate": 0.4375,
+        "mean_gain": 0.0026430698586187296
+      }
+    }
+  },
+  "terminal_lessons": [
+    "exact centered edge rank is insufficient as a practical covariance-axis separation criterion",
+    "a coherent latent spatial field can be useful without supporting mechanistic interpretation",
+    "axis-level covariance interpretation requires its own conditioning/sensitivity diagnostics",
+    "sampling reliability remains an independent promotion gate"
+  ]
+}
