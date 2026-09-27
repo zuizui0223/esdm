@@ -15,7 +15,7 @@ from esdm.validate.map1_run import map1_required_fit_plan
 
 REPLICATES = 16
 EXPECTED_SHARD_COUNT = 3 * REPLICATES
-EXPECTED_FIT_COUNT = 128
+EXPECTED_FIT_COUNT = 144
 
 
 def _world_ids():
