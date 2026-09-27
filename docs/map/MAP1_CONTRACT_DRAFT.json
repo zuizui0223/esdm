@@ -25,7 +25,13 @@
     "estimated_environment_axis": false,
     "estimated_barrier_axis": false,
     "sigma_prior": "HalfNormal(scale=0.75)",
-    "latent_parameterization": "zero-sum whitened"
+    "latent_parameterization": "zero-sum whitened",
+    "amplitude_normalization": {
+      "target": "match exchangeable zero-sum expected squared norm conditional on sigma",
+      "formula": "c = sqrt((m-1) / tr(Q_c^-1)); u_coherent = sigma*c*H*L^-T*z",
+      "invariant": "E[||u_coherent||^2 | sigma=1] = E[||u_exchangeable||^2 | sigma=1] = m-1",
+      "response_blind": true
+    }
   },
   "known_truth": {
     "worlds": [
@@ -58,6 +64,20 @@
       "num_samples": 350,
       "num_chains": 2,
       "target_accept_probability": 0.9
+    },
+    "qualification_gate_amendments": [
+      "docs/map/MAP1_QUALIFICATION_GATE_AMENDMENT_1.md"
+    ],
+    "authorization_marker_contract": {
+      "path": "docs/map/MAP1_RUN_AUTHORIZED",
+      "must_be_new_file": true,
+      "authorization_commit_changes_only_marker": true,
+      "required_fields": {
+        "programme": "MAP1",
+        "implementation_parent_sha": "must equal HEAD^",
+        "gate": "docs/map/MAP1_QUALIFICATION_GATE.md",
+        "amendment": "docs/map/MAP1_QUALIFICATION_GATE_AMENDMENT_1.md"
+      }
     }
   },
   "nonclaims": [
