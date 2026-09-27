@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "receipt_id": "e2-mica-muskrat-response-blind-geometry-header-result-v1",
+  "validated_date": "2026-09-27",
+  "parent_contract": "docs/replication/E2_EMPIRICAL_REPLICATION_CONTRACT.json",
+  "child_contract": "docs/replication/E2_MICA_MUSKRAT_CANDIDATE_CONTRACT.json",
+  "authorization": {
+    "branch": "e2/mica-response-blind-v1",
+    "head_sha": "42f9988431e72a019777d59a8c4a85205e805049",
+    "implementation_parent_sha": "cdf55af51b8b5b4eb453b4660922ce0214e5f961",
+    "workflow_run_id": 36316560475,
+    "run_attempt": 1,
+    "conclusion": "success"
+  },
+  "artifact": {
+    "id": 10930544605,
+    "name": "e2-mica-response-blind-36316560475",
+    "digest": "sha256:48947b418593b0833291c30a9f5394fb911685776c402c6a8b4d0691ae610154",
+    "result_filename": "E2_MICA_RESPONSE_BLIND_GEOMETRY_HEADER_RESULT.json",
+    "result_sha256": "b323d03d9c234edf7b9abd1cbb808fae726cc9013a34977d54e4bfeef71f5ae9"
+  },
+  "result": {
+    "status": "RESPONSE_BLIND_GEOMETRY_HEADER_PASS",
+    "candidate_id": "MICA_MUSKRAT",
+    "archive_sha256": "8346f3fe467a201525d6bedd4ebd6e2078457ee8bb778501d41d55ace7d962c9",
+    "datapackage_sha256": "f1145dcbf3e189644fb3819d8045dabc65ec2ca0d2e07d397958eac0b36acad7",
+    "deployments_sha256": "f199b4277eb2f800c3593ad9225de1e12eb3a0fa9fbfd4b2234dc213490ffcca",
+    "deployment_count": 1539,
+    "training_deployment_count": 805,
+    "heldout_deployment_count": 734,
+    "max_training_longitude": 4.841,
+    "min_heldout_longitude": 5.628,
+    "longitude_gap": 0.7869999999999999,
+    "strict_east_extrapolation": true,
+    "training_role_counts": {
+      "opportunistic_presence": 187,
+      "calibrated_presence": 197,
+      "state_annotated": 266,
+      "state_calibration": 155
+    },
+    "fingerprints": {
+      "training_ids_sha256": "a1e08526edb3d1f329fc7a4e9a2efa2bc4dc50313b393026a429f3a87d57f566",
+      "heldout_ids_sha256": "c4990c23de1787db84f9ae23310730b284c6ea159c7c0a806a7fcb01ffaf1db2",
+      "training_role_map_sha256": "1fcd776854484ed5b0e19c20b49aed81fa22d5947b5d26120c50155e1369c7e4",
+      "manifest_sha256": "73bd722aaa3083bcef7e154ac0fcdae60b21e13503fe2625fe41803dc5c2fa89",
+      "observation_header_sha256": "d90d51afbde14f01c5d1c3254ef6b6251ff5399ca9759e2998311d7a6b8e700c"
+    }
+  },
+  "response_boundary": {
+    "observations_data_rows_read": 0,
+    "scientific_name_values_read": false,
+    "count_values_read": false,
+    "state_values_read": false,
+    "taxon_frequencies_computed": false,
+    "focal_event_counts_computed": false,
+    "model_fits": 0,
+    "heldout_scores": 0,
+    "temporal_opening_completed": false,
+    "full_response_opened": false
+  },
+  "next_stage": {
+    "allowed": "temporal-integrity-only audit using deploymentID,eventID,eventStart,observationLevel,observationType",
+    "requires_new_authorization": true,
+    "must_recompute_archive_deployment_split_fingerprints_and_match": true,
+    "full_response_remains_forbidden": true
+  }
+}
