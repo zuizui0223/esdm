@@ -1,0 +1,18 @@
+v0.7l selective adaptation one-shot authorization
+
+authorized_date: 2026-09-26
+gate_contract: docs/validation/V07L_SELECTIVE_ADAPTATION_GATE.md
+gate_freeze_commit: 363318c3c30aa9ff37b3d39153ecc8ab3100a14a
+gate_merge_commit: af07a36d192b3a4cd6f9e53ed6c60febda4f335c
+audit_merge_commit: d17364d6b013a3ea0653c0d3961839c0d9454ae7
+audit_workflow_run: 36125673492
+audit_artifact_id: 10859324317
+authorized_branch: feature/v07l-selective-adaptation-gate
+
+This marker authorizes exactly the frozen v0.7l 0.80-trigger selective-adaptation
+programme: four fresh worlds, 16 independent pilot/confirm pairs per world, and
+the preregistered classification, policy-regret, recovery and sampling gates.
+
+No trigger, world, seed, MCMC setting, selector, recovery threshold, classification
+threshold, regret threshold, or interpretation boundary is changed by this
+authorization.
