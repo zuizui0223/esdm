@@ -58,7 +58,8 @@
     "validity_rule": "deploymentStart <= eventStart <= deploymentEnd",
     "missing_deployment_allowed": 0,
     "before_start_allowed": 0,
-    "unparseable_or_offsetless_event_start_allowed": 0
+    "unparseable_or_offsetless_event_start_allowed": 0,
+    "deployment_time_parse_rule": "deploymentStart and deploymentEnd must be ISO-8601 parseable timestamps with explicit UTC offsets"
   },
   "quarantine_rule": {
     "tolerated_direction": "after deployment end only",
@@ -68,7 +69,8 @@
     "event_identity_serialization": "deploymentID + U+001F + eventID",
     "quarantine_set_order": "lexicographic by serialized event identity",
     "quarantine_set_sha256_required": true,
-    "later_action": "exclude frozen quarantine identities from every ecological stream without widening deployment intervals or adding effort"
+    "later_action": "exclude frozen quarantine identities from every ecological stream without widening deployment intervals or adding effort",
+    "quarantine_set_hash_input": "UTF-8 serialized event identities in frozen lexicographic order, joined by newline characters with one terminal newline; empty quarantine set hashes empty bytes"
   },
   "stop_conditions": [
     "any unique event identity has missing deploymentID or eventID",
