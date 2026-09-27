@@ -24,10 +24,14 @@ _EDGE_AXES = {
 
 @dataclass(frozen=True, slots=True)
 class PrecisionSensitivityDiagnostics:
-    """Pairwise cosine geometry of projected-precision derivatives."""
+    """Scale-aware and scale-free geometry of projected-precision derivatives."""
 
     derivative_norms: object
     cosine: object
+    axes: tuple[str, ...] = ()
+    normalized_gram: object = ()
+    normalized_gram_eigenvalues: tuple[float, ...] = ()
+    normalized_condition_number: float = 1.0
 
     def __post_init__(self) -> None:
         object.__setattr__(
@@ -37,15 +41,32 @@ class PrecisionSensitivityDiagnostics:
                 {str(key): float(value) for key, value in dict(self.derivative_norms).items()}
             ),
         )
+        clean_cosine = MappingProxyType(
+            {
+                tuple(str(part) for part in key): float(value)
+                for key, value in dict(self.cosine).items()
+            }
+        )
+        axes = tuple(str(axis) for axis in self.axes)
+        gram = tuple(
+            tuple(float(value) for value in row)
+            for row in self.normalized_gram
+        )
+        eigenvalues = tuple(
+            float(value) for value in self.normalized_gram_eigenvalues
+        )
+        object.__setattr__(self, "cosine", clean_cosine)
+        object.__setattr__(self, "axes", axes)
+        object.__setattr__(self, "normalized_gram", gram)
         object.__setattr__(
             self,
-            "cosine",
-            MappingProxyType(
-                {
-                    tuple(str(part) for part in key): float(value)
-                    for key, value in dict(self.cosine).items()
-                }
-            ),
+            "normalized_gram_eigenvalues",
+            eigenvalues,
+        )
+        object.__setattr__(
+            self,
+            "normalized_condition_number",
+            float(self.normalized_condition_number),
         )
 
 
@@ -170,6 +191,87 @@ def _matrix_cosine(a, b):
     return max(-1.0, min(1.0, value))
 
 
+
+
+def _symmetric_eigenvalues_jacobi(matrix, *, tolerance=1e-12, max_sweeps=100):
+    """Eigenvalues of a small real symmetric matrix without a NumPy dependency."""
+
+    work = [list(map(float, row)) for row in matrix]
+    n = len(work)
+    if n == 0 or any(len(row) != n for row in work):
+        raise ValueError("symmetric eigensolver requires a non-empty square matrix")
+    if n == 1:
+        return (work[0][0],)
+
+    for _sweep in range(int(max_sweeps)):
+        p = q = 0
+        largest = 0.0
+        for i in range(n):
+            for j in range(i + 1, n):
+                value = abs(work[i][j])
+                if value > largest:
+                    largest = value
+                    p, q = i, j
+        if largest <= float(tolerance):
+            break
+
+        app = work[p][p]
+        aqq = work[q][q]
+        apq = work[p][q]
+        angle = 0.5 * math.atan2(2.0 * apq, aqq - app)
+        cos_a = math.cos(angle)
+        sin_a = math.sin(angle)
+
+        for k in range(n):
+            if k in (p, q):
+                continue
+            aik = work[p][k]
+            aqk = work[q][k]
+            work[p][k] = work[k][p] = cos_a * aik - sin_a * aqk
+            work[q][k] = work[k][q] = sin_a * aik + cos_a * aqk
+
+        work[p][p] = (
+            cos_a * cos_a * app
+            - 2.0 * sin_a * cos_a * apq
+            + sin_a * sin_a * aqq
+        )
+        work[q][q] = (
+            sin_a * sin_a * app
+            + 2.0 * sin_a * cos_a * apq
+            + cos_a * cos_a * aqq
+        )
+        work[p][q] = work[q][p] = 0.0
+    else:
+        raise RuntimeError("symmetric eigensolver did not converge")
+
+    return tuple(sorted(work[index][index] for index in range(n)))
+
+
+def _normalized_sensitivity_gram(requested, derivatives):
+    rows = []
+    for left in requested:
+        row = []
+        for right in requested:
+            if left == right:
+                row.append(1.0)
+            else:
+                row.append(_matrix_cosine(derivatives[left], derivatives[right]))
+        rows.append(tuple(row))
+    gram = tuple(rows)
+    eigenvalues = _symmetric_eigenvalues_jacobi(gram)
+
+    # The Gram matrix is positive semidefinite mathematically. Clip tiny negative
+    # roundoff before constructing the scale-free Jacobian condition number.
+    clipped = tuple(max(0.0, value) for value in eigenvalues)
+    minimum = min(clipped)
+    maximum = max(clipped)
+    if minimum <= 1e-12:
+        condition = math.inf
+    else:
+        condition = math.sqrt(maximum / minimum)
+    return gram, clipped, condition
+
+
 def precision_sensitivity_diagnostics(
     graph: FrozenSpatialGraph,
     *,
@@ -251,4 +353,15 @@ def precision_sensitivity_diagnostics(
                 derivatives[left],
                 derivatives[right],
             )
-    return PrecisionSensitivityDiagnostics(norms, cosines)
+    gram, gram_eigenvalues, condition = _normalized_sensitivity_gram(
+        requested,
+        derivatives,
+    )
+    return PrecisionSensitivityDiagnostics(
+        derivative_norms=norms,
+        cosine=cosines,
+        axes=requested,
+        normalized_gram=gram,
+        normalized_gram_eigenvalues=gram_eigenvalues,
+        normalized_condition_number=condition,
+    )
