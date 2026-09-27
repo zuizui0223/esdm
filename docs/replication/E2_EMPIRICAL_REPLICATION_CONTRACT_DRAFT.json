@@ -234,7 +234,36 @@
         "unit": "nats_per_east_heldout_state_block_context"
       },
       "gain_only_serialization_allowed": false,
-      "reconstruct_absolute_scores_from_gain_allowed": false
+      "reconstruct_absolute_scores_from_gain_allowed": false,
+      "row_level_odsp_table": {
+        "required": true,
+        "row_unit": "one east-heldout deployment",
+        "row_id": "deploymentID",
+        "group_semantics": "east-heldout camera deployment",
+        "minimum_group_count": 12,
+        "weight": "1.0 per deployment",
+        "population_cluster": null,
+        "score_definition_per_model": "mean posterior log predictive density over the same two heldout state blocks and all scored day-of-year/hour contexts within that deployment",
+        "required_columns": [
+          "deploymentID",
+          "full_heldout_log_score",
+          "activity_knockout_heldout_log_score",
+          "state_knockout_heldout_log_score"
+        ],
+        "same_state_block_context_cells_across_all_three_fits": true,
+        "zero_count_cells_retained": true,
+        "post_response_row_grouping_changes_allowed": false,
+        "post_response_score_aggregation_changes_allowed": false
+      },
+      "aggregate_consistency": {
+        "equal_weight_mean_of_deployment_rows_must_equal_aggregate_score": true,
+        "absolute_tolerance": 1e-12,
+        "required_for": [
+          "full_heldout_log_score",
+          "activity_knockout_heldout_log_score",
+          "state_knockout_heldout_log_score"
+        ]
+      }
     }
   },
   "one_open_governance": {
@@ -290,6 +319,12 @@
     "global_information_ladder_authorized": false,
     "downstream_population_audit_role": "descriptive_only",
     "eog_consumption_authorized": false,
-    "n4_action_authorized": false
+    "n4_action_authorized": false,
+    "group_semantics": "east-heldout camera deployment",
+    "minimum_population_group_count": 12,
+    "population_cluster": null,
+    "population_inference_role": "descriptive population-of-heldout-deployments audit; not a literature-prevalence or causal claim and not an authorization for spatial survey ranking",
+    "aggregate_only_export_allowed": false,
+    "requires_row_level_score_table": true
   }
 }
