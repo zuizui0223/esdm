@@ -11,6 +11,7 @@ still perturb the normalized precision matrix in almost the same direction.
 from esdm.field import (
     edge_axis_correlation,
     precision_sensitivity_diagnostics,
+    precision_sensitivity_sweep,
 )
 ```
 
@@ -78,3 +79,17 @@ It does not by itself establish:
 
 Use it before outcome opening to reject obviously poor covariance decompositions or to
 decide that only a single residual spatial field is interpretable.
+
+
+### Parameter-point sweep
+
+`precision_sensitivity_sweep(...)` evaluates the same local Jacobian geometry over an
+explicit sequence of predeclared parameter points. It returns the diagnostics for every
+point plus:
+
+- the index of the worst-conditioned point;
+- the maximum normalized-Jacobian condition number;
+- the minimum normalized-Gram eigenvalue across the sweep.
+
+This avoids treating one convenient hyperparameter point as representative of an entire
+planned design. The points must be chosen before response inspection.
