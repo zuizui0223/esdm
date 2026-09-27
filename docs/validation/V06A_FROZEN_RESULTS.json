@@ -1,0 +1,71 @@
+{
+  "schema": "esdm.v06a.frozen_results.v1",
+  "status": "PASS",
+  "outcome_run_id": 35989902607,
+  "outcome_head_sha": "9552fff0a1d580d446c1793a6c889351bbe63821",
+  "gate_freeze_commit": "425fc21b4d6e2285a8e04690f08d30fd4b5a34ab",
+  "gate_blob_sha": "8b601d3919284af9129aca0bf94563305c7cf0f2",
+  "observed_gate_blob_sha": "8b601d3919284af9129aca0bf94563305c7cf0f2",
+  "qualification_artifact": {
+    "id": 10803373374,
+    "name": "v06a-qualification-35989902607",
+    "github_digest": "sha256:dfd2dcdb4e5d0e3c77cdbc05924b12962d92465a14c4930ecf0e9deaef1834d6"
+  },
+  "outcome_artifact": {
+    "id": 10804831269,
+    "name": "v06a-result-35989902607",
+    "github_digest": "sha256:978a10cbd9c6d0fcd382a925b47e6311e26658ad5c91c8ec9b2a50f4442b73e5",
+    "independent_zip_sha256": "978a10cbd9c6d0fcd382a925b47e6311e26658ad5c91c8ec9b2a50f4442b73e5"
+  },
+  "qualification": {
+    "positive_structural_pass": true,
+    "positive_practical_pass": true,
+    "joint_only_refusal_pass": true,
+    "positive_condition_number": 4.550239046119232,
+    "positive_relative_min_singular_value": 0.21976867365965558,
+    "positive_target_sd_proxy": {
+      "sp.suitability.suitability_intercept": 0.10610166883063295,
+      "sp.suitability.beta_habitat": 0.10783399468738075,
+      "sp.accessibility.access_intercept": 0.17776291367372035,
+      "sp.accessibility.beta_distance": 0.19828138692397607
+    },
+    "joint_only_structural_rank_full": 1,
+    "joint_only_structural_rank_without_target": 1,
+    "joint_only_accessibility_target_sd_proxy": 10536.448648146692,
+    "joint_only_suitability_target_sd_proxy": 4228.406862194071
+  },
+  "summary": {
+    "replicates": 16,
+    "fit_count": 32,
+    "mean_biases": {
+      "sp.suitability.suitability_intercept": 0.017794627006852755,
+      "sp.suitability.beta_habitat": 0.0023446925011064434,
+      "sp.accessibility.access_intercept": -0.04018941103279695,
+      "sp.accessibility.beta_distance": 0.05556078588590033
+    },
+    "coverages": {
+      "sp.suitability.suitability_intercept": 0.9375,
+      "sp.suitability.beta_habitat": 1.0,
+      "sp.accessibility.access_intercept": 0.9375,
+      "sp.accessibility.beta_distance": 0.875
+    },
+    "positive_gain_rate": 1.0,
+    "mean_gain": 0.36244191577864204,
+    "minimum_gain": 0.03241652472572465,
+    "total_divergences": 0
+  },
+  "gate": {
+    "passed": true,
+    "checks_passed": 16,
+    "checks_total": 16
+  },
+  "claim_boundary": {
+    "joint_only_suitability_accessibility_separation": false,
+    "direct_accessibility_information_enables_separation": true,
+    "accessibility_parameter_recovery": true,
+    "heldout_joint_occurrence_transfer_without_direct_accessibility_exposure": true,
+    "movement_kernel_identification": false,
+    "dynamic_colonization_extinction": false,
+    "causal_movement_limitation": false
+  }
+}
