@@ -129,6 +129,7 @@ def evaluate_field1_gate(
     summaries,
     *,
     k6_distance_match_passed: bool,
+    h2_barrier_transfer_passed: bool,
     mean_divergences_per_fit: float,
     config: Field1GateConfig | None = None,
 ) -> Field1GateDecision:
@@ -219,6 +220,15 @@ def evaluate_field1_gate(
         bool(k6_distance_match_passed),
         "at least one matched edge-distance stratum has barrier and non-barrier edges",
     )
+    add(
+        "K6:H2_barrier_transfer_geometry",
+        bool(h2_barrier_transfer_passed),
+        bool(h2_barrier_transfer_passed),
+        (
+            "H2 training contains an observed-side barrier edge and the heldout "
+            "boundary contains a separate barrier edge"
+        ),
+    )
     divergence_ok = (
         float(mean_divergences_per_fit) <= cfg.max_mean_divergences_per_fit
     )
@@ -253,6 +263,7 @@ def evaluate_field1_gate(
         ok("K3", "M3", "M1", "H2")
         and ok("K1", "M3", "M1", "H2")
         and bool(k6_distance_match_passed)
+        and bool(h2_barrier_transfer_passed)
     )
 
     full_supported = (
