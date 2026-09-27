@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "contract_id": "e2-mica-temporal-integrity-v1",
+  "status": "FROZEN_PRE_TEMPORAL_OPENING",
+  "frozen_date": "2026-09-27",
+  "parent_contract": "docs/replication/E2_EMPIRICAL_REPLICATION_CONTRACT.json",
+  "candidate_contract": "docs/replication/E2_MICA_MUSKRAT_CANDIDATE_CONTRACT.json",
+  "response_blind_receipt": "docs/replication/E2_MICA_RESPONSE_BLIND_GEOMETRY_HEADER_RESULT.json",
+  "purpose": "Adjudicate deployment/event temporal integrity for the frozen MICA candidate before any taxon, count, state, model-fit or heldout-score opening.",
+  "source_binding": {
+    "archive_url": "https://ipt.inbo.be/archive.do?r=mica-agouti&v=3",
+    "expected_archive_sha256": "8346f3fe467a201525d6bedd4ebd6e2078457ee8bb778501d41d55ace7d962c9",
+    "expected_deployments_sha256": "f199b4277eb2f800c3593ad9225de1e12eb3a0fa9fbfd4b2234dc213490ffcca",
+    "expected_training_ids_sha256": "a1e08526edb3d1f329fc7a4e9a2efa2bc4dc50313b393026a429f3a87d57f566",
+    "expected_heldout_ids_sha256": "c4990c23de1787db84f9ae23310730b284c6ea159c7c0a806a7fcb01ffaf1db2",
+    "expected_training_role_map_sha256": "1fcd776854484ed5b0e19c20b49aed81fa22d5947b5d26120c50155e1369c7e4",
+    "expected_manifest_sha256": "73bd722aaa3083bcef7e154ac0fcdae60b21e13503fe2625fe41803dc5c2fa89",
+    "expected_observation_header_sha256": "d90d51afbde14f01c5d1c3254ef6b6251ff5399ca9759e2998311d7a6b8e700c",
+    "response_blind_workflow_run_id": 36316560475,
+    "response_blind_artifact_id": 10930544605
+  },
+  "column_projection": {
+    "allowed_application_columns": [
+      "deploymentID",
+      "eventID",
+      "eventStart",
+      "observationLevel",
+      "observationType"
+    ],
+    "prohibited_application_columns": [
+      "scientificName",
+      "count",
+      "classificationMethod",
+      "individualID",
+      "lifeStage",
+      "sex",
+      "behavior"
+    ],
+    "operational_definition_of_not_opened": "Archive and CSV row bytes may pass through transport/parser infrastructure, but prohibited ecological fields must never be projected into named application variables, retained in audit records, compared, summarized, logged, serialized or used for branching.",
+    "taxon_filtering_allowed": false,
+    "count_or_state_mapping_allowed": false
+  },
+  "event_population": {
+    "filter": "observationLevel == event AND observationType == animal",
+    "identity": [
+      "deploymentID",
+      "eventID"
+    ],
+    "duplicate_rule": "duplicate rows with the same event identity must have exactly one consistent eventStart; any conflicting eventStart stops the audit",
+    "deployment_id_required": true,
+    "event_id_required": true,
+    "event_start_required": true,
+    "event_start_parse_rule": "ISO-8601 parseable timestamp with explicit UTC offset",
+    "denominator": "all unique event-level animal event identities in the candidate package before focal-taxon filtering"
+  },
+  "deployment_integrity": {
+    "deployment_interval_source": "frozen deployments.csv",
+    "validity_rule": "deploymentStart <= eventStart <= deploymentEnd",
+    "missing_deployment_allowed": 0,
+    "before_start_allowed": 0,
+    "unparseable_or_offsetless_event_start_allowed": 0
+  },
+  "quarantine_rule": {
+    "tolerated_direction": "after deployment end only",
+    "maximum_lateness_seconds": 86400,
+    "maximum_quarantined_fraction": 0.005,
+    "denominator": "all unique event-level animal event identities",
+    "event_identity_serialization": "deploymentID + U+001F + eventID",
+    "quarantine_set_order": "lexicographic by serialized event identity",
+    "quarantine_set_sha256_required": true,
+    "later_action": "exclude frozen quarantine identities from every ecological stream without widening deployment intervals or adding effort"
+  },
+  "stop_conditions": [
+    "any unique event identity has missing deploymentID or eventID",
+    "any event-level animal eventStart is missing, unparseable or lacks UTC offset",
+    "duplicate event identity has conflicting eventStart values",
+    "event deploymentID is absent from frozen deployments",
+    "any event occurs before deploymentStart",
+    "any after-end event is more than 86400 seconds late",
+    "quarantined unique-event fraction exceeds 0.005"
+  ],
+  "valid_terminal_statuses": [
+    "TEMPORAL_INTEGRITY_PASS_CLEAN",
+    "TEMPORAL_INTEGRITY_PASS_WITH_QUARANTINE",
+    "STOP_TEMPORAL_INTEGRITY"
+  ],
+  "pass_requirements": {
+    "source_fingerprints_match_response_blind_receipt": true,
+    "stop_condition_count": 0,
+    "quarantine_manifest_and_sha256_frozen": true,
+    "full_response_authorization_still_required": true
+  },
+  "prohibited_repairs": [
+    "deployment interval widening",
+    "timestamp editing",
+    "timezone imputation",
+    "taxon-specific temporal exceptions",
+    "post-opening change to 86400-second boundary",
+    "post-opening change to 0.005 quarantine fraction",
+    "reintroduction of quarantined events"
+  ],
+  "response_boundary": {
+    "scientificName_projected": false,
+    "count_projected": false,
+    "state_mapping_performed": false,
+    "taxon_frequency_computed": false,
+    "focal_event_count_computed": false,
+    "ecological_model_fit_allowed": false,
+    "heldout_score_allowed": false,
+    "full_response_opening_authorized": false
+  },
+  "execution": {
+    "authorization_marker": "docs/replication/E2_MICA_TEMPORAL_AUTHORIZED.json",
+    "marker_must_be_newly_added": true,
+    "authorization_commit_must_change_only_marker": true,
+    "authorization_parent_must_equal_contract_merge_commit": true,
+    "one_authorized_run": true,
+    "workflow_dispatch_enabled": false,
+    "rerun_same_v1_after_material_failure_allowed": false
+  }
+}
