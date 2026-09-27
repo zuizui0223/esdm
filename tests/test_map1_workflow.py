@@ -12,6 +12,8 @@ def test_map1_workflow_is_separate_one_shot_branch():
     assert "workflow_dispatch" not in text
     assert "authorization commit must change only the marker" in text
     assert "implementation_parent_sha" in text
+    assert "MAP1_QUALIFICATION_GATE_AMENDMENT_1.md" in text
+    assert "MAP1 amendment mismatch" in text
 
 
 def test_map1_workflow_contains_complete_frozen_matrix():
