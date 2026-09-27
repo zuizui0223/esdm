@@ -1,0 +1,43 @@
+{
+  "schema": "esdm.v06b.frozen_results.v1",
+  "status": "COMPLETE",
+  "interpretation": "B_structural_but_practically_weak",
+  "outcome_run_id": 36012218442,
+  "outcome_head_sha": "20fa4da582c1442d693b8dc0217fc5cad29f30ba",
+  "gate_freeze_commit": "a4cd5f2ac809fd4db65ce4418f0648a55978fd59",
+  "gate_blob_sha": "31d121519fe018c4cc20d75bfbfadbecc932f7a7",
+  "observed_gate_blob_sha": "31d121519fe018c4cc20d75bfbfadbecc932f7a7",
+  "artifact": {
+    "id": 10813480338,
+    "name": "v06b-joint-audit-36012218442",
+    "github_digest": "sha256:682edb0c534ae7418dc77a7d4586907cbbad511e1b210f8960533cfead04be17"
+  },
+  "intercept_only_control": {
+    "refused": true,
+    "rank_full": 1,
+    "rank_without_target": 1,
+    "suitability_intercept_sd_proxy": 4228.406862194071,
+    "accessibility_intercept_sd_proxy": 10536.448648146692
+  },
+  "structured_joint_only": {
+    "all_structurally_identified": true,
+    "all_practically_identified": false,
+    "rank_full": 4,
+    "rank_without_target": 3,
+    "relative_min_singular_value": 0.03756595135358882,
+    "condition_number": 26.619850262476213,
+    "target_sd_proxy": {
+      "sp.suitability.suitability_intercept": 0.4946346697899174,
+      "sp.suitability.beta_habitat": 0.11028310569535983,
+      "sp.accessibility.access_intercept": 1.475331511265461,
+      "sp.accessibility.beta_distance": 0.9102304962650177
+    }
+  },
+  "interpretation_boundary": {
+    "independent_accessibility_data_universally_required_for_structural_identification": false,
+    "structured_joint_only_local_identification_possible": true,
+    "structured_joint_only_practically_adequate_under_frozen_threshold": false,
+    "direct_accessibility_calibration_sufficient_for_practical_identification_in_v06a": true,
+    "joint_only_local_identification_is_independent_ecological_evidence": false
+  }
+}
