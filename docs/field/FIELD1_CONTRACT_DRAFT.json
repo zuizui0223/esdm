@@ -108,7 +108,7 @@
     "K6_distance_matched_barrier_control"
   ],
   "heldout_geometry": {
-    "H1": "contiguous top-row spatial block",
+    "H1": "contiguous top-middle two-node block (c1r2,c2r2), frozen to preserve full-rank H1 training edge axes",
     "H2": "rightmost column beyond a second predeclared barrier; H2 training contains a separate barrier of the same type",
     "implementation": "separate train and heldout Grid domain views sharing the same graph and parameter sites",
     "zero_effort_padding": false,
@@ -215,7 +215,11 @@
       "layout": "4x3 lattice",
       "temporal_contexts_per_space": 4,
       "barrier": "two vertical barriers: columns 0/1 inside H2 training and columns 2/3 at the H2 transfer boundary",
-      "response_free": true
+      "response_free": true,
+      "h1_heldout": [
+        "c1r2",
+        "c2r2"
+      ]
     },
     "primary_worlds": {
       "K0": {
@@ -380,6 +384,22 @@
       "observation_counts": "independent Poisson draw conditional on replicate latent field",
       "generation_seed_formula": "base_seed + world_index*1000000 + replicate*10000",
       "latent_field_seed_offset": 503
+    },
+    "training_edge_axis_rank": {
+      "scope": "training edges only",
+      "H1": {
+        "M1": 1,
+        "M2": 2,
+        "M3": 2,
+        "M4": 3
+      },
+      "H2": {
+        "M1": 1,
+        "M2": 2,
+        "M3": 2,
+        "M4": 3
+      },
+      "required_before_claims": true
     }
   }
 }
