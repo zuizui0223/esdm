@@ -120,15 +120,17 @@ def run_field1_replicate(
     fixture = make_field1_fixture()
 
     truth_model = make_field1_model(fixture, world.truth_model_id)
-    truth_theta = field1_truth_theta(
-        fixture,
-        world.truth_model_id,
-        mean_environment_beta=world.mean_environment_beta,
-    )
     generation_seed = (
         int(base_seed)
         + world_index * 1_000_000
         + replicate * 10_000
+    )
+    latent_field_seed = generation_seed + 503
+    truth_theta = field1_truth_theta(
+        fixture,
+        world.truth_model_id,
+        mean_environment_beta=world.mean_environment_beta,
+        innovation_seed=latent_field_seed,
     )
     generated = simulate_presence_only(
         truth_model,
