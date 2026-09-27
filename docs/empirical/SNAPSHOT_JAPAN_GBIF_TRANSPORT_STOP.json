@@ -1,0 +1,25 @@
+{
+  "schema": "esdm.empirical_r5b.snapshot_japan_gbif_transport_stop.v1",
+  "status": "STOP_PRE_RESPONSE_SOURCE_ARCHIVE_TRANSPORT",
+  "workflow_run_id": 36239784192,
+  "workflow_head_sha": "1db296bc89b160288894602220e1cbfd1b82e9ce",
+  "artifact": {
+    "id": 10905164210,
+    "name": "empirical-snapshot-japan-gbif-transport-36239784192",
+    "github_digest": "sha256:021459756c8b74abacaddc69f8d1b39833d331c2b6e3af78b60f1507e58a90a2",
+    "independent_zip_sha256": "021459756c8b74abacaddc69f8d1b39833d331c2b6e3af78b60f1507e58a90a2"
+  },
+  "source_archive_url": "https://gbif.jp/ipt/archive.do?r=snapshot_japan_2023",
+  "reason": "HEAD returned HTTP 403 before any response body byte was opened",
+  "request_method": "HEAD",
+  "request_count": 1,
+  "response_payload_bytes": 0,
+  "response_rows_opened": 0,
+  "response_values_opened": false,
+  "species_values_opened": false,
+  "age_values_opened": false,
+  "model_fits": 0,
+  "heldout_scores": 0,
+  "route_repair_within_attempt_allowed": false,
+  "counts_as_empirical_result": false
+}
