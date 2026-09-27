@@ -23,6 +23,8 @@ from esdm.validate.field1_run import field1_required_fit_plan
 
 
 REPLICATES = 16
+EXPECTED_SHARD_COUNT = 9 * REPLICATES
+EXPECTED_FIT_COUNT = 704
 
 
 def _world_ids():
@@ -167,6 +169,17 @@ def aggregate_field1_shards(root: Path):
     mean_divergences = (
         total_divergences / fit_count if fit_count else math.inf
     )
+    if len(by_identity) != EXPECTED_SHARD_COUNT:
+        raise RuntimeError(
+            f"FIELD1 shard-count invariant drift: {len(by_identity)} "
+            f"!= {EXPECTED_SHARD_COUNT}"
+        )
+    if fit_count != EXPECTED_FIT_COUNT:
+        raise RuntimeError(
+            f"FIELD1 fit-count invariant drift: {fit_count} "
+            f"!= {EXPECTED_FIT_COUNT}"
+        )
+
     decision = evaluate_field1_gate(
         summaries,
         k6_distance_match_passed=k6_pass,
