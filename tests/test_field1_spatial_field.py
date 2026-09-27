@@ -22,10 +22,18 @@ NUMPYRO_AVAILABLE = importlib.util.find_spec("numpyro") is not None
 
 def _graph():
     return FrozenSpatialGraph(
-        nodes=("a", "b", "c"),
+        nodes=("a", "b", "c", "d"),
         edges=(
             SpatialEdge("a", "b", 1.0, environmental_dissimilarity=0.2),
-            SpatialEdge("b", "c", 1.2, environmental_dissimilarity=0.8, barrier_exposure=1.0),
+            SpatialEdge(
+                "b",
+                "c",
+                1.2,
+                environmental_dissimilarity=0.8,
+                barrier_exposure=1.0,
+            ),
+            SpatialEdge("c", "d", 1.5, environmental_dissimilarity=0.1),
+            SpatialEdge("a", "d", 2.0, environmental_dissimilarity=0.6),
             SpatialEdge("a", "c", 1.8, environmental_dissimilarity=0.4),
         ),
     )
@@ -40,7 +48,7 @@ def _theta(process):
         theta[process.gamma_parameter] = 0.2
     if process.use_barrier_dependence:
         theta[process.beta_parameter] = 0.4
-    for index, value in enumerate((1.0, -0.5)):
+    for index, value in enumerate((1.0, -0.5, 0.25)):
         theta[process.innovation_parameter(index)] = value
     return theta
 
@@ -70,10 +78,10 @@ def test_dense_precision_is_symmetric_with_positive_diagonal():
         beta=1.1,
         sigma=0.8,
     )
-    assert len(precision) == 3
-    for i in range(3):
+    assert len(precision) == 4
+    for i in range(4):
         assert precision[i][i] > 0.0
-        for j in range(3):
+        for j in range(4):
             assert precision[i][j] == pytest.approx(precision[j][i])
 
 
@@ -223,11 +231,11 @@ def test_axis_flags_control_only_declared_hyperparameters():
     assert full.beta_parameter in full_priors
     assert full_priors[full.gamma_parameter].distribution == "HalfNormal"
     assert full_priors[full.beta_parameter].distribution == "HalfNormal"
-    assert sum(name.startswith(full.innovation_prefix) for name in full_priors) == 2
+    assert sum(name.startswith(full.innovation_prefix) for name in full_priors) == 3
 
 
 def test_spatial_field_integrates_with_existing_model_and_knockout():
-    grid = Grid(space=("a", "b", "c"), doy=(1,), hour=(0,))
+    grid = Grid(space=("a", "b", "c", "d"), doy=(1,), hour=(0,))
     spatial = GraphSpatialField(_graph())
     model = Model(
         grid,
@@ -293,6 +301,7 @@ def test_field1_dense_transform_is_end_to_end_differentiable():
             process.beta_parameter: hyper[3],
             process.innovation_parameter(0): 1.0,
             process.innovation_parameter(1): -0.5,
+            process.innovation_parameter(2): 0.25,
         }
         values = process.node_field_array(theta, array_module=jnp)
         return jnp.sum(values * values)
@@ -371,5 +380,6 @@ def test_field1_uses_existing_numpyro_prior_and_observation_graph():
     assert "sp.spatial_field.field_beta" in trace
     assert "sp.spatial_field.field_z_0000" in trace
     assert "sp.spatial_field.field_z_0001" in trace
-    assert "sp.spatial_field.field_z_0002" not in trace
+    assert "sp.spatial_field.field_z_0002" in trace
+    assert "sp.spatial_field.field_z_0003" not in trace
     assert "obs.records.sp" in trace
