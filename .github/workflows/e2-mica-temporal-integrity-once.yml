@@ -3,9 +3,9 @@ name: E2 MICA temporal integrity once
 on:
   push:
     branches:
-      - e2/mica-temporal-integrity-v1
+      - e2/mica-temporal-integrity-v1-r2
     paths:
-      - 'docs/replication/E2_MICA_TEMPORAL_INTEGRITY_AUTHORIZED.json'
+      - 'docs/replication/E2_MICA_TEMPORAL_INTEGRITY_AUTHORIZED_R2.json'
 
 permissions:
   contents: read
@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -31,7 +31,7 @@ jobs:
           from pathlib import Path
 
           marker_path = Path(
-              "docs/replication/E2_MICA_TEMPORAL_INTEGRITY_AUTHORIZED.json"
+              "docs/replication/E2_MICA_TEMPORAL_INTEGRITY_AUTHORIZED_R2.json"
           )
           marker = json.loads(marker_path.read_text())
 
@@ -51,9 +51,11 @@ jobs:
           if changed != [marker_path.as_posix()]:
               raise SystemExit(
                   "temporal authorization commit must change only "
-                  "E2_MICA_TEMPORAL_INTEGRITY_AUTHORIZED.json"
+                  "E2_MICA_TEMPORAL_INTEGRITY_AUTHORIZED_R2.json"
               )
 
+          if marker["replacement_amendment"] != "e2-mica-temporal-integrity-r2-infrastructure-amendment-v1":
+              raise SystemExit("temporal R2 replacement amendment mismatch")
           if marker["candidate_id"] != "MICA_MUSKRAT":
               raise SystemExit("temporal authorization candidate mismatch")
           if marker["stage"] != "temporal_integrity_only":
