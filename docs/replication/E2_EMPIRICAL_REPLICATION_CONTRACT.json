@@ -1,6 +1,6 @@
 {
   "schema": "esdm.e2.empirical_replication_contract.v1",
-  "status": "FROZEN_CANDIDATE_SELECTED_PRE_RESPONSE",
+  "status": "FROZEN_PRE_FULL_RESPONSE_READY",
   "frozen_date": "2026-09-27",
   "purpose": "Prospective independent empirical replication of the frozen v0.4-R5b activity/state decomposition after the first Snapshot Japan endpoint terminated on a temporal-integrity rule.",
   "relationship_to_active_programme": {
@@ -239,9 +239,18 @@
   "current_authorization": {
     "candidate_search": false,
     "candidate_selected": true,
-    "response_blind_geometry_header_opening": false,
-    "temporal_integrity_opening": false,
+    "response_blind_geometry_header_opening": "completed_pass",
+    "temporal_integrity_opening": "completed_pass",
+    "response_blind_climate": "completed_pass",
     "full_ecological_response_opening": false,
     "model_fitting": false
+  },
+  "pre_response_status": {
+    "response_blind_geometry_header": "PASS",
+    "temporal_integrity": "PASS",
+    "climate": "PASS",
+    "temporal_result": "docs/replication/E2_MICA_TEMPORAL_INTEGRITY_RESULT.json",
+    "climate_receipt": "docs/replication/E2_MICA_WORLDCLIM_FROZEN.json",
+    "full_response_contract": "docs/replication/E2_MICA_FULL_RESPONSE_CONTRACT.json"
   }
 }
