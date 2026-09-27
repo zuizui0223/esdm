@@ -99,6 +99,7 @@ def centered_edge_design_rank(
     *,
     include_environment: bool = False,
     include_barrier: bool = False,
+    spaces=None,
     tolerance: float = 1e-10,
 ) -> int:
     """Rank of active edge covariates after removing the irrelevant common-weight mode.
@@ -108,16 +109,32 @@ def centered_edge_design_rank(
     not merely raw variation.
     """
 
+    eligible = None if spaces is None else {str(space) for space in spaces}
+    if eligible is not None:
+        unknown = eligible - set(graph.nodes)
+        if unknown:
+            raise ValueError(
+                f"unknown FIELD1 edge-rank spaces: {sorted(unknown)}"
+            )
+    edges = tuple(
+        edge
+        for edge in graph.edges
+        if eligible is None
+        or (edge.left in eligible and edge.right in eligible)
+    )
+    if not edges:
+        return 0
+
     columns = [
-        [float(edge.distance) for edge in graph.edges],
+        [float(edge.distance) for edge in edges],
     ]
     if include_environment:
         columns.append(
-            [float(edge.environmental_dissimilarity) for edge in graph.edges]
+            [float(edge.environmental_dissimilarity) for edge in edges]
         )
     if include_barrier:
         columns.append(
-            [float(edge.barrier_exposure) for edge in graph.edges]
+            [float(edge.barrier_exposure) for edge in edges]
         )
 
     centered = []
@@ -127,7 +144,7 @@ def centered_edge_design_rank(
 
     matrix = [
         [centered[column][row] for column in range(len(centered))]
-        for row in range(len(graph.edges))
+        for row in range(len(edges))
     ]
     if not matrix:
         return 0
