@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "authorization_id": "e2-mica-temporal-integrity-r2-authorization-v1",
+  "candidate_id": "MICA_MUSKRAT",
+  "stage": "temporal_integrity_only",
+  "implementation_parent_sha": "ace137b576c8ffa81acdcf829f769b7eb1a93b43",
+  "replacement_amendment": "e2-mica-temporal-integrity-r2-infrastructure-amendment-v1",
+  "replaces_workflow_run": 36317883452,
+  "one_shot": true,
+  "full_response_authorized": false,
+  "authorized_date": "2026-09-28"
+}
