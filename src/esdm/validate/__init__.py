@@ -21,6 +21,7 @@ from .field1_run import (
 from .field1_known_truth import (
     Field1Fixture,
     Field1KnownTruthWorld,
+    barrier_transfer_geometry_audit,
     field1_truth_theta,
     make_field1_fixture,
     make_field1_mean_covariance_factorial,
