@@ -187,3 +187,22 @@ confirmatory response.
 
 This pre-outcome hardening changes no truth coefficient/hyperparameter, comparison
 direction, gain threshold, replicate count, or MCMC profile.
+
+
+## A9. Authorization commit purity
+
+The qualification outcome may be triggered only by a dedicated authorization commit on
+`field1/qualification-v1`.
+
+That commit must:
+
+- add exactly one file: `docs/field/FIELD1_RUN_AUTHORIZED`;
+- change no source, test, workflow, graph, gate, contract, threshold, or documentation
+  file besides the marker;
+- declare `programme: FIELD1`;
+- declare `implementation_parent_sha` exactly equal to the commit's `HEAD^`;
+- declare the frozen gate and Amendment 1 paths exactly.
+
+The workflow verifies these conditions before installing dependencies or launching any
+replicate. This prevents authorization from being combined with a last-moment scientific
+or implementation change.
