@@ -95,3 +95,49 @@ def test_e2_post_response_cannot_change_odsp_score_contract_or_order():
     assert governance["post_response_odsp_information_order_changes_allowed"] is False
     assert governance["replacement_candidate_after_full_response_consumption_allowed"] is False
     assert governance["failure_remains_failure"] is True
+
+
+def test_e2_freezes_deployment_level_score_rows_for_future_population_audit():
+    contract = _read()
+    serialization = contract["frozen_fit_and_endpoints"]["heldout_score_serialization"]
+    rows = serialization["row_level_odsp_table"]
+
+    assert rows["required"] is True
+    assert rows["row_unit"] == "one east-heldout deployment"
+    assert rows["row_id"] == "deploymentID"
+    assert rows["group_semantics"] == "east-heldout camera deployment"
+    assert rows["minimum_group_count"] == 12
+    assert rows["weight"] == "1.0 per deployment"
+    assert rows["population_cluster"] is None
+    assert rows["required_columns"] == [
+        "deploymentID",
+        "full_heldout_log_score",
+        "activity_knockout_heldout_log_score",
+        "state_knockout_heldout_log_score",
+    ]
+    assert rows["same_state_block_context_cells_across_all_three_fits"] is True
+    assert rows["zero_count_cells_retained"] is True
+    assert rows["post_response_row_grouping_changes_allowed"] is False
+    assert rows["post_response_score_aggregation_changes_allowed"] is False
+
+    consistency = serialization["aggregate_consistency"]
+    assert consistency["equal_weight_mean_of_deployment_rows_must_equal_aggregate_score"] is True
+    assert consistency["absolute_tolerance"] == 1e-12
+    assert consistency["required_for"] == [
+        "full_heldout_log_score",
+        "activity_knockout_heldout_log_score",
+        "state_knockout_heldout_log_score",
+    ]
+
+
+def test_e2_odsp_population_audit_requires_row_level_scores_not_aggregate_only():
+    export = _read()["odsp_downstream_export"]
+
+    assert export["group_semantics"] == "east-heldout camera deployment"
+    assert export["minimum_population_group_count"] == 12
+    assert export["population_cluster"] is None
+    assert export["aggregate_only_export_allowed"] is False
+    assert export["requires_row_level_score_table"] is True
+    assert "descriptive population-of-heldout-deployments audit" in (
+        export["population_inference_role"]
+    )
