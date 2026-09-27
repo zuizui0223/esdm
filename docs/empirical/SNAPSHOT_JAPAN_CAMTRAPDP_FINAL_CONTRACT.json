@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "contract_id": "empirical-r5b-snapshot-japan-camtrapdp-final-v1",
+  "status": "FROZEN_BEFORE_FIRST_CAMTRAPDP_RESPONSE_OPEN",
+  "frozen_date": "2026-09-27",
+  "scientific_parent": {
+    "r5b_branch": "feature/v04-r5b-recovery-transfer",
+    "r5b_gate_status": "PASS",
+    "empirical_entry_contract": "docs/validation/EMPIRICAL_ENTRY_R5B_FREEZE.md",
+    "no_further_semisynthetic_gate_before_empirical_result": true
+  },
+  "terminal_prior_attempts": [
+    "Algar header transport STOP with zero response bytes",
+    "Snapshot USA 2024 transport v1-v3 STOP with zero response rows",
+    "Snapshot Japan Wildlife Insights header schema STOP with zero response rows"
+  ],
+  "source": {
+    "article_doi": "10.3897/BDJ.13.e141168",
+    "supplement_doi": "10.3897/BDJ.13.e141168.suppl4",
+    "zenodo_record": 15030971,
+    "format": "Camtrap DP 1.0.1",
+    "file_name": "oo_1246258.zip",
+    "url": "https://zenodo.org/api/records/15030971/files/oo_1246258.zip/content",
+    "md5": "742f186013ef3b60e9754df73e5269de",
+    "required_members": ["deployments.csv", "observations.csv"]
+  },
+  "climate_input": {
+    "receipt": "docs/empirical/SNAPSHOT_JAPAN_CAMTRAPDP_CLIMATE_FROZEN.json",
+    "workflow_run_id": 36271741095,
+    "artifact_id": 10916116137,
+    "artifact_name": "empirical-snapshot-japan-camtrapdp-climate-36271741095",
+    "artifact_digest": "sha256:ea56dd7d4b231787434b4f24911d74caaa886802e991997193dc04a21eedaaaa",
+    "camera_climate_sha256": "abecf035ebf7862df52a61be6ea34e89086961b67891359776582da08ab27ea4",
+    "worldclim_archive_sha256": "00513224583665ec0f2f955a4ec252730c4deb2004cce9e793492a3f26df4dcf",
+    "worldclim_bio12_raster_sha256": "1e823e951ace0186c6eadd7368b4d0385c8f51cc952282c0f2d640bf7790fea5"
+  },
+  "focal_endpoint": {
+    "species": "Cervus nippon",
+    "species_match": "exact case-sensitive scientificName",
+    "observation_level": "event",
+    "observation_type": "animal",
+    "event_identity": "deploymentID + eventID",
+    "event_count_rule": "sum all positive integer count values across exact focal event-level rows sharing deploymentID and eventID",
+    "presence_rule": "each unique focal event contributes one event count regardless of group size",
+    "state_space": ["solitary", "group"],
+    "state_rule": {
+      "solitary": "summed focal event count == 1",
+      "group": "summed focal event count >= 2"
+    },
+    "missing_count_rule": "missing count is allowed only in presence-only deployments; any missing focal count in state_annotated, state_calibration, or heldout_state_annotated is a consumed hard STOP"
+  },
+  "spatial_contract": {
+    "expected_deployment_count": 90,
+    "east_threshold_longitude": 140.25698549999998,
+    "training_rule": "deployment longitude < east_threshold_longitude",
+    "heldout_rule": "deployment longitude > east_threshold_longitude",
+    "expected_training_count": 70,
+    "expected_heldout_count": 20,
+    "strict_extrapolation": "min heldout longitude > max training longitude",
+    "climate_coordinate_match_tolerance_degrees": 0.00001
+  },
+  "training_stream_partition": {
+    "unit": "deploymentID",
+    "hash": "SHA256('snapshot-japan-camtrapdp-r5b-stream-v1|' + deploymentID), first byte",
+    "buckets": [
+      {
+        "stream": "opportunistic_presence",
+        "byte_range": [0, 63],
+        "observation": "PresenceOnly",
+        "effort": "structural camera-active mask plus one unknown seasonal log-linear coefficient; exact camera-day effort deliberately withheld"
+      },
+      {
+        "stream": "calibrated_presence",
+        "byte_range": [64, 127],
+        "observation": "PresenceOnly",
+        "effort": "known overlapping camera-days in each six-hour context"
+      },
+      {
+        "stream": "state_annotated",
+        "byte_range": [128, 207],
+        "observation": "StateAnnotatedCount",
+        "effort": "known overlapping camera-days in each six-hour context"
+      },
+      {
+        "stream": "state_calibration",
+        "byte_range": [208, 255],
+        "observation": "StateCompositionCount",
+        "effort": "observed number of labeled focal events in that context; conditional composition sample size only"
+      }
+    ],
+    "minimum_training_deployments_each_stream": 8,
+    "heldout_stream": "state_annotated",
+    "direct_state_calibration_heldout_exposure": 0,
+    "training_streams_disjoint": true
+  },
+  "temporal_contract": {
+    "event_timestamp": "eventStart local civil components as encoded by its timezone offset",
+    "week": "ISO calendar week",
+    "representative_doy": "day-of-year of ISO Thursday",
+    "hour_bins": [
+      {"hours": "00-05", "representative_hour": 3},
+      {"hours": "06-11", "representative_hour": 9},
+      {"hours": "12-17", "representative_hour": 15},
+      {"hours": "18-23", "representative_hour": 21}
+    ],
+    "camera_effort": "exact temporal overlap in days between deployment interval and each six-hour context"
+  },
+  "ecological_processes": {
+    "suitability_covariates": ["precip_z_train", "lat_z_train", "eastness_z_train", "season_sin"],
+    "activity_covariates": ["precip_z_train", "eastness_z_train", "season_cos", "diurnal_cos"],
+    "state_covariates": ["precip_z_train", "eastness_z_train", "season_sin", "diurnal_sin"],
+    "state_reference": "solitary",
+    "precipitation": "WorldClim BIO12 frozen response-blind and standardized using training cameras only",
+    "latitude_and_eastness": "standardized using training Camtrap DP deployments only"
+  },
+  "consumed_estimability_stops": {
+    "minimum_opportunistic_focal_events": 10,
+    "minimum_calibrated_focal_events": 10,
+    "minimum_training_state_annotated_each_state": 10,
+    "minimum_state_calibration_each_state": 10,
+    "minimum_heldout_state_annotated_each_state": 5,
+    "deployment_count_or_east_split_drift": true,
+    "climate_coordinate_mismatch": true,
+    "required_member_or_column_missing": true,
+    "focal_event_outside_deployment_interval": true
+  },
+  "response_capture": {
+    "external_source_gets": 1,
+    "download_full_zip_once": true,
+    "verify_md5_before_parsing": true,
+    "run_adapter_and_estimability_before_any_model_fit": true,
+    "capture_artifact_contains": ["oo_1246258.zip", "capture_result.json"],
+    "model_fits_in_capture_stage": 0,
+    "heldout_scores_in_capture_stage": 0
+  },
+  "fit": {
+    "source": "captured GitHub artifact only; no second external biological-response GET",
+    "full_fit": true,
+    "activity_knockout_fit": true,
+    "state_knockout_fit": true,
+    "num_warmup": 300,
+    "num_samples": 350,
+    "num_chains": 2,
+    "target_accept_probability": 0.90,
+    "rng_seed_full": 20260927,
+    "rng_seed_activity_knockout": 20260928,
+    "rng_seed_state_knockout": 20260929,
+    "parameter_interval_mass": 0.90
+  },
+  "primary_empirical_endpoints": {
+    "full_east_heldout_log_predictive_density": true,
+    "activity_gain": "full minus activity-knockout east-heldout annotated-state mean log predictive density",
+    "state_gain": "full minus state-knockout east-heldout annotated-state mean log predictive density",
+    "direction_rule": "positive gain supports transferred information for that process; zero or negative gain does not",
+    "minimum_effect_size_threshold": null,
+    "prediction_endpoint_used_for_design_selection": false
+  },
+  "sampling_gate": {
+    "all_three_fits_must_complete": true,
+    "total_divergences_required": 0,
+    "finite_heldout_scores_required": true,
+    "failure_status": "EMPIRICAL_SAMPLING_STOP"
+  },
+  "one_open_rule": {
+    "response_settings_may_change_after_capture": false,
+    "estimability_thresholds_may_change_after_capture": false,
+    "model_or_covariates_may_change_after_capture": false,
+    "candidate_switch_after_consumed_response": false,
+    "negative_or_null_empirical_result_is_terminal": true,
+    "followup_requires_separately_named_exploratory_programme": true
+  },
+  "valid_capture_statuses": [
+    "RESPONSE_CAPTURE_QUALIFIED",
+    "STOP_PRE_RESPONSE_TRANSPORT",
+    "CONSUMED_STOP_SCHEMA_OR_ESTIMABILITY"
+  ],
+  "valid_fit_statuses": [
+    "EMPIRICAL_RESULT",
+    "EMPIRICAL_SAMPLING_STOP"
+  ]
+}

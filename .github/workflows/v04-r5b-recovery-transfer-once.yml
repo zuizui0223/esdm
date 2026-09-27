@@ -1,0 +1,109 @@
+name: v0.4-R5b frozen recovery and transfer
+
+on:
+  push:
+    branches:
+      - feature/v04-r5b-recovery-transfer
+    paths:
+      - .github/workflows/v04-r5b-recovery-transfer-once.yml
+      - docs/validation/V04_R5B_RUN_AUTHORIZED
+      - docs/validation/V04_R5B_OUTCOME_GATE.md
+      - scripts/run_v04_r5b_replicate.py
+      - scripts/aggregate_v04_r5b.py
+      - src/esdm/validate/v04_r5b_*.py
+      - src/esdm/validate/v04_r5a_*.py
+      - src/esdm/observe/state_composition.py
+      - tests/test_v04_r5b_*.py
+
+jobs:
+  precheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    outputs:
+      authorized: ${{ steps.authorization.outputs.authorized }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install validation dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,inference]"
+      - name: Check explicit R5b authorization
+        id: authorization
+        run: |
+          if [ -f docs/validation/V04_R5B_RUN_AUTHORIZED ]; then
+            echo "authorized=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "authorized=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Verify frozen R5b contracts
+        run: |
+          python -m pytest -q             tests/test_v04_state_composition.py             tests/test_v04_r5a_fixture.py             tests/test_v04_r5a_gate.py             tests/test_v04_r5b_run.py             tests/test_v04_r5b_gate.py             tests/test_v04_r5b_gate_freeze.py             tests/test_v04_r5b_scripts.py             tests/test_v04_r5b_workflow.py             tests/test_v04_r2_run.py             tests/test_v04_r2_gate.py
+
+  replicate:
+    needs: precheck
+    if: needs.precheck.outputs.authorized == 'true'
+    strategy:
+      fail-fast: false
+      max-parallel: 16
+      matrix:
+        replicate: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install inference dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[inference]"
+      - name: Run frozen R5b replicate
+        run: |
+          mkdir -p artifacts
+          python scripts/run_v04_r5b_replicate.py             --replicate ${{ matrix.replicate }}             --output artifacts/replicate-${{ matrix.replicate }}.json
+      - name: Upload R5b shard
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v04-r5b-shard-${{ matrix.replicate }}-${{ github.run_id }}
+          path: artifacts/replicate-${{ matrix.replicate }}.json
+          if-no-files-found: error
+
+  aggregate:
+    needs: [precheck, replicate]
+    if: always() && needs.precheck.outputs.authorized == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Initialize fail-closed final artifact
+        run: |
+          mkdir -p artifacts/shards
+          printf '%s\n' '{"schema":"esdm.v04_r5b.outcome.v1","status":"INFRASTRUCTURE_BLOCKED"}'             > artifacts/v04_r5b_outcome.json
+      - name: Download R5b shards
+        uses: actions/download-artifact@v4
+        with:
+          pattern: v04-r5b-shard-*-${{ github.run_id }}
+          path: artifacts/shards
+          merge-multiple: true
+      - name: Install aggregation dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,inference]"
+      - name: Aggregate frozen R5b outcome
+        run: |
+          python scripts/aggregate_v04_r5b.py             --shard-dir artifacts/shards             --output artifacts/v04_r5b_outcome.json
+      - name: Upload final R5b artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v04-r5b-outcome-${{ github.run_id }}
+          path: artifacts/v04_r5b_outcome.json
+          if-no-files-found: error

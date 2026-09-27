@@ -1,0 +1,82 @@
+name: v0.3.1 Gate F memory diagnostic once
+
+on:
+  push:
+    branches:
+      - feature/v031-identification-fixes
+    paths:
+      - .github/workflows/v031-gate-f-memory-diagnostic-once.yml
+
+jobs:
+  gate-f-memory-diagnostic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install inference dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[inference]"
+      - name: Run one exact-profile Gate F replicate for memory diagnosis
+        shell: bash
+        run: |
+          mkdir -p artifacts
+          cat > /tmp/v031_gate_f_memory_diagnostic.py <<'PY'
+          from dataclasses import asdict
+          import json
+          from pathlib import Path
+
+          from scripts.run_v031_semisynthetic import (
+              FROZEN_BASE_SEED,
+              FROZEN_CHAINS,
+              FROZEN_CREDIBLE_MASS,
+              FROZEN_SAMPLES,
+              FROZEN_WARMUP,
+              _fetch_source,
+          )
+          from esdm.validate.v031_semisynthetic_gate import run_v031_semisynthetic_benchmark
+
+          source_bytes, source_audit = _fetch_source()
+          result = run_v031_semisynthetic_benchmark(
+              source_bytes.decode("utf-8"),
+              replicates=1,
+              base_seed=FROZEN_BASE_SEED,
+              num_warmup=FROZEN_WARMUP,
+              num_samples=FROZEN_SAMPLES,
+              num_chains=FROZEN_CHAINS,
+              credible_mass=FROZEN_CREDIBLE_MASS,
+              progress_bar=False,
+          )
+          payload = {
+              "schema": "esdm.v031.gate_f_memory_diagnostic.v1",
+              "non_promotional": True,
+              "diagnostic_question": "Can one replicate at the exact frozen Gate F MCMC profile complete on the same runner class?",
+              "source_audit": source_audit,
+              "profile": {
+                  "replicates": 1,
+                  "base_seed": FROZEN_BASE_SEED,
+                  "num_warmup": FROZEN_WARMUP,
+                  "num_samples": FROZEN_SAMPLES,
+                  "num_chains": FROZEN_CHAINS,
+                  "credible_mass": FROZEN_CREDIBLE_MASS,
+              },
+              "train_space_count": result.train_space_count,
+              "heldout_space_count": result.heldout_space_count,
+              "heldout_block": result.heldout_block,
+              "replicate": asdict(result.replicates[0]) | {"heldout_gain": result.replicates[0].heldout_gain},
+          }
+          output = Path("artifacts/v031_gate_f_memory_diagnostic.json")
+          output.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+          print(json.dumps({"diagnostic_completed": True, "output": str(output)}, sort_keys=True))
+          PY
+          PYTHONPATH="$GITHUB_WORKSPACE" /usr/bin/time -v python /tmp/v031_gate_f_memory_diagnostic.py
+      - name: Upload diagnostic artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v031-gate-f-memory-diagnostic-${{ github.run_id }}
+          path: artifacts/v031_gate_f_memory_diagnostic.json
+          if-no-files-found: warn

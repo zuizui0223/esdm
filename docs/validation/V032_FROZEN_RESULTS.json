@@ -1,0 +1,205 @@
+{
+  "schema": "esdm.v032.frozen_results.v1",
+  "promotion_gate": "docs/validation/V032_PROMOTION_GATE.md",
+  "promotion_gate_freeze_commit": "a393fccc34a38e63a64fdc07e08578754bde60b3",
+  "human_results": "docs/validation/V032_RESULTS.md",
+  "human_results_commit": "377700348a2b0e73c155c841beaa116786f172d3",
+  "gate_name": "v0.3.2 Gate F-prime separation hardening",
+  "promotion_status": "PASS",
+  "scope_note": "Semi-synthetic methodological separation hardening only; not empirical biological validation, universal identifiability, causal interaction evidence, or scientific Supported status.",
+  "final_run": {
+    "workflow_run_id": "35245233309",
+    "workflow_head_sha": "e416bc54bf4bdd25117f17d63b4710dadeb9efde",
+    "artifact_id": 10507597165,
+    "artifact_name": "v032-gate-f-prime-35245233309",
+    "artifact_digest": "sha256:e9eae6d44b400ba4dc24926a9033c9287320f81ed92ba80ca90fcf67ad13c5d8",
+    "artifact_verified_after_download": true,
+    "execution_strategy": "sequential_fresh_python_process_per_replicate",
+    "status": "PASS"
+  },
+  "frozen_profile": {
+    "replicates": 20,
+    "base_seed": 20260922,
+    "seed_stride": 41,
+    "num_chains": 2,
+    "num_warmup": 250,
+    "num_samples": 300,
+    "credible_mass": 0.9,
+    "target_accept_prob": 0.9
+  },
+  "source_audit": {
+    "repository": "the-pudding/data",
+    "commit": "3dcb0a80c838ff9503e3957d7e004a7f4b888b0a",
+    "path": "rain/annual_precipitation.csv",
+    "expected_git_blob_sha1": "40b2adc5bf8a44a8bc9a1cfc3f99fc91b9fae949",
+    "observed_git_blob_sha1": "40b2adc5bf8a44a8bc9a1cfc3f99fc91b9fae949",
+    "sha256": "088263312c61c875cb5cda7d826ecdb7444ca4a55f7c4a594a1de96c7cf4e705",
+    "station_rows": 120,
+    "train_space_count": 67,
+    "heldout_space_count": 53
+  },
+  "extrapolation": {
+    "training_max_eastness_z": 0.7690432636975336,
+    "heldout_min_eastness_z": 0.7831898085656614,
+    "integrity": true
+  },
+  "identification": {
+    "positive_calibration_space_count": 12,
+    "positive_structural_pass": true,
+    "positive_practical_pass": true,
+    "negative_structural_pass": true,
+    "negative_practical_refused": true,
+    "anchors": 3,
+    "structural_rtol": 1e-8,
+    "structural_atol": 1e-10,
+    "practical_relative_min_singular_value_threshold": 0.001,
+    "practical_condition_number_threshold": 1000,
+    "practical_target_sd_threshold": 0.2,
+    "fisher_ridge": 1e-10
+  },
+  "truth": {
+    "beta_precip": 0.45,
+    "gamma_precip": 0.4,
+    "beta_eastness": 0.35
+  },
+  "summary": {
+    "replicates": 20,
+    "beta_precip_mean_bias": -0.023444356643543517,
+    "gamma_precip_mean_bias": 0.02152197986898815,
+    "beta_eastness_mean_bias": 0.0016887087007837255,
+    "beta_precip_coverage": 0.75,
+    "gamma_precip_coverage": 0.8,
+    "beta_eastness_coverage": 0.85,
+    "positive_gain_rate": 1,
+    "mean_heldout_gain": 0.06570524048536157,
+    "total_divergences": 0,
+    "fit_count": 40
+  },
+  "checks": [
+    {
+      "name": "replicates",
+      "observed": 20,
+      "criterion": "replicates == 20",
+      "passed": true
+    },
+    {
+      "name": "positive_structural_pass",
+      "observed": true,
+      "criterion": "positive profile structural identification passes at all frozen anchors",
+      "passed": true
+    },
+    {
+      "name": "positive_practical_pass",
+      "observed": true,
+      "criterion": "positive profile is practically identified at all frozen anchors",
+      "passed": true
+    },
+    {
+      "name": "negative_structural_pass",
+      "observed": true,
+      "criterion": "negative profile remains structurally identified",
+      "passed": true
+    },
+    {
+      "name": "negative_practical_refused",
+      "observed": true,
+      "criterion": "negative profile is refused as practically weak",
+      "passed": true
+    },
+    {
+      "name": "extrapolation_integrity",
+      "observed": true,
+      "criterion": "min heldout eastness > max training eastness",
+      "passed": true
+    },
+    {
+      "name": "beta_precip_bias",
+      "observed": -0.023444356643543517,
+      "criterion": "abs(mean bias) <= 0.15",
+      "passed": true
+    },
+    {
+      "name": "gamma_precip_bias",
+      "observed": 0.02152197986898815,
+      "criterion": "abs(mean bias) <= 0.15",
+      "passed": true
+    },
+    {
+      "name": "beta_eastness_bias",
+      "observed": 0.0016887087007837255,
+      "criterion": "abs(mean bias) <= 0.15",
+      "passed": true
+    },
+    {
+      "name": "beta_precip_coverage",
+      "observed": 0.75,
+      "criterion": "coverage >= 0.75",
+      "passed": true
+    },
+    {
+      "name": "gamma_precip_coverage",
+      "observed": 0.8,
+      "criterion": "coverage >= 0.75",
+      "passed": true
+    },
+    {
+      "name": "beta_eastness_coverage",
+      "observed": 0.85,
+      "criterion": "coverage >= 0.75",
+      "passed": true
+    },
+    {
+      "name": "heldout_positive_gain_rate",
+      "observed": 1,
+      "criterion": "positive gain rate >= 0.8",
+      "passed": true
+    },
+    {
+      "name": "heldout_mean_gain",
+      "observed": 0.06570524048536157,
+      "criterion": "mean gain >= 0.01",
+      "passed": true
+    },
+    {
+      "name": "mean_divergences_per_fit",
+      "observed": 0,
+      "criterion": "mean divergences per fit <= 0.1",
+      "passed": true
+    }
+  ],
+  "independent_recalculation": {
+    "performed": true,
+    "summary_matches_replicate_records_exactly": true,
+    "artifact_zip_sha256_matches_github_digest": true
+  },
+  "infrastructure_history": [
+    {
+      "workflow_run_id": "35244084505",
+      "workflow_head_sha": "397c6f848befb8a6d526fc8042077b5dab08a653",
+      "status": "INFRASTRUCTURE_BLOCKED",
+      "stage": "workflow_precheck",
+      "scientific_outcomes_executed": false,
+      "artifact_id": null,
+      "reason": "one-shot workflow installed inference extra without pytest; benchmark never ran"
+    },
+    {
+      "workflow_run_id": "35244253016",
+      "workflow_head_sha": "36dbef5abdd535e7d4ced926a3daa41eb714836a",
+      "status": "INFRASTRUCTURE_BLOCKED",
+      "stage": "replicate_0_numpyro_initialization",
+      "scientific_summary_produced": false,
+      "artifact_id": 10507095336,
+      "artifact_name": "v032-gate-f-prime-35244253016",
+      "artifact_digest": "sha256:e610e98495ababd7f61d0fdb023ae9680d7a7176247efc764853538dca8807b1",
+      "reason": "known-zero-exposure cells entered the NumPyro likelihood as boundary Poisson observations; reproduced in a four-context regression and fixed by static exposure masking without changing frozen gate controls"
+    }
+  ],
+  "software_verification": {
+    "scientific_run_head_sha": "e416bc54bf4bdd25117f17d63b4710dadeb9efde",
+    "ci_run_id": "35245233343",
+    "python_3_10": "success",
+    "python_3_11": "success",
+    "python_3_12": "success",
+    "python_3_12_full_suite_passed": 214
+  }
+}

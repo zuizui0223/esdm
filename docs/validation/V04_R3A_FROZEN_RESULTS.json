@@ -1,0 +1,202 @@
+{
+  "schema": "esdm.v04_r3a.frozen_results.v1",
+  "status": "FAIL",
+  "qualification_run_id": 35684689619,
+  "qualification_head_sha": "18eddcbbb2afda65f4bc816dab1bc58ffc227f79",
+  "gate_freeze_commit": "aa38b790e094261addd07c301edc24afa110cb4c",
+  "gate_blob_sha": "ed470d4f6166c5107aeda9432ca44a985cb55e72",
+  "observed_gate_blob_sha": "ed470d4f6166c5107aeda9432ca44a985cb55e72",
+  "artifact": {
+    "id": 10675814867,
+    "name": "v04-r3a-qualification-35684689619",
+    "github_digest": "sha256:193a47569b3a2237d32b8abb1bfe6af8c7a6e03a9112a65a8e95f5c92d38e919",
+    "independent_zip_sha256": "193a47569b3a2237d32b8abb1bfe6af8c7a6e03a9112a65a8e95f5c92d38e919",
+    "canonical_full_anchor_evidence": true
+  },
+  "source_audit": {
+    "commit": "3dcb0a80c838ff9503e3957d7e004a7f4b888b0a",
+    "path": "rain/annual_precipitation.csv",
+    "expected_git_blob_sha1": "40b2adc5bf8a44a8bc9a1cfc3f99fc91b9fae949",
+    "observed_git_blob_sha1": "40b2adc5bf8a44a8bc9a1cfc3f99fc91b9fae949",
+    "sha256": "088263312c61c875cb5cda7d826ecdb7444ca4a55f7c4a594a1de96c7cf4e705"
+  },
+  "summary": {
+    "positive_structural_pass": true,
+    "positive_practical_pass": false,
+    "sparse_structural_pass": true,
+    "sparse_practical_refused": true,
+    "unknown_detection_refused": true,
+    "annotated_context_count": 432,
+    "annotated_space_count": 36,
+    "annotated_time_count": 12,
+    "calibrated_context_count": 432,
+    "calibrated_space_count": 18,
+    "calibrated_time_count": 24,
+    "r2_prefix_preserved": true
+  },
+  "failing_check": "positive_practical_pass",
+  "positive_weak_targets": [
+    {
+      "anchor": "A",
+      "target": "sp.state.beta_foraging_eastness",
+      "target_sd_proxy": 0.2512177434167823
+    },
+    {
+      "anchor": "B",
+      "target": "sp.activity.activity_beta_season",
+      "target_sd_proxy": 0.25615683152896057
+    },
+    {
+      "anchor": "C",
+      "target": "sp.state.beta_foraging_precip",
+      "target_sd_proxy": 0.2901969985242285
+    },
+    {
+      "anchor": "C",
+      "target": "sp.state.beta_foraging_eastness",
+      "target_sd_proxy": 0.34488443655285184
+    },
+    {
+      "anchor": "C",
+      "target": "sp.state.beta_foraging_season",
+      "target_sd_proxy": 0.2549179528808888
+    },
+    {
+      "anchor": "C",
+      "target": "sp.state.beta_foraging_hour",
+      "target_sd_proxy": 0.3034392648928968
+    }
+  ],
+  "positive_anchor_global_diagnostics": [
+    {
+      "anchor": "A",
+      "relative_min_singular_value": 0.065438741491515,
+      "condition_number": 15.281467479469532
+    },
+    {
+      "anchor": "B",
+      "relative_min_singular_value": 0.06076066278720612,
+      "condition_number": 16.458016653013896
+    },
+    {
+      "anchor": "C",
+      "relative_min_singular_value": 0.05993146512978765,
+      "condition_number": 16.685725900983712
+    }
+  ],
+  "selected_annotated_times": [
+    [
+      15,
+      0
+    ],
+    [
+      195,
+      12
+    ],
+    [
+      15,
+      12
+    ],
+    [
+      195,
+      0
+    ],
+    [
+      315,
+      6
+    ],
+    [
+      315,
+      18
+    ],
+    [
+      75,
+      6
+    ],
+    [
+      75,
+      18
+    ],
+    [
+      195,
+      6
+    ],
+    [
+      195,
+      18
+    ],
+    [
+      315,
+      0
+    ],
+    [
+      315,
+      12
+    ]
+  ],
+  "selected_annotated_spaces": [
+    "USW00021504",
+    "USW00013895",
+    "USW00025501",
+    "USS0021B01S",
+    "USW00024227",
+    "USC00160558",
+    "USC00355221",
+    "USW00094240",
+    "USW00025309",
+    "USC00405956",
+    "USC00455840",
+    "USW00012918",
+    "USS0022E07S",
+    "USS0019K07S",
+    "USC00164700",
+    "USW00013882",
+    "US1FLOK0029",
+    "USW00013942",
+    "USC00406162",
+    "USC00352973",
+    "USW00003847",
+    "USW00094225",
+    "USW00003816",
+    "USW00013865",
+    "USW00093874",
+    "USW00003937",
+    "USC00414325",
+    "USC00030130",
+    "USW00013963",
+    "USC00226527",
+    "USS0022F18S",
+    "USC00450482",
+    "USW00012960",
+    "USW00093808",
+    "USW00094224",
+    "USW00003811"
+  ],
+  "calibrated_spaces": [
+    "USW00021504",
+    "USW00013895",
+    "USW00025501",
+    "USS0021B01S",
+    "USW00024227",
+    "USC00160558",
+    "USC00355221",
+    "USW00094240",
+    "USW00025309",
+    "USC00405956",
+    "USC00455840",
+    "USW00012918",
+    "USS0022E07S",
+    "USS0019K07S",
+    "USC00164700",
+    "USW00013882",
+    "US1FLOK0029",
+    "USW00013942"
+  ],
+  "claim_boundary": {
+    "r3a_only": true,
+    "mcmc_run": false,
+    "v04_promotion": false,
+    "r3b_created": false,
+    "full_anchor_evidence_preserved_in_verified_artifact": true
+  }
+}

@@ -1,0 +1,63 @@
+name: empirical Snapshot Japan CamtrapDP climate freeze
+
+concurrency:
+  group: empirical-snapshot-japan-camtrapdp-climate
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - empirical/snapshot-japan-camtrapdp-final
+    paths:
+      - docs/empirical/SNAPSHOT_JAPAN_CAMTRAPDP_CLIMATE_CONTRACT.json
+      - docs/empirical/SNAPSHOT_JAPAN_CAMTRAPDP_CLIMATE_AUTHORIZED
+      - scripts/cache_snapshot_japan_camtrapdp_worldclim.py
+      - tests/test_empirical_snapshot_japan_camtrapdp_climate.py
+      - .github/workflows/empirical-snapshot-japan-camtrapdp-climate-once.yml
+
+permissions:
+  contents: read
+
+jobs:
+  climate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install response-blind climate dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]"
+          python -m pip install rasterio==1.5.0
+      - name: Verify climate firewall
+        run: python -m pytest -q tests/test_empirical_snapshot_japan_camtrapdp_climate.py
+      - name: Verify newly-added authorization
+        id: auth
+        run: |
+          marker=docs/empirical/SNAPSHOT_JAPAN_CAMTRAPDP_CLIMATE_AUTHORIZED
+          if [ ! -f "$marker" ]; then
+            echo "authorized=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if git diff --diff-filter=A --name-only HEAD^ HEAD | grep -Fxq "$marker"; then
+            echo "authorized=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "authorization marker was not newly added" >&2
+            exit 1
+          fi
+      - name: Cache WorldClim before response opening
+        if: steps.auth.outputs.authorized == 'true'
+        run: python scripts/cache_snapshot_japan_camtrapdp_worldclim.py
+      - name: Upload response-blind climate certificate
+        if: steps.auth.outputs.authorized == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: empirical-snapshot-japan-camtrapdp-climate-${{ github.run_id }}
+          path: artifacts/snapshot_japan_camtrapdp_climate.json
+          if-no-files-found: error
+          retention-days: 90

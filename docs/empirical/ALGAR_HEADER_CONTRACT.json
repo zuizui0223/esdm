@@ -1,0 +1,70 @@
+{
+  "schema": "esdm.empirical_r5b.algar_header_gate.v1",
+  "status": "FROZEN_PRE_HEADER",
+  "scientific_freeze": {
+    "source_branch": "feature/v04-r5b-recovery-transfer",
+    "r5b_head": "3320431b300f34b326363713fb1d993ea5e43a87",
+    "r5b_status": "PASS",
+    "empirical_contract_path": "docs/validation/EMPIRICAL_ENTRY_R5B_FREEZE.md"
+  },
+  "dataset": {
+    "title": "Behavioral bycatch from camera trap surveys yields insights on prey responses to human-mediated predation risk",
+    "doi": "10.5061/dryad.98sf7m0mg",
+    "published_date": "2022-06-27",
+    "candidate_file_name": "Burton_et_al_2022_Algar_ungulate_event_data.csv",
+    "dryad_file_stream_id": 1617741,
+    "download_url": "https://datadryad.org/downloads/file_stream/1617741",
+    "published_display_size": "478.22 KB",
+    "response_rows_opened_by_esdm_before_gate": 0,
+    "response_values_opened_by_esdm_before_gate": false
+  },
+  "prospective_biology": {
+    "study_area": "Algar",
+    "public_camera_site_count": 73,
+    "public_sampling": "continuous camera-trap sampling once deployed",
+    "focal_species": {
+      "common_name": "white-tailed deer",
+      "scientific_name": "Odocoileus virginianus",
+      "selection_basis": "published focal ungulate with site-level behavior analysis; fixed before eSDM response-row access"
+    },
+    "state_space": ["travelling", "secure"],
+    "state_mapping": {
+      "travelling": "published Travelling behavior: animal walking past camera",
+      "secure": "published Secure behavior: resting, visible foraging/head-down open-mouth, or camera inspection"
+    },
+    "event_definition": "same-species images at a site separated by no more than 15 minutes"
+  },
+  "header_transport": {
+    "method": "GET_STREAM",
+    "max_requests": 1,
+    "max_header_bytes": 4096,
+    "read_until": "first LF byte",
+    "follow_redirects": true,
+    "user_agent": "esdm-r5b-algar-header/1.0",
+    "response_data_rows_allowed": 0,
+    "model_fits_allowed": 0,
+    "heldout_scores_allowed": 0
+  },
+  "header_stage": {
+    "purpose": "capture exact physical CSV header only; do not interpret response values",
+    "required_semantic_roles_not_yet_bound": [
+      "stable_site_or_camera_id",
+      "event_or_observation_time",
+      "species_identity",
+      "behavior_or_state_label"
+    ],
+    "binding_after_header_allowed": true,
+    "data_row_access_after_header_allowed": false
+  },
+  "valid_terminal_statuses": [
+    "header_captured_for_binding",
+    "stop_pre_response_header_transport"
+  ],
+  "hard_stop": {
+    "header_over_4096_bytes": true,
+    "empty_header": true,
+    "data_row_opened": true,
+    "full_file_fallback": false,
+    "post_failure_source_switch": false
+  }
+}

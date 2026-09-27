@@ -1,0 +1,19 @@
+{
+  "schema": "esdm.empirical_r5b.algar_header_stop.v1",
+  "status": "STOP_PRE_RESPONSE_HEADER_TRANSPORT",
+  "workflow_run_id": 36228397270,
+  "workflow_head_sha": "d15b6bf62428a66b020b6940a8d3b8acf2268cf6",
+  "artifact": {
+    "id": 10901576562,
+    "name": "empirical-algar-header-36228397270",
+    "github_digest": "sha256:b6babe1d65962ae4b3c3053ed2b4efb9d0e9a7698d08be3a906fbb37648b351c"
+  },
+  "reason": "Dryad file_stream request returned HTTP 403 before any response byte was opened",
+  "header_bytes_opened": 0,
+  "response_rows_opened": 0,
+  "response_values_opened": false,
+  "model_fits": 0,
+  "heldout_scores": 0,
+  "source_switch_within_attempt_allowed": false,
+  "counts_as_empirical_result": false
+}

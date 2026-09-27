@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "receipt_id": "empirical-r5b-snapshot-japan-camtrapdp-terminal-v1",
+  "status": "CONSUMED_STOP_SCHEMA_OR_ESTIMABILITY",
+  "scientific_contract": "docs/empirical/SNAPSHOT_JAPAN_CAMTRAPDP_FINAL_CONTRACT.json",
+  "workflow_run_id": 36272212826,
+  "workflow_head_sha": "d024d064c71f65c13d679a2289c040b3940e8b05",
+  "artifact": {
+    "id": 10916226656,
+    "name": "empirical-snapshot-japan-camtrapdp-capture-36272212826",
+    "github_digest": "sha256:16a658a1f1bf4512be054381a1f4bb8f71c016f81813d14c5428d6d49c002b0f",
+    "independent_zip_sha256": "16a658a1f1bf4512be054381a1f4bb8f71c016f81813d14c5428d6d49c002b0f"
+  },
+  "source": {
+    "zenodo_record": 15030971,
+    "file_name": "oo_1246258.zip",
+    "bytes_opened": 8630359,
+    "md5": "742f186013ef3b60e9754df73e5269de",
+    "sha256": "2e99786857764151b66bfda0caaba4f23288ed9d671bb86c9ea5605727b9c07c"
+  },
+  "response": {
+    "full_observations_csv_parsed": true,
+    "response_values_opened": true,
+    "focal_species": "Cervus nippon"
+  },
+  "terminal_reason": {
+    "exception_type": "ValueError",
+    "message": "focal event '7815128' lies outside deployment interval"
+  },
+  "model_fits": 0,
+  "heldout_scores": 0,
+  "activity_gain": null,
+  "state_gain": null,
+  "sampling_diagnostics": null,
+  "one_open_rule": {
+    "response_consumed": true,
+    "retry_allowed": false,
+    "parser_or_interval_repair_allowed": false,
+    "candidate_switch_allowed": false,
+    "post_response_scientific_rule_change_allowed": false
+  },
+  "interpretation": "The frozen R5b empirical endpoint reached real biological response data but terminated before model fitting because the preregistered event-to-deployment temporal integrity check failed. This is a data-contract result, not evidence for or against activity/state transfer."
+}
