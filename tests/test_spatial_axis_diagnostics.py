@@ -3,6 +3,8 @@ import math
 import pytest
 
 from esdm.field import (
+    FrozenSpatialGraph,
+    SpatialEdge,
     edge_axis_correlation,
     precision_sensitivity_diagnostics,
 )
@@ -113,6 +115,33 @@ def test_precision_sensitivity_uses_forward_difference_at_nonnegative_boundary()
     )
 
     assert result.cosine[("log_rho", "gamma")] > 0.95
+
+
+
+
+def test_exactly_dependent_precision_axes_have_infinite_condition_number():
+    graph = FrozenSpatialGraph(
+        nodes=("a", "b", "c", "d"),
+        edges=(
+            SpatialEdge("a", "b", 1.0, environmental_dissimilarity=2.0),
+            SpatialEdge("b", "c", 1.5, environmental_dissimilarity=3.0),
+            SpatialEdge("c", "d", 2.0, environmental_dissimilarity=4.0),
+            SpatialEdge("a", "d", 3.0, environmental_dissimilarity=6.0),
+        ),
+    )
+    result = precision_sensitivity_diagnostics(
+        graph,
+        log_rho=math.log(1.2),
+        gamma=0.4,
+        beta=0.0,
+        axes=("log_rho", "gamma"),
+    )
+
+    assert min(result.normalized_gram_eigenvalues) == pytest.approx(
+        0.0,
+        abs=1e-10,
+    )
+    assert math.isinf(result.normalized_condition_number)
 
 
 def test_spatial_axis_diagnostics_fail_closed_on_undefined_designs():
