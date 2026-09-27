@@ -55,6 +55,8 @@ def _passing_rows():
 def test_field1_gate_passes_only_when_all_frozen_checks_pass():
     decision = evaluate_field1_gate(
         _passing_rows(),
+        h1_training_axis_rank_passed=True,
+        h2_training_axis_rank_passed=True,
         k6_distance_match_passed=True,
         h2_barrier_transfer_passed=True,
         mean_divergences_per_fit=0.0,
@@ -87,6 +89,8 @@ def test_field1_gate_keeps_axis_claims_separate():
 
     decision = evaluate_field1_gate(
         rows,
+        h1_training_axis_rank_passed=True,
+        h2_training_axis_rank_passed=True,
         k6_distance_match_passed=True,
         h2_barrier_transfer_passed=True,
         mean_divergences_per_fit=0.0,
@@ -102,6 +106,8 @@ def test_field1_gate_keeps_axis_claims_separate():
 def test_field1_gate_requires_k6_before_barrier_claim():
     decision = evaluate_field1_gate(
         _passing_rows(),
+        h1_training_axis_rank_passed=True,
+        h2_training_axis_rank_passed=True,
         k6_distance_match_passed=False,
         h2_barrier_transfer_passed=True,
         mean_divergences_per_fit=0.0,
@@ -118,6 +124,8 @@ def test_field1_gate_rejects_missing_or_extra_comparisons():
     try:
         evaluate_field1_gate(
             rows[:-1],
+            h1_training_axis_rank_passed=True,
+            h2_training_axis_rank_passed=True,
             k6_distance_match_passed=True,
             h2_barrier_transfer_passed=True,
             mean_divergences_per_fit=0.0,
@@ -140,6 +148,8 @@ def test_field1_gate_rejects_missing_or_extra_comparisons():
     try:
         evaluate_field1_gate(
             [*rows, extra],
+            h1_training_axis_rank_passed=True,
+            h2_training_axis_rank_passed=True,
             k6_distance_match_passed=True,
             h2_barrier_transfer_passed=True,
             mean_divergences_per_fit=0.0,
@@ -180,6 +190,8 @@ def test_field1_gain_summary_uses_frozen_material_threshold():
 def test_field1_gate_requires_h2_barrier_transfer_geometry():
     decision = evaluate_field1_gate(
         _passing_rows(),
+        h1_training_axis_rank_passed=True,
+        h2_training_axis_rank_passed=True,
         k6_distance_match_passed=True,
         h2_barrier_transfer_passed=False,
         mean_divergences_per_fit=0.0,
@@ -190,3 +202,34 @@ def test_field1_gate_requires_h2_barrier_transfer_geometry():
     assert decision.claims["ENV_DEPENDENCE_SUPPORTED"]
     assert not decision.claims["BARRIER_DEPENDENCE_SUPPORTED"]
     assert not decision.claims["FULL_MAP_STRUCTURE_SUPPORTED"]
+
+
+
+def test_field1_gate_requires_training_axis_rank():
+    h1_failed = evaluate_field1_gate(
+        _passing_rows(),
+        h1_training_axis_rank_passed=False,
+        h2_training_axis_rank_passed=True,
+        k6_distance_match_passed=True,
+        h2_barrier_transfer_passed=True,
+        mean_divergences_per_fit=0.0,
+    )
+    assert not h1_failed.passed
+    assert not h1_failed.claims["FIELD_PRESENT"]
+    assert not h1_failed.claims["ENV_DEPENDENCE_SUPPORTED"]
+    assert h1_failed.claims["BARRIER_DEPENDENCE_SUPPORTED"]
+    assert not h1_failed.claims["FULL_MAP_STRUCTURE_SUPPORTED"]
+
+    h2_failed = evaluate_field1_gate(
+        _passing_rows(),
+        h1_training_axis_rank_passed=True,
+        h2_training_axis_rank_passed=False,
+        k6_distance_match_passed=True,
+        h2_barrier_transfer_passed=True,
+        mean_divergences_per_fit=0.0,
+    )
+    assert not h2_failed.passed
+    assert h2_failed.claims["FIELD_PRESENT"]
+    assert h2_failed.claims["ENV_DEPENDENCE_SUPPORTED"]
+    assert not h2_failed.claims["BARRIER_DEPENDENCE_SUPPORTED"]
+    assert not h2_failed.claims["FULL_MAP_STRUCTURE_SUPPORTED"]
