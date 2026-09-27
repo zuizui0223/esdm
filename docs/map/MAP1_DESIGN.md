@@ -109,11 +109,18 @@ Required null comparisons:
 
 Truth: BX.
 
+Required positive comparison:
+
+- BX - B0 on H1
+
 Required null comparison:
 
 - BC - BX on H1
 
-This prevents generic latent variation from being relabelled as spatial coherence.
+The positive comparison makes N1 a valid detectability control: generic latent
+heterogeneity must be learnable before the null BC-BX comparison can count. The null
+comparison then prevents generic latent variation from being relabelled as spatial
+coherence.
 
 ### P1 — coherent residual field
 
