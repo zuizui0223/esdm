@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "binding_id": "esdm-v04-r5b-parallel-to-odsp-to-n3-v1",
+  "date": "2026-09-25",
+  "source": {
+    "esdm_result_schema": "esdm.v04_r5b.outcome.v1",
+    "workflow_run_id": 35879936964,
+    "artifact_id": 10761956596,
+    "artifact_name": "v04-r5b-outcome-35879936964",
+    "artifact_digest": "sha256:ead0e17a4da17b3c27b84bcbb0c4aa034379f9930ce32987e1940215ba839477",
+    "result_filename": "v04_r5b_outcome.json",
+    "result_sha256": "65580510b56076ecd0d8f893af991a930eb50ba055b060ce11d78d0f2646c2e0",
+    "outcome_head_sha": "3c757ccf243c9bab415d59f40d4ab39ae2a06a69",
+    "frozen_results_receipt": "docs/validation/V04_R5B_FROZEN_RESULTS.json"
+  },
+  "odsp": {
+    "repository": "zuizui0223/odsp",
+    "pinned_commit": "0bd83e1ebb372c48839654ab0e42124fe37b8faf",
+    "stable_command": "odsp transfer"
+  },
+  "contrasts": {
+    "activity": {
+      "endpoint_id": "esdm_v04_r5b_activity_transfer_v1",
+      "lower": {
+        "name": "suitability_state",
+        "information": [
+          "suitability",
+          "state"
+        ],
+        "source_score": "activity_knockout_heldout_log_score"
+      },
+      "upper": {
+        "name": "suitability_state_activity",
+        "information": [
+          "suitability",
+          "state",
+          "activity"
+        ],
+        "source_score": "full_heldout_log_score"
+      },
+      "source_summary": {
+        "replicates": 16,
+        "positive_gain_rate": 1,
+        "mean_gain": 0.00699856015906225,
+        "minimum_gain": 0.0003542106372884657
+      },
+      "expected_odsp": {
+        "population_mean_gain": 0.00699856015906225,
+        "population_mean_interval": [
+          0.00539876274739076,
+          0.008536010424256283
+        ],
+        "population_status": "positive",
+        "population_positive_group_count": 16,
+        "population_positive_group_fraction": 1,
+        "population_ceiling": "suitability_state_activity",
+        "certified_ceiling": "suitability_state",
+        "certification_all_steps_estimable": false,
+        "prediction_interval": [
+          0.00017361380150801055,
+          0.01382350651661649
+        ]
+      },
+      "n3": {
+        "expected_conservative_mean_value": 0.00539876274739076
+      }
+    },
+    "state": {
+      "endpoint_id": "esdm_v04_r5b_state_transfer_v1",
+      "lower": {
+        "name": "suitability_activity",
+        "information": [
+          "suitability",
+          "activity"
+        ],
+        "source_score": "state_knockout_heldout_log_score"
+      },
+      "upper": {
+        "name": "suitability_activity_state",
+        "information": [
+          "suitability",
+          "activity",
+          "state"
+        ],
+        "source_score": "full_heldout_log_score"
+      },
+      "source_summary": {
+        "replicates": 16,
+        "positive_gain_rate": 1,
+        "mean_gain": 0.02896466849576273,
+        "minimum_gain": 0.017968794872260885
+      },
+      "expected_odsp": {
+        "population_mean_gain": 0.02896466849576273,
+        "population_mean_interval": [
+          0.025782042061382092,
+          0.03171550122818008
+        ],
+        "population_status": "positive",
+        "population_positive_group_count": 16,
+        "population_positive_group_fraction": 1,
+        "population_ceiling": "suitability_activity_state",
+        "certified_ceiling": "suitability_activity",
+        "certification_all_steps_estimable": false,
+        "prediction_interval": [
+          0.01588863971665459,
+          0.042040697274870864
+        ]
+      },
+      "n3": {
+        "expected_conservative_mean_value": 0.025782042061382092
+      }
+    }
+  },
+  "common_n3_handoff": {
+    "schema_id": "n2-to-n3-transfer-value-payload-v1",
+    "group_semantics": "independent semi-synthetic known-truth replicate",
+    "population_cluster_semantics": null,
+    "score_kind": "log",
+    "score_name": "mean_heldout_log_predictive_density",
+    "score_unit": "nats_per_heldout_state_block_context",
+    "authorizes_spatial_patch_ranking": false,
+    "authorizes_survey_site_selection": false,
+    "n4_survey_action_owner": "ACSP"
+  },
+  "ordering_boundary": {
+    "activity_and_state_have_natural_order": false,
+    "combined_three_level_filtration_authorized": false,
+    "reason": "activity-knockout retains state and state-knockout retains activity; both contrasts terminate at the same full model and answer different conditional information questions"
+  },
+  "scientific_boundary": {
+    "reopens_r5b_gate": false,
+    "changes_r5b_promotion": false,
+    "new_empirical_biological_claim": false,
+    "causal_activity_claim": false,
+    "causal_state_claim": false,
+    "current_eog_mainline_consumer_authorized": false
+  }
+}
