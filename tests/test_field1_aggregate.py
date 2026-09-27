@@ -1,6 +1,11 @@
 import json
 
-from scripts.aggregate_field1 import REPLICATES, aggregate_field1_shards
+from scripts.aggregate_field1 import (
+    EXPECTED_FIT_COUNT,
+    EXPECTED_SHARD_COUNT,
+    REPLICATES,
+    aggregate_field1_shards,
+)
 from esdm.validate.field1_known_truth import (
     make_field1_mean_covariance_factorial,
     make_field1_primary_worlds,
@@ -60,7 +65,8 @@ def test_field1_aggregator_requires_and_accepts_complete_frozen_shard_set(tmp_pa
     result = aggregate_field1_shards(tmp_path)
 
     assert result["status"] == "PASS"
-    assert result["shard_count"] == 9 * 16
+    assert result["shard_count"] == EXPECTED_SHARD_COUNT == 9 * 16
+    assert result["fit_count"] == EXPECTED_FIT_COUNT == 704
     assert result["k6_distance_match_passed"] is True
     assert all(result["claims"].values())
 
