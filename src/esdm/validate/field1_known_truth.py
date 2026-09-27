@@ -75,7 +75,7 @@ def _space_name(column: int, row: int) -> str:
 
 
 def make_field1_fixture() -> Field1Fixture:
-    """Create a fixed 4 x 3 graph with a vertical barrier between columns 1 and 2."""
+    """Create a fixed 4 x 3 graph with two transferable vertical barriers."""
 
     x_values = (0.0, 1.0, 2.0, 3.0)
     y_values = (0.0, 1.2, 2.5)
@@ -110,7 +110,7 @@ def make_field1_fixture() -> Field1Fixture:
                         environmental_dissimilarity=abs(
                             environment[left] - environment[right]
                         ),
-                        barrier_exposure=1.0 if column == 1 else 0.0,
+                        barrier_exposure=1.0 if column in {0, 2} else 0.0,
                     )
                 )
             if row + 1 < len(y_values):
@@ -150,8 +150,7 @@ def make_field1_fixture() -> Field1Fixture:
 
     h1 = tuple(_space_name(column, 2) for column in range(4))
     h2 = tuple(
-        _space_name(column, row)
-        for column in (2, 3)
+        _space_name(3, row)
         for row in range(3)
     )
     return Field1Fixture(
@@ -374,6 +373,47 @@ def make_field1_mean_covariance_factorial() -> tuple[Field1KnownTruthWorld, ...]
                 )
             )
     return tuple(worlds)
+
+
+
+def barrier_transfer_geometry_audit(fixture: Field1Fixture):
+    """Deterministic H2 firewall: learn one barrier, predict across another."""
+
+    training = set(fixture.training_spaces("H2"))
+    heldout = set(fixture.heldout_spaces("H2"))
+    training_barrier_edges = []
+    heldout_boundary_barrier_edges = []
+    for edge in fixture.graph.edges:
+        left_train = edge.left in training
+        right_train = edge.right in training
+        left_heldout = edge.left in heldout
+        right_heldout = edge.right in heldout
+
+        if edge.barrier_exposure > 0.0 and left_train and right_train:
+            training_barrier_edges.append((edge.left, edge.right))
+        if (
+            edge.barrier_exposure > 0.0
+            and (
+                (left_train and right_heldout)
+                or (right_train and left_heldout)
+            )
+        ):
+            heldout_boundary_barrier_edges.append((edge.left, edge.right))
+
+    return MappingProxyType({
+        "training_barrier_edge_count": len(training_barrier_edges),
+        "heldout_boundary_barrier_edge_count": len(
+            heldout_boundary_barrier_edges
+        ),
+        "training_barrier_edges": tuple(training_barrier_edges),
+        "heldout_boundary_barrier_edges": tuple(
+            heldout_boundary_barrier_edges
+        ),
+        "passed": bool(
+            training_barrier_edges
+            and heldout_boundary_barrier_edges
+        ),
+    })
 
 
 def matched_barrier_distance_strata(
