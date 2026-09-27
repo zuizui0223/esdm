@@ -25,6 +25,13 @@ The score is averaged only over the explicit held-out model domain.
 
 Each stochastic known-truth world is run for exactly **16 independent replicates**.
 
+The frozen execution matrix therefore contains:
+
+- **9 worlds x 16 replicates = 144 immutable replicate shards**;
+- **704 total model fits** across all world-specific comparison plans.
+
+Aggregation must reject any result with a different shard identity set or total fit count.
+
 A comparison is **positive-qualified** only if both hold:
 
 - proportion of replicate gains > 0: **>= 0.75**
