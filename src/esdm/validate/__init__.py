@@ -29,6 +29,7 @@ from .field1_known_truth import (
     make_field1_primary_worlds,
     matched_barrier_distance_strata,
     subset_presence_data,
+    training_edge_axis_rank_audit,
 )
 from .sbc_gate import V03SBCGateConfig, V03SBCGateDecision, evaluate_v03_sbc_gate
 from .v031_sbc_gate import (
