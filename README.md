@@ -75,6 +75,35 @@ the branch runtime code into `main`: v0.5f = **FAIL**, v0.7l = **FAIL**, and v0.
 completed with zero divergences, but the preregistered action-classification gate failed.
 See `docs/validation/POST_R5B_LINEAGE_STATUS.json` for the machine-readable lineage.
 
+
+### FIELD1 continuous-map programme — terminal FAIL
+
+The separately named FIELD1 programme tested whether one coherent residual spatial field
+could improve mapping, and whether geographic distance, environmental similarity, and
+physical barriers could then be qualified as distinct dependence axes.
+
+Its frozen Phase-A result is **FAIL** after 144/144 known-truth shards and 704/704 fits.
+
+The narrow internal `FIELD_PRESENT` flag passed: the distance-structured field M1 beat
+the environment-only model in its positive control and did not false-promote in the
+no-field control. However, the environmental-similarity and barrier axes did not
+separate reliably, the full M4 structure did not qualify, and the sampling guardrail
+failed (360 divergences; 0.511 per fit versus a frozen maximum of 0.10).
+
+A post-outcome diagnostic found that edge distance and environmental dissimilarity are
+formally full-rank but practically near-collinear in the frozen fixture (edge
+correlation about -0.95; projected-precision sensitivity for rho versus gamma about
+0.90-0.96). The barrier failure remains only partly explained.
+
+FIELD1 therefore does **not** authorize environmental/barrier mechanism claims, dispersal,
+movement, gene-flow, or evolutionary IBD/IBE interpretations, and it is not rerun as a
+rescue generation.
+
+See `docs/field/FIELD1_PHASE_A_FROZEN_RESULTS.json`,
+`docs/field/FIELD1_TERMINAL_STATUS.md`, and
+`docs/field/FIELD1_POSTMORTEM.md`.
+
+
 ### Frozen ODSP transfer evidence
 
 The active empirical endpoint above is unchanged, but the already-frozen held-out
