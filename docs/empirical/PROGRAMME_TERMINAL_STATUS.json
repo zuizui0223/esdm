@@ -1,0 +1,31 @@
+{
+  "schema": "esdm.programme_terminal_status.v1",
+  "status": "EMPIRICAL_ENDPOINT_CONSUMED_STOP",
+  "date": "2026-09-27",
+  "main_scientific_freeze": {
+    "model_generation": "v0.4-R5b",
+    "r5b_status": "PASS",
+    "r5b_outcome_run_id": 35879936964,
+    "r5b_result": "docs/validation/V04_R5B_FROZEN_RESULTS.json"
+  },
+  "first_empirical_endpoint": {
+    "candidate": "Snapshot Japan 2023 Camtrap DP 1.0.1",
+    "source_file": "oo_1246258.zip",
+    "response_opening_run_id": 36272212826,
+    "response_consumed": true,
+    "terminal_status": "CONSUMED_STOP_SCHEMA_OR_ESTIMABILITY",
+    "terminal_reason": "focal event '7815128' lies outside deployment interval",
+    "model_fits": 0,
+    "heldout_scores": 0,
+    "result": "docs/empirical/SNAPSHOT_JAPAN_CAMTRAPDP_TERMINAL_RESULT.json"
+  },
+  "development_stop_rule": {
+    "new_semisynthetic_generations_authorized": false,
+    "replacement_first_empirical_candidate_authorized": false,
+    "post_response_parser_repair_authorized": false,
+    "post_response_interval_repair_authorized": false,
+    "post_response_model_retuning_authorized": false,
+    "followup_requires_separate_named_programme": true
+  },
+  "current_interpretation": "The semi-synthetic programme ended successfully at R5b. The first preregistered real-data opening was consumed and stopped before fitting on a frozen temporal-integrity rule. This is a data-contract result, not evidence for or against the ecological activity/state decomposition."
+}
