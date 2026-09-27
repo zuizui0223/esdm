@@ -8,7 +8,7 @@ import random
 from types import MappingProxyType
 
 from esdm.domain import Grid
-from esdm.field import FrozenSpatialGraph, SpatialEdge
+from esdm.field import FrozenSpatialGraph, SpatialEdge, centered_edge_design_rank
 from esdm.model import Model
 from esdm.observe import EffortField, PresenceOnly
 from esdm.process import GraphSpatialField, LinearSuitability
@@ -148,7 +148,10 @@ def make_field1_fixture() -> Field1Fixture:
             "season": math.sin(phase),
         }
 
-    h1 = tuple(_space_name(column, 2) for column in range(4))
+    h1 = (
+        _space_name(1, 2),
+        _space_name(2, 2),
+    )
     h2 = tuple(
         _space_name(3, row)
         for row in range(3)
@@ -374,6 +377,47 @@ def make_field1_mean_covariance_factorial() -> tuple[Field1KnownTruthWorld, ...]
             )
     return tuple(worlds)
 
+
+
+
+def training_edge_axis_rank_audit(fixture: Field1Fixture):
+    """Pre-fit rank firewall for every active FIELD1 axis on H1/H2 training."""
+
+    output = {}
+    for holdout in ("H1", "H2"):
+        spaces = fixture.training_spaces(holdout)
+        ranks = {
+            "M1": centered_edge_design_rank(
+                fixture.graph,
+                spaces=spaces,
+            ),
+            "M2": centered_edge_design_rank(
+                fixture.graph,
+                include_environment=True,
+                spaces=spaces,
+            ),
+            "M3": centered_edge_design_rank(
+                fixture.graph,
+                include_barrier=True,
+                spaces=spaces,
+            ),
+            "M4": centered_edge_design_rank(
+                fixture.graph,
+                include_environment=True,
+                include_barrier=True,
+                spaces=spaces,
+            ),
+        }
+        expected = {"M1": 1, "M2": 2, "M3": 2, "M4": 3}
+        output[holdout] = MappingProxyType({
+            "ranks": MappingProxyType(dict(ranks)),
+            "expected": MappingProxyType(dict(expected)),
+            "passed": all(
+                ranks[model_id] == expected[model_id]
+                for model_id in expected
+            ),
+        })
+    return MappingProxyType(output)
 
 
 def barrier_transfer_geometry_audit(fixture: Field1Fixture):
