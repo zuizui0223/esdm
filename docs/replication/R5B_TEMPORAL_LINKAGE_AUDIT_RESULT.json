@@ -1,0 +1,78 @@
+{
+  "schema": "esdm.replication.r5b_temporal_linkage_audit_frozen.v1",
+  "status": "AUDIT_COMPLETE",
+  "programme_class": "separately_named_replication_audit",
+  "workflow_run_id": 36298031647,
+  "workflow_head_sha": "40705dcecce0ddc1bf757f7865739a472275db48",
+  "artifact": {
+    "id": 10924373256,
+    "name": "r5b-temporal-linkage-audit-36298031647",
+    "github_digest": "sha256:8a6438cbd03a53c6722cbccd8d2d04076c3c16887782af6b04e7af8e023b81d3",
+    "independent_zip_sha256": "8a6438cbd03a53c6722cbccd8d2d04076c3c16887782af6b04e7af8e023b81d3"
+  },
+  "source": {
+    "file_name": "oo_1246258.zip",
+    "bytes": 8630359,
+    "md5": "742f186013ef3b60e9754df73e5269de",
+    "sha256": "2e99786857764151b66bfda0caaba4f23288ed9d671bb86c9ea5605727b9c07c"
+  },
+  "all_animal_events": {
+    "event_count": 7620,
+    "interval_violation_count": 13,
+    "interval_violation_rate": 0.0017060367454068241,
+    "before_start_count": 0,
+    "after_end_count": 13,
+    "violations_within_1_hour": 4,
+    "violations_within_24_hours": 13,
+    "absolute_offset_seconds": {
+      "min": 33.0,
+      "median": 22007.0,
+      "mean": 24461.923076923078,
+      "max": 74666.0
+    },
+    "affected_deployment_count": 10
+  },
+  "focal_cervus_nippon_events": {
+    "event_count": 1430,
+    "interval_violation_count": 4,
+    "interval_violation_rate": 0.002797202797202797,
+    "before_start_count": 0,
+    "after_end_count": 4,
+    "violations_within_1_hour": 2,
+    "violations_within_24_hours": 4,
+    "absolute_offset_seconds": {
+      "min": 1121.0,
+      "median": 7686.0,
+      "mean": 9625.0,
+      "max": 22007.0
+    },
+    "affected_deployments": [
+      "Snapshot_Japan_2023_Gunma_Forest_FMKusaki_kusaki5",
+      "Snapshot_Japan_2023_Gunma_Forest_FMKusaki_kusaki6",
+      "Snapshot_Japan_2023_Gunma_Forest_FMKusaki_kusaki10"
+    ],
+    "violation_event_ids": [
+      "7815128",
+      "7815129",
+      "7811733",
+      "7811315"
+    ]
+  },
+  "timezone_audit": {
+    "all_violation_event_offsets": "+00:00",
+    "all_violation_deployment_start_offsets": "+00:00",
+    "all_violation_deployment_end_offsets": "+00:00",
+    "offset_mismatch_detected": false
+  },
+  "interpretation": {
+    "terminal_event_7815128_is_not_isolated": true,
+    "violations_are_all_after_deployment_end": true,
+    "all_detected_violations_within_24_hours": true,
+    "broad_timestamp_system_failure_supported": false,
+    "deployment_end_boundary_linkage_issue_supported_descriptively": true,
+    "repair_or_exclusion_authorized": false,
+    "first_empirical_result_modified": false,
+    "model_fits": 0,
+    "heldout_scores": 0
+  }
+}
