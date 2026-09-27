@@ -131,19 +131,25 @@ The same M2-M1 H1 comparison is evaluated in the frozen 2 x 2 factorial:
 The ENV_DEPENDENCE claim cannot pass if comparison behavior tracks mean truth instead of
 covariance truth.
 
-## K6 distance/barrier geometry firewall
+## K6 distance/barrier transfer-geometry firewall
 
 K6 is a deterministic geometry qualification, not an additional stochastic outcome
 world.
 
-Before the K3/K4 barrier results can count, the frozen graph must contain at least one
-edge-distance stratum with both:
+Before the K3/K4 barrier results can count, all of the following must hold:
 
-- barrier-crossing edge(s)
-- non-barrier edge(s)
+1. the frozen graph contains at least one edge-distance stratum with both
+   barrier-crossing and non-barrier edges;
+2. the H2 **training** domain contains at least one barrier-crossing edge whose two
+   endpoints are both observed-side training nodes;
+3. the H2 train/heldout boundary contains at least one separate barrier-crossing edge.
 
-The current response-free 4 x 3 fixture satisfies this requirement at horizontal
-distance 1.0.
+The response-free 4 x 3 fixture therefore contains two vertical barrier boundaries:
+one is present inside H2 training and the second defines the rightmost-column H2
+holdout. Horizontal edge length 1.0 contains both barrier and non-barrier edges.
+
+This makes H2 a transfer test of a learned barrier-dependence rule rather than asking
+the model to infer beta only from a barrier for which one side is entirely unseen.
 
 ## Claim gates
 
@@ -169,6 +175,7 @@ Requires all:
 - K3 M3-M1 H2 positive-qualified
 - K1 M3-M1 H2 null-qualified
 - K6 deterministic distance-match audit passes
+- K6 H2 learned-barrier transfer-geometry audit passes
 
 ### FULL_MAP_STRUCTURE_SUPPORTED
 
