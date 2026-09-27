@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import math
+import random
 from types import MappingProxyType
 
 from esdm.domain import Grid
@@ -242,6 +243,7 @@ def field1_truth_theta(
     model_id: str,
     *,
     mean_environment_beta: float = 0.55,
+    innovation_seed: int | None = None,
 ):
     model_id = str(model_id).upper()
     model = make_field1_model(fixture, model_id)
@@ -262,10 +264,19 @@ def field1_truth_theta(
             theta[field.gamma_parameter] = 1.2
         if field.use_barrier_dependence:
             theta[field.beta_parameter] = 1.4
-        for index in range(fixture.graph.node_count - 1):
-            theta[field.innovation_parameter(index)] = (
+        if innovation_seed is None:
+            innovations = tuple(
                 0.65 * math.sin(0.9 + 1.7 * index)
+                for index in range(fixture.graph.node_count - 1)
             )
+        else:
+            rng = random.Random(int(innovation_seed))
+            innovations = tuple(
+                rng.gauss(0.0, 1.0)
+                for _ in range(fixture.graph.node_count - 1)
+            )
+        for index, value in enumerate(innovations):
+            theta[field.innovation_parameter(index)] = value
     return {"sp": theta}
 
 
