@@ -13,8 +13,8 @@ def _workflow():
 def test_e2_mica_temporal_workflow_is_authorization_only_and_one_shot():
     text = _workflow()
 
-    assert "e2/mica-temporal-integrity-v1" in text
-    assert "E2_MICA_TEMPORAL_INTEGRITY_AUTHORIZED.json" in text
+    assert "e2/mica-temporal-integrity-v1-r2" in text
+    assert "E2_MICA_TEMPORAL_INTEGRITY_AUTHORIZED_R2.json" in text
     assert "workflow_dispatch" not in text
     assert "authorization commit must change only" in text
     assert "full_response_authorized" in text
@@ -38,3 +38,10 @@ def test_e2_mica_temporal_workflow_uploads_pass_or_stop_result():
     assert "STOP_TEMPORAL_INTEGRITY" in text
     assert "if: always()" in text
     assert "requires_separate_full_response_authorization" in text
+
+
+def test_e2_mica_temporal_r2_fetches_complete_history_for_ancestor_check():
+    text = _workflow()
+
+    assert "fetch-depth: 0" in text
+    assert "e2-mica-temporal-integrity-r2-infrastructure-amendment-v1" in text
