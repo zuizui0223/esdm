@@ -1,0 +1,55 @@
+{
+  "schema": "esdm.map1.coherent_map_contract.v1",
+  "status": "DRAFT_NOT_AUTHORIZED",
+  "drafted_date": "2026-09-27",
+  "relationship_to_field1": {
+    "reopens_field1": false,
+    "rescues_failed_axes": false,
+    "independent_question": "predictive value of fixed geography coherence versus exchangeable latent flexibility"
+  },
+  "scientific_target": {
+    "primary": "held-out map continuity and predictive information",
+    "mechanism_inference": false,
+    "allowed_claim": "COHERENT_MAP_SUPPORTED"
+  },
+  "models": {
+    "B0": "environment only",
+    "BX": "zero-sum exchangeable residual field",
+    "BC": "fixed geography-coherent residual field"
+  },
+  "coherent_kernel": {
+    "edge_weight": "exp(-normalized_distance)",
+    "fixed_rho": 1,
+    "alpha": 0.9,
+    "estimated_range": false,
+    "estimated_environment_axis": false,
+    "estimated_barrier_axis": false,
+    "sigma_prior": "HalfNormal(scale=0.75)",
+    "latent_parameterization": "zero-sum whitened"
+  },
+  "known_truth": {
+    "worlds": [
+      "N0_no_field",
+      "N1_exchangeable_field",
+      "P1_coherent_field"
+    ],
+    "fresh_latent_realization_each_replicate": true,
+    "heldout": "H1 central two-node block on irregular 5x4 graph"
+  },
+  "execution": {
+    "confirmatory_outcome_authorized": false,
+    "empirical_response_authorized": false,
+    "thresholds_frozen": false,
+    "mcmc_profile_frozen": false
+  },
+  "nonclaims": [
+    "spatial range",
+    "dispersal",
+    "movement",
+    "migration",
+    "gene flow",
+    "environmental isolation",
+    "barrier effect",
+    "causal connectivity"
+  ]
+}

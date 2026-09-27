@@ -9,6 +9,7 @@ from .base import NoEffectProcess, PriorSpec, Process, ProcessContribution
 from .state import LinearState, NeutralState
 from .suitability import LinearSuitability, NeutralSuitability
 from .spatial_field import GraphSpatialField
+from .map_field import ExchangeableMapField, FixedCoherenceMapField
 from .support import (
     ProcessRefinement,
     ProcessSupportSet,
@@ -28,6 +29,8 @@ __all__ = [
     "LinearState",
     "NeutralState",
     "GraphSpatialField",
+    "ExchangeableMapField",
+    "FixedCoherenceMapField",
     "ProcessRefinement",
     "ProcessSupportSet",
     "SeparatorEvidence",
