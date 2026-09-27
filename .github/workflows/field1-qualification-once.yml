@@ -34,14 +34,54 @@ jobs:
           marker = Path("docs/field/FIELD1_RUN_AUTHORIZED")
           if not marker.is_file():
               raise SystemExit("FIELD1 authorization marker absent")
+
+          changed = subprocess.check_output(
+              ["git", "diff", "--name-only", "HEAD^", "HEAD"],
+              text=True,
+          ).splitlines()
+          if changed != [marker.as_posix()]:
+              raise SystemExit(
+                  "FIELD1 authorization commit must change only the marker"
+              )
+
           added = subprocess.check_output(
               ["git", "diff", "--diff-filter=A", "--name-only", "HEAD^", "HEAD"],
               text=True,
           ).splitlines()
-          if marker.as_posix() not in added:
+          if added != [marker.as_posix()]:
               raise SystemExit(
                   "FIELD1 authorization marker was not newly added; refusing rerun"
               )
+
+          values = {}
+          for raw in marker.read_text(encoding="utf-8").splitlines():
+              line = raw.strip()
+              if not line or line.startswith("#"):
+                  continue
+              if ":" not in line:
+                  raise SystemExit(
+                      f"invalid FIELD1 authorization marker line: {raw!r}"
+                  )
+              key, value = line.split(":", 1)
+              values[key.strip()] = value.strip()
+
+          parent = subprocess.check_output(
+              ["git", "rev-parse", "HEAD^"],
+              text=True,
+          ).strip()
+          if values.get("programme") != "FIELD1":
+              raise SystemExit("FIELD1 authorization programme mismatch")
+          if values.get("implementation_parent_sha") != parent:
+              raise SystemExit(
+                  "FIELD1 authorization parent does not match frozen implementation"
+              )
+          if values.get("gate") != "docs/field/FIELD1_QUALIFICATION_GATE.md":
+              raise SystemExit("FIELD1 authorization gate mismatch")
+          if (
+              values.get("amendment")
+              != "docs/field/FIELD1_QUALIFICATION_GATE_AMENDMENT_1.md"
+          ):
+              raise SystemExit("FIELD1 authorization amendment mismatch")
           PY
       - name: Install package
         run: python -m pip install -e ".[dev]"
