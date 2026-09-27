@@ -258,7 +258,7 @@ def make_map1_worlds() -> tuple[Map1World, ...]:
         Map1World(
             "N1",
             "BX",
-            (),
+            (("BX", "B0", "H1"),),
             (("BC", "BX", "H1"),),
         ),
         Map1World(
