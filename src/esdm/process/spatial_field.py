@@ -8,6 +8,7 @@ import math
 from esdm.field import (
     FrozenSpatialGraph,
     FrozenSpatialProjection,
+    centered_edge_design_rank,
     whitened_field_array,
     whitened_field_python,
 )
@@ -65,6 +66,22 @@ class GraphSpatialField:
                 raise ValueError(
                     "FIELD1 beta requires barrier-exposure variation"
                 )
+
+        expected_rank = (
+            1
+            + int(self.use_environment_dependence)
+            + int(self.use_barrier_dependence)
+        )
+        observed_rank = centered_edge_design_rank(
+            self.graph,
+            include_environment=self.use_environment_dependence,
+            include_barrier=self.use_barrier_dependence,
+        )
+        if observed_rank != expected_rank:
+            raise ValueError(
+                "FIELD1 active edge-dependence axes are exactly collinear "
+                f"after centering: rank {observed_rank} < {expected_rank}"
+            )
 
         for value in (
             self.log_rho_parameter,
