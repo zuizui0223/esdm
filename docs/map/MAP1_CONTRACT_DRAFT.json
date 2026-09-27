@@ -40,7 +40,20 @@
       "P1_coherent_field"
     ],
     "fresh_latent_realization_each_replicate": true,
-    "heldout": "H1 central two-node block on irregular 5x4 graph"
+    "heldout": "H1 central two-node block on irregular 5x4 graph",
+    "N1_detectability_firewall": {
+      "positive": [
+        "BX",
+        "B0",
+        "H1"
+      ],
+      "null": [
+        "BC",
+        "BX",
+        "H1"
+      ],
+      "rationale": "exchangeable heterogeneity must be predictively detectable before BC-vs-BX null evidence can count"
+    }
   },
   "execution": {
     "confirmatory_outcome_authorized": false,
@@ -50,7 +63,7 @@
     "qualification_branch": "map1/qualification-v1",
     "replicates_per_world": 16,
     "expected_shards": 48,
-    "expected_fits": 128,
+    "expected_fits": 144,
     "gate_thresholds": {
       "positive_min_rate": 0.75,
       "positive_min_mean_gain": 0.005,
@@ -66,7 +79,8 @@
       "target_accept_probability": 0.9
     },
     "qualification_gate_amendments": [
-      "docs/map/MAP1_QUALIFICATION_GATE_AMENDMENT_1.md"
+      "docs/map/MAP1_QUALIFICATION_GATE_AMENDMENT_1.md",
+      "docs/map/MAP1_QUALIFICATION_GATE_AMENDMENT_2.md"
     ],
     "authorization_marker_contract": {
       "path": "docs/map/MAP1_RUN_AUTHORIZED",
@@ -76,7 +90,8 @@
         "programme": "MAP1",
         "implementation_parent_sha": "must equal HEAD^",
         "gate": "docs/map/MAP1_QUALIFICATION_GATE.md",
-        "amendment": "docs/map/MAP1_QUALIFICATION_GATE_AMENDMENT_1.md"
+        "amendment": "docs/map/MAP1_QUALIFICATION_GATE_AMENDMENT_1.md",
+        "amendment_2": "docs/map/MAP1_QUALIFICATION_GATE_AMENDMENT_2.md"
       }
     }
   },
