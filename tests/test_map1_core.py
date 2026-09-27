@@ -121,6 +121,7 @@ def test_map1_worlds_isolate_coherence_from_extra_latent_flexibility():
     assert ("BC", "B0", "H1") in worlds["P1"].expected_positive_comparisons
     assert ("BC", "BX", "H1") in worlds["P1"].expected_positive_comparisons
     assert ("BC", "B0", "H1") in worlds["N0"].expected_null_comparisons
+    assert ("BX", "B0", "H1") in worlds["N1"].expected_positive_comparisons
     assert ("BC", "BX", "H1") in worlds["N1"].expected_null_comparisons
 
 
