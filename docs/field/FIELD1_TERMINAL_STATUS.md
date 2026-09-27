@@ -74,3 +74,14 @@ result.
   `sha256:a6a9e40d7f31dfb3190ecd1c58f6770afee6fd21442a81ec3fdfa69358cf84e7`
 - machine-readable receipt:
   `docs/field/FIELD1_PHASE_A_FROZEN_RESULTS.json`
+
+## Post-outcome diagnostic
+
+A descriptive, non-promotional post-mortem is frozen in
+`docs/field/FIELD1_POSTMORTEM.md` with machine-readable geometry diagnostics in
+`docs/field/FIELD1_POSTMORTEM_DIAGNOSTICS.json`.
+
+It does not reopen FIELD1. Its main structural finding is that the frozen distance and
+environmental-dissimilarity edge axes are formally full-rank but practically
+near-collinear, while the barrier failure remains only partly explained.
+
