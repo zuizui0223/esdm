@@ -1,0 +1,46 @@
+{
+  "schema": "esdm.replication.camtrapdp_external_temporal_audit_frozen.v1",
+  "status": "AUDIT_COMPLETE",
+  "programme_class": "independent_external_data_contract_replication",
+  "workflow_run_id": 36298529369,
+  "workflow_head_sha": "f82326770c58dfb4964d1f9ea014e2aac038d9f4",
+  "artifact": {
+    "id": 10924069778,
+    "name": "camtrapdp-external-temporal-audit-36298529369",
+    "github_digest": "sha256:8adac0ed5b92091ab80d2a6ab3a1b0a552368d5a7e1a4f0582a443405334d7d8",
+    "independent_zip_sha256": "8adac0ed5b92091ab80d2a6ab3a1b0a552368d5a7e1a4f0582a443405334d7d8"
+  },
+  "source": {
+    "doi": "10.5281/zenodo.11440456",
+    "pilot": "pilot2",
+    "file_name": "pilot2.zip",
+    "bytes": 345939445,
+    "md5": "ac94e6e646c5702f67d939ea9a059641",
+    "sha256": "243ae9a6f159abe99d836989686f04f458ca5ed38a6713e6617b361bd8604f51",
+    "deployment_member": "pilot2/deployments.csv",
+    "observation_member": "pilot2/observations.csv"
+  },
+  "audit": {
+    "deployment_count": 2,
+    "observation_row_count": 194,
+    "unique_animal_event_count": 86,
+    "unparseable_animal_event_rows_skipped": 0,
+    "inside_count": 86,
+    "before_start_count": 0,
+    "after_end_count": 0,
+    "missing_deployment_count": 0,
+    "interval_violation_count": 0,
+    "interval_violation_rate": 0.0,
+    "affected_deployment_count": 0
+  },
+  "interpretation": {
+    "snapshot_japan_boundary_failure_replicated": false,
+    "exact_interval_rule_compatible_with_independent_camtrapdp_dataset": true,
+    "camtrapdp_standard_inherently_causes_boundary_violations_supported": false,
+    "snapshot_japan_specific_or_export_specific_issue_is_more_plausible": true,
+    "universal_absence_of_boundary_violations_established": false,
+    "model_fits": 0,
+    "heldout_scores": 0,
+    "first_empirical_endpoint_modified": false
+  }
+}

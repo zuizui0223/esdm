@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "contract_id": "camtrapdp-external-temporal-boundary-replication-v1",
+  "status": "FROZEN_PRE_EXTERNAL_AUDIT",
+  "programme_class": "independent_external_data_contract_replication",
+  "parent_audit": {
+    "result": "docs/replication/R5B_TEMPORAL_LINKAGE_AUDIT_RESULT.json",
+    "first_empirical_endpoint_remains_terminal": true,
+    "no_model_rescue": true
+  },
+  "source": {
+    "title": "Repository of camera trap data recorded during three pilot studies of the Amsterdamse Waterleidingduinen",
+    "doi": "10.5281/zenodo.11440456",
+    "version": "v2",
+    "pilot": "pilot2",
+    "file_name": "pilot2.zip",
+    "url": "https://zenodo.org/api/records/11440456/files/pilot2.zip/content",
+    "expected_md5": "ac94e6e646c5702f67d939ea9a059641",
+    "published_size_bytes_approx": 345900000,
+    "required_resource_basenames": ["deployments.csv", "observations.csv"]
+  },
+  "frozen_rule": {
+    "population": "unique deploymentID + eventID among observationLevel=event and observationType=animal with parseable eventStart",
+    "inside": "deploymentStart <= eventStart <= deploymentEnd",
+    "before_start": "eventStart < deploymentStart",
+    "after_end": "eventStart > deploymentEnd",
+    "no_padding": true,
+    "no_timestamp_repair": true,
+    "no_row_deletion": true
+  },
+  "reported_metrics": [
+    "deployment_count",
+    "observation_row_count",
+    "unique_animal_event_count",
+    "interval_violation_count_and_rate",
+    "before_start_and_after_end_counts",
+    "absolute_offset_seconds_summary",
+    "violations_within_1_hour_24_hours_7_days",
+    "affected_deployment_count",
+    "timezone_offset_triplets"
+  ],
+  "prohibited": {
+    "ecological_model_fit": true,
+    "heldout_scoring": true,
+    "threshold_tuning": true,
+    "interval_widening": true,
+    "timestamp_correction": true,
+    "change_to_first_empirical_result": true
+  },
+  "execution": {
+    "authorization_marker": "docs/replication/CAMTRAPDP_EXTERNAL_TEMPORAL_AUDIT_AUTHORIZED",
+    "marker_must_be_newly_added": true,
+    "one_authorized_run": true,
+    "workflow_dispatch_enabled": false
+  }
+}
