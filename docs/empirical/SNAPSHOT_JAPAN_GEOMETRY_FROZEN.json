@@ -1,0 +1,40 @@
+{
+  "schema": "esdm.empirical_r5b.snapshot_japan_geometry_frozen.v1",
+  "status": "GEOMETRY_QUALIFIED",
+  "workflow_run_id": 36239769432,
+  "workflow_head_sha": "35edc5881e4df3c299893dd016eceab842d3ec7b",
+  "artifact": {
+    "id": 10905363032,
+    "name": "empirical-snapshot-japan-geometry-36239769432",
+    "github_digest": "sha256:56c4cc76b7df300fd7f83dfc3010439b78af0011a2984d1ae67e9479fdfa6d99",
+    "independent_zip_sha256": "56c4cc76b7df300fd7f83dfc3010439b78af0011a2984d1ae67e9479fdfa6d99"
+  },
+  "deployment_source": {
+    "file": "oo_1202827.csv",
+    "md5": "9ee54945758d9d146badd3aeb17a7923",
+    "sha256": "b9e48f28a6420107c1fada09c6e2972c78f226a4767f7da7d88f16bd34aab354",
+    "deployment_count": 90,
+    "unique_coordinate_count": 90
+  },
+  "east_holdout": {
+    "threshold_longitude": 140.25698549999998,
+    "train_max_longitude": 139.9332,
+    "heldout_min_longitude": 140.580771,
+    "gap_degrees": 0.6475709999999992,
+    "train_count": 70,
+    "heldout_count": 20
+  },
+  "role_counts": {
+    "calibrated_presence": 35,
+    "state_annotated": 17,
+    "state_composition": 18,
+    "heldout_state_annotated": 20
+  },
+  "geometry_sha256": "bb83bf9c3f858ca566185bd8b9a3bdb4868b6c7d0851ff60428b546f2aaa7de5",
+  "response_payload_requests": 0,
+  "response_header_requests": 0,
+  "response_rows_opened": 0,
+  "response_values_opened": false,
+  "model_fits": 0,
+  "heldout_scores": 0
+}
