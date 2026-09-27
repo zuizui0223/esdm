@@ -181,7 +181,11 @@
     "expected_fits": 704,
     "qualification_gate_amendments": [
       "docs/field/FIELD1_QUALIFICATION_GATE_AMENDMENT_1.md"
-    ]
+    ],
+    "implementation_pr_branch": "feature/field1-continuous-map-prior",
+    "qualification_branch": "field1/qualification-v1",
+    "qualification_branch_must_start_from_merged_main": true,
+    "authorization_marker_commit_must_only_authorize_frozen_programme": true
   },
   "literature": [
     {
