@@ -109,7 +109,7 @@
   ],
   "heldout_geometry": {
     "H1": "contiguous top-row spatial block",
-    "H2": "entire right half beyond the predeclared barrier",
+    "H2": "rightmost column beyond a second predeclared barrier; H2 training contains a separate barrier of the same type",
     "implementation": "separate train and heldout Grid domain views sharing the same graph and parameter sites",
     "zero_effort_padding": false,
     "scores_normalized_per_heldout_context": true
@@ -214,7 +214,7 @@
       "graph_nodes": 12,
       "layout": "4x3 lattice",
       "temporal_contexts_per_space": 4,
-      "barrier": "vertical boundary between columns 1 and 2",
+      "barrier": "two vertical barriers: columns 0/1 inside H2 training and columns 2/3 at the H2 transfer boundary",
       "response_free": true
     },
     "primary_worlds": {
@@ -367,9 +367,11 @@
       "requirement": "comparison sign tracks covariance truth, not mean-effect truth"
     },
     "K6": {
-      "design": "matched geographic edge-distance strata containing barrier and non-barrier edges",
+      "design": "matched geographic edge-distance strata plus learned-barrier transfer geometry",
       "fixture_has_matching_stratum": true,
-      "requirement": "barrier comparison sign tracks barrier truth after distance matching"
+      "h2_training_contains_barrier": true,
+      "h2_boundary_contains_separate_barrier": true,
+      "requirement": "barrier comparison sign is evaluated only when barrier dependence can be learned on training geometry and transferred across a separate heldout barrier"
     },
     "replicate_hierarchy": {
       "world_hyperparameters": "fixed within world",
