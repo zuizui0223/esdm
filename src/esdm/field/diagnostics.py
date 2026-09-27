@@ -70,6 +70,48 @@ class PrecisionSensitivityDiagnostics:
         )
 
 
+
+
+@dataclass(frozen=True, slots=True)
+class PrecisionSensitivitySweep:
+    """Sensitivity diagnostics across predeclared parameter points."""
+
+    points: tuple[object, ...]
+    diagnostics: tuple[PrecisionSensitivityDiagnostics, ...]
+    worst_point_index: int
+    max_condition_number: float
+    min_gram_eigenvalue: float
+
+    def __post_init__(self) -> None:
+        clean_points = tuple(
+            MappingProxyType(
+                {str(key): float(value) for key, value in dict(point).items()}
+            )
+            for point in self.points
+        )
+        diagnostics = tuple(self.diagnostics)
+        if not clean_points or len(clean_points) != len(diagnostics):
+            raise ValueError(
+                "precision sensitivity sweep points/diagnostics must be non-empty and aligned"
+            )
+        index = int(self.worst_point_index)
+        if index < 0 or index >= len(clean_points):
+            raise ValueError("precision sensitivity sweep worst_point_index is invalid")
+        object.__setattr__(self, "points", clean_points)
+        object.__setattr__(self, "diagnostics", diagnostics)
+        object.__setattr__(self, "worst_point_index", index)
+        object.__setattr__(
+            self,
+            "max_condition_number",
+            float(self.max_condition_number),
+        )
+        object.__setattr__(
+            self,
+            "min_gram_eigenvalue",
+            float(self.min_gram_eigenvalue),
+        )
+
+
 def _eligible_edges(graph: FrozenSpatialGraph, spaces=None):
     if spaces is None:
         return tuple(graph.edges)
@@ -364,4 +406,70 @@ def precision_sensitivity_diagnostics(
         normalized_gram=gram,
         normalized_gram_eigenvalues=gram_eigenvalues,
         normalized_condition_number=condition,
+    )
+
+
+def precision_sensitivity_sweep(
+    graph: FrozenSpatialGraph,
+    points,
+    *,
+    alpha: float = 0.95,
+    axes=("log_rho", "gamma", "beta"),
+    step: float = 1e-5,
+) -> PrecisionSensitivitySweep:
+    """Evaluate local sensitivity conditioning over predeclared parameter points."""
+
+    clean_points = []
+    diagnostics = []
+    required = {"log_rho", "gamma", "beta"}
+    allowed = required | {"log_sigma"}
+
+    for raw in points:
+        point = {str(key): float(value) for key, value in dict(raw).items()}
+        missing = required - set(point)
+        extra = set(point) - allowed
+        if missing:
+            raise ValueError(
+                f"precision sensitivity sweep point missing keys: {sorted(missing)}"
+            )
+        if extra:
+            raise KeyError(
+                f"precision sensitivity sweep point has unknown keys: {sorted(extra)}"
+            )
+        point.setdefault("log_sigma", 0.0)
+        clean_points.append(point)
+        diagnostics.append(
+            precision_sensitivity_diagnostics(
+                graph,
+                log_rho=point["log_rho"],
+                gamma=point["gamma"],
+                beta=point["beta"],
+                log_sigma=point["log_sigma"],
+                alpha=alpha,
+                axes=axes,
+                step=step,
+            )
+        )
+
+    if not diagnostics:
+        raise ValueError("precision sensitivity sweep requires at least one point")
+
+    conditions = tuple(
+        diagnostic.normalized_condition_number
+        for diagnostic in diagnostics
+    )
+    worst_index = max(
+        range(len(conditions)),
+        key=lambda index: conditions[index],
+    )
+    minimum_eigenvalue = min(
+        min(diagnostic.normalized_gram_eigenvalues)
+        for diagnostic in diagnostics
+    )
+    return PrecisionSensitivitySweep(
+        points=tuple(clean_points),
+        diagnostics=tuple(diagnostics),
+        worst_point_index=worst_index,
+        max_condition_number=conditions[worst_index],
+        min_gram_eigenvalue=minimum_eigenvalue,
     )
