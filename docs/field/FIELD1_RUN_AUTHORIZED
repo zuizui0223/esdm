@@ -1,0 +1,7 @@
+programme: FIELD1
+implementation_parent_sha: 2b8152613b6a3c71915d509065e18c41c96538b1
+gate: docs/field/FIELD1_QUALIFICATION_GATE.md
+amendment: docs/field/FIELD1_QUALIFICATION_GATE_AMENDMENT_1.md
+authorized_date: 2026-09-27
+authorization_scope: frozen Phase-A known-truth qualification only
+empirical_response_authorized: false
