@@ -1,0 +1,139 @@
+{
+  "action_boundary": {
+    "authorizes_eog_consumption": false,
+    "authorizes_n4_action": false,
+    "authorizes_spatial_patch_ranking": false,
+    "authorizes_state_promotion": false,
+    "authorizes_survey_site_selection": false,
+    "n4_survey_action_owner": "ACSP"
+  },
+  "comparison_boundary": {
+    "cross_programme_numeric_ranking_authorized": false,
+    "interpretation": "portfolio items are validated transfer contrasts in their own frozen programmes; matching units do not authorize magnitude ranking across different worlds, targets, or conditioning sets",
+    "lattice_inference_created": false,
+    "parallel_sibling_addition_authorized": false,
+    "parallel_sibling_ordering_authorized": false,
+    "same_score_unit_implies_comparability": false,
+    "single_global_information_ladder_authorized": false
+  },
+  "fingerprint": "f208a7a10cba7ee0728251cd09776bc769e91c5c1af748a575571c4840dd1b6e",
+  "items": [
+    {
+      "added_information": [
+        "activity"
+      ],
+      "conservative_mean_value": 0.00539876274739076,
+      "endpoint_id": "esdm_v04_r5b_activity_transfer_v1",
+      "lower_level": "suitability_state",
+      "mean_interval_lower": 0.00539876274739076,
+      "mean_interval_upper": 0.008536010424256283,
+      "ordering_relation": "parallel_nonordered",
+      "parallel_family": "v04_r5b_activity_state",
+      "population_mean_gain": 0.00699856015906225,
+      "population_status": "positive",
+      "positive_group_fraction": 1.0,
+      "prediction_lower": 0.00017361380150801055,
+      "prediction_upper": 0.01382350651661649,
+      "programme": "v0.4-R5b",
+      "receipt_sha256": "40c3b36d96a19277074ad0c3ac8b3f79b241c3d44c49c83cb2bef25033ff0e54",
+      "score_kind": "log",
+      "score_name": "mean_heldout_log_predictive_density",
+      "score_unit": "nats_per_heldout_state_block_context",
+      "source_id": "v04_r5b_activity",
+      "upper_level": "suitability_state_activity",
+      "validated_integration_receipt": "ODSP_TRANSFER_R5B_PARALLEL_RESULT_V1.json"
+    },
+    {
+      "added_information": [
+        "state"
+      ],
+      "conservative_mean_value": 0.025782042061382092,
+      "endpoint_id": "esdm_v04_r5b_state_transfer_v1",
+      "lower_level": "suitability_activity",
+      "mean_interval_lower": 0.025782042061382092,
+      "mean_interval_upper": 0.03171550122818008,
+      "ordering_relation": "parallel_nonordered",
+      "parallel_family": "v04_r5b_activity_state",
+      "population_mean_gain": 0.02896466849576273,
+      "population_status": "positive",
+      "positive_group_fraction": 1.0,
+      "prediction_lower": 0.01588863971665459,
+      "prediction_upper": 0.042040697274870864,
+      "programme": "v0.4-R5b",
+      "receipt_sha256": "40c3b36d96a19277074ad0c3ac8b3f79b241c3d44c49c83cb2bef25033ff0e54",
+      "score_kind": "log",
+      "score_name": "mean_heldout_log_predictive_density",
+      "score_unit": "nats_per_heldout_state_block_context",
+      "source_id": "v04_r5b_state",
+      "upper_level": "suitability_activity_state",
+      "validated_integration_receipt": "ODSP_TRANSFER_R5B_PARALLEL_RESULT_V1.json"
+    },
+    {
+      "added_information": [
+        "accessibility"
+      ],
+      "conservative_mean_value": 0.27041044003054493,
+      "endpoint_id": "esdm_v06a_accessibility_transfer_v1",
+      "lower_level": "suitability_only",
+      "mean_interval_lower": 0.27041044003054493,
+      "mean_interval_upper": 0.44941186157505086,
+      "ordering_relation": "standalone",
+      "parallel_family": null,
+      "population_mean_gain": 0.36244191577864204,
+      "population_status": "positive",
+      "positive_group_fraction": 1.0,
+      "prediction_lower": -0.015981387429271854,
+      "prediction_upper": 0.7408652189865559,
+      "programme": "v0.6a",
+      "receipt_sha256": "a2865f358c7e45fef06b8597c66fef419ce6e3884ea526c5d5fa0f0afecaa843",
+      "score_kind": "log",
+      "score_name": "mean_heldout_log_predictive_density",
+      "score_unit": "nats_per_heldout_context",
+      "source_id": "v06a_static_accessibility",
+      "upper_level": "suitability_accessibility",
+      "validated_integration_receipt": "ODSP_TRANSFER_E2E_RESULT_V1.json"
+    },
+    {
+      "added_information": [
+        "dynamic_occupancy"
+      ],
+      "conservative_mean_value": 6.112566461456692,
+      "endpoint_id": "esdm_v07b_dynamic_occupancy_transfer_v1",
+      "lower_level": "suitability_only",
+      "mean_interval_lower": 6.112566461456692,
+      "mean_interval_upper": 7.9616799541275105,
+      "ordering_relation": "standalone",
+      "parallel_family": null,
+      "population_mean_gain": 7.090827989764035,
+      "population_status": "positive",
+      "positive_group_fraction": 1.0,
+      "prediction_lower": 2.985626903196528,
+      "prediction_upper": 11.196029076331541,
+      "programme": "v0.7b",
+      "receipt_sha256": "3214d9d1ccdedb164891a13621278c9fa9d4cdb6287df4995fd50506a87658ad",
+      "score_kind": "log",
+      "score_name": "mean_heldout_log_predictive_density",
+      "score_unit": "nats_per_heldout_context",
+      "source_id": "v07b_dynamic_occupancy",
+      "upper_level": "suitability_dynamic_occupancy",
+      "validated_integration_receipt": "ODSP_TRANSFER_V07B_E2E_RESULT_V1.json"
+    }
+  ],
+  "parallel_families": [
+    {
+      "additive_total_authorized": false,
+      "combined_chain_authorized": false,
+      "family": "v04_r5b_activity_state",
+      "magnitude_ranking_authorized": false,
+      "members": [
+        "v04_r5b_activity",
+        "v04_r5b_state"
+      ],
+      "natural_order_authorized": false,
+      "shared_programme": true,
+      "shared_score_currency": true
+    }
+  ],
+  "registry_id": "esdm-odsp-transfer-source-registry-v1",
+  "schema": "esdm.odsp_transfer_evidence_portfolio.v1"
+}

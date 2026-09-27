@@ -1,0 +1,64 @@
+name: odsp-transfer-mainline
+
+on:
+  pull_request:
+    paths:
+      - 'ODSP_TRANSFER_*.json'
+      - 'src/esdm/transfer/**'
+      - 'scripts/export_v04_r5b_odsp_transfer.py'
+      - 'scripts/export_v06a_odsp_transfer.py'
+      - 'scripts/export_v07b_odsp_transfer.py'
+      - 'scripts/build_odsp_transfer_evidence_portfolio*.py'
+      - 'scripts/list_odsp_transfer_sources.py'
+      - 'docs/integration/ODSP_TRANSFER_*.md'
+      - 'docs/validation/V05A_FROZEN_RESULTS.json'
+      - 'docs/validation/V05B_FROZEN_RESULTS.json'
+      - 'docs/validation/V05E_FROZEN_RESULTS.json'
+      - 'docs/validation/V06A_FROZEN_RESULTS.json'
+      - 'docs/validation/V06B_FROZEN_RESULTS.json'
+      - 'docs/validation/V06C_BUDGET_MATCHED_FROZEN_RESULTS.json'
+      - 'docs/validation/V07A_DYNAMIC_IDENTIFICATION_GATE.md'
+      - 'docs/validation/V07B_FROZEN_RESULTS.json'
+      - 'docs/validation/V07C_FROZEN_RESULTS.json'
+      - 'docs/validation/V07D_FROZEN_RESULTS.json'
+      - 'docs/validation/V07E_FROZEN_RESULTS.json'
+      - 'tests/test_odsp_transfer_*.py'
+      - 'tests/test_r5b_odsp_adapter.py'
+      - 'tests/test_v07b_odsp_adapter.py'
+      - '.github/workflows/odsp-transfer-mainline.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install eSDM test dependencies
+        run: python -m pip install -e '.[dev]'
+      - name: Validate promoted transfer evidence layer
+        run: >-
+          python -m pytest -q
+          tests/test_odsp_transfer_source_registry.py
+          tests/test_odsp_transfer_adapter.py
+          tests/test_r5b_odsp_adapter.py
+          tests/test_v07b_odsp_adapter.py
+          tests/test_odsp_transfer_evidence_portfolio_v2.py
+          tests/test_odsp_transfer_evidence_ledger_receipt_v2.py
+          tests/test_odsp_transfer_e2e_result.py
+          tests/test_odsp_transfer_v07b_e2e_result.py
+          tests/test_odsp_transfer_mainline_promotion.py
+      - name: Compile transfer scripts
+        run: >-
+          python -m py_compile
+          scripts/export_v04_r5b_odsp_transfer.py
+          scripts/export_v06a_odsp_transfer.py
+          scripts/export_v07b_odsp_transfer.py
+          scripts/build_odsp_transfer_evidence_portfolio.py
+          scripts/build_odsp_transfer_evidence_portfolio_v2.py
+          scripts/list_odsp_transfer_sources.py

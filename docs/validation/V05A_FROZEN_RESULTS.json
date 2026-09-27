@@ -1,0 +1,67 @@
+{
+  "schema": "esdm.v05a.frozen_results.v1",
+  "status": "PASS",
+  "outcome_run_id": 35970773843,
+  "outcome_head_sha": "3eb57ec0e3f81bffa87119ea0181b7a71000e30d",
+  "gate_freeze_commit": "c6b7630030b63a950008191e4e4842950b660b6e",
+  "gate_blob_sha": "d3c4d3f1b3f29858c8fdc2c69eb2003d5552111e",
+  "observed_gate_blob_sha": "d3c4d3f1b3f29858c8fdc2c69eb2003d5552111e",
+  "qualification_artifact": {
+    "id": 10795343510,
+    "name": "v05a-qualification-35970773843",
+    "github_digest": "sha256:f381c05be743dc4b96669e1a769157474a7a83b2fb272deec078ff98e8e8f0fa"
+  },
+  "outcome_artifact": {
+    "id": 10795932206,
+    "name": "v05a-result-35970773843",
+    "github_digest": "sha256:b3ae75e2d046ee29ac8a2df9cded81a67da3ef29522d8cdd5862616396835b4d",
+    "independent_zip_sha256": "b3ae75e2d046ee29ac8a2df9cded81a67da3ef29522d8cdd5862616396835b4d"
+  },
+  "qualification": {
+    "interaction_structural_pass": true,
+    "interaction_practical_pass": true,
+    "interaction_target_sd_proxy": 0.11197054619845902,
+    "interaction_condition_number": 6.660252121159672,
+    "null_structural_pass": true,
+    "null_practical_pass": true,
+    "null_target_sd_proxy": 0.15675573410205124,
+    "null_condition_number": 5.532708075230561
+  },
+  "summary": {
+    "total_fits": 64,
+    "total_divergences": 0,
+    "interaction": {
+      "replicates": 16,
+      "mean_bias": 0.0020049165455358273,
+      "coverage": 1.0,
+      "positive_interval_rate": 1.0,
+      "nonzero_interval_rate": 1.0,
+      "heldout_positive_gain_rate": 1.0,
+      "heldout_material_gain_rate": 1.0,
+      "mean_heldout_gain": 1.1772550609062093
+    },
+    "measured_shared_null": {
+      "replicates": 16,
+      "mean_beta": 0.0013825331218785253,
+      "coverage": 0.75,
+      "positive_interval_rate": 0.0625,
+      "nonzero_interval_rate": 0.25,
+      "heldout_positive_gain_rate": 0.25,
+      "heldout_material_gain_rate": 0.1875,
+      "mean_heldout_gain": -0.0507431123855297
+    }
+  },
+  "gate": {
+    "passed": true,
+    "checks_passed": 18,
+    "checks_total": 18
+  },
+  "claim_boundary": {
+    "directed_partner_effect_recovery": true,
+    "measured_shared_environment_null_refusal": true,
+    "hidden_common_driver_robustness": false,
+    "causal_interaction": false,
+    "realized_interaction_event_support": false,
+    "reciprocal_interaction": false
+  }
+}

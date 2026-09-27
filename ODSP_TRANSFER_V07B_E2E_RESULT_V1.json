@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "receipt_id": "esdm-v07b-to-odsp-to-n3-transfer-value-result-v1",
+  "validated_date": "2026-09-25",
+  "binding": "ODSP_TRANSFER_V07B_E2E_BINDING_V1.json",
+  "source": {
+    "esdm_schema": "esdm.v07b.dynamic_transfer.v1",
+    "workflow_run_id": 36074930922,
+    "artifact_id": 10840405228,
+    "artifact_digest": "sha256:a5b2bed48b3acadc8b7c7461dd13074007d34e39a3a5ccfb303b984ff7c5d247",
+    "result_sha256": "c3a5c51b9d8ccbb422b0181ad93d9dc4b1cb405668667e30b4ede0ccb3fef32b",
+    "gate_merge_commit": "3c7e84203588498c319de8deebd58ae46f244a88",
+    "authorized_head_sha": "87ff01ffb9f10db9b8c2d6ca1bf1d981a7dcb06f"
+  },
+  "integration": {
+    "validation_head_sha": "41d920e4f71da2f922076477da9b6ca906571eaf",
+    "workflow_run_id": 36076828551,
+    "run_attempt": 1,
+    "conclusion": "success",
+    "artifact_id": 10839833749,
+    "artifact_name": "esdm-v07b-odsp-transfer-e2e-v1",
+    "artifact_digest": "sha256:62d54dae86dd26923a75580cfd14bfc3865546d052b3f04065f008d68b5c9180",
+    "pinned_odsp_commit": "0bd83e1ebb372c48839654ab0e42124fe37b8faf"
+  },
+  "output_hashes": {
+    "scores.csv": "c839ac1199f831c1bb18529bde61a58285e01c1929660518d6dddfa11c3dc050",
+    "endpoint.json": "958a2aed787577dda6cb235ca118c443f758f98966d2eee3b33256dd18581784",
+    "adapter_manifest.json": "994446ed651b03c5b2eaeffae2fba37f2e5138287d239f1dc99f789f559523b9",
+    "receipt.json": "3eabdb8c9cddc82b9303f8141f46aa9ebaa7e89902a8b52f10c17a907de6f5f9",
+    "N2_TO_N3_TRANSFER_VALUE_PAYLOAD_V07B.json": "78cc75bea3febccc017dc60325565b78a4519fbdc05a2010d116a92cca64c1d5"
+  },
+  "odsp_result": {
+    "endpoint_id": "esdm_v07b_dynamic_occupancy_transfer_v1",
+    "point_transfer_ceiling": "suitability_dynamic_occupancy",
+    "certified_transfer_ceiling": "suitability_only",
+    "certification_all_steps_estimable": false,
+    "certification_estimable_cell_count": 0,
+    "certification_cell_count": 16,
+    "population_group_count": 16,
+    "population_cluster_count": 16,
+    "population_cluster_declared": false,
+    "population_mean_gain": 7.090827989764035,
+    "population_mean_interval": [
+      6.112566461456692,
+      7.9616799541275105
+    ],
+    "population_status": "positive",
+    "population_positive_group_count": 16,
+    "population_positive_group_fraction": 1,
+    "population_positive_fraction_lower": 0.8063923194655637,
+    "population_mean_supported_ceiling": "suitability_dynamic_occupancy",
+    "prediction_interval": [
+      2.985626903196528,
+      11.196029076331541
+    ],
+    "empirical_quantiles": {
+      "p10": 4.186174906127743,
+      "p50": 7.472433060144203,
+      "p90": 8.567016636065716
+    }
+  },
+  "n3_transfer_value": {
+    "schema_id": "n2-to-n3-transfer-value-payload-v1",
+    "fingerprint": "acbf2d83ade9bf4f37d45496033fbe3f901c8ab4c1af94565df1f9a76cef6e4a",
+    "source_population_fingerprint": "e1a4f75c438f0791184bca56dc0c459bddc80df80cec99bf874b0fda16a7c5de",
+    "score": {
+      "kind": "log",
+      "name": "mean_heldout_log_predictive_density",
+      "unit": "nats_per_heldout_context",
+      "orientation": "higher_is_better"
+    },
+    "total_expected_gain": 7.090827989764035,
+    "total_conservative_mean_value": 6.112566461456692,
+    "total_status": "positive",
+    "prediction_interval": [
+      2.985626903196528,
+      11.196029076331541
+    ],
+    "authorizes_state_promotion": false,
+    "authorizes_spatial_patch_ranking": false,
+    "authorizes_survey_site_selection": false,
+    "authorizes_n4_action": false,
+    "n4_survey_action_owner": "ACSP"
+  },
+  "interpretation": {
+    "supported": [
+      "the frozen v0.7b marginal dynamic occupancy result retains strong late-time held-out predictive value after direct occupancy exposure stops",
+      "the eSDM absolute-score export reproduces the frozen mean dynamic-occupancy gain exactly under ODSP",
+      "ODSP population inference supports positive dynamic-occupancy transfer across 16 independent known-truth replicates",
+      "the N2-to-N3 value handoff carries a strictly positive conservative mean value and a positive normal-theory new-replicate interval",
+      "legacy within-group certification remains unavailable because each replicate contributes one aggregate held-out score row"
+    ],
+    "not_supported": [
+      "realized binary occupancy histories",
+      "observed colonization or extinction events",
+      "movement or dispersal kernels",
+      "connectivity or source-sink dynamics",
+      "empirical biological validity",
+      "survey-site ranking or N4 action",
+      "use by the frozen current EOG mainline",
+      "a change to the original v0.7b promotion decision"
+    ]
+  }
+}
