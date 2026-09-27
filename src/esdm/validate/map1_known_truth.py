@@ -210,6 +210,7 @@ def map1_truth_theta(
     *,
     innovation_seed: int | None = None,
 ):
+    model_id = str(model_id).upper()
     model = make_map1_model(fixture, model_id)
     theta = {
         "intercept": 1.15,
