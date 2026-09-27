@@ -165,7 +165,10 @@ def aggregate_field1_shards(root: Path):
         )
 
     fixture = make_field1_fixture()
-    k6_strata = matched_barrier_distance_strata(fixture)
+    k6_strata = matched_barrier_distance_strata(
+        fixture,
+        spaces=fixture.training_spaces("H2"),
+    )
     k6_pass = bool(k6_strata)
     h2_barrier_audit = barrier_transfer_geometry_audit(fixture)
     h2_barrier_pass = bool(h2_barrier_audit["passed"])
