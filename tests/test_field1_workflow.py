@@ -39,6 +39,7 @@ def test_field1_workflow_freezes_complete_world_replicate_matrix():
     assert "max-parallel: 12" in text
     assert "scripts/run_field1_replicate.py" in text
     assert "scripts/aggregate_field1.py" in text
+    assert "tests/test_field1_aggregate.py" in text
     assert "merge-multiple: false" in text
 
 
