@@ -57,6 +57,51 @@ def test_precision_sensitivity_detects_rho_gamma_alignment():
     )
 
 
+
+
+def test_precision_sensitivity_reports_multi_axis_conditioning():
+    fixture = make_field1_fixture()
+    result = precision_sensitivity_diagnostics(
+        fixture.graph,
+        log_rho=math.log(1.4),
+        gamma=1.2,
+        beta=1.4,
+    )
+
+    assert result.axes == ("log_rho", "gamma", "beta")
+    assert len(result.normalized_gram) == 3
+    assert result.normalized_gram[0][0] == pytest.approx(1.0)
+    assert result.normalized_gram[0][1] == pytest.approx(
+        result.cosine[("log_rho", "gamma")]
+    )
+    assert result.normalized_gram_eigenvalues == tuple(
+        sorted(result.normalized_gram_eigenvalues)
+    )
+    assert min(result.normalized_gram_eigenvalues) > 0.0
+    assert result.normalized_condition_number == pytest.approx(
+        4.7082333,
+        rel=1e-5,
+    )
+
+
+def test_two_axis_conditioning_matches_pairwise_cosine_geometry():
+    fixture = make_field1_fixture()
+    result = precision_sensitivity_diagnostics(
+        fixture.graph,
+        log_rho=math.log(1.4),
+        gamma=0.0,
+        beta=0.0,
+        axes=("log_rho", "gamma"),
+    )
+    cosine = result.cosine[("log_rho", "gamma")]
+    expected = math.sqrt((1.0 + abs(cosine)) / (1.0 - abs(cosine)))
+    assert result.normalized_condition_number == pytest.approx(
+        expected,
+        rel=1e-7,
+    )
+    assert result.normalized_condition_number > 6.0
+
+
 def test_precision_sensitivity_uses_forward_difference_at_nonnegative_boundary():
     fixture = make_field1_fixture()
     result = precision_sensitivity_diagnostics(
