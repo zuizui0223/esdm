@@ -1,0 +1,78 @@
+{
+  "schema": "esdm.empirical_r5b.snapshot_japan_sequence_header.v1",
+  "status": "FROZEN_PRE_HEADER",
+  "scientific_freeze": {
+    "r5b_branch_head": "3320431b300f34b326363713fb1d993ea5e43a87",
+    "r5b_status": "PASS",
+    "geometry_certificate": "docs/empirical/SNAPSHOT_JAPAN_GEOMETRY_FROZEN.json",
+    "empirical_entry": "docs/validation/EMPIRICAL_ENTRY_R5B_FREEZE.md"
+  },
+  "publisher_metadata": {
+    "article_doi": "10.3897/BDJ.13.e141168",
+    "supplement_doi": "10.3897/BDJ.13.e141168.suppl2",
+    "article_zenodo_record": 15030775,
+    "taxpub_xml_md5": "37194757c882bb2edafd7a6cd5857c78",
+    "supplement_id": "S11978224",
+    "published_file_name": "oo_1165478.csv",
+    "published_display_name": "bdj-13-e141168-s002.csv",
+    "original_file_url": "https://binary.pensoft.net/file/1165478"
+  },
+  "expected_header": [
+    "project_id",
+    "deployment_id",
+    "sequence_id",
+    "is_blank",
+    "identified_by",
+    "wi_taxon_id",
+    "class",
+    "order",
+    "family",
+    "genus",
+    "species",
+    "common_name",
+    "uncertainty",
+    "start_time",
+    "end_time",
+    "group_size",
+    "age",
+    "sex",
+    "animal_recognisable",
+    "individual_id",
+    "individual_animal_notes",
+    "behaviour",
+    "highlighted",
+    "markings",
+    "cv_confidence",
+    "licence"
+  ],
+  "header_transport": {
+    "method": "GET_STREAM",
+    "max_requests": 1,
+    "max_header_bytes": 4096,
+    "stop_at_first_lf": true,
+    "full_body_fallback_allowed": false,
+    "response_data_row_bytes_allowed": 0,
+    "user_agent": "esdm-r5b-snapshot-japan-header/1.0"
+  },
+  "focal_biology_frozen_before_header": {
+    "species": "Cervus nippon",
+    "state_space": ["adult", "juvenile"],
+    "age_mapping": {
+      "adult": "adult",
+      "juvenile": "juvenile"
+    },
+    "unlabeled_age_values": ["", "unknown"],
+    "unlabeled_rows_are_not_reassigned": true
+  },
+  "firewall": {
+    "response_rows_opened_before_gate": 0,
+    "response_values_opened_before_gate": false,
+    "model_fits_before_gate": 0,
+    "heldout_scores_before_gate": 0,
+    "data_row_access_after_header": false
+  },
+  "valid_terminal_statuses": [
+    "HEADER_QUALIFIED",
+    "STOP_PRE_RESPONSE_HEADER_TRANSPORT_OR_SCHEMA"
+  ]
+}
