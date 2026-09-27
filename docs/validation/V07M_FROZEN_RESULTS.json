@@ -1,0 +1,132 @@
+{
+  "schema": "esdm.v07m.frozen_results.v1",
+  "status": "FAIL",
+  "validated_date": "2026-09-26",
+  "gate": {
+    "contract": "docs/validation/V07M_ABSOLUTE_ADEQUACY_POLICY_GATE.md",
+    "freeze_commit": "29eb329f778e34510b7987aa99d194dc2d4f4630",
+    "blob_sha": "8392afc802723288f7d04e3413fe07d0f6fbc847",
+    "observed_blob_sha": "8392afc802723288f7d04e3413fe07d0f6fbc847"
+  },
+  "one_shot": {
+    "workflow_run_id": 36239810097,
+    "head_sha": "770ce41db8346090267d8830e4ad47b912693dec",
+    "conclusion": "failure",
+    "infrastructure_block": null,
+    "artifact_id": 10905841795,
+    "artifact_name": "v07m-result-36239810097",
+    "artifact_digest": "sha256:59aa8861a77c1cf66f008fe866f2b6cf0a7bd401cda2fa8651e071472e6e0f4b",
+    "result_json_sha256": "f77cf8337fb8c653b04789b7c8b836a9e545cdf67f0b33aa90a6ac61149c5d58",
+    "all_64_replicates_completed": true,
+    "fit_count": 192
+  },
+  "frozen_thresholds": {
+    "absolute_worst_dynamic_sd": 0.35,
+    "relative_adaptive_to_transferred_ratio": 0.8
+  },
+  "summary": {
+    "replicates": 64,
+    "fit_count": 192,
+    "total_divergences": 0,
+    "action_accuracy": 0.546875,
+    "abstain_sensitivity": 0.6571428571428571,
+    "non_abstain_specificity": 0.7241379310344828,
+    "mean_policy_to_transferred_ratio": 0.874070911215172,
+    "policy_harm_rate": 0.06060606060606061,
+    "worlds": {
+      "adaptive_large_headroom": {
+        "pilot_expected_action_rate": 0.875,
+        "oracle_expected_action_rate": 0.5625,
+        "policy_non_abstain_count": 15
+      },
+      "adaptive_absolute_rescue": {
+        "pilot_expected_action_rate": 0.125,
+        "oracle_expected_action_rate": 0.125,
+        "policy_non_abstain_count": 9
+      },
+      "transfer_adequate": {
+        "pilot_expected_action_rate": 0.5,
+        "oracle_expected_action_rate": 0.4375,
+        "policy_non_abstain_count": 9
+      },
+      "abstain_inadequate": {
+        "pilot_expected_action_rate": 1,
+        "oracle_expected_action_rate": 1,
+        "oracle_abstain_rate": 1
+      }
+    }
+  },
+  "failed_checks": [
+    {
+      "name": "adaptive_large_headroom:oracle_expected_action_rate",
+      "observed": 0.5625,
+      "criterion": ">= 0.75"
+    },
+    {
+      "name": "adaptive_absolute_rescue:pilot_expected_action_rate",
+      "observed": 0.125,
+      "criterion": ">= 0.75"
+    },
+    {
+      "name": "adaptive_absolute_rescue:oracle_expected_action_rate",
+      "observed": 0.125,
+      "criterion": ">= 0.75"
+    },
+    {
+      "name": "adaptive_absolute_rescue:policy_non_abstain_count",
+      "observed": 9,
+      "criterion": ">= 12"
+    },
+    {
+      "name": "transfer_adequate:pilot_expected_action_rate",
+      "observed": 0.5,
+      "criterion": ">= 0.75"
+    },
+    {
+      "name": "transfer_adequate:oracle_expected_action_rate",
+      "observed": 0.4375,
+      "criterion": ">= 0.75"
+    },
+    {
+      "name": "transfer_adequate:policy_non_abstain_count",
+      "observed": 9,
+      "criterion": ">= 12"
+    },
+    {
+      "name": "action_accuracy",
+      "observed": 0.546875,
+      "criterion": ">= 0.75"
+    },
+    {
+      "name": "abstain_sensitivity",
+      "observed": 0.6571428571428571,
+      "criterion": ">= 0.75"
+    },
+    {
+      "name": "non_abstain_specificity",
+      "observed": 0.7241379310344828,
+      "criterion": ">= 0.75"
+    }
+  ],
+  "decision": {
+    "pass": false,
+    "one_shot_authorization_consumed": true,
+    "same_v07m_rerun_authorized": false,
+    "post_result_threshold_retuning_inside_v07m_allowed": false,
+    "changes_active_r5b_empirical_endpoint": false
+  },
+  "interpretation": {
+    "supported": [
+      "the fixed four-context policy reduced mean worst-dynamic-SD relative to always transferring the old placement among non-abstain deployments",
+      "the deliberately inadequate world was correctly handled as abstain in all 16 pilot and confirmatory pairs",
+      "all 192 fits completed with zero divergences"
+    ],
+    "not_supported": [
+      "the frozen absolute-adequacy-first v0.7m policy passes its preregistered action-classification gate",
+      "the adaptive_absolute_rescue role is reliably recognized",
+      "the transfer_adequate role is reliably recognized",
+      "empirical field validity",
+      "reopening or modifying the active v0.4-R5b empirical endpoint"
+    ]
+  }
+}
