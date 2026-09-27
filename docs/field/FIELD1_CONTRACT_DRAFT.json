@@ -371,7 +371,8 @@
       "fixture_has_matching_stratum": true,
       "h2_training_contains_barrier": true,
       "h2_boundary_contains_separate_barrier": true,
-      "requirement": "barrier comparison sign is evaluated only when barrier dependence can be learned on training geometry and transferred across a separate heldout barrier"
+      "requirement": "barrier comparison sign is evaluated only when barrier dependence can be learned on training geometry and transferred across a separate heldout barrier",
+      "distance_match_scope": "H2 training edges only"
     },
     "replicate_hierarchy": {
       "world_hyperparameters": "fixed within world",
