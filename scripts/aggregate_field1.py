@@ -19,6 +19,7 @@ from esdm.validate.field1_known_truth import (
     make_field1_mean_covariance_factorial,
     make_field1_primary_worlds,
     matched_barrier_distance_strata,
+    training_edge_axis_rank_audit,
 )
 from esdm.validate.field1_run import field1_required_fit_plan
 
@@ -165,6 +166,9 @@ def aggregate_field1_shards(root: Path):
         )
 
     fixture = make_field1_fixture()
+    training_rank_audit = training_edge_axis_rank_audit(fixture)
+    h1_training_rank_pass = bool(training_rank_audit["H1"]["passed"])
+    h2_training_rank_pass = bool(training_rank_audit["H2"]["passed"])
     k6_strata = matched_barrier_distance_strata(
         fixture,
         spaces=fixture.training_spaces("H2"),
@@ -188,6 +192,8 @@ def aggregate_field1_shards(root: Path):
 
     decision = evaluate_field1_gate(
         summaries,
+        h1_training_axis_rank_passed=h1_training_rank_pass,
+        h2_training_axis_rank_passed=h2_training_rank_pass,
         k6_distance_match_passed=k6_pass,
         h2_barrier_transfer_passed=h2_barrier_pass,
         mean_divergences_per_fit=mean_divergences,
@@ -202,6 +208,16 @@ def aggregate_field1_shards(root: Path):
         "fit_count": fit_count,
         "total_divergences": total_divergences,
         "mean_divergences_per_fit": mean_divergences,
+        "h1_training_axis_rank_passed": h1_training_rank_pass,
+        "h2_training_axis_rank_passed": h2_training_rank_pass,
+        "training_edge_axis_rank_audit": {
+            holdout: {
+                "ranks": dict(values["ranks"]),
+                "expected": dict(values["expected"]),
+                "passed": bool(values["passed"]),
+            }
+            for holdout, values in training_rank_audit.items()
+        },
         "k6_distance_match_passed": k6_pass,
         "h2_barrier_transfer_passed": h2_barrier_pass,
         "h2_barrier_transfer_geometry": dict(h2_barrier_audit),
