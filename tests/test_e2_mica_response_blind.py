@@ -162,9 +162,17 @@ def test_contracts_keep_mica_candidate_response_blind():
 
     assert parent["candidate_selection"]["selected_candidate"] == "MICA_MUSKRAT"
     assert parent["current_authorization"]["candidate_selected"] is True
-    assert parent["current_authorization"]["response_blind_geometry_header_opening"] is False
-    assert parent["current_authorization"]["temporal_integrity_opening"] is False
+    assert (
+        parent["current_authorization"]["response_blind_geometry_header_opening"]
+        == "completed_pass"
+    )
+    assert (
+        parent["current_authorization"]["temporal_integrity_opening"]
+        == "completed_pass"
+    )
+    assert parent["current_authorization"]["response_blind_climate"] == "completed_pass"
     assert parent["current_authorization"]["full_ecological_response_opening"] is False
+    assert parent["current_authorization"]["model_fitting"] is False
 
     assert child["focal_taxon"]["scientific_name"] == "Ondatra zibethicus"
     assert child["focal_taxon"]["selected_before_observation_rows"] is True
