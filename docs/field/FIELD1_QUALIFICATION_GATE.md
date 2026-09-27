@@ -131,6 +131,22 @@ The same M2-M1 H1 comparison is evaluated in the frozen 2 x 2 factorial:
 The ENV_DEPENDENCE claim cannot pass if comparison behavior tracks mean truth instead of
 covariance truth.
 
+## Training-edge identifiability firewall
+
+Before any stochastic FIELD1 comparison can count, the active dependence axes must be
+full-rank on the **training edges of the relevant holdout**:
+
+- H1 training: M1 rank 1, M2 rank 2, M3 rank 2, M4 rank 3;
+- H2 training: M1 rank 1, M2 rank 2, M3 rank 2, M4 rank 3.
+
+The frozen H1 holdout is the contiguous top-middle two-node block
+`(c1r2, c2r2)`. The earlier full-top-row candidate is not used because its H1
+training graph makes geographic distance and environmental dissimilarity exactly
+collinear after centering.
+
+This is a response-free structural eligibility check. It cannot be repaired from
+confirmatory gain outcomes.
+
 ## K6 distance/barrier transfer-geometry firewall
 
 K6 is a deterministic geometry qualification, not an additional stochastic outcome
@@ -158,6 +174,7 @@ the model to infer beta only from a barrier for which one side is entirely unsee
 
 Requires:
 
+- H1 training active-axis rank audit passes
 - K1 M1-M0 H1 positive-qualified
 - K0 M1-M0 H1 null-qualified
 
@@ -165,6 +182,7 @@ Requires:
 
 Requires all:
 
+- H1 training active-axis rank audit passes
 - K2 M2-M1 H1 positive-qualified
 - K1 M2-M1 H1 null-qualified
 - all four K5 factorial checks pass
@@ -173,6 +191,7 @@ Requires all:
 
 Requires all:
 
+- H2 training active-axis rank audit passes
 - K3 M3-M1 H2 positive-qualified
 - K1 M3-M1 H2 null-qualified
 - K6 deterministic distance-match audit passes
