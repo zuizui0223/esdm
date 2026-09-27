@@ -8,6 +8,9 @@ on:
       - 'scripts/audit_e2_mica_temporal_integrity.py'
       - 'tests/test_e2_mica_temporal_integrity.py'
       - 'tests/test_e2_mica_temporal_workflow.py'
+      - 'docs/replication/E2_MICA_TEMPORAL_INTEGRITY_INFRASTRUCTURE_STOP_V1.json'
+      - 'docs/replication/E2_MICA_TEMPORAL_INTEGRITY_REPLACEMENT_R2.json'
+      - 'tests/test_e2_mica_temporal_r2_replacement.py'
       - '.github/workflows/e2-mica-temporal-integrity-once.yml'
       - '.github/workflows/e2-mica-temporal-contract.yml'
 
@@ -30,5 +33,6 @@ jobs:
           python -m pytest -q
           tests/test_e2_mica_temporal_integrity.py
           tests/test_e2_mica_temporal_workflow.py
+          tests/test_e2_mica_temporal_r2_replacement.py
       - name: Compile runner
         run: python -m py_compile scripts/audit_e2_mica_temporal_integrity.py
