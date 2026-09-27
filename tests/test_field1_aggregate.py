@@ -73,6 +73,17 @@ def test_field1_aggregator_requires_and_accepts_complete_frozen_shard_set(tmp_pa
     assert result["shard_count"] == EXPECTED_SHARD_COUNT == 9 * 16
     assert result["fit_count"] == EXPECTED_FIT_COUNT == 704
     assert result["k6_distance_match_passed"] is True
+    assert result["h2_barrier_transfer_passed"] is True
+    assert (
+        result["h2_barrier_transfer_geometry"]["training_barrier_edge_count"]
+        >= 1
+    )
+    assert (
+        result["h2_barrier_transfer_geometry"][
+            "heldout_boundary_barrier_edge_count"
+        ]
+        >= 1
+    )
     assert all(result["claims"].values())
 
 
