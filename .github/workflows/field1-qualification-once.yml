@@ -52,6 +52,7 @@ jobs:
             tests/test_field1_known_truth.py \
             tests/test_field1_gate.py \
             tests/test_field1_run.py \
+            tests/test_field1_aggregate.py \
             tests/test_field1_workflow.py
 
   replicate:
