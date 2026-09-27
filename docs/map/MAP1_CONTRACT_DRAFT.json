@@ -1,0 +1,108 @@
+{
+  "schema": "esdm.map1.coherent_map_contract.v1",
+  "status": "DRAFT_NOT_AUTHORIZED",
+  "drafted_date": "2026-09-27",
+  "relationship_to_field1": {
+    "reopens_field1": false,
+    "rescues_failed_axes": false,
+    "independent_question": "predictive value of fixed geography coherence versus exchangeable latent flexibility"
+  },
+  "scientific_target": {
+    "primary": "held-out map continuity and predictive information",
+    "mechanism_inference": false,
+    "allowed_claim": "COHERENT_MAP_SUPPORTED"
+  },
+  "models": {
+    "B0": "environment only",
+    "BX": "zero-sum exchangeable residual field",
+    "BC": "fixed geography-coherent residual field"
+  },
+  "coherent_kernel": {
+    "edge_weight": "exp(-normalized_distance)",
+    "fixed_rho": 1,
+    "alpha": 0.9,
+    "estimated_range": false,
+    "estimated_environment_axis": false,
+    "estimated_barrier_axis": false,
+    "sigma_prior": "HalfNormal(scale=0.75)",
+    "latent_parameterization": "zero-sum whitened",
+    "amplitude_normalization": {
+      "target": "match exchangeable zero-sum expected squared norm conditional on sigma",
+      "formula": "c = sqrt((m-1) / tr(Q_c^-1)); u_coherent = sigma*c*H*L^-T*z",
+      "invariant": "E[||u_coherent||^2 | sigma=1] = E[||u_exchangeable||^2 | sigma=1] = m-1",
+      "response_blind": true
+    }
+  },
+  "known_truth": {
+    "worlds": [
+      "N0_no_field",
+      "N1_exchangeable_field",
+      "P1_coherent_field"
+    ],
+    "fresh_latent_realization_each_replicate": true,
+    "heldout": "H1 central two-node block on irregular 5x4 graph",
+    "N1_detectability_firewall": {
+      "positive": [
+        "BX",
+        "B0",
+        "H1"
+      ],
+      "null": [
+        "BC",
+        "BX",
+        "H1"
+      ],
+      "rationale": "exchangeable heterogeneity must be predictively detectable before BC-vs-BX null evidence can count"
+    }
+  },
+  "execution": {
+    "confirmatory_outcome_authorized": false,
+    "empirical_response_authorized": false,
+    "thresholds_frozen": true,
+    "qualification_gate": "docs/map/MAP1_QUALIFICATION_GATE.md",
+    "qualification_branch": "map1/qualification-v1",
+    "replicates_per_world": 16,
+    "expected_shards": 48,
+    "expected_fits": 144,
+    "gate_thresholds": {
+      "positive_min_rate": 0.75,
+      "positive_min_mean_gain": 0.005,
+      "null_max_material_gain_rate": 0.25,
+      "null_max_mean_gain": 0.005,
+      "material_gain_threshold": 0.005,
+      "max_mean_divergences_per_fit": 0.1
+    },
+    "mcmc_profile": {
+      "num_warmup": 300,
+      "num_samples": 350,
+      "num_chains": 2,
+      "target_accept_probability": 0.9
+    },
+    "qualification_gate_amendments": [
+      "docs/map/MAP1_QUALIFICATION_GATE_AMENDMENT_1.md",
+      "docs/map/MAP1_QUALIFICATION_GATE_AMENDMENT_2.md"
+    ],
+    "authorization_marker_contract": {
+      "path": "docs/map/MAP1_RUN_AUTHORIZED",
+      "must_be_new_file": true,
+      "authorization_commit_changes_only_marker": true,
+      "required_fields": {
+        "programme": "MAP1",
+        "implementation_parent_sha": "must equal HEAD^",
+        "gate": "docs/map/MAP1_QUALIFICATION_GATE.md",
+        "amendment": "docs/map/MAP1_QUALIFICATION_GATE_AMENDMENT_1.md",
+        "amendment_2": "docs/map/MAP1_QUALIFICATION_GATE_AMENDMENT_2.md"
+      }
+    }
+  },
+  "nonclaims": [
+    "spatial range",
+    "dispersal",
+    "movement",
+    "migration",
+    "gene flow",
+    "environmental isolation",
+    "barrier effect",
+    "causal connectivity"
+  ]
+}
