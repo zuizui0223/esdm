@@ -7,7 +7,7 @@ concurrency:
 on:
   push:
     branches:
-      - feature/field1-continuous-map-prior
+      - field1/qualification-v1
     paths:
       - docs/field/FIELD1_RUN_AUTHORIZED
 
