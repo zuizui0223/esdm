@@ -72,6 +72,10 @@ def test_field1_aggregator_requires_and_accepts_complete_frozen_shard_set(tmp_pa
     assert result["status"] == "PASS"
     assert result["shard_count"] == EXPECTED_SHARD_COUNT == 9 * 16
     assert result["fit_count"] == EXPECTED_FIT_COUNT == 704
+    assert result["h1_training_axis_rank_passed"] is True
+    assert result["h2_training_axis_rank_passed"] is True
+    assert result["training_edge_axis_rank_audit"]["H1"]["ranks"]["M4"] == 3
+    assert result["training_edge_axis_rank_audit"]["H2"]["ranks"]["M4"] == 3
     assert result["k6_distance_match_passed"] is True
     assert result["h2_barrier_transfer_passed"] is True
     assert (
