@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "receipt_id": "esdm-odsp-transfer-evidence-portfolio-v1",
+  "validated_date": "2026-09-25",
+  "portfolio_file": "ODSP_TRANSFER_EVIDENCE_PORTFOLIO_V1.json",
+  "portfolio_sha256": "8e46f00604baf10e550195236fda993ecf69e430110181c69c2158921a984236",
+  "portfolio_fingerprint": "f208a7a10cba7ee0728251cd09776bc769e91c5c1af748a575571c4840dd1b6e",
+  "generation": {
+    "source_head_sha": "8f3c2cd48b141f567e2633ade34781f77fa27c2c",
+    "workflow_run_id": 36106976869,
+    "artifact_id": 10851860634,
+    "artifact_name": "odsp-transfer-evidence-portfolio-v1",
+    "artifact_digest": "sha256:e03e438f916d902acc1aea2419b04272f7958681b9f861294b1e63ef7a5080dc",
+    "builder": "scripts/build_odsp_transfer_evidence_portfolio.py",
+    "registry": "ODSP_TRANSFER_SOURCE_REGISTRY_V1.json"
+  },
+  "contents": {
+    "item_count": 4,
+    "source_ids": [
+      "v04_r5b_activity",
+      "v04_r5b_state",
+      "v06a_static_accessibility",
+      "v07b_dynamic_occupancy"
+    ],
+    "parallel_family_count": 1,
+    "parallel_families": [
+      "v04_r5b_activity_state"
+    ],
+    "all_population_status_positive": true
+  },
+  "boundaries": {
+    "ranking_authorized": false,
+    "global_information_ladder_authorized": false,
+    "lattice_inference_created": false,
+    "eog_consumption_authorized": false,
+    "n4_action_authorized": false,
+    "n4_survey_action_owner": "ACSP"
+  }
+}
