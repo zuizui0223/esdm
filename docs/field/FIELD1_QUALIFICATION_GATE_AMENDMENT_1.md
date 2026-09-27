@@ -131,3 +131,30 @@ independent realizations of the declared dependence structure.
 
 This amendment changes no truth hyperparameter, graph, holdout, comparison, threshold,
 MCMC profile, or claim rule.
+
+
+## A7. Learned-barrier H2 transfer geometry
+
+The original H2 geometry held out every node on one side of the only barrier. Although
+the full GMRF prior can mathematically depend on an unobserved-side coupling, that design
+does not provide a clean empirical learning path for the barrier axis before transfer.
+
+Before any confirmatory outcome, H2 is therefore hardened as follows:
+
+- the 4 x 3 graph contains two vertical barrier boundaries;
+- barrier 1 (between columns 0 and 1) lies entirely inside H2 training;
+- barrier 2 (between columns 2 and 3) defines the H2 transfer boundary;
+- H2 holds out only the rightmost column (column 3);
+- at horizontal distance 1.0, barrier and non-barrier edges both remain present.
+
+Thus the frozen question becomes:
+
+> can a barrier-modified dependence rule learned from one barrier improve prediction
+> across a separate barrier of the same predeclared type?
+
+A deterministic pre-fit audit requires both a training-internal barrier edge and a
+separate train-to-heldout barrier edge. Failure of that geometry blocks the barrier
+claim before MCMC.
+
+This amendment changes no M0-M4 semantics, truth hyperparameter, comparison direction,
+gain threshold, replicate count, MCMC profile, or claim wording.
