@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "authorization_id": "e2-mica-worldclim-one-shot-v1",
+  "authorized_date": "2026-09-27",
+  "candidate_id": "MICA_MUSKRAT",
+  "stage": "response_blind_climate_only",
+  "one_shot": true,
+  "implementation_parent_sha": "969c1861f67604ea6e1bcd23bfea1a0c0e75a7e4",
+  "response_blind_result_merge_sha": "7f36f41c21b06dc95995726a4576da70f4e3b5e0",
+  "full_response_authorized": false,
+  "model_fitting_authorized": false,
+  "heldout_scoring_authorized": false,
+  "observation_rows_authorized": false,
+  "climate_contract": "docs/replication/E2_MICA_WORLDCLIM_CONTRACT.json"
+}
