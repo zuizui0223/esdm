@@ -138,7 +138,7 @@ world.
 
 Before the K3/K4 barrier results can count, all of the following must hold:
 
-1. the frozen graph contains at least one edge-distance stratum with both
+1. the H2 training graph contains at least one edge-distance stratum with both
    barrier-crossing and non-barrier edges;
 2. the H2 **training** domain contains at least one barrier-crossing edge whose two
    endpoints are both observed-side training nodes;
@@ -146,7 +146,8 @@ Before the K3/K4 barrier results can count, all of the following must hold:
 
 The response-free 4 x 3 fixture therefore contains two vertical barrier boundaries:
 one is present inside H2 training and the second defines the rightmost-column H2
-holdout. Horizontal edge length 1.0 contains both barrier and non-barrier edges.
+holdout. Within H2 training, horizontal edge length 1.0 contains both barrier and
+non-barrier edges.
 
 This makes H2 a transfer test of a learned barrier-dependence rule rather than asking
 the model to infer beta only from a barrier for which one side is entirely unseen.
