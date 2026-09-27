@@ -180,10 +180,11 @@
     "expected_shards": 144,
     "expected_fits": 704,
     "qualification_gate_amendments": [
-      "docs/field/FIELD1_QUALIFICATION_GATE_AMENDMENT_1.md"
+      "docs/field/FIELD1_QUALIFICATION_GATE_AMENDMENT_1.md",
+      "docs/field/FIELD1_QUALIFICATION_GATE_AMENDMENT_2.md"
     ],
     "implementation_pr_branch": "feature/field1-continuous-map-prior",
-    "qualification_branch": "field1/qualification-v1",
+    "qualification_branch": "field1/qualification-v1-r2",
     "qualification_branch_must_start_from_merged_main": true,
     "authorization_marker_commit_must_only_authorize_frozen_programme": true,
     "authorization_marker_contract": {
@@ -194,8 +195,19 @@
         "programme": "FIELD1",
         "implementation_parent_sha": "must equal HEAD^",
         "gate": "docs/field/FIELD1_QUALIFICATION_GATE.md",
-        "amendment": "docs/field/FIELD1_QUALIFICATION_GATE_AMENDMENT_1.md"
+        "amendment": "docs/field/FIELD1_QUALIFICATION_GATE_AMENDMENT_1.md",
+        "replacement_amendment": "docs/field/FIELD1_QUALIFICATION_GATE_AMENDMENT_2.md"
       }
+    },
+    "first_authorization_attempt": {
+      "branch": "field1/qualification-v1",
+      "authorization_commit": "a495f42f09ba6a553c76a2a787476e1620848ae9",
+      "workflow_run_id": 36315550882,
+      "status": "INFRASTRUCTURE_PRECHECK_STOP",
+      "authorization_purity_passed": true,
+      "replicate_jobs_started": 0,
+      "scientific_shards": 0,
+      "scientific_decision": null
     }
   },
   "literature": [
