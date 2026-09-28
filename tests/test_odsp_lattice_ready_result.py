@@ -9,6 +9,7 @@ from esdm.transfer import (
     ODSPLatticeInformationBlock,
     ODSPLatticeNode,
     build_odsp_lattice_ready_bundle,
+    required_odsp_lattice_subsets,
 )
 
 
@@ -244,3 +245,25 @@ def test_lattice_block_names_cannot_collide_after_column_normalization():
             score_name="score",
             score_unit="unit",
         )
+
+
+
+def test_required_subset_roster_can_be_frozen_before_outcome_scoring():
+    blocks = (
+        ODSPLatticeInformationBlock("movement", ("movement",)),
+        ODSPLatticeInformationBlock("activity", ("activity",)),
+        ODSPLatticeInformationBlock("interaction", ("interaction",)),
+    )
+    assert required_odsp_lattice_subsets(
+        base_information=("environment",),
+        information_blocks=blocks,
+    ) == (
+        (),
+        ("movement",),
+        ("activity",),
+        ("interaction",),
+        ("movement", "activity"),
+        ("movement", "interaction"),
+        ("activity", "interaction"),
+        ("movement", "activity", "interaction"),
+    )
