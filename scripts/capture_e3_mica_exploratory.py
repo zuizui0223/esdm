@@ -8,7 +8,7 @@ import json
 from pathlib import Path
 
 from esdm.validate.e3_mica_exploratory_fit import (
-    build_e3_mica_exploratory_fixture,
+    build_e3_mica_reduced_fixture,
 )
 
 
@@ -30,6 +30,7 @@ def main() -> int:
     e2 = _read("E2_MICA_FULL_RESPONSE_CONTRACT.json")
     e3 = _read("E3_MICA_EXPLORATORY_CONTRACT.json")
     preflight = _read("E3_MICA_EXPLORATORY_PREFLIGHT_RESULT.json")
+    reduced = _read("E3_MICA_REDUCED_ENDPOINT_CONTRACT.json")
     climate = json.loads(args.climate.read_text(encoding="utf-8"))
 
     if e3["status"] != "PREFLIGHT_PASS_FIT_NOT_AUTHORIZED":
@@ -43,13 +44,19 @@ def main() -> int:
         "programme_id": "E3_MICA_EXP",
         "source_archive_sha256": hashlib.sha256(args.archive.read_bytes()).hexdigest(),
     }
+    if reduced["status"] != "FROZEN_POST_FULL_CAPTURE_STOP_FIT_NOT_AUTHORIZED":
+        raise SystemExit("E3 reduced endpoint contract is not frozen pre-fit")
+    if reduced["execution"]["exploratory_model_fit_authorized_now"] is not False:
+        raise SystemExit("E3 reduced capture must not authorize model fitting")
+
     try:
-        fixture, diagnostics = build_e3_mica_exploratory_fixture(
+        fixture, diagnostics = build_e3_mica_reduced_fixture(
             source_archive=args.archive,
             climate_payload=climate,
             e2_full_contract=e2,
             e3_contract=e3,
             preflight_receipt=preflight,
+            reduced_contract=reduced,
         )
     except Exception as exc:
         result = {
@@ -70,7 +77,7 @@ def main() -> int:
     else:
         result = {
             **base,
-            "status": "E3_RESPONSE_FIXTURE_QUALIFIED",
+            "status": "E3_REDUCED_FIXTURE_QUALIFIED",
             "fixture_diagnostics": diagnostics,
             "fixture_summary": {
                 "training_spaces": len(fixture.train_spaces),
@@ -85,9 +92,16 @@ def main() -> int:
                         "heldout_state_annotated",
                     )
                 },
+                "model_stream_names": [
+                    stream.name for stream in fixture.model.streams
+                ],
+                "state_counts": diagnostics["state_counts"],
             },
             "decision": {
                 "fixture_qualified": True,
+                "full_endpoint_state_calibration_gate_passed": False,
+                "state_calibration_stream_present_in_fit": False,
+                "state_calibration_rows_reused": False,
                 "exploratory_fit_authorized_by_this_result": False,
                 "requires_separate_pure_authorization_marker": True,
             },
