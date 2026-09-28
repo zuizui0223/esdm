@@ -8,7 +8,12 @@ from pathlib import Path
 import tempfile
 from typing import Mapping
 
-from .e2_mica_full_response import build_e2_mica_empirical_fixture
+from esdm.model import Model
+
+from .e2_mica_full_response import (
+    E2MicaEmpiricalFixture,
+    build_e2_mica_empirical_fixture,
+)
 from .e2_mica_response_blind import qualify_e2_mica_archive
 from .e2_mica_temporal_integrity import audit_e2_mica_temporal_integrity
 from .e2_mica_worldclim import _canonical_sha256 as _climate_rows_sha256
@@ -117,8 +122,15 @@ def build_e3_mica_exploratory_fixture(
     e2_full_contract: Mapping[str, object],
     e3_contract: Mapping[str, object],
     preflight_receipt: Mapping[str, object],
+    materialize_state_calibration_failure: bool = False,
 ):
-    """Build the unchanged R5b graph after the frozen E3 metadata-only exclusion."""
+    """Build the R5b graph after the frozen E3 metadata-only exclusion.
+
+    The materialization flag is an implementation-only escape hatch used by
+    the separately frozen reduced endpoint. It bypasses the E2 numerical
+    minimum solely long enough to materialize the fixed parsed data; callers
+    must remove the direct state-calibration stream before fitting.
+    """
     path = Path(source_archive)
     audit = audit_nonpositive_deployment_durations(path)
     frozen = e3_contract["frozen_metadata_audit"]
@@ -198,6 +210,15 @@ def build_e3_mica_exploratory_fixture(
             temporal=temporal,
             climate_payload=adjusted_climate,
         )
+        original_state_calibration_minimum = int(
+            e2_full_contract["consumed_estimability_stops"][
+                "minimum_state_calibration_each_state"
+            ]
+        )
+        if materialize_state_calibration_failure:
+            adapted_contract["consumed_estimability_stops"][
+                "minimum_state_calibration_each_state"
+            ] = 0
 
         fixture = build_e2_mica_empirical_fixture(
             archive_path=sanitized,
@@ -235,9 +256,157 @@ def build_e3_mica_exploratory_fixture(
             "e3_adjusted_climate_sha256": adjusted_climate[
                 "deployment_climate_sha256"
             ],
-            "sanitized_archive_sha256": hashlib.sha256(
-                sanitized.read_bytes()
-            ).hexdigest() if sanitized.exists() else filtering["sanitized_archive_sha256"],
+            "sanitized_archive_sha256": filtering["sanitized_archive_sha256"],
+            "original_minimum_state_calibration_each_state": (
+                original_state_calibration_minimum
+            ),
+            "materialization_only_state_calibration_gate_bypass": bool(
+                materialize_state_calibration_failure
+            ),
         }
     )
     return fixture, diagnostics
+
+
+def build_e3_mica_reduced_fixture(
+    *,
+    source_archive: str | Path,
+    climate_payload: Mapping[str, object],
+    e2_full_contract: Mapping[str, object],
+    e3_contract: Mapping[str, object],
+    preflight_receipt: Mapping[str, object],
+    reduced_contract: Mapping[str, object],
+) -> tuple[E2MicaEmpiricalFixture, dict[str, object]]:
+    """Materialize fixed E3 data, then remove direct state calibration before fitting."""
+    if reduced_contract["endpoint_id"] != (
+        "E3_MICA_REDUCED_NO_DIRECT_STATE_CALIBRATION"
+    ):
+        raise ValueError("unexpected E3 reduced endpoint contract")
+    reduced = reduced_contract["reduced_endpoint"]
+    if reduced["change"] != (
+        "remove the state_calibration stream entirely before any model fitting"
+    ):
+        raise ValueError("E3 reduced endpoint change drifted")
+    if reduced["lower_state_calibration_minimum"] is not False:
+        raise ValueError("E3 reduced endpoint may not lower the calibration minimum")
+    if reduced["reuse_state_calibration_rows_in_other_streams"] is not False:
+        raise ValueError("E3 reduced endpoint may not reuse calibration rows")
+    if reduced["reassign_training_roles"] is not False:
+        raise ValueError("E3 reduced endpoint may not reassign training roles")
+
+    fixture, diagnostics = build_e3_mica_exploratory_fixture(
+        source_archive=source_archive,
+        climate_payload=climate_payload,
+        e2_full_contract=e2_full_contract,
+        e3_contract=e3_contract,
+        preflight_receipt=preflight_receipt,
+        materialize_state_calibration_failure=True,
+    )
+
+    frozen_stop = reduced_contract["full_endpoint_stop"]
+    state_counts = diagnostics["state_counts"]
+    focal_by_role = diagnostics["focal_events_by_role"]
+    expected_states = frozen_stop["other_state_counts"]
+
+    _assert_equal(
+        "training state-annotated counts",
+        state_counts["training_state_annotated"],
+        expected_states["training_state_annotated"],
+    )
+    _assert_equal(
+        "state-calibration counts",
+        state_counts["state_calibration"],
+        frozen_stop["observed_state_calibration"],
+    )
+    _assert_equal(
+        "heldout state-annotated counts",
+        state_counts["heldout_state_annotated"],
+        expected_states["heldout_state_annotated"],
+    )
+    _assert_equal(
+        "focal events by role",
+        focal_by_role,
+        frozen_stop["focal_events_by_role"],
+    )
+    _assert_equal(
+        "total focal events",
+        diagnostics["focal_event_count"],
+        frozen_stop["total_focal_events"],
+    )
+
+    original_minimum = int(
+        e2_full_contract["consumed_estimability_stops"][
+            "minimum_state_calibration_each_state"
+        ]
+    )
+    _assert_equal(
+        "frozen state-calibration minimum",
+        original_minimum,
+        frozen_stop["frozen_minimum_state_calibration_each_state"],
+    )
+    observed_group = int(state_counts["state_calibration"]["group"])
+    if not observed_group < original_minimum:
+        raise ValueError(
+            "E3 reduced endpoint requires the frozen full endpoint to fail "
+            "the group state-calibration minimum"
+        )
+
+    retained_streams = tuple(
+        stream for stream in fixture.model.streams
+        if stream.name != "state_calibration"
+    )
+    removed = tuple(
+        stream for stream in fixture.model.streams
+        if stream.name == "state_calibration"
+    )
+    if len(removed) != 1:
+        raise ValueError(
+            "E3 reduced endpoint must remove exactly one state_calibration stream"
+        )
+    if any(stream.name == "state_calibration" for stream in retained_streams):
+        raise AssertionError("state_calibration stream survived reduced endpoint")
+
+    reduced_model = Model(
+        domain=fixture.model.domain,
+        species=fixture.model.species,
+        streams=retained_streams,
+    )
+    reduced_model.check_design()
+
+    reduced_data = {
+        name: value
+        for name, value in fixture.data.items()
+        if name != "state_calibration"
+    }
+    if "state_calibration" in reduced_data:
+        raise AssertionError("state_calibration data survived reduced endpoint")
+
+    diagnostics = dict(diagnostics)
+    diagnostics.update(
+        {
+            "endpoint_id": reduced_contract["endpoint_id"],
+            "full_endpoint_state_calibration_gate_passed": False,
+            "full_endpoint_observed_state_calibration_group": observed_group,
+            "full_endpoint_required_state_calibration_group": original_minimum,
+            "materialization_only_state_calibration_gate_bypass": True,
+            "state_calibration_stream_present_in_fit": False,
+            "state_calibration_rows_reused": False,
+            "training_roles_reassigned": False,
+            "reduced_model_streams": [
+                stream.name for stream in reduced_model.streams
+            ],
+        }
+    )
+
+    reduced_fixture = E2MicaEmpiricalFixture(
+        model=reduced_model,
+        covariates=fixture.covariates,
+        data=reduced_data,
+        train_spaces=fixture.train_spaces,
+        heldout_spaces=fixture.heldout_spaces,
+        stream_by_space=fixture.stream_by_space,
+        source_sha256=fixture.source_sha256,
+        climate_sha256=fixture.climate_sha256,
+        diagnostics=diagnostics,
+    )
+    return reduced_fixture, diagnostics
