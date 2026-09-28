@@ -123,3 +123,45 @@ def test_sanitizer_filters_response_rows_by_deployment_id_only(tmp_path):
     assert BAD_ID not in observations
     assert "good-west" in deployments
     assert "good-west" in observations
+
+
+def test_contract_freezes_exploratory_boundary_and_preflight_receipt():
+    import json
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[1]
+    contract = json.loads(
+        (root / "docs" / "replication" / "E3_MICA_EXPLORATORY_CONTRACT.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    receipt = json.loads(
+        (
+            root
+            / "docs"
+            / "replication"
+            / "E3_MICA_EXPLORATORY_PREFLIGHT_RESULT.json"
+        ).read_text(encoding="utf-8")
+    )
+
+    assert contract["status"] == "PREFLIGHT_PASS_FIT_NOT_AUTHORIZED"
+    relation = contract["relationship_to_prior_programmes"]
+    assert relation["e2_status_remains"] == "CONSUMED_STOP_SCHEMA_OR_ESTIMABILITY"
+    assert relation["reopens_e2"] is False
+    assert relation["rescues_e2_claim"] is False
+    assert relation["classification"] == "exploratory_real_data_analysis"
+
+    assert receipt["status"] == "E3_PREFLIGHT_PASS"
+    assert receipt["decision"]["preflight_passed"] is True
+    assert receipt["decision"]["exploratory_fit_authorized_by_this_receipt"] is False
+    assert receipt["qualified_geometry"]["training_deployment_count"] == 805
+    assert receipt["qualified_geometry"]["heldout_deployment_count"] == 733
+    assert (
+        receipt["qualified_fingerprints"]["training_ids_sha256"]
+        == "a1e08526edb3d1f329fc7a4e9a2efa2bc4dc50313b393026a429f3a87d57f566"
+    )
+    assert (
+        receipt["qualified_fingerprints"]["training_role_map_sha256"]
+        == "1fcd776854484ed5b0e19c20b49aed81fa22d5947b5d26120c50155e1369c7e4"
+    )
+    assert contract["execution"]["exploratory_fit_authorized_now"] is False
