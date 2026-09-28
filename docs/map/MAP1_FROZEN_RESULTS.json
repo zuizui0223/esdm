@@ -1,0 +1,157 @@
+{
+  "schema": "esdm.map1.frozen_result.v1",
+  "date": "2026-09-27",
+  "status": "FAIL",
+  "programme": "MAP1",
+  "qualification_workflow_run_id": 36326381655,
+  "qualification_branch": "map1/qualification-v1",
+  "authorization_commit": "8fab80dafeb98bf8b28ecfda4eeca6973c2569c0",
+  "aggregate_artifact": {
+    "id": 10935415107,
+    "name": "map1-result-36326381655",
+    "digest": "sha256:b7df841e710e867ca446bac74766fc09e017af52e95c06677d731e46ef2d1ed8",
+    "file": "MAP1_QUALIFICATION_RESULT.json",
+    "aggregate_json_sha256": "ab395cfbe60cc5f10ce3c9994f58a8c73123328db0ccd784e0abb690ff3f50ea"
+  },
+  "execution": {
+    "worlds": 3,
+    "replicates_per_world": 16,
+    "shard_count": 48,
+    "successful_replicates": 48,
+    "failed_replicates": 0,
+    "fit_count": 144,
+    "total_divergences": 12,
+    "mean_divergences_per_fit": 0.08333333333333333,
+    "sampling_guardrail": "PASS (<= 0.10)"
+  },
+  "claims": {
+    "COHERENT_MAP_SUPPORTED": false
+  },
+  "summaries": [
+    {
+      "world_id": "N0",
+      "candidate_model": "BC",
+      "reference_model": "B0",
+      "holdout": "H1",
+      "replicates": 16,
+      "positive_gain_rate": 0.4375,
+      "material_gain_rate": 0.3125,
+      "mean_gain": -0.00018775341834451065
+    },
+    {
+      "world_id": "N0",
+      "candidate_model": "BC",
+      "reference_model": "BX",
+      "holdout": "H1",
+      "replicates": 16,
+      "positive_gain_rate": 0.75,
+      "material_gain_rate": 0.4375,
+      "mean_gain": 0.005558888309077359
+    },
+    {
+      "world_id": "N0",
+      "candidate_model": "BX",
+      "reference_model": "B0",
+      "holdout": "H1",
+      "replicates": 16,
+      "positive_gain_rate": 0.3125,
+      "material_gain_rate": 0.25,
+      "mean_gain": -0.0057466417274218695
+    },
+    {
+      "world_id": "N1",
+      "candidate_model": "BC",
+      "reference_model": "BX",
+      "holdout": "H1",
+      "replicates": 16,
+      "positive_gain_rate": 0.375,
+      "material_gain_rate": 0.375,
+      "mean_gain": -0.06735810757211125
+    },
+    {
+      "world_id": "N1",
+      "candidate_model": "BX",
+      "reference_model": "B0",
+      "holdout": "H1",
+      "replicates": 16,
+      "positive_gain_rate": 0.875,
+      "material_gain_rate": 0.875,
+      "mean_gain": 3.483713985960796
+    },
+    {
+      "world_id": "P1",
+      "candidate_model": "BC",
+      "reference_model": "B0",
+      "holdout": "H1",
+      "replicates": 16,
+      "positive_gain_rate": 0.8125,
+      "material_gain_rate": 0.8125,
+      "mean_gain": 1.3884578496370792
+    },
+    {
+      "world_id": "P1",
+      "candidate_model": "BC",
+      "reference_model": "BX",
+      "holdout": "H1",
+      "replicates": 16,
+      "positive_gain_rate": 0.8125,
+      "material_gain_rate": 0.6875,
+      "mean_gain": 0.07994602994018168
+    }
+  ],
+  "failed_checks": [
+    {
+      "name": "N0:BC:B0:H1:material_rate",
+      "observed": 0.3125,
+      "criterion": "material gain rate <= 0.25"
+    },
+    {
+      "name": "N0:BC:BX:H1:material_rate",
+      "observed": 0.4375,
+      "criterion": "material gain rate <= 0.25"
+    },
+    {
+      "name": "N0:BC:BX:H1:mean_gain",
+      "observed": 0.005558888309077359,
+      "criterion": "mean gain <= 0.005"
+    },
+    {
+      "name": "N1:BC:BX:H1:material_rate",
+      "observed": 0.375,
+      "criterion": "material gain rate <= 0.25"
+    }
+  ],
+  "interpretation": {
+    "supported": [
+      "In P1, the fixed geography-coherent field BC beat both the environment-only baseline B0 and the amplitude-matched exchangeable field BX under the frozen held-out criteria.",
+      "In N1, exchangeable residual heterogeneity BX was predictively detectable relative to B0.",
+      "The frozen sampling guardrail passed with 12 divergences across 144 fits."
+    ],
+    "not_supported": [
+      "MAP1 overall qualification.",
+      "A calibrated claim that fixed geographic coherence adds predictive information only when such coherence is present.",
+      "Promotion of COHERENT_MAP_SUPPORTED."
+    ],
+    "diagnosis": [
+      "The terminal failure is concentrated in null calibration rather than positive-world detectability.",
+      "BC false-promoted too often in N0 and exceeded the null material-gain frequency against BX in N1."
+    ],
+    "nonclaims": [
+      "spatial range",
+      "dispersal",
+      "movement",
+      "migration",
+      "gene flow",
+      "environmental isolation",
+      "barrier effect",
+      "causal connectivity"
+    ]
+  },
+  "decision": {
+    "same_map1_rerun_authorized": false,
+    "threshold_retuning_inside_MAP1_allowed": false,
+    "post_result_geometry_retuning_allowed": false,
+    "rescue_generation_authorized": false,
+    "empirical_response_authorized": false
+  }
+}
