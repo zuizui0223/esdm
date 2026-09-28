@@ -32,6 +32,27 @@ from .field1_known_truth import (
     training_edge_axis_rank_audit,
 )
 from .sbc_gate import V03SBCGateConfig, V03SBCGateDecision, evaluate_v03_sbc_gate
+from .amap1_known_truth import (
+    AMap1Fixture,
+    AMap1World,
+    make_amap1_fixtures,
+    make_amap1_model,
+    make_amap1_worlds,
+)
+from .amap1_gate import (
+    AMap1GateConfig,
+    AMap1GateDecision,
+    AMap1WorldSummary,
+    evaluate_amap1_gate,
+    summarize_amap1_world,
+)
+from .amap1_run import (
+    AMap1MCMCProfile,
+    AMap1ReplicateResult,
+    FROZEN_AMAP1_MCMC_PROFILE,
+    amap1_required_fit_plan,
+    run_amap1_replicate,
+)
 from .v031_sbc_gate import (
     V031GateCheck,
     V031SBCGateConfig,
