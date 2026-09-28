@@ -1,0 +1,77 @@
+{
+  "schema": "esdm.map1.terminal_status.v1",
+  "date": "2026-09-27",
+  "programme": "MAP1",
+  "status": "FAIL",
+  "source": {
+    "workflow_run_id": 36326381655,
+    "qualification_branch": "map1/qualification-v1",
+    "authorization_commit": "8fab80dafeb98bf8b28ecfda4eeca6973c2569c0",
+    "artifact_id": 10935415107,
+    "artifact_name": "map1-result-36326381655",
+    "aggregate_json_sha256": "ab395cfbe60cc5f10ce3c9994f58a8c73123328db0ccd784e0abb690ff3f50ea"
+  },
+  "execution": {
+    "worlds": 3,
+    "replicates_per_world": 16,
+    "shard_count": 48,
+    "fit_count": 144,
+    "total_divergences": 12,
+    "mean_divergences_per_fit": 0.08333333333333333,
+    "sampling_guardrail": "PASS"
+  },
+  "claim": {
+    "COHERENT_MAP_SUPPORTED": false
+  },
+  "key_evidence": {
+    "positive_world_P1": {
+      "BC_minus_B0": {
+        "positive_gain_rate": 0.8125,
+        "mean_gain": 1.3884578496370792,
+        "passed": true
+      },
+      "BC_minus_BX": {
+        "positive_gain_rate": 0.8125,
+        "mean_gain": 0.07994602994018168,
+        "passed": true
+      }
+    },
+    "exchangeable_detectability_N1": {
+      "BX_minus_B0": {
+        "positive_gain_rate": 0.875,
+        "mean_gain": 3.483713985960796,
+        "passed": true
+      }
+    },
+    "null_calibration_failures": {
+      "N0_BC_minus_B0": {
+        "material_gain_rate": 0.3125,
+        "mean_gain": -0.00018775341834451065,
+        "passed": false
+      },
+      "N0_BC_minus_BX": {
+        "material_gain_rate": 0.4375,
+        "mean_gain": 0.005558888309077359,
+        "passed": false
+      },
+      "N1_BC_minus_BX": {
+        "material_gain_rate": 0.375,
+        "mean_gain": -0.06735810757211125,
+        "passed": false
+      }
+    }
+  },
+  "interpretation": {
+    "supported": "Fixed geographic coherence is detectable and useful in the coherent known-truth world.",
+    "terminal_failure": "The same coherent model is not sufficiently calibrated against null and exchangeable worlds to support a general coherent-map claim.",
+    "scientific_boundary": "MAP1 is a predictive map-continuity test only; no movement or mechanism claim is authorized."
+  },
+  "stop_rule": {
+    "same_programme_rerun_authorized": false,
+    "post_result_threshold_retuning_allowed": false,
+    "post_result_world_or_holdout_retuning_allowed": false,
+    "rescue_generation_authorized": false,
+    "empirical_response_authorized": false,
+    "future_use": "The positive-world result may be retained as descriptive evidence, but any future method must pose a scientifically distinct calibration question rather than rerun MAP1."
+  }
+}
