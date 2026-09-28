@@ -534,3 +534,117 @@ def build_v05f_directed_interaction_odsp_bundle(
         ),
         group_semantics="independent interaction-world known-truth replicate",
     )
+
+
+
+def _e2_mica_completed_rows(
+    empirical_result: Mapping[str, object],
+) -> tuple[list[object], Mapping[str, object]]:
+    """Validate a completed E2 MICA result before descriptive ODSP export."""
+
+    if empirical_result.get("result_id") != "e2-mica-empirical-result-v1":
+        raise ValueError("expected e2-mica-empirical-result-v1 result")
+    if empirical_result.get("status") != "EMPIRICAL_RESULT":
+        raise ValueError(
+            "E2 MICA ODSP export requires a completed EMPIRICAL_RESULT"
+        )
+    decision = empirical_result.get("decision")
+    if not isinstance(decision, Mapping):
+        raise ValueError("E2 MICA result is missing decision object")
+    if decision.get("sampling_gate_passed") is not True:
+        raise ValueError("E2 MICA ODSP export requires sampling gate PASS")
+
+    serialization = empirical_result.get("odsp_serialization")
+    if not isinstance(serialization, Mapping):
+        raise ValueError("E2 MICA result is missing odsp_serialization")
+    if serialization.get("row_unit") != "one east-heldout deployment":
+        raise ValueError("E2 MICA row-unit semantics drifted")
+    if serialization.get("absolute_scores_serialized") is not True:
+        raise ValueError("E2 MICA absolute score serialization is required")
+    if serialization.get("gain_only_serialization") is not False:
+        raise ValueError("E2 MICA gain-only serialization is not exportable")
+
+    records = empirical_result.get("heldout_deployment_scores")
+    if not isinstance(records, list) or len(records) < 12:
+        raise ValueError(
+            "E2 MICA ODSP export requires at least 12 heldout deployment rows"
+        )
+    required = {
+        "deploymentID",
+        "full_heldout_log_score",
+        "activity_knockout_heldout_log_score",
+        "state_knockout_heldout_log_score",
+    }
+    for index, row in enumerate(records):
+        if not isinstance(row, Mapping):
+            raise ValueError(f"E2 MICA deployment row {index} must be an object")
+        missing = required - set(row)
+        if missing:
+            raise ValueError(
+                f"E2 MICA deployment row {index} missing fields {sorted(missing)!r}"
+            )
+        for field in required - {"deploymentID"}:
+            _finite(row[field], name=f"heldout_deployment_scores[{index}].{field}")
+    return records, serialization
+
+
+def build_e2_mica_activity_odsp_bundle(
+    empirical_result: Mapping[str, object],
+) -> ODSPTransferBundle:
+    """Export E2 MICA activity transfer beyond suitability+state."""
+
+    records, _ = _e2_mica_completed_rows(empirical_result)
+    return build_odsp_transfer_bundle(
+        endpoint_id="esdm_e2_mica_activity_transfer_v1",
+        levels=(
+            ODSPInformationLevel(
+                name="suitability_state",
+                information=("suitability", "state"),
+                source_score_field="activity_knockout_heldout_log_score",
+            ),
+            ODSPInformationLevel(
+                name="suitability_state_activity",
+                information=("suitability", "state", "activity"),
+                source_score_field="full_heldout_log_score",
+            ),
+        ),
+        records=records,
+        group_field="deploymentID",
+        row_id_field="deploymentID",
+        analysis_mode="descriptive",
+        filtration_frozen_before_outcome_scoring=True,
+        source_schema="e2-mica-empirical-result-v1",
+        source_git_sha=None,
+        group_semantics="east-heldout camera deployment",
+    )
+
+
+def build_e2_mica_state_odsp_bundle(
+    empirical_result: Mapping[str, object],
+) -> ODSPTransferBundle:
+    """Export E2 MICA state transfer beyond suitability+activity."""
+
+    records, _ = _e2_mica_completed_rows(empirical_result)
+    return build_odsp_transfer_bundle(
+        endpoint_id="esdm_e2_mica_state_transfer_v1",
+        levels=(
+            ODSPInformationLevel(
+                name="suitability_activity",
+                information=("suitability", "activity"),
+                source_score_field="state_knockout_heldout_log_score",
+            ),
+            ODSPInformationLevel(
+                name="suitability_activity_state",
+                information=("suitability", "activity", "state"),
+                source_score_field="full_heldout_log_score",
+            ),
+        ),
+        records=records,
+        group_field="deploymentID",
+        row_id_field="deploymentID",
+        analysis_mode="descriptive",
+        filtration_frozen_before_outcome_scoring=True,
+        source_schema="e2-mica-empirical-result-v1",
+        source_git_sha=None,
+        group_semantics="east-heldout camera deployment",
+    )
