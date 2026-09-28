@@ -1,6 +1,6 @@
 {
   "schema": "esdm.map1.coherent_map_contract.v1",
-  "status": "DRAFT_NOT_AUTHORIZED",
+  "status": "TERMINAL_FAIL",
   "drafted_date": "2026-09-27",
   "relationship_to_field1": {
     "reopens_field1": false,
@@ -56,7 +56,7 @@
     }
   },
   "execution": {
-    "confirmatory_outcome_authorized": false,
+    "confirmatory_outcome_authorized": true,
     "empirical_response_authorized": false,
     "thresholds_frozen": true,
     "qualification_gate": "docs/map/MAP1_QUALIFICATION_GATE.md",
@@ -92,6 +92,35 @@
         "gate": "docs/map/MAP1_QUALIFICATION_GATE.md",
         "amendment": "docs/map/MAP1_QUALIFICATION_GATE_AMENDMENT_1.md",
         "amendment_2": "docs/map/MAP1_QUALIFICATION_GATE_AMENDMENT_2.md"
+      }
+    },
+    "confirmatory_outcome_consumed": true,
+    "same_programme_rerun_authorized": false,
+    "threshold_retuning_allowed": false,
+    "world_or_holdout_retuning_allowed": false,
+    "rescue_generation_authorized": false,
+    "terminal_result": {
+      "status": "FAIL",
+      "workflow_run_id": 36326381655,
+      "qualification_branch": "map1/qualification-v1",
+      "authorization_commit": "8fab80dafeb98bf8b28ecfda4eeca6973c2569c0",
+      "aggregate_artifact": {
+        "id": 10935415107,
+        "name": "map1-result-36326381655",
+        "digest": "sha256:b7df841e710e867ca446bac74766fc09e017af52e95c06677d731e46ef2d1ed8",
+        "aggregate_json_sha256": "ab395cfbe60cc5f10ce3c9994f58a8c73123328db0ccd784e0abb690ff3f50ea"
+      },
+      "frozen_receipt": "docs/map/MAP1_FROZEN_RESULTS.json",
+      "terminal_status": "docs/map/MAP1_TERMINAL_STATUS.json",
+      "result_note": "docs/map/MAP1_RESULT.md",
+      "claims": {
+        "COHERENT_MAP_SUPPORTED": false
+      },
+      "execution": {
+        "shard_count": 48,
+        "fit_count": 144,
+        "total_divergences": 12,
+        "mean_divergences_per_fit": 0.08333333333333333
       }
     }
   },
