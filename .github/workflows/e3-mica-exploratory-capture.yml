@@ -8,6 +8,7 @@ on:
       - '.github/workflows/e3-mica-exploratory-capture.yml'
       - 'docs/replication/E3_MICA_EXPLORATORY_CONTRACT.json'
       - 'docs/replication/E3_MICA_EXPLORATORY_PREFLIGHT_RESULT.json'
+      - 'docs/replication/E3_MICA_REDUCED_ENDPOINT_CONTRACT.json'
 
 permissions:
   actions: read
