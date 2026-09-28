@@ -1,6 +1,6 @@
 {
   "schema": "esdm.e2.empirical_replication_contract.v1",
-  "status": "FROZEN_PRE_FULL_RESPONSE_READY",
+  "status": "TERMINAL_CONSUMED_STOP_SCHEMA_OR_ESTIMABILITY",
   "frozen_date": "2026-09-27",
   "purpose": "Prospective independent empirical replication of the frozen v0.4-R5b activity/state decomposition after the first Snapshot Japan endpoint terminated on a temporal-integrity rule.",
   "relationship_to_active_programme": {
@@ -241,9 +241,11 @@
     "candidate_selected": true,
     "response_blind_geometry_header_opening": "completed_pass",
     "temporal_integrity_opening": "completed_pass",
-    "full_ecological_response_opening": false,
+    "full_ecological_response_opening": "consumed_stop_schema_or_estimability",
     "model_fitting": false,
-    "response_blind_climate": "completed_pass"
+    "response_blind_climate": "completed_pass",
+    "full_response_consumed": true,
+    "empirical_result_reached": false
   },
   "pre_response_status": {
     "response_blind_geometry_header": "PASS",
@@ -252,5 +254,13 @@
     "temporal_result": "docs/replication/E2_MICA_TEMPORAL_INTEGRITY_RESULT.json",
     "climate_receipt": "docs/replication/E2_MICA_WORLDCLIM_FROZEN.json",
     "full_response_contract": "docs/replication/E2_MICA_FULL_RESPONSE_CONTRACT.json"
+  },
+  "terminal_result": {
+    "candidate_id": "MICA_MUSKRAT",
+    "result": "docs/replication/E2_MICA_FULL_RESPONSE_TERMINAL_RESULT.json",
+    "workflow_run_id": 36369531079,
+    "model_fits": 0,
+    "heldout_scores": 0,
+    "same_programme_rerun_allowed": false
   }
 }
