@@ -104,6 +104,33 @@ See `docs/field/FIELD1_PHASE_A_FROZEN_RESULTS.json`,
 `docs/field/FIELD1_POSTMORTEM.md`.
 
 
+### MAP1 coherent-map programme — terminal FAIL
+
+MAP1 asked a narrower question than FIELD1: whether one **fixed** geography-coherent
+residual field improves held-out mapping beyond both an environment-only model and an
+amplitude-matched exchangeable residual field, without estimating distance, environment,
+or barrier covariance axes.
+
+All **48/48** confirmatory replicates and **144/144** fits completed. The sampling
+guardrail passed (12 divergences; 0.0833 per fit <= 0.10), and the coherent field was
+strongly useful in the positive coherent world P1:
+
+- BC - B0: positive-gain rate **0.8125**, mean gain **+1.3885**;
+- BC - BX: positive-gain rate **0.8125**, mean gain **+0.07995**.
+
+However, MAP1 failed its predeclared null-calibration controls. In N0, BC exceeded the
+allowed material-gain frequency against B0 and BX; in N1, BC also exceeded the allowed
+material-gain frequency against BX. Therefore **COHERENT_MAP_SUPPORTED = false**.
+
+The result is not "coherent maps do not work." It is more specific: the frozen coherent
+field detects a true coherence signal, but it does not suppress that preference reliably
+enough when coherence is absent or exchangeable. MAP1 is terminal and is not eligible
+for threshold retuning or a same-program rescue rerun.
+
+See `docs/map/MAP1_FROZEN_RESULTS.json`, `docs/map/MAP1_TERMINAL_STATUS.json`, and
+`docs/map/MAP1_RESULT.md`.
+
+
 ### Frozen ODSP transfer evidence
 
 The active empirical endpoint above is unchanged, but the already-frozen held-out
