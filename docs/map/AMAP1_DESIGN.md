@@ -204,36 +204,36 @@ LOW_REGRET_MAP_SUPPORTED
 It may be promoted only if BA tracks the appropriate oracle across all three truth
 classes and all geometry families.
 
-## Proposed pre-outcome gate shape
+## Frozen pre-outcome qualification gate
 
-Numerical thresholds remain DRAFT until frozen in a separate qualification gate.
+The response-free G1-G3 fixtures, nine geometry x truth worlds, numerical thresholds,
+MCMC profile, and execution cardinality are now frozen in
+`docs/map/AMAP1_QUALIFICATION_GATE.md`.
 
-The intended structure is:
+The frozen structure is:
 
 1. **Oracle detectability**
-   - TX: BX-B0 must be positive-qualified.
-   - TC: BC-B0 must be positive-qualified.
+   - TX: BX-B0 positive-gain rate >= **0.75** and mean gain >= **+0.005**.
+   - TC: BC-B0 positive-gain rate >= **0.75** and mean gain >= **+0.005**.
 
 2. **Adaptive regret**
-   - T0: BA relative to B0 must satisfy the frozen low-regret rule.
-   - TX: BA relative to BX must satisfy the frozen low-regret rule.
-   - TC: BA relative to BC must satisfy the frozen low-regret rule.
+   - material regret is `regret > 0.005`;
+   - in every T0/TX/TC world, material-regret rate <= **0.25**;
+   - in every world, mean regret <= **0.005** per held-out context.
 
 3. **Cross-geometry requirement**
-   - the same rule must pass separately in G1, G2, and G3;
+   - the same low-regret rule passes separately in G1, G2, and G3;
    - success in one geometry cannot rescue failure in another.
 
 4. **Sampling**
-   - a frozen NUTS divergence guardrail applies to the complete programme.
+   - mean NUTS divergences per fit across the full run <= **0.10**.
 
-A natural low-regret rule is based on the existing +0.005 per-context materiality scale:
+5. **Frozen execution**
+   - 9 worlds x 16 replicates = **144 shards**;
+   - **384 model fits**;
+   - 300 warmup / 350 retained draws / 2 chains / target accept **0.90**.
 
-```text
-material regret = regret > 0.005
-```
-
-but its replicate-frequency and mean-regret thresholds are not authorized until the
-full response-free fixture and fit cardinality are frozen.
+No confirmatory AMAP1 outcome has been authorized by freezing this gate.
 
 ## Interpretation boundary
 
@@ -267,13 +267,13 @@ Phase A:
 - JAX differentiation through covariance mixture and Cholesky;
 - no confirmatory run.
 
-Phase B:
+Phase B (completed pre-outcome):
 
-- freeze G1-G3 geometry builders;
-- freeze nine known-truth worlds;
-- freeze oracle-detectability and low-regret gate;
-- freeze MCMC profile and fit cardinality;
-- only then authorize a one-shot outcome.
+- G1-G3 geometry builders frozen;
+- nine known-truth worlds frozen;
+- oracle-detectability and low-regret gate frozen;
+- MCMC profile and fit cardinality frozen;
+- one-shot workflow prepared but outcome authorization remains separate.
 
 ## Stop rule
 
