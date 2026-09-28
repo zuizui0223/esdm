@@ -1,0 +1,57 @@
+name: E3 MICA exploratory preflight
+
+on:
+  pull_request:
+    paths:
+      - 'docs/replication/E3_MICA_EXPLORATORY_CONTRACT.json'
+      - 'src/esdm/validate/e3_mica_exploratory.py'
+      - 'scripts/preflight_e3_mica_exploratory.py'
+      - 'tests/test_e3_mica_exploratory.py'
+      - '.github/workflows/e3-mica-exploratory-preflight.yml'
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install package
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e '.[dev]'
+
+      - name: Run E3 unit tests
+        run: python -m pytest -q tests/test_e3_mica_exploratory.py
+
+      - name: Download immutable E2 capture artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: e2-mica-full-response-capture-36369531079
+          path: captured
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36369531079
+
+      - name: Preflight metadata-only exploratory repair
+        run: |
+          mkdir -p build/e3
+          python scripts/preflight_e3_mica_exploratory.py \
+            --archive captured/build/e2/source/mica-v3.zip \
+            --out build/e3/E3_MICA_EXPLORATORY_PREFLIGHT_RESULT.json
+
+      - name: Upload preflight receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: e3-mica-exploratory-preflight-${{ github.run_id }}
+          path: build/e3/E3_MICA_EXPLORATORY_PREFLIGHT_RESULT.json
+          if-no-files-found: error
+          retention-days: 90

@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "programme_id": "E3_MICA_EXP",
+  "contract_id": "e3-mica-zero-duration-exploratory-v1",
+  "status": "PREFLIGHT_PASS_FIT_NOT_AUTHORIZED",
+  "frozen_date": "2026-09-28",
+  "relationship_to_prior_programmes": {
+    "r5b_model_generation": "v0.4-R5b",
+    "e2_terminal_result": "docs/replication/E2_MICA_FULL_RESPONSE_TERMINAL_RESULT.json",
+    "e2_status_remains": "CONSUMED_STOP_SCHEMA_OR_ESTIMABILITY",
+    "reopens_e2": false,
+    "rescues_e2_claim": false,
+    "separate_named_programme": true,
+    "classification": "exploratory_real_data_analysis",
+    "reason_exploratory": "The MICA biological response was already opened under E2 before the deployment-duration defect was discovered."
+  },
+  "source_boundary": {
+    "source_candidate": "MICA_MUSKRAT",
+    "source_archive_sha256": "8346f3fe467a201525d6bedd4ebd6e2078457ee8bb778501d41d55ace7d962c9",
+    "immutable_capture_artifact_id": 10947948379,
+    "immutable_capture_workflow_run_id": 36369531079,
+    "new_external_response_download_required": false
+  },
+  "metadata_only_repair_rule": {
+    "rule": "exclude a deployment iff parsed deploymentEnd <= parsed deploymentStart",
+    "rule_uses_scientificName": false,
+    "rule_uses_count": false,
+    "rule_uses_state": false,
+    "rule_uses_focal_taxon_frequency": false,
+    "observation_row_action": "after exclusion IDs are frozen from deployments.csv alone, remove every observations.csv row whose deploymentID is excluded before any taxon/count/state filtering",
+    "post_response_manual_adjudication_allowed": false
+  },
+  "frozen_metadata_audit": {
+    "deployment_rows": 1539,
+    "nonpositive_duration_deployments": 1,
+    "negative_duration_deployments": 0,
+    "zero_duration_deployments": 1,
+    "excluded_deployment_ids": [
+      "39c76f3d-cc75-44cf-b5b1-021daccfd9fe"
+    ],
+    "excluded_deployment_ids_sha256": "6e4cc1d2b7d5844139e6b3bc185c22d75580ee1cf8cc9250e9644aaaeba2834d",
+    "excluded_deployment_longitude": 6.084,
+    "excluded_deployment_latitude": 52.939,
+    "e2_east_holdout_boundary": 5.628,
+    "excluded_deployment_was_e2_heldout": true,
+    "training_partition_expected_unchanged": true,
+    "e2_training_deployments": 805,
+    "e2_heldout_deployments": 734,
+    "e3_expected_training_deployments": 805,
+    "e3_expected_heldout_deployments": 733,
+    "e3_retained_deployments": 1538,
+    "e3_training_ids_sha256": "a1e08526edb3d1f329fc7a4e9a2efa2bc4dc50313b393026a429f3a87d57f566",
+    "e3_heldout_ids_sha256": "1b942bba9251172b874bb162fbe29347171a144695a39f033f094edae5ec62e3",
+    "e3_training_role_map_sha256": "1fcd776854484ed5b0e19c20b49aed81fa22d5947b5d26120c50155e1369c7e4",
+    "e3_manifest_sha256": "11d8325b1dd17a2a3a6219f31e6876fc20f80bdf48e4385e87d9d5bc442a53f4",
+    "e3_max_training_longitude": 4.841,
+    "e3_min_heldout_longitude": 5.628,
+    "e3_longitude_gap": 0.7869999999999999,
+    "observations_rows_total_in_immutable_capture": 183813,
+    "observation_rows_removed_by_excluded_deployment_id": 1
+  },
+  "analysis_target_if_preflight_passes": {
+    "model_structure": "same v0.4-R5b suitability/activity/conditional-state graph used by E2",
+    "fits": [
+      "full",
+      "activity_knockout",
+      "state_knockout"
+    ],
+    "heldout_geometry": "strict east extrapolation after metadata-only exclusion",
+    "primary_descriptive_endpoints": [
+      "full heldout log predictive density",
+      "full minus activity-knockout heldout gain",
+      "full minus state-knockout heldout gain"
+    ],
+    "allowed_interpretation": "exploratory predictive evidence in this repaired MICA dataset",
+    "confirmatory_replication_claim_authorized": false,
+    "causal_claim_authorized": false,
+    "parameter_recovery_claim_authorized": false
+  },
+  "preflight_requirements": [
+    "source archive hash matches the immutable E2 capture",
+    "the metadata-only exclusion rule reproduces exactly one excluded deployment and the frozen ID-set hash",
+    "the excluded deployment is not in the training partition",
+    "training deployment IDs and training role assignments remain byte-for-byte identical to E2",
+    "strict east holdout remains valid with 733 heldout deployments",
+    "all retained deployments have strictly positive duration",
+    "all response rows for excluded deployment IDs are removed by deploymentID before taxon/count/state interpretation"
+  ],
+  "execution": {
+    "exploratory_fit_authorized_now": false,
+    "authorization_requires_new_pure_marker_commit": true,
+    "same_programme_rule_or_threshold_retuning_after_fit": false
+  },
+  "preflight_result": {
+    "path": "docs/replication/E3_MICA_EXPLORATORY_PREFLIGHT_RESULT.json",
+    "workflow_run_id": 36397882260,
+    "workflow_head_sha": "8dcc7235ff18835d1177c96237f7d0e4c54c8f0c",
+    "artifact_id": 10958662529,
+    "artifact_name": "e3-mica-exploratory-preflight-36397882260",
+    "artifact_digest": "sha256:bdfe788b3eff98680a9e4f3f7ef865a6e58afccc7cc8deea32893b0fc8493c9d",
+    "result_sha256": "b189d92981348346df76f23eb7acf5623f75380c38739a3acdc85d656c73aba8",
+    "status": "E3_PREFLIGHT_PASS"
+  }
+}
