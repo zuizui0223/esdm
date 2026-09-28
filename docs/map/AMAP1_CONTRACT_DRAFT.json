@@ -1,6 +1,6 @@
 {
   "schema": "esdm.amap1.adaptive_map_contract.v1",
-  "status": "FROZEN_PRE_OUTCOME_NOT_AUTHORIZED",
+  "status": "TERMINAL_FAIL",
   "drafted_date": "2026-09-28",
   "relationship_to_prior_programmes": {
     "field1_terminal": "FAIL",
@@ -83,7 +83,7 @@
       "num_chains": 2,
       "target_accept_probability": 0.9
     },
-    "confirmatory_outcome_authorized": false,
+    "confirmatory_outcome_authorized": true,
     "empirical_response_authorized": false,
     "implementation_branch": "feature/amap1-adaptive-map-field",
     "qualification_branch": "amap1/qualification-v1",
@@ -110,6 +110,35 @@
         "BA": 401
       },
       "fit_seed_independent_of_plan_order": true
+    },
+    "confirmatory_outcome_consumed": true,
+    "same_programme_rerun_authorized": false,
+    "threshold_retuning_allowed": false,
+    "geometry_or_truth_retuning_allowed": false,
+    "rescue_generation_authorized": false,
+    "terminal_result": {
+      "status": "FAIL",
+      "workflow_run_id": 36369151809,
+      "qualification_branch": "amap1/qualification-v1",
+      "authorization_commit": "07f60512665a5c64cd612ca5bd3c88db021d6eda",
+      "aggregate_artifact": {
+        "id": 10948844669,
+        "name": "amap1-result-36369151809",
+        "digest": "sha256:1f49b3b983e0cf6cb04fcb8515019bd338bff993cdef755a0afc23868c470347",
+        "aggregate_json_sha256": "402f9c434e0da751711702f51204730e04da489887d94bcc99479c1a01112854"
+      },
+      "frozen_receipt": "docs/map/AMAP1_FROZEN_RESULTS.json",
+      "terminal_status": "docs/map/AMAP1_TERMINAL_STATUS.json",
+      "result_note": "docs/map/AMAP1_RESULT.md",
+      "claims": {
+        "LOW_REGRET_MAP_SUPPORTED": false
+      },
+      "execution": {
+        "shard_count": 144,
+        "fit_count": 384,
+        "total_divergences": 3,
+        "mean_divergences_per_fit": 0.0078125
+      }
     }
   },
   "nonclaims": [

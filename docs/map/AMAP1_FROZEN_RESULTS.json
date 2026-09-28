@@ -1,0 +1,238 @@
+{
+  "schema": "esdm.amap1.frozen_result.v1",
+  "date": "2026-09-28",
+  "status": "FAIL",
+  "programme": "AMAP1",
+  "qualification_workflow_run_id": 36369151809,
+  "qualification_branch": "amap1/qualification-v1",
+  "authorization_commit": "07f60512665a5c64cd612ca5bd3c88db021d6eda",
+  "aggregate_artifact": {
+    "id": 10948844669,
+    "name": "amap1-result-36369151809",
+    "digest": "sha256:1f49b3b983e0cf6cb04fcb8515019bd338bff993cdef755a0afc23868c470347",
+    "file": "AMAP1_QUALIFICATION_RESULT.json",
+    "aggregate_json_sha256": "402f9c434e0da751711702f51204730e04da489887d94bcc99479c1a01112854"
+  },
+  "execution": {
+    "worlds": 9,
+    "replicates_per_world": 16,
+    "shard_count": 144,
+    "successful_replicates": 144,
+    "failed_replicates": 0,
+    "fit_count": 384,
+    "total_divergences": 3,
+    "mean_divergences_per_fit": 0.0078125,
+    "sampling_guardrail": "PASS (<= 0.10)"
+  },
+  "claims": {
+    "LOW_REGRET_MAP_SUPPORTED": false
+  },
+  "summaries": [
+    {
+      "detectability_mean_gain": null,
+      "detectability_positive_rate": null,
+      "geometry_id": "G1",
+      "material_regret_rate": 0.5625,
+      "mean_regret": 0.009135855454619757,
+      "oracle_model_id": "B0",
+      "replicates": 16,
+      "truth_id": "T0",
+      "world_id": "G1_T0"
+    },
+    {
+      "detectability_mean_gain": 3.521113156662675,
+      "detectability_positive_rate": 0.9375,
+      "geometry_id": "G1",
+      "material_regret_rate": 0.5,
+      "mean_regret": 0.0014870930494683965,
+      "oracle_model_id": "BX",
+      "replicates": 16,
+      "truth_id": "TX",
+      "world_id": "G1_TX"
+    },
+    {
+      "detectability_mean_gain": 3.431662969236324,
+      "detectability_positive_rate": 0.9375,
+      "geometry_id": "G1",
+      "material_regret_rate": 0.4375,
+      "mean_regret": -0.01603815339068479,
+      "oracle_model_id": "BC",
+      "replicates": 16,
+      "truth_id": "TC",
+      "world_id": "G1_TC"
+    },
+    {
+      "detectability_mean_gain": null,
+      "detectability_positive_rate": null,
+      "geometry_id": "G2",
+      "material_regret_rate": 0.5625,
+      "mean_regret": 0.05405787488962632,
+      "oracle_model_id": "B0",
+      "replicates": 16,
+      "truth_id": "T0",
+      "world_id": "G2_T0"
+    },
+    {
+      "detectability_mean_gain": 1.3185980151453318,
+      "detectability_positive_rate": 0.75,
+      "geometry_id": "G2",
+      "material_regret_rate": 0.75,
+      "mean_regret": 0.03877187066375293,
+      "oracle_model_id": "BX",
+      "replicates": 16,
+      "truth_id": "TX",
+      "world_id": "G2_TX"
+    },
+    {
+      "detectability_mean_gain": 2.9821938487521042,
+      "detectability_positive_rate": 0.8125,
+      "geometry_id": "G2",
+      "material_regret_rate": 0.5,
+      "mean_regret": 0.0082820456957923,
+      "oracle_model_id": "BC",
+      "replicates": 16,
+      "truth_id": "TC",
+      "world_id": "G2_TC"
+    },
+    {
+      "detectability_mean_gain": null,
+      "detectability_positive_rate": null,
+      "geometry_id": "G3",
+      "material_regret_rate": 0.375,
+      "mean_regret": 0.002527176006737686,
+      "oracle_model_id": "B0",
+      "replicates": 16,
+      "truth_id": "T0",
+      "world_id": "G3_T0"
+    },
+    {
+      "detectability_mean_gain": 3.300069716472569,
+      "detectability_positive_rate": 1,
+      "geometry_id": "G3",
+      "material_regret_rate": 0.625,
+      "mean_regret": 0.05016399052355783,
+      "oracle_model_id": "BX",
+      "replicates": 16,
+      "truth_id": "TX",
+      "world_id": "G3_TX"
+    },
+    {
+      "detectability_mean_gain": 3.050429006014027,
+      "detectability_positive_rate": 0.9375,
+      "geometry_id": "G3",
+      "material_regret_rate": 0.6875,
+      "mean_regret": 0.008593538454244126,
+      "oracle_model_id": "BC",
+      "replicates": 16,
+      "truth_id": "TC",
+      "world_id": "G3_TC"
+    }
+  ],
+  "failed_checks": [
+    {
+      "name": "G1_T0:material_regret_rate",
+      "observed": 0.5625,
+      "criterion": "material regret rate <= 0.25"
+    },
+    {
+      "name": "G1_T0:mean_regret",
+      "observed": 0.009135855454619757,
+      "criterion": "mean regret <= 0.005"
+    },
+    {
+      "name": "G1_TC:material_regret_rate",
+      "observed": 0.4375,
+      "criterion": "material regret rate <= 0.25"
+    },
+    {
+      "name": "G1_TX:material_regret_rate",
+      "observed": 0.5,
+      "criterion": "material regret rate <= 0.25"
+    },
+    {
+      "name": "G2_T0:material_regret_rate",
+      "observed": 0.5625,
+      "criterion": "material regret rate <= 0.25"
+    },
+    {
+      "name": "G2_T0:mean_regret",
+      "observed": 0.05405787488962632,
+      "criterion": "mean regret <= 0.005"
+    },
+    {
+      "name": "G2_TC:material_regret_rate",
+      "observed": 0.5,
+      "criterion": "material regret rate <= 0.25"
+    },
+    {
+      "name": "G2_TC:mean_regret",
+      "observed": 0.0082820456957923,
+      "criterion": "mean regret <= 0.005"
+    },
+    {
+      "name": "G2_TX:material_regret_rate",
+      "observed": 0.75,
+      "criterion": "material regret rate <= 0.25"
+    },
+    {
+      "name": "G2_TX:mean_regret",
+      "observed": 0.03877187066375293,
+      "criterion": "mean regret <= 0.005"
+    },
+    {
+      "name": "G3_T0:material_regret_rate",
+      "observed": 0.375,
+      "criterion": "material regret rate <= 0.25"
+    },
+    {
+      "name": "G3_TC:material_regret_rate",
+      "observed": 0.6875,
+      "criterion": "material regret rate <= 0.25"
+    },
+    {
+      "name": "G3_TC:mean_regret",
+      "observed": 0.008593538454244126,
+      "criterion": "mean regret <= 0.005"
+    },
+    {
+      "name": "G3_TX:material_regret_rate",
+      "observed": 0.625,
+      "criterion": "material regret rate <= 0.25"
+    },
+    {
+      "name": "G3_TX:mean_regret",
+      "observed": 0.05016399052355783,
+      "criterion": "mean regret <= 0.005"
+    }
+  ],
+  "interpretation": {
+    "supported": [
+      "All six TX/TC oracle-detectability firewalls passed across G1-G3.",
+      "The frozen sampling guardrail passed with 3 divergences across 384 fits."
+    ],
+    "not_supported": [
+      "AMAP1 overall qualification.",
+      "LOW_REGRET_MAP_SUPPORTED.",
+      "A claim that the adaptive field stays predictively close to the truth-aligned oracle across the frozen structural uncertainty."
+    ],
+    "diagnosis": [
+      "All nine geometry x truth worlds exceeded the frozen maximum material-regret rate of 0.25.",
+      "The failure is not explained by oracle non-detectability or sampling instability."
+    ],
+    "nonclaims": [
+      "coherence presence",
+      "dispersal",
+      "movement",
+      "migration",
+      "gene flow",
+      "causal spatial mechanism"
+    ]
+  },
+  "decision": {
+    "same_amap1_rerun_authorized": false,
+    "threshold_retuning_inside_AMAP1_allowed": false,
+    "geometry_or_truth_retuning_allowed": false,
+    "rescue_generation_authorized": false,
+    "empirical_response_authorized": false
+  }
+}
