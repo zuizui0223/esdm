@@ -47,7 +47,17 @@
     "e2_training_deployments": 805,
     "e2_heldout_deployments": 734,
     "e3_expected_training_deployments": 805,
-    "e3_expected_heldout_deployments": 733
+    "e3_expected_heldout_deployments": 733,
+    "e3_retained_deployments": 1538,
+    "e3_training_ids_sha256": "a1e08526edb3d1f329fc7a4e9a2efa2bc4dc50313b393026a429f3a87d57f566",
+    "e3_heldout_ids_sha256": "1b942bba9251172b874bb162fbe29347171a144695a39f033f094edae5ec62e3",
+    "e3_training_role_map_sha256": "1fcd776854484ed5b0e19c20b49aed81fa22d5947b5d26120c50155e1369c7e4",
+    "e3_manifest_sha256": "11d8325b1dd17a2a3a6219f31e6876fc20f80bdf48e4385e87d9d5bc442a53f4",
+    "e3_max_training_longitude": 4.841,
+    "e3_min_heldout_longitude": 5.628,
+    "e3_longitude_gap": 0.7869999999999999,
+    "observations_rows_total_in_immutable_capture": 183813,
+    "observation_rows_removed_by_excluded_deployment_id": 1
   },
   "analysis_target_if_preflight_passes": {
     "model_structure": "same v0.4-R5b suitability/activity/conditional-state graph used by E2",
