@@ -1,0 +1,182 @@
+name: E2 MICA full response once
+
+concurrency:
+  group: e2-mica-full-response-once
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - e2/mica-full-response-v1
+    paths:
+      - 'docs/replication/E2_MICA_FULL_RESPONSE_AUTHORIZED.json'
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    outputs:
+      capture_status: ${{ steps.capture.outputs.status }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify pure full-response authorization commit
+        run: |
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+
+          marker_path = Path(
+              "docs/replication/E2_MICA_FULL_RESPONSE_AUTHORIZED.json"
+          )
+          marker = json.loads(marker_path.read_text(encoding="utf-8"))
+          parent = subprocess.check_output(
+              ["git", "rev-parse", "HEAD^"], text=True
+          ).strip()
+          if marker["implementation_parent_sha"] != parent:
+              raise SystemExit("E2 MICA full-response authorization parent mismatch")
+          changed = subprocess.check_output(
+              ["git", "diff-tree", "--no-commit-id", "--name-only", "-r", "HEAD"],
+              text=True,
+          ).splitlines()
+          if changed != [marker_path.as_posix()]:
+              raise SystemExit(
+                  "full-response authorization commit must change only the marker"
+              )
+          if marker["candidate_id"] != "MICA_MUSKRAT":
+              raise SystemExit("full-response candidate mismatch")
+          if marker["stage"] != "full_ecological_response_and_frozen_fit":
+              raise SystemExit("full-response stage mismatch")
+          if marker["one_shot"] is not True:
+              raise SystemExit("full-response authorization must be one-shot")
+          if marker["full_response_authorized"] is not True:
+              raise SystemExit("full response was not explicitly authorized")
+          if marker["model_fitting_authorized"] is not True:
+              raise SystemExit("frozen model fitting was not explicitly authorized")
+          if marker["full_response_contract"] != (
+              "docs/replication/E2_MICA_FULL_RESPONSE_CONTRACT.json"
+          ):
+              raise SystemExit("full-response contract binding mismatch")
+          PY
+
+      - name: Install package and verify frozen contracts
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e '.[dev]'
+          python -m pytest -q \
+            tests/test_e2_mica_full_response_contract.py \
+            tests/test_e2_mica_full_response.py
+
+      - name: Download frozen WorldClim result
+        uses: actions/download-artifact@v4
+        with:
+          name: e2-mica-worldclim-36318387923
+          path: frozen-climate
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36318387923
+
+      - name: Download frozen MICA response once
+        run: |
+          mkdir -p build/e2/source
+          curl \
+            --fail \
+            --location \
+            --retry 3 \
+            --retry-delay 2 \
+            --output build/e2/source/mica-v3.zip \
+            'https://ipt.inbo.be/archive.do?r=mica-agouti&v=3'
+
+      - name: Capture and qualify full response
+        id: capture
+        run: |
+          mkdir -p build/e2/capture
+          set +e
+          python scripts/capture_e2_mica_full_response.py \
+            --archive build/e2/source/mica-v3.zip \
+            --climate frozen-climate/E2_MICA_WORLDCLIM_RESULT.json \
+            --out build/e2/capture/E2_MICA_FULL_RESPONSE_CAPTURE_RESULT.json
+          code=$?
+          set -e
+          status=$(python - <<'PY'
+          import json
+          from pathlib import Path
+          payload = json.loads(
+              Path(
+                  "build/e2/capture/E2_MICA_FULL_RESPONSE_CAPTURE_RESULT.json"
+              ).read_text(encoding="utf-8")
+          )
+          print(payload["status"])
+          PY
+          )
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+          case "$status" in
+            RESPONSE_CAPTURE_QUALIFIED|CONSUMED_STOP_SCHEMA_OR_ESTIMABILITY)
+              exit 0
+              ;;
+            *)
+              exit "$code"
+              ;;
+          esac
+
+      - name: Upload immutable E2 response capture
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2-mica-full-response-capture-${{ github.run_id }}
+          path: |
+            build/e2/source/mica-v3.zip
+            frozen-climate/E2_MICA_WORLDCLIM_RESULT.json
+            build/e2/capture/E2_MICA_FULL_RESPONSE_CAPTURE_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
+
+  fit:
+    needs: capture
+    if: needs.capture.outputs.capture_status == 'RESPONSE_CAPTURE_QUALIFIED'
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install inference dependencies
+        run: python -m pip install -e '.[dev]'
+
+      - name: Download immutable capture only
+        uses: actions/download-artifact@v4
+        with:
+          name: e2-mica-full-response-capture-${{ github.run_id }}
+          path: captured
+
+      - name: Run frozen three-fit endpoint
+        run: |
+          mkdir -p build/e2/result
+          python scripts/fit_e2_mica_full_response.py \
+            --archive captured/mica-v3.zip \
+            --climate captured/E2_MICA_WORLDCLIM_RESULT.json \
+            --capture captured/E2_MICA_FULL_RESPONSE_CAPTURE_RESULT.json \
+            --out build/e2/result/E2_MICA_EMPIRICAL_RESULT.json
+
+      - name: Upload frozen E2 empirical result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2-mica-empirical-result-${{ github.run_id }}
+          path: build/e2/result/E2_MICA_EMPIRICAL_RESULT.json
+          if-no-files-found: error
+          retention-days: 90

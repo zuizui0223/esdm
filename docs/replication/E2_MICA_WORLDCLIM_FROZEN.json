@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "receipt_id": "e2-mica-worldclim-bio12-frozen-v1",
+  "status": "CLIMATE_QUALIFIED",
+  "candidate_id": "MICA_MUSKRAT",
+  "validated_date": "2026-09-27",
+  "authorization": {
+    "branch": "e2/mica-worldclim-v1",
+    "head_sha": "3abaacdce9828d7b6563562a5872dd30950da653",
+    "implementation_parent_sha": "969c1861f67604ea6e1bcd23bfea1a0c0e75a7e4",
+    "workflow_run_id": 36318387923,
+    "conclusion": "success"
+  },
+  "artifact": {
+    "id": 10931433013,
+    "name": "e2-mica-worldclim-36318387923",
+    "digest": "sha256:110eb9f6d7ccec0eec48857aa696d1e056d09df85e8501bbecfac99587007ec6",
+    "result_filename": "E2_MICA_WORLDCLIM_RESULT.json",
+    "result_sha256": "51f4e4877647c5e369759310e3c0d2b30a98a0a445108ac28b739f5795a17a4b"
+  },
+  "source_reverification": {
+    "archive_sha256": "8346f3fe467a201525d6bedd4ebd6e2078457ee8bb778501d41d55ace7d962c9",
+    "deployments_sha256": "f199b4277eb2f800c3593ad9225de1e12eb3a0fa9fbfd4b2234dc213490ffcca",
+    "training_ids_sha256": "a1e08526edb3d1f329fc7a4e9a2efa2bc4dc50313b393026a429f3a87d57f566",
+    "heldout_ids_sha256": "c4990c23de1787db84f9ae23310730b284c6ea159c7c0a806a7fcb01ffaf1db2",
+    "training_role_map_sha256": "1fcd776854484ed5b0e19c20b49aed81fa22d5947b5d26120c50155e1369c7e4"
+  },
+  "worldclim": {
+    "archive_sha256": "00513224583665ec0f2f955a4ec252730c4deb2004cce9e793492a3f26df4dcf",
+    "bio12_raster_sha256": "1e823e951ace0186c6eadd7368b4d0385c8f51cc952282c0f2d640bf7790fea5",
+    "member": "wc2.1_10m_bio_12.tif",
+    "units": "mm"
+  },
+  "training": {
+    "deployment_count": 805,
+    "bio12_mean_mm": 798.8310559006211,
+    "bio12_population_sd_mm": 10.745446737718652
+  },
+  "heldout_deployment_count": 734,
+  "deployment_climate_count": 1539,
+  "deployment_climate_sha256": "c05fe8cf883d929ae618d3ccd8e64c33a7534517341ede36aafa6742d86ee4df",
+  "response_firewall": {
+    "observation_rows_read_for_climate": 0,
+    "scientific_name_values_read": false,
+    "count_values_read": false,
+    "focal_taxon_filtering": false,
+    "model_fits": 0,
+    "heldout_scores": 0,
+    "full_response_opened": false
+  },
+  "decision": {
+    "climate_qualified": true,
+    "authorizes_full_response": false,
+    "requires_separate_full_response_authorization": true
+  }
+}
