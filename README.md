@@ -131,6 +131,27 @@ See `docs/map/MAP1_FROZEN_RESULTS.json`, `docs/map/MAP1_TERMINAL_STATUS.json`, a
 `docs/map/MAP1_RESULT.md`.
 
 
+
+### AMAP1 adaptive-map programme — terminal FAIL
+
+AMAP1 asked a different question from FIELD1 and MAP1: whether one residual field could
+adapt continuously between exchangeable and fixed geographic coherence and stay close to
+the truth-aligned oracle across structural uncertainty.
+
+The frozen result is **FAIL** after **144/144** confirmatory replicates and **384/384**
+fits. All six TX/TC oracle-detectability firewalls passed, and sampling was stable
+(3 divergences; 0.0078 per fit <= 0.10). The failure was the primary low-regret target:
+**all 9/9 geometry x truth worlds exceeded the frozen material-regret-rate maximum of
+0.25**. The worst rate was 0.75 in G2_TX.
+
+Therefore `LOW_REGRET_MAP_SUPPORTED = false`. AMAP1 does not authorize a claim that an
+adaptive covariance mixture provides robust low-regret maps, and it does not support any
+coherence, dispersal, connectivity, migration, or gene-flow interpretation.
+
+See `docs/map/AMAP1_FROZEN_RESULTS.json`,
+`docs/map/AMAP1_TERMINAL_STATUS.json`, and `docs/map/AMAP1_RESULT.md`.
+
+
 ### Frozen ODSP transfer evidence
 
 The active empirical endpoint above is unchanged, but the already-frozen held-out
