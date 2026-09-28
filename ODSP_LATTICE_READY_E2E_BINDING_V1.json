@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "binding_id": "esdm-odsp-lattice-serialization-smoke-v1",
+  "date": "2026-09-28",
+  "esdm_protocol_merge_sha": "ced6cd9ba4d50264c1f9d99fd097e4277fddfc3e",
+  "odsp": {
+    "repository": "zuizui0223/odsp",
+    "pinned_commit": "0bd83e1ebb372c48839654ab0e42124fe37b8faf",
+    "point_api": "odsp.information_lattice.audit_information_lattice",
+    "certification_api": "odsp.information_lattice.certify_information_lattice"
+  },
+  "fixture": {
+    "purpose": "synthetic interoperability smoke only",
+    "base_information": [
+      "suitability"
+    ],
+    "information_blocks": [
+      {
+        "name": "activity",
+        "variables": [
+          "activity"
+        ]
+      },
+      {
+        "name": "state",
+        "variables": [
+          "state"
+        ]
+      }
+    ],
+    "independent_groups": [
+      "g1",
+      "g2"
+    ],
+    "validation_blocks_per_group": 4,
+    "node_scores": {
+      "base": 0,
+      "activity": 0.4,
+      "state": 0.1,
+      "activity_state": 0.3
+    }
+  },
+  "expected": {
+    "node_count": 4,
+    "edge_count": 4,
+    "full_vs_base_gain_category": "generalizing",
+    "point_path_status": "order_sensitive_full_transfer",
+    "point_full_transfer_path_count": 1,
+    "point_total_admissible_path_count": 2,
+    "certified_path_status": "order_sensitive_full_transfer",
+    "certified_robust_full_transfer_path_count": 1,
+    "all_cells_estimable": true,
+    "block_status": {
+      "activity": "order_robust_generalizing",
+      "state": "order_sensitive"
+    },
+    "shapley_can_override_edge_failure": false
+  },
+  "boundary": {
+    "scientific_result": false,
+    "transfer_source_registry_entry_created": false,
+    "current_frozen_source_promoted": false,
+    "current_eog_mainline_consumption": false,
+    "n4_action_authorized": false
+  }
+}

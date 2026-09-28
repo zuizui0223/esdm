@@ -1,0 +1,214 @@
+name: odsp-lattice-ready-e2e
+
+on:
+  pull_request:
+    paths:
+      - 'ODSP_LATTICE_READY_E2E_BINDING_V1.json'
+      - 'tests/test_odsp_lattice_ready_e2e_binding.py'
+      - '.github/workflows/odsp-lattice-ready-e2e.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install eSDM and pinned ODSP
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e . pytest
+          python -m pip install 'git+https://github.com/zuizui0223/odsp.git@0bd83e1ebb372c48839654ab0e42124fe37b8faf'
+
+      - name: Validate frozen lattice smoke binding
+        run: python -m pytest -q tests/test_odsp_lattice_ready_e2e_binding.py
+
+      - name: Serialize eSDM complete subset table and run pinned ODSP lattice audit
+        run: |
+          python - <<'PY'
+          import csv
+          import json
+          from pathlib import Path
+
+          from esdm.transfer import (
+              ODSPLatticeInformationBlock,
+              ODSPLatticeNode,
+              build_odsp_lattice_ready_bundle,
+          )
+          from odsp.information_lattice import (
+              InformationBlock,
+              InformationLatticeNodeScore,
+              audit_information_lattice,
+              certify_information_lattice,
+          )
+
+          binding = json.loads(
+              Path("ODSP_LATTICE_READY_E2E_BINDING_V1.json").read_text()
+          )
+          expected = binding["expected"]
+
+          records = []
+          for group in ("g1", "g2"):
+              for index in range(4):
+                  records.append(
+                      {
+                          "group": group,
+                          "validation_block": f"{group}-b{index}",
+                          "base": 0.0,
+                          "activity": 0.4,
+                          "state": 0.1,
+                          "activity_state": 0.3,
+                      }
+                  )
+
+          bundle = build_odsp_lattice_ready_bundle(
+              result_id="synthetic-order-sensitive-two-block-v1",
+              base_information=("suitability",),
+              information_blocks=(
+                  ODSPLatticeInformationBlock("activity", ("activity",)),
+                  ODSPLatticeInformationBlock("state", ("state",)),
+              ),
+              nodes=(
+                  ODSPLatticeNode((), "base"),
+                  ODSPLatticeNode(("activity",), "activity"),
+                  ODSPLatticeNode(("state",), "state"),
+                  ODSPLatticeNode(("activity", "state"), "activity_state"),
+              ),
+              records=records,
+              group_field="group",
+              validation_block_field="validation_block",
+              score_kind="log",
+              score_name="synthetic_heldout_log_score",
+              score_unit="nats_per_context",
+              source_schema="synthetic.integration.v1",
+              source_git_sha=None,
+              group_semantics="synthetic independent group",
+          )
+          written = bundle.write(Path("build/lattice"))
+
+          manifest = json.loads(
+              Path(written["manifest"]).read_text(encoding="utf-8")
+          )
+          with Path(written["scores"]).open(
+              "r", encoding="utf-8", newline=""
+          ) as handle:
+              score_rows = list(csv.DictReader(handle))
+
+          information_blocks = tuple(
+              InformationBlock(
+                  row["name"],
+                  tuple(row["variables"]),
+              )
+              for row in manifest["information_blocks"]
+          )
+          nodes = tuple(
+              InformationLatticeNodeScore(
+                  tuple(row["blocks"]),
+                  [
+                      float(score_row[row["score_column"]])
+                      for score_row in score_rows
+                  ],
+              )
+              for row in manifest["nodes"]
+          )
+          groups = [row["group"] for row in score_rows]
+          validation_blocks = [row["validation_block"] for row in score_rows]
+          weights = [float(row["weight"]) for row in score_rows]
+
+          point = audit_information_lattice(
+              nodes,
+              information_blocks,
+              groups,
+              base_information=manifest["base_information"],
+              sample_weight=weights,
+          )
+          certified = certify_information_lattice(
+              nodes,
+              information_blocks,
+              groups,
+              base_information=manifest["base_information"],
+              blocks=validation_blocks,
+              sample_weight=weights,
+              bootstrap_draws=700,
+              seed=13,
+              minimum_blocks_per_group=2,
+          )
+
+          assert point.node_count == expected["node_count"]
+          assert point.edge_count == expected["edge_count"]
+          assert (
+              point.full_vs_base_gain_category
+              == expected["full_vs_base_gain_category"]
+          )
+          assert point.path_status == expected["point_path_status"]
+          assert (
+              point.full_transfer_path_count
+              == expected["point_full_transfer_path_count"]
+          )
+          assert (
+              point.total_admissible_path_count
+              == expected["point_total_admissible_path_count"]
+          )
+
+          point_blocks = {
+              row.block: row.order_robust_category
+              for row in point.block_summaries
+          }
+          assert point_blocks == expected["block_status"]
+
+          assert certified.all_cells_estimable is expected["all_cells_estimable"]
+          assert (
+              certified.certified_path_status
+              == expected["certified_path_status"]
+          )
+          assert (
+              certified.robust_full_transfer_path_count
+              == expected["certified_robust_full_transfer_path_count"]
+          )
+          assert (
+              certified.shapley_can_override_edge_failure
+              is expected["shapley_can_override_edge_failure"]
+          )
+
+          output = {
+              "schema": "esdm.odsp_lattice_ready_e2e_result.v1",
+              "binding_id": binding["binding_id"],
+              "manifest": manifest,
+              "point_audit": point.as_dict(),
+              "certification": certified.as_dict(),
+              "scientific_result": False,
+          }
+          Path("build/lattice/odsp_lattice_audit.json").write_text(
+              json.dumps(output, indent=2, sort_keys=True, allow_nan=False) + "\n",
+              encoding="utf-8",
+          )
+          print(
+              json.dumps(
+                  {
+                      "node_count": point.node_count,
+                      "edge_count": point.edge_count,
+                      "point_path_status": point.path_status,
+                      "certified_path_status": certified.certified_path_status,
+                      "robust_full_transfer_path_count": (
+                          certified.robust_full_transfer_path_count
+                      ),
+                  },
+                  sort_keys=True,
+              )
+          )
+          PY
+
+      - name: Upload lattice interoperability artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: esdm-odsp-lattice-ready-e2e-v1
+          path: build/lattice/
+          if-no-files-found: error
+          retention-days: 90
