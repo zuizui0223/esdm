@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "result_id": "e2-mica-temporal-integrity-v1",
+  "status": "TEMPORAL_INTEGRITY_PASS",
+  "candidate_id": "MICA_MUSKRAT",
+  "authorization": {
+    "branch": "e2/mica-temporal-integrity-v1-r2",
+    "head_sha": "5859475e36f03943f4bc75bdd49db19bc7f79dec",
+    "implementation_parent_sha": "ace137b576c8ffa81acdcf829f769b7eb1a93b43",
+    "workflow_run_id": 36329453365,
+    "conclusion": "success",
+    "replaces_workflow_run": 36317883452
+  },
+  "artifact": {
+    "id": 10935057037,
+    "name": "e2-mica-temporal-integrity-36329453365",
+    "digest": "sha256:07d0e27772ef509ae0c97468d2961370923f4756ff0f809d0b47dbfafd724dd2",
+    "result_sha256": "786d758255574307c6754d9472afd7a4636f8ae84399921fbbcd0431ab83a712"
+  },
+  "source_reverification": {
+    "archive_sha256": "8346f3fe467a201525d6bedd4ebd6e2078457ee8bb778501d41d55ace7d962c9",
+    "deployments_sha256": "f199b4277eb2f800c3593ad9225de1e12eb3a0fa9fbfd4b2234dc213490ffcca",
+    "fingerprints": {
+      "training_ids_sha256": "a1e08526edb3d1f329fc7a4e9a2efa2bc4dc50313b393026a429f3a87d57f566",
+      "heldout_ids_sha256": "c4990c23de1787db84f9ae23310730b284c6ea159c7c0a806a7fcb01ffaf1db2",
+      "training_role_map_sha256": "1fcd776854484ed5b0e19c20b49aed81fa22d5947b5d26120c50155e1369c7e4",
+      "manifest_sha256": "73bd722aaa3083bcef7e154ac0fcdae60b21e13503fe2625fe41803dc5c2fa89",
+      "observation_header_sha256": "d90d51afbde14f01c5d1c3254ef6b6251ff5399ca9759e2998311d7a6b8e700c"
+    }
+  },
+  "scan": {
+    "observations_data_rows_scanned": 183813,
+    "animal_event_rows": 116529,
+    "unique_animal_event_count": 109419,
+    "missing_event_identity_rows": 0,
+    "unparseable_event_time_rows": 0,
+    "inconsistent_event_start_identities": 0,
+    "allowed_columns_used": [
+      "deploymentID",
+      "eventID",
+      "eventStart",
+      "observationLevel",
+      "observationType"
+    ],
+    "scientific_name_values_read": false,
+    "count_values_read": false
+  },
+  "events": {
+    "inside_count": 109408,
+    "before_start_count": 0,
+    "after_end_count": 11,
+    "after_end_over_24h_count": 0,
+    "missing_deployment_count": 0,
+    "maximum_after_end_seconds": 77325
+  },
+  "quarantine": {
+    "event_count": 11,
+    "fraction_of_unique_animal_events": 0.00010053098639176012,
+    "maximum_allowed_fraction": 0.005,
+    "maximum_lateness_seconds": 86400,
+    "event_identity_set_sha256": "1c3b13e44a0db6e09a47babb42617d34ba7813e080eb5c5201c8e7f1790bc9f9",
+    "event_identities": [
+      {
+        "deploymentID": "0af5112d-70b0-4c96-8f1c-1742ae9790f0",
+        "eventID": "9ab30cf5-7c62-412e-bb53-237fce054e55"
+      },
+      {
+        "deploymentID": "0af5112d-70b0-4c96-8f1c-1742ae9790f0",
+        "eventID": "eab0f872-bed5-4c1b-b907-0c5a0c6e8fd9"
+      },
+      {
+        "deploymentID": "67c69315-5caa-4607-abc0-e7f0e33cc68f",
+        "eventID": "81749a32-b2b2-445c-9540-590c8e8d0a14"
+      },
+      {
+        "deploymentID": "67c69315-5caa-4607-abc0-e7f0e33cc68f",
+        "eventID": "9fd77e4c-29a0-4a78-9159-060c0daef770"
+      },
+      {
+        "deploymentID": "720beda5-3c6b-4318-b175-14747cc5db9b",
+        "eventID": "c9f67df7-64e7-4697-976c-aa900688753b"
+      },
+      {
+        "deploymentID": "ae0a49f5-0a2d-4eec-97ba-63f619d487ce",
+        "eventID": "09c76164-6329-48aa-b90e-4692b316c550"
+      },
+      {
+        "deploymentID": "ccbcac72-4e7a-44f1-8678-b127466e6b20",
+        "eventID": "db35f7e8-2983-4cde-aaac-498d721366b6"
+      },
+      {
+        "deploymentID": "ccbcac72-4e7a-44f1-8678-b127466e6b20",
+        "eventID": "e3eecaa1-eb65-4b6b-86cd-aec30e289556"
+      },
+      {
+        "deploymentID": "d8049a53-4a4b-4f13-8d30-f221f0bbb510",
+        "eventID": "5eda42d2-6fbe-4eab-962f-3f6757248bc3"
+      },
+      {
+        "deploymentID": "d8049a53-4a4b-4f13-8d30-f221f0bbb510",
+        "eventID": "966308ff-fe42-4d46-91f4-af7eeec01502"
+      },
+      {
+        "deploymentID": "e16cdda5-67a7-49a6-b82e-437c3a7cca2c",
+        "eventID": "f5d3d939-6902-467e-bcd0-2758dedd3e26"
+      }
+    ]
+  },
+  "decision": {
+    "passed": true,
+    "stop_reasons": [],
+    "authorizes_full_response": false,
+    "requires_separate_full_response_authorization": true
+  },
+  "response_boundary": {
+    "scientific_name_values_read": false,
+    "count_values_read": false,
+    "taxon_frequencies_computed": false,
+    "focal_event_counts_computed": false,
+    "state_frequencies_computed": false,
+    "model_fits": 0,
+    "heldout_scores": 0,
+    "full_response_opened": false
+  }
+}
