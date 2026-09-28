@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "authorization_id": "e2-mica-full-response-one-shot-v1",
+  "authorized_date": "2026-09-28",
+  "candidate_id": "MICA_MUSKRAT",
+  "stage": "full_ecological_response_and_frozen_fit",
+  "implementation_parent_sha": "464e5fdabbdd26435d9aabfc2ed670d4211e2fdc",
+  "full_response_contract": "docs/replication/E2_MICA_FULL_RESPONSE_CONTRACT.json",
+  "one_shot": true,
+  "full_response_authorized": true,
+  "model_fitting_authorized": true,
+  "workflow_dispatch_enabled": false,
+  "scientific_settings_changed": false
+}
