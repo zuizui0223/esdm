@@ -1,6 +1,6 @@
 {
   "schema": "esdm.amap1.adaptive_map_contract.v1",
-  "status": "DRAFT_NOT_AUTHORIZED",
+  "status": "FROZEN_PRE_OUTCOME_NOT_AUTHORIZED",
   "drafted_date": "2026-09-28",
   "relationship_to_prior_programmes": {
     "field1_terminal": "FAIL",
@@ -63,10 +63,26 @@
   "primary_rule": "bounded outer-heldout regret in every geometry x truth world",
   "outcome_leakage_prohibited": true,
   "execution": {
-    "geometry_frozen": false,
-    "numeric_gate_frozen": false,
-    "mcmc_profile_frozen": false,
-    "fit_cardinality_frozen": false,
+    "geometry_frozen": true,
+    "numeric_gate_frozen": true,
+    "mcmc_profile_frozen": true,
+    "fit_cardinality_frozen": true,
+    "qualification_gate": "docs/map/AMAP1_QUALIFICATION_GATE.md",
+    "replicates_per_world": 16,
+    "expected_shards": 144,
+    "expected_fits": 384,
+    "materiality": 0.005,
+    "positive_min_rate": 0.75,
+    "positive_min_mean_gain": 0.005,
+    "low_regret_max_material_rate": 0.25,
+    "low_regret_max_mean_regret": 0.005,
+    "max_mean_divergences_per_fit": 0.1,
+    "mcmc_profile": {
+      "num_warmup": 300,
+      "num_samples": 350,
+      "num_chains": 2,
+      "target_accept_probability": 0.9
+    },
     "confirmatory_outcome_authorized": false,
     "empirical_response_authorized": false
   },
@@ -78,5 +94,22 @@
     "migration",
     "gene flow",
     "causal spatial mechanism"
-  ]
+  ],
+  "geometry_details": {
+    "G1": {
+      "nodes": 24,
+      "edges": 38,
+      "holdout_nodes": 4
+    },
+    "G2": {
+      "nodes": 20,
+      "edges": 19,
+      "holdout_nodes": 3
+    },
+    "G3": {
+      "nodes": 18,
+      "edges": 26,
+      "holdout_nodes": 3
+    }
+  }
 }
