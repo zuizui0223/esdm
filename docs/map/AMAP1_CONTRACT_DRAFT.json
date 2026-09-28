@@ -84,7 +84,20 @@
       "target_accept_probability": 0.9
     },
     "confirmatory_outcome_authorized": false,
-    "empirical_response_authorized": false
+    "empirical_response_authorized": false,
+    "implementation_branch": "feature/amap1-adaptive-map-field",
+    "qualification_branch": "amap1/qualification-v1",
+    "qualification_branch_must_start_from_merged_main": true,
+    "authorization_marker_contract": {
+      "path": "docs/map/AMAP1_RUN_AUTHORIZED",
+      "must_be_new_file": true,
+      "authorization_commit_changes_only_marker": true,
+      "required_fields": {
+        "programme": "AMAP1",
+        "implementation_parent_sha": "must equal HEAD^",
+        "gate": "docs/map/AMAP1_QUALIFICATION_GATE.md"
+      }
+    }
   },
   "nonclaims": [
     "coherence is biologically present",
