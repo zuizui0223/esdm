@@ -1,6 +1,6 @@
 {
   "schema": "esdm.field1.continuous_map_contract.v1",
-  "status": "DRAFT_NOT_AUTHORIZED",
+  "status": "TERMINAL_FAIL",
   "drafted_date": "2026-09-27",
   "relationship_to_active_programme": {
     "active_model_generation": "v0.4-R5b",
@@ -159,7 +159,7 @@
   },
   "execution": {
     "exact_numeric_gate_thresholds_frozen": true,
-    "confirmatory_outcome_authorized": false,
+    "confirmatory_outcome_authorized": true,
     "empirical_response_authorized": false,
     "qualification_gate": "docs/field/FIELD1_QUALIFICATION_GATE.md",
     "mcmc_profile": {
@@ -212,6 +212,37 @@
       "aggregate_artifact_digest": "sha256:910e007f1bd75ff019e9944194c1eee50dba3bfb529a0f840ccd6b4b291310e1",
       "aggregate_status": "INFRASTRUCTURE_BLOCKED",
       "receipt": "docs/field/FIELD1_FIRST_AUTHORIZATION_STOP.json"
+    },
+    "confirmatory_outcome_consumed": true,
+    "same_program_rerun_authorized": false,
+    "threshold_retuning_allowed": false,
+    "new_rescue_generation_authorized": false,
+    "terminal_result": {
+      "status": "FAIL",
+      "workflow_run_id": 36316137677,
+      "qualification_branch": "field1/qualification-v1-r2",
+      "authorization_commit": "125d9e259bb187a9da855d2fb2091d15e9230737",
+      "aggregate_artifact": {
+        "id": 10932280009,
+        "name": "field1-result-36316137677",
+        "digest": "sha256:a6a9e40d7f31dfb3190ecd1c58f6770afee6fd21442a81ec3fdfa69358cf84e7",
+        "file": "FIELD1_QUALIFICATION_RESULT.json"
+      },
+      "frozen_receipt": "docs/field/FIELD1_PHASE_A_FROZEN_RESULTS.json",
+      "terminal_status": "docs/field/FIELD1_TERMINAL_STATUS.md",
+      "postmortem": "docs/field/FIELD1_POSTMORTEM.md",
+      "claims": {
+        "FIELD_PRESENT": true,
+        "ENV_DEPENDENCE_SUPPORTED": false,
+        "BARRIER_DEPENDENCE_SUPPORTED": false,
+        "FULL_MAP_STRUCTURE_SUPPORTED": false
+      },
+      "execution": {
+        "shard_count": 144,
+        "fit_count": 704,
+        "total_divergences": 360,
+        "mean_divergences_per_fit": 0.5113636363636364
+      }
     }
   },
   "literature": [
