@@ -184,3 +184,63 @@ def test_protocol_contract_forbids_retroactive_and_cross_programme_lattices():
     assert contract["output_boundary"]["protocol_authorizes_cross_programme_lattice"] is False
     assert contract["output_boundary"]["protocol_authorizes_global_information_ladder"] is False
     assert contract["output_boundary"]["protocol_authorizes_eog_consumption"] is False
+
+
+
+def test_lattice_ready_rejects_negative_sample_weight():
+    records = [
+        {
+            "replicate": 0,
+            "weight": -1.0,
+            "base": -2.0,
+            "a": -1.7,
+            "b": -1.8,
+            "ab": -1.3,
+        }
+    ]
+    with pytest.raises(ValueError, match="weights must be non-negative"):
+        build_odsp_lattice_ready_bundle(
+            result_id="negative-weight",
+            base_information=("suitability",),
+            information_blocks=(
+                ODSPLatticeInformationBlock("activity", ("activity",)),
+                ODSPLatticeInformationBlock("state", ("state",)),
+            ),
+            nodes=(
+                ODSPLatticeNode((), "base"),
+                ODSPLatticeNode(("activity",), "a"),
+                ODSPLatticeNode(("state",), "b"),
+                ODSPLatticeNode(("activity", "state"), "ab"),
+            ),
+            records=records,
+            group_field="replicate",
+            weight_field="weight",
+            score_kind="log",
+            score_name="score",
+            score_unit="unit",
+        )
+
+
+def test_lattice_block_names_cannot_collide_after_column_normalization():
+    blocks = (
+        ODSPLatticeInformationBlock("A-B", ("x",)),
+        ODSPLatticeInformationBlock("A_B", ("y",)),
+    )
+    nodes = (
+        ODSPLatticeNode((), "base"),
+        ODSPLatticeNode(("A-B",), "a"),
+        ODSPLatticeNode(("A_B",), "b"),
+        ODSPLatticeNode(("A-B", "A_B"), "ab"),
+    )
+    with pytest.raises(ValueError, match="collide after score-column normalization"):
+        build_odsp_lattice_ready_bundle(
+            result_id="column-collision",
+            base_information=("environment",),
+            information_blocks=blocks,
+            nodes=nodes,
+            records=_records(),
+            group_field="replicate",
+            score_kind="log",
+            score_name="score",
+            score_unit="unit",
+        )
