@@ -173,6 +173,17 @@ def _validate_blocks(
     return base, block_rows
 
 
+def required_odsp_lattice_subsets(
+    *,
+    base_information: Sequence[str],
+    information_blocks: Sequence[ODSPLatticeInformationBlock],
+) -> tuple[tuple[str, ...], ...]:
+    """Return the complete subset roster that must be frozen before scoring."""
+
+    _, block_rows = _validate_blocks(base_information, information_blocks)
+    return _all_subsets(tuple(row.name for row in block_rows))
+
+
 def build_odsp_lattice_ready_bundle(
     *,
     result_id: str,
