@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "contract_id": "e2-mica-full-response-final-v1",
-  "status": "FROZEN_PRE_FULL_RESPONSE_OPEN",
+  "status": "TERMINAL_CONSUMED_STOP_SCHEMA_OR_ESTIMABILITY",
   "frozen_date": "2026-09-28",
   "scientific_parent": {
     "parent_contract": "docs/replication/E2_EMPIRICAL_REPLICATION_CONTRACT.json",
@@ -170,7 +170,8 @@
       "E2_MICA_FULL_RESPONSE_CAPTURE_RESULT.json"
     ],
     "qualified_status": "RESPONSE_CAPTURE_QUALIFIED",
-    "terminal_stop_status": "CONSUMED_STOP_SCHEMA_OR_ESTIMABILITY"
+    "terminal_stop_status": "CONSUMED_STOP_SCHEMA_OR_ESTIMABILITY",
+    "terminal_result": "docs/replication/E2_MICA_FULL_RESPONSE_TERMINAL_RESULT.json"
   },
   "fit": {
     "fits": [
@@ -241,6 +242,16 @@
     "marker_must_be_newly_added_in_pure_commit": true,
     "one_authorized_run": true,
     "workflow_dispatch_enabled": false,
-    "full_response_authorized_now": false
+    "full_response_authorized_now": true,
+    "full_response_authorization_consumed": true,
+    "workflow_run_id": 36369531079,
+    "capture_artifact_id": 10947948379,
+    "capture_artifact_digest": "sha256:e598e37ec7b3c2568d4008fd1b94b30a609b2c1be32a485bfc12daba6d32f9d7",
+    "capture_result_sha256": "40e30397cd44d1a11122b01a0aa930d467b8efdfbe22334ed62bd0c2b1776e73",
+    "capture_status": "CONSUMED_STOP_SCHEMA_OR_ESTIMABILITY",
+    "model_fitting_reached": false,
+    "same_programme_rerun_allowed": false,
+    "empirical_result_reached": false,
+    "terminal_receipt": "docs/replication/E2_MICA_FULL_RESPONSE_TERMINAL_RESULT.json"
   }
 }
