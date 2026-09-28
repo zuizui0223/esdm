@@ -1,0 +1,246 @@
+{
+  "schema_version": 1,
+  "contract_id": "e2-mica-full-response-final-v1",
+  "status": "FROZEN_PRE_FULL_RESPONSE_OPEN",
+  "frozen_date": "2026-09-28",
+  "scientific_parent": {
+    "parent_contract": "docs/replication/E2_EMPIRICAL_REPLICATION_CONTRACT.json",
+    "candidate_contract": "docs/replication/E2_MICA_MUSKRAT_CANDIDATE_CONTRACT.json",
+    "response_blind_result": "docs/replication/E2_MICA_RESPONSE_BLIND_GEOMETRY_HEADER_RESULT.json",
+    "temporal_result": "docs/replication/E2_MICA_TEMPORAL_INTEGRITY_RESULT.json",
+    "climate_receipt": "docs/replication/E2_MICA_WORLDCLIM_FROZEN.json",
+    "odsp_serialization_amendment": "docs/replication/E2_ODSP_SERIALIZATION_AMENDMENT_V1.json",
+    "model_generation": "v0.4-R5b",
+    "modifies_r5b_model": false,
+    "new_semisynthetic_generation": false
+  },
+  "source": {
+    "candidate_id": "MICA_MUSKRAT",
+    "archive_url": "https://ipt.inbo.be/archive.do?r=mica-agouti&v=3",
+    "archive_sha256": "8346f3fe467a201525d6bedd4ebd6e2078457ee8bb778501d41d55ace7d962c9",
+    "deployments_sha256": "f199b4277eb2f800c3593ad9225de1e12eb3a0fa9fbfd4b2234dc213490ffcca",
+    "required_members": [
+      "deployments.csv",
+      "observations.csv"
+    ],
+    "full_response_external_gets": 1,
+    "fit_source": "captured one-shot artifact only; no second biological-response GET"
+  },
+  "frozen_partition": {
+    "deployment_count": 1539,
+    "training_count": 805,
+    "heldout_count": 734,
+    "max_training_longitude": 4.841,
+    "min_heldout_longitude": 5.628,
+    "strict_east_extrapolation": true,
+    "training_ids_sha256": "a1e08526edb3d1f329fc7a4e9a2efa2bc4dc50313b393026a429f3a87d57f566",
+    "heldout_ids_sha256": "c4990c23de1787db84f9ae23310730b284c6ea159c7c0a806a7fcb01ffaf1db2",
+    "training_role_map_sha256": "1fcd776854484ed5b0e19c20b49aed81fa22d5947b5d26120c50155e1369c7e4",
+    "manifest_sha256": "73bd722aaa3083bcef7e154ac0fcdae60b21e13503fe2625fe41803dc5c2fa89",
+    "heldout_role": "state_annotated_only",
+    "direct_state_calibration_heldout_exposure": 0
+  },
+  "temporal_quarantine": {
+    "temporal_status": "TEMPORAL_INTEGRITY_PASS",
+    "unique_animal_events": 109419,
+    "quarantine_event_count": 11,
+    "quarantine_fraction": 0.00010053098639176012,
+    "event_identity_set_sha256": "1c3b13e44a0db6e09a47babb42617d34ba7813e080eb5c5201c8e7f1790bc9f9",
+    "rule": "exclude exactly the frozen quarantined deploymentID+eventID identities from every ecological stream before focal-taxon filtering; never widen deployment intervals",
+    "recompute_before_response_values": "temporal audit must be reproduced from allowed columns and exact quarantine SHA must match before scientificName/count are consumed"
+  },
+  "climate": {
+    "status": "CLIMATE_QUALIFIED",
+    "artifact_run_id": 36318387923,
+    "artifact_id": 10931433013,
+    "result_sha256": "51f4e4877647c5e369759310e3c0d2b30a98a0a445108ac28b739f5795a17a4b",
+    "deployment_climate_sha256": "c05fe8cf883d929ae618d3ccd8e64c33a7534517341ede36aafa6742d86ee4df",
+    "worldclim_archive_sha256": "00513224583665ec0f2f955a4ec252730c4deb2004cce9e793492a3f26df4dcf",
+    "worldclim_bio12_raster_sha256": "1e823e951ace0186c6eadd7368b4d0385c8f51cc952282c0f2d640bf7790fea5",
+    "training_bio12_mean_mm": 798.8310559006211,
+    "training_bio12_population_sd_mm": 10.745446737718652,
+    "standardization": "use frozen precip_z_train values from WorldClim artifact; heldout values never enter mean/sd"
+  },
+  "focal_endpoint": {
+    "species": "Ondatra zibethicus",
+    "species_match": "exact case-sensitive scientificName",
+    "observation_level": "event",
+    "observation_type": "animal",
+    "event_identity": "deploymentID + eventID",
+    "quarantine_applied_before_focal_filter": true,
+    "presence_rule": "each unique non-quarantined focal event contributes one presence event regardless of group size",
+    "positive_count_rule": "within one focal event identity, collect all positive integer count values; zero distinct positives => unlabeled state, one distinct positive => that event count, more than one distinct positive => consumed hard STOP",
+    "noninteger_nonempty_count_rule": "consumed hard STOP",
+    "nonpositive_or_missing_count_rule": "event remains valid for presence but is unlabeled for state unless a single distinct positive count is also present",
+    "state_space": [
+      "solitary",
+      "group"
+    ],
+    "state_mapping": {
+      "solitary": "single distinct positive focal event count == 1",
+      "group": "single distinct positive focal event count >= 2",
+      "unlabeled": "no positive focal count"
+    }
+  },
+  "training_stream_partition": {
+    "salt": "esdm-e2-r5b-stream-v1|",
+    "hash": "SHA256(salt + UTF-8 deploymentID), first byte",
+    "buckets": {
+      "opportunistic_presence": "0..63",
+      "calibrated_presence": "64..127",
+      "state_annotated": "128..207",
+      "state_calibration": "208..255"
+    },
+    "frozen_counts": {
+      "opportunistic_presence": 187,
+      "calibrated_presence": 197,
+      "state_annotated": 266,
+      "state_calibration": 155
+    },
+    "minimum_training_deployments_each_stream": 8,
+    "training_streams_disjoint": true
+  },
+  "temporal_context": {
+    "event_timestamp": "eventStart local civil components as encoded by timezone offset",
+    "week": "ISO calendar week",
+    "representative_doy": "day-of-year of ISO Thursday",
+    "hour_bins": [
+      {
+        "hours": "00-05",
+        "representative_hour": 3
+      },
+      {
+        "hours": "06-11",
+        "representative_hour": 9
+      },
+      {
+        "hours": "12-17",
+        "representative_hour": 15
+      },
+      {
+        "hours": "18-23",
+        "representative_hour": 21
+      }
+    ],
+    "deployment_effort": "exact temporal overlap in days between deployment interval and each six-hour context"
+  },
+  "ecological_processes": {
+    "suitability_covariates": [
+      "precip_z_train",
+      "lat_z_train",
+      "eastness_z_train",
+      "season_sin"
+    ],
+    "activity_covariates": [
+      "precip_z_train",
+      "eastness_z_train",
+      "season_cos",
+      "diurnal_cos"
+    ],
+    "state_covariates": [
+      "precip_z_train",
+      "eastness_z_train",
+      "season_sin",
+      "diurnal_sin"
+    ],
+    "state_reference": "solitary",
+    "latitude_and_eastness": "standardized using frozen 805 training deployments only",
+    "precipitation": "frozen WorldClim BIO12 precip_z_train"
+  },
+  "consumed_estimability_stops": {
+    "minimum_opportunistic_focal_events": 10,
+    "minimum_calibrated_focal_events": 10,
+    "minimum_training_state_annotated_each_state": 10,
+    "minimum_state_calibration_each_state": 10,
+    "minimum_heldout_state_annotated_each_state": 5,
+    "exact_split_or_role_fingerprint_drift": true,
+    "exact_temporal_quarantine_hash_drift": true,
+    "climate_hash_or_deployment_mapping_drift": true,
+    "required_member_or_column_missing": true,
+    "conflicting_positive_counts_within_focal_event": true,
+    "noninteger_nonempty_focal_count": true
+  },
+  "capture_stage": {
+    "run_response_adapter_and_estimability_before_any_model_fit": true,
+    "model_fits": 0,
+    "heldout_scores": 0,
+    "capture_artifact_contains": [
+      "mica-v3.zip",
+      "E2_MICA_WORLDCLIM_RESULT.json",
+      "E2_MICA_FULL_RESPONSE_CAPTURE_RESULT.json"
+    ],
+    "qualified_status": "RESPONSE_CAPTURE_QUALIFIED",
+    "terminal_stop_status": "CONSUMED_STOP_SCHEMA_OR_ESTIMABILITY"
+  },
+  "fit": {
+    "fits": [
+      "full",
+      "activity_knockout",
+      "state_knockout"
+    ],
+    "num_warmup": 300,
+    "num_samples": 350,
+    "num_chains": 2,
+    "target_accept_probability": 0.9,
+    "rng_seed_full": 20260927,
+    "rng_seed_activity_knockout": 20260928,
+    "rng_seed_state_knockout": 20260929,
+    "parameter_interval_mass": 0.9,
+    "same_captured_response_for_all_three_fits": true
+  },
+  "primary_empirical_endpoints": {
+    "full_heldout_log_score": "mean heldout annotated-state log predictive density",
+    "activity_knockout_heldout_log_score": "same heldout cells under activity knockout",
+    "state_knockout_heldout_log_score": "same heldout cells under state knockout",
+    "activity_gain": "full - activity_knockout",
+    "state_gain": "full - state_knockout",
+    "direction_rule": "positive gain supports transferred predictive information for that process; zero or negative does not",
+    "minimum_effect_size_threshold": null,
+    "no_causal_claim": true
+  },
+  "row_level_odsp_serialization": {
+    "required": true,
+    "row_unit": "one east-heldout deployment",
+    "required_columns": [
+      "deploymentID",
+      "full_heldout_log_score",
+      "activity_knockout_heldout_log_score",
+      "state_knockout_heldout_log_score"
+    ],
+    "same_scored_cells_across_models": true,
+    "zero_count_cells_retained": true,
+    "equal_weight_mean_must_equal_aggregate_score": true,
+    "absolute_tolerance": 1e-12
+  },
+  "sampling_gate": {
+    "all_three_fits_must_complete": true,
+    "total_divergences_required": 0,
+    "finite_heldout_scores_required": true,
+    "failure_status": "EMPIRICAL_SAMPLING_STOP"
+  },
+  "decision_serialization": {
+    "qualified_fit_status": "EMPIRICAL_RESULT",
+    "activity_predictive_support": "sampling gate PASS AND activity_gain > 0",
+    "state_predictive_support": "sampling gate PASS AND state_gain > 0",
+    "negative_or_zero_gain_is_terminal_non_support": true,
+    "no_parameter_recovery_claim": true,
+    "no_biological_mechanism_claim": true
+  },
+  "one_open_rule": {
+    "response_settings_may_change_after_capture": false,
+    "estimability_thresholds_may_change_after_capture": false,
+    "model_or_covariates_may_change_after_capture": false,
+    "score_fields_or_row_grouping_may_change_after_capture": false,
+    "candidate_switch_after_consumed_response": false,
+    "negative_or_null_empirical_result_is_terminal": true,
+    "same_programme_rerun_allowed": false
+  },
+  "execution": {
+    "authorization_branch": "e2/mica-full-response-v1",
+    "authorization_marker": "docs/replication/E2_MICA_FULL_RESPONSE_AUTHORIZED.json",
+    "marker_must_be_newly_added_in_pure_commit": true,
+    "one_authorized_run": true,
+    "workflow_dispatch_enabled": false,
+    "full_response_authorized_now": false
+  }
+}
