@@ -237,6 +237,10 @@ def build_odsp_lattice_ready_bundle(
     column_by_subset = {
         subset: _node_column(subset) for subset in ordered_subsets
     }
+    if len(set(column_by_subset.values())) != len(column_by_subset):
+        raise ValueError(
+            "lattice block names collide after score-column normalization"
+        )
 
     for index, source in enumerate(source_rows):
         if group_field not in source:
