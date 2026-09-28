@@ -1,0 +1,6 @@
+programme: AMAP1
+implementation_parent_sha: 1cd5150881a99811604a7beacd4f26334006495c
+gate: docs/map/AMAP1_QUALIFICATION_GATE.md
+authorized_date: 2026-09-28
+authorization_scope: frozen AMAP1 low-regret known-truth qualification only
+empirical_response_authorized: false
