@@ -259,12 +259,15 @@ def build_odsp_lattice_ready_bundle(
             raise ValueError("row ids must be unique non-empty strings")
         seen_row_ids.add(row_id)
 
+        weight = 1.0 if weight_field is None else _finite(
+            source.get(weight_field), name=f"record[{index}].{weight_field}"
+        )
+        if weight < 0.0:
+            raise ValueError("lattice-ready sample weights must be non-negative")
         row: dict[str, object] = {
             "row_id": row_id,
             "group": group,
-            "weight": 1.0 if weight_field is None else _finite(
-                source.get(weight_field), name=f"record[{index}].{weight_field}"
-            ),
+            "weight": weight,
         }
         if validation_block_field is not None:
             if validation_block_field not in source:
