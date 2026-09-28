@@ -44,6 +44,7 @@ __all__ = [
     "ODSPLatticeNode",
     "ODSPLatticeReadyBundle",
     "build_odsp_lattice_ready_bundle",
+    "required_odsp_lattice_subsets",
 ]
 
 from .odsp_adapter import (
@@ -84,4 +85,5 @@ from .odsp_lattice_adapter import (
     ODSPLatticeNode,
     ODSPLatticeReadyBundle,
     build_odsp_lattice_ready_bundle,
+    required_odsp_lattice_subsets,
 )
