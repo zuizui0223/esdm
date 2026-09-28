@@ -2,8 +2,10 @@
 
 from .diagnostics import (
     PrecisionSensitivityDiagnostics,
+    PrecisionSensitivitySweep,
     edge_axis_correlation,
     precision_sensitivity_diagnostics,
+    precision_sensitivity_sweep,
 )
 from .graph import (
     FrozenSpatialGraph,
@@ -23,8 +25,10 @@ from .precision import (
 
 __all__ = [
     "PrecisionSensitivityDiagnostics",
+    "PrecisionSensitivitySweep",
     "edge_axis_correlation",
     "precision_sensitivity_diagnostics",
+    "precision_sensitivity_sweep",
     "FrozenSpatialGraph",
     "FrozenSpatialProjection",
     "ProjectionRow",
