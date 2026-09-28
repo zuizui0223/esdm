@@ -147,6 +147,11 @@ def _numpyro_distribution(prior, dist):
         return dist.Normal(float(parameters["loc"]), float(parameters["scale"]))
     if name == "HalfNormal":
         return dist.HalfNormal(float(parameters["scale"]))
+    if name == "Beta":
+        return dist.Beta(
+            float(parameters["alpha"]),
+            float(parameters["beta"]),
+        )
     raise NotImplementedError(f"unsupported PriorSpec distribution: {name}")
 
 
@@ -157,6 +162,11 @@ def _sample_prior_value(prior, rng: py_random.Random) -> float:
         return rng.gauss(float(parameters["loc"]), float(parameters["scale"]))
     if name == "HalfNormal":
         return abs(rng.gauss(0.0, float(parameters["scale"])))
+    if name == "Beta":
+        return rng.betavariate(
+            float(parameters["alpha"]),
+            float(parameters["beta"]),
+        )
     raise NotImplementedError(f"unsupported PriorSpec distribution: {name}")
 
 
