@@ -33,6 +33,7 @@ def test_amap1_workflow_contains_complete_frozen_matrix():
     assert "scripts/run_amap1_replicate.py" in text
     assert "scripts/aggregate_amap1.py" in text
     assert "tests/test_amap1_aggregate.py" in text
+    assert "tests/test_amap1_contract.py" in text
     assert "merge-multiple: false" in text
 
 
