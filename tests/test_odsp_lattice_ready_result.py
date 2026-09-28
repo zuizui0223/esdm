@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import csv
 import json
 from pathlib import Path
 
@@ -267,3 +268,56 @@ def test_required_subset_roster_can_be_frozen_before_outcome_scoring():
         ("activity", "interaction"),
         ("movement", "activity", "interaction"),
     )
+
+
+
+def test_lattice_ready_bundle_writes_deterministic_csv_and_manifest(tmp_path: Path):
+    records = [
+        {
+            "replicate": 0,
+            "block": "fold-a",
+            "base": -2.0,
+            "a": -1.7,
+            "b": -1.8,
+            "ab": -1.3,
+        },
+        {
+            "replicate": 1,
+            "block": "fold-b",
+            "base": -2.1,
+            "a": -1.9,
+            "b": -1.7,
+            "ab": -1.2,
+        },
+    ]
+    bundle = build_odsp_lattice_ready_bundle(
+        result_id="write-roundtrip",
+        base_information=("suitability",),
+        information_blocks=(
+            ODSPLatticeInformationBlock("activity", ("activity",)),
+            ODSPLatticeInformationBlock("state", ("state",)),
+        ),
+        nodes=(
+            ODSPLatticeNode((), "base"),
+            ODSPLatticeNode(("activity",), "a"),
+            ODSPLatticeNode(("state",), "b"),
+            ODSPLatticeNode(("activity", "state"), "ab"),
+        ),
+        records=records,
+        group_field="replicate",
+        validation_block_field="block",
+        score_kind="log",
+        score_name="mean_heldout_log_predictive_density",
+        score_unit="nats_per_context",
+    )
+    written = bundle.write(tmp_path)
+
+    manifest = json.loads(Path(written["manifest"]).read_text(encoding="utf-8"))
+    with Path(written["scores"]).open("r", encoding="utf-8", newline="") as handle:
+        rows = list(csv.DictReader(handle))
+
+    assert manifest["validation"]["validation_block_column"] == "validation_block"
+    assert manifest["row_count"] == 2
+    assert rows[0]["validation_block"] == "fold-a"
+    assert float(rows[0]["score__base"]) == pytest.approx(-2.0)
+    assert float(rows[0]["score__activity__state"]) == pytest.approx(-1.3)
