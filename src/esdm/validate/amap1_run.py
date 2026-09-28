@@ -76,14 +76,22 @@ def _fit_seed(
     base_seed: int,
     world_index: int,
     replicate: int,
-    fit_index: int,
+    model_id: str,
 ):
+    model_offsets = {
+        "B0": 101,
+        "BX": 211,
+        "BC": 307,
+        "BA": 401,
+    }
+    name = str(model_id)
+    if name not in model_offsets:
+        raise KeyError(f"unknown AMAP1 fit model {model_id!r}")
     return (
         int(base_seed)
         + int(world_index) * 1_000_000
         + int(replicate) * 10_000
-        + int(fit_index) * 41
-        + 1
+        + model_offsets[name]
     )
 
 
@@ -134,7 +142,7 @@ def run_amap1_replicate(
     divergences = {}
     plan = amap1_required_fit_plan(name)
 
-    for fit_index, model_id in enumerate(plan):
+    for model_id in plan:
         train_model = make_amap1_model(
             fixture,
             model_id,
@@ -156,7 +164,7 @@ def run_amap1_replicate(
                 base_seed,
                 world_index,
                 replicate,
-                fit_index,
+                model_id,
             ),
             num_warmup=int(profile.num_warmup),
             num_samples=int(profile.num_samples),
