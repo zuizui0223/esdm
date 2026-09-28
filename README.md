@@ -66,6 +66,32 @@ The project stop rule remains in force:
 Machine-readable/current audit records live under `docs/empirical/` and
 `docs/replication/`.
 
+
+### E2 MICA empirical replication — consumed terminal stop
+
+The separately named E2 replication selected the MICA muskrat dataset response-blind,
+passed geometry/header, temporal-integrity, and frozen-climate qualification, and then
+opened the biological response exactly once.
+
+The frozen capture stopped **before model fitting** with
+`ValueError: deploymentEnd must be after deploymentStart`.
+
+```text
+E2 MICA pre-response gates PASS
+  -> one-shot full response opened
+  -> CONSUMED_STOP_SCHEMA_OR_ESTIMABILITY
+  -> model fits = 0
+  -> heldout scores = 0
+```
+
+This is a data-contract result, not evidence for or against transferred activity/state
+information. The response is consumed; repair, candidate switching, response-conditioned
+retuning, and a same-program rerun are not authorized.
+
+See `docs/replication/E2_MICA_FULL_RESPONSE_TERMINAL_RESULT.json` and
+`docs/replication/E2_MICA_FULL_RESPONSE_RESULT.md`.
+
+
 ### Archived post-R5b methodological lineage
 
 The v0.5-v0.7 methodological branches are not part of the active empirical endpoint.
