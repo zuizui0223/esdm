@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "contract_id": "esdm-odsp-lattice-ready-result-protocol-v1",
+  "frozen_date": "2026-09-28",
+  "purpose": "prospectively require future eSDM result schemas to retain a complete absolute-score subset lattice whenever scientifically unordered information blocks are intended for downstream ODSP lattice audit",
+  "current_odsp_scope": {
+    "supported_information_block_counts": [
+      2,
+      3
+    ],
+    "node_count_formula": "2^m",
+    "directed_edge_count_formula": "m * 2^(m-1)",
+    "four_or_more_blocks_authorized": false
+  },
+  "result_requirements": {
+    "base_information_nonempty": true,
+    "information_blocks_variable_disjoint": true,
+    "information_blocks_disjoint_from_base": true,
+    "complete_boolean_subset_score_table": true,
+    "absolute_score_field_per_subset_node": true,
+    "same_heldout_rows_across_all_nodes": true,
+    "same_proper_scoring_rule": true,
+    "same_reference_measure": true,
+    "common_score_orientation": "higher_is_better",
+    "group_identity_preserved": true,
+    "optional_validation_block_identity_preserved": true,
+    "gain_only_summary_sufficient": false,
+    "missing_subset_reconstruction_allowed": false
+  },
+  "prospective_governance": {
+    "subset_models_or_knockouts_frozen_before_outcome_scoring": true,
+    "information_blocks_selected_after_outcome_access": false,
+    "best_order_selected_after_outcome_access": false,
+    "source_result_must_store_scores_before_odsp_export": true
+  },
+  "r5b_boundary": {
+    "existing_parallel_activity_state_results_promoted_to_lattice": false,
+    "reason": "R5b stores activity-knockout, state-knockout and full scores but does not store the common suitability-only node required for the complete two-block lattice",
+    "synthetic_missing_base_score_allowed": false
+  },
+  "output_boundary": {
+    "protocol_runs_odsp_inference": false,
+    "protocol_authorizes_lattice_claim": false,
+    "protocol_authorizes_new_scientific_result": false,
+    "protocol_changes_transfer_source_registry": false,
+    "protocol_authorizes_cross_programme_lattice": false,
+    "protocol_authorizes_global_information_ladder": false,
+    "protocol_authorizes_eog_consumption": false,
+    "protocol_authorizes_n4_action": false
+  }
+}
