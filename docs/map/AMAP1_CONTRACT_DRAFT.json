@@ -97,6 +97,19 @@
         "implementation_parent_sha": "must equal HEAD^",
         "gate": "docs/map/AMAP1_QUALIFICATION_GATE.md"
       }
+    },
+    "seed_rules": {
+      "base_seed": 20260928,
+      "generation_seed": "base + world_index*1000000 + replicate*10000",
+      "latent_field_seed_offset": 503,
+      "fit_seed": "base + world_index*1000000 + replicate*10000 + fixed model offset",
+      "fit_model_offsets": {
+        "B0": 101,
+        "BX": 211,
+        "BC": 307,
+        "BA": 401
+      },
+      "fit_seed_independent_of_plan_order": true
     }
   },
   "nonclaims": [
