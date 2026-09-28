@@ -242,7 +242,7 @@
     "marker_must_be_newly_added_in_pure_commit": true,
     "one_authorized_run": true,
     "workflow_dispatch_enabled": false,
-    "full_response_authorized_now": true,
+    "full_response_authorized_now": false,
     "full_response_authorization_consumed": true,
     "workflow_run_id": 36369531079,
     "capture_artifact_id": 10947948379,
