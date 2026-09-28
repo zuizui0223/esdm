@@ -1,0 +1,62 @@
+{
+  "schema": "esdm.e2.mica_full_response_terminal_result.v1",
+  "date": "2026-09-28",
+  "programme": "E2",
+  "candidate_id": "MICA_MUSKRAT",
+  "status": "CONSUMED_STOP_SCHEMA_OR_ESTIMABILITY",
+  "source": {
+    "workflow_run_id": 36369531079,
+    "qualification_branch": "e2/mica-full-response-v1",
+    "authorization_commit": "ca2507e6ad0b50c694e333362385fdc0267d0874",
+    "implementation_parent_sha": "464e5fdabbdd26435d9aabfc2ed670d4211e2fdc",
+    "artifact_id": 10947948379,
+    "artifact_name": "e2-mica-full-response-capture-36369531079",
+    "artifact_digest": "sha256:e598e37ec7b3c2568d4008fd1b94b30a609b2c1be32a485bfc12daba6d32f9d7",
+    "capture_result_sha256": "40e30397cd44d1a11122b01a0aa930d467b8efdfbe22334ed62bd0c2b1776e73",
+    "source_archive_sha256": "8346f3fe467a201525d6bedd4ebd6e2078457ee8bb778501d41d55ace7d962c9",
+    "climate_result_sha256": "51f4e4877647c5e369759310e3c0d2b30a98a0a445108ac28b739f5795a17a4b"
+  },
+  "prior_pre_response_gates": {
+    "response_blind_geometry_header": "PASS",
+    "temporal_integrity": "PASS",
+    "climate": "PASS"
+  },
+  "capture_result": {
+    "result_id": "e2-mica-full-response-capture-v1",
+    "reason": "ValueError: deploymentEnd must be after deploymentStart",
+    "response_boundary": {
+      "full_response_opened": true,
+      "scientific_name_values_read": true,
+      "count_values_read": true,
+      "model_fits": 0,
+      "heldout_scores": 0
+    },
+    "decision": {
+      "fit_authorized_from_capture": false,
+      "same_programme_rerun_allowed": false
+    }
+  },
+  "interpretation": {
+    "supported": [
+      "The response-blind geometry/header, temporal-integrity, and climate gates passed before the biological response was opened.",
+      "The one-shot full response was consumed exactly once and stopped before any model fit."
+    ],
+    "not_supported": [
+      "Empirical activity-process predictive support.",
+      "Empirical state-process predictive support.",
+      "Any held-out predictive comparison from E2 MICA.",
+      "Any biological mechanism claim."
+    ],
+    "boundary": "This is a data-contract/schema-or-estimability terminal result, not evidence for or against the v0.4-R5b ecological decomposition."
+  },
+  "terminal_rule": {
+    "response_consumed": true,
+    "model_fits_completed": 0,
+    "heldout_scores_computed": 0,
+    "same_programme_rerun_allowed": false,
+    "response_repair_allowed": false,
+    "deployment_interval_repair_allowed": false,
+    "candidate_switch_after_consumption_allowed": false,
+    "threshold_or_model_retuning_allowed": false
+  }
+}
