@@ -7,6 +7,7 @@ from types import SimpleNamespace
 from esdm.validate.amap1_known_truth import make_amap1_worlds
 from esdm.validate.amap1_run import (
     FROZEN_AMAP1_MCMC_PROFILE,
+    _fit_seed,
     amap1_required_fit_plan,
     run_amap1_replicate,
 )
@@ -71,6 +72,20 @@ def test_amap1_frozen_total_fit_count_is_384():
         for world in make_amap1_worlds()
     )
     assert total == 384
+
+
+def test_amap1_fit_seed_is_model_stable_not_plan_indexed():
+    seeds = {
+        model_id: _fit_seed(20260928, 4, 7, model_id)
+        for model_id in ("B0", "BX", "BC", "BA")
+    }
+    assert len(set(seeds.values())) == 4
+    assert seeds == {
+        "B0": 20260928 + 4_000_000 + 70_000 + 101,
+        "BX": 20260928 + 4_000_000 + 70_000 + 211,
+        "BC": 20260928 + 4_000_000 + 70_000 + 307,
+        "BA": 20260928 + 4_000_000 + 70_000 + 401,
+    }
 
 
 def test_amap1_replicate_runner_scores_regret_and_detectability():
