@@ -1,0 +1,170 @@
+name: AMAP1 frozen low-regret qualification
+
+concurrency:
+  group: amap1-frozen-qualification
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - amap1/qualification-v1
+    paths:
+      - docs/map/AMAP1_RUN_AUTHORIZED
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  precheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify one-shot authorization addition
+        run: |
+          python - <<'PY'
+          import subprocess
+          from pathlib import Path
+
+          marker = Path("docs/map/AMAP1_RUN_AUTHORIZED")
+          if not marker.is_file():
+              raise SystemExit("AMAP1 authorization marker absent")
+
+          changed = subprocess.check_output(
+              ["git", "diff", "--name-only", "HEAD^", "HEAD"],
+              text=True,
+          ).splitlines()
+          if changed != [marker.as_posix()]:
+              raise SystemExit(
+                  "AMAP1 authorization commit must change only the marker"
+              )
+
+          added = subprocess.check_output(
+              ["git", "diff", "--diff-filter=A", "--name-only", "HEAD^", "HEAD"],
+              text=True,
+          ).splitlines()
+          if added != [marker.as_posix()]:
+              raise SystemExit(
+                  "AMAP1 authorization marker must be newly added"
+              )
+
+          values = {}
+          for raw in marker.read_text(encoding="utf-8").splitlines():
+              line = raw.strip()
+              if not line or line.startswith("#"):
+                  continue
+              if ":" not in line:
+                  raise SystemExit(
+                      f"invalid AMAP1 authorization marker line: {raw!r}"
+                  )
+              key, value = line.split(":", 1)
+              values[key.strip()] = value.strip()
+
+          parent = subprocess.check_output(
+              ["git", "rev-parse", "HEAD^"],
+              text=True,
+          ).strip()
+          if values.get("programme") != "AMAP1":
+              raise SystemExit("AMAP1 programme mismatch")
+          if values.get("implementation_parent_sha") != parent:
+              raise SystemExit("AMAP1 parent binding mismatch")
+          if values.get("gate") != "docs/map/AMAP1_QUALIFICATION_GATE.md":
+              raise SystemExit("AMAP1 gate mismatch")
+          PY
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: python -m pip install -e ".[dev]"
+      - name: Verify frozen AMAP1 code
+        run: |
+          python -m pytest -q             tests/test_amap1_core.py             tests/test_amap1_known_truth.py             tests/test_amap1_gate.py             tests/test_amap1_run.py             tests/test_amap1_aggregate.py             tests/test_amap1_workflow.py
+
+  replicate:
+    needs: precheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      max-parallel: 12
+      matrix:
+        world:
+          - G1_T0
+          - G1_TX
+          - G1_TC
+          - G2_T0
+          - G2_TX
+          - G2_TC
+          - G3_T0
+          - G3_TX
+          - G3_TC
+        replicate:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 10
+          - 11
+          - 12
+          - 13
+          - 14
+          - 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install inference dependencies
+        run: python -m pip install -e ".[dev]"
+      - name: Run frozen AMAP1 replicate
+        run: |
+          mkdir -p artifacts
+          python scripts/run_amap1_replicate.py             --world '${{ matrix.world }}'             --replicate '${{ matrix.replicate }}'             --output "artifacts/amap1_${{ matrix.world }}_${{ matrix.replicate }}.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: amap1-shard-${{ matrix.world }}-${{ matrix.replicate }}
+          path: artifacts/amap1_*.json
+          if-no-files-found: error
+          retention-days: 90
+
+  aggregate:
+    if: always()
+    needs: replicate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: python -m pip install -e .
+      - uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          pattern: amap1-shard-*
+          path: artifacts/shards
+          merge-multiple: false
+      - name: Aggregate
+        run: |
+          mkdir -p artifacts/result
+          python scripts/aggregate_amap1.py             --shard-dir artifacts/shards             --output artifacts/result/AMAP1_QUALIFICATION_RESULT.json
+      - name: Upload result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: amap1-result-${{ github.run_id }}
+          path: artifacts/result/AMAP1_QUALIFICATION_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
