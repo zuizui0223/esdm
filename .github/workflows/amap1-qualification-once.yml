@@ -81,7 +81,7 @@ jobs:
         run: python -m pip install -e ".[dev]"
       - name: Verify frozen AMAP1 code
         run: |
-          python -m pytest -q             tests/test_amap1_core.py             tests/test_amap1_known_truth.py             tests/test_amap1_gate.py             tests/test_amap1_run.py             tests/test_amap1_aggregate.py             tests/test_amap1_workflow.py
+          python -m pytest -q             tests/test_amap1_core.py             tests/test_amap1_known_truth.py             tests/test_amap1_gate.py             tests/test_amap1_run.py             tests/test_amap1_aggregate.py             tests/test_amap1_contract.py             tests/test_amap1_workflow.py
 
   replicate:
     needs: precheck
