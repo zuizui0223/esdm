@@ -1,0 +1,74 @@
+{
+  "decision": {
+    "exploratory_fit_authorized_by_this_receipt": false,
+    "preflight_passed": true,
+    "requires_separate_pure_authorization_marker": true
+  },
+  "filtering": {
+    "excluded_deployment_ids": [
+      "39c76f3d-cc75-44cf-b5b1-021daccfd9fe"
+    ],
+    "excluded_deployment_ids_sha256": "6e4cc1d2b7d5844139e6b3bc185c22d75580ee1cf8cc9250e9644aaaeba2834d",
+    "removed_deployment_rows": 1,
+    "removed_observation_rows": 1,
+    "retained_observation_rows": 183812,
+    "row_filter_uses_only_deployment_id": true,
+    "sanitized_archive_sha256": "a7ba5be662c7d29678bb02c1527050bcec2ed4a0fd40253294e82409355de40a"
+  },
+  "metadata_audit": {
+    "count_values_read": false,
+    "deployment_row_count": 1539,
+    "excluded_deployment_ids": [
+      "39c76f3d-cc75-44cf-b5b1-021daccfd9fe"
+    ],
+    "excluded_deployment_ids_sha256": "6e4cc1d2b7d5844139e6b3bc185c22d75580ee1cf8cc9250e9644aaaeba2834d",
+    "excluded_deployments": [
+      {
+        "deploymentID": "39c76f3d-cc75-44cf-b5b1-021daccfd9fe",
+        "duration_seconds": 0.0,
+        "latitude": "52.939",
+        "longitude": "6.084"
+      }
+    ],
+    "negative_duration_count": 0,
+    "nonpositive_duration_count": 1,
+    "observations_data_rows_read": 0,
+    "scientific_name_values_read": false,
+    "source_sha256": "8346f3fe467a201525d6bedd4ebd6e2078457ee8bb778501d41d55ace7d962c9",
+    "state_values_read": false,
+    "zero_duration_count": 1
+  },
+  "programme_id": "E3_MICA_EXP",
+  "qualified_fingerprints": {
+    "heldout_ids_sha256": "1b942bba9251172b874bb162fbe29347171a144695a39f033f094edae5ec62e3",
+    "manifest_sha256": "11d8325b1dd17a2a3a6219f31e6876fc20f80bdf48e4385e87d9d5bc442a53f4",
+    "observation_header_sha256": "d90d51afbde14f01c5d1c3254ef6b6251ff5399ca9759e2998311d7a6b8e700c",
+    "training_ids_sha256": "a1e08526edb3d1f329fc7a4e9a2efa2bc4dc50313b393026a429f3a87d57f566",
+    "training_role_map_sha256": "1fcd776854484ed5b0e19c20b49aed81fa22d5947b5d26120c50155e1369c7e4"
+  },
+  "qualified_geometry": {
+    "deployment_count": 1538,
+    "heldout_deployment_count": 733,
+    "longitude_gap": 0.7869999999999999,
+    "max_training_longitude": 4.841,
+    "min_heldout_longitude": 5.628,
+    "strict_east_extrapolation": true,
+    "training_deployment_count": 805
+  },
+  "qualified_roles": {
+    "all_minima_pass": true,
+    "direct_state_calibration_heldout_exposure": 0,
+    "heldout_role": "state_annotated_only",
+    "minimum_each_training_role": 8,
+    "training_counts": {
+      "calibrated_presence": 197,
+      "opportunistic_presence": 187,
+      "state_annotated": 266,
+      "state_calibration": 155
+    }
+  },
+  "result_id": "e3-mica-exploratory-preflight-v1",
+  "schema_version": 1,
+  "source_archive_sha256": "8346f3fe467a201525d6bedd4ebd6e2078457ee8bb778501d41d55ace7d962c9",
+  "status": "E3_PREFLIGHT_PASS"
+}
