@@ -2,7 +2,7 @@
   "schema_version": 1,
   "programme_id": "E3_MICA_EXP",
   "contract_id": "e3-mica-zero-duration-exploratory-v1",
-  "status": "FROZEN_PRE_EXPLORATORY_FIT_NOT_AUTHORIZED",
+  "status": "PREFLIGHT_PASS_FIT_NOT_AUTHORIZED",
   "frozen_date": "2026-09-28",
   "relationship_to_prior_programmes": {
     "r5b_model_generation": "v0.4-R5b",
@@ -90,5 +90,15 @@
     "exploratory_fit_authorized_now": false,
     "authorization_requires_new_pure_marker_commit": true,
     "same_programme_rule_or_threshold_retuning_after_fit": false
+  },
+  "preflight_result": {
+    "path": "docs/replication/E3_MICA_EXPLORATORY_PREFLIGHT_RESULT.json",
+    "workflow_run_id": 36397882260,
+    "workflow_head_sha": "8dcc7235ff18835d1177c96237f7d0e4c54c8f0c",
+    "artifact_id": 10958662529,
+    "artifact_name": "e3-mica-exploratory-preflight-36397882260",
+    "artifact_digest": "sha256:bdfe788b3eff98680a9e4f3f7ef865a6e58afccc7cc8deea32893b0fc8493c9d",
+    "result_sha256": "b189d92981348346df76f23eb7acf5623f75380c38739a3acdc85d656c73aba8",
+    "status": "E3_PREFLIGHT_PASS"
   }
 }
