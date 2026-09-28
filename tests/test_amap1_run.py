@@ -1,3 +1,7 @@
+import importlib.util
+import math
+import sys
+
 from types import SimpleNamespace
 
 from esdm.validate.amap1_known_truth import make_amap1_worlds
@@ -5,6 +9,12 @@ from esdm.validate.amap1_run import (
     FROZEN_AMAP1_MCMC_PROFILE,
     amap1_required_fit_plan,
     run_amap1_replicate,
+)
+
+
+NUMPYRO_AVAILABLE = (
+    sys.version_info >= (3, 11)
+    and importlib.util.find_spec("numpyro") is not None
 )
 
 
@@ -101,3 +111,66 @@ def test_amap1_replicate_runner_is_deterministic_for_fixed_seed_and_stub():
     assert first.regret == second.regret
     assert first.detectability_gain == second.detectability_gain
     assert dict(first.divergences) == dict(second.divergences)
+
+
+def test_amap1_tiny_numpyro_fit_projects_to_unseen_holdout():
+    if not NUMPYRO_AVAILABLE:
+        return
+
+    from esdm.model.backend_numpyro import fit_numpyro
+    from esdm.simulate import simulate_presence_only
+    from esdm.validate.amap1_known_truth import (
+        amap1_truth_theta,
+        make_amap1_fixtures,
+        make_amap1_model,
+        subset_amap1_data,
+    )
+    from esdm.validate.evidence import poisson_log_predictive_density
+
+    fixture = make_amap1_fixtures()[0]
+    truth_model = make_amap1_model(fixture, "BC")
+    generated = simulate_presence_only(
+        truth_model,
+        amap1_truth_theta(
+            fixture,
+            "BC",
+            innovation_seed=9028,
+        ),
+        fixture.covariates,
+        seed=9029,
+    )
+
+    train_model = make_amap1_model(
+        fixture,
+        "BA",
+        domain_spaces=fixture.training_spaces,
+    )
+    heldout_model = make_amap1_model(
+        fixture,
+        "BA",
+        domain_spaces=fixture.heldout_spaces,
+    )
+    fit = fit_numpyro(
+        train_model,
+        subset_amap1_data(generated.counts, train_model),
+        fixture.covariates,
+        rng_seed=9030,
+        num_warmup=10,
+        num_samples=10,
+        num_chains=1,
+        progress_bar=False,
+        target_accept_prob=0.8,
+    )
+    score = poisson_log_predictive_density(
+        heldout_model,
+        fit.samples,
+        fixture.covariates,
+        subset_amap1_data(generated.counts, heldout_model),
+        stream_name="records",
+        species="sp",
+    )
+
+    assert math.isfinite(score)
+    assert "sp.map_adaptive.map_sigma" in fit.samples
+    assert "sp.map_adaptive.map_coherence_weight" in fit.samples
+    assert len(fit.samples["sp.map_adaptive.map_coherence_weight"]) == 10
