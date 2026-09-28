@@ -1,0 +1,141 @@
+{
+  "schema": "esdm.amap1.adaptive_map_contract.v1",
+  "status": "FROZEN_PRE_OUTCOME_NOT_AUTHORIZED",
+  "drafted_date": "2026-09-28",
+  "relationship_to_prior_programmes": {
+    "field1_terminal": "FAIL",
+    "map1_terminal": "FAIL",
+    "reopens_field1": false,
+    "reopens_map1": false,
+    "rescue_of_failed_claims": false,
+    "independent_question": "low-regret continuous-map prediction under residual covariance uncertainty"
+  },
+  "scientific_target": {
+    "primary": "robust held-out map prediction",
+    "claim": "LOW_REGRET_MAP_SUPPORTED",
+    "infer_coherence_presence": false,
+    "infer_mechanism": false
+  },
+  "adaptive_field": {
+    "field_dimension": "m-1 zero-sum coordinates",
+    "covariance": "sigma^2 * ((1-kappa) * I + kappa * C_geo)",
+    "coherent_covariance_trace": "m-1",
+    "sigma_prior": "HalfNormal(scale=0.75)",
+    "coherence_prior": "Beta(alpha=1,beta=1)",
+    "fixed_rho": 1,
+    "alpha": 0.9,
+    "kappa_interpretation": "predictive regularization coordinate only",
+    "endpoint_equivalence": {
+      "kappa_0": "exchangeable zero-sum covariance BX",
+      "kappa_1": "fixed coherent covariance BC in distribution"
+    },
+    "amplitude_invariant": true
+  },
+  "model_ids": [
+    "B0",
+    "BX",
+    "BC",
+    "BA"
+  ],
+  "geometry_families": {
+    "G1": "irregular 2D lattice with central contiguous holdout",
+    "G2": "elongated corridor with interior contiguous holdout",
+    "G3": "clustered archipelago-like graph with within-cluster holdout"
+  },
+  "truth_classes": {
+    "T0": {
+      "truth": "B0",
+      "oracle": "B0"
+    },
+    "TX": {
+      "truth": "BX",
+      "oracle": "BX",
+      "detectability": "BX-B0 positive-qualified"
+    },
+    "TC": {
+      "truth": "BC",
+      "oracle": "BC",
+      "detectability": "BC-B0 positive-qualified"
+    }
+  },
+  "world_count": 9,
+  "predictive_estimand": "oracle mean heldout log predictive density - BA mean heldout log predictive density",
+  "primary_rule": "bounded outer-heldout regret in every geometry x truth world",
+  "outcome_leakage_prohibited": true,
+  "execution": {
+    "geometry_frozen": true,
+    "numeric_gate_frozen": true,
+    "mcmc_profile_frozen": true,
+    "fit_cardinality_frozen": true,
+    "qualification_gate": "docs/map/AMAP1_QUALIFICATION_GATE.md",
+    "replicates_per_world": 16,
+    "expected_shards": 144,
+    "expected_fits": 384,
+    "materiality": 0.005,
+    "positive_min_rate": 0.75,
+    "positive_min_mean_gain": 0.005,
+    "low_regret_max_material_rate": 0.25,
+    "low_regret_max_mean_regret": 0.005,
+    "max_mean_divergences_per_fit": 0.1,
+    "mcmc_profile": {
+      "num_warmup": 300,
+      "num_samples": 350,
+      "num_chains": 2,
+      "target_accept_probability": 0.9
+    },
+    "confirmatory_outcome_authorized": false,
+    "empirical_response_authorized": false,
+    "implementation_branch": "feature/amap1-adaptive-map-field",
+    "qualification_branch": "amap1/qualification-v1",
+    "qualification_branch_must_start_from_merged_main": true,
+    "authorization_marker_contract": {
+      "path": "docs/map/AMAP1_RUN_AUTHORIZED",
+      "must_be_new_file": true,
+      "authorization_commit_changes_only_marker": true,
+      "required_fields": {
+        "programme": "AMAP1",
+        "implementation_parent_sha": "must equal HEAD^",
+        "gate": "docs/map/AMAP1_QUALIFICATION_GATE.md"
+      }
+    },
+    "seed_rules": {
+      "base_seed": 20260928,
+      "generation_seed": "base + world_index*1000000 + replicate*10000",
+      "latent_field_seed_offset": 503,
+      "fit_seed": "base + world_index*1000000 + replicate*10000 + fixed model offset",
+      "fit_model_offsets": {
+        "B0": 101,
+        "BX": 211,
+        "BC": 307,
+        "BA": 401
+      },
+      "fit_seed_independent_of_plan_order": true
+    }
+  },
+  "nonclaims": [
+    "coherence is biologically present",
+    "kappa is a posterior probability of coherence",
+    "kappa measures dispersal",
+    "connectivity",
+    "migration",
+    "gene flow",
+    "causal spatial mechanism"
+  ],
+  "geometry_details": {
+    "G1": {
+      "nodes": 24,
+      "edges": 38,
+      "holdout_nodes": 4
+    },
+    "G2": {
+      "nodes": 20,
+      "edges": 19,
+      "holdout_nodes": 3
+    },
+    "G3": {
+      "nodes": 18,
+      "edges": 26,
+      "holdout_nodes": 3
+    }
+  }
+}
