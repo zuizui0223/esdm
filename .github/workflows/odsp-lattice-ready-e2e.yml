@@ -5,6 +5,8 @@ on:
     paths:
       - 'ODSP_LATTICE_READY_E2E_BINDING_V1.json'
       - 'tests/test_odsp_lattice_ready_e2e_binding.py'
+      - 'ODSP_LATTICE_READY_E2E_RESULT_V1.json'
+      - 'tests/test_odsp_lattice_ready_e2e_result.py'
       - '.github/workflows/odsp-lattice-ready-e2e.yml'
 
 permissions:
@@ -27,8 +29,11 @@ jobs:
           python -m pip install -e . pytest
           python -m pip install 'git+https://github.com/zuizui0223/odsp.git@0bd83e1ebb372c48839654ab0e42124fe37b8faf'
 
-      - name: Validate frozen lattice smoke binding
-        run: python -m pytest -q tests/test_odsp_lattice_ready_e2e_binding.py
+      - name: Validate frozen lattice smoke binding and result receipt
+        run: >-
+          python -m pytest -q
+          tests/test_odsp_lattice_ready_e2e_binding.py
+          tests/test_odsp_lattice_ready_e2e_result.py
 
       - name: Serialize eSDM complete subset table and run pinned ODSP lattice audit
         run: |

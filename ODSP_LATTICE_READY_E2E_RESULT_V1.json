@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "receipt_id": "esdm-odsp-lattice-ready-e2e-result-v1",
+  "validated_date": "2026-09-28",
+  "protocol": {
+    "protocol_merge_sha": "ced6cd9ba4d50264c1f9d99fd097e4277fddfc3e",
+    "integration_merge_sha": "af7a32d0f2a52763c0957ca570ff69796beb11cb",
+    "binding": "ODSP_LATTICE_READY_E2E_BINDING_V1.json"
+  },
+  "execution": {
+    "workflow_run_id": 36368558802,
+    "run_attempt": 1,
+    "conclusion": "success",
+    "source_head_sha": "54a755e6472f7b18f0b7633fe5d218689216e3b2",
+    "artifact_id": 10948665791,
+    "artifact_name": "esdm-odsp-lattice-ready-e2e-v1",
+    "artifact_digest": "sha256:d7695536a66ffec927de627d9f2beeabadd0c4fb0213f49763380b7100748c36",
+    "pinned_odsp_commit": "0bd83e1ebb372c48839654ab0e42124fe37b8faf"
+  },
+  "output_hashes": {
+    "lattice_manifest.json": "aec2b29c98c03a26c8ccc9c9122c789322a0160ad400f53d210bfe8b51742fac",
+    "lattice_scores.csv": "dd1b69dc07101b4f7af0ce39962459c1bd430d7888bbad6b4945afc75a9ee55f",
+    "odsp_lattice_audit.json": "e838c58d44972e03f5be99dc2a93c6c013e0cbc03b7ede86336bbd8f2ec4ea87"
+  },
+  "fixture": {
+    "base_information": [
+      "suitability"
+    ],
+    "information_blocks": [
+      {
+        "name": "activity",
+        "variables": [
+          "activity"
+        ]
+      },
+      {
+        "name": "state",
+        "variables": [
+          "state"
+        ]
+      }
+    ],
+    "independent_group_count": 2,
+    "validation_blocks_per_group": 4,
+    "node_scores": {
+      "base": 0,
+      "activity": 0.4,
+      "state": 0.1,
+      "activity_state": 0.3
+    }
+  },
+  "point_audit": {
+    "node_count": 4,
+    "edge_count": 4,
+    "full_vs_base_gain_category": "generalizing",
+    "total_admissible_path_count": 2,
+    "full_transfer_path_count": 1,
+    "full_transfer_path_fraction": 0.5,
+    "path_status": "order_sensitive_full_transfer",
+    "all_edges_generalizing": false,
+    "block_summaries": {
+      "activity": {
+        "order_robust_category": "order_robust_generalizing",
+        "shapley_group_gain": 0.3,
+        "shapley_gain_category": "generalizing"
+      },
+      "state": {
+        "order_robust_category": "order_sensitive",
+        "shapley_group_gain": -1.3877787807814457e-17,
+        "shapley_gain_category": "non_generalizing"
+      }
+    },
+    "shapley_additivity_error_max_abs": 0,
+    "shapley_can_override_edge_failure": false
+  },
+  "certification": {
+    "bootstrap_draws": 700,
+    "seed": 13,
+    "minimum_blocks_per_group": 2,
+    "cell_count": 8,
+    "estimable_cell_count": 8,
+    "all_cells_estimable": true,
+    "max_t_critical_value": 0,
+    "total_admissible_path_count": 2,
+    "robust_full_transfer_path_count": 1,
+    "robust_full_transfer_path_fraction": 0.5,
+    "certified_path_status": "order_sensitive_full_transfer",
+    "all_edges_robust_generalizing": false,
+    "block_summaries": {
+      "activity": "order_robust_generalizing",
+      "state": "order_sensitive"
+    },
+    "total_gain_can_override_failed_edge": false,
+    "shapley_can_override_edge_failure": false
+  },
+  "interpretation": {
+    "supported": [
+      "the eSDM complete-subset serializer produces a score table that pinned ODSP consumes without manual score reconstruction",
+      "the same order-sensitive path result is recovered at both point and familywise-certified lattice levels",
+      "a positive full-versus-base gain does not force universal full transfer",
+      "activity is order-robust in the synthetic fixture while state depends on predecessor information"
+    ],
+    "not_supported": [
+      "a new empirical or semi-synthetic ecological result",
+      "retroactive lattice promotion of R5b or any current frozen transfer source",
+      "a global cross-programme information ladder",
+      "four-or-more-block lattice qualification",
+      "EOG consumption",
+      "N4 survey action"
+    ]
+  }
+}
