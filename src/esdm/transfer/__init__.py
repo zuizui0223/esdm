@@ -40,6 +40,10 @@ __all__ = [
     "load_transfer_source_registry",
     "require_exportable_transfer_source",
     "transfer_source_by_id",
+    "ODSPLatticeInformationBlock",
+    "ODSPLatticeNode",
+    "ODSPLatticeReadyBundle",
+    "build_odsp_lattice_ready_bundle",
 ]
 
 from .odsp_adapter import (
@@ -73,4 +77,11 @@ from .evidence_portfolio import (
     TransferEvidencePortfolioV2,
     build_transfer_evidence_portfolio,
     build_transfer_evidence_portfolio_v2,
+)
+
+from .odsp_lattice_adapter import (
+    ODSPLatticeInformationBlock,
+    ODSPLatticeNode,
+    ODSPLatticeReadyBundle,
+    build_odsp_lattice_ready_bundle,
 )
