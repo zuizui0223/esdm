@@ -151,7 +151,7 @@ def test_role_assignment_is_deterministic_and_all_training_roles_have_minimum(tm
     )
 
 
-def test_contracts_keep_mica_candidate_response_blind():
+def test_contracts_preserve_response_blind_selection_after_terminal_consumption():
     root = Path(__file__).resolve().parents[1]
     parent = json.loads(
         (root / "docs" / "replication" / "E2_EMPIRICAL_REPLICATION_CONTRACT.json").read_text()
@@ -176,8 +176,9 @@ def test_contracts_keep_mica_candidate_response_blind():
     )
     assert (
         parent["current_authorization"]["full_ecological_response_opening"]
-        is False
+        == "consumed_stop_schema_or_estimability"
     )
+    assert parent["current_authorization"]["full_response_consumed"] is True
     assert parent["current_authorization"]["model_fitting"] is False
 
     assert child["focal_taxon"]["scientific_name"] == "Ondatra zibethicus"

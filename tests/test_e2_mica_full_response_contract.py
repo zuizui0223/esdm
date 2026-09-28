@@ -31,8 +31,13 @@ def test_e2_mica_pre_response_dependencies_are_frozen_and_passed():
         "c05fe8cf883d929ae618d3ccd8e64c33a7534517341ede36aafa6742d86ee4df"
     )
 
-    assert contract["status"] == "FROZEN_PRE_FULL_RESPONSE_OPEN"
-    assert contract["execution"]["full_response_authorized_now"] is False
+    assert contract["status"] == "TERMINAL_CONSUMED_STOP_SCHEMA_OR_ESTIMABILITY"
+    execution = contract["execution"]
+    assert execution["full_response_authorized_now"] is False
+    assert execution["full_response_authorization_consumed"] is True
+    assert execution["capture_status"] == "CONSUMED_STOP_SCHEMA_OR_ESTIMABILITY"
+    assert execution["model_fitting_reached"] is False
+    assert execution["same_programme_rerun_allowed"] is False
 
 
 def test_e2_mica_full_response_keeps_r5b_estimability_and_fit_profile():
