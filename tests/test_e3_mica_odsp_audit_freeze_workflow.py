@@ -28,7 +28,8 @@ def test_e3_audit_freeze_only_accepts_main_push_audit_run():
 def test_e3_audit_freeze_pins_artifact_digest_and_head_sha():
     text = _text()
 
-    assert "artifact_digest" in text
+    assert "--artifact-digest" in text
+    assert "digest={digest}" in text
     assert "workflow_run.head_sha" in text
     assert "freeze_e3_mica_odsp_audit_result.py" in text
     assert "E3_MICA_ODSP_AUDIT_FROZEN_RESULT.json" in text
