@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "contract_id": "esdm-tr1-trait-transfer-known-truth-v1",
+  "freeze_date": "2026-09-29",
+  "status": "pre_outcome_frozen",
+  "purpose": "prospectively instrument trait information as an exportable held-out prediction axis for unseen taxa",
+  "scientific_question": "does a measured taxon trait improve held-out state prediction for taxa excluded from fitting, beyond a common environmental predictor?",
+  "data_generating_process": {
+    "response": "binary ecological state",
+    "link": "logit",
+    "linear_predictor": "-0.2 + 1.0 * environment + beta_trait * trait",
+    "positive_world_beta_trait": 1,
+    "null_world_beta_trait": 0,
+    "taxon_count": 30,
+    "training_taxon_count": 20,
+    "heldout_taxon_count": 10,
+    "trait_grid": "30 equally spaced values from -1.45 to +1.45",
+    "heldout_taxon_rule": "every third ordered taxon beginning at index 1; the remaining taxa train",
+    "environment_grid_count": 41,
+    "environment_grid": "41 equally spaced values from -2.0 to +2.0 shared identically by every taxon",
+    "observations_per_taxon": 41,
+    "taxon_random_effect": 0,
+    "reason_common_environment_grid": "trait information cannot earn predictive gain merely by proxying a taxon-specific environment distribution"
+  },
+  "learners": {
+    "lower_information_model": "logit P(Y=1) = intercept + beta_environment * environment",
+    "full_model": "logit P(Y=1) = intercept + beta_environment * environment + beta_trait * trait",
+    "taxon_identity_included": false,
+    "fitting": "unpenalized maximum-likelihood logistic regression with deterministic Newton iterations",
+    "maximum_iterations": 100,
+    "convergence_tolerance": 1e-9,
+    "coefficient_magnitude_fail_closed_threshold": 40,
+    "rescue_regularization_allowed": false,
+    "alternate_learner_after_outcome_allowed": false
+  },
+  "heldout_design": {
+    "unit": "taxon",
+    "heldout_taxa_never_used_for_fitting": true,
+    "same_heldout_rows_across_models": true,
+    "same_environment_grid_across_taxa": true,
+    "score": "mean held-out log predictive probability",
+    "score_kind": "log",
+    "score_unit": "nats_per_heldout_context",
+    "orientation": "higher_is_better"
+  },
+  "replicated_programme": {
+    "positive_world_replicates": 32,
+    "null_world_replicates": 32,
+    "positive_base_seed": 20261101,
+    "null_base_seed": 20262101,
+    "seed_stride": 97,
+    "result_schema": "esdm.tr1.trait_transfer.v1"
+  },
+  "positive_world_gate": {
+    "mean_full_minus_environment_gain_minimum": 0.03,
+    "positive_gain_rate_minimum": 0.75,
+    "absolute_mean_trait_coefficient_bias_maximum": 0.15
+  },
+  "null_world_specificity_gate": {
+    "material_gain_threshold": 0.01,
+    "material_gain_count_maximum": 8,
+    "mean_gain_maximum": 0.005,
+    "absolute_mean_fitted_trait_coefficient_maximum": 0.15,
+    "interpretation": "null specificity protects the traits axis from generic extra-parameter optimism"
+  },
+  "odsp_ready_result": {
+    "positive_world_absolute_scores_required": [
+      "environment_only_heldout_log_score",
+      "environment_trait_heldout_log_score"
+    ],
+    "information_filtration": [
+      {
+        "name": "environment_only",
+        "information": [
+          "environment"
+        ],
+        "score_field": "environment_only_heldout_log_score"
+      },
+      {
+        "name": "environment_traits",
+        "information": [
+          "environment",
+          "traits"
+        ],
+        "score_field": "environment_trait_heldout_log_score"
+      }
+    ],
+    "group_semantics": "independent known-truth replicate",
+    "analysis_mode": "descriptive downstream audit",
+    "odsp_changes_tr1_promotion": false
+  },
+  "decision": {
+    "pass_requires_all_positive_and_null_gates": true,
+    "outcome_access_before_contract_merge_allowed": false,
+    "threshold_changes_after_outcome_allowed": false,
+    "selective_replicate_deletion_allowed": false,
+    "failed_gate_may_not_be_rescued_in_v1": true
+  },
+  "claim_boundary": {
+    "pass_may_support": "a measured taxon trait can carry transferable predictive information for unseen taxa in the frozen known-truth design",
+    "pass_does_not_support": [
+      "empirical trait importance in nature",
+      "taxon identity transfer",
+      "phylogenetic effect identification",
+      "causal trait effects from observational data",
+      "movement or dispersal information",
+      "biotic interaction information",
+      "survey-site ranking or N4 action"
+    ]
+  }
+}
