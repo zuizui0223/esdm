@@ -44,3 +44,50 @@ class Grid:
     @property
     def keys(self) -> tuple[tuple[str, int, int], ...]:
         return tuple(context.key for context in self.contexts())
+
+
+
+@dataclass(frozen=True, slots=True)
+class ExplicitGrid:
+    """An explicit non-Cartesian set of ecological contexts.
+
+    This domain is semantically identical to Grid for model evaluation, but it
+    stores only declared context keys instead of materializing a Cartesian product.
+    Key order is preserved exactly.
+    """
+
+    keys: tuple[tuple[str, int, int], ...]
+
+    def __post_init__(self) -> None:
+        normalized = tuple(
+            (str(space).strip(), int(doy), int(hour))
+            for space, doy, hour in self.keys
+        )
+        if not normalized:
+            raise ValueError("explicit grid must contain at least one context")
+        if len(set(normalized)) != len(normalized):
+            raise ValueError("explicit grid context keys must be unique")
+        for space, doy, hour in normalized:
+            if not space:
+                raise ValueError("explicit grid space IDs must be non-empty")
+            if doy < 1 or doy > 366:
+                raise ValueError("explicit grid doy must be in 1..366")
+            if hour < 0 or hour > 23:
+                raise ValueError("explicit grid hour must be in 0..23")
+        object.__setattr__(self, "keys", normalized)
+
+    def contexts(self):
+        for space, doy, hour in self.keys:
+            yield Context(space, doy, hour)
+
+    @property
+    def space(self) -> tuple[str, ...]:
+        return tuple(dict.fromkeys(key[0] for key in self.keys))
+
+    @property
+    def doy(self) -> tuple[int, ...]:
+        return tuple(dict.fromkeys(key[1] for key in self.keys))
+
+    @property
+    def hour(self) -> tuple[int, ...]:
+        return tuple(dict.fromkeys(key[2] for key in self.keys))
