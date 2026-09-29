@@ -72,3 +72,8 @@ def test_e4_runner_prewrite_occurs_before_expensive_fit():
     assert prewrite < fit
     assert '"E4_SPARSE_EXECUTION_STARTED"' in text
     assert '"E4_SPARSE_EXECUTION_STOP"' in text
+
+
+def test_e4_runner_is_syntactically_valid():
+    text = SCRIPT.read_text(encoding="utf-8")
+    compile(text, str(SCRIPT), "exec")
