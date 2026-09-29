@@ -106,6 +106,7 @@
     "authorization_requires_new_pure_marker_commit": true,
     "one_authorized_run": true,
     "workflow_dispatch_enabled": false,
-    "same_programme_rerun_allowed": false
+    "same_programme_rerun_allowed": false,
+    "authorization_branch": "explore/e3-mica-reduced-fit-run-v1"
   }
 }
