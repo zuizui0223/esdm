@@ -1,0 +1,33 @@
+name: e3-import-infrastructure-stop
+
+on:
+  pull_request:
+    paths:
+      - 'docs/replication/E3_MICA_REDUCED_INFRASTRUCTURE_STOP_POLICY.json'
+      - 'scripts/freeze_e3_mica_infrastructure_stop.py'
+      - '.github/workflows/e3-mica-reduced-result-import.yml'
+      - 'tests/test_e3_mica_infrastructure_stop.py'
+      - 'tests/test_e3_mica_reduced_result_import_workflow.py'
+      - '.github/workflows/e3-import-infrastructure-stop.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install test dependencies
+        run: python -m pip install -e '.[dev]'
+      - name: Validate infrastructure-stop boundary
+        run: >-
+          python -m pytest -q
+          tests/test_e3_mica_infrastructure_stop.py
+          tests/test_e3_mica_reduced_result_import_workflow.py
+      - name: Compile validator
+        run: python -m py_compile scripts/freeze_e3_mica_infrastructure_stop.py
