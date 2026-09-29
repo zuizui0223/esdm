@@ -55,6 +55,12 @@ def main() -> int:
         raise SystemExit("E4 source archive sha256 drift")
 
     capture_bytes = args.capture.read_bytes()
+    capture_sha256 = hashlib.sha256(capture_bytes).hexdigest()
+    if capture_sha256 != contract["immutable_source"]["e3_reduced_capture_result_sha256"]:
+        raise SystemExit("E4 reduced capture result sha256 drift")
+    climate_sha256 = _sha256(args.climate)
+    if climate_sha256 != contract["immutable_source"]["e2_climate_result_sha256"]:
+        raise SystemExit("E4 climate result sha256 drift")
     capture = json.loads(capture_bytes)
     if capture.get("status") != "E3_REDUCED_FIXTURE_QUALIFIED":
         raise SystemExit("E4 requires the qualified E3 reduced capture receipt")
