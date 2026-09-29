@@ -1,0 +1,87 @@
+{
+  "decision": {
+    "activity_predictive_support_descriptive": false,
+    "causal_claim_authorized": false,
+    "confirmatory_replication_claim": false,
+    "e3_rescue": false,
+    "minimum_effect_size_threshold": null,
+    "parameter_recovery_claim_authorized": false,
+    "post_outcome_retuning_allowed": false,
+    "same_programme_rerun_allowed": false,
+    "sampling_gate_passed": true,
+    "state_predictive_support_descriptive": true
+  },
+  "execution": {
+    "artifact_digest": "sha256:da72e996014d988c9ee55e99ac6cebf5662030fa35abcf9203d3f83cf84c5bfe",
+    "artifact_id": 11059622869,
+    "artifact_name": "e4-mica-sparse-result-36622802225",
+    "authorization_head_sha": "8a1bd87733637494c89e03e389faf6b1c64605a0",
+    "result_json_sha256": "34124094e6c25db04465cc1ff869af5813326729e6fd3b658a0921c45bc6f3e2",
+    "run_attempt": 1,
+    "workflow_conclusion": "success",
+    "workflow_run_id": 36622802225
+  },
+  "frozen_date": "2026-09-30",
+  "interpretation_boundary": {
+    "causal_claim": false,
+    "confirmatory_replication_claim": false,
+    "e3_rescue_claim": false,
+    "laplace_or_inla_authorized": false,
+    "parameter_recovery_claim": false,
+    "positive_gain_interpretation": "exploratory descriptive predictive evidence only",
+    "same_programme_rerun_allowed": false
+  },
+  "programme_id": "E4_MICA_SPARSE_NUTS",
+  "result_id": "e4-mica-exact-sparse-frozen-result-v1",
+  "result_reason": null,
+  "schema_version": 1,
+  "status": "E4_SPARSE_EMPIRICAL_RESULT",
+  "summary": {
+    "compaction": {
+      "heldout": {
+        "compact_context_count": 10168,
+        "dense_context_count": 560012,
+        "exposed_contexts_by_stream": {
+          "annotated": 10168,
+          "presence_calibrated": 0,
+          "presence_opportunistic": 0
+        },
+        "reduction_factor": 55.07592446892211,
+        "retained_keys_sha256": "0ed3fb9e96b1323a4290b7cb92621d219e317b8b916201a1b2665db4a272b1d9"
+      },
+      "training": {
+        "compact_context_count": 11531,
+        "dense_context_count": 615020,
+        "exposed_contexts_by_stream": {
+          "annotated": 4779,
+          "presence_calibrated": 3466,
+          "presence_opportunistic": 3286
+        },
+        "reduction_factor": 53.33622409157922,
+        "retained_keys_sha256": "41bd70aa1f913bcb1c988f6c5cdae3441ed978d4ee0f6791bcfc497290710646"
+      }
+    },
+    "divergences": {
+      "activity_knockout": 0,
+      "full": 0,
+      "state_knockout": 0,
+      "total": 0
+    },
+    "heldout_row_count": 733,
+    "max_abs_aggregate_identity_error": 0.0,
+    "scores": {
+      "activity_gain": -0.6390511804117178,
+      "activity_knockout_heldout_log_score": -7.053935226712387,
+      "full_heldout_log_score": -7.6929864071241045,
+      "state_gain": 0.008390925023042506,
+      "state_knockout_heldout_log_score": -7.701377332147147
+    }
+  },
+  "terminal_rule": {
+    "backend_switch_within_e4_allowed": false,
+    "post_result_stream_retuning_allowed": false,
+    "post_result_threshold_retuning_allowed": false,
+    "result_values_may_change": false,
+    "same_programme_rerun_allowed": false
+  }
+}
