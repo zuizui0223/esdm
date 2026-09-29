@@ -1,0 +1,130 @@
+name: TR1 frozen trait-transfer one-shot
+
+on:
+  push:
+    branches:
+      - feature/tr1-trait-transfer-gate
+    paths:
+      - 'docs/validation/TR1_RUN_AUTHORIZED'
+      - 'TR1_TRAIT_TRANSFER_CONTRACT_V1.json'
+      - 'src/esdm/validate/tr1_trait_transfer.py'
+      - 'src/esdm/validate/tr1_gate.py'
+      - 'src/esdm/transfer/odsp_adapter.py'
+      - 'scripts/run_tr1_replicate.py'
+      - 'scripts/aggregate_tr1.py'
+      - 'scripts/export_tr1_odsp_transfer.py'
+      - '.github/workflows/tr1-trait-transfer-once.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  precheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      authorized: ${{ steps.authorization.outputs.authorized }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install package
+        run: python -m pip install -e '.[dev]'
+      - name: Check explicit TR1 authorization
+        id: authorization
+        run: |
+          if [ -f docs/validation/TR1_RUN_AUTHORIZED ]; then
+            echo "authorized=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "authorized=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Verify frozen TR1 contracts
+        run: >-
+          python -m pytest -q
+          tests/test_tr1_contract.py
+          tests/test_tr1_trait_transfer_engine.py
+          tests/test_tr1_gate.py
+          tests/test_tr1_odsp_adapter.py
+          tests/test_tr1_scripts.py
+          tests/test_tr1_workflow.py
+
+  replicate:
+    needs: precheck
+    if: needs.precheck.outputs.authorized == 'true'
+    strategy:
+      fail-fast: false
+      max-parallel: 32
+      matrix:
+        world: [positive, null]
+        replicate: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install package
+        run: python -m pip install -e .
+      - name: Run frozen TR1 replicate
+        run: |
+          mkdir -p artifacts
+          python scripts/run_tr1_replicate.py             --world ${{ matrix.world }}             --replicate ${{ matrix.replicate }}             --output artifacts/tr1-${{ matrix.world }}-${{ matrix.replicate }}.json
+      - name: Upload TR1 shard
+        uses: actions/upload-artifact@v4
+        with:
+          name: tr1-${{ matrix.world }}-${{ matrix.replicate }}-${{ github.run_id }}
+          path: artifacts/tr1-${{ matrix.world }}-${{ matrix.replicate }}.json
+          if-no-files-found: error
+          retention-days: 90
+
+  aggregate:
+    needs: [precheck, replicate]
+    if: always() && needs.precheck.outputs.authorized == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install package
+        run: python -m pip install -e .
+      - name: Download TR1 shards
+        uses: actions/download-artifact@v4
+        with:
+          pattern: tr1-*-${{ github.run_id }}
+          path: artifacts/shards
+          merge-multiple: true
+      - name: Aggregate frozen TR1 result
+        id: aggregate
+        continue-on-error: true
+        run: |
+          mkdir -p artifacts
+          python scripts/aggregate_tr1.py             --shard-dir artifacts/shards             --output artifacts/TR1_RESULT_V1.json
+      - name: Export PASS result to ODSP-compatible bundle
+        if: always()
+        run: |
+          if python - <<'PY'
+          import json
+          from pathlib import Path
+          result = json.loads(Path("artifacts/TR1_RESULT_V1.json").read_text())
+          raise SystemExit(0 if result.get("status") == "PASS" else 1)
+          PY
+          then
+            python scripts/export_tr1_odsp_transfer.py               --result artifacts/TR1_RESULT_V1.json               --out-dir artifacts/odsp-transfer
+          fi
+      - name: Upload frozen TR1 result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tr1-result-${{ github.run_id }}
+          path: |
+            artifacts/TR1_RESULT_V1.json
+            artifacts/odsp-transfer/
+          if-no-files-found: error
+          retention-days: 90
+      - name: Preserve scientific FAIL as workflow failure
+        if: steps.aggregate.outcome == 'failure'
+        run: exit 1
