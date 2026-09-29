@@ -211,5 +211,6 @@ def test_reduced_endpoint_removes_direct_state_calibration_without_threshold_rel
     assert claims["e2_rescue"] is False
 
     execution = reduced["execution"]
-    assert execution["reduced_fixture_capture_authorized_now"] is False\n    assert execution["reduced_fixture_capture_consumed"] is True
+    assert execution["reduced_fixture_capture_authorized_now"] is False
+    assert execution["reduced_fixture_capture_consumed"] is True
     assert execution["exploratory_model_fit_authorized_now"] is False
