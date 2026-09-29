@@ -1,0 +1,47 @@
+name: odsp-information-axis-capability
+
+on:
+  pull_request:
+    paths:
+      - 'ODSP_INFORMATION_AXIS_CAPABILITY_CONTRACT_V1.json'
+      - 'scripts/build_odsp_information_axis_capability.py'
+      - 'tests/test_odsp_information_axis_capability.py'
+      - 'ODSP_INFORMATION_AXIS_CAPABILITY_RECEIPT_V1.json'
+      - 'tests/test_odsp_information_axis_capability_receipt.py'
+      - 'docs/integration/ODSP_INFORMATION_AXIS_CAPABILITY.md'
+      - '.github/workflows/odsp-information-axis-capability.yml'
+      - 'ODSP_TRANSFER_SOURCE_REGISTRY_V1.json'
+      - 'ODSP_TRANSFER_EVIDENCE_PORTFOLIO_V1.json'
+      - 'ODSP_TRANSFER_EVIDENCE_LEDGER_RECEIPT_V2.json'
+      - 'ODSP_LATTICE_READY_RESULT_PROTOCOL_V1.json'
+      - 'ODSP_LATTICE_READY_E2E_RESULT_V1.json'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install test dependencies
+        run: python -m pip install -e '.[dev]'
+      - name: Validate capability matrix and frozen receipt
+        run: >-
+          python -m pytest -q
+          tests/test_odsp_information_axis_capability.py
+          tests/test_odsp_information_axis_capability_receipt.py
+      - name: Build canonical capability matrix
+        run: |
+          mkdir -p build
+          python scripts/build_odsp_information_axis_capability.py             --out build/ODSP_INFORMATION_AXIS_CAPABILITY_V1.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: odsp-information-axis-capability-v1
+          path: build/ODSP_INFORMATION_AXIS_CAPABILITY_V1.json
+          if-no-files-found: error
+          retention-days: 90
