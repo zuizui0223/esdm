@@ -1,7 +1,12 @@
 """Generative model composition."""
 
 from .arrays import ContextArray, ContextStateArray, LatentFieldArrays
-from .compact import (\n    StructuralExposureCompaction,\n    compact_model_by_structural_exposure,\n    structural_exposure_keys,\n)\nfrom .compose import (
+from .compact import (
+    StructuralExposureCompaction,
+    compact_model_by_structural_exposure,
+    structural_exposure_keys,
+)
+from .compose import (
     CyclicProcessDependencyError,
     DesignReport,
     DesignUninformedError,
@@ -11,7 +16,10 @@ from .compact import (\n    StructuralExposureCompaction,\n    compact_model_by_
 )
 
 __all__ = [
-    "StructuralExposureCompaction",\n    "compact_model_by_structural_exposure",\n    "structural_exposure_keys",\n    "ContextArray",
+    "StructuralExposureCompaction",
+    "compact_model_by_structural_exposure",
+    "structural_exposure_keys",
+    "ContextArray",
     "ContextStateArray",
     "LatentFieldArrays",
     "CyclicProcessDependencyError",
