@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "receipt_id": "e3-mica-reduced-terminal-timeout-v1",
+  "validated_date": "2026-09-29",
+  "programme_id": "E3_MICA_EXP",
+  "endpoint_id": "E3_MICA_REDUCED_NO_DIRECT_STATE_CALIBRATION",
+  "fit_contract": "docs/replication/E3_MICA_REDUCED_FIT_CONTRACT.json",
+  "authorization": {
+    "branch": "explore/e3-mica-reduced-fit-run-v1",
+    "head_sha": "65300be9ab5ea25cbd321011c6e4ca1db7efc5f3",
+    "workflow_run_id": 36522315963,
+    "run_attempt": 1,
+    "workflow_status": "completed",
+    "workflow_conclusion": "cancelled"
+  },
+  "failure": {
+    "class": "INFRASTRUCTURE_TIMEOUT",
+    "job_id": 109257663575,
+    "job_name": "fit",
+    "fit_step_number": 8,
+    "fit_step_name": "Run frozen reduced exploratory three-fit endpoint",
+    "fit_step_conclusion": "cancelled",
+    "fit_step_started_at_utc": "2026-09-29T04:38:26.1270716Z",
+    "fit_step_stopped_at_utc": "2026-09-29T08:38:18.5658571Z",
+    "fit_step_elapsed_seconds": 14392.4387855,
+    "workflow_timeout_minutes": 240,
+    "log_error": "The operation was canceled.",
+    "result_upload_step_number": 9,
+    "result_upload_conclusion": "failure",
+    "canonical_result_artifact_count": 0,
+    "reason": "The frozen three-fit process occupied the GitHub Actions job until the 240-minute job timeout and was cancelled before writing the canonical result file."
+  },
+  "frozen_import": {
+    "workflow_run_id": 36543994633,
+    "workflow_conclusion": "success",
+    "artifact_id": 11021587199,
+    "artifact_name": "e3-mica-reduced-frozen-import-v1",
+    "artifact_digest": "sha256:08c4515307fc7a8b7bab6c63093a6a9e36272531dca599f4d6561836b0ad40ee",
+    "artifact_status": "E3_EXPLORATORY_INFRASTRUCTURE_STOP"
+  },
+  "scientific_result": {
+    "available": false,
+    "activity_gain": null,
+    "state_gain": null,
+    "full_heldout_log_score": null,
+    "activity_knockout_heldout_log_score": null,
+    "state_knockout_heldout_log_score": null,
+    "full_divergences": null,
+    "activity_knockout_divergences": null,
+    "state_knockout_divergences": null,
+    "sampling_gate_evaluated": false,
+    "sampling_gate_passed": null,
+    "heldout_scores_serialized": false,
+    "heldout_rows_serialized": 0
+  },
+  "fixture_integrity": {
+    "prefit_qualified": true,
+    "heldout_deployments_expected": 733,
+    "capture_fixture_fingerprint_sha256": "2876b9f85bb34ddb600c39cd412fe196b3c78f47fa7306bca63c30245d740a23",
+    "capture_artifact_digest": "sha256:136879b419f8ae754b41d19db1052fde29fa5405f2a2cc50bd0116a6b5a72c93",
+    "terminal_result_row_count_verified": false,
+    "terminal_result_fixture_fingerprint_verified": false,
+    "reason": "The frozen fixture and capture identity passed before fitting, but no canonical terminal result file existed on which to verify the 733 serialized rows or echoed fingerprint."
+  },
+  "terminal_rule": {
+    "same_programme_rerun_allowed": false,
+    "retuning_allowed": false,
+    "replacement_fit_authorized": false,
+    "odsp_audit_authorized": false,
+    "population_transfer_value_authorized": false,
+    "scientific_fail_interpretation_authorized": false
+  },
+  "interpretation": {
+    "supported": [
+      "the one authorized E3 reduced execution ended in an infrastructure timeout before a canonical scientific result was written",
+      "the frozen reduced fixture identity was intact at fit entry",
+      "E3 terminates without an activity/state transfer estimate under the frozen no-rerun rule"
+    ],
+    "not_supported": [
+      "activity_gain is zero or negative",
+      "state_gain is zero or negative",
+      "the sampling gate failed after completed fitting",
+      "the 733 heldout rows were serialized successfully",
+      "a replacement or retuned E3 fit"
+    ]
+  }
+}
