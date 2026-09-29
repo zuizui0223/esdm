@@ -44,7 +44,10 @@ def main() -> int:
         "programme_id": "E3_MICA_EXP",
         "source_archive_sha256": hashlib.sha256(args.archive.read_bytes()).hexdigest(),
     }
-    if reduced["status"] != "FROZEN_POST_FULL_CAPTURE_STOP_FIT_NOT_AUTHORIZED":
+    if reduced["status"] not in {
+        "FROZEN_POST_FULL_CAPTURE_STOP_FIT_NOT_AUTHORIZED",
+        "REDUCED_FIXTURE_QUALIFIED_FIT_NOT_AUTHORIZED",
+    }:
         raise SystemExit("E3 reduced endpoint contract is not frozen pre-fit")
     if reduced["execution"]["exploratory_model_fit_authorized_now"] is not False:
         raise SystemExit("E3 reduced capture must not authorize model fitting")
