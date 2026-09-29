@@ -9,7 +9,7 @@ from pathlib import Path
 
 
 CONTRACT_PATH = Path(__file__).resolve().parents[1] / "TR1_TRAIT_TRANSFER_CONTRACT_V1.json"
-FROZEN_CONTRACT_BLOB_SHA = "91114caab4713ae48ac2976a56935abfdbbf51a2"
+FROZEN_CONTRACT_BLOB_SHA = "abd3056006adf6c72d73188e8d43e5d9c8ff306a"
 
 
 def _git_blob_sha1(payload: bytes) -> str:
