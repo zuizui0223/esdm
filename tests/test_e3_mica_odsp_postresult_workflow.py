@@ -38,9 +38,13 @@ def test_e3_postresult_workflow_runs_two_parallel_odsp_audits_only_after_frozen_
     assert "0bd83e1ebb372c48839654ab0e42124fe37b8faf" in text
 
 
-def test_e3_postresult_workflow_does_not_create_n3_handoff_or_lattice():
+def test_e3_postresult_workflow_does_not_create_n3_handoff_or_run_lattice():
     text = _text()
 
     assert "build_population_transfer_value_handoff" not in text
     assert "odsp experimental" not in text
-    assert "lattice" not in text.lower()
+    assert '"odsp_lattice_authorized": False' in text
+    assert "audit_information_lattice" not in text
+    assert "certify_information_lattice" not in text
+    assert "build_odsp_lattice_ready_bundle" not in text
+    assert "lattice_scores.csv" not in text
