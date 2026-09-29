@@ -15,10 +15,13 @@ def test_tr1_workflow_requires_explicit_authorization_and_has_no_manual_dispatch
     text = _text()
 
     assert "TR1_RUN_AUTHORIZED" in text
-    assert "feature/tr1-trait-transfer-gate-clean" in text
-    assert "feature/tr1-trait-transfer-gate\n" not in text
+    assert "tr1/trait-transfer-run-v1" in text
+    assert "feature/tr1-trait-transfer-gate-clean" not in text
     assert "authorized == 'true'" in text
     assert "workflow_dispatch" not in text
+    assert "authorization commit must change only the marker" in text
+    assert "implementation_parent_sha" in text
+    assert "abd3056006adf6c72d73188e8d43e5d9c8ff306a" in text
 
 
 def test_tr1_precheck_does_not_execute_frozen_outcome():
@@ -49,3 +52,14 @@ def test_tr1_odsp_export_occurs_only_after_completed_aggregate_result():
     assert 'result.get("status") == "PASS"' in text
     assert "export_tr1_odsp_transfer.py" in text
     assert "Preserve scientific FAIL as workflow failure" in text
+
+
+def test_tr1_trigger_listens_only_to_marker_on_dedicated_run_branch():
+    text = _text()
+    trigger = text.split("\npermissions:\n", 1)[0]
+
+    assert "tr1/trait-transfer-run-v1" in trigger
+    assert "docs/validation/TR1_RUN_AUTHORIZED" in trigger
+    assert "TR1_TRAIT_TRANSFER_CONTRACT_V1.json" not in trigger
+    assert "src/esdm/validate/tr1_trait_transfer.py" not in trigger
+    assert "scripts/run_tr1_replicate.py" not in trigger

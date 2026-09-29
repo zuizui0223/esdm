@@ -1,19 +1,15 @@
 name: TR1 frozen trait-transfer one-shot
 
+concurrency:
+  group: tr1-trait-transfer-once
+  cancel-in-progress: false
+
 on:
   push:
     branches:
-      - feature/tr1-trait-transfer-gate-clean
+      - tr1/trait-transfer-run-v1
     paths:
       - 'docs/validation/TR1_RUN_AUTHORIZED'
-      - 'TR1_TRAIT_TRANSFER_CONTRACT_V1.json'
-      - 'src/esdm/validate/tr1_trait_transfer.py'
-      - 'src/esdm/validate/tr1_gate.py'
-      - 'src/esdm/transfer/odsp_adapter.py'
-      - 'scripts/run_tr1_replicate.py'
-      - 'scripts/aggregate_tr1.py'
-      - 'scripts/export_tr1_odsp_transfer.py'
-      - '.github/workflows/tr1-trait-transfer-once.yml'
 
 permissions:
   contents: read
@@ -26,19 +22,47 @@ jobs:
       authorized: ${{ steps.authorization.outputs.authorized }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - name: Install package
         run: python -m pip install -e '.[dev]'
-      - name: Check explicit TR1 authorization
+      - name: Verify pure one-shot TR1 authorization
         id: authorization
         run: |
-          if [ -f docs/validation/TR1_RUN_AUTHORIZED ]; then
-            echo "authorized=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "authorized=false" >> "$GITHUB_OUTPUT"
-          fi
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+
+          marker_path = Path("docs/validation/TR1_RUN_AUTHORIZED")
+          marker = json.loads(marker_path.read_text(encoding="utf-8"))
+          parent = subprocess.check_output(
+              ["git", "rev-parse", "HEAD^"], text=True
+          ).strip()
+          changed = subprocess.check_output(
+              ["git", "diff-tree", "--no-commit-id", "--name-only", "-r", "HEAD"],
+              text=True,
+          ).splitlines()
+
+          if changed != [marker_path.as_posix()]:
+              raise SystemExit("TR1 authorization commit must change only the marker")
+          if marker.get("implementation_parent_sha") != parent:
+              raise SystemExit("TR1 authorization parent mismatch")
+          if marker.get("programme_id") != "TR1_TRAIT_TRANSFER":
+              raise SystemExit("TR1 programme mismatch")
+          if marker.get("contract_id") != "esdm-tr1-trait-transfer-known-truth-v1":
+              raise SystemExit("TR1 contract id mismatch")
+          if marker.get("contract_blob_sha") != "abd3056006adf6c72d73188e8d43e5d9c8ff306a":
+              raise SystemExit("TR1 frozen contract blob mismatch")
+          if marker.get("one_shot") is not True:
+              raise SystemExit("TR1 authorization must be one-shot")
+          if marker.get("outcome_authorized") is not True:
+              raise SystemExit("TR1 outcome not explicitly authorized")
+          PY
+          echo "authorized=true" >> "$GITHUB_OUTPUT"
       - name: Verify frozen TR1 contracts
         run: >-
           python -m pytest -q
