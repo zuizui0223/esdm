@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "programme_id": "E3_MICA_EXP",
+  "endpoint_id": "E3_MICA_REDUCED_NO_DIRECT_STATE_CALIBRATION",
+  "contract_id": "e3-mica-exploratory-fit-v1",
+  "status": "FROZEN_PRE_FIT_NOT_AUTHORIZED",
+  "frozen_date": "2026-09-29",
+  "parent_contract": "docs/replication/E3_MICA_REDUCED_ENDPOINT_CONTRACT.json",
+  "classification": "exploratory_real_data_analysis",
+  "fixture_binding": {
+    "capture_workflow_run_id": 36399428007,
+    "capture_artifact_id": 10958744325,
+    "capture_artifact_digest": "sha256:136879b419f8ae754b41d19db1052fde29fa5405f2a2cc50bd0116a6b5a72c93",
+    "capture_result_sha256": "77f0286f1cc09ff03e0e53222c445316b961eef6ec0d5ceb505445dcff7d43be",
+    "fixture_fingerprint_sha256": "2876b9f85bb34ddb600c39cd412fe196b3c78f47fa7306bca63c30245d740a23",
+    "training_spaces": 805,
+    "heldout_spaces": 733,
+    "model_stream_names": [
+      "presence_opportunistic",
+      "presence_calibrated",
+      "annotated"
+    ],
+    "state_calibration_stream_present": false,
+    "state_calibration_rows_reused": false
+  },
+  "model_family": {
+    "fits": [
+      "full",
+      "activity_knockout",
+      "state_knockout"
+    ],
+    "suitability_activity_state_graph": "unchanged v0.4-R5b process graph",
+    "change_from_e2": "direct state_calibration observation stream absent only",
+    "focal_taxon": "Ondatra zibethicus",
+    "state_space": [
+      "solitary",
+      "group"
+    ],
+    "heldout_geometry": "strict east extrapolation after frozen metadata-only exclusion"
+  },
+  "mcmc": {
+    "num_warmup": 300,
+    "num_samples": 350,
+    "num_chains": 2,
+    "target_accept_probability": 0.9,
+    "rng_seed_full": 20260927,
+    "rng_seed_activity_knockout": 20260928,
+    "rng_seed_state_knockout": 20260929
+  },
+  "scoring": {
+    "row_unit": "one east-heldout deployment",
+    "full_heldout_log_score": "mean annotated-state log predictive density",
+    "activity_gain": "full - activity_knockout",
+    "state_gain": "full - state_knockout",
+    "same_scored_cells_across_models": true,
+    "zero_count_cells_retained": true,
+    "aggregate_tolerance": 1e-12
+  },
+  "sampling_gate": {
+    "total_divergences_required": 0,
+    "finite_heldout_scores_required": true,
+    "failure_status": "E3_EXPLORATORY_SAMPLING_STOP"
+  },
+  "interpretation": {
+    "positive_activity_gain": "exploratory predictive evidence for activity information in this repaired MICA endpoint",
+    "positive_state_gain": "exploratory predictive evidence for state information without independent direct state calibration",
+    "independently_calibrated_state_effect_authorized": false,
+    "confirmatory_replication_authorized": false,
+    "causal_claim_authorized": false,
+    "parameter_recovery_claim_authorized": false,
+    "e2_rescue_authorized": false
+  },
+  "one_shot_rule": {
+    "fit_requires_pure_authorization_marker": true,
+    "same_programme_rerun_allowed": false,
+    "threshold_retuning_after_fit_allowed": false,
+    "stream_retuning_after_fit_allowed": false,
+    "model_or_covariate_retuning_after_fit_allowed": false
+  },
+  "execution": {
+    "authorization_branch": "e3/mica-exploratory-fit-v1",
+    "authorization_marker": "docs/replication/E3_MICA_EXPLORATORY_FIT_AUTHORIZED.json",
+    "marker_must_be_newly_added_in_pure_commit": true,
+    "workflow_dispatch_enabled": false,
+    "exploratory_fit_authorized_now": false
+  }
+}
