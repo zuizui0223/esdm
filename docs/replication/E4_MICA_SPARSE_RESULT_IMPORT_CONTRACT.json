@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "programme_id": "E4_MICA_SPARSE_NUTS",
+  "contract_id": "e4-mica-exact-sparse-result-import-v1",
+  "status": "FROZEN_PRE_RESULT_IMPORT",
+  "frozen_date": "2026-09-30",
+  "fit_contract": "docs/replication/E4_MICA_SPARSE_FIT_CONTRACT.json",
+  "authorized_execution": {
+    "workflow_run_id": 36622802225,
+    "run_attempt": 1,
+    "authorization_head_sha": "8a1bd87733637494c89e03e389faf6b1c64605a0",
+    "authorization_branch": "e4/mica-sparse-fit-run-v1",
+    "expected_artifact_name": "e4-mica-sparse-result-36622802225",
+    "expected_result_filename": "E4_MICA_SPARSE_EMPIRICAL_RESULT.json"
+  },
+  "required_identity": {
+    "result_id": "e4-mica-exact-sparse-result-v1",
+    "programme_id": "E4_MICA_SPARSE_NUTS",
+    "endpoint_id": "E3_MICA_REDUCED_NO_DIRECT_STATE_CALIBRATION",
+    "fit_contract_id": "e4-mica-exact-sparse-fit-v1",
+    "qualification_result_sha256": "2a8ce70ce8eefbbd70a2cdeaa2f4fc558aa64ab061985c263c8d1656979d83ff",
+    "fixture_fingerprint_sha256": "2876b9f85bb34ddb600c39cd412fe196b3c78f47fa7306bca63c30245d740a23"
+  },
+  "accepted_statuses": [
+    "E4_SPARSE_EMPIRICAL_RESULT",
+    "E4_SPARSE_SAMPLING_STOP",
+    "E4_SPARSE_EXECUTION_STOP",
+    "E4_SPARSE_EXECUTION_STARTED"
+  ],
+  "scored_result_checks": {
+    "heldout_row_count": 733,
+    "absolute_score_fields": [
+      "full_heldout_log_score",
+      "activity_knockout_heldout_log_score",
+      "state_knockout_heldout_log_score"
+    ],
+    "aggregate_absolute_tolerance": 1e-12,
+    "gain_identity_absolute_tolerance": 1e-12,
+    "unique_deployment_ids_required": true,
+    "finite_absolute_scores_required": true,
+    "compaction": {
+      "training_compact_contexts": 11531,
+      "training_retained_keys_sha256": "41bd70aa1f913bcb1c988f6c5cdae3441ed978d4ee0f6791bcfc497290710646",
+      "heldout_compact_contexts": 10168,
+      "heldout_retained_keys_sha256": "0ed3fb9e96b1323a4290b7cb92621d219e317b8b916201a1b2665db4a272b1d9"
+    }
+  },
+  "workflow_conclusion_rules": {
+    "E4_SPARSE_EMPIRICAL_RESULT": [
+      "success"
+    ],
+    "E4_SPARSE_SAMPLING_STOP": [
+      "failure"
+    ],
+    "E4_SPARSE_EXECUTION_STOP": [
+      "failure"
+    ],
+    "E4_SPARSE_EXECUTION_STARTED": [
+      "cancelled",
+      "timed_out",
+      "failure"
+    ]
+  },
+  "interpretation_boundary": {
+    "confirmatory_replication_claim": false,
+    "e3_rescue_claim": false,
+    "causal_claim": false,
+    "parameter_recovery_claim": false,
+    "same_programme_rerun_allowed": false,
+    "laplace_or_inla_authorized": false,
+    "positive_gain_interpretation": "exploratory descriptive predictive evidence only"
+  },
+  "import_rule": {
+    "result_values_may_not_change": true,
+    "failed_negative_or_timeout_result_must_be_frozen": true,
+    "artifact_provenance_required": true,
+    "post_result_threshold_retuning_allowed": false,
+    "post_result_stream_retuning_allowed": false,
+    "backend_switch_within_e4_allowed": false
+  }
+}
