@@ -59,7 +59,21 @@ Trait gain is their difference.
 - null base seed 20262101;
 - stride 97.
 
+## Oracle calibration
+
+Before any stochastic outcome was opened, the frozen known-truth design implies
+an expected held-out trait information gain of approximately
+
+0.06306753955889005 nats per held-out context
+
+in the positive world and exactly 0 in the null world.
+
+The positive-world gate threshold of 0.03 therefore requires recovery of roughly
+half of the known-truth oracle trait information rather than merely any positive
+gain.
+
 ## Frozen positive-world gate
+
 
 - mean trait gain >= 0.03;
 - positive gain rate >= 0.75;
