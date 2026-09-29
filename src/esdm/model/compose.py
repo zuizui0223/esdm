@@ -7,7 +7,7 @@ from types import MappingProxyType
 from collections.abc import Mapping
 import math
 
-from esdm.domain import Grid
+from esdm.domain import ExplicitGrid, Grid
 from esdm.process.base import ProcessContribution
 from .arrays import ContextArray, ContextStateArray, LatentFieldArrays
 
@@ -185,7 +185,7 @@ class LatentFields:
 
 @dataclass(frozen=True, slots=True)
 class Model:
-    domain: Grid
+    domain: Grid | ExplicitGrid
     species: Mapping[str, tuple[object, ...]]
     streams: tuple[object, ...]
 
