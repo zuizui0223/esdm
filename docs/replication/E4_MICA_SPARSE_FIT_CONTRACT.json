@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "programme_id": "E4_MICA_SPARSE_NUTS",
+  "contract_id": "e4-mica-exact-sparse-fit-v1",
+  "status": "FROZEN_FIT_NOT_AUTHORIZED",
+  "frozen_date": "2026-09-30",
+  "parent_contract": "docs/replication/E4_MICA_SPARSE_NUTS_CONTRACT.json",
+  "qualification": {
+    "workflow_run_id": 36621160011,
+    "run_attempt": 1,
+    "authorization_head_sha": "b8df75b7b43258cf57922d6fc09cbca7e057055e",
+    "artifact_id": 11058179352,
+    "artifact_name": "e4-mica-sparse-qualification-36621160011",
+    "artifact_digest": "sha256:07afb1d5e41c4515148a5c0c9bea2ac1f3c8a6ad9278e9ba8e504c8d0a583631",
+    "result_filename": "E4_MICA_SPARSE_QUALIFICATION_RESULT.json",
+    "result_sha256": "2a8ce70ce8eefbbd70a2cdeaa2f4fc558aa64ab061985c263c8d1656979d83ff",
+    "required_status": "E4_SPARSE_QUALIFIED",
+    "required_fixture_fingerprint_sha256": "2876b9f85bb34ddb600c39cd412fe196b3c78f47fa7306bca63c30245d740a23"
+  },
+  "immutable_source": {
+    "e2_capture_workflow_run_id": 36369531079,
+    "e2_capture_artifact_id": 10947948379,
+    "source_archive_sha256": "8346f3fe467a201525d6bedd4ebd6e2078457ee8bb778501d41d55ace7d962c9",
+    "e3_reduced_capture_workflow_run_id": 36399428007,
+    "e3_reduced_capture_artifact_id": 10958744325,
+    "e3_reduced_capture_result_sha256": "77f0286f1cc09ff03e0e53222c445316b961eef6ec0d5ceb505445dcff7d43be"
+  },
+  "exact_compaction": {
+    "training_dense_contexts": 615020,
+    "training_compact_contexts": 11531,
+    "training_retained_keys_sha256": "41bd70aa1f913bcb1c988f6c5cdae3441ed978d4ee0f6791bcfc497290710646",
+    "heldout_dense_contexts": 560012,
+    "heldout_compact_contexts": 10168,
+    "heldout_retained_keys_sha256": "0ed3fb9e96b1323a4290b7cb92621d219e317b8b916201a1b2665db4a272b1d9",
+    "posterior_target_changed": false,
+    "approximation_introduced": false
+  },
+  "scientific_endpoint": {
+    "endpoint_id": "E3_MICA_REDUCED_NO_DIRECT_STATE_CALIBRATION",
+    "model_generation": "v0.4-R5b",
+    "focal_taxon": "Ondatra zibethicus",
+    "retained_streams": [
+      "presence_opportunistic",
+      "presence_calibrated",
+      "annotated"
+    ],
+    "state_calibration_stream_present": false,
+    "priors_covariates_likelihoods_partition_unchanged": true
+  },
+  "fit": {
+    "backend": "NumPyro NUTS",
+    "fits": [
+      "full",
+      "activity_knockout",
+      "state_knockout"
+    ],
+    "num_warmup": 300,
+    "num_samples": 350,
+    "num_chains": 2,
+    "target_accept_probability": 0.9,
+    "rng_seed_full": 20260927,
+    "rng_seed_activity_knockout": 20260928,
+    "rng_seed_state_knockout": 20260929,
+    "same_captured_response_for_all_three_fits": true
+  },
+  "outputs": {
+    "result_id": "e4-mica-exact-sparse-result-v1",
+    "absolute_scores_required": [
+      "full_heldout_log_score",
+      "activity_knockout_heldout_log_score",
+      "state_knockout_heldout_log_score"
+    ],
+    "derived_gains": [
+      "activity_gain = full - activity_knockout",
+      "state_gain = full - state_knockout"
+    ],
+    "heldout_row_unit": "one east-heldout deployment",
+    "heldout_row_count": 733,
+    "row_level_absolute_scores_required": true,
+    "equal_weight_row_mean_must_match_aggregate_score": true,
+    "aggregate_tolerance": 1e-12
+  },
+  "decision": {
+    "sampling_pass": "all three fits complete with zero total divergences and finite heldout scores",
+    "activity_support": "descriptive sign only: activity_gain > 0",
+    "state_support": "descriptive sign only: state_gain > 0",
+    "minimum_effect_size_threshold": null,
+    "confirmatory_replication_claim": false,
+    "e3_rescue_claim": false,
+    "causal_claim": false,
+    "parameter_recovery_claim": false,
+    "negative_or_zero_gain_is_terminal_non_support": true
+  },
+  "execution_safety": {
+    "prewrite_result_before_mcmc": true,
+    "prewrite_status": "E4_SPARSE_EXECUTION_STARTED",
+    "timeout_or_external_kill_must_leave_prewrite_artifact": true,
+    "no_result_artifact_must_fail_closed": true,
+    "same_programme_rerun_allowed": false,
+    "post_outcome_retuning_allowed": false,
+    "laplace_or_inla_backend_authorized_now": false
+  },
+  "execution": {
+    "fit_authorized_now": false,
+    "authorization_branch": "e4/mica-sparse-fit-run-v1",
+    "authorization_marker": "docs/replication/E4_MICA_SPARSE_FIT_AUTHORIZED.json",
+    "authorization_requires_new_pure_marker_commit": true,
+    "one_authorized_run": true,
+    "workflow_dispatch_enabled": false
+  }
+}
