@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "programme_id": "E3_MICA_EXP",
+  "endpoint_id": "E3_MICA_REDUCED_NO_DIRECT_STATE_CALIBRATION",
+  "fit_contract": "docs/replication/E3_MICA_REDUCED_FIT_CONTRACT.json",
+  "implementation_parent_sha": "a7d90239936adaff43737d983c2f423c96684e7b",
+  "one_shot": true,
+  "fit_authorized": true,
+  "authorization_date": "2026-09-29",
+  "response_reopened": false,
+  "e2_rescue": false,
+  "scientific_thresholds_changed": false,
+  "mcmc_settings_changed": false,
+  "model_structure_changed": false
+}
