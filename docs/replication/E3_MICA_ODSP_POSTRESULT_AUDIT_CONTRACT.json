@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "contract_id": "e3-mica-odsp-postresult-audit-v1",
+  "frozen_date": "2026-09-29",
+  "status": "FROZEN_BEFORE_E3_RESULT_IMPORT",
+  "source": {
+    "frozen_receipt_path": "docs/replication/E3_MICA_REDUCED_FROZEN_RESULT.json",
+    "raw_result_filename": "E3_MICA_REDUCED_EMPIRICAL_RESULT.json",
+    "required_result_id": "e3-mica-reduced-frozen-result-v1",
+    "required_programme_id": "E3_MICA_EXP",
+    "required_status": "E3_EXPLORATORY_RESULT",
+    "required_sampling_gate_passed": true,
+    "required_heldout_row_count": 733,
+    "result_import_contract": "docs/replication/E3_MICA_REDUCED_RESULT_IMPORT_CONTRACT.json",
+    "serialization_contract": "docs/replication/E3_MICA_ODSP_SERIALIZATION_CONTRACT.json"
+  },
+  "odsp": {
+    "repository": "zuizui0223/odsp",
+    "pinned_commit": "0bd83e1ebb372c48839654ab0e42124fe37b8faf",
+    "command": "odsp transfer",
+    "activity_endpoint_id": "esdm_e3_mica_activity_transfer_v1",
+    "state_endpoint_id": "esdm_e3_mica_state_transfer_v1"
+  },
+  "row_semantics": {
+    "endpoint_group": "MICA_MUSKRAT",
+    "independent_group_count": 1,
+    "block_field": "deploymentID",
+    "expected_block_count": 733,
+    "population_superpopulation_authorized": false
+  },
+  "parallel_transfers": {
+    "activity": {
+      "lower_level": "suitability_state",
+      "upper_level": "suitability_state_activity",
+      "lower_score_field": "activity_knockout_heldout_log_score",
+      "upper_score_field": "full_heldout_log_score"
+    },
+    "state": {
+      "lower_level": "suitability_activity",
+      "upper_level": "suitability_activity_state",
+      "lower_score_field": "state_knockout_heldout_log_score",
+      "upper_score_field": "full_heldout_log_score"
+    }
+  },
+  "audit_outputs": {
+    "per_transfer": [
+      "point_mean_gain",
+      "point_transfer_ceiling",
+      "certified_category",
+      "certified_group_status",
+      "certified_lower_bound",
+      "certified_upper_bound",
+      "certified_transfer_ceiling",
+      "block_count",
+      "row_count"
+    ],
+    "population_result_may_be_serialized_by_odsp": true,
+    "population_result_scientific_use_authorized": false,
+    "n3_transfer_value_handoff_authorized": false
+  },
+  "ordering_boundary": {
+    "natural_order_between_activity_and_state": false,
+    "combined_three_level_filtration_authorized": false,
+    "odsp_lattice_authorized": false,
+    "best_order_selection_authorized": false
+  },
+  "interpretation": {
+    "allowed": [
+      "exploratory held-out predictive information from activity conditional on state",
+      "exploratory held-out predictive information from state conditional on activity",
+      "within-endpoint block-resampling uncertainty over 733 heldout deployments"
+    ],
+    "forbidden": [
+      "superpopulation mean value across biological systems",
+      "N3 transfer-value payload",
+      "causal activity effect",
+      "causal state effect",
+      "independently calibrated state effect",
+      "E2 rescue",
+      "confirmatory replication",
+      "ordered activity-then-state or state-then-activity ladder"
+    ]
+  },
+  "execution": {
+    "trigger": "first addition of canonical frozen E3 result receipt on main",
+    "workflow_dispatch_enabled": false,
+    "same_result_reaudit_with_changed_odsp_commit_allowed": false,
+    "result_signs_or_thresholds_predeclared": false
+  }
+}
