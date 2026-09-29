@@ -1,0 +1,99 @@
+name: E3 MICA reduced exploratory fit once
+
+concurrency:
+  group: e3-mica-reduced-fit-once
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - explore/e3-mica-reduced-fit-run-v1
+    paths:
+      - 'docs/replication/E3_MICA_REDUCED_FIT_AUTHORIZED.json'
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  fit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify pure E3 reduced-fit authorization commit
+        run: |
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+
+          marker_path = Path("docs/replication/E3_MICA_REDUCED_FIT_AUTHORIZED.json")
+          marker = json.loads(marker_path.read_text(encoding="utf-8"))
+          parent = subprocess.check_output(
+              ["git", "rev-parse", "HEAD^"], text=True
+          ).strip()
+          if marker["implementation_parent_sha"] != parent:
+              raise SystemExit("E3 reduced-fit authorization parent mismatch")
+          changed = subprocess.check_output(
+              ["git", "diff-tree", "--no-commit-id", "--name-only", "-r", "HEAD"],
+              text=True,
+          ).splitlines()
+          if changed != [marker_path.as_posix()]:
+              raise SystemExit("E3 reduced-fit authorization must be a pure marker commit")
+          if marker["programme_id"] != "E3_MICA_EXP":
+              raise SystemExit("E3 programme mismatch")
+          if marker["endpoint_id"] != "E3_MICA_REDUCED_NO_DIRECT_STATE_CALIBRATION":
+              raise SystemExit("E3 endpoint mismatch")
+          if marker["fit_contract"] != (
+              "docs/replication/E3_MICA_REDUCED_FIT_CONTRACT.json"
+          ):
+              raise SystemExit("E3 fit-contract binding mismatch")
+          if marker["one_shot"] is not True or marker["fit_authorized"] is not True:
+              raise SystemExit("E3 reduced fit was not explicitly authorized")
+          PY
+
+      - name: Install package and verify frozen fit contract
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e '.[dev,inference]'
+          python -m pytest -q             tests/test_e3_mica_exploratory.py             tests/test_e3_mica_reduced_fit_contract.py             tests/test_e3_mica_reduced_fit_workflow.py
+
+      - name: Download immutable E2 capture
+        uses: actions/download-artifact@v4
+        with:
+          name: e2-mica-full-response-capture-36369531079
+          path: captured/e2
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36369531079
+
+      - name: Download qualified E3 reduced capture receipt
+        uses: actions/download-artifact@v4
+        with:
+          name: e3-mica-exploratory-capture-36399428007
+          path: captured/e3
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36399428007
+
+      - name: Run frozen reduced exploratory three-fit endpoint
+        run: |
+          mkdir -p build/e3/result
+          python scripts/fit_e3_mica_reduced.py             --archive captured/e2/build/e2/source/mica-v3.zip             --climate captured/e2/frozen-climate/E2_MICA_WORLDCLIM_RESULT.json             --capture captured/e3/E3_MICA_EXPLORATORY_CAPTURE_RESULT.json             --out build/e3/result/E3_MICA_REDUCED_EMPIRICAL_RESULT.json
+
+      - name: Upload E3 reduced exploratory result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e3-mica-reduced-result-${{ github.run_id }}
+          path: build/e3/result/E3_MICA_REDUCED_EMPIRICAL_RESULT.json
+          if-no-files-found: error
+          retention-days: 90

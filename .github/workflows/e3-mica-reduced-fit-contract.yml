@@ -1,0 +1,36 @@
+name: E3 MICA reduced fit contract
+
+on:
+  pull_request:
+    paths:
+      - 'docs/replication/E3_MICA_REDUCED_FIT_CONTRACT.json'
+      - 'scripts/fit_e3_mica_reduced.py'
+      - 'tests/test_e3_mica_reduced_fit_contract.py'
+      - 'tests/test_e3_mica_reduced_fit_workflow.py'
+      - '.github/workflows/e3-mica-reduced-fit-once.yml'
+      - '.github/workflows/e3-mica-reduced-fit-contract.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install package
+        run: python -m pip install -e '.[dev]'
+      - name: Validate frozen E3 reduced-fit implementation without fitting
+        run: >-
+          python -m pytest -q
+          tests/test_e3_mica_reduced_fit_contract.py
+          tests/test_e3_mica_reduced_fit_workflow.py
+      - name: Compile fit runner
+        run: python -m py_compile scripts/fit_e3_mica_reduced.py
+      - name: Confirm fit workflow has no manual dispatch
+        run: |
+          ! grep -q "workflow_dispatch" .github/workflows/e3-mica-reduced-fit-once.yml

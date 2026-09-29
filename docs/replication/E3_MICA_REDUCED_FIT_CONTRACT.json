@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "programme_id": "E3_MICA_EXP",
+  "contract_id": "e3-mica-reduced-exploratory-fit-v1",
+  "status": "FROZEN_FIT_NOT_AUTHORIZED",
+  "frozen_date": "2026-09-29",
+  "parent_contracts": [
+    "docs/replication/E3_MICA_EXPLORATORY_CONTRACT.json",
+    "docs/replication/E3_MICA_REDUCED_ENDPOINT_CONTRACT.json",
+    "docs/replication/E2_MICA_FULL_RESPONSE_CONTRACT.json"
+  ],
+  "source": {
+    "immutable_e2_capture_workflow_run_id": 36369531079,
+    "immutable_e2_capture_artifact_id": 10947948379,
+    "source_archive_sha256": "8346f3fe467a201525d6bedd4ebd6e2078457ee8bb778501d41d55ace7d962c9",
+    "e3_capture_workflow_run_id": 36399428007,
+    "e3_capture_artifact_id": 10958744325,
+    "e3_capture_artifact_digest": "sha256:136879b419f8ae754b41d19db1052fde29fa5405f2a2cc50bd0116a6b5a72c93",
+    "e3_capture_result_sha256": "77f0286f1cc09ff03e0e53222c445316b961eef6ec0d5ceb505445dcff7d43be",
+    "required_capture_status": "E3_REDUCED_FIXTURE_QUALIFIED",
+    "required_fixture_fingerprint_sha256": "2876b9f85bb34ddb600c39cd412fe196b3c78f47fa7306bca63c30245d740a23"
+  },
+  "fixture": {
+    "endpoint_id": "E3_MICA_REDUCED_NO_DIRECT_STATE_CALIBRATION",
+    "training_deployments": 805,
+    "heldout_deployments": 733,
+    "training_ids_sha256": "a1e08526edb3d1f329fc7a4e9a2efa2bc4dc50313b393026a429f3a87d57f566",
+    "heldout_ids_sha256": "1b942bba9251172b874bb162fbe29347171a144695a39f033f094edae5ec62e3",
+    "state_calibration_stream_present": false,
+    "state_calibration_rows_reused": false,
+    "training_roles_reassigned": false
+  },
+  "fit": {
+    "implementation": "reuse esdm.validate.e2_mica_fit.fit_e2_mica_empirical on the reduced E3 fixture",
+    "fits": [
+      "full",
+      "activity_knockout",
+      "state_knockout"
+    ],
+    "num_warmup": 300,
+    "num_samples": 350,
+    "num_chains": 2,
+    "target_accept_probability": 0.9,
+    "rng_seed_full": 20260927,
+    "rng_seed_activity_knockout": 20260928,
+    "rng_seed_state_knockout": 20260929,
+    "same_captured_response_for_all_three_fits": true
+  },
+  "outputs": {
+    "absolute_scores_required": [
+      "full_heldout_log_score",
+      "activity_knockout_heldout_log_score",
+      "state_knockout_heldout_log_score"
+    ],
+    "derived_descriptive_gains": [
+      "activity_gain = full - activity_knockout",
+      "state_gain = full - state_knockout"
+    ],
+    "heldout_row_unit": "one east-heldout deployment",
+    "heldout_row_count": 733,
+    "row_level_absolute_scores_required": true,
+    "equal_weight_row_mean_must_match_aggregate_score": true,
+    "aggregate_tolerance": 1e-12
+  },
+  "decision": {
+    "sampling_pass": "all three fits complete with zero total divergences and finite heldout scores",
+    "activity_support": "descriptive sign only: activity_gain > 0",
+    "state_support": "descriptive sign only: state_gain > 0",
+    "minimum_effect_size_threshold": null,
+    "confirmatory_replication_claim": false,
+    "e2_rescue": false,
+    "causal_claim": false,
+    "parameter_recovery_claim": false
+  },
+  "odsp_readiness": {
+    "allowed_after_completed_fit": true,
+    "result_role": "exploratory_real_data_transfer_audit",
+    "activity_information_pair": [
+      [
+        "suitability",
+        "state"
+      ],
+      [
+        "suitability",
+        "state",
+        "activity"
+      ]
+    ],
+    "state_information_pair": [
+      [
+        "suitability",
+        "activity"
+      ],
+      [
+        "suitability",
+        "activity",
+        "state"
+      ]
+    ],
+    "absolute_score_reconstruction_from_gains_allowed": false,
+    "odsp_result_cannot_change_e3_descriptive_fit_result": true
+  },
+  "execution": {
+    "fit_authorized_now": false,
+    "authorization_marker": "docs/replication/E3_MICA_REDUCED_FIT_AUTHORIZED.json",
+    "authorization_requires_new_pure_marker_commit": true,
+    "one_authorized_run": true,
+    "workflow_dispatch_enabled": false,
+    "same_programme_rerun_allowed": false,
+    "authorization_branch": "explore/e3-mica-reduced-fit-run-v1"
+  }
+}
