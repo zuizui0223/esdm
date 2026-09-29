@@ -2,7 +2,7 @@
   "schema_version": 1,
   "programme_id": "E3_MICA_EXP",
   "endpoint_id": "E3_MICA_REDUCED_NO_DIRECT_STATE_CALIBRATION",
-  "status": "FROZEN_POST_FULL_CAPTURE_STOP_FIT_NOT_AUTHORIZED",
+  "status": "REDUCED_FIXTURE_QUALIFIED_FIT_NOT_AUTHORIZED",
   "frozen_date": "2026-09-28",
   "parent_contract": "docs/replication/E3_MICA_EXPLORATORY_CONTRACT.json",
   "full_endpoint_stop": {
@@ -77,9 +77,27 @@
     "e2_rescue": false
   },
   "execution": {
-    "reduced_fixture_capture_authorized_now": true,
+    "reduced_fixture_capture_authorized_now": false,
     "exploratory_model_fit_authorized_now": false,
     "fit_requires_separate_pure_authorization_marker": true,
-    "post_fit_threshold_or_stream_retuning_allowed": false
+    "post_fit_threshold_or_stream_retuning_allowed": false,
+    "reduced_fixture_capture_consumed": true
+  },
+  "reduced_fixture_capture_result": {
+    "status": "E3_REDUCED_FIXTURE_QUALIFIED",
+    "workflow_run_id": 36399428007,
+    "workflow_job_id": 108853500962,
+    "artifact_id": 10958744325,
+    "artifact_name": "e3-mica-exploratory-capture-36399428007",
+    "artifact_digest": "sha256:136879b419f8ae754b41d19db1052fde29fa5405f2a2cc50bd0116a6b5a72c93",
+    "result_sha256": "77f0286f1cc09ff03e0e53222c445316b961eef6ec0d5ceb505445dcff7d43be",
+    "fixture_fingerprint_sha256": "2876b9f85bb34ddb600c39cd412fe196b3c78f47fa7306bca63c30245d740a23",
+    "training_spaces": 805,
+    "heldout_spaces": 733,
+    "model_stream_names": [
+      "presence_opportunistic",
+      "presence_calibrated",
+      "annotated"
+    ]
   }
 }
