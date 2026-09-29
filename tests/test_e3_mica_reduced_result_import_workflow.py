@@ -9,30 +9,43 @@ def _text() -> str:
     return WORKFLOW.read_text(encoding="utf-8")
 
 
-def test_e3_result_import_is_bound_to_completed_fit_workflow_only():
+def test_e3_result_import_catches_completion_and_merge_time_race():
     text = _text()
 
     assert "workflow_run:" in text
     assert "E3 MICA reduced exploratory fit once" in text
-    assert "types:" in text
     assert "- completed" in text
+    assert "push:" in text
+    assert ".github/workflows/e3-mica-reduced-result-import.yml" in text
     assert "workflow_dispatch" not in text
 
 
-def test_e3_result_import_checks_exact_frozen_run_attempt_head_and_branch():
+def test_e3_result_import_uses_one_exact_frozen_execution_identity():
     text = _text()
 
-    assert "workflow_run id is not the frozen E3 execution" in text
-    assert "workflow_run attempt drifted" in text
-    assert "workflow_run head SHA drifted" in text
-    assert "workflow_run branch drifted" in text
-    assert "E3_MICA_REDUCED_RESULT_IMPORT_CONTRACT.json" in text
+    assert 'expected_run = int(frozen["workflow_run_id"])' in text
+    assert 'expected_attempt = int(frozen["run_attempt"])' in text
+    assert 'expected_head = str(frozen["authorization_head_sha"])' in text
+    assert 'expected_branch = str(frozen["authorization_branch"])' in text
+    assert 'int(run["id"]) == expected_run' in text
+    assert 'int(run["run_attempt"]) == expected_attempt' in text
+    assert 'str(run["head_sha"]) == expected_head' in text
+    assert 'str(run["head_branch"]) == expected_branch' in text
+
+
+def test_e3_result_import_skips_safely_when_merge_precedes_fit_completion():
+    text = _text()
+
+    assert 'completed = str(run.get("status")) == "completed"' in text
+    assert "Authorized E3 fit is still running" in text
+    assert "steps.guard.outputs.proceed == 'true'" in text
 
 
 def test_e3_result_import_freezes_result_regardless_of_fit_workflow_conclusion():
     text = _text()
 
-    assert "github.event.workflow_run.conclusion" not in text
+    assert "run_conclusion" in text
+    assert "conclusion" not in text.split("proceed = bool(", 1)[1].split(")", 1)[0]
     assert "freeze_e3_mica_reduced_result.py" in text
     assert "E3_MICA_REDUCED_EMPIRICAL_RESULT.json" in text
     assert "E3_MICA_REDUCED_FROZEN_RESULT.json" in text
