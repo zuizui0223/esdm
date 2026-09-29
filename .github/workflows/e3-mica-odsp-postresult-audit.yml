@@ -177,9 +177,15 @@ jobs:
               "sampling_gate_passed": source.get("decision", {}).get("sampling_gate_passed"),
               "odsp_executed": False,
               "boundary": {
-                  "n3_transfer_value_handoff_authorized": False,
+                  "parallel_not_ordered": True,
                   "combined_three_level_filtration_authorized": False,
+                  "odsp_lattice_authorized": False,
+                  "population_superpopulation_interpretation_authorized": False,
+                  "n3_transfer_value_handoff_authorized": False,
                   "e2_rescue": False,
+                  "confirmatory_replication": False,
+                  "causal_activity": False,
+                  "causal_state": False,
               },
           }
           Path("build/E3_MICA_ODSP_AUDIT_RESULT_V1.json").write_text(
