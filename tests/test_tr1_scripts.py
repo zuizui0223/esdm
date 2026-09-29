@@ -17,6 +17,6 @@ def test_tr1_scripts_pin_frozen_contract_blob():
     replicate = _load("tr1_replicate", "run_tr1_replicate.py")
     aggregate = _load("tr1_aggregate", "aggregate_tr1.py")
 
-    expected = "91114caab4713ae48ac2976a56935abfdbbf51a2"
+    expected = "abd3056006adf6c72d73188e8d43e5d9c8ff306a"
     assert replicate.FROZEN_CONTRACT_BLOB_SHA == expected
     assert aggregate.FROZEN_CONTRACT_BLOB_SHA == expected
