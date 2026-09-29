@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import math
 
+import pytest
+
 from esdm.validate.tr1_trait_transfer import (
     TR1_ENVIRONMENT_COUNT,
     TR1_HELDOUT_TAXA,
@@ -10,6 +12,7 @@ from esdm.validate.tr1_trait_transfer import (
     environment_values,
     fit_logistic,
     heldout_taxon_indices,
+    oracle_trait_information_gain,
     seed_for,
     trait_values,
     training_taxon_indices,
@@ -58,3 +61,12 @@ def test_tr1_logistic_solver_handles_nonseparable_toy_data():
     assert len(coefficients) == 2
     assert all(math.isfinite(value) for value in coefficients)
     assert all(abs(value) < 1e-9 for value in coefficients)
+
+
+def test_tr1_oracle_trait_information_is_frozen_before_outcomes():
+    assert oracle_trait_information_gain("positive") == pytest.approx(
+        0.06306753955889005, abs=1e-15
+    )
+    assert oracle_trait_information_gain("null") == pytest.approx(
+        0.0, abs=1e-15
+    )
