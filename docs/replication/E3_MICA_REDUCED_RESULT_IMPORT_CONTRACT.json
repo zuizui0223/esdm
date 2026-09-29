@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "programme_id": "E3_MICA_EXP",
+  "contract_id": "e3-mica-reduced-result-import-v1",
+  "status": "FROZEN_PRE_RESULT_IMPORT",
+  "frozen_date": "2026-09-29",
+  "fit_contract": "docs/replication/E3_MICA_REDUCED_FIT_CONTRACT.json",
+  "authorized_execution": {
+    "workflow_run_id": 36522315963,
+    "run_attempt": 1,
+    "authorization_head_sha": "65300be9ab5ea25cbd321011c6e4ca1db7efc5f3",
+    "authorization_branch": "explore/e3-mica-reduced-fit-run-v1",
+    "expected_result_filename": "E3_MICA_REDUCED_EMPIRICAL_RESULT.json"
+  },
+  "required_identity": {
+    "result_id": "e3-mica-reduced-exploratory-result-v1",
+    "programme_id": "E3_MICA_EXP",
+    "endpoint_id": "E3_MICA_REDUCED_NO_DIRECT_STATE_CALIBRATION",
+    "fit_contract_id": "e3-mica-reduced-exploratory-fit-v1",
+    "fixture_fingerprint_sha256": "2876b9f85bb34ddb600c39cd412fe196b3c78f47fa7306bca63c30245d740a23"
+  },
+  "accepted_statuses": [
+    "E3_EXPLORATORY_RESULT",
+    "E3_EXPLORATORY_SAMPLING_STOP"
+  ],
+  "scored_result_checks": {
+    "heldout_row_count": 733,
+    "row_unit": "one east-heldout deployment",
+    "absolute_score_fields": [
+      "full_heldout_log_score",
+      "activity_knockout_heldout_log_score",
+      "state_knockout_heldout_log_score"
+    ],
+    "aggregate_absolute_tolerance": 1e-12,
+    "gain_identity_absolute_tolerance": 1e-12,
+    "unique_deployment_ids_required": true,
+    "finite_absolute_scores_required": true
+  },
+  "interpretation_boundary": {
+    "confirmatory_replication_claim": false,
+    "e2_rescue": false,
+    "causal_claim": false,
+    "parameter_recovery_claim": false,
+    "same_programme_rerun_allowed": false,
+    "positive_gain_interpretation": "exploratory descriptive predictive evidence only"
+  },
+  "import_rule": {
+    "result_values_may_not_change": true,
+    "failed_or_negative_result_must_be_frozen": true,
+    "artifact_provenance_required": true,
+    "post_result_threshold_retuning_allowed": false,
+    "post_result_stream_retuning_allowed": false
+  }
+}
