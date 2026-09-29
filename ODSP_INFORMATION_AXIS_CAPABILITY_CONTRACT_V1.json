@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "contract_id": "esdm-odsp-information-axis-capability-v1",
+  "date": "2026-09-29",
+  "inputs": {
+    "registry": "ODSP_TRANSFER_SOURCE_REGISTRY_V1.json",
+    "validated_portfolio": "ODSP_TRANSFER_EVIDENCE_PORTFOLIO_V1.json",
+    "evidence_ledger": "ODSP_TRANSFER_EVIDENCE_LEDGER_RECEIPT_V2.json",
+    "lattice_protocol": "ODSP_LATTICE_READY_RESULT_PROTOCOL_V1.json",
+    "lattice_integration": "ODSP_LATTICE_READY_E2E_RESULT_V1.json"
+  },
+  "axes": [
+    {
+      "axis_id": "accessibility",
+      "source_ids": [
+        "v06a_static_accessibility"
+      ],
+      "capability_class": "validated_transfer_value"
+    },
+    {
+      "axis_id": "dynamic_occupancy",
+      "source_ids": [
+        "v07b_dynamic_occupancy"
+      ],
+      "capability_class": "validated_transfer_value"
+    },
+    {
+      "axis_id": "activity",
+      "source_ids": [
+        "v04_r5b_activity"
+      ],
+      "capability_class": "validated_transfer_value"
+    },
+    {
+      "axis_id": "latent_state",
+      "source_ids": [
+        "v04_r5b_state"
+      ],
+      "capability_class": "validated_transfer_value"
+    },
+    {
+      "axis_id": "interaction",
+      "source_ids": [
+        "v05a_directed_interaction",
+        "v05f_directed_interaction_replication",
+        "v05b_hidden_common_driver",
+        "v05e_interaction_evidence_separation"
+      ],
+      "capability_class": "not_authorized_numeric_transfer"
+    },
+    {
+      "axis_id": "traits",
+      "source_ids": [],
+      "capability_class": "not_instrumented_no_heldout_score"
+    },
+    {
+      "axis_id": "movement_kernel",
+      "source_ids": [],
+      "capability_class": "not_instrumented_outside_current_model"
+    }
+  ],
+  "distinctions": {
+    "accessibility_is_movement_kernel": false,
+    "dynamic_occupancy_is_movement_kernel": false,
+    "latent_state_is_trait": false,
+    "evidence_design_comparison_is_information_transfer": false,
+    "model_representation_comparison_is_information_transfer": false
+  },
+  "lattice_boundary": {
+    "current_protocol_supports_block_counts": [
+      2,
+      3
+    ],
+    "existing_activity_state_parallel_family_is_complete_lattice": false,
+    "reason_activity_state_not_complete": "R5b lacks the common suitability-only score node",
+    "cross_programme_lattice_allowed": false,
+    "retrospective_missing_node_reconstruction_allowed": false,
+    "synthetic_lattice_smoke_is_scientific_result": false
+  },
+  "next_build_rule": {
+    "new_axis_requires_absolute_heldout_scores": true,
+    "same_heldout_rows_required": true,
+    "same_proper_score_required": true,
+    "strict_nested_information_required_for_chain": true,
+    "complete_subset_scores_required_for_unordered_lattice": true,
+    "outcome_access_before_axis_definition_allowed": false,
+    "recommendation": "do not create a new ODSP information axis until a prospective eSDM programme stores the required absolute held-out scores"
+  },
+  "action_boundary": {
+    "authorizes_new_scientific_result": false,
+    "authorizes_new_fit": false,
+    "authorizes_rerun": false,
+    "authorizes_eog_consumption": false,
+    "authorizes_n4_action": false
+  }
+}
