@@ -181,7 +181,7 @@ def test_reduced_endpoint_removes_direct_state_calibration_without_threshold_rel
         ).read_text(encoding="utf-8")
     )
 
-    assert reduced["status"] == "FROZEN_POST_FULL_CAPTURE_STOP_FIT_NOT_AUTHORIZED"
+    assert reduced["status"] == "REDUCED_FIXTURE_QUALIFIED_FIT_NOT_AUTHORIZED"
     stop = reduced["full_endpoint_stop"]
     assert stop["frozen_minimum_state_calibration_each_state"] == 10
     assert stop["observed_state_calibration"] == {
