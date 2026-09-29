@@ -165,3 +165,51 @@ def test_contract_freezes_exploratory_boundary_and_preflight_receipt():
         == "1fcd776854484ed5b0e19c20b49aed81fa22d5947b5d26120c50155e1369c7e4"
     )
     assert contract["execution"]["exploratory_fit_authorized_now"] is False
+
+
+def test_reduced_endpoint_removes_direct_state_calibration_without_threshold_relaxation():
+    import json
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[1]
+    reduced = json.loads(
+        (
+            root
+            / "docs"
+            / "replication"
+            / "E3_MICA_REDUCED_ENDPOINT_CONTRACT.json"
+        ).read_text(encoding="utf-8")
+    )
+
+    assert reduced["status"] == "FROZEN_POST_FULL_CAPTURE_STOP_FIT_NOT_AUTHORIZED"
+    stop = reduced["full_endpoint_stop"]
+    assert stop["frozen_minimum_state_calibration_each_state"] == 10
+    assert stop["observed_state_calibration"] == {
+        "solitary": 824,
+        "group": 6,
+    }
+    assert stop["observed_state_calibration"]["group"] < (
+        stop["frozen_minimum_state_calibration_each_state"]
+    )
+
+    endpoint = reduced["reduced_endpoint"]
+    assert endpoint["lower_state_calibration_minimum"] is False
+    assert endpoint["reuse_state_calibration_rows_in_other_streams"] is False
+    assert endpoint["reassign_training_roles"] is False
+    assert endpoint["change_east_holdout"] is False
+    assert endpoint["retained_training_streams"] == [
+        "presence_opportunistic",
+        "presence_calibrated",
+        "annotated",
+    ]
+
+    claims = reduced["allowed_claims"]
+    assert claims["exploratory_predictive_activity_gain"] is True
+    assert claims["exploratory_predictive_state_gain_without_independent_calibration"] is True
+    assert claims["independently_calibrated_state_effect"] is False
+    assert claims["confirmatory_replication"] is False
+    assert claims["e2_rescue"] is False
+
+    execution = reduced["execution"]
+    assert execution["reduced_fixture_capture_authorized_now"] is True
+    assert execution["exploratory_model_fit_authorized_now"] is False

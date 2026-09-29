@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "programme_id": "E3_MICA_EXP",
+  "endpoint_id": "E3_MICA_REDUCED_NO_DIRECT_STATE_CALIBRATION",
+  "status": "FROZEN_POST_FULL_CAPTURE_STOP_FIT_NOT_AUTHORIZED",
+  "frozen_date": "2026-09-28",
+  "parent_contract": "docs/replication/E3_MICA_EXPLORATORY_CONTRACT.json",
+  "full_endpoint_stop": {
+    "workflow_run_id": 36398465484,
+    "workflow_job_id": 108850371657,
+    "status": "E3_CAPTURE_STOP",
+    "reason": "ValueError: E2 MICA state calibration group below frozen minimum",
+    "frozen_minimum_state_calibration_each_state": 10,
+    "observed_state_calibration": {
+      "solitary": 824,
+      "group": 6
+    },
+    "other_state_counts": {
+      "training_state_annotated": {
+        "solitary": 1316,
+        "group": 21
+      },
+      "heldout_state_annotated": {
+        "solitary": 4998,
+        "group": 146
+      }
+    },
+    "focal_events_by_role": {
+      "opportunistic_presence": 1022,
+      "calibrated_presence": 1131,
+      "state_annotated": 1337,
+      "state_calibration": 830,
+      "heldout_state_annotated": 5144
+    },
+    "total_focal_events": 9464,
+    "interpretation": "The full exploratory R5b graph fails only the predeclared independent state-calibration rare-state minimum; this is not a transport, schema, effort, or heldout-data failure."
+  },
+  "reduced_endpoint": {
+    "change": "remove the state_calibration stream entirely before any model fitting",
+    "lower_state_calibration_minimum": false,
+    "reuse_state_calibration_rows_in_other_streams": false,
+    "reassign_training_roles": false,
+    "change_focal_taxon": false,
+    "change_solitary_group_mapping": false,
+    "change_east_holdout": false,
+    "change_covariates": false,
+    "change_activity_or_state_process_form": false,
+    "retained_training_streams": [
+      "presence_opportunistic",
+      "presence_calibrated",
+      "annotated"
+    ],
+    "training_state_information": "state labels from the original state_annotated hash partition only",
+    "heldout_scoring": "unchanged east-heldout annotated counts",
+    "model_interpretation": "state and activity are jointly learned from annotated counts without an independent direct state-calibration stream"
+  },
+  "frozen_geometry": {
+    "training_deployments": 805,
+    "heldout_deployments": 733,
+    "training_ids_sha256": "a1e08526edb3d1f329fc7a4e9a2efa2bc4dc50313b393026a429f3a87d57f566",
+    "heldout_ids_sha256": "1b942bba9251172b874bb162fbe29347171a144695a39f033f094edae5ec62e3"
+  },
+  "estimability_requirements": {
+    "minimum_opportunistic_focal_events": 10,
+    "minimum_calibrated_focal_events": 10,
+    "minimum_training_state_annotated_each_state": 10,
+    "minimum_heldout_state_annotated_each_state": 5,
+    "minimum_state_calibration_each_state": null,
+    "reason_null": "the direct state_calibration stream is absent from this reduced endpoint"
+  },
+  "allowed_claims": {
+    "exploratory_predictive_activity_gain": true,
+    "exploratory_predictive_state_gain_without_independent_calibration": true,
+    "independently_calibrated_state_effect": false,
+    "confirmatory_replication": false,
+    "causal_claim": false,
+    "e2_rescue": false
+  },
+  "execution": {
+    "reduced_fixture_capture_authorized_now": true,
+    "exploratory_model_fit_authorized_now": false,
+    "fit_requires_separate_pure_authorization_marker": true,
+    "post_fit_threshold_or_stream_retuning_allowed": false
+  }
+}
