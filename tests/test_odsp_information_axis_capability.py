@@ -127,3 +127,42 @@ def test_capability_matrix_does_not_authorize_downstream_action():
     assert boundary["authorizes_n4_action"] is False
 
     assert len(result["fingerprint"]) == 64
+
+
+
+def test_matrix_itself_accounts_for_all_fourteen_registry_sources():
+    result, axes = _by_axis()
+
+    coverage = result["evidence_coverage"]
+    assert coverage["registry_source_count"] == 14
+    assert coverage["matrix_registry_source_count"] == 14
+    assert coverage["matrix_every_registry_source_accounted_for"] is True
+    assert coverage["non_axis_exclusion_count"] == 6
+
+    rows = {row["source_id"]: row for row in result["non_axis_exclusions"]}
+    assert set(rows) == {
+        "v06b_joint_accessibility_identification",
+        "v06c_budget_matched_accessibility",
+        "v07a_dynamic_occupancy_identification",
+        "v07c_static_vs_dynamic_occupancy",
+        "v07d_equal_dimension_static_vs_dynamic",
+        "v07e_reciprocal_static_world",
+    }
+
+    assert rows["v06b_joint_accessibility_identification"]["registry_status"] == (
+        "identification_only_not_transfer"
+    )
+    assert rows["v07a_dynamic_occupancy_identification"]["registry_status"] == (
+        "identification_only_not_transfer"
+    )
+    for source_id in (
+        "v06c_budget_matched_accessibility",
+        "v07c_static_vs_dynamic_occupancy",
+        "v07d_equal_dimension_static_vs_dynamic",
+        "v07e_reciprocal_static_world",
+    ):
+        assert rows[source_id]["registry_status"] == (
+            "non_nested_comparison_not_transfer"
+        )
+        assert rows[source_id]["numeric_transfer_value"] is None
+        assert rows[source_id]["numeric_transfer_value_authorized"] is False
