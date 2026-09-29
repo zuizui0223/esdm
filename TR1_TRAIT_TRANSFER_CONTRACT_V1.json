@@ -107,5 +107,12 @@
       "biotic interaction information",
       "survey-site ranking or N4 action"
     ]
+  },
+  "oracle_calibration": {
+    "positive_world_expected_trait_information_gain": 0.06306753955889005,
+    "null_world_expected_trait_information_gain": 0,
+    "calculation": "expected Bernoulli KL on heldout taxa between the true trait-conditioned probability and the training-taxon marginal probability at each frozen environment value",
+    "positive_gate_mean_gain_fraction_of_oracle": 0.47568051980190457,
+    "reason": "the frozen positive mean-gain threshold requires recovery of roughly half the known-truth oracle trait information rather than an arbitrary near-zero effect"
   }
 }
