@@ -24,6 +24,8 @@ __all__ = [
     "build_v05f_directed_interaction_odsp_bundle",
     "build_v06a_accessibility_odsp_bundle",
     "build_v07b_dynamic_occupancy_odsp_bundle",
+    "build_e3_mica_activity_odsp_bundle",
+    "build_e3_mica_state_odsp_bundle",
     "PORTFOLIO_SCHEMA",
     "PORTFOLIO_SCHEMA_V2",
     "TransferEvidenceItem",
@@ -56,6 +58,8 @@ from .odsp_adapter import (
     build_v05f_directed_interaction_odsp_bundle,
     build_v06a_accessibility_odsp_bundle,
     build_v07b_dynamic_occupancy_odsp_bundle,
+    build_e3_mica_activity_odsp_bundle,
+    build_e3_mica_state_odsp_bundle,
 )
 
 from .source_registry import (
