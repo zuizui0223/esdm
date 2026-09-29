@@ -1,0 +1,120 @@
+name: E4 MICA exact sparse fit once
+
+concurrency:
+  group: e4-mica-sparse-fit-once
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - e4/mica-sparse-fit-run-v1
+    paths:
+      - 'docs/replication/E4_MICA_SPARSE_FIT_AUTHORIZED.json'
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  fit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify pure E4 fit authorization
+        run: |
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+
+          marker_path = Path(
+              "docs/replication/E4_MICA_SPARSE_FIT_AUTHORIZED.json"
+          )
+          marker = json.loads(marker_path.read_text(encoding="utf-8"))
+          parent = subprocess.check_output(
+              ["git", "rev-parse", "HEAD^"], text=True
+          ).strip()
+          changed = subprocess.check_output(
+              ["git", "diff-tree", "--no-commit-id", "--name-only", "-r", "HEAD"],
+              text=True,
+          ).splitlines()
+          if changed != [marker_path.as_posix()]:
+              raise SystemExit("E4 fit authorization must be marker-only")
+          if marker["implementation_parent_sha"] != parent:
+              raise SystemExit("E4 fit authorization parent mismatch")
+          if marker["programme_id"] != "E4_MICA_SPARSE_NUTS":
+              raise SystemExit("E4 fit programme mismatch")
+          if marker["contract_id"] != "e4-mica-exact-sparse-fit-v1":
+              raise SystemExit("E4 fit contract mismatch")
+          if marker["qualification_workflow_run_id"] != 36621160011:
+              raise SystemExit("E4 qualification run mismatch")
+          if marker["qualification_result_sha256"] != (
+              "2a8ce70ce8eefbbd70a2cdeaa2f4fc558aa64ab061985c263c8d1656979d83ff"
+          ):
+              raise SystemExit("E4 qualification result hash mismatch")
+          if marker["one_shot"] is not True:
+              raise SystemExit("E4 fit authorization must be one-shot")
+          if marker["empirical_fit_authorized"] is not True:
+              raise SystemExit("E4 empirical fit is not explicitly authorized")
+          if marker["laplace_or_inla_authorized"] is not False:
+              raise SystemExit("E4 sparse NUTS marker may not authorize Laplace/INLA")
+          PY
+
+      - name: Install package and validate frozen E4 fit boundary
+        run: |
+          python -m pip install -e '.[dev]'
+          python -m pytest -q             tests/test_e4_mica_sparse_contract.py             tests/test_e4_mica_sparse_fit_contract.py             tests/test_e4_mica_sparse_fit_workflow.py             tests/test_structural_exposure_compaction.py
+
+      - name: Download immutable E2 capture
+        uses: actions/download-artifact@v4
+        with:
+          name: e2-mica-full-response-capture-36369531079
+          path: captured/e2
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36369531079
+
+      - name: Download immutable E3 reduced capture receipt
+        uses: actions/download-artifact@v4
+        with:
+          name: e3-mica-exploratory-capture-36399428007
+          path: captured/e3
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36399428007
+
+      - name: Download qualified E4 sparse receipt
+        uses: actions/download-artifact@v4
+        with:
+          name: e4-mica-sparse-qualification-36621160011
+          path: captured/e4
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36621160011
+
+      - name: Run frozen exact-sparse three-fit endpoint
+        id: fit
+        continue-on-error: true
+        run: |
+          mkdir -p build/e4/result
+          python scripts/fit_e4_mica_sparse.py             --archive captured/e2/build/e2/source/mica-v3.zip             --climate captured/e2/frozen-climate/E2_MICA_WORLDCLIM_RESULT.json             --capture captured/e3/E3_MICA_EXPLORATORY_CAPTURE_RESULT.json             --qualification captured/e4/E4_MICA_SPARSE_QUALIFICATION_RESULT.json             --out build/e4/result/E4_MICA_SPARSE_EMPIRICAL_RESULT.json
+
+      - name: Upload immutable E4 sparse result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e4-mica-sparse-result-${{ github.run_id }}
+          path: build/e4/result/E4_MICA_SPARSE_EMPIRICAL_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Preserve terminal scientific or execution stop as workflow failure
+        if: steps.fit.outcome == 'failure'
+        run: exit 1
