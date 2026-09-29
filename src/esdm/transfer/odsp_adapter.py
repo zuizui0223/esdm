@@ -534,3 +534,126 @@ def build_v05f_directed_interaction_odsp_bundle(
         ),
         group_semantics="independent interaction-world known-truth replicate",
     )
+
+
+
+def _e3_mica_reduced_records(
+    result: Mapping[str, object],
+) -> tuple[list[dict[str, object]], str | None]:
+    if result.get("result_id") != "e3-mica-reduced-exploratory-result-v1":
+        raise ValueError("expected e3-mica-reduced-exploratory-result-v1")
+    if result.get("status") != "E3_EXPLORATORY_RESULT":
+        raise ValueError("E3 ODSP export requires completed exploratory result")
+    decision = result.get("decision")
+    if not isinstance(decision, Mapping) or decision.get("sampling_gate_passed") is not True:
+        raise ValueError("E3 ODSP export requires sampling_gate_passed=true")
+    boundary = result.get("response_boundary")
+    if not isinstance(boundary, Mapping):
+        raise ValueError("E3 result is missing response_boundary")
+    if boundary.get("state_calibration_stream_present_in_fit") is not False:
+        raise ValueError("E3 ODSP export requires reduced endpoint without state calibration")
+
+    rows = result.get("heldout_deployment_scores")
+    if not isinstance(rows, list) or len(rows) != 733:
+        raise ValueError("E3 ODSP export requires exactly 733 heldout deployment rows")
+
+    required = {
+        "deploymentID",
+        "full_heldout_log_score",
+        "activity_knockout_heldout_log_score",
+        "state_knockout_heldout_log_score",
+    }
+    prepared: list[dict[str, object]] = []
+    seen: set[str] = set()
+    for index, raw in enumerate(rows):
+        if not isinstance(raw, Mapping):
+            raise ValueError(f"E3 heldout row {index} must be an object")
+        missing = sorted(required - set(raw))
+        if missing:
+            raise ValueError(f"E3 heldout row {index} missing fields: {missing!r}")
+        deployment_id = str(raw["deploymentID"]).strip()
+        if not deployment_id or deployment_id in seen:
+            raise ValueError("E3 deploymentID values must be unique non-empty strings")
+        seen.add(deployment_id)
+        prepared.append({
+            "deploymentID": deployment_id,
+            "endpoint_group": "MICA_MUSKRAT",
+            "full_heldout_log_score": raw["full_heldout_log_score"],
+            "activity_knockout_heldout_log_score": raw[
+                "activity_knockout_heldout_log_score"
+            ],
+            "state_knockout_heldout_log_score": raw[
+                "state_knockout_heldout_log_score"
+            ],
+        })
+    return prepared, None
+
+
+def build_e3_mica_activity_odsp_bundle(
+    result: Mapping[str, object],
+) -> ODSPTransferBundle:
+    """Export E3 exploratory activity information as one endpoint with deployment blocks."""
+
+    records, git_sha = _e3_mica_reduced_records(result)
+    return build_odsp_transfer_bundle(
+        endpoint_id="esdm_e3_mica_activity_transfer_v1",
+        levels=(
+            ODSPInformationLevel(
+                name="suitability_state",
+                information=("suitability", "state"),
+                source_score_field="activity_knockout_heldout_log_score",
+            ),
+            ODSPInformationLevel(
+                name="suitability_state_activity",
+                information=("suitability", "state", "activity"),
+                source_score_field="full_heldout_log_score",
+            ),
+        ),
+        records=records,
+        group_field="endpoint_group",
+        row_id_field="deploymentID",
+        block_field="deploymentID",
+        analysis_mode="descriptive",
+        filtration_frozen_before_outcome_scoring=True,
+        source_schema="e3-mica-reduced-exploratory-result-v1",
+        source_git_sha=git_sha,
+        group_semantics=(
+            "single exploratory MICA endpoint; east-heldout deploymentID is the "
+            "within-endpoint resampling block"
+        ),
+    )
+
+
+def build_e3_mica_state_odsp_bundle(
+    result: Mapping[str, object],
+) -> ODSPTransferBundle:
+    """Export E3 exploratory state information as one endpoint with deployment blocks."""
+
+    records, git_sha = _e3_mica_reduced_records(result)
+    return build_odsp_transfer_bundle(
+        endpoint_id="esdm_e3_mica_state_transfer_v1",
+        levels=(
+            ODSPInformationLevel(
+                name="suitability_activity",
+                information=("suitability", "activity"),
+                source_score_field="state_knockout_heldout_log_score",
+            ),
+            ODSPInformationLevel(
+                name="suitability_activity_state",
+                information=("suitability", "activity", "state"),
+                source_score_field="full_heldout_log_score",
+            ),
+        ),
+        records=records,
+        group_field="endpoint_group",
+        row_id_field="deploymentID",
+        block_field="deploymentID",
+        analysis_mode="descriptive",
+        filtration_frozen_before_outcome_scoring=True,
+        source_schema="e3-mica-reduced-exploratory-result-v1",
+        source_git_sha=git_sha,
+        group_semantics=(
+            "single exploratory MICA endpoint; east-heldout deploymentID is the "
+            "within-endpoint resampling block"
+        ),
+    )

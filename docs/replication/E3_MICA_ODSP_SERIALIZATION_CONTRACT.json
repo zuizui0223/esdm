@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "contract_id": "e3-mica-odsp-parallel-serialization-v1",
+  "date": "2026-09-29",
+  "source_result_id": "e3-mica-reduced-exploratory-result-v1",
+  "source_programme": "E3_MICA_EXP",
+  "source_endpoint": "E3_MICA_REDUCED_NO_DIRECT_STATE_CALIBRATION",
+  "required_source_status": "E3_EXPLORATORY_RESULT",
+  "required_sampling_gate_passed": true,
+  "required_heldout_rows": 733,
+  "row_semantics": {
+    "row_id": "deploymentID",
+    "endpoint_group": "MICA_MUSKRAT",
+    "block": "deploymentID",
+    "group_count": 1,
+    "block_count": 733,
+    "rationale": "heldout deployments are treated as within-endpoint resampling blocks, not as an iid population of biological groups"
+  },
+  "parallel_transfers": {
+    "activity": {
+      "endpoint_id": "esdm_e3_mica_activity_transfer_v1",
+      "lower": {
+        "name": "suitability_state",
+        "information": [
+          "suitability",
+          "state"
+        ],
+        "source_score": "activity_knockout_heldout_log_score"
+      },
+      "upper": {
+        "name": "suitability_state_activity",
+        "information": [
+          "suitability",
+          "state",
+          "activity"
+        ],
+        "source_score": "full_heldout_log_score"
+      }
+    },
+    "state": {
+      "endpoint_id": "esdm_e3_mica_state_transfer_v1",
+      "lower": {
+        "name": "suitability_activity",
+        "information": [
+          "suitability",
+          "activity"
+        ],
+        "source_score": "state_knockout_heldout_log_score"
+      },
+      "upper": {
+        "name": "suitability_activity_state",
+        "information": [
+          "suitability",
+          "activity",
+          "state"
+        ],
+        "source_score": "full_heldout_log_score"
+      }
+    }
+  },
+  "ordering_boundary": {
+    "natural_order_between_activity_and_state": false,
+    "combined_three_level_filtration_authorized": false,
+    "reason": "activity-knockout retains state and state-knockout retains activity; both contrasts terminate at the same full model and answer different conditional information questions"
+  },
+  "inference_boundary": {
+    "analysis_mode": "descriptive",
+    "n3_population_handoff_authorized": false,
+    "population_result_should_not_be_interpreted_as_superpopulation_value": true,
+    "reason": "the exploratory empirical endpoint has one biological system and no predeclared higher-level independent population groups or spatial dependence clusters",
+    "odsp_certification_is_within_endpoint_block_resampling_only": true
+  },
+  "claims": {
+    "exploratory_activity_predictive_information_only": true,
+    "exploratory_state_predictive_information_only": true,
+    "independently_calibrated_state_effect": false,
+    "confirmatory_replication": false,
+    "causal_activity": false,
+    "causal_state": false,
+    "e2_rescue": false
+  }
+}
