@@ -6,6 +6,8 @@ on:
       - 'ODSP_INFORMATION_AXIS_CAPABILITY_CONTRACT_V1.json'
       - 'scripts/build_odsp_information_axis_capability.py'
       - 'tests/test_odsp_information_axis_capability.py'
+      - 'ODSP_INFORMATION_AXIS_CAPABILITY_RECEIPT_V1.json'
+      - 'tests/test_odsp_information_axis_capability_receipt.py'
       - 'docs/integration/ODSP_INFORMATION_AXIS_CAPABILITY.md'
       - '.github/workflows/odsp-information-axis-capability.yml'
       - 'ODSP_TRANSFER_SOURCE_REGISTRY_V1.json'
@@ -28,8 +30,11 @@ jobs:
           python-version: '3.12'
       - name: Install test dependencies
         run: python -m pip install -e '.[dev]'
-      - name: Validate capability matrix
-        run: python -m pytest -q tests/test_odsp_information_axis_capability.py
+      - name: Validate capability matrix and frozen receipt
+        run: >-
+          python -m pytest -q
+          tests/test_odsp_information_axis_capability.py
+          tests/test_odsp_information_axis_capability_receipt.py
       - name: Build canonical capability matrix
         run: |
           mkdir -p build
