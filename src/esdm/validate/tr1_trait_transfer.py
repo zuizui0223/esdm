@@ -228,6 +228,41 @@ def _world_beta(world: str) -> float:
     raise ValueError("TR1 world must be 'positive' or 'null'")
 
 
+def oracle_trait_information_gain(world: str) -> float:
+    """Expected held-out trait information under the frozen known-truth design."""
+
+    beta_trait = _world_beta(world)
+    traits = trait_values()
+    environments = environment_values()
+    training = training_taxon_indices()
+    heldout = heldout_taxon_indices()
+
+    total = 0.0
+    count = 0
+    for taxon_index in heldout:
+        trait = traits[taxon_index]
+        for environment in environments:
+            p = _sigmoid(
+                TR1_INTERCEPT
+                + TR1_ENVIRONMENT_BETA * environment
+                + beta_trait * trait
+            )
+            q = math.fsum(
+                _sigmoid(
+                    TR1_INTERCEPT
+                    + TR1_ENVIRONMENT_BETA * environment
+                    + beta_trait * traits[training_index]
+                )
+                for training_index in training
+            ) / len(training)
+            total += (
+                p * math.log(p / q)
+                + (1.0 - p) * math.log((1.0 - p) / (1.0 - q))
+            )
+            count += 1
+    return total / count
+
+
 def generate_rows(
     *,
     world: str,
