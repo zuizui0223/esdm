@@ -1,0 +1,99 @@
+name: E3 MICA ODSP audit result freeze
+
+on:
+  workflow_run:
+    workflows:
+      - E3 MICA post-result ODSP audit
+    types:
+      - completed
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  freeze:
+    if: github.event.workflow_run.event == 'push' && github.event.workflow_run.head_branch == 'main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install eSDM freeze validator
+        run: python -m pip install -e '.[dev]'
+
+      - name: Resolve exact ODSP audit artifact
+        id: artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+          AUDIT_RUN_ID: ${{ github.event.workflow_run.id }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          from urllib.request import Request, urlopen
+
+          run_id = int(os.environ["AUDIT_RUN_ID"])
+          expected_name = "e3-mica-odsp-postresult-audit-v1"
+          url = (
+              f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}"
+              f"/actions/runs/{run_id}/artifacts"
+          )
+          request = Request(
+              url,
+              headers={
+                  "Authorization": f"Bearer {os.environ['GH_TOKEN']}",
+                  "Accept": "application/vnd.github+json",
+                  "X-GitHub-Api-Version": "2022-11-28",
+              },
+          )
+          with urlopen(request, timeout=60) as response:
+              payload = json.load(response)
+          matches = [
+              row for row in payload.get("artifacts", [])
+              if row.get("name") == expected_name and not row.get("expired")
+          ]
+          if len(matches) != 1:
+              raise SystemExit(
+                  f"expected exactly one non-expired {expected_name!r} artifact, "
+                  f"found {len(matches)}"
+              )
+          row = matches[0]
+          digest = str(row.get("digest") or "")
+          if not digest.startswith("sha256:"):
+              raise SystemExit("ODSP audit artifact is missing sha256 digest")
+          with Path(os.environ["GITHUB_OUTPUT"]).open("a", encoding="utf-8") as handle:
+              handle.write(f"id={int(row['id'])}\n")
+              handle.write(f"name={expected_name}\n")
+              handle.write(f"digest={digest}\n")
+              handle.write(f"run_id={run_id}\n")
+          PY
+
+      - name: Download immutable ODSP audit artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ steps.artifact.outputs.name }}
+          path: build/source
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ steps.artifact.outputs.run_id }}
+
+      - name: Validate and freeze ODSP audit receipt
+        run: |
+          mkdir -p build/frozen
+          python scripts/freeze_e3_mica_odsp_audit_result.py             --audit-result build/source/E3_MICA_ODSP_AUDIT_RESULT_V1.json             --workflow-run-id ${{ github.event.workflow_run.id }}             --head-sha ${{ github.event.workflow_run.head_sha }}             --artifact-id ${{ steps.artifact.outputs.id }}             --artifact-name ${{ steps.artifact.outputs.name }}             --artifact-digest '${{ steps.artifact.outputs.digest }}'             --out build/frozen/E3_MICA_ODSP_AUDIT_FROZEN_RESULT.json
+
+      - name: Upload frozen ODSP audit receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: e3-mica-odsp-postresult-audit-frozen-v1
+          path: build/frozen/E3_MICA_ODSP_AUDIT_FROZEN_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
