@@ -57,7 +57,12 @@
         "presence_opportunistic": 3286,
         "presence_calibrated": 3466,
         "annotated": 4779
-      }
+      },
+      "frozen_training_deployments": 805,
+      "informative_deployments_after_state_calibration_stream_removal": 650,
+      "zero_retained_stream_deployments_omitted": 155,
+      "standardization_population_changed": false,
+      "standardization_rule": "precipitation/latitude/eastness retain the frozen values standardized from all 805 E2/E3 training deployments before sparse compaction"
     },
     "heldout": {
       "dense_context_count": 560012,
