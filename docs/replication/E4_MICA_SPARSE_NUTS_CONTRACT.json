@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "programme_id": "E4_MICA_SPARSE_NUTS",
+  "contract_id": "e4-mica-exact-sparse-nuts-v1",
+  "status": "FROZEN_PRE_OUTCOME_IMPLEMENTATION_ONLY",
+  "frozen_date": "2026-09-29",
+  "purpose": "recover the scientifically unchanged reduced MICA endpoint under an exact sparse-domain representation after E3 infrastructure timeout",
+  "parent": {
+    "e3_terminal_receipt": "docs/replication/E3_MICA_REDUCED_TERMINAL_TIMEOUT_RESULT.json",
+    "e3_terminal_status": "E3_EXPLORATORY_INFRASTRUCTURE_STOP",
+    "e3_scientific_result_available": false,
+    "e3_same_programme_rerun_allowed": false,
+    "relationship": "E4 is a separately named computational-equivalence programme; it does not reopen, rerun, or alter E3"
+  },
+  "immutable_source": {
+    "e2_capture_workflow_run_id": 36369531079,
+    "e2_capture_artifact_id": 10947948379,
+    "source_archive_sha256": "8346f3fe467a201525d6bedd4ebd6e2078457ee8bb778501d41d55ace7d962c9",
+    "e3_reduced_capture_workflow_run_id": 36399428007,
+    "e3_reduced_capture_artifact_id": 10958744325,
+    "e3_reduced_capture_artifact_digest": "sha256:136879b419f8ae754b41d19db1052fde29fa5405f2a2cc50bd0116a6b5a72c93",
+    "e3_fixture_fingerprint_sha256": "2876b9f85bb34ddb600c39cd412fe196b3c78f47fa7306bca63c30245d740a23"
+  },
+  "scientific_model": {
+    "endpoint_id": "E3_MICA_REDUCED_NO_DIRECT_STATE_CALIBRATION",
+    "model_generation": "v0.4-R5b",
+    "focal_taxon": "Ondatra zibethicus",
+    "retained_streams": [
+      "presence_opportunistic",
+      "presence_calibrated",
+      "annotated"
+    ],
+    "state_calibration_stream_present": false,
+    "ecological_processes_unchanged": true,
+    "observation_likelihoods_unchanged": true,
+    "covariates_unchanged": true,
+    "priors_unchanged": true,
+    "training_heldout_partition_unchanged": true,
+    "response_mapping_unchanged": true,
+    "heldout_score_definition_unchanged": true
+  },
+  "exact_compaction": {
+    "transformation": "delete a context iff structural_exposure_mask is false for every retained observation stream in that fitted domain",
+    "removed_context_likelihood_contribution": "exactly zero for all parameter values",
+    "nonzero_observation_outside_retained_union": "hard error; never silently discarded",
+    "posterior_target_changed": false,
+    "approximation_introduced": false,
+    "context_order_within_retained_union": "preserve original dense-domain order",
+    "training": {
+      "dense_context_count": 615020,
+      "compact_context_count": 11531,
+      "reduction_factor": 53.33622409157922,
+      "retained_keys_sha256": "41bd70aa1f913bcb1c988f6c5cdae3441ed978d4ee0f6791bcfc497290710646",
+      "exposed_contexts_by_stream": {
+        "presence_opportunistic": 3286,
+        "presence_calibrated": 3466,
+        "annotated": 4779
+      }
+    },
+    "heldout": {
+      "dense_context_count": 560012,
+      "compact_context_count": 10168,
+      "reduction_factor": 55.07592446892211,
+      "retained_keys_sha256": "0ed3fb9e96b1323a4290b7cb92621d219e317b8b916201a1b2665db4a272b1d9",
+      "exposed_contexts_by_stream": {
+        "presence_opportunistic": 0,
+        "presence_calibrated": 0,
+        "annotated": 10168
+      }
+    }
+  },
+  "inference": {
+    "backend": "NumPyro NUTS",
+    "change_from_e3": "domain compaction only",
+    "num_warmup": 300,
+    "num_samples": 350,
+    "num_chains": 2,
+    "target_accept_probability": 0.9,
+    "rng_seed_full": 20260927,
+    "rng_seed_activity_knockout": 20260928,
+    "rng_seed_state_knockout": 20260929,
+    "full_activity_state_three_fit_structure_unchanged": true
+  },
+  "qualification_before_empirical_fit": {
+    "required": true,
+    "empirical_fit_authorized_now": false,
+    "checks": [
+      "core ExplicitGrid preserves declared key order and ecological context semantics",
+      "E3-like dense and compact scalar log likelihoods agree within absolute tolerance 1e-12",
+      "nonzero data outside structural exposure fail closed",
+      "immutable E3 reduced fixture rebuild matches frozen fixture fingerprint",
+      "training and heldout compact counts and retained-key hashes match this contract"
+    ],
+    "likelihood_identity_absolute_tolerance": 1e-12,
+    "qualification_may_emit_scientific_scores": false,
+    "qualification_may_run_mcmc": false
+  },
+  "empirical_outputs": {
+    "absolute_scores_required": [
+      "full_heldout_log_score",
+      "activity_knockout_heldout_log_score",
+      "state_knockout_heldout_log_score"
+    ],
+    "heldout_row_count": 733,
+    "row_unit": "one east-heldout deployment",
+    "derived_gains": [
+      "activity_gain = full - activity_knockout",
+      "state_gain = full - state_knockout"
+    ],
+    "direction_rule": "positive descriptive gain supports transferred predictive information in this exploratory endpoint; zero or negative does not",
+    "minimum_effect_threshold": null
+  },
+  "decision_boundary": {
+    "confirmatory_replication_claim": false,
+    "e3_rescue_claim": false,
+    "causal_claim": false,
+    "parameter_recovery_claim": false,
+    "negative_or_zero_gain_is_terminal_non_support": true,
+    "same_e4_programme_rerun_allowed": false,
+    "post_outcome_retuning_allowed": false
+  },
+  "fallback_boundary": {
+    "laplace_or_inla_backend_authorized_now": false,
+    "reason": "exact sparse NUTS is attempted first because it preserves the posterior target without approximation; any Laplace programme must be separately frozen before seeing an E4-S1 scientific result"
+  }
+}
