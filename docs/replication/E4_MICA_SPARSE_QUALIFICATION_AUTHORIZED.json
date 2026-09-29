@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "programme_id": "E4_MICA_SPARSE_NUTS",
+  "contract_id": "e4-mica-exact-sparse-nuts-v1",
+  "implementation_parent_sha": "04dda239c642ea311989fe7a237d38dd1c682db1",
+  "qualification_authorized": true,
+  "empirical_fit_authorized": false,
+  "one_shot": true,
+  "authorized_date": "2026-09-30"
+}
