@@ -75,3 +75,14 @@ def test_tr1_positive_and_null_gates_are_both_required():
     assert contract["null_world_specificity_gate"]["mean_gain_maximum"] == 0.005
     assert contract["decision"]["pass_requires_all_positive_and_null_gates"] is True
     assert contract["decision"]["outcome_access_before_contract_merge_allowed"] is False
+
+
+def test_tr1_positive_threshold_is_calibrated_to_known_truth_oracle():
+    contract = _read()
+    oracle = contract["oracle_calibration"]
+
+    assert oracle["positive_world_expected_trait_information_gain"] == (
+        0.06306753955889005
+    )
+    assert oracle["null_world_expected_trait_information_gain"] == 0.0
+    assert 0.45 < oracle["positive_gate_mean_gain_fraction_of_oracle"] < 0.50
