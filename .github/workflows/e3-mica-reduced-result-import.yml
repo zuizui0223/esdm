@@ -11,6 +11,8 @@ on:
       - main
     paths:
       - '.github/workflows/e3-mica-reduced-result-import.yml'
+      - 'docs/replication/E3_MICA_REDUCED_INFRASTRUCTURE_STOP_POLICY.json'
+      - 'scripts/freeze_e3_mica_infrastructure_stop.py'
 
 permissions:
   actions: read
@@ -85,6 +87,9 @@ jobs:
               handle.write(f"proceed={'true' if proceed else 'false'}\n")
               handle.write(f"run_status={run.get('status')}\n")
               handle.write(f"run_conclusion={run.get('conclusion')}\n")
+              handle.write(f"run_attempt={run.get('run_attempt')}\n")
+              handle.write(f"head_sha={run.get('head_sha')}\n")
+              handle.write(f"head_branch={run.get('head_branch')}\n")
 
           if event_name == "workflow_run" and not exact:
               print("Ignoring non-authorized completion of the named workflow.")
@@ -131,24 +136,28 @@ jobs:
               row for row in payload.get("artifacts", [])
               if row.get("name") == expected_name and not row.get("expired")
           ]
-          if len(matches) != 1:
+          if len(matches) > 1:
               raise SystemExit(
-                  f"expected exactly one non-expired {expected_name!r} artifact, "
+                  f"expected at most one non-expired {expected_name!r} artifact, "
                   f"found {len(matches)}"
               )
-          row = matches[0]
-          digest = str(row.get("digest") or "")
-          if not digest.startswith("sha256:"):
-              raise SystemExit("E3 artifact is missing sha256 digest")
+
           with Path(os.environ["GITHUB_OUTPUT"]).open("a", encoding="utf-8") as handle:
-              handle.write(f"id={int(row['id'])}\n")
+              handle.write(f"count={len(matches)}\n")
+              handle.write(f"available={'true' if len(matches) == 1 else 'false'}\n")
               handle.write(f"name={expected_name}\n")
-              handle.write(f"digest={digest}\n")
               handle.write(f"run_id={run_id}\n")
+              if matches:
+                  row = matches[0]
+                  digest = str(row.get("digest") or "")
+                  if not digest.startswith("sha256:"):
+                      raise SystemExit("E3 artifact is missing sha256 digest")
+                  handle.write(f"id={int(row['id'])}\n")
+                  handle.write(f"digest={digest}\n")
           PY
 
       - name: Download immutable E3 result artifact
-        if: steps.guard.outputs.proceed == 'true'
+        if: steps.guard.outputs.proceed == 'true' && steps.artifact.outputs.available == 'true'
         uses: actions/download-artifact@v4
         with:
           name: ${{ steps.artifact.outputs.name }}
@@ -157,17 +166,36 @@ jobs:
           repository: ${{ github.repository }}
           run-id: ${{ steps.artifact.outputs.run_id }}
 
-      - name: Validate and freeze E3 result receipt
-        if: steps.guard.outputs.proceed == 'true'
+      - name: Validate and freeze E3 scientific result receipt
+        if: steps.guard.outputs.proceed == 'true' && steps.artifact.outputs.available == 'true'
         run: |
           mkdir -p build/import
-          python scripts/freeze_e3_mica_reduced_result.py             --result build/source/E3_MICA_REDUCED_EMPIRICAL_RESULT.json             --artifact-id ${{ steps.artifact.outputs.id }}             --artifact-name ${{ steps.artifact.outputs.name }}             --artifact-digest '${{ steps.artifact.outputs.digest }}'             --out build/import/E3_MICA_REDUCED_FROZEN_RESULT.json
+          python scripts/freeze_e3_mica_reduced_result.py \
+            --result build/source/E3_MICA_REDUCED_EMPIRICAL_RESULT.json \
+            --artifact-id ${{ steps.artifact.outputs.id }} \
+            --artifact-name ${{ steps.artifact.outputs.name }} \
+            --artifact-digest '${{ steps.artifact.outputs.digest }}' \
+            --out build/import/E3_MICA_REDUCED_FROZEN_RESULT.json
+
+      - name: Freeze terminal E3 infrastructure stop
+        if: steps.guard.outputs.proceed == 'true' && steps.artifact.outputs.available != 'true'
+        run: |
+          mkdir -p build/import
+          python scripts/freeze_e3_mica_infrastructure_stop.py \
+            --workflow-run-id ${{ steps.artifact.outputs.run_id }} \
+            --run-attempt ${{ steps.guard.outputs.run_attempt }} \
+            --head-sha ${{ steps.guard.outputs.head_sha }} \
+            --head-branch ${{ steps.guard.outputs.head_branch }} \
+            --run-status ${{ steps.guard.outputs.run_status }} \
+            --run-conclusion '${{ steps.guard.outputs.run_conclusion }}' \
+            --artifact-count ${{ steps.artifact.outputs.count }} \
+            --out build/import/E3_MICA_REDUCED_INFRASTRUCTURE_STOP.json
 
       - name: Upload frozen E3 import receipt
         if: steps.guard.outputs.proceed == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: e3-mica-reduced-frozen-import-v1
-          path: build/import/E3_MICA_REDUCED_FROZEN_RESULT.json
+          path: build/import/*.json
           if-no-files-found: error
           retention-days: 90

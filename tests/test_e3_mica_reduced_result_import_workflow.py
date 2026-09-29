@@ -58,3 +58,29 @@ def test_e3_result_import_does_not_run_odsp_or_make_scientific_claims():
     assert "odsp transfer" not in text
     assert "build_population_transfer_value_handoff" not in text
     assert "scripts/summarize_e3_mica_odsp_audit.py" not in text
+
+
+
+def test_e3_result_import_allows_zero_or_one_canonical_artifact_only():
+    text = _text()
+
+    assert "if len(matches) > 1:" in text
+    assert "available={'true' if len(matches) == 1 else 'false'}" in text
+    assert "count={len(matches)}" in text
+
+
+def test_e3_result_import_uses_scientific_receipt_when_artifact_exists():
+    text = _text()
+
+    assert "steps.artifact.outputs.available == 'true'" in text
+    assert "freeze_e3_mica_reduced_result.py" in text
+    assert "E3_MICA_REDUCED_FROZEN_RESULT.json" in text
+
+
+def test_e3_result_import_freezes_infrastructure_stop_when_artifact_missing():
+    text = _text()
+
+    assert "steps.artifact.outputs.available != 'true'" in text
+    assert "freeze_e3_mica_infrastructure_stop.py" in text
+    assert "E3_MICA_REDUCED_INFRASTRUCTURE_STOP.json" in text
+    assert "build/import/*.json" in text

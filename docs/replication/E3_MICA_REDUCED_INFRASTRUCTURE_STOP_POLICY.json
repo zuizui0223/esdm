@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "policy_id": "e3-mica-reduced-infrastructure-stop-v1",
+  "frozen_date": "2026-09-29",
+  "programme_id": "E3_MICA_EXP",
+  "applies_to": {
+    "fit_workflow_run_id": 36522315963,
+    "run_attempt": 1,
+    "authorization_head_sha": "65300be9ab5ea25cbd321011c6e4ca1db7efc5f3",
+    "authorization_branch": "explore/e3-mica-reduced-fit-run-v1",
+    "fit_contract": "docs/replication/E3_MICA_REDUCED_FIT_CONTRACT.json",
+    "import_contract": "docs/replication/E3_MICA_REDUCED_RESULT_IMPORT_CONTRACT.json"
+  },
+  "trigger_condition": {
+    "exact_authorized_run_completed": true,
+    "canonical_result_artifact_count": 0,
+    "canonical_result_artifact_name": "e3-mica-reduced-result-36522315963"
+  },
+  "terminal_receipt": {
+    "status": "E3_EXPLORATORY_INFRASTRUCTURE_STOP",
+    "scientific_result_available": false,
+    "scored_result_available": false,
+    "population_transfer_value_authorized": false,
+    "odsp_audit_authorized": false,
+    "e2_rescue": false,
+    "confirmatory_replication": false,
+    "causal_claim_authorized": false,
+    "parameter_recovery_claim_authorized": false,
+    "same_programme_rerun_allowed": false,
+    "post_result_threshold_retuning_allowed": false,
+    "post_result_stream_retuning_allowed": false
+  },
+  "interpretation": {
+    "supported": [
+      "the single authorized E3 execution did not produce a canonical result artifact",
+      "the programme terminates without scientific E3 result under the frozen no-rerun rule"
+    ],
+    "not_supported": [
+      "a scientific FAIL of activity or state transfer",
+      "zero activity or state value",
+      "a sampling failure inside a completed scientific result",
+      "authorization of a replacement E3 fit"
+    ]
+  }
+}
