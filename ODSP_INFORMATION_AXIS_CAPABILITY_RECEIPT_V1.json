@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "receipt_id": "esdm-odsp-information-axis-capability-v1",
+  "validated_date": "2026-09-29",
+  "contract": "ODSP_INFORMATION_AXIS_CAPABILITY_CONTRACT_V1.json",
+  "generation": {
+    "source_head_sha": "5e001d9e34e2b168a413daa5739977899e39641e",
+    "workflow_run_id": 36542141025,
+    "artifact_id": 11020579173,
+    "artifact_name": "odsp-information-axis-capability-v1",
+    "artifact_digest": "sha256:f927efb9e5cbf2a515d6629d1bc4ee3641f0fc4cdada7119df13ec1e560101d6",
+    "matrix_filename": "ODSP_INFORMATION_AXIS_CAPABILITY_V1.json",
+    "matrix_sha256": "2732b9657b49e738909244705afd1e3f969e03ff0fc817a93ef02952930477aa",
+    "matrix_fingerprint": "48be272648fa89a30d0b8d4bd1c62c807c75456a2df21016a7e912e4124800a8",
+    "builder": "scripts/build_odsp_information_axis_capability.py",
+    "deterministic_rebuild_authorized": true,
+    "canonical_snapshot_in_repository": false
+  },
+  "coverage": {
+    "axis_count": 7,
+    "validated_numeric_axis_count": 4,
+    "nonvalidated_axis_count": 3,
+    "validated_axes": [
+      "accessibility",
+      "dynamic_occupancy",
+      "activity",
+      "latent_state"
+    ],
+    "nonvalidated_axes": {
+      "interaction": "not_authorized_numeric_transfer",
+      "traits": "not_instrumented_no_heldout_score",
+      "movement_kernel": "not_instrumented_outside_current_model"
+    },
+    "registry_source_count": 14,
+    "validated_registry_source_count": 4,
+    "excluded_registry_source_count": 10,
+    "every_registry_source_accounted_for": true
+  },
+  "boundaries": {
+    "interaction_unsupported_not_zero": true,
+    "accessibility_is_movement_kernel": false,
+    "dynamic_occupancy_is_movement_kernel": false,
+    "latent_state_is_trait": false,
+    "existing_activity_state_complete_lattice": false,
+    "cross_programme_lattice_allowed": false,
+    "retrospective_missing_node_reconstruction_allowed": false,
+    "new_axis_requires_prospective_absolute_scores": true,
+    "authorizes_new_fit": false,
+    "authorizes_eog_consumption": false,
+    "authorizes_n4_action": false
+  }
+}
