@@ -19,7 +19,9 @@
     "e3_reduced_capture_workflow_run_id": 36399428007,
     "e3_reduced_capture_artifact_id": 10958744325,
     "e3_reduced_capture_artifact_digest": "sha256:136879b419f8ae754b41d19db1052fde29fa5405f2a2cc50bd0116a6b5a72c93",
-    "e3_fixture_fingerprint_sha256": "2876b9f85bb34ddb600c39cd412fe196b3c78f47fa7306bca63c30245d740a23"
+    "e3_fixture_fingerprint_sha256": "2876b9f85bb34ddb600c39cd412fe196b3c78f47fa7306bca63c30245d740a23",
+    "e3_reduced_capture_result_sha256": "77f0286f1cc09ff03e0e53222c445316b961eef6ec0d5ceb505445dcff7d43be",
+    "e2_climate_result_sha256": "51f4e4877647c5e369759310e3c0d2b30a98a0a445108ac28b739f5795a17a4b"
   },
   "scientific_model": {
     "endpoint_id": "E3_MICA_REDUCED_NO_DIRECT_STATE_CALIBRATION",
