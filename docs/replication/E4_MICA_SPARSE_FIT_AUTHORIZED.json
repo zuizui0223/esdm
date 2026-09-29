@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "programme_id": "E4_MICA_SPARSE_NUTS",
+  "contract_id": "e4-mica-exact-sparse-fit-v1",
+  "implementation_parent_sha": "4ad5c4a14a99bec1c76240dec69943c92b581412",
+  "qualification_workflow_run_id": 36621160011,
+  "qualification_result_sha256": "2a8ce70ce8eefbbd70a2cdeaa2f4fc558aa64ab061985c263c8d1656979d83ff",
+  "one_shot": true,
+  "empirical_fit_authorized": true,
+  "laplace_or_inla_authorized": false,
+  "authorized_date": "2026-09-30"
+}
