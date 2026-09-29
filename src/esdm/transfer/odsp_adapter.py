@@ -657,3 +657,73 @@ def build_e3_mica_state_odsp_bundle(
             "within-endpoint resampling block"
         ),
     )
+
+
+
+def build_tr1_trait_odsp_bundle(
+    aggregate_result: Mapping[str, object],
+) -> ODSPTransferBundle:
+    """Bind a successful TR1 trait-transfer result to ODSP information levels."""
+
+    if aggregate_result.get("schema") != "esdm.tr1.trait_transfer.v1":
+        raise ValueError("expected esdm.tr1.trait_transfer.v1 aggregate result")
+    if aggregate_result.get("status") != "PASS":
+        raise ValueError("TR1 must PASS before traits become a numeric ODSP axis")
+
+    declared = aggregate_result.get("information_filtration")
+    expected = [
+        {
+            "name": "environment_only",
+            "information": ["environment"],
+            "score_field": "environment_only_heldout_log_score",
+        },
+        {
+            "name": "environment_traits",
+            "information": ["environment", "traits"],
+            "score_field": "environment_trait_heldout_log_score",
+        },
+    ]
+    if declared != expected:
+        raise ValueError("TR1 information filtration drifted")
+
+    score_contract = aggregate_result.get("score_contract")
+    if not isinstance(score_contract, Mapping):
+        raise ValueError("TR1 result is missing score_contract")
+    if (
+        score_contract.get("kind") != "log"
+        or score_contract.get("name") != "mean_heldout_log_predictive_density"
+        or score_contract.get("unit") != "nats_per_heldout_context"
+        or score_contract.get("orientation") != "higher_is_better"
+    ):
+        raise ValueError("TR1 score contract drifted")
+
+    records = aggregate_result.get("positive_replicates")
+    if not isinstance(records, list) or not records:
+        raise ValueError("TR1 result must contain positive_replicates")
+
+    return build_odsp_transfer_bundle(
+        endpoint_id="esdm_tr1_traits_transfer_v1",
+        levels=(
+            ODSPInformationLevel(
+                name="environment_only",
+                information=("environment",),
+                source_score_field="environment_only_heldout_log_score",
+            ),
+            ODSPInformationLevel(
+                name="environment_traits",
+                information=("environment", "traits"),
+                source_score_field="environment_trait_heldout_log_score",
+            ),
+        ),
+        records=records,
+        group_field="replicate",
+        analysis_mode="descriptive",
+        filtration_frozen_before_outcome_scoring=True,
+        source_schema="esdm.tr1.trait_transfer.v1",
+        source_git_sha=(
+            None
+            if aggregate_result.get("git_sha") is None
+            else str(aggregate_result.get("git_sha"))
+        ),
+        group_semantics="independent known-truth replicate",
+    )
