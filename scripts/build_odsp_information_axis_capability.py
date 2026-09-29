@@ -158,6 +158,42 @@ def build() -> dict:
         if row["capability_class"] != "validated_transfer_value"
     ]
 
+    axis_source_ids = {
+        str(source_id)
+        for declared in contract["axes"]
+        for source_id in declared["source_ids"]
+    }
+    unknown_axis_sources = sorted(axis_source_ids - set(registry_by_id))
+    if unknown_axis_sources:
+        raise ValueError(
+            f"capability contract references unknown registry sources: {unknown_axis_sources!r}"
+        )
+
+    non_axis_exclusions = []
+    for source_id in sorted(set(registry_by_id) - axis_source_ids):
+        source = registry_by_id[source_id]
+        if source["status"] == "validated_exportable":
+            raise ValueError(
+                f"validated registry source omitted from capability axes: {source_id}"
+            )
+        non_axis_exclusions.append(
+            {
+                "source_id": source_id,
+                "programme": source["programme"],
+                "registry_status": source["status"],
+                "frozen_result_status": source["frozen_result_status"],
+                "reason": source["reason"],
+                "numeric_transfer_value": None,
+                "numeric_transfer_value_authorized": False,
+            }
+        )
+
+    matrix_source_ids = axis_source_ids | {
+        row["source_id"] for row in non_axis_exclusions
+    }
+    if matrix_source_ids != set(registry_by_id):
+        raise ValueError("capability matrix does not account for every registry source")
+
     protocol_scope = lattice_protocol["current_odsp_scope"]
     if protocol_scope["supported_information_block_counts"] != [2, 3]:
         raise ValueError("lattice protocol supported block counts drifted")
@@ -174,6 +210,7 @@ def build() -> dict:
         "validated_numeric_axis_count": len(validated),
         "nonvalidated_axis_count": len(unavailable),
         "axes": rows,
+        "non_axis_exclusions": non_axis_exclusions,
         "distinctions": contract["distinctions"],
         "lattice_boundary": contract["lattice_boundary"],
         "next_build_rule": contract["next_build_rule"],
@@ -189,6 +226,11 @@ def build() -> dict:
             "every_registry_source_accounted_for": ledger["coverage"][
                 "every_registry_source_accounted_for"
             ],
+            "matrix_registry_source_count": len(matrix_source_ids),
+            "matrix_every_registry_source_accounted_for": (
+                matrix_source_ids == set(registry_by_id)
+            ),
+            "non_axis_exclusion_count": len(non_axis_exclusions),
             "interaction_scientific_fail_retained": (
                 ledger["interaction_fail_sentinel"]["frozen_result_status"] == "FAIL"
             ),
