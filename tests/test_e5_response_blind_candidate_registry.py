@@ -59,3 +59,42 @@ def test_wildlife_insights_is_discovery_pool_not_selected_outcome():
     assert value["current_conclusion"]["strongest_current_discovery_pool"] == (
         "Wildlife Insights public projects"
     )
+
+
+def test_yearlong_uljin_candidate_still_fails_crossed_domain_gate():
+    value = _read()
+    row = next(
+        x for x in value["candidates"]
+        if x["candidate_id"] == "uljin_korea_2022_2023"
+    )
+    assert row["public_metadata"]["physical_camera_stations"] == 82
+    assert row["gates"]["G5_PHYSICAL_REPLICATION"] == "PASS_COUNTS"
+    assert row["gates"]["G6_TEMPORAL_SUPPORT"] == "PASS"
+    assert row["gates"]["G3_CROSSED_DOMAIN"] == "FAIL"
+    assert row["decision"] == "E5_CANDIDATE_NOT_QUALIFIED"
+    assert row["response_may_be_opened_for_E5"] is False
+
+
+def test_longterm_amazon_candidate_is_not_rescued_by_duration_or_paired_subset():
+    value = _read()
+    row = next(
+        x for x in value["candidates"]
+        if x["candidate_id"] == "eastern_amazon_jaguar_2014_2020"
+    )
+    assert row["public_metadata"]["physical_camera_locations"] == 42
+    assert row["public_metadata"]["paired_camera_locations"] == 11
+    assert row["gates"]["G5_PHYSICAL_REPLICATION"] == "PASS_COUNTS"
+    assert row["gates"]["G6_TEMPORAL_SUPPORT"] == "PASS"
+    assert row["gates"]["G2_SCHEMA_EFFORT_TIME"].startswith("FAIL")
+    assert row["gates"]["G3_CROSSED_DOMAIN"] == "FAIL"
+    assert row["decision"] == "E5_CANDIDATE_NOT_QUALIFIED"
+
+
+def test_registry_has_no_qualified_candidate_after_seven_response_blind_screens():
+    value = _read()
+    assert value["current_conclusion"]["screened_candidate_count"] == 7
+    assert value["current_conclusion"]["qualified_candidate_count"] == 0
+    assert not any(
+        row.get("decision") == "E5_CANDIDATE_QUALIFIED_PRE_RESPONSE"
+        for row in value["candidates"]
+    )
