@@ -107,3 +107,24 @@ The next response-blind step is therefore to trace the original component-study 
 repositories for separately accessible site/deployment/time/protocol metadata. If the
 only available packages mix those metadata inseparably with focal response, the
 candidate remains blocked rather than weakening E5.
+
+
+### Ecuador landscape-scale camera monitoring
+
+The Ecuador Ministry of Environment publishes this resource as a Sampling Event Darwin
+Core Archive with the biological response structurally separated from sampling metadata:
+the latest public version reports **958 Event-core records** and **78,299 Occurrence
+extension records**. EML metadata are also downloadable separately.
+
+The published protocol is response-blind and potentially useful for E5: predefined
+landscapes contain up to 45 selected 16-km2 grid cells, each selected grid is visited on
+two occasions, and cameras are installed in randomly selected 1-km2 cells. This creates
+a plausible path to multi-landscape physical replication and repeated-visit detection
+information.
+
+The candidate is **not yet qualified**. E5 has not opened the DwC-A. A separate child
+contract must first authorize reading only EML and the Event core while explicitly
+forbidding the Occurrence extension. That precheck must verify stable physical-location
+IDs, timestamps/effort intervals, temporal coverage, landscape/source geometry, and
+whether repeated Event structure actually identifies effective detection. It must report
+zero Occurrence rows read.
