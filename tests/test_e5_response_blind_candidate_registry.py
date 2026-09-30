@@ -1,0 +1,61 @@
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+PATH = ROOT / "docs" / "replication" / "E5_RESPONSE_BLIND_CANDIDATE_REGISTRY.json"
+
+
+def _read():
+    return json.loads(PATH.read_text(encoding="utf-8"))
+
+
+def test_e5_candidate_registry_keeps_response_closed():
+    value = _read()
+    firewall = value["selection_firewall"]
+    assert value["status"] == "RESPONSE_BLIND_SEARCH_IN_PROGRESS"
+    assert firewall["focal_response_opened"] is False
+    assert firewall["focal_event_counts_used_for_selection"] is False
+    assert firewall["focal_diel_direction_used_for_selection"] is False
+    assert firewall["predictive_scores_used_for_selection"] is False
+    assert value["current_conclusion"]["response_opening_authorized"] is False
+    assert value["current_conclusion"]["model_fitting_authorized"] is False
+
+
+def test_snapshot_usa_2024_fails_frozen_temporal_gate_before_response():
+    value = _read()
+    row = next(x for x in value["candidates"] if x["candidate_id"] == "snapshot_usa_2024")
+    assert row["public_metadata"]["deployment_records"] == 3127
+    assert row["public_metadata"]["camera_trap_arrays"] == 184
+    assert row["public_metadata"]["states"] == 49
+    assert row["public_metadata"]["distance_calibration_arrays"] == 73
+    assert row["gates"]["G6_TEMPORAL_SUPPORT"] == "FAIL"
+    assert row["decision"] == "E5_CANDIDATE_NOT_QUALIFIED"
+    assert row["response_may_be_opened_for_E5"] is False
+
+
+def test_double_observer_candidate_fails_replication_and_temporal_gates():
+    value = _read()
+    row = next(
+        x for x in value["candidates"]
+        if x["candidate_id"] == "nakashima_double_observer_2022"
+    )
+    assert row["public_metadata"]["japan_camera_stations"] == 7
+    assert row["public_metadata"]["cameroon_camera_stations"] == 26
+    assert row["gates"]["G4_DETECTION_IDENTIFIABILITY"] == "PASS_DESIGN_PRINCIPLE"
+    assert row["gates"]["G5_PHYSICAL_REPLICATION"] == "FAIL"
+    assert row["gates"]["G6_TEMPORAL_SUPPORT"] == "FAIL"
+    assert row["response_may_be_opened_for_E5"] is False
+
+
+def test_wildlife_insights_is_discovery_pool_not_selected_outcome():
+    value = _read()
+    universe = value["search_universes"][0]
+    assert universe["universe_id"] == "wildlife_insights_public_projects"
+    assert universe["role"] == "PRIMARY_RESPONSE_BLIND_DISCOVERY_POOL"
+    assert value["current_conclusion"]["qualified_candidate_selected"] is False
+    assert value["current_conclusion"]["strongest_current_discovery_pool"] == (
+        "Wildlife Insights public projects"
+    )
