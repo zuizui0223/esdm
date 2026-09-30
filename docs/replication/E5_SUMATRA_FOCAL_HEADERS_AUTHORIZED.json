@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "sumatra_mesopredator_paired_2014_2015",
+  "contract_id": "e5-sumatra-focal-header-sharedstrings-response-blind-v1",
+  "contract_blob_sha": "df6824b8e09b999799425173f1f1bedcdca99642",
+  "implementation_parent_sha": "d62e8908d79be973ee5ae741dbf4964acbaafa52",
+  "precheck_authorized": true,
+  "one_shot": true,
+  "target_indices": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "focal_species_data_rows_authorized": false,
+  "focal_response_values_authorized": false,
+  "model_fitting_authorized": false,
+  "authorized_date": "2026-10-01"
+}
