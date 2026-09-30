@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "contract_id": "e4-mica-odsp-location-block-sensitivity-v1",
+  "frozen_date": "2026-09-30",
+  "status": "POSTRESULT_DESCRIPTIVE_SENSITIVITY_FROZEN",
+  "source": {
+    "programme_id": "E4_MICA_SPARSE_NUTS",
+    "frozen_result": "docs/replication/E4_MICA_SPARSE_FROZEN_RESULT.json",
+    "raw_result_workflow_run_id": 36622802225,
+    "raw_result_artifact_name": "e4-mica-sparse-result-36622802225",
+    "raw_result_sha256": "34124094e6c25db04465cc1ff869af5813326729e6fd3b658a0921c45bc6f3e2",
+    "e2_capture_workflow_run_id": 36369531079
+  },
+  "odsp": {
+    "repository": "zuizui0223/odsp",
+    "pinned_commit": "0bd83e1ebb372c48839654ab0e42124fe37b8faf",
+    "command": "odsp transfer"
+  },
+  "sensitivity": {
+    "frozen_point_row_unit": "deploymentID",
+    "frozen_point_row_count": 733,
+    "official_odsp_block": "deploymentID",
+    "sensitivity_block": "locationName",
+    "expected_location_block_count": 27,
+    "deployment_weights_changed": false,
+    "point_gain_must_remain_identical": true,
+    "purpose": "test whether within-endpoint ODSP uncertainty classification is sensitive to repeated deployments nested in physical locations"
+  },
+  "boundary": {
+    "replaces_official_733_block_audit": false,
+    "changes_e4_decision": false,
+    "superpopulation_interpretation_authorized": false,
+    "n3_handoff_authorized": false,
+    "confirmatory_claim": false,
+    "causal_claim": false,
+    "rerun_or_retuning_authorized": false
+  }
+}
