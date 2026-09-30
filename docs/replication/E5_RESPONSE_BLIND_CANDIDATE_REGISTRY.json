@@ -141,6 +141,69 @@
       "decision": "E5_CANDIDATE_NOT_QUALIFIED",
       "hard_stop_reason": "single geographic study and paired feature-vs-random placement does not provide the frozen geography-by-source crossing required for E5",
       "response_may_be_opened_for_E5": false
+    },
+    {
+      "candidate_id": "uljin_korea_2022_2023",
+      "title": "Year-long Uljin County camera-trap dataset, South Korea",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13379711/",
+      "response_opened": false,
+      "public_metadata": {
+        "geography": "Uljin County, Gyeongbuk Province, South Korea",
+        "physical_camera_stations": 82,
+        "site_strata": {
+          "UJ1": 52,
+          "UJ2": 30
+        },
+        "deployment_period": "2022-04 to 2023-05",
+        "continuous_24h_operation": true,
+        "harmonized_effort_from_camera_operation_log": true,
+        "station_level_covariates_available": true,
+        "event_timestamps_available": true,
+        "generalized_station_coordinates_available": true,
+        "camera_protocol": "single standardized Reconyx HP2X network"
+      },
+      "gates": {
+        "G1_INDEPENDENT_SOURCE": "PASS",
+        "G2_SCHEMA_EFFORT_TIME": "PASS_PUBLIC_DATA_DESCRIPTION",
+        "G3_CROSSED_DOMAIN": "FAIL",
+        "G4_DETECTION_IDENTIFIABILITY": "POTENTIALLY_IDENTIFIABLE_REPEATED_VISITS_BUT_NOT_CROSSED_SOURCE_CALIBRATION",
+        "G5_PHYSICAL_REPLICATION": "PASS_COUNTS",
+        "G6_TEMPORAL_SUPPORT": "PASS",
+        "G7_MODEL_FREEZE": "NOT_REACHED"
+      },
+      "decision": "E5_CANDIDATE_NOT_QUALIFIED",
+      "hard_stop_reason": "year-long effort and physical replication are strong, but the public design is one standardized study/source in one geographic region rather than the frozen geography-by-source crossed design",
+      "response_may_be_opened_for_E5": false
+    },
+    {
+      "candidate_id": "eastern_amazon_jaguar_2014_2020",
+      "title": "Seven-year eastern Amazon continuous camera-trap monitoring",
+      "source_url": "https://link.springer.com/article/10.1007/s13364-026-00897-3",
+      "doi": "10.1007/s13364-026-00897-3",
+      "response_opened": false,
+      "public_metadata": {
+        "geography": "Paragominas, Pará, eastern Brazilian Amazonia",
+        "physical_camera_locations": 42,
+        "monitoring_period": "2014-03 to 2020-12",
+        "continuous_24h_operation": true,
+        "camera_protocol": "Bushnell TrophyCamHD network",
+        "paired_camera_locations": 11,
+        "paired_camera_note": "paired cameras were used only during specific periods and did not always operate simultaneously",
+        "sampling_effort_modeled_as_trap_days": true,
+        "raw_event_deployment_repository_demonstrated": false
+      },
+      "gates": {
+        "G1_INDEPENDENT_SOURCE": "PASS",
+        "G2_SCHEMA_EFFORT_TIME": "FAIL_PUBLIC_RAW_EVENT_DEPLOYMENT_ACCESS_NOT_DEMONSTRATED",
+        "G3_CROSSED_DOMAIN": "FAIL",
+        "G4_DETECTION_IDENTIFIABILITY": "PROMISING_PAIRED_SUBSET_BUT_NOT_A_QUALIFIED_CROSSED_CALIBRATION",
+        "G5_PHYSICAL_REPLICATION": "PASS_COUNTS",
+        "G6_TEMPORAL_SUPPORT": "PASS",
+        "G7_MODEL_FREEZE": "NOT_REACHED"
+      },
+      "decision": "E5_CANDIDATE_NOT_QUALIFIED",
+      "hard_stop_reason": "long temporal coverage and a paired-camera subset are promising, but the published design is a single geographic/source network and a reproducibly accessible raw event/deployment package sufficient for E5 has not been demonstrated",
+      "response_may_be_opened_for_E5": false
     }
   ],
   "search_universes": [
@@ -176,6 +239,8 @@
     "snapshot_usa_2024_selected": false,
     "response_opening_authorized": false,
     "model_fitting_authorized": false,
-    "next_action": "screen Wildlife Insights public project metadata response-blind for projects or project combinations satisfying all E5 gates"
+    "next_action": "screen Wildlife Insights public project metadata response-blind for projects or project combinations satisfying all E5 gates",
+    "screened_candidate_count": 7,
+    "qualified_candidate_count": 0
   }
 }
