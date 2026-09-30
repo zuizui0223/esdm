@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "precheck_id": "e5-ecuador-event-core-only-precheck-v1",
+  "status": "FROZEN_METADATA_EVENT_CORE_ONLY_PRECHECK",
+  "frozen_date": "2026-09-30",
+  "candidate": {
+    "candidate_id": "ecuador_landscape_camera_2023",
+    "title": "Registro de trampas cámara del monitoreo a escala de paisajes",
+    "doi": "10.15468/se979g",
+    "gbif_dataset_uuid": "cb16fc5b-70b7-420c-ad10-e3c6b7baf184",
+    "publisher": "Ministerio de Ambiente y Energía de Ecuador - MAE",
+    "version": "1.3",
+    "publication_date": "2023-04-25",
+    "declared_event_core_records": 958,
+    "declared_occurrence_extension_records": 78299,
+    "temporal_scope": "2015-10-22 to 2018-01-27"
+  },
+  "authorization": {
+    "archive_download_authorized": true,
+    "meta_xml_read_authorized": true,
+    "eml_metadata_read_authorized": true,
+    "event_core_schema_read_authorized": true,
+    "event_core_rows_read_authorized": true,
+    "occurrence_extension_schema_location_may_be_identified_from_meta_xml": true,
+    "occurrence_extension_bytes_may_be_read": false,
+    "occurrence_extension_rows_may_be_read": false,
+    "focal_taxon_response_may_be_opened": false,
+    "model_fitting_authorized": false
+  },
+  "event_core_safety": {
+    "required_row_type_suffix": "Event",
+    "forbidden_event_core_term_suffixes": [
+      "occurrenceID",
+      "scientificName",
+      "taxonID",
+      "acceptedNameUsageID",
+      "organismID",
+      "organismQuantity",
+      "organismQuantityType",
+      "individualCount",
+      "occurrenceStatus",
+      "sex",
+      "lifeStage",
+      "behavior"
+    ],
+    "fail_before_row_read_if_forbidden_term_present": true
+  },
+  "permitted_precheck_outputs": [
+    "archive sha256 and file inventory names",
+    "event-core row type and field terms",
+    "event-core row count",
+    "eventID/parentEventID/locationID completeness and uniqueness summaries",
+    "event hierarchy depth/count summaries",
+    "eventDate temporal range and distinct calendar months",
+    "latitude/longitude completeness and geographic range",
+    "samplingProtocol and sample-size/effort field availability",
+    "response-blind landscape/source labels already present in Event core",
+    "occurrence extension filename and declared presence without reading its bytes"
+  ],
+  "gates_allowed_to_assess": {
+    "G1_INDEPENDENT_SOURCE": "already PASS from public provenance",
+    "G2_SCHEMA_EFFORT_TIME": "event-core metadata portion only; taxon/event-response schema remains unopened",
+    "G3_CROSSED_DOMAIN": "geometry hint only; cannot final-PASS without frozen candidate split/source review",
+    "G4_DETECTION_IDENTIFIABILITY": "design hint only; cannot final-PASS from repeated-event metadata alone",
+    "G5_PHYSICAL_REPLICATION": "capacity/identity hint only",
+    "G6_TEMPORAL_SUPPORT": "overall metadata support hint only; final split must independently satisfy six-month minima",
+    "G7_MODEL_FREEZE": "not assessable here"
+  },
+  "decision_boundary": {
+    "candidate_qualification_authorized": false,
+    "selected_candidate_child_contract_authorized": false,
+    "focal_response_opening_authorized": false,
+    "outcome_contract_authorized": false,
+    "any_PASS_from_this_precheck_is_preliminary_only": true
+  }
+}
