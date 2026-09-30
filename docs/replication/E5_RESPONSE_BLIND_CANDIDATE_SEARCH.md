@@ -86,3 +86,24 @@ from effective detection under the E5 contract.
 The Wildlife Insights public-project universe remains the next response-blind search
 space because project, camera and deployment metadata can be screened before detection
 records are touched.
+
+
+### Sunda Islands multi-study compilation
+
+A more promising design family appears in the Borneo + Sumatra camera-trap compilation
+published by Chiaverini et al. The public methods describe **22 sampling locations,
+1,544 camera-trap stations and 138,515 trap nights** from 2007-2016. The same survey
+protocol was used across regions, stations used two cameras, and camera model was
+recorded; at least one camera model occurs in both Borneo and Sumatra. This gives the
+candidate substantially better prospects for crossing geography with observation
+design than the candidates above.
+
+It is **not yet qualified**. The publication's supporting information does not expose a
+raw event/deployment table with the timestamps needed by E5. Until reproducibly
+accessible raw deployment/event material is established without inspecting the focal
+response, G2 remains blocked and no response opening is authorized.
+
+The next response-blind step is therefore to trace the original component-study data
+repositories for separately accessible site/deployment/time/protocol metadata. If the
+only available packages mix those metadata inseparably with focal response, the
+candidate remains blocked rather than weakening E5.
