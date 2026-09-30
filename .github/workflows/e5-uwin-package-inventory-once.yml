@@ -1,0 +1,131 @@
+name: E5 UWIN response-blind package inventory once
+
+concurrency:
+  group: e5-uwin-package-inventory-once
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - e5/uwin-package-inventory-v1
+    paths:
+      - 'docs/replication/E5_UWIN_PACKAGE_INVENTORY_AUTHORIZED.json'
+
+permissions:
+  contents: read
+
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify pure one-shot inventory authorization
+        run: |
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+
+          marker_path = Path(
+              "docs/replication/E5_UWIN_PACKAGE_INVENTORY_AUTHORIZED.json"
+          )
+          marker = json.loads(marker_path.read_text(encoding="utf-8"))
+          parent = subprocess.check_output(
+              ["git", "rev-parse", "HEAD^"], text=True
+          ).strip()
+          changed = subprocess.check_output(
+              ["git", "diff-tree", "--no-commit-id", "--name-only", "-r", "HEAD"],
+              text=True,
+          ).splitlines()
+          contract_path = Path(
+              "docs/replication/E5_UWIN_PACKAGE_INVENTORY_CONTRACT.json"
+          )
+          contract_blob = subprocess.check_output(
+              ["git", "hash-object", str(contract_path)], text=True
+          ).strip()
+
+          if changed != [marker_path.as_posix()]:
+              raise SystemExit("authorization commit must change only the marker")
+          if marker.get("implementation_parent_sha") != parent:
+              raise SystemExit("implementation parent mismatch")
+          if marker.get("programme_id") != "E5_INDEPENDENT_ACTIVITY_DETECTION":
+              raise SystemExit("programme mismatch")
+          if marker.get("candidate_id") != "uwin_gallo_10city_2017_2018":
+              raise SystemExit("candidate mismatch")
+          if marker.get("contract_id") != (
+              "e5-uwin-dryad-package-response-blind-inventory-v1"
+          ):
+              raise SystemExit("contract id mismatch")
+          if marker.get("contract_blob_sha") != "9f8556c0df7c8999c37015dae00d58ff11dec2e3":
+              raise SystemExit("contract blob pin mismatch")
+          if contract_blob != marker["contract_blob_sha"]:
+              raise SystemExit("working-tree contract blob mismatch")
+          if marker.get("inventory_authorized") is not True:
+              raise SystemExit("inventory not authorized")
+          if marker.get("one_shot") is not True:
+              raise SystemExit("authorization must be one-shot")
+          if marker.get("non_readme_member_opening_authorized") is not False:
+              raise SystemExit("non-README members must remain forbidden")
+          if marker.get("focal_response_opening_authorized") is not False:
+              raise SystemExit("focal response opening must remain forbidden")
+          PY
+
+      - name: Compile inventory script
+        run: python -m py_compile scripts/inventory_e5_uwin_dryad_package.py
+
+      - name: Download pinned public UWIN package
+        run: |
+          mkdir -p build/private build/public
+          curl --location --fail --retry 3 --retry-delay 2             'https://datadryad.org/downloads/file_stream/1387569'             --output build/private/Gallo_eLife_DryadData.zip
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+          p = Path("build/private/Gallo_eLife_DryadData.zip")
+          observed = hashlib.md5(p.read_bytes()).hexdigest()
+          expected = "72c6e7d51f359e84e2e49154942b4c98"
+          if observed != expected:
+              raise SystemExit(f"UWIN package MD5 drift: {observed} != {expected}")
+          PY
+
+      - name: Inventory package without opening data tables
+        run: |
+          python scripts/inventory_e5_uwin_dryad_package.py             --archive build/private/Gallo_eLife_DryadData.zip             --out build/public/E5_UWIN_PACKAGE_INVENTORY_RESULT.json
+
+      - name: Verify response firewall
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path("build/public/E5_UWIN_PACKAGE_INVENTORY_RESULT.json")
+          value = json.loads(p.read_text(encoding="utf-8"))
+          b = value["response_boundary"]
+          if b["non_readme_members_opened"] != []:
+              raise SystemExit("non-README member was opened")
+          if int(b["data_rows_read"]) != 0 or int(b["response_rows_read"]) != 0:
+              raise SystemExit("data rows were read")
+          if b["focal_response_opened"] is not False:
+              raise SystemExit("focal response was opened")
+          if value["decision"]["candidate_qualified"] is not False:
+              raise SystemExit("inventory may not qualify E5")
+          PY
+
+      - name: Destroy downloaded package before artifact upload
+        run: |
+          rm -f build/private/Gallo_eLife_DryadData.zip
+          test ! -e build/private/Gallo_eLife_DryadData.zip
+
+      - name: Upload inventory result only
+        uses: actions/upload-artifact@v4
+        with:
+          name: e5-uwin-package-inventory-${{ github.run_id }}
+          path: build/public/E5_UWIN_PACKAGE_INVENTORY_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
