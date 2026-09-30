@@ -128,7 +128,9 @@ def test_ecuador_candidate_requires_event_core_only_child_precheck():
     assert row["public_metadata"]["dwca_event_core_records"] == 958
     assert row["public_metadata"]["dwca_occurrence_extension_records"] == 78299
     assert row["public_metadata"]["event_occurrence_tables_separated"] is True
-    assert row["public_metadata"]["visits_per_selected_grid"] == 2\n    assert row["public_metadata"]["selected_landscapes"] == 5\n    assert row["public_metadata"]["public_temporal_coverage"] == "2015-10-22 to 2018-01-27"
+    assert row["public_metadata"]["visits_per_selected_grid"] == 2
+    assert row["public_metadata"]["selected_landscapes"] == 5
+    assert row["public_metadata"]["public_temporal_coverage"] == "2015-10-22 to 2018-01-27"
     assert row["gates"]["G2_SCHEMA_EFFORT_TIME"].startswith("PROMISING")
     assert row["gates"]["G4_DETECTION_IDENTIFIABILITY"].startswith("PROMISING")
     assert row["decision"] == "E5_CANDIDATE_NOT_YET_QUALIFIED"
