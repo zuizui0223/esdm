@@ -98,3 +98,22 @@ def test_registry_has_no_qualified_candidate_after_seven_response_blind_screens(
         row.get("decision") == "E5_CANDIDATE_QUALIFIED_PRE_RESPONSE"
         for row in value["candidates"]
     )
+
+
+def test_sunda_candidate_is_promising_but_blocked_before_response_opening():
+    value = _read()
+    row = next(
+        x for x in value["candidates"]
+        if x["candidate_id"] == "sunda_islands_multistudy_2007_2016"
+    )
+    assert row["public_metadata"]["sampling_locations"] == 22
+    assert row["public_metadata"]["camera_trap_stations"] == 1544
+    assert row["public_metadata"]["trap_nights"] == 138515
+    assert row["public_metadata"]["cameras_per_station"] == 2
+    assert row["gates"]["G2_SCHEMA_EFFORT_TIME"] == (
+        "BLOCKED_RAW_EVENT_ACCESS_NOT_ESTABLISHED"
+    )
+    assert row["gates"]["G3_CROSSED_DOMAIN"].startswith("PROMISING")
+    assert row["gates"]["G4_DETECTION_IDENTIFIABILITY"].startswith("PROMISING")
+    assert row["decision"] == "E5_CANDIDATE_NOT_YET_QUALIFIED"
+    assert row["response_may_be_opened_for_E5"] is False
