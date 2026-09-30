@@ -27,14 +27,14 @@ def test_snapshot_usa_2024_has_strong_detection_calibration_but_fails_temporal_g
     metadata = value["response_blind_metadata"]
     calibration = metadata["detection_calibration"]
     assert metadata["camera_arrays"] == 184
-    assert metadata["physical_locations_reported"] == 2715
+    assert metadata["physical_locations_reported"] == 2715\n    assert metadata["deployment_id_row_difference"] == 3\n    assert metadata["deployment_identity_uniqueness_verified"] is False
     assert calibration["calibrated_arrays"] == 73
     assert calibration["calibrated_locations"] == 918
     assert metadata["survey_period"]["distinct_calendar_months"] == 5
 
     gates = {row["gate"]: row for row in value["gates"]}
     assert gates["G1_INDEPENDENT_SOURCE"]["status"] == "PASS"
-    assert gates["G2_SCHEMA_EFFORT_TIME"]["status"] == "PASS_SCHEMA_LEVEL"
+    assert gates["G2_SCHEMA_EFFORT_TIME"]["status"] == "PARTIAL_SCHEMA_DECLARED_VALUES_UNVERIFIED"
     assert gates["G4_DETECTION_IDENTIFIABILITY"]["status"] == "PROMISING_PENDING_LINKAGE"
     assert gates["G6_TEMPORAL_SUPPORT"]["status"] == "FAIL"
     assert gates["G7_MODEL_FREEZE"]["status"] == "NOT_REACHED"
