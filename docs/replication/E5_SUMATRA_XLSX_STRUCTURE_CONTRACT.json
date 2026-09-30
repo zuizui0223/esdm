@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "sumatra_mesopredator_paired_2014_2015",
+  "contract_id": "e5-sumatra-xlsx-structure-response-blind-precheck-v1",
+  "status": "FROZEN_PRECHECK_NOT_AUTHORIZED",
+  "frozen_date": "2026-09-30",
+  "parent_inventory": "docs/replication/E5_SUMATRA_S1_INVENTORY_RECEIPT.json",
+  "source": {
+    "archive_sha256": "9fee3248185c92ef528ec669c322b7f1329bc1bac55e9ce309b8ed08cb4fb6c0",
+    "workbook_member": "Iding_spc_data.xlsx"
+  },
+  "response_firewall": {
+    "outer_archive_download_authorized": true,
+    "workbook_member_bytes_open_authorized": true,
+    "xlsx_member_name_listing_authorized": true,
+    "workbook_xml_authorized": true,
+    "workbook_relationships_xml_authorized": true,
+    "content_types_xml_authorized": true,
+    "table_definition_xml_authorized": true,
+    "worksheet_row1_structure_authorized": true,
+    "inline_string_header_values_in_row1_authorized": true,
+    "shared_string_table_opening_authorized": false,
+    "worksheet_rows_after_row1_authorized": false,
+    "cell_numeric_values_authorized": false,
+    "formulas_authorized": false,
+    "comments_authorized": false,
+    "r_script_opening_authorized": false,
+    "data_rows_read_authorized": false,
+    "response_rows_read_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false
+  },
+  "precheck_scope": {
+    "may_report": [
+      "XLSX internal member names",
+      "worksheet names",
+      "structured Excel table names and declared table-column names",
+      "row-1 cell references/types and inline-string row-1 labels when encoded inline",
+      "whether row-1 labels require the forbidden shared-string table",
+      "whether a response-independent metadata sheet/table appears separable at schema level"
+    ],
+    "may_not_report": [
+      "shared-string values",
+      "row 2 or later values",
+      "numeric cell values",
+      "species identities from data rows",
+      "species counts",
+      "event timestamps",
+      "diel outcomes",
+      "effect directions",
+      "predictive scores"
+    ]
+  },
+  "decision_boundary": {
+    "candidate_qualification_authorized": false,
+    "G2_pass_authorized": false,
+    "G3_pass_authorized": false,
+    "G4_pass_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "separate_child_contract_required_before_opening_shared_strings_or_any_data_row": true
+  },
+  "execution": {
+    "dedicated_branch": "e5/sumatra-xlsx-structure-precheck-v1",
+    "authorization_marker": "docs/replication/E5_SUMATRA_XLSX_STRUCTURE_AUTHORIZED.json",
+    "one_shot": true,
+    "pure_marker_commit_required": true,
+    "workflow_dispatch_authorized": false
+  }
+}
