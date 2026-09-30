@@ -204,6 +204,41 @@
       "decision": "E5_CANDIDATE_NOT_QUALIFIED",
       "hard_stop_reason": "long temporal coverage and a paired-camera subset are promising, but the published design is a single geographic/source network and a reproducibly accessible raw event/deployment package sufficient for E5 has not been demonstrated",
       "response_may_be_opened_for_E5": false
+    },
+    {
+      "candidate_id": "sunda_islands_multistudy_2007_2016",
+      "title": "Sunda Islands multi-study camera-trap compilation (Borneo + Sumatra)",
+      "source_url": "https://doi.org/10.1111/acv.12771",
+      "doi": "10.1111/acv.12771",
+      "response_opened": false,
+      "public_metadata": {
+        "survey_years": "2007-2016",
+        "sampling_locations": 22,
+        "camera_trap_stations": 1544,
+        "trap_nights": 138515,
+        "borneo_sampling_locations": 15,
+        "sumatra_sampling_locations": 7,
+        "borneo_camera_stations": 801,
+        "sumatra_camera_stations": 743,
+        "same_survey_protocol_across_regions": true,
+        "cameras_per_station": 2,
+        "camera_models_recorded": true,
+        "shared_camera_model_across_regions": "Cuddeback Capture (CA)",
+        "supporting_information_contains_raw_event_table": false
+      },
+      "gates": {
+        "G1_INDEPENDENT_SOURCE": "PASS",
+        "G2_SCHEMA_EFFORT_TIME": "BLOCKED_RAW_EVENT_ACCESS_NOT_ESTABLISHED",
+        "G3_CROSSED_DOMAIN": "PROMISING_SHARED_PROTOCOL_AND_CAMERA_MODEL_CROSSING",
+        "G4_DETECTION_IDENTIFIABILITY": "PROMISING_PAIRED_AND_REPEATED_VISIT_DESIGN",
+        "G5_PHYSICAL_REPLICATION": "PROVISIONAL_PASS_COUNTS_ONLY",
+        "G6_TEMPORAL_SUPPORT": "PROVISIONAL_PASS_ISLAND_AGGREGATE_MONTH_COVERAGE",
+        "G7_MODEL_FREEZE": "NOT_REACHED"
+      },
+      "decision": "E5_CANDIDATE_NOT_YET_QUALIFIED",
+      "hard_stop_reason": "the publication documents strong multi-region geometry, two cameras per station, long multi-study temporal coverage, and shared camera models, but reproducibly accessible raw deployment/event-level material with timestamps has not yet been established; focal response must remain unopened",
+      "response_may_be_opened_for_E5": false,
+      "next_response_blind_check": "search original component-study repositories for separately accessible deployment/site/time/protocol metadata without opening species-specific event responses"
     }
   ],
   "search_universes": [
@@ -239,8 +274,10 @@
     "snapshot_usa_2024_selected": false,
     "response_opening_authorized": false,
     "model_fitting_authorized": false,
-    "next_action": "screen Wildlife Insights public project metadata response-blind for projects or project combinations satisfying all E5 gates",
+    "next_action": "verify raw deployment/event accessibility for Sunda component studies without opening focal response; in parallel continue Wildlife Insights public-project metadata screening",
     "screened_candidate_count": 7,
-    "qualified_candidate_count": 0
+    "qualified_candidate_count": 0,
+    "strongest_current_named_candidate": "Sunda Islands multi-study compilation",
+    "named_candidate_status": "promising_but_blocked_on_raw_metadata_event_access"
   }
 }
