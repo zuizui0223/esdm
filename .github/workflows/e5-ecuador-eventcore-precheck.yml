@@ -1,0 +1,61 @@
+name: E5 Ecuador Event-core-only precheck
+
+on:
+  pull_request:
+    paths:
+      - 'docs/replication/E5_ECUADOR_EVENT_CORE_PRECHECK_CONTRACT.json'
+      - 'scripts/precheck_e5_ecuador_event_core.py'
+      - 'tests/test_e5_ecuador_event_core_precheck.py'
+      - '.github/workflows/e5-ecuador-eventcore-precheck.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  precheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run response-firewall tests
+        run: python -m pytest -q tests/test_e5_ecuador_event_core_precheck.py
+
+      - name: Download frozen public DwC-A container
+        run: |
+          mkdir -p build/e5/ecuador
+          curl -fL --retry 3 --retry-delay 2 \
+            'https://patrimonio.ambiente.gob.ec/iptmae/archive.do?r=proy_paisaje_trampas_camara&v=1.3' \
+            -o build/e5/ecuador/source.dwca.zip
+
+      - name: Run Event-core-only precheck
+        run: |
+          python scripts/precheck_e5_ecuador_event_core.py \
+            --archive build/e5/ecuador/source.dwca.zip \
+            --out build/e5/ecuador/E5_ECUADOR_EVENT_CORE_PRECHECK_RESULT.json
+
+      - name: Assert occurrence extension remained unopened
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path("build/e5/ecuador/E5_ECUADOR_EVENT_CORE_PRECHECK_RESULT.json")
+          value = json.loads(p.read_text())
+          boundary = value["response_boundary"]
+          assert boundary["occurrence_extension_files_opened"] is False
+          assert boundary["occurrence_extension_rows_read"] == 0
+          assert boundary["focal_taxon_response_opened"] is False
+          assert value["decision_boundary"]["candidate_qualified"] is False
+          assert value["decision_boundary"]["model_fitting_authorized"] is False
+          PY
+
+      - name: Upload response-blind precheck
+        uses: actions/upload-artifact@v4
+        with:
+          name: e5-ecuador-eventcore-precheck-${{ github.run_id }}
+          path: build/e5/ecuador/E5_ECUADOR_EVENT_CORE_PRECHECK_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
