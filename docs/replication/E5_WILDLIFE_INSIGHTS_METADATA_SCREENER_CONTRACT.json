@@ -36,12 +36,13 @@
       "project country metadata"
     ],
     "may_not_qualify": [
+      "G2_SCHEMA_EFFORT_TIME",
       "G3_CROSSED_DOMAIN",
       "G4_DETECTION_IDENTIFIABILITY",
       "G7_MODEL_FREEZE",
       "final E5 candidate status"
     ],
-    "rationale": "G3 and G4 require scientific design adjudication; paired/cluster metadata alone is not an independently identifying detection path and project geography alone does not prove source-by-geography crossing"
+    "rationale": "G2 additionally requires event-time schema and taxonomic identity, which cannot be verified by opening only projects/cameras/deployments; G3 and G4 require scientific design adjudication; paired/cluster metadata alone is not an independently identifying detection path and project geography alone does not prove source-by-geography crossing"
   },
   "discovery_hints": {
     "six_calendar_month_threshold": 6,
