@@ -132,7 +132,7 @@ def test_ecuador_candidate_requires_event_core_only_child_precheck():
     assert row["public_metadata"]["selected_landscapes"] == 5
     assert row["public_metadata"]["public_temporal_coverage"] == "2015-10-22 to 2018-01-27"
     assert row["gates"]["G2_SCHEMA_EFFORT_TIME"].startswith("PROMISING")
-    assert row["gates"]["G4_DETECTION_IDENTIFIABILITY"].startswith("PROMISING")
+    assert row["gates"]["G4_DETECTION_IDENTIFIABILITY"] == "PENDING_EVENT_OCCASION_STRUCTURE"
     assert row["decision"] == "E5_CANDIDATE_NOT_YET_QUALIFIED"
     assert row["response_may_be_opened_for_E5"] is False
     assert "Event core only" in row["next_response_blind_check"]
