@@ -117,3 +117,21 @@ def test_sunda_candidate_is_promising_but_blocked_before_response_opening():
     assert row["gates"]["G4_DETECTION_IDENTIFIABILITY"].startswith("PROMISING")
     assert row["decision"] == "E5_CANDIDATE_NOT_YET_QUALIFIED"
     assert row["response_may_be_opened_for_E5"] is False
+
+
+def test_ecuador_candidate_requires_event_core_only_child_precheck():
+    value = _read()
+    row = next(
+        x for x in value["candidates"]
+        if x["candidate_id"] == "ecuador_landscape_camera_2023"
+    )
+    assert row["public_metadata"]["dwca_event_core_records"] == 958
+    assert row["public_metadata"]["dwca_occurrence_extension_records"] == 78299
+    assert row["public_metadata"]["event_occurrence_tables_separated"] is True
+    assert row["public_metadata"]["visits_per_selected_grid"] == 2
+    assert row["gates"]["G2_SCHEMA_EFFORT_TIME"].startswith("PROMISING")
+    assert row["gates"]["G4_DETECTION_IDENTIFIABILITY"].startswith("PROMISING")
+    assert row["decision"] == "E5_CANDIDATE_NOT_YET_QUALIFIED"
+    assert row["response_may_be_opened_for_E5"] is False
+    assert "Event core only" in row["next_response_blind_check"]
+    assert "Occurrence extension" in row["next_response_blind_check"]
