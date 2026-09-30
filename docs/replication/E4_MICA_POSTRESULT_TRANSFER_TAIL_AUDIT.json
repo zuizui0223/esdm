@@ -1,0 +1,108 @@
+{
+  "activity_transfer_diagnostic": {
+    "corr_activity_gain_labeled_event_count": -0.8841300569673647,
+    "corr_activity_gain_longitude": -0.3724711010921183,
+    "corr_activity_gain_precip_z": 0.19385992883552258,
+    "event_bearing_heldout_deployments": 128,
+    "event_weighted_activity_to_knockout_ratio": 0.42233655059174985,
+    "event_weighted_posterior_mean_activity_probability": 0.18502379102459943,
+    "heldout_deployments": 733,
+    "knockout_baseline_activity_probability": 0.4380956153696771,
+    "posterior_mean_activity_parameters": {
+      "sp.activity.activity_beta_diurnal": 4.391490414483207,
+      "sp.activity.activity_beta_eastness": -0.5977252166046362,
+      "sp.activity.activity_beta_precip": 0.41039494667942306,
+      "sp.activity.activity_beta_season": 1.818504796368735,
+      "sp.activity.activity_intercept": -0.2488945148262428
+    },
+    "worst_10_percent": {
+      "activity_gain_threshold": -0.8644424689310206,
+      "mean_duration_days": 31.978334443176053,
+      "mean_labeled_focal_events": 67.72602739726027,
+      "mean_longitude": 6.874356164383562,
+      "mean_precip_z_train": -3.3970005778543517,
+      "n": 73,
+      "rest_mean_duration_days": 16.199308922558924,
+      "rest_mean_labeled_focal_events": 0.30303030303030304,
+      "rest_mean_longitude": 6.056819696969697,
+      "rest_mean_precip_z_train": -0.20438493339355412
+    }
+  },
+  "audit_id": "e4-mica-postresult-transfer-tail-v1",
+  "covariate_support": {
+    "heldout_eastness_z_range": [
+      3.1950123639867667,
+      8.489597743968037
+    ],
+    "heldout_fraction_eastness_z_gt_3": 1.0,
+    "heldout_fraction_precip_z_lt_minus_2": 0.3942701227830832,
+    "heldout_precip_z_range": [
+      -7.150103460187358,
+      5.134169425057495
+    ],
+    "training_eastness_z_range": [
+      -0.9395454271903178,
+      1.6528810930595796
+    ],
+    "training_precip_z_range": [
+      -1.8455310779225353,
+      1.411662490134812
+    ]
+  },
+  "frozen_result_unchanged": true,
+  "interpretation": {
+    "not_supported": [
+      "causal explanation for muskrat activity",
+      "proof that activity is biologically irrelevant",
+      "a revised E4 scientific result",
+      "permission to retune, rerun, or switch backend within E4"
+    ],
+    "supported": [
+      "the negative aggregate activity gain is strongly tail-concentrated rather than uniformly negative across heldout deployments",
+      "the east holdout lies entirely beyond the training eastness support used by the activity model",
+      "posterior-mean activity at observed heldout focal-event contexts is substantially below the activity-knockout baseline on average"
+    ],
+    "working_hypothesis": "process-specific activity slopes extrapolate into an out-of-support east/climate regime and suppress expected counts at a minority of high-event deployments, creating transfer tail risk"
+  },
+  "programme_id": "E4_MICA_SPARSE_NUTS",
+  "schema_version": 1,
+  "score_distribution": {
+    "activity": {
+      "maximum": 0.0023753477902099807,
+      "mean": -0.6390511804117174,
+      "median": 1.736825162134537e-14,
+      "minimum": -33.4239323639207,
+      "positive_rate": 0.8267394270122783,
+      "q05": -3.355845134415837,
+      "q25": 1.727824470376856e-29,
+      "q75": 1.563616608223601e-11,
+      "q95": 1.5388756051722407e-08
+    },
+    "activity_loss_concentration": {
+      "worst_10_share_of_total_negative_magnitude": 0.4317718592024589,
+      "worst_1_share_of_total_negative_magnitude": 0.07135356222529075,
+      "worst_20_share_of_total_negative_magnitude": 0.6385837778464252,
+      "worst_50_share_of_total_negative_magnitude": 0.9083798158499395,
+      "worst_5_share_of_total_negative_magnitude": 0.2748437058760938
+    },
+    "state": {
+      "maximum": 5.177983212395475,
+      "mean": 0.008390925023042952,
+      "median": -1.3420215724345778e-14,
+      "minimum": -1.998673140483021,
+      "positive_rate": 0.34924965893587995,
+      "q05": -0.06706903184753799,
+      "q25": -1.2829020181184917e-11,
+      "q75": 6.439520976801862e-30,
+      "q95": 0.028936459327248087
+    }
+  },
+  "source_result": {
+    "artifact_id": 11059622869,
+    "result_id": "e4-mica-exact-sparse-result-v1",
+    "result_json_sha256": "34124094e6c25db04465cc1ff869af5813326729e6fd3b658a0921c45bc6f3e2",
+    "result_status": "E4_SPARSE_EMPIRICAL_RESULT",
+    "workflow_run_id": 36622802225
+  },
+  "status": "POSTRESULT_EXPLORATORY_AUDIT"
+}
