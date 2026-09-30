@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "sumatra_mesopredator_paired_2014_2015",
+  "contract_id": "e5-sumatra-sitecov-row1-response-blind-precheck-v1",
+  "status": "FROZEN_PRECHECK_NOT_AUTHORIZED",
+  "frozen_date": "2026-09-30",
+  "parent_structure_receipt": "docs/replication/E5_SUMATRA_XLSX_STRUCTURE_RECEIPT.json",
+  "source": {
+    "archive_sha256": "9fee3248185c92ef528ec669c322b7f1329bc1bac55e9ce309b8ed08cb4fb6c0",
+    "workbook_member": "Iding_spc_data.xlsx",
+    "workbook_sha256": "745ae0c5259845517dc4e235fe138e56678caf96322e61a6995930b4a85d5b6c",
+    "worksheet_name": "site_cov",
+    "worksheet_member": "xl/worksheets/sheet9.xml"
+  },
+  "response_firewall": {
+    "outer_archive_download_authorized": true,
+    "workbook_member_open_authorized": true,
+    "site_cov_worksheet_xml_open_authorized": true,
+    "site_cov_row1_parse_authorized": true,
+    "row1_cell_references_authorized": true,
+    "row1_cell_types_authorized": true,
+    "row1_style_indices_authorized": true,
+    "row1_shared_string_indices_authorized": true,
+    "row1_inline_string_header_values_authorized": true,
+    "worksheet_rows_after_row1_parse_authorized": false,
+    "shared_strings_xml_open_authorized": false,
+    "other_worksheet_xml_open_authorized": false,
+    "row2_or_later_values_authorized": false,
+    "numeric_data_values_authorized": false,
+    "formulas_authorized": false,
+    "comments_authorized": false,
+    "r_script_opening_authorized": false,
+    "data_rows_read_authorized": false,
+    "response_rows_read_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false
+  },
+  "precheck_scope": {
+    "may_report": [
+      "site_cov worksheet dimension/reference metadata before row1",
+      "row 1 cell references",
+      "row 1 cell types",
+      "row 1 style indices",
+      "row 1 shared-string indices without resolving them",
+      "row 1 inline-string header text when encoded inline",
+      "whether header resolution requires the still-forbidden sharedStrings.xml"
+    ],
+    "may_not_report": [
+      "shared string values",
+      "row 2 or later values",
+      "numeric site covariate values",
+      "species identities from response sheets",
+      "species detections",
+      "event timestamps",
+      "diel outcomes",
+      "effect directions",
+      "predictive scores"
+    ]
+  },
+  "decision_boundary": {
+    "candidate_qualification_authorized": false,
+    "G2_pass_authorized": false,
+    "G3_pass_authorized": false,
+    "G4_pass_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "separate_child_contract_required_before_opening_shared_strings_or_site_cov_rows_after_header": true
+  },
+  "execution": {
+    "dedicated_branch": "e5/sumatra-sitecov-row1-v1",
+    "authorization_marker": "docs/replication/E5_SUMATRA_SITECOV_ROW1_AUTHORIZED.json",
+    "one_shot": true,
+    "pure_marker_commit_required": true,
+    "workflow_dispatch_authorized": false
+  }
+}
