@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "sumatra_mesopredator_paired_2014_2015",
+  "contract_id": "e5-sumatra-sitecov-cell-structure-precheck-v1",
+  "status": "FROZEN_PRECHECK_NOT_AUTHORIZED",
+  "frozen_date": "2026-09-30",
+  "parent_structure_receipt": "docs/replication/E5_SUMATRA_XLSX_STRUCTURE_RECEIPT.json",
+  "source": {
+    "archive_sha256": "9fee3248185c92ef528ec669c322b7f1329bc1bac55e9ce309b8ed08cb4fb6c0",
+    "workbook_member": "Iding_spc_data.xlsx",
+    "workbook_sha256": "745ae0c5259845517dc4e235fe138e56678caf96322e61a6995930b4a85d5b6c",
+    "metadata_sheet_name": "site_cov",
+    "worksheet_member": "xl/worksheets/sheet9.xml"
+  },
+  "response_firewall": {
+    "worksheet_member_opening_authorized": true,
+    "worksheet_dimension_attribute_authorized": true,
+    "row1_cell_reference_and_type_authorized": true,
+    "row1_shared_string_index_authorized": true,
+    "row1_shared_string_value_authorized": false,
+    "shared_strings_xml_opening_authorized": false,
+    "row1_numeric_value_authorized": false,
+    "row2_or_later_value_authorized": false,
+    "any_cell_value_reporting_authorized": false,
+    "formula_text_authorized": false,
+    "other_worksheet_opening_authorized": false,
+    "r_script_opening_authorized": false,
+    "data_rows_read_authorized": false,
+    "response_rows_read_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false
+  },
+  "precheck_scope": {
+    "may_report": [
+      "worksheet dimension reference",
+      "row count and maximum column implied by the dimension only",
+      "row-1 cell references and XLSX type codes",
+      "row-1 shared-string integer indices without resolving their strings",
+      "whether row-1 labels require a later selective shared-string child"
+    ],
+    "may_not_report": [
+      "shared-string text",
+      "numeric cell values",
+      "row 2 or later values",
+      "formulas",
+      "species identities",
+      "detections",
+      "event times",
+      "effect directions"
+    ]
+  },
+  "decision_boundary": {
+    "candidate_qualification_authorized": false,
+    "G2_pass_authorized": false,
+    "G3_pass_authorized": false,
+    "G4_pass_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "separate_child_contract_required_before_decoding_header_strings_or_metadata_values": true
+  },
+  "execution": {
+    "dedicated_branch": "e5/sumatra-sitecov-cell-structure-v1",
+    "authorization_marker": "docs/replication/E5_SUMATRA_SITECOV_STRUCTURE_AUTHORIZED.json",
+    "one_shot": true,
+    "pure_marker_commit_required": true,
+    "workflow_dispatch_authorized": false
+  }
+}
