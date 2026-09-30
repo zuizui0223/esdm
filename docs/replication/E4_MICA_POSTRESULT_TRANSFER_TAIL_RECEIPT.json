@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "programme_id": "E4_MICA_SPARSE_NUTS",
+  "receipt_id": "e4-mica-postresult-transfer-tail-receipt-v1",
+  "status": "FROZEN_POSTRESULT_EXPLORATORY_AUDIT",
+  "frozen_date": "2026-09-30",
+  "source_result": {
+    "workflow_run_id": 36622802225,
+    "artifact_id": 11059622869,
+    "result_json_sha256": "34124094e6c25db04465cc1ff869af5813326729e6fd3b658a0921c45bc6f3e2"
+  },
+  "audit_execution": {
+    "workflow_run_id": 36649423614,
+    "workflow_conclusion": "success",
+    "head_sha": "372f0be6e3eb1bec306230df57f1f0f83b2ab9fb",
+    "artifact_id": 11069139745,
+    "artifact_name": "e4-mica-postresult-transfer-tail-36649423614",
+    "artifact_digest": "sha256:e991d5c752c935fdd5c42d6c5e20dbb1349aafdbb7f5491d9054e414dfdcb0f9",
+    "audit_json_sha256": "7a5cd9907fc1653017c66e89b57e0088da68a2a2dc69e2cd267819baf5c42373"
+  },
+  "interpretation_boundary": {
+    "frozen_e4_result_changed": false,
+    "rerun_or_retuning_authorized": false,
+    "causal_claim_authorized": false,
+    "biological_irrelevance_claim_authorized": false,
+    "role": "post-result exploratory failure-mode diagnosis"
+  }
+}
