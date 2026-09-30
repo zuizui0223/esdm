@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "sumatra_mesopredator_paired_2014_2015",
+  "precheck_id": "e5-sumatra-focal-row1-precheck-result-v1",
+  "status": "E5_RESPONSE_BLIND_FOCAL_ROW1_PRECHECK",
+  "source": {
+    "archive_sha256": "9fee3248185c92ef528ec669c322b7f1329bc1bac55e9ce309b8ed08cb4fb6c0",
+    "workbook_member": "Iding_spc_data.xlsx",
+    "workbook_sha256": "745ae0c5259845517dc4e235fe138e56678caf96322e61a6995930b4a85d5b6c",
+    "worksheet_member": "xl/worksheets/sheet1.xml",
+    "worksheet_name": "focal_species"
+  },
+  "focal_species_row1_structure": {
+    "dimension_ref": "A1:E3892",
+    "header_resolution_requires_shared_strings": true,
+    "inline_string_headers": [],
+    "row1": {
+      "cell_count": 5,
+      "row_number": 1,
+      "cells": [
+        {
+          "reference": "A1",
+          "type": "s",
+          "style_index": "",
+          "shared_string_index": "0",
+          "inline_string_header": null
+        },
+        {
+          "reference": "B1",
+          "type": "s",
+          "style_index": "",
+          "shared_string_index": "1",
+          "inline_string_header": null
+        },
+        {
+          "reference": "C1",
+          "type": "s",
+          "style_index": "",
+          "shared_string_index": "2",
+          "inline_string_header": null
+        },
+        {
+          "reference": "D1",
+          "type": "s",
+          "style_index": "",
+          "shared_string_index": "3",
+          "inline_string_header": null
+        },
+        {
+          "reference": "E1",
+          "type": "s",
+          "style_index": "",
+          "shared_string_index": "4",
+          "inline_string_header": null
+        }
+      ]
+    },
+    "shared_string_header_indices": [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4"
+    ]
+  },
+  "response_boundary": {
+    "data_rows_read": 0,
+    "focal_response_values_read": 0,
+    "numeric_data_values_read": 0,
+    "opened_worksheet_members": [
+      "xl/worksheets/sheet1.xml"
+    ],
+    "other_worksheet_members_opened": [],
+    "r_scripts_opened": false,
+    "response_rows_read": 0,
+    "rows_after_row1_parsed": 0,
+    "shared_strings_opened": false,
+    "worksheet_rows_parsed": 1
+  },
+  "decision": {
+    "G2_pass_authorized": false,
+    "G3_pass_authorized": false,
+    "G4_pass_authorized": false,
+    "candidate_qualified": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "separate_child_contract_required_before_shared_strings_or_focal_data_rows": true
+  }
+}
