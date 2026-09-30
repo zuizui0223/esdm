@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "sumatra_mesopredator_paired_2014_2015",
+  "receipt_id": "e5-sumatra-sitecov-row1-receipt-v1",
+  "status": "FROZEN_RESPONSE_BLIND_SITECOV_ROW1_PRECHECK",
+  "frozen_date": "2026-09-30",
+  "execution": {
+    "workflow_run_id": 36733167653,
+    "workflow_conclusion": "success",
+    "authorization_sha": "aba7e87907deed71ceb14b9a1fc493af4f9f1762",
+    "implementation_parent_sha": "89c81d9a44e03f2dbf267096ece55ddb595b9520",
+    "artifact_id": 11105174453,
+    "artifact_name": "e5-sumatra-sitecov-row1-36733167653",
+    "artifact_digest": "sha256:2313c4d02c63250cb0c15559d997fb0a82524a47c2f20d6131c285491ff0f5db",
+    "result_json_sha256": "e093415d3acecffa0b3e0f64abf14a5c152977c801d3dc8bdbb749001bb76bea"
+  },
+  "frozen_header_targets": {
+    "worksheet": "site_cov",
+    "worksheet_member": "xl/worksheets/sheet9.xml",
+    "cells": [
+      "B1",
+      "C1",
+      "D1",
+      "E1"
+    ],
+    "shared_string_indices": [
+      354,
+      355,
+      356,
+      357
+    ],
+    "indices_frozen_before_shared_strings_opening": true
+  },
+  "boundary": {
+    "shared_strings_opened": false,
+    "rows_after_row1_parsed": 0,
+    "data_rows_read": 0,
+    "response_rows_read": 0,
+    "focal_response_opened": false,
+    "candidate_qualified": false,
+    "model_fitting_authorized": false
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "sumatra_mesopredator_paired_2014_2015",
+  "precheck_id": "e5-sumatra-sitecov-row1-precheck-result-v1",
+  "status": "E5_RESPONSE_BLIND_SITECOV_ROW1_PRECHECK",
+  "source": {
+    "archive_sha256": "9fee3248185c92ef528ec669c322b7f1329bc1bac55e9ce309b8ed08cb4fb6c0",
+    "workbook_member": "Iding_spc_data.xlsx",
+    "workbook_sha256": "745ae0c5259845517dc4e235fe138e56678caf96322e61a6995930b4a85d5b6c",
+    "worksheet_name": "site_cov",
+    "worksheet_member": "xl/worksheets/sheet9.xml"
+  },
+  "site_cov_row1_structure": {
+    "dimension_ref": "A1:E293",
+    "header_resolution_requires_shared_strings": true,
+    "inline_string_headers": [],
+    "row1": {
+      "row_number": 1,
+      "cell_count": 4,
+      "cells": [
+        {
+          "reference": "B1",
+          "type": "s",
+          "style_index": "",
+          "shared_string_index": "354",
+          "inline_string_header": null
+        },
+        {
+          "reference": "C1",
+          "type": "s",
+          "style_index": "",
+          "shared_string_index": "355",
+          "inline_string_header": null
+        },
+        {
+          "reference": "D1",
+          "type": "s",
+          "style_index": "",
+          "shared_string_index": "356",
+          "inline_string_header": null
+        },
+        {
+          "reference": "E1",
+          "type": "s",
+          "style_index": "",
+          "shared_string_index": "357",
+          "inline_string_header": null
+        }
+      ]
+    },
+    "shared_string_header_indices": [
+      "354",
+      "355",
+      "356",
+      "357"
+    ]
+  },
+  "response_boundary": {
+    "opened_worksheet_members": [
+      "xl/worksheets/sheet9.xml"
+    ],
+    "other_worksheet_members_opened": [],
+    "shared_strings_opened": false,
+    "worksheet_rows_parsed": 1,
+    "rows_after_row1_parsed": 0,
+    "data_rows_read": 0,
+    "response_rows_read": 0,
+    "numeric_data_values_read": 0,
+    "r_scripts_opened": false,
+    "focal_response_opened": false
+  },
+  "decision": {
+    "candidate_qualified": false,
+    "G2_pass_authorized": false,
+    "G3_pass_authorized": false,
+    "G4_pass_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "separate_child_contract_required_before_shared_strings_or_site_cov_data_rows": true
+  }
+}
