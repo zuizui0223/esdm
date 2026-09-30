@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "uwin_gallo_10city_2017_2018",
+  "contract_id": "e5-uwin-dryad-package-response-blind-inventory-v1",
+  "contract_blob_sha": "9f8556c0df7c8999c37015dae00d58ff11dec2e3",
+  "implementation_parent_sha": "43454706f1738db6c4ab29af39069b06ac980513",
+  "inventory_authorized": true,
+  "one_shot": true,
+  "non_readme_member_opening_authorized": false,
+  "focal_response_opening_authorized": false,
+  "model_fitting_authorized": false,
+  "authorized_date": "2026-09-30"
+}
