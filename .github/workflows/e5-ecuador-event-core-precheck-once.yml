@@ -1,0 +1,140 @@
+name: E5 Ecuador Event-core response-blind precheck once
+
+concurrency:
+  group: e5-ecuador-event-core-precheck-once
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - e5/ecuador-event-core-precheck-v1
+    paths:
+      - 'docs/replication/E5_ECUADOR_EVENT_CORE_PRECHECK_AUTHORIZED.json'
+
+permissions:
+  contents: read
+
+jobs:
+  precheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify pure one-shot precheck authorization
+        run: |
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+
+          marker_path = Path(
+              "docs/replication/E5_ECUADOR_EVENT_CORE_PRECHECK_AUTHORIZED.json"
+          )
+          marker = json.loads(marker_path.read_text(encoding="utf-8"))
+          parent = subprocess.check_output(
+              ["git", "rev-parse", "HEAD^"], text=True
+          ).strip()
+          changed = subprocess.check_output(
+              ["git", "diff-tree", "--no-commit-id", "--name-only", "-r", "HEAD"],
+              text=True,
+          ).splitlines()
+          contract_path = Path(
+              "docs/replication/E5_ECUADOR_EVENT_CORE_PRECHECK_CONTRACT.json"
+          )
+          contract_blob = subprocess.check_output(
+              ["git", "hash-object", str(contract_path)], text=True
+          ).strip()
+
+          if changed != [marker_path.as_posix()]:
+              raise SystemExit("authorization commit must change only the marker")
+          if marker.get("implementation_parent_sha") != parent:
+              raise SystemExit("authorization implementation parent mismatch")
+          if marker.get("programme_id") != "E5_INDEPENDENT_ACTIVITY_DETECTION":
+              raise SystemExit("programme mismatch")
+          if marker.get("candidate_id") != "ecuador_landscape_camera_2023":
+              raise SystemExit("candidate mismatch")
+          if marker.get("contract_id") != (
+              "e5-ecuador-event-core-response-blind-precheck-v1"
+          ):
+              raise SystemExit("contract id mismatch")
+          if marker.get("contract_blob_sha") != (
+              "abc16124ab57f0df56ccd396716c966bba835516"
+          ):
+              raise SystemExit("marker contract blob mismatch")
+          if contract_blob != marker["contract_blob_sha"]:
+              raise SystemExit("working-tree contract blob mismatch")
+          if marker.get("precheck_authorized") is not True:
+              raise SystemExit("precheck not authorized")
+          if marker.get("one_shot") is not True:
+              raise SystemExit("authorization must be one-shot")
+          if marker.get("occurrence_extension_opening_authorized") is not False:
+              raise SystemExit("Occurrence extension must remain forbidden")
+          if marker.get("focal_response_opening_authorized") is not False:
+              raise SystemExit("focal response opening must remain forbidden")
+          if marker.get("model_fitting_authorized") is not False:
+              raise SystemExit("model fitting must remain forbidden")
+          PY
+
+      - name: Compile response-blind precheck
+        run: python -m py_compile scripts/precheck_e5_ecuador_event_core.py
+
+      - name: Download pinned Ecuador DwC-A package
+        run: |
+          mkdir -p build/private build/public
+          curl --location --fail --retry 3 --retry-delay 2 \
+            'https://patrimonio.ambiente.gob.ec/iptmae/archive.do?r=proy_paisaje_trampas_camara&v=1.3' \
+            --output build/private/ecuador_landscape_camera_v1_3.zip
+          python - <<'PY'
+          import zipfile
+          from pathlib import Path
+          path = Path("build/private/ecuador_landscape_camera_v1_3.zip")
+          if not zipfile.is_zipfile(path):
+              raise SystemExit("downloaded Ecuador package is not a ZIP archive")
+          PY
+
+      - name: Run Event-core-only precheck
+        run: |
+          python scripts/precheck_e5_ecuador_event_core.py \
+            --archive build/private/ecuador_landscape_camera_v1_3.zip \
+            --contract docs/replication/E5_ECUADOR_EVENT_CORE_PRECHECK_CONTRACT.json \
+            --out build/public/E5_ECUADOR_EVENT_CORE_PRECHECK_RESULT.json
+
+      - name: Verify zero Occurrence rows were read
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          path = Path("build/public/E5_ECUADOR_EVENT_CORE_PRECHECK_RESULT.json")
+          value = json.loads(path.read_text(encoding="utf-8"))
+          boundary = value["response_boundary"]
+          if boundary["occurrence_extension_opened"] is not False:
+              raise SystemExit("Occurrence extension was opened")
+          if int(boundary["occurrence_rows_read"]) != 0:
+              raise SystemExit("Occurrence rows were read")
+          if value["decision"]["candidate_qualified"] is not False:
+              raise SystemExit("precheck may not qualify the candidate")
+          if value["decision"]["focal_response_opening_authorized"] is not False:
+              raise SystemExit("precheck may not authorize focal response")
+          if value["decision"]["model_fitting_authorized"] is not False:
+              raise SystemExit("precheck may not authorize fitting")
+          PY
+
+      - name: Destroy downloaded response-bearing package before artifact upload
+        run: |
+          rm -f build/private/ecuador_landscape_camera_v1_3.zip
+          test ! -e build/private/ecuador_landscape_camera_v1_3.zip
+
+      - name: Upload precheck result only
+        uses: actions/upload-artifact@v4
+        with:
+          name: e5-ecuador-event-core-precheck-${{ github.run_id }}
+          path: build/public/E5_ECUADOR_EVENT_CORE_PRECHECK_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
