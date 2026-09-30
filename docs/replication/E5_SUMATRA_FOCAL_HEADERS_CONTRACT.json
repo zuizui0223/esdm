@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "sumatra_mesopredator_paired_2014_2015",
+  "contract_id": "e5-sumatra-focal-header-sharedstrings-response-blind-v1",
+  "status": "FROZEN_PRECHECK_NOT_AUTHORIZED",
+  "frozen_date": "2026-10-01",
+  "parent_row1_receipt": "docs/replication/E5_SUMATRA_FOCAL_ROW1_RECEIPT.json",
+  "source": {
+    "archive_sha256": "9fee3248185c92ef528ec669c322b7f1329bc1bac55e9ce309b8ed08cb4fb6c0",
+    "workbook_member": "Iding_spc_data.xlsx",
+    "workbook_sha256": "745ae0c5259845517dc4e235fe138e56678caf96322e61a6995930b4a85d5b6c",
+    "shared_strings_member": "xl/sharedStrings.xml",
+    "target_cells": [
+      "A1",
+      "B1",
+      "C1",
+      "D1",
+      "E1"
+    ],
+    "target_shared_string_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "max_target_index": 4
+  },
+  "response_firewall": {
+    "outer_archive_download_authorized": true,
+    "workbook_member_open_authorized": true,
+    "shared_strings_stream_open_authorized": true,
+    "target_indices_frozen_before_opening": true,
+    "only_target_string_values_may_be_retained": true,
+    "only_target_string_values_may_be_reported": true,
+    "non_target_string_values_may_be_retained": false,
+    "non_target_string_values_may_be_reported": false,
+    "shared_strings_after_max_target_may_be_parsed": false,
+    "worksheet_xml_open_authorized": false,
+    "focal_species_data_rows_authorized": false,
+    "other_species_sheet_opening_authorized": false,
+    "site_cov_data_rows_authorized": false,
+    "r_script_opening_authorized": false,
+    "data_rows_read_authorized": false,
+    "response_rows_read_authorized": false,
+    "focal_response_values_authorized": false,
+    "model_fitting_authorized": false
+  },
+  "precheck_scope": {
+    "may_report": [
+      "the five header strings at pre-frozen shared-string indices 0 through 4",
+      "the number of shared-string entries traversed to resolve those targets",
+      "whether all five target indices resolved exactly once",
+      "whether station/location, event time, individual camera, paired-sensor/camera-side, and species/taxon schema fields are present"
+    ],
+    "may_not_report": [
+      "any shared string after index 4",
+      "any row 2 or later value",
+      "species identities from data rows",
+      "species counts",
+      "event timestamps from data rows",
+      "diel outcomes",
+      "state frequencies",
+      "effect directions",
+      "predictive scores"
+    ]
+  },
+  "viability_header_patterns": {
+    "station_or_location": [
+      "site",
+      "station",
+      "location",
+      "trap"
+    ],
+    "event_timestamp": [
+      "date",
+      "time",
+      "datetime",
+      "timestamp",
+      "occasion"
+    ],
+    "individual_camera": [
+      "camera",
+      "cam",
+      "sensor",
+      "device"
+    ],
+    "paired_sensor_or_camera_side": [
+      "pair",
+      "paired",
+      "side",
+      "left",
+      "right",
+      "flank",
+      "camera_side",
+      "sensor_side"
+    ],
+    "species_or_taxon": [
+      "species",
+      "sp",
+      "taxon",
+      "scientific"
+    ]
+  },
+  "decision_boundary": {
+    "candidate_qualification_authorized": false,
+    "G2_pass_authorized": false,
+    "G3_pass_authorized": false,
+    "G4_pass_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "separate_child_contract_required_before_focal_species_data_rows": true
+  },
+  "execution": {
+    "dedicated_branch": "e5/sumatra-focal-headers-v1",
+    "authorization_marker": "docs/replication/E5_SUMATRA_FOCAL_HEADERS_AUTHORIZED.json",
+    "one_shot": true,
+    "pure_marker_commit_required": true,
+    "workflow_dispatch_authorized": false
+  }
+}
