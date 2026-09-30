@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "uwin_gallo_10city_2017_2018",
+  "contract_id": "e5-uwin-zenodo-mirror-response-blind-inventory-v1",
+  "status": "FROZEN_INVENTORY_NOT_AUTHORIZED",
+  "frozen_date": "2026-09-30",
+  "parent_transport_stop": "docs/replication/E5_UWIN_DRYAD_INVENTORY_TRANSPORT_STOP.json",
+  "source": {
+    "canonical_dataset_doi": "10.5061/dryad.fxpnvx0tb",
+    "mirror_record": "https://zenodo.org/records/6366482",
+    "mirror_file": "Gallo_eLife_DryadData.zip",
+    "mirror_download_url": "https://zenodo.org/records/6366482/files/Gallo_eLife_DryadData.zip?download=1",
+    "expected_md5": "72c6e7d51f359e84e2e49154942b4c98",
+    "same_public_file_identity_rule": "mirror bytes must match published MD5 before inventory"
+  },
+  "response_firewall": {
+    "archive_container_download_authorized": true,
+    "archive_member_name_listing_authorized": true,
+    "readme_members_read_authorized": true,
+    "non_readme_member_opening_authorized": false,
+    "data_rows_read_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "archive_may_not_be_uploaded_as_artifact": true
+  },
+  "decision_boundary": {
+    "candidate_qualification_authorized": false,
+    "G3_pass_authorized": false,
+    "G4_pass_authorized": false,
+    "focal_response_opening_authorized": false,
+    "separate_metadata_child_contract_required_before_opening_non_readme_members": true
+  },
+  "execution": {
+    "dedicated_branch": "e5/uwin-zenodo-inventory-v1",
+    "authorization_marker": "docs/replication/E5_UWIN_ZENODO_INVENTORY_AUTHORIZED.json",
+    "one_shot": true,
+    "pure_marker_commit_required": true,
+    "workflow_dispatch_authorized": false
+  }
+}
