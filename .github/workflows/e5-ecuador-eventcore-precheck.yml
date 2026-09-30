@@ -21,6 +21,9 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Install precheck test dependencies
+        run: python -m pip install -e . pytest
+
       - name: Run response-firewall tests
         run: python -m pytest -q tests/test_e5_ecuador_event_core_precheck.py
 
