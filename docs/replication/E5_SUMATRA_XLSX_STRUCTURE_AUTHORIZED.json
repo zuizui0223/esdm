@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "sumatra_mesopredator_paired_2014_2015",
+  "contract_id": "e5-sumatra-xlsx-structure-response-blind-precheck-v1",
+  "contract_blob_sha": "0c1800284c1db7ebed293042a62bb203a2fde345",
+  "implementation_parent_sha": "a4a01cd5007a9b4633aa475f1ea3b99259ece252",
+  "precheck_authorized": true,
+  "one_shot": true,
+  "shared_strings_opening_authorized": false,
+  "worksheet_cell_opening_authorized": false,
+  "focal_response_opening_authorized": false,
+  "model_fitting_authorized": false,
+  "authorized_date": "2026-09-30"
+}
