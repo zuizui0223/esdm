@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "uwin_gallo_10city_2017_2018",
+  "contract_id": "e5-uwin-zenodo-mirror-response-blind-inventory-v1",
+  "contract_blob_sha": "1e196151031bfd481ca0df640973b17075e7ff7e",
+  "implementation_parent_sha": "67f22196abf3a089b9c1cf7292de1beb5c8b0ba2",
+  "inventory_authorized": true,
+  "one_shot": true,
+  "non_readme_member_opening_authorized": false,
+  "focal_response_opening_authorized": false,
+  "model_fitting_authorized": false,
+  "authorized_date": "2026-09-30"
+}
