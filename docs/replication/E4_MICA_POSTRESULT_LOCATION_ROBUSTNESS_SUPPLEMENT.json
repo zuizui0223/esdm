@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "programme_id": "E4_MICA_SPARSE_NUTS",
+  "supplement_id": "e4-mica-postresult-location-robustness-v1",
+  "status": "POSTRESULT_EXPLORATORY_SUPPLEMENT",
+  "date": "2026-09-30",
+  "parents": {
+    "transfer_tail_audit": "docs/replication/E4_MICA_POSTRESULT_TRANSFER_TAIL_AUDIT.json",
+    "domain_shift_supplement": "docs/replication/E4_MICA_POSTRESULT_DOMAIN_SHIFT_SUPPLEMENT.json",
+    "source_domain_supplement": "docs/replication/E4_MICA_POSTRESULT_SOURCE_DOMAIN_SUPPLEMENT.json"
+  },
+  "source_result": {
+    "workflow_run_id": 36622802225,
+    "artifact_id": 11059622869,
+    "result_json_sha256": "34124094e6c25db04465cc1ff869af5813326729e6fd3b658a0921c45bc6f3e2",
+    "fixture_fingerprint_sha256": "2876b9f85bb34ddb600c39cd412fe196b3c78f47fa7306bca63c30245d740a23",
+    "heldout_deployment_rows": 733
+  },
+  "analysis_boundary": {
+    "post_outcome": true,
+    "new_model_fit": false,
+    "posterior_refit": false,
+    "retuning": false,
+    "backend_switch": false,
+    "laplace_or_inla": false,
+    "claim_promotion": false,
+    "frozen_e4_result_changed": false,
+    "alternative_primary_endpoint": false
+  },
+  "physical_location_geometry": {
+    "heldout_deployments": 733,
+    "unique_location_ids": 27,
+    "deployments_per_location_min": 1,
+    "deployments_per_location_median": 26,
+    "deployments_per_location_max": 64,
+    "deployments_per_location_mean": 27.14814814814815,
+    "event_bearing_locations": 20,
+    "zero_event_locations": 7
+  },
+  "equal_location_weighting": {
+    "activity_gain": {
+      "mean": -0.7523841865038351,
+      "median": -0.002627686315298443,
+      "positive_locations": 8,
+      "negative_locations": 19
+    },
+    "state_gain": {
+      "mean": 0.008245966396728102,
+      "median": 7.894468674694803e-28,
+      "positive_locations": 15,
+      "negative_locations": 12
+    },
+    "event_bearing_locations_only": {
+      "activity_gain_mean": -1.0157186517811236,
+      "activity_gain_median": -0.007628393621002698,
+      "activity_positive_locations": 1,
+      "activity_negative_locations": 19,
+      "state_gain_mean": 0.011132054635686254,
+      "state_gain_median": 9.35652912526434e-05,
+      "state_positive_locations": 11,
+      "state_negative_locations": 9
+    },
+    "interpretation": "The negative activity direction remains when repeated deployments are collapsed to equal-weight physical locations. The frozen deployment-weighted E4 score is not replaced by this post-result reaggregation."
+  },
+  "leave_one_location_out": {
+    "locations_tested": 27,
+    "all_deployment_weighted_activity_means_negative": true,
+    "minimum_remaining_activity_gain_mean": -0.6992461500765585,
+    "maximum_remaining_activity_gain_mean": -0.3989063995912966,
+    "least_negative_after_removing_location_name": "D_MICA 324",
+    "interpretation": "No single physical location is sufficient to determine the negative aggregate activity direction, although location domains strongly determine its magnitude."
+  },
+  "source_domain_magnitude": {
+    "D_prefix": {
+      "locations": 8,
+      "event_bearing_locations": 8,
+      "locations_with_negative_mean_activity_gain": 8,
+      "equal_location_activity_gain_mean": -2.53402933050025,
+      "deployment_rows": 164,
+      "remaining_deployment_rows_if_excluded": 569,
+      "remaining_deployment_weighted_activity_gain_mean_if_excluded": -0.0031090535188776787
+    },
+    "D_MICA_prefix": {
+      "locations": 7,
+      "deployment_rows": 163,
+      "remaining_deployment_rows_if_excluded": 570,
+      "remaining_deployment_weighted_activity_gain_mean_if_excluded": -0.00501348489185014
+    },
+    "non_D_event_bearing_locations": {
+      "locations": 12,
+      "negative_activity_locations": 11,
+      "positive_activity_locations": 1
+    },
+    "interpretation": "The sign is not unique to the D-prefixed source domain, but almost all of the aggregate loss magnitude is. Excluding source strata after seeing the outcome is diagnostic only and cannot redefine the frozen E4 endpoint."
+  },
+  "interpretation": {
+    "supported": [
+      "The E4 activity-transfer failure is not an artifact of counting repeated deployments from one physical location as independent rows: equal-location weighting remains negative.",
+      "The activity direction is not controlled by one single location: every leave-one-location-out deployment-weighted mean remains negative.",
+      "The negative direction extends beyond the dominant D-prefixed source domain because 11 of 12 non-D event-bearing locations also have negative location-mean activity gain.",
+      "The magnitude of the failure remains strongly source-domain concentrated: removing the D-prefixed stratum descriptively reduces the remaining deployment-weighted mean activity gain to approximately -0.0031."
+    ],
+    "not_supported": [
+      "Replacing the frozen 733-deployment E4 endpoint with an equal-location endpoint.",
+      "A causal location, country, observer, camera, or source-network effect.",
+      "A universal claim that activity information is harmful.",
+      "Rerunning, retuning, backend switching, or Laplace/INLA authorization."
+    ]
+  }
+}
