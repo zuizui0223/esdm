@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "contract_id": "e5-independent-activity-detection-candidate-qualification-v1",
+  "status": "FROZEN_PRE_CANDIDATE_SEARCH",
+  "frozen_date": "2026-09-30",
+  "purpose": "qualify a genuinely independent empirical dataset capable of testing whether conditional activity transfers after observation-process/detection nonstationarity is separately represented",
+  "parent_evidence": {
+    "e4_synthesis": "docs/replication/E4_MICA_POSTRESULT_SYNTHESIS.json",
+    "e4_terminal_result": "docs/replication/E4_MICA_SPARSE_FROZEN_RESULT.json",
+    "motivating_limit": "E4 cannot identify ecological activity nonstationarity separately from source-specific effective detection because the annotated stream fixes detection at one while geography and source domain shift together",
+    "e4_reanalysis": false,
+    "e4_rescue": false
+  },
+  "independence_firewall": {
+    "primary_test_may_use_E2_E4_MICA_response": false,
+    "primary_test_may_use_Snapshot_Japan_response": false,
+    "candidate_must_be_new_independent_response_dataset": true,
+    "data_source_must_not_be_selected_using_E5_focal_response_values": true,
+    "prior_E4_postresult_findings_may_define_design_requirements_but_not_candidate_outcome_selection": true,
+    "no_response_values_before_candidate_freeze": [
+      "focal taxon event counts",
+      "focal diel distribution",
+      "focal state frequencies",
+      "heldout predictive scores",
+      "effect directions"
+    ]
+  },
+  "scientific_question": "does explicit conditional activity contribute transferable predictive information when geography/source-domain structure and effective observation detection are not forced into one stationary activity channel?",
+  "candidate_qualification": {
+    "required_public_or_reproducibly_accessible_material": [
+      "deployment/site table with stable deployment and physical-location identifiers",
+      "deployment start and end timestamps sufficient to reconstruct effort",
+      "event timestamps with timezone or unambiguous local-time semantics",
+      "taxonomic identity field",
+      "response-independent geography",
+      "survey/source/protocol identifier or equivalent metadata"
+    ],
+    "independence": {
+      "new_response_dataset_required": true,
+      "not_MICA_v3_or_derivative": true,
+      "not_Snapshot_Japan_2023_or_derivative": true
+    },
+    "crossed_domain_design": {
+      "rule": "geographic regime and survey/source/protocol domain must be separable rather than perfectly confounded",
+      "acceptable_designs": [
+        "at least two geographic regimes each represented by at least two source/protocol domains",
+        "one standardized source/protocol domain spanning both training and heldout geographic regimes plus an independent second source/protocol domain overlapping at least one regime for detection calibration",
+        "a paired/crossed design with simultaneous or matched deployments that directly contrasts source/protocol while holding geographic context approximately fixed"
+      ],
+      "perfect_geography_source_confounding_is_hard_stop": true
+    },
+    "effective_detection_information": {
+      "required": true,
+      "acceptable_paths": [
+        "paired or replicated simultaneous sensors permitting relative detection estimation",
+        "independent calibration of camera/sensor detection or detection distance tied to deployment",
+        "repeated-visit observation design with a separately identifiable detection model",
+        "auxiliary observation stream that informs detection without consuming the ecological activity channel"
+      ],
+      "camera_make_or_metadata_alone_without_identifying_variation_is_sufficient": false,
+      "fixed_detection_equal_one_without_external_calibration_is_sufficient": false,
+      "activity_detection_intercept_only_confounding_is_hard_stop": true
+    },
+    "physical_replication": {
+      "physical_location_identifier_required": true,
+      "repeated_deployments_at_same_location_must_be_nested_under_location": true,
+      "minimum_independent_physical_locations_training": 20,
+      "minimum_independent_physical_locations_heldout": 10,
+      "heldout_location_overlap_with_training_for_primary_geographic_transfer": 0
+    },
+    "temporal_support": {
+      "minimum_distinct_calendar_months_training": 6,
+      "minimum_distinct_calendar_months_heldout": 6,
+      "both_day_and_night_effort_required": true,
+      "both_day_and_night_focal_events_required_only_after_candidate_freeze": true,
+      "seasonal_coverage_must_overlap_training_and_heldout": true
+    },
+    "predeclared_activity_structure": {
+      "base_covariates": [
+        "geographic/environmental terms chosen response-blind",
+        "season terms",
+        "diel terms"
+      ],
+      "required_nonstationarity_terms": [
+        "geographic_or_source_domain_by_diel",
+        "season_by_diel"
+      ],
+      "random_or_hierarchical_location_activity_profile": "allowed only if frozen before response opening and identified by qualified physical replication",
+      "post_response_interaction_selection_allowed": false
+    },
+    "negative_controls": {
+      "shared_network_nonfocal_taxa_required_if_available": true,
+      "nonfocal_taxa_selection_rule": "freeze abundance-independent eligibility using taxonomy/schema/exposure only before focal response opening where possible; if response counts are needed for minimum-data qualification, those thresholds and taxa pool must be frozen before inspecting direction",
+      "purpose": "detect source-wide diel/detection shifts that are not focal-taxon-specific",
+      "negative_controls_may_not_be_relabelled_as_causal_detection_proof": true
+    }
+  },
+  "pre_response_gates": [
+    {
+      "gate": "G1_INDEPENDENT_SOURCE",
+      "pass": "candidate is a new response dataset not used in E2-E4 or Snapshot Japan empirical openings"
+    },
+    {
+      "gate": "G2_SCHEMA_EFFORT_TIME",
+      "pass": "deployment identity, physical location, effort interval, event time, taxon identity and source/protocol metadata are present and parseable"
+    },
+    {
+      "gate": "G3_CROSSED_DOMAIN",
+      "pass": "geography and source/protocol are not perfectly confounded under one of the declared acceptable designs"
+    },
+    {
+      "gate": "G4_DETECTION_IDENTIFIABILITY",
+      "pass": "at least one declared auxiliary/replicated calibration path separately informs effective detection"
+    },
+    {
+      "gate": "G5_PHYSICAL_REPLICATION",
+      "pass": "minimum independent physical-location counts and strict heldout geography are available"
+    },
+    {
+      "gate": "G6_TEMPORAL_SUPPORT",
+      "pass": "training and heldout exposure overlap across sufficient months and day/night effort"
+    },
+    {
+      "gate": "G7_MODEL_FREEZE",
+      "pass": "activity, detection, source/geography-by-diel and season-by-diel structure are frozen before focal heldout outcomes"
+    }
+  ],
+  "candidate_decision": {
+    "all_pre_response_gates_required": true,
+    "pass_status": "E5_CANDIDATE_QUALIFIED_PRE_RESPONSE",
+    "fail_status": "E5_CANDIDATE_NOT_QUALIFIED",
+    "failure_is_not_scientific_negative_result": true,
+    "failing_candidate_may_not_be_repaired_using_its_focal_response": true,
+    "multiple_candidate_search_allowed": true,
+    "selection_rule": "among pre-response-qualified candidates, prefer the design with the strongest detection-identification path and crossed-domain geometry; do not rank candidates using focal outcome direction or predictive gain"
+  },
+  "outcome_boundary": {
+    "candidate_search_authorized": true,
+    "metadata_schema_geometry_opening_authorized": true,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "E5_outcome_contract_exists": false,
+    "outcome_thresholds_or_support_rules_frozen_now": false,
+    "requires_separate_selected_candidate_contract": true,
+    "requires_separate_response_opening_authorization": true
+  },
+  "claims_if_eventually_qualified": {
+    "maximum_pre_outcome_claim": "design-qualified independent test of activity-vs-detection transfer",
+    "causal_behavior_claim": false,
+    "universal_camera_detection_claim": false,
+    "universal_taxon_claim": false,
+    "E4_confirmation_claim": false
+  }
+}
