@@ -81,7 +81,8 @@ def test_e4_source_domain_supplement_records_detection_identifiability_limit():
 
     assert vulnerability["state_annotated_detection"] == "KnownDetection(probability=1.0)"
     assert vulnerability["state_annotated_informs"] == ["activity", "state"]
-    assert "cannot separate" in vulnerability["implication"]
+    assert "cannot identify" in vulnerability["implication"]
+    assert "separately" in vulnerability["implication"]
     assert value["calendar_overlap"]["overlap_present"] is True
     assert value["ecological_context"]["training_night_day_event_rate_ratio"] > 13.0
     assert 2.9 < value["ecological_context"]["heldout_D_night_day_event_ratio"] < 3.1
