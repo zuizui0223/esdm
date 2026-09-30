@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "sumatra_mesopredator_paired_2014_2015",
+  "receipt_id": "e5-sumatra-focal-row1-receipt-v1",
+  "status": "FROZEN_RESPONSE_BLIND_FOCAL_ROW1_PRECHECK",
+  "frozen_date": "2026-10-01",
+  "execution": {
+    "workflow_run_id": 36787027838,
+    "workflow_conclusion": "success",
+    "authorization_sha": "f4ee6bed4ec4fd5600b7aa1827c038b9719382a4",
+    "implementation_parent_sha": "1c5cd547b45078954506f89a8f590eb33cbc6a34",
+    "artifact_id": 11129952650,
+    "artifact_name": "e5-sumatra-focal-row1-36787027838",
+    "artifact_digest": "sha256:ff7241ae3a2ff556e3cc7a62ab5f1285470476ffff9f5b3b6f04c084cc8027f5",
+    "result_json_sha256": "6585aee71b2836634ecb51d4bd729970bf5ff1b34bf163f947ae2e9859518aec"
+  },
+  "frozen_header_targets": {
+    "worksheet": "focal_species",
+    "worksheet_member": "xl/worksheets/sheet1.xml",
+    "cells": [
+      "A1",
+      "B1",
+      "C1",
+      "D1",
+      "E1"
+    ],
+    "shared_string_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "indices_frozen_before_shared_strings_opening": true
+  },
+  "boundary": {
+    "shared_strings_opened": false,
+    "rows_after_row1_parsed": 0,
+    "data_rows_read": 0,
+    "response_rows_read": 0,
+    "focal_response_values_read": 0,
+    "candidate_qualified": false,
+    "model_fitting_authorized": false
+  }
+}
