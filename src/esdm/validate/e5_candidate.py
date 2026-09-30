@@ -129,7 +129,7 @@ def qualify_e5_candidate_metadata(manifest: Mapping[str, object]) -> dict[str, o
         "reason": (
             "physical replication and strict heldout geography satisfy frozen minima"
             if g5 else
-            "physical-location replication or strict heldout geometry fails/has not been established"
+            "physical-location replication or strict heldout geometry fails or remains unestablished"
         ),
     }
 
