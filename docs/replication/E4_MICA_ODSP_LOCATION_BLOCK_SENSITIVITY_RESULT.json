@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "sensitivity_id": "e4-mica-odsp-location-block-sensitivity-result-v1",
+  "status": "POSTRESULT_DESCRIPTIVE_SENSITIVITY",
+  "activity": {
+    "endpoint_id": "esdm_e4_mica_activity_location_block_sensitivity_v1",
+    "point_mean_gain": -0.6390511804117178,
+    "point_gain_identity_passed": true,
+    "certified_category": "robust_non_generalizing",
+    "certified_group_status": "robust_nonpositive",
+    "certified_lower_bound": -1.2594059939334707,
+    "certified_upper_bound": -0.01869636688996479,
+    "point_transfer_ceiling": "suitability_state",
+    "certified_transfer_ceiling": "suitability_state",
+    "row_count": 733,
+    "physical_location_block_count": 27
+  },
+  "state": {
+    "endpoint_id": "esdm_e4_mica_state_location_block_sensitivity_v1",
+    "point_mean_gain": 0.008390925023042506,
+    "point_gain_identity_passed": true,
+    "certified_category": "uncertain",
+    "certified_group_status": "uncertain",
+    "certified_lower_bound": -0.018952883399772847,
+    "certified_upper_bound": 0.035734733445857855,
+    "point_transfer_ceiling": "suitability_activity_state",
+    "certified_transfer_ceiling": "suitability_activity",
+    "row_count": 733,
+    "physical_location_block_count": 27
+  },
+  "boundary": {
+    "official_733_deployment_block_audit_replaced": false,
+    "frozen_e4_decision_changed": false,
+    "superpopulation_interpretation_authorized": false,
+    "n3_handoff_authorized": false,
+    "confirmatory_claim": false,
+    "causal_claim": false
+  }
+}

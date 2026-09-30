@@ -1,0 +1,97 @@
+name: E4 MICA ODSP physical-location sensitivity
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/export_e4_mica_odsp_location_blocks.py'
+      - 'scripts/summarize_e4_mica_odsp_location_sensitivity.py'
+      - 'docs/replication/E4_MICA_ODSP_LOCATION_BLOCK_SENSITIVITY_CONTRACT.json'
+      - 'tests/test_e4_mica_odsp_location_sensitivity.py'
+      - '.github/workflows/e4-mica-odsp-location-sensitivity.yml'
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  sensitivity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install eSDM and pinned ODSP
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+          python -m pip install 'git+https://github.com/zuizui0223/odsp.git@0bd83e1ebb372c48839654ab0e42124fe37b8faf'
+
+      - name: Download immutable E4 result
+        uses: actions/download-artifact@v4
+        with:
+          name: e4-mica-sparse-result-36622802225
+          path: build/source/e4
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36622802225
+
+      - name: Download immutable E2 capture
+        uses: actions/download-artifact@v4
+        with:
+          name: e2-mica-full-response-capture-36369531079
+          path: build/source/e2
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36369531079
+
+      - name: Verify raw E4 result hash
+        run: |
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+          p = Path("build/source/e4/E4_MICA_SPARSE_EMPIRICAL_RESULT.json")
+          observed = hashlib.sha256(p.read_bytes()).hexdigest()
+          expected = "34124094e6c25db04465cc1ff869af5813326729e6fd3b658a0921c45bc6f3e2"
+          if observed != expected:
+              raise SystemExit(f"raw E4 result hash drift: {observed}")
+          PY
+
+      - name: Build location-block ODSP bundles
+        run: |
+          python scripts/export_e4_mica_odsp_location_blocks.py \
+            --result build/source/e4/E4_MICA_SPARSE_EMPIRICAL_RESULT.json \
+            --archive build/source/e2/build/e2/source/mica-v3.zip \
+            --out-dir build/location-odsp
+
+      - name: Run activity physical-location sensitivity
+        run: |
+          odsp transfer \
+            --contract build/location-odsp/activity/endpoint.json \
+            --out build/location-odsp/activity/receipt.json
+
+      - name: Run state physical-location sensitivity
+        run: |
+          odsp transfer \
+            --contract build/location-odsp/state/endpoint.json \
+            --out build/location-odsp/state/receipt.json
+
+      - name: Summarize location-block sensitivity
+        run: |
+          python scripts/summarize_e4_mica_odsp_location_sensitivity.py \
+            --activity-receipt build/location-odsp/activity/receipt.json \
+            --state-receipt build/location-odsp/state/receipt.json \
+            --out build/E4_MICA_ODSP_LOCATION_BLOCK_SENSITIVITY_RESULT.json
+
+      - name: Upload sensitivity result
+        uses: actions/upload-artifact@v4
+        with:
+          name: e4-mica-odsp-location-sensitivity-${{ github.run_id }}
+          path: |
+            build/E4_MICA_ODSP_LOCATION_BLOCK_SENSITIVITY_RESULT.json
+            build/location-odsp/activity/
+            build/location-odsp/state/
+          if-no-files-found: error
+          retention-days: 90
