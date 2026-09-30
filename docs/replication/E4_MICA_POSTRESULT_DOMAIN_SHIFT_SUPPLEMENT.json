@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "programme_id": "E4_MICA_SPARSE_NUTS",
+  "supplement_id": "e4-mica-postresult-domain-shift-supplement-v1",
+  "status": "POSTRESULT_EXPLORATORY_SUPPLEMENT",
+  "date": "2026-09-30",
+  "parent_audit": {
+    "audit_id": "e4-mica-postresult-transfer-tail-v1",
+    "receipt_id": "e4-mica-postresult-transfer-tail-receipt-v1",
+    "audit_workflow_run_id": 36649423614,
+    "audit_artifact_id": 11069139745
+  },
+  "source_result": {
+    "workflow_run_id": 36622802225,
+    "artifact_id": 11059622869,
+    "result_json_sha256": "34124094e6c25db04465cc1ff869af5813326729e6fd3b658a0921c45bc6f3e2",
+    "fixture_fingerprint_sha256": "2876b9f85bb34ddb600c39cd412fe196b3c78f47fa7306bca63c30245d740a23",
+    "heldout_deployment_rows": 733
+  },
+  "analysis_boundary": {
+    "post_outcome": true,
+    "new_model_fit": false,
+    "posterior_refit": false,
+    "retuning": false,
+    "backend_switch": false,
+    "laplace_or_inla": false,
+    "claim_promotion": false,
+    "frozen_e4_result_changed": false
+  },
+  "event_bearing_deployment_decomposition": {
+    "heldout_deployments": 733,
+    "zero_focal_event_deployments": 605,
+    "positive_focal_event_deployments": 128,
+    "positive_event_deployments_with_negative_activity_gain": 127,
+    "positive_event_deployments_with_positive_activity_gain": 1,
+    "positive_event_activity_gain_sum": -468.4245864118545,
+    "zero_event_activity_gain_sum": 0.00007117006564706557,
+    "zero_event_activity_gain_mean": 1.1763647214391002e-7
+  },
+  "source_stratum_shift": {
+    "training_state_annotated_deployments_by_prefix": {
+      "B": 250,
+      "Mica": 19,
+      "D": 0,
+      "NL": 0
+    },
+    "heldout_deployments_by_prefix": {
+      "B": 125,
+      "D": 164,
+      "NL": 444
+    },
+    "heldout_focal_events_by_prefix": {
+      "B": 5,
+      "D": 5091,
+      "NL": 48
+    },
+    "D_stratum": {
+      "heldout_focal_event_fraction": 0.989696734059098,
+      "negative_activity_gain_magnitude_fraction": 0.9962181981083186,
+      "activity_gain_sum_fraction_of_net": 0.9962234012211589,
+      "unique_locations": 8,
+      "locations_with_negative_mean_activity_gain": 8,
+      "event_bearing_deployments": 104
+    },
+    "interpretive_limit": "Prefix strata identify source/location domains in the frozen dataset; they do not by themselves identify a country, protocol, or causal effect."
+  },
+  "raw_diel_rate_shift": {
+    "training_state_annotated": {
+      "night_events": 1313,
+      "day_events": 97,
+      "night_effort_camera_days": 3472.292384259259,
+      "day_effort_camera_days": 3438.607048611111,
+      "night_event_rate_per_camera_day": 0.37813635912463667,
+      "day_event_rate_per_camera_day": 0.028209097064225266,
+      "night_day_rate_ratio": 13.404766493011527
+    },
+    "heldout_all": {
+      "night_events": 3860,
+      "day_events": 1284,
+      "night_effort_camera_days": 6524.778530092592,
+      "day_effort_camera_days": 6501.183773148147,
+      "night_event_rate_per_camera_day": 0.591590960857521,
+      "day_event_rate_per_camera_day": 0.19750249259270408,
+      "night_day_rate_ratio": 2.9953594665638916
+    },
+    "heldout_D": {
+      "night_events": 3812,
+      "day_events": 1279,
+      "night_day_rate_ratio": 2.964538545731028
+    }
+  },
+  "posterior_mean_activity_context_diagnostic": {
+    "note": "Posterior-mean plug-in values from the already-frozen full fit; not a refit or posterior predictive distribution.",
+    "training_state_annotated_event_context_activity_probability": {
+      "mean": 0.8932193613227726,
+      "median": 0.9667416876586827
+    },
+    "heldout_event_context_activity_probability": {
+      "mean": 0.1850237910245994,
+      "median": 0.10018190286032895
+    },
+    "heldout_day_event_context_activity_probability": {
+      "mean": 0.0007751734919448599,
+      "median": 0.0004199944151977102
+    },
+    "heldout_night_event_context_activity_probability": {
+      "mean": 0.2463127093955653,
+      "median": 0.19918057488029697
+    }
+  },
+  "state_gain_localization": {
+    "aggregate_state_gain": 0.008390925023042953,
+    "event_bearing_deployments_positive_state_gain": 58,
+    "event_bearing_deployments_negative_state_gain": 70,
+    "group_event_deployments": 26,
+    "group_event_deployments_state_gain_sum": 7.617023839699099,
+    "event_bearing_deployments_without_group_event": 102,
+    "no_group_event_deployments_state_gain_sum": -1.4664661688715759,
+    "training_state_annotated_group_fraction": 0.006382978723404255,
+    "heldout_group_fraction": 0.028382581648522552
+  },
+  "interpretation": {
+    "supported": [
+      "The E4 activity transfer failure is almost entirely carried by deployments that contain observed focal events, not by the 605 zero-event deployments.",
+      "The heldout response is dominated by a D-prefixed source stratum absent from the training StateAnnotatedCount stratum, so strict eastward transfer is entangled with source-domain shift.",
+      "The heldout response remains nocturnally elevated, but the raw night/day event-rate contrast is much weaker than in the training StateAnnotatedCount stratum.",
+      "The frozen posterior-mean activity surface assigns much lower activity to heldout event contexts, especially heldout daytime event contexts, than to training event contexts.",
+      "The small positive aggregate state gain is sign-mixed across event-bearing deployments and is concentrated in deployments containing group events."
+    ],
+    "hypotheses_for_independent_future_data": [
+      "Conditional activity or camera detectability may vary by region/context rather than behaving as one stationary transferable relationship.",
+      "A new preregistered programme should separate geographic extrapolation from survey/source-domain transfer instead of changing E4 after seeing its outcome."
+    ],
+    "not_supported": [
+      "A causal eastward change in muskrat behaviour.",
+      "A causal country, source-network, or camera-protocol effect.",
+      "Rerunning, retuning, or switching the E4 backend.",
+      "Confirmatory or causal interpretation of the small positive state gain."
+    ]
+  }
+}
