@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "snapshot-usa-2024-dryad-bnzs7h4qf",
+  "status": "E5_CANDIDATE_NOT_QUALIFIED",
+  "screened_date": "2026-09-30",
+  "response_boundary": {
+    "focal_response_opened": false,
+    "sequence_rows_inspected": false,
+    "focal_taxon_counts_inspected": false,
+    "focal_diel_distribution_inspected": false,
+    "focal_state_frequencies_inspected": false,
+    "predictive_scores_inspected": false,
+    "evidence_used": [
+      "Dryad landing-page README/schema metadata",
+      "published SNAPSHOT USA 2024 data article",
+      "published aggregate calibration counts"
+    ]
+  },
+  "source": {
+    "title": "SNAPSHOT USA 2024: Year 6 of the Coordinated National Camera Trap Survey of the United States",
+    "dataset_doi": "10.5061/dryad.bnzs7h4qf",
+    "article_doi": "10.1111/geb.70229",
+    "dryad_published_date": "2026-06-01",
+    "public_files": [
+      "README.md",
+      "ssusa_2024_deployments.csv",
+      "ssusa_2024_sequences.csv"
+    ]
+  },
+  "response_blind_metadata": {
+    "deployment_rows": 3127,
+    "unique_deployment_ids_reported": 3124,
+    "physical_locations_reported": 2715,
+    "camera_arrays": 184,
+    "states": 49,
+    "ecoregions": 12,
+    "wildlife_insights_projects": 4,
+    "survey_period": {
+      "start": "2024-08-01",
+      "end": "2024-12-19",
+      "distinct_calendar_months": 5
+    },
+    "deployment_schema": [
+      "Project",
+      "State",
+      "Camera_Trap_Array",
+      "Site_Name",
+      "Deployment_ID",
+      "Start_Date",
+      "End_Date",
+      "Survey_Nights",
+      "Latitude",
+      "Longitude",
+      "Habitat",
+      "Development_Level",
+      "Feature_Type",
+      "Feature_Type_Methodology",
+      "Quiet_Period",
+      "Sensor_Height",
+      "Sensor_Orientation",
+      "Detection_Distance",
+      "Remarks"
+    ],
+    "sequence_schema_declared_but_rows_not_opened": [
+      "Project",
+      "Camera_Trap_Array",
+      "Deployment_ID",
+      "Sequence_ID",
+      "Start_Time",
+      "End_Time",
+      "Class",
+      "Order",
+      "Family",
+      "Genus",
+      "Species",
+      "Common_Name",
+      "Age",
+      "Sex",
+      "Group_Size",
+      "Individual_Animal_Notes",
+      "Behavior"
+    ],
+    "detection_calibration": {
+      "protocol": "reference signs every 3 m to 24 m or maximum detection distance",
+      "calibrated_arrays": 73,
+      "calibrated_locations": 918,
+      "calibration_records_reported": 1363,
+      "purpose": "camera-trap distance sampling / observation-distance calibration",
+      "candidate_strength": "strong auxiliary detection-information path exists at aggregate level"
+    },
+    "deployment_id_row_difference": 3,
+    "deployment_identity_uniqueness_verified": false
+  },
+  "gates": [
+    {
+      "gate": "G1_INDEPENDENT_SOURCE",
+      "status": "PASS",
+      "reason": "new U.S. 2024 response dataset; not MICA v3, Snapshot Japan 2023, or a derivative of those empirical responses"
+    },
+    {
+      "gate": "G2_SCHEMA_EFFORT_TIME",
+      "status": "PARTIAL_SCHEMA_DECLARED_VALUES_UNVERIFIED",
+      "reason": "public schemas declare the required deployment/event fields, but deployment-value parseability and identity uniqueness were not verified without opening the downloadable metadata file; 3,127 reported deployment rows versus 3,124 reported unique deployment IDs requires fail-closed follow-up"
+    },
+    {
+      "gate": "G3_CROSSED_DOMAIN",
+      "status": "PENDING",
+      "reason": "49 states, 184 arrays and four WI projects provide potential crossing, but Project×geography and calibration-array geography were not verified at deployment level without opening the downloadable metadata file"
+    },
+    {
+      "gate": "G4_DETECTION_IDENTIFIABILITY",
+      "status": "PROMISING_PENDING_LINKAGE",
+      "reason": "73 arrays and 918 locations have explicit calibration-distance observations, but deployment-level calibration membership must be linked response-blind before declaring a usable detection model"
+    },
+    {
+      "gate": "G5_PHYSICAL_REPLICATION",
+      "status": "CAPACITY_PASS_PARTITION_PENDING",
+      "reason": "2715 reported physical locations greatly exceed minimum capacity, but a strict geographic train/heldout split has not yet been frozen"
+    },
+    {
+      "gate": "G6_TEMPORAL_SUPPORT",
+      "status": "FAIL",
+      "reason": "the frozen E5 contract requires at least six distinct calendar months in both training and heldout exposure; the complete 2024 public survey spans only August through December, five months"
+    },
+    {
+      "gate": "G7_MODEL_FREEZE",
+      "status": "NOT_REACHED",
+      "reason": "candidate fails G6 before any selected-candidate model contract is allowed"
+    }
+  ],
+  "decision": {
+    "all_pre_response_gates_required": true,
+    "candidate_qualified": false,
+    "hard_stop_gate": "G6_TEMPORAL_SUPPORT",
+    "failure_is_scientific_negative_result": false,
+    "focal_response_may_be_opened_for_E5": false,
+    "model_fit_may_run": false,
+    "same_candidate_may_be_repaired_using_focal_response": false,
+    "broader_independent_candidate_search_allowed": true
+  },
+  "next_search_direction": {
+    "priority": "multi-season or multi-year independent camera-trap data retaining explicit detection calibration",
+    "specific_option": "screen SNAPSHOT USA 2024 plus a genuinely independent later season only if the combined source remains independent of E2-E4 and detection calibration can be linked without focal-response inspection",
+    "do_not_do": "lower the frozen six-month requirement after seeing this candidate"
+  }
+}
