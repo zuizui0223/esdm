@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "uwin_gallo_10city_2017_2018",
+  "contract_id": "e5-uwin-dryad-package-response-blind-inventory-v1",
+  "status": "FROZEN_INVENTORY_NOT_AUTHORIZED",
+  "frozen_date": "2026-09-30",
+  "source": {
+    "title": "Mammals adjust diel activity across gradients of urbanization",
+    "dataset_doi": "10.5061/dryad.fxpnvx0tb",
+    "dryad_file": "Gallo_eLife_DryadData.zip",
+    "download_url": "https://datadryad.org/downloads/file_stream/1387569",
+    "expected_md5": "72c6e7d51f359e84e2e49154942b4c98",
+    "public_design_summary": {
+      "cities": 10,
+      "sites": 453,
+      "study_period": "2017-01 through 2018-12",
+      "trap_nights": 41594
+    }
+  },
+  "response_firewall": {
+    "archive_container_download_authorized": true,
+    "archive_member_name_listing_authorized": true,
+    "readme_members_read_authorized": true,
+    "csv_xlsx_rdata_rds_data_member_opening_authorized": false,
+    "response_table_opening_authorized": false,
+    "species_specific_values_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "archive_may_not_be_uploaded_as_artifact": true
+  },
+  "precheck_scope": {
+    "may_report": [
+      "archive SHA256/MD5 and member names",
+      "README member names and SHA256",
+      "README text needed to identify file roles and schemas",
+      "whether site/deployment/effort metadata appear to be separated from detection data",
+      "candidate names of response-independent metadata members for a later separately frozen child precheck"
+    ],
+    "may_not_report": [
+      "detection row values",
+      "species counts",
+      "species-specific diel distributions",
+      "focal taxon identity chosen from response abundance",
+      "effect directions",
+      "predictive scores"
+    ]
+  },
+  "decision_boundary": {
+    "candidate_qualification_authorized": false,
+    "G3_crossed_domain_pass_authorized": false,
+    "G4_detection_identifiability_pass_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "separate_metadata_child_contract_required_before_opening_non_README_members": true
+  },
+  "execution": {
+    "dedicated_branch": "e5/uwin-package-inventory-v1",
+    "authorization_marker": "docs/replication/E5_UWIN_PACKAGE_INVENTORY_AUTHORIZED.json",
+    "one_shot": true,
+    "pure_marker_commit_required": true,
+    "workflow_dispatch_authorized": false
+  }
+}
