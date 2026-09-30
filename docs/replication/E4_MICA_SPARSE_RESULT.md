@@ -95,5 +95,7 @@ effect.
 - `docs/replication/E4_MICA_POSTRESULT_TRANSFER_TAIL_AUDIT.json`
 - `docs/replication/E4_MICA_POSTRESULT_TRANSFER_TAIL_RECEIPT.json`
 - `docs/replication/E4_MICA_POSTRESULT_DOMAIN_SHIFT_SUPPLEMENT.json`
+- `docs/replication/E4_MICA_POSTRESULT_SOURCE_DOMAIN_SUPPLEMENT.json`
+- `docs/replication/E4_MICA_POSTRESULT_LOCATION_ROBUSTNESS_SUPPLEMENT.json`
 - `docs/replication/E4_MICA_SPARSE_FIT_CONTRACT.json`
 - `docs/replication/E4_MICA_SPARSE_NUTS_CONTRACT.json`
