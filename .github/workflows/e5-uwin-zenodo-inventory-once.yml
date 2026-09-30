@@ -1,0 +1,125 @@
+name: E5 UWIN Zenodo response-blind inventory once
+
+concurrency:
+  group: e5-uwin-zenodo-inventory-once
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - e5/uwin-zenodo-inventory-v1
+    paths:
+      - 'docs/replication/E5_UWIN_ZENODO_INVENTORY_AUTHORIZED.json'
+
+permissions:
+  contents: read
+
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify pure one-shot mirror authorization
+        run: |
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+          marker_path = Path(
+              "docs/replication/E5_UWIN_ZENODO_INVENTORY_AUTHORIZED.json"
+          )
+          marker = json.loads(marker_path.read_text(encoding="utf-8"))
+          parent = subprocess.check_output(
+              ["git", "rev-parse", "HEAD^"], text=True
+          ).strip()
+          changed = subprocess.check_output(
+              ["git", "diff-tree", "--no-commit-id", "--name-only", "-r", "HEAD"],
+              text=True,
+          ).splitlines()
+          contract_path = Path(
+              "docs/replication/E5_UWIN_ZENODO_INVENTORY_CONTRACT.json"
+          )
+          contract_blob = subprocess.check_output(
+              ["git", "hash-object", str(contract_path)], text=True
+          ).strip()
+          if changed != [marker_path.as_posix()]:
+              raise SystemExit("authorization commit must change only marker")
+          if marker.get("implementation_parent_sha") != parent:
+              raise SystemExit("implementation parent mismatch")
+          if marker.get("programme_id") != "E5_INDEPENDENT_ACTIVITY_DETECTION":
+              raise SystemExit("programme mismatch")
+          if marker.get("candidate_id") != "uwin_gallo_10city_2017_2018":
+              raise SystemExit("candidate mismatch")
+          if marker.get("contract_id") != (
+              "e5-uwin-zenodo-mirror-response-blind-inventory-v1"
+          ):
+              raise SystemExit("contract id mismatch")
+          if marker.get("contract_blob_sha") != "1e196151031bfd481ca0df640973b17075e7ff7e":
+              raise SystemExit("contract blob pin mismatch")
+          if contract_blob != marker["contract_blob_sha"]:
+              raise SystemExit("working-tree contract blob mismatch")
+          if marker.get("inventory_authorized") is not True:
+              raise SystemExit("inventory not authorized")
+          if marker.get("one_shot") is not True:
+              raise SystemExit("authorization must be one-shot")
+          if marker.get("non_readme_member_opening_authorized") is not False:
+              raise SystemExit("non-README members remain forbidden")
+          if marker.get("focal_response_opening_authorized") is not False:
+              raise SystemExit("focal response remains forbidden")
+          PY
+
+      - name: Download published Zenodo mirror bytes
+        run: |
+          mkdir -p build/private build/public
+          curl --location --fail --retry 3 --retry-delay 2             'https://zenodo.org/records/6366482/files/Gallo_eLife_DryadData.zip?download=1'             --output build/private/Gallo_eLife_DryadData.zip
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+          p = Path("build/private/Gallo_eLife_DryadData.zip")
+          observed = hashlib.md5(p.read_bytes()).hexdigest()
+          expected = "72c6e7d51f359e84e2e49154942b4c98"
+          if observed != expected:
+              raise SystemExit(f"mirror MD5 drift: {observed} != {expected}")
+          PY
+
+      - name: Inventory mirror without opening data tables
+        run: |
+          python scripts/inventory_e5_uwin_dryad_package.py             --archive build/private/Gallo_eLife_DryadData.zip             --out build/public/E5_UWIN_ZENODO_INVENTORY_RESULT.json
+
+      - name: Verify response firewall
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          value = json.loads(
+              Path("build/public/E5_UWIN_ZENODO_INVENTORY_RESULT.json")
+              .read_text(encoding="utf-8")
+          )
+          b = value["response_boundary"]
+          assert b["non_readme_members_opened"] == []
+          assert b["data_rows_read"] == 0
+          assert b["response_rows_read"] == 0
+          assert b["focal_response_opened"] is False
+          assert value["decision"]["candidate_qualified"] is False
+          PY
+
+      - name: Destroy mirror package before artifact upload
+        run: |
+          rm -f build/private/Gallo_eLife_DryadData.zip
+          test ! -e build/private/Gallo_eLife_DryadData.zip
+
+      - name: Upload inventory result only
+        uses: actions/upload-artifact@v4
+        with:
+          name: e5-uwin-zenodo-inventory-${{ github.run_id }}
+          path: build/public/E5_UWIN_ZENODO_INVENTORY_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
