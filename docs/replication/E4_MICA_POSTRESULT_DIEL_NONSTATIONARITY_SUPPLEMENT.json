@@ -1,0 +1,219 @@
+{
+  "schema_version": 1,
+  "programme_id": "E4_MICA_SPARSE_NUTS",
+  "supplement_id": "e4-mica-postresult-diel-nonstationarity-v1",
+  "status": "POSTRESULT_EXPLORATORY_SUPPLEMENT",
+  "date": "2026-09-30",
+  "parents": {
+    "domain_shift_supplement": "docs/replication/E4_MICA_POSTRESULT_DOMAIN_SHIFT_SUPPLEMENT.json",
+    "source_domain_supplement": "docs/replication/E4_MICA_POSTRESULT_SOURCE_DOMAIN_SUPPLEMENT.json",
+    "location_robustness_supplement": "docs/replication/E4_MICA_POSTRESULT_LOCATION_ROBUSTNESS_SUPPLEMENT.json"
+  },
+  "source_result": {
+    "workflow_run_id": 36622802225,
+    "artifact_id": 11059622869,
+    "result_json_sha256": "34124094e6c25db04465cc1ff869af5813326729e6fd3b658a0921c45bc6f3e2",
+    "fixture_fingerprint_sha256": "2876b9f85bb34ddb600c39cd412fe196b3c78f47fa7306bca63c30245d740a23"
+  },
+  "analysis_boundary": {
+    "post_outcome": true,
+    "new_model_fit": false,
+    "posterior_refit": false,
+    "retuning": false,
+    "backend_switch": false,
+    "laplace_or_inla": false,
+    "claim_promotion": false,
+    "frozen_e4_result_changed": false
+  },
+  "comparison": {
+    "training_stratum": "training state_annotated deployments",
+    "training_deployments": 266,
+    "training_unique_focal_events": 1337,
+    "heldout_stratum": "D_MICA-prefixed heldout deployments",
+    "heldout_deployments": 163,
+    "heldout_unique_focal_events": 5049,
+    "night_definition": "00:00-05:59 and 18:00-23:59",
+    "day_definition": "06:00-17:59",
+    "season_definition": {
+      "winter": [12, 1, 2],
+      "spring": [3, 4, 5],
+      "summer": [6, 7, 8],
+      "autumn": [9, 10, 11]
+    }
+  },
+  "season_stratified_diel_rates": {
+    "winter": {
+      "training": {
+        "night_events": 376,
+        "day_events": 56,
+        "night_effort_camera_days": 922.4,
+        "day_effort_camera_days": 910.6,
+        "night_event_rate_per_camera_day": 0.4076,
+        "day_event_rate_per_camera_day": 0.0615,
+        "night_day_rate_ratio": 6.629
+      },
+      "D_MICA": {
+        "night_events": 1330,
+        "day_events": 399,
+        "night_effort_camera_days": 660.3,
+        "day_effort_camera_days": 655.6,
+        "night_event_rate_per_camera_day": 2.0142,
+        "day_event_rate_per_camera_day": 0.6086,
+        "night_day_rate_ratio": 3.31
+      }
+    },
+    "spring": {
+      "training": {
+        "night_events": 195,
+        "day_events": 3,
+        "night_effort_camera_days": 676.6,
+        "day_effort_camera_days": 669.5,
+        "night_event_rate_per_camera_day": 0.2882,
+        "day_event_rate_per_camera_day": 0.0045,
+        "night_day_rate_ratio": 64.319
+      },
+      "D_MICA": {
+        "night_events": 698,
+        "day_events": 345,
+        "night_effort_camera_days": 527.3,
+        "day_effort_camera_days": 522.9,
+        "night_event_rate_per_camera_day": 1.3237,
+        "day_event_rate_per_camera_day": 0.6598,
+        "night_day_rate_ratio": 2.006
+      }
+    },
+    "summer": {
+      "training": {
+        "night_events": 137,
+        "day_events": 0,
+        "night_effort_camera_days": 759.1,
+        "day_effort_camera_days": 752.6,
+        "night_event_rate_per_camera_day": 0.1805,
+        "day_event_rate_per_camera_day": 0.0,
+        "night_day_rate_ratio": null
+      },
+      "D_MICA": {
+        "night_events": 362,
+        "day_events": 146,
+        "night_effort_camera_days": 478.7,
+        "day_effort_camera_days": 478.7,
+        "night_event_rate_per_camera_day": 0.7562,
+        "day_event_rate_per_camera_day": 0.305,
+        "night_day_rate_ratio": 2.479
+      },
+      "training_ratio_note": "undefined/infinite because no training daytime focal event was observed in this season"
+    },
+    "autumn": {
+      "training": {
+        "night_events": 529,
+        "day_events": 41,
+        "night_effort_camera_days": 986.9,
+        "day_effort_camera_days": 976.9,
+        "night_event_rate_per_camera_day": 0.536,
+        "day_event_rate_per_camera_day": 0.042,
+        "night_day_rate_ratio": 12.771
+      },
+      "D_MICA": {
+        "night_events": 1383,
+        "day_events": 386,
+        "night_effort_camera_days": 784.6,
+        "day_effort_camera_days": 780.1,
+        "night_event_rate_per_camera_day": 1.7627,
+        "day_event_rate_per_camera_day": 0.4948,
+        "night_day_rate_ratio": 3.562
+      }
+    }
+  },
+  "season_composition": {
+    "training_event_fraction": {
+      "winter": 0.3231114435302917,
+      "spring": 0.1480927449513837,
+      "summer": 0.1024682124158564,
+      "autumn": 0.4263275991024682
+    },
+    "D_MICA_event_fraction": {
+      "winter": 0.34244404832640124,
+      "spring": 0.20657555951673598,
+      "summer": 0.10061398296692414,
+      "autumn": 0.3503664091899386
+    },
+    "interpretation": "The weaker D_MICA night/day contrast persists within each season and is therefore not reducible to a simple excess of winter observations in the heldout source domain."
+  },
+  "event_generation_checks": {
+    "cameraDelay": {
+      "training_state_annotated": "0 for 266/266 deployments",
+      "D_MICA": "0 for 163/163 deployments"
+    },
+    "event_duration_seconds": {
+      "training_median": 6.0,
+      "D_MICA_median": 6.0,
+      "training_mean": 13.758414360508601,
+      "D_MICA_mean": 12.245989304812834
+    },
+    "observation_rows_per_event_mean": {
+      "training": 1.0022438294689604,
+      "D_MICA": 1.0035650623885919
+    },
+    "interpretation": "A simple difference in cameraDelay, event duration, or rows-per-event does not explain the source-domain diel shift."
+  },
+  "within_deployment_temporal_clustering": {
+    "training_event_bearing_deployments": 102,
+    "D_MICA_event_bearing_deployments": 103,
+    "events_per_active_day_mean": {
+      "training": 1.6398943103344192,
+      "D_MICA": 2.5705744258423757
+    },
+    "median_interevent_interval_seconds": {
+      "training": 15365.0,
+      "D_MICA": 6844.0
+    },
+    "fraction_interevent_intervals_below_30_minutes": {
+      "training": 0.16194331983805668,
+      "D_MICA": 0.2341285887585928
+    },
+    "fraction_interevent_intervals_below_6_hours": {
+      "training": 0.540080971659919,
+      "D_MICA": 0.7066316215123332
+    },
+    "interpretive_limit": "Greater temporal clustering in D_MICA is compatible with higher local encounter intensity, behavioral clustering, or source-specific observation processes; it does not identify which mechanism is causal."
+  },
+  "model_structure_diagnostic": {
+    "activity_covariates": [
+      "precip_z_train",
+      "eastness_z_train",
+      "season_cos",
+      "diurnal_cos"
+    ],
+    "activity_linear_predictor_structure": "intercept + precip + eastness + season_cos + diurnal_cos",
+    "season_by_diurnal_interaction_present": false,
+    "region_by_diurnal_interaction_present": false,
+    "random_location_activity_profile_present": false,
+    "implication": "The frozen activity process can shift overall activity with geography and season but cannot change diel amplitude or phase by season, region, source domain, or physical location."
+  },
+  "future_independent_hypothesis": {
+    "name": "diel-amplitude nonstationarity",
+    "statement": "Conditional muskrat activity or effective camera detectability has a diel profile whose amplitude is not stationary across source/geographic domains, and may also vary by season.",
+    "required_test_design": [
+      "new independent data not used in E2-E4",
+      "cross geography with survey/source domain rather than confounding them",
+      "measure or model effective detection instead of fixing annotated-stream detection to one",
+      "pre-register region/source by diel and season by diel interactions before opening heldout outcomes"
+    ],
+    "e4_reanalysis_authorized": false
+  },
+  "interpretation": {
+    "supported": [
+      "The weaker nocturnal contrast in D_MICA persists within winter, spring, summer, and autumn rather than arising only from different seasonal composition.",
+      "Simple event-definition metadata checked here do not explain the contrast.",
+      "The frozen additive activity model lacks the interaction structure needed to represent domain-specific or season-specific changes in diel amplitude.",
+      "A future independent-data programme can test diel-amplitude nonstationarity without changing the terminal E4 result."
+    ],
+    "not_supported": [
+      "A causal behavioral change between countries or regions.",
+      "A causal observation-protocol or classifier effect.",
+      "Adding interactions to E4 after seeing the outcome.",
+      "Rerunning or retuning E4.",
+      "Switching backend or authorizing Laplace/INLA."
+    ]
+  }
+}
