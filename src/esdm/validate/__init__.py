@@ -32,6 +32,7 @@ from .field1_known_truth import (
     training_edge_axis_rank_audit,
 )
 from .sbc_gate import V03SBCGateConfig, V03SBCGateDecision, evaluate_v03_sbc_gate
+from .e5_candidate import qualify_e5_candidate_metadata
 from .amap1_known_truth import (
     AMap1Fixture,
     AMap1World,
