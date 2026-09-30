@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "sumatra_mesopredator_paired_2014_2015",
+  "receipt_id": "e5-sumatra-s1-inventory-receipt-v1",
+  "status": "FROZEN_RESPONSE_BLIND_PACKAGE_INVENTORY",
+  "frozen_date": "2026-09-30",
+  "execution": {
+    "workflow_run_id": 36668814612,
+    "workflow_conclusion": "success",
+    "authorization_sha": "2b8d2c25888a761d21fd06093b92b25949096222",
+    "implementation_parent_sha": "3cbda5f4bcacba7707b8acae0dbe617e6df59a95",
+    "artifact_id": 11077003330,
+    "artifact_name": "e5-sumatra-s1-inventory-36668814612",
+    "artifact_digest": "sha256:5fae0508e299426153d12185d59fa06ea6637a478ba97c58c6c62928698b3016",
+    "inventory_json_sha256": "e731d2e9fefefe271b53c25d7cbda14490744732076eb1c471563e75d6e86859"
+  },
+  "archive": {
+    "sha256": "9fee3248185c92ef528ec669c322b7f1329bc1bac55e9ce309b8ed08cb4fb6c0",
+    "member_count": 6,
+    "readme_members": 0,
+    "primary_workbook": "Iding_spc_data.xlsx"
+  },
+  "response_boundary": {
+    "data_rows_read": 0,
+    "response_rows_read": 0,
+    "non_readme_members_opened": [],
+    "focal_response_opened": false,
+    "candidate_qualified": false
+  }
+}
