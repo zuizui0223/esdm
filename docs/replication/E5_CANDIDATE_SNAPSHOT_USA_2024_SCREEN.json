@@ -88,7 +88,9 @@
       "calibration_records_reported": 1363,
       "purpose": "camera-trap distance sampling / observation-distance calibration",
       "candidate_strength": "strong auxiliary detection-information path exists at aggregate level"
-    }
+    },
+    "deployment_id_row_difference": 3,
+    "deployment_identity_uniqueness_verified": false
   },
   "gates": [
     {
@@ -98,8 +100,8 @@
     },
     {
       "gate": "G2_SCHEMA_EFFORT_TIME",
-      "status": "PASS_SCHEMA_LEVEL",
-      "reason": "public schema declares deployment/site IDs, physical site names, effort dates/nights, coordinates, protocol metadata, event timestamps and taxonomy; response rows were not opened"
+      "status": "PARTIAL_SCHEMA_DECLARED_VALUES_UNVERIFIED",
+      "reason": "public schemas declare the required deployment/event fields, but deployment-value parseability and identity uniqueness were not verified without opening the downloadable metadata file; 3,127 reported deployment rows versus 3,124 reported unique deployment IDs requires fail-closed follow-up"
     },
     {
       "gate": "G3_CROSSED_DOMAIN",
