@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "sumatra_mesopredator_paired_2014_2015",
+  "contract_id": "e5-sumatra-mesopredator-s1-response-blind-inventory-v1",
+  "contract_blob_sha": "da628205f2cded73d93646e96ad7456263f2e733",
+  "implementation_parent_sha": "3cbda5f4bcacba7707b8acae0dbe617e6df59a95",
+  "inventory_authorized": true,
+  "one_shot": true,
+  "data_member_opening_authorized": false,
+  "focal_response_opening_authorized": false,
+  "model_fitting_authorized": false,
+  "authorized_date": "2026-09-30"
+}
