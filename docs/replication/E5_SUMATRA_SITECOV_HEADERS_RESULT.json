@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "sumatra_mesopredator_paired_2014_2015",
+  "precheck_id": "e5-sumatra-sitecov-header-resolver-result-v1",
+  "status": "E5_RESPONSE_BLIND_SITECOV_HEADER_RESOLUTION",
+  "source": {
+    "archive_sha256": "9fee3248185c92ef528ec669c322b7f1329bc1bac55e9ce309b8ed08cb4fb6c0",
+    "workbook_member": "Iding_spc_data.xlsx",
+    "workbook_sha256": "745ae0c5259845517dc4e235fe138e56678caf96322e61a6995930b4a85d5b6c",
+    "shared_strings_member": "xl/sharedStrings.xml"
+  },
+  "frozen_targets": {
+    "cells": [
+      "B1",
+      "C1",
+      "D1",
+      "E1"
+    ],
+    "shared_string_indices": [
+      354,
+      355,
+      356,
+      357
+    ],
+    "max_target_index": 357
+  },
+  "resolved_headers": [
+    {
+      "cell": "B1",
+      "shared_string_index": 354,
+      "header": "study_area",
+      "schema_classification": "POTENTIALLY_RESPONSE_INDEPENDENT"
+    },
+    {
+      "cell": "C1",
+      "shared_string_index": 355,
+      "header": "log_elev",
+      "schema_classification": "POTENTIALLY_RESPONSE_INDEPENDENT"
+    },
+    {
+      "cell": "D1",
+      "shared_string_index": 356,
+      "header": "log_river",
+      "schema_classification": "POTENTIALLY_RESPONSE_INDEPENDENT"
+    },
+    {
+      "cell": "E1",
+      "shared_string_index": 357,
+      "header": "log_for",
+      "schema_classification": "UNCLASSIFIED"
+    }
+  ],
+  "streaming_scan": {
+    "shared_string_entries_traversed": 358,
+    "expected_traversed_through_index": 358,
+    "target_count": 4,
+    "target_count_resolved": 4,
+    "non_target_values_retained": 0,
+    "non_target_values_reported": 0,
+    "entries_after_max_target_parsed": 0
+  },
+  "response_boundary": {
+    "shared_strings_opened": true,
+    "worksheet_xml_opened": false,
+    "site_cov_data_rows_read": 0,
+    "species_sheet_rows_read": 0,
+    "data_rows_read": 0,
+    "response_rows_read": 0,
+    "focal_response_opened": false
+  },
+  "decision": {
+    "candidate_qualified": false,
+    "G2_pass_authorized": false,
+    "G3_pass_authorized": false,
+    "G4_pass_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "separate_child_contract_required_before_site_cov_data_rows": true
+  }
+}

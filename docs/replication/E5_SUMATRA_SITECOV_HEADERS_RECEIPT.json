@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "sumatra_mesopredator_paired_2014_2015",
+  "receipt_id": "e5-sumatra-sitecov-header-resolver-receipt-v1",
+  "status": "FROZEN_RESPONSE_BLIND_SITECOV_HEADER_RESOLUTION",
+  "frozen_date": "2026-09-30",
+  "execution": {
+    "workflow_run_id": 36734889518,
+    "workflow_conclusion": "success",
+    "authorization_sha": "a94af04d48886facd4f68dc2f3dd0cb7f1c454da",
+    "implementation_parent_sha": "9a72bb594ea22af995efc7edb4e01ae2b392dcc2",
+    "artifact_id": 11106297471,
+    "artifact_name": "e5-sumatra-sitecov-headers-36734889518",
+    "artifact_digest": "sha256:2960b4c4091119c4af963f8599ab8bf9d701e8e505d7b8c4e7c2a8d110950ea0",
+    "result_json_sha256": "58da77557d2eaacbb0018c5fc4201dc34aa96bdbdad8385873c43a4a15ce05bc"
+  },
+  "finding": {
+    "resolved_headers": [
+      "study_area",
+      "log_elev",
+      "log_river",
+      "log_for"
+    ],
+    "article_methods_interpretation": {
+      "study_area": "geographic study-area label",
+      "log_elev": "log-transformed elevation covariate",
+      "log_river": "log-transformed distance-to-river covariate",
+      "log_for": "consistent with the paper's distance-to-forest-edge landscape covariate"
+    },
+    "header_schema_response_independent": true,
+    "site_cov_data_rows_still_unopened": true
+  },
+  "boundary": {
+    "target_indices_pre_frozen": true,
+    "non_target_values_retained": 0,
+    "non_target_values_reported": 0,
+    "site_cov_data_rows_read": 0,
+    "response_rows_read": 0,
+    "focal_response_opened": false,
+    "candidate_qualified": false,
+    "model_fitting_authorized": false
+  }
+}
