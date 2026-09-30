@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "uwin_gallo_10city_2017_2018",
+  "screen_id": "e5-uwin-response-blind-candidate-screen-v1",
+  "status": "E5_CANDIDATE_NOT_QUALIFIED",
+  "screened_date": "2026-09-30",
+  "source": {
+    "study_title": "Mammals adjust diel activity across gradients of urbanization",
+    "article_doi": "10.7554/eLife.74756",
+    "dataset_doi": "10.5061/dryad.fxpnvx0tb",
+    "inventory_receipt": "docs/replication/E5_UWIN_ZENODO_INVENTORY_RECEIPT.json"
+  },
+  "response_boundary": {
+    "focal_response_opened": false,
+    "data_rows_opened": 0,
+    "species_detection_rows_opened": 0,
+    "focal_counts_inspected": false,
+    "focal_diel_direction_inspected": false,
+    "effect_direction_inspected": false,
+    "evidence_used": [
+      "README schema/file descriptions from the response-blind package inventory",
+      "published study design and methods",
+      "published aggregate site/trap-night/date-range metadata"
+    ]
+  },
+  "response_blind_design": {
+    "metropolitan_areas": 10,
+    "physical_sampling_sites": 453,
+    "sites_per_city_range": [
+      24,
+      113
+    ],
+    "trap_nights_reported": 41594,
+    "observation_period": {
+      "start": "2017-01",
+      "end": "2018-12",
+      "not_all_cities_continuously_sampled": true
+    },
+    "camera_design": {
+      "cameras_per_sampling_site": 1,
+      "camera_type": "Bushnell motion-triggered infrared Trophy Cam",
+      "synthetic_fatty_acid_lure_in_camera_line_of_sight": true,
+      "paired_or_simultaneous_sensor_calibration_declared": false,
+      "independent_camera_detection_calibration_declared": false
+    },
+    "package_readme_declares": {
+      "city": true,
+      "site_id_field": "LocationName",
+      "observation_date_time": true,
+      "coordinates": [
+        "UTM_E",
+        "UTM_N",
+        "UTMZone"
+      ],
+      "time_category": true,
+      "time_category_availability_hours": [
+        "avail_cat1",
+        "avail_cat2",
+        "avail_cat3",
+        "avail_cat4",
+        "avail_cat5"
+      ],
+      "site_covariates": true,
+      "raw_city_observation_files": 10
+    },
+    "response_independent_deployment_table_with_start_end_intervals_declared": false
+  },
+  "gates": [
+    {
+      "gate": "G1_INDEPENDENT_SOURCE",
+      "status": "PASS",
+      "reason": "independent 2017-2018 UWIN response dataset; not MICA v3, Snapshot Japan 2023, or their derivatives"
+    },
+    {
+      "gate": "G2_SCHEMA_EFFORT_TIME",
+      "status": "PARTIAL_NOT_FULL_PASS",
+      "reason": "README declares city, site, observation date/time, coordinates and time-category availability, but no separate response-independent deployment table with start/end intervals is declared; raw city files and analysis RDS objects are response-bearing and remain unopened"
+    },
+    {
+      "gate": "G3_CROSSED_DOMAIN",
+      "status": "FAIL",
+      "reason": "the ten geographic regimes use one shared UWIN sampling design; no second survey/source/protocol domain overlapping geography is declared, so geography cannot be crossed with source/protocol under the frozen E5 acceptable designs"
+    },
+    {
+      "gate": "G4_DETECTION_IDENTIFIABILITY",
+      "status": "FAIL",
+      "reason": "published methods place one camera at each site and declare no paired/simultaneous sensor calibration, independent detection-distance calibration, or auxiliary detection stream; the response-blind package inventory does not expose a separately identifying detection path"
+    },
+    {
+      "gate": "G5_PHYSICAL_REPLICATION",
+      "status": "CAPACITY_PASS_SPLIT_NOT_FROZEN",
+      "reason": "453 physical sites exceed the frozen count minima, but no E5 geographic train/heldout split is frozen because earlier hard-stop gates fail"
+    },
+    {
+      "gate": "G6_TEMPORAL_SUPPORT",
+      "status": "POTENTIAL_NOT_NEEDED_AFTER_HARD_STOP",
+      "reason": "the study spans January 2017 through December 2018, but not all cities were continuously sampled and split-specific six-month support is not opened or frozen after G3/G4 failure"
+    },
+    {
+      "gate": "G7_MODEL_FREEZE",
+      "status": "NOT_REACHED",
+      "reason": "candidate fails G3 and G4 before selected-candidate model freeze"
+    }
+  ],
+  "decision": {
+    "all_pre_response_gates_required": true,
+    "candidate_qualified": false,
+    "hard_stop_gates": [
+      "G3_CROSSED_DOMAIN",
+      "G4_DETECTION_IDENTIFIABILITY"
+    ],
+    "failure_is_scientific_negative_result": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "same_candidate_may_be_repaired_using_focal_response": false,
+    "broader_candidate_search_authorized": true
+  },
+  "reuse_boundary": {
+    "may_be_useful_for_separate_diel_nonstationarity_research": true,
+    "may_be_relabelled_as_E5_activity_detection_test": false,
+    "reason": "multi-city diel data are scientifically relevant, but they do not satisfy E5's pre-frozen source-crossing and detection-identification requirements"
+  }
+}
