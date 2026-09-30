@@ -59,34 +59,41 @@ Frozen decisions:
 
 The negative activity result is strongly heterogeneous rather than uniformly negative.
 
-- deployment-level activity gain is positive at about **82.7%** of deployments, but its
-  median is essentially zero;
+- across all 733 deployments, many zero-event sites have tiny positive gains, but among
+  the **128 event-bearing deployments, 127 have negative activity gain**;
 - the worst 10 deployments account for about **43.2%** of total negative activity-loss
-  magnitude;
-- the worst 50 account for about **90.8%**;
+  magnitude and the worst 50 about **90.8%**;
 - activity gain correlates strongly negatively with labelled focal-event count
   (`r ≈ -0.884`);
 - the strict east holdout lies entirely outside training eastness support:
   training z about **-0.94 to 1.65**, heldout about **3.20 to 8.49**;
+- a D-prefixed heldout source stratum absent from the training annotated stratum contains
+  about **99.0% of focal events** and **99.6% of negative activity-loss magnitude**;
+- the raw night/day event-rate ratio shifts from about **13.4** in training annotated
+  exposure to about **3.0** in heldout exposure;
 - posterior-mean activity at observed heldout focal-event contexts is about **0.185**,
   compared with the activity-knockout baseline **0.438**.
 
-The bounded working hypothesis is therefore **transfer tail risk under process-specific
-covariate extrapolation**: activity slopes learned in the training region can suppress
-expected counts strongly at a minority of high-event eastern deployments once evaluated
-far outside their training support.
+The bounded working hypothesis is therefore **transfer tail risk under combined
+process-specific covariate and source-domain shift**: a stationary activity relationship
+learned in the training annotated stratum suppresses expected counts when transferred
+far outside its training support and into a heldout source domain with a markedly weaker
+diel contrast.
 
-This is a post-result exploratory diagnosis. It does not establish a causal mechanism,
-does not prove activity is biologically irrelevant, and cannot change the frozen E4
-result.
+This is a post-result exploratory diagnosis. It does not identify a causal geographic,
+country, source-network, camera-protocol, or behavioral mechanism; it does not prove
+activity is biologically irrelevant; and it cannot change the frozen E4 result.
 
-The small positive state gain is also heterogeneous and should not be described as a
-broad or confirmatory state effect.
+The small positive state gain is also heterogeneous: among event-bearing deployments,
+**58 gains are positive and 70 negative**, with positive gain concentrated in deployments
+containing group events. It should not be described as a broad or confirmatory state
+effect.
 
 ## Canonical records
 
 - `docs/replication/E4_MICA_SPARSE_FROZEN_RESULT.json`
 - `docs/replication/E4_MICA_POSTRESULT_TRANSFER_TAIL_AUDIT.json`
 - `docs/replication/E4_MICA_POSTRESULT_TRANSFER_TAIL_RECEIPT.json`
+- `docs/replication/E4_MICA_POSTRESULT_DOMAIN_SHIFT_SUPPLEMENT.json`
 - `docs/replication/E4_MICA_SPARSE_FIT_CONTRACT.json`
 - `docs/replication/E4_MICA_SPARSE_NUTS_CONTRACT.json`
