@@ -50,3 +50,39 @@ The next screen should use metadata only and require all of the following simult
 
 Species-specific counts, diel directions, state frequencies and predictive scores remain
 forbidden during candidate selection.
+
+
+## Two useful near-misses
+
+### Uljin, South Korea 2022–2023
+
+This public dataset is strong on duration and effort structure: 82 physical camera
+stations were operated continuously from April 2022 to May 2023 with a camera-operation
+log and station-level covariates. It therefore passes the frozen temporal and physical
+replication minima on design metadata.
+
+It still fails E5 G3. The network is one standardized study/source in one geographic
+region (two local site strata), so geography cannot be crossed with an independent
+survey/source domain. More data from the same network do not solve the E4 confounding.
+
+### Eastern Amazon continuous jaguar monitoring, 2014–2020
+
+This design has unusually long temporal coverage (March 2014–December 2020), 42 camera
+locations, and paired cameras at 11 locations for parts of the study. Those features are
+promising for G4–G6.
+
+It is not qualified here. The published study is one geographic/source network rather
+than a geography × source crossing, paired cameras did not always operate simultaneously,
+and this screen did not establish a reproducibly accessible raw event/deployment package
+meeting E5 G2. No response was opened to repair those deficiencies.
+
+## Search status
+
+Seven candidates/reference families have now been screened under the frozen criteria and
+**zero are qualified**. This is not a scientific null result. It means the present
+public candidates do not yet contain the design needed to separate transferred activity
+from effective detection under the E5 contract.
+
+The Wildlife Insights public-project universe remains the next response-blind search
+space because project, camera and deployment metadata can be screened before detection
+records are touched.
