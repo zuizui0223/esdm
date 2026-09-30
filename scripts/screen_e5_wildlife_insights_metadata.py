@@ -346,14 +346,14 @@ def screen(package_dir: Path) -> dict:
         "projects": per_project,
         "preliminary_gate_hints": {
             "G2_SCHEMA_EFFORT_TIME": (
-                "PASS_METADATA_ONLY"
+                "PARTIAL_DEPLOYMENT_METADATA_PASS_EVENT_SCHEMA_UNVERIFIED"
                 if (
                     not missing_required
                     and geography_columns_present
                     and not duplicate_deployment_ids
                     and not invalid_dates
                 )
-                else "FAIL_OR_INCOMPLETE_METADATA"
+                else "FAIL_OR_INCOMPLETE_DEPLOYMENT_METADATA"
             ),
             "G3_CROSSED_DOMAIN": "MANUAL_CROSSED_DOMAIN_REVIEW_REQUIRED",
             "G4_DETECTION_IDENTIFIABILITY": (
@@ -376,6 +376,7 @@ def screen(package_dir: Path) -> dict:
             "G7_MODEL_FREEZE": "NOT_REACHED",
         },
         "fail_closed_notes": [
+            "This discovery screen cannot PASS G2 because event-time schema and taxonomic identity live outside the permitted metadata-only inputs and remain unverified.",
             "This discovery screen cannot PASS G3 because geography-by-source crossing requires a declared candidate split and design review.",
             "Cluster/paired-camera metadata alone cannot PASS G4; an independently identifying detection-calibration path must be demonstrated.",
             "A project with >=30 locations or >=6 calendar months only receives a discovery hint; E5 requires the final frozen training/heldout split itself to satisfy the thresholds.",
