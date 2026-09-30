@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "uwin_gallo_10city_2017_2018",
+  "receipt_id": "e5-uwin-dryad-inventory-transport-stop-v1",
+  "status": "TERMINAL_TRANSPORT_STOP_NO_PACKAGE_READ",
+  "frozen_date": "2026-09-30",
+  "execution": {
+    "workflow_run_id": 36664986381,
+    "authorization_sha": "19aca6f2201286f75e11af4059665e1feda4a4a2",
+    "implementation_parent_sha": "43454706f1738db6c4ab29af39069b06ac980513",
+    "conclusion": "failure",
+    "failed_step": "Download pinned public UWIN package",
+    "failure": "HTTP 403 from Dryad file_stream URL"
+  },
+  "response_boundary": {
+    "archive_inventory_executed": false,
+    "readme_members_opened": 0,
+    "non_readme_members_opened": 0,
+    "data_rows_read": 0,
+    "focal_response_opened": false,
+    "artifact_created": false
+  },
+  "governance": {
+    "same_authorization_rerun_allowed": false,
+    "candidate_scientific_status_changed": false,
+    "candidate_qualification_changed": false,
+    "separately_named_public_mirror_inventory_allowed": true
+  }
+}
