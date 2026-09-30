@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "sumatra_mesopredator_paired_2014_2015",
+  "receipt_id": "e5-sumatra-xlsx-structure-receipt-v1",
+  "status": "FROZEN_RESPONSE_BLIND_XLSX_STRUCTURE_PRECHECK",
+  "frozen_date": "2026-09-30",
+  "execution": {
+    "workflow_run_id": 36669698531,
+    "workflow_conclusion": "success",
+    "authorization_sha": "2348bceb538ccc2ba6741da24a40af2cee427e59",
+    "implementation_parent_sha": "a4a01cd5007a9b4633aa475f1ea3b99259ece252",
+    "artifact_id": 11077444359,
+    "artifact_name": "e5-sumatra-xlsx-structure-36669698531",
+    "artifact_digest": "sha256:a63ff37393d543a7675e5724682384479a978ff55a5369a7ef06acd503a899cd",
+    "result_json_sha256": "0748efaca66e8bd81970abbab722d34030072e4ae7dede21b12e2bb12ea8e155"
+  },
+  "conclusion": {
+    "response_metadata_separated_at_sheet_level": true,
+    "metadata_sheet": "site_cov",
+    "response_like_sheets": [
+      "focal_species",
+      "argus_matrix",
+      "cl_matrix",
+      "gc_matrix",
+      "mc_matrix",
+      "md_matrix",
+      "mj_matrix",
+      "pc_matrix"
+    ],
+    "structured_tables_present": false,
+    "next_child_needed": true
+  },
+  "response_boundary": {
+    "cell_values_read": 0,
+    "shared_strings_opened": false,
+    "worksheet_cell_xml_opened": false,
+    "response_rows_read": 0,
+    "focal_response_opened": false
+  }
+}
