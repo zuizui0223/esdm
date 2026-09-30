@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "programme_id": "E4_MICA_SPARSE_NUTS",
+  "receipt_id": "e4-mica-postresult-cross-taxon-diel-receipt-v1",
+  "status": "FROZEN_POSTRESULT_EXPLORATORY_SUPPLEMENT",
+  "frozen_date": "2026-09-30",
+  "source": {
+    "e2_capture_workflow_run_id": 36369531079,
+    "e2_capture_artifact_id": 10947948379,
+    "temporal_receipt": "docs/replication/E2_MICA_TEMPORAL_INTEGRITY_RESULT.json",
+    "parent_e4_result_workflow_run_id": 36622802225,
+    "parent_e4_result_artifact_id": 11059622869
+  },
+  "audit_execution": {
+    "workflow_run_id": 36656402279,
+    "workflow_conclusion": "success",
+    "head_sha": "d60feb2e95ff2f8e1f8adcacd7ddca0df4f190f6",
+    "artifact_id": 11072901796,
+    "artifact_name": "e4-mica-cross-taxon-diel-36656402279",
+    "artifact_digest": "sha256:0842dee8567c986f0208e5c5bef6dee54be6c5185f92aaae118046b4afb9cecd",
+    "supplement_json_sha256": "ec18752313130d57b898d6d2eae684f739a328dd2c9b191bfc0db53e54f2a22e"
+  },
+  "summary": {
+    "eligible_binomial_species_count": 8,
+    "negative_log_ratio_shift_count": 7,
+    "nonfocal_eligible_species_count": 7,
+    "nonfocal_negative_log_ratio_shift_count": 6,
+    "focal_species": "Ondatra zibethicus",
+    "focal_negative_shift_rank_most_negative_is_1": 6,
+    "focal_log_rate_ratio_change": -1.417921799423425
+  },
+  "interpretation_boundary": {
+    "cross_taxon_negative_control_only": true,
+    "causal_camera_detection_claim": false,
+    "causal_observer_or_annotation_claim": false,
+    "universal_taxon_shift_claim": false,
+    "causal_muskrat_behavior_claim": false,
+    "frozen_e4_decision_changed": false,
+    "rerun_or_retuning_authorized": false
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "analysis_boundary": {
+    "backend_switch": false,
+    "claim_promotion": false,
+    "cross_taxon_diagnostic_only": true,
+    "new_model_fit": false,
+    "post_outcome": true,
+    "posterior_refit": false,
+    "retuning": false
+  },
+  "date": "2026-09-30",
+  "definitions": {
+    "day": "local eventStart hour 06:00-17:59",
+    "eligible_binomial_species": "exactly two-token scientificName; >=20 unique events in each stratum; at least one night and one day event in each stratum",
+    "event_unit": "unique deploymentID + eventID + scientificName after frozen temporal quarantine",
+    "exposure": "exact deployment interval overlap in camera-days, split into night/day six-hour bins",
+    "heldout_stratum": "frozen east-heldout deployments with locationName prefix D",
+    "minimum_events_per_stratum": 20,
+    "night": "local eventStart hour 18:00-05:59",
+    "training_stratum": "frozen west training deployments assigned state_annotated"
+  },
+  "geometry": {
+    "heldout_D_day_camera_days": 2512.4311226851864,
+    "heldout_D_deployments": 164,
+    "heldout_D_night_camera_days": 2525.9189467592605,
+    "quarantined_event_identities_excluded": 11,
+    "training_day_camera_days": 3309.6208101851876,
+    "training_night_camera_days": 3344.9930787037038,
+    "training_state_annotated_deployments": 266
+  },
+  "interpretation": {
+    "not_supported": [
+      "A causal camera-detection effect.",
+      "A causal observer or annotation effect.",
+      "A universal source-domain shift shared by every taxon.",
+      "A causal eastward change in muskrat behaviour.",
+      "Changing the frozen E4 activity/state decisions.",
+      "Rerunning or retuning E4."
+    ],
+    "supported": [
+      "The training-to-D diel-rate shift is not muskrat-specific: most eligible binomial species show a lower night/day rate ratio.",
+      "Muskrat is not the most extreme negative diel shift among eligible species in the same camera-network comparison.",
+      "The cross-taxon pattern is compatible with a broad domain shift affecting observation processes, ecological context, or both."
+    ]
+  },
+  "parents": {
+    "frozen_result": "docs/replication/E4_MICA_SPARSE_FROZEN_RESULT.json",
+    "location_robustness_supplement": "docs/replication/E4_MICA_POSTRESULT_LOCATION_ROBUSTNESS_SUPPLEMENT.json",
+    "source_domain_supplement": "docs/replication/E4_MICA_POSTRESULT_SOURCE_DOMAIN_SUPPLEMENT.json"
+  },
+  "programme_id": "E4_MICA_SPARSE_NUTS",
+  "schema_version": 1,
+  "status": "POSTRESULT_EXPLORATORY_SUPPLEMENT",
+  "summary": {
+    "eligible_binomial_species_count": 8,
+    "focal_log_rate_ratio_change": -1.417921799423425,
+    "focal_negative_shift_rank_most_negative_is_1": 6,
+    "focal_species": "Ondatra zibethicus",
+    "median_log_rate_ratio_change": -2.1638031473975357,
+    "median_rate_ratio_multiplier": 0.11488735557505744,
+    "negative_log_ratio_shift_count": 7,
+    "nonfocal_eligible_species_count": 7,
+    "nonfocal_median_log_rate_ratio_change": -2.166430299911327,
+    "nonfocal_median_rate_ratio_multiplier": 0.11458592509534783,
+    "nonfocal_negative_log_ratio_shift_count": 6
+  },
+  "supplement_id": "e4-mica-postresult-cross-taxon-diel-v1",
+  "taxa": [
+    {
+      "direction": "lower",
+      "focal": false,
+      "heldout_D_day_events": 1019,
+      "heldout_D_night_day_rate_ratio": 0.5085554271554994,
+      "heldout_D_night_events": 521,
+      "log_rate_ratio_change": -3.1645599153462802,
+      "scientificName": "Anas platyrhynchos",
+      "training_day_events": 663,
+      "training_night_day_rate_ratio": 12.0417387896883,
+      "training_night_events": 8069
+    },
+    {
+      "direction": "lower",
+      "focal": false,
+      "heldout_D_day_events": 102,
+      "heldout_D_night_day_rate_ratio": 0.5753426825489402,
+      "heldout_D_night_events": 59,
+      "log_rate_ratio_change": -2.766781997117164,
+      "scientificName": "Ardea cinerea",
+      "training_day_events": 20,
+      "training_night_day_rate_ratio": 9.15218410738145,
+      "training_night_events": 185
+    },
+    {
+      "direction": "lower",
+      "focal": false,
+      "heldout_D_day_events": 48,
+      "heldout_D_night_day_rate_ratio": 0.4558859391383551,
+      "heldout_D_night_events": 22,
+      "log_rate_ratio_change": -2.1611759948837443,
+      "scientificName": "Capreolus capreolus",
+      "training_day_events": 4,
+      "training_night_day_rate_ratio": 3.957701235624411,
+      "training_night_events": 16
+    },
+    {
+      "direction": "lower",
+      "focal": false,
+      "heldout_D_day_events": 436,
+      "heldout_D_night_day_rate_ratio": 0.07984657816434912,
+      "heldout_D_night_events": 35,
+      "log_rate_ratio_change": -2.1703103081878066,
+      "scientificName": "Fulica atra",
+      "training_day_events": 1041,
+      "training_night_day_rate_ratio": 0.6995360493322687,
+      "training_night_events": 736
+    },
+    {
+      "direction": "lower",
+      "focal": false,
+      "heldout_D_day_events": 1523,
+      "heldout_D_night_day_rate_ratio": 0.07249329325282505,
+      "heldout_D_night_events": 111,
+      "log_rate_ratio_change": -2.166430299911327,
+      "scientificName": "Gallinula chloropus",
+      "training_day_events": 2055,
+      "training_night_day_rate_ratio": 0.6326544310961649,
+      "training_night_events": 1314
+    },
+    {
+      "direction": "lower",
+      "focal": true,
+      "heldout_D_day_events": 1279,
+      "heldout_D_night_day_rate_ratio": 2.964538545731028,
+      "heldout_D_night_events": 3812,
+      "log_rate_ratio_change": -1.417921799423425,
+      "scientificName": "Ondatra zibethicus",
+      "training_day_events": 100,
+      "training_night_day_rate_ratio": 12.23919107116849,
+      "training_night_events": 1237
+    },
+    {
+      "direction": "higher",
+      "focal": false,
+      "heldout_D_day_events": 78,
+      "heldout_D_night_day_rate_ratio": 21.601979885325136,
+      "heldout_D_night_events": 1694,
+      "log_rate_ratio_change": 0.8436717781532636,
+      "scientificName": "Rattus norvegicus",
+      "training_day_events": 463,
+      "training_night_day_rate_ratio": 9.291622555342839,
+      "training_night_events": 4348
+    },
+    {
+      "direction": "lower",
+      "focal": false,
+      "heldout_D_day_events": 2,
+      "heldout_D_night_day_rate_ratio": 12.433252885591505,
+      "heldout_D_night_events": 25,
+      "log_rate_ratio_change": -0.6878702567742236,
+      "scientificName": "Vulpes vulpes",
+      "training_day_events": 2,
+      "training_night_day_rate_ratio": 24.735632722652568,
+      "training_night_events": 50
+    }
+  ]
+}
