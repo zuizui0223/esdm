@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "programme_id": "E4_MICA_SPARSE_NUTS",
+  "synthesis_id": "e4-mica-postresult-synthesis-v1",
+  "status": "FROZEN_POSTRESULT_SYNTHESIS",
+  "frozen_date": "2026-09-30",
+  "role": "summarize already-frozen empirical result and post-result diagnostics without changing any scientific decision",
+  "parents": {
+    "frozen_result": "docs/replication/E4_MICA_SPARSE_FROZEN_RESULT.json",
+    "odsp_deployment_block_audit": "docs/replication/E4_MICA_ODSP_AUDIT_RESULT_V1.json",
+    "odsp_location_block_sensitivity": "docs/replication/E4_MICA_ODSP_LOCATION_BLOCK_SENSITIVITY_RESULT.json",
+    "transfer_tail_audit": "docs/replication/E4_MICA_POSTRESULT_TRANSFER_TAIL_AUDIT.json",
+    "domain_shift_supplement": "docs/replication/E4_MICA_POSTRESULT_DOMAIN_SHIFT_SUPPLEMENT.json",
+    "source_domain_supplement": "docs/replication/E4_MICA_POSTRESULT_SOURCE_DOMAIN_SUPPLEMENT.json",
+    "location_robustness_supplement": "docs/replication/E4_MICA_POSTRESULT_LOCATION_ROBUSTNESS_SUPPLEMENT.json",
+    "diel_nonstationarity_supplement": "docs/replication/E4_MICA_POSTRESULT_DIEL_NONSTATIONARITY_SUPPLEMENT.json",
+    "cross_taxon_diel_supplement": "docs/replication/E4_MICA_POSTRESULT_CROSS_TAXON_DIEL_SUPPLEMENT.json"
+  },
+  "frozen_empirical_result": {
+    "sampling_gate_passed": true,
+    "total_divergences": 0,
+    "heldout_deployment_rows": 733,
+    "scores": {
+      "full_heldout_log_score": -7.6929864071241045,
+      "activity_knockout_heldout_log_score": -7.053935226712387,
+      "state_knockout_heldout_log_score": -7.701377332147147,
+      "activity_gain": -0.6390511804117178,
+      "state_gain": 0.008390925023042506
+    },
+    "frozen_decisions": {
+      "activity_predictive_support_descriptive": false,
+      "state_predictive_support_descriptive": true,
+      "same_programme_rerun_allowed": false,
+      "post_outcome_retuning_allowed": false
+    }
+  },
+  "uncertainty_audits": {
+    "deployment_blocks": {
+      "block_count": 733,
+      "activity": {
+        "category": "robust_non_generalizing",
+        "lower_bound": -0.8381153205469307,
+        "upper_bound": -0.43998704027650487
+      },
+      "state": {
+        "category": "uncertain",
+        "lower_bound": -0.017381909014266686,
+        "upper_bound": 0.0341637590603517
+      }
+    },
+    "physical_location_blocks": {
+      "block_count": 27,
+      "row_count": 733,
+      "point_scores_reweighted": false,
+      "activity": {
+        "category": "robust_non_generalizing",
+        "lower_bound": -1.2594059939334707,
+        "upper_bound": -0.01869636688996479
+      },
+      "state": {
+        "category": "uncertain",
+        "lower_bound": -0.018952883399772847,
+        "upper_bound": 0.035734733445857855
+      }
+    },
+    "synthesis": "activity non-generalization remains robust when uncertainty is clustered by physical location; the small positive state point gain is not robust to within-endpoint resampling uncertainty"
+  },
+  "failure_geometry": {
+    "deployment_level": {
+      "event_bearing_heldout_deployments": 128,
+      "event_bearing_negative_activity_gain": 127,
+      "zero_focal_event_deployments": 605,
+      "worst_50_share_of_total_negative_activity_loss_magnitude": 0.9083798158499395
+    },
+    "location_level": {
+      "heldout_unique_locations": 27,
+      "event_bearing_locations": 20,
+      "event_bearing_activity_negative_locations": 19,
+      "event_bearing_activity_positive_locations": 1,
+      "all_leave_one_location_out_activity_means_negative": true,
+      "remaining_activity_gain_mean_after_descriptive_D_prefix_exclusion": -0.0031090535188776787
+    },
+    "source_domain": {
+      "D_prefix_heldout_focal_event_fraction": 0.989696734059098,
+      "D_prefix_fraction_of_net_activity_gain_sum": 0.9962234012211589,
+      "D_MICA_fraction_of_net_activity_gain_sum": 0.9938993662898291,
+      "training_state_annotated_D_prefix_deployments": 0,
+      "training_state_annotated_NL_prefix_deployments": 0
+    }
+  },
+  "diel_domain_shift": {
+    "training_state_annotated_night_day_rate_ratio": 13.404766493011527,
+    "heldout_D_night_day_rate_ratio": 2.964538545731028,
+    "seasonal_persistence": true,
+    "simple_cameraDelay_eventDuration_rowsPerEvent_explanation_supported": false,
+    "model_missing_structure": [
+      "season_by_diurnal_interaction",
+      "region_or_source_by_diurnal_interaction",
+      "random_location_activity_profile"
+    ],
+    "cross_taxon_negative_control": {
+      "eligible_binomial_species": 8,
+      "species_with_lower_heldout_D_night_day_ratio": 7,
+      "nonfocal_eligible_species": 7,
+      "nonfocal_species_with_lower_ratio": 6,
+      "focal_species": "Ondatra zibethicus",
+      "focal_negative_shift_rank_most_negative_is_1": 6,
+      "implication": "the large diel transfer shift is not muskrat-specific and is compatible with a broader source/domain change"
+    }
+  },
+  "identifiability_limit": {
+    "annotated_detection_model": "KnownDetection(probability=1.0)",
+    "activity_and_effective_detection_separable_in_E4": false,
+    "reason": "geography, source domain, deployment metadata, annotation metadata and effective detection can shift together, while the fitted annotated stream fixes detection at one; observation-process nonstationarity can therefore be absorbed by the ecological activity channel",
+    "causal_behavioral_nonstationarity_identified": false,
+    "causal_camera_or_annotation_effect_identified": false
+  },
+  "bounded_conclusions": {
+    "supported": [
+      "The frozen E4 activity channel, as parameterized and transferred, worsened prediction under this heldout domain.",
+      "That negative activity transfer result is robust to deployment-block and physical-location-block uncertainty.",
+      "The failure magnitude is strongly concentrated in a source/location domain, but the negative direction also appears beyond that dominant source stratum.",
+      "The training-to-heldout diel-profile change is not muskrat-specific among eligible taxa in the same camera network.",
+      "The small positive state point gain is localized and remains uncertain under both ODSP block definitions."
+    ],
+    "not_supported": [
+      "Activity is biologically irrelevant in general.",
+      "A causal eastward change in muskrat behavior.",
+      "A causal country, camera, observer, classifier, or source-network effect.",
+      "A confirmatory state effect.",
+      "A superpopulation transfer claim across biological systems.",
+      "Retuning, rerunning, or switching the E4 backend."
+    ]
+  },
+  "next_independent_programme": {
+    "name": "E5 candidate qualification only",
+    "may_reuse_E2_E4_response_as_primary_test": false,
+    "required_before_outcome": [
+      "new independent data not used to fit or diagnose E2-E4",
+      "geography crossed with survey/source domain rather than confounded",
+      "measured or estimable effective detection for the annotated/event stream",
+      "physical location declared as a clustering/resampling unit",
+      "region_or_source_by_diel interaction frozen before heldout outcomes",
+      "season_by_diel interaction frozen before heldout outcomes",
+      "predeclared negative controls across nonfocal taxa when the observation network is shared"
+    ],
+    "scientific_question": "does conditional activity itself fail to transfer after observation-process and source-domain nonstationarity are separately represented?"
+  },
+  "governance": {
+    "changes_frozen_E4_result": false,
+    "changes_E4_support_decisions": false,
+    "authorizes_E4_rerun": false,
+    "authorizes_E4_retuning": false,
+    "authorizes_Laplace_or_INLA_within_E4": false,
+    "authorizes_E5_outcome_opening": false
+  }
+}
