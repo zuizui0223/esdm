@@ -256,19 +256,26 @@
         "maximum_16km2_grid_cells_per_landscape": 45,
         "visits_per_selected_grid": 2,
         "cameras_installed_in_random_1km2_cells_per_grid": 2,
-        "metadata_eml_separately_downloadable": true
+        "metadata_eml_separately_downloadable": true,
+        "public_temporal_coverage": "2015-10-22 to 2018-01-27",
+        "selected_landscapes": 5,
+        "monitoring_phases": [
+          "2015-2016",
+          "2017",
+          "2018"
+        ]
       },
       "gates": {
         "G1_INDEPENDENT_SOURCE": "PASS",
         "G2_SCHEMA_EFFORT_TIME": "PROMISING_EVENT_CORE_SEPARATED_FROM_OCCURRENCE_NOT_YET_INSPECTED",
         "G3_CROSSED_DOMAIN": "PROMISING_STANDARDIZED_MULTI_LANDSCAPE_PROTOCOL_MANUAL_REVIEW_REQUIRED",
-        "G4_DETECTION_IDENTIFIABILITY": "PROMISING_REPEATED_VISIT_EVENT_STRUCTURE_NOT_YET_VERIFIED",
+        "G4_DETECTION_IDENTIFIABILITY": "PENDING_EVENT_OCCASION_STRUCTURE",
         "G5_PHYSICAL_REPLICATION": "PENDING_EVENT_CORE_GEOMETRY",
-        "G6_TEMPORAL_SUPPORT": "PENDING_EVENT_CORE_DATES",
+        "G6_TEMPORAL_SUPPORT": "PROMISING_GLOBAL_RANGE_FINAL_SPLIT_PENDING",
         "G7_MODEL_FREEZE": "NOT_REACHED"
       },
       "decision": "E5_CANDIDATE_NOT_YET_QUALIFIED",
-      "hard_stop_reason": "the Darwin Core Archive cleanly separates a 958-row Event core from the 78,299-row Occurrence extension, but the Event core has not yet been opened under an E5 child precheck; location, date, effort, source-crossing and repeated-visit detection geometry remain unverified",
+      "hard_stop_reason": "Event/Occurrence separation and long multi-landscape temporal coverage are promising, but the Event core has not yet been opened under the child precheck; the published two-visit field procedure includes camera installation then retrieval and is not by itself sufficient to establish a separately identifiable detection process",
       "response_may_be_opened_for_E5": false,
       "next_response_blind_check": "freeze a child metadata-only contract that permits EML + Event core only, explicitly forbids reading the Occurrence extension, and reports zero occurrence rows read"
     }
