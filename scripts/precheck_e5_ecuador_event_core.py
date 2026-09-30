@@ -45,7 +45,7 @@ def _decode_sep(value: str | None, default: str) -> str:
 
 def _descriptor(node: ET.Element) -> dict:
     locations = [
-        child.text.strip()
+        grandchild.text.strip()
         for child in node
         if child.tag.endswith("files")
         for grandchild in child
