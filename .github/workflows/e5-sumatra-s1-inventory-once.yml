@@ -1,0 +1,132 @@
+name: E5 Sumatra S1 response-blind inventory once
+
+concurrency:
+  group: e5-sumatra-s1-inventory-once
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - e5/sumatra-mesopredator-s1-inventory-v1
+    paths:
+      - 'docs/replication/E5_SUMATRA_S1_INVENTORY_AUTHORIZED.json'
+
+permissions:
+  contents: read
+
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify pure one-shot inventory authorization
+        run: |
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+
+          marker_path = Path(
+              "docs/replication/E5_SUMATRA_S1_INVENTORY_AUTHORIZED.json"
+          )
+          marker = json.loads(marker_path.read_text(encoding="utf-8"))
+          parent = subprocess.check_output(
+              ["git", "rev-parse", "HEAD^"], text=True
+          ).strip()
+          changed = subprocess.check_output(
+              ["git", "diff-tree", "--no-commit-id", "--name-only", "-r", "HEAD"],
+              text=True,
+          ).splitlines()
+          contract_path = Path(
+              "docs/replication/E5_SUMATRA_S1_INVENTORY_CONTRACT.json"
+          )
+          contract_blob = subprocess.check_output(
+              ["git", "hash-object", str(contract_path)], text=True
+          ).strip()
+
+          if changed != [marker_path.as_posix()]:
+              raise SystemExit("authorization commit must change only marker")
+          if marker.get("implementation_parent_sha") != parent:
+              raise SystemExit("implementation parent mismatch")
+          if marker.get("programme_id") != "E5_INDEPENDENT_ACTIVITY_DETECTION":
+              raise SystemExit("programme mismatch")
+          if marker.get("candidate_id") != "sumatra_mesopredator_paired_2014_2015":
+              raise SystemExit("candidate mismatch")
+          if marker.get("contract_id") != (
+              "e5-sumatra-mesopredator-s1-response-blind-inventory-v1"
+          ):
+              raise SystemExit("contract id mismatch")
+          if marker.get("contract_blob_sha") != "da628205f2cded73d93646e96ad7456263f2e733":
+              raise SystemExit("contract blob pin mismatch")
+          if contract_blob != marker["contract_blob_sha"]:
+              raise SystemExit("working-tree contract blob mismatch")
+          if marker.get("inventory_authorized") is not True:
+              raise SystemExit("inventory not authorized")
+          if marker.get("one_shot") is not True:
+              raise SystemExit("authorization must be one-shot")
+          if marker.get("data_member_opening_authorized") is not False:
+              raise SystemExit("data members remain forbidden")
+          if marker.get("focal_response_opening_authorized") is not False:
+              raise SystemExit("focal response remains forbidden")
+          PY
+
+      - name: Compile inventory
+        run: python -m py_compile scripts/inventory_e5_sumatra_s1.py
+
+      - name: Download pinned PLOS S1 archive
+        run: |
+          mkdir -p build/private build/public
+          curl --location --fail --retry 3 --retry-delay 2 \
+            'https://journals.plos.org/plosone/article/file?id=10.1371%2Fjournal.pone.0202876.s001&type=supplementary' \
+            --output build/private/sumatra_s1.zip
+          python - <<'PY'
+          import zipfile
+          from pathlib import Path
+          p = Path("build/private/sumatra_s1.zip")
+          if not zipfile.is_zipfile(p):
+              raise SystemExit("downloaded S1 is not a ZIP archive")
+          PY
+
+      - name: Inventory archive without opening data tables
+        run: |
+          python scripts/inventory_e5_sumatra_s1.py \
+            --archive build/private/sumatra_s1.zip \
+            --out build/public/E5_SUMATRA_S1_INVENTORY_RESULT.json
+
+      - name: Verify response firewall
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          value = json.loads(
+              Path("build/public/E5_SUMATRA_S1_INVENTORY_RESULT.json")
+              .read_text(encoding="utf-8")
+          )
+          b = value["response_boundary"]
+          assert b["non_readme_members_opened"] == []
+          assert b["data_rows_read"] == 0
+          assert b["response_rows_read"] == 0
+          assert b["focal_response_opened"] is False
+          assert value["decision"]["candidate_qualified"] is False
+          PY
+
+      - name: Destroy downloaded S1 archive before upload
+        run: |
+          rm -f build/private/sumatra_s1.zip
+          test ! -e build/private/sumatra_s1.zip
+
+      - name: Upload inventory result only
+        uses: actions/upload-artifact@v4
+        with:
+          name: e5-sumatra-s1-inventory-${{ github.run_id }}
+          path: build/public/E5_SUMATRA_S1_INVENTORY_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
