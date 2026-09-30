@@ -307,7 +307,7 @@
     "response_opening_authorized": false,
     "model_fitting_authorized": false,
     "next_action": "freeze an Ecuador Event-core-only child precheck; forbid Occurrence extension reads; in parallel continue Wildlife Insights metadata screening",
-    "screened_candidate_count": 7,
+    "screened_candidate_count": 9,
     "qualified_candidate_count": 0,
     "strongest_current_named_candidate": "Ecuador landscape camera monitoring",
     "named_candidate_status": "promising_event_occurrence_separation_child_precheck_needed"
