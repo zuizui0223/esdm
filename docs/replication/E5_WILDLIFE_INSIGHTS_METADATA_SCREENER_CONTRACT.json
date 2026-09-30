@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "contract_id": "e5-wildlife-insights-metadata-screener-v1",
+  "status": "RESPONSE_BLIND_DISCOVERY_TOOL",
+  "frozen_date": "2026-09-30",
+  "parent_qualification": "docs/replication/E5_INDEPENDENT_ACTIVITY_DETECTION_QUALIFICATION_CONTRACT.json",
+  "allowed_inputs": [
+    "projects.csv",
+    "cameras.csv",
+    "deployments.csv"
+  ],
+  "forbidden_response_inputs": [
+    "images.csv",
+    "sequences.csv",
+    "detections.csv",
+    "observations.csv"
+  ],
+  "response_policy": {
+    "forbidden_files_may_exist_in_download_package": true,
+    "forbidden_files_must_not_be_opened": true,
+    "response_rows_read_must_equal": 0,
+    "species_or_taxon_fields_may_not_be_used": true,
+    "focal_event_counts_may_not_be_used": true,
+    "diel_response_direction_may_not_be_used": true
+  },
+  "automated_scope": {
+    "may_summarize": [
+      "metadata schema completeness",
+      "deployment and project counts",
+      "unique physical-location counts",
+      "calendar-month exposure support",
+      "project sensor cluster/layout metadata",
+      "project sensor method metadata",
+      "project stratification metadata",
+      "project country metadata"
+    ],
+    "may_not_qualify": [
+      "G2_SCHEMA_EFFORT_TIME",
+      "G3_CROSSED_DOMAIN",
+      "G4_DETECTION_IDENTIFIABILITY",
+      "G7_MODEL_FREEZE",
+      "final E5 candidate status"
+    ],
+    "rationale": "G2 additionally requires event-time schema and taxonomic identity, which cannot be verified by opening only projects/cameras/deployments; G3 and G4 require scientific design adjudication; paired/cluster metadata alone is not an independently identifying detection path and project geography alone does not prove source-by-geography crossing"
+  },
+  "discovery_hints": {
+    "six_calendar_month_threshold": 6,
+    "thirty_locations_hint": "a single project with >=30 physical locations is only a coarse discovery hint for the frozen >=20 training + >=10 heldout requirement; final split must still be checked",
+    "qualification_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false
+  }
+}
