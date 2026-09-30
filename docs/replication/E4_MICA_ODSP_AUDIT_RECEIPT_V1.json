@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "programme_id": "E4_MICA_SPARSE_NUTS",
+  "receipt_id": "e4-mica-odsp-parallel-audit-receipt-v1",
+  "status": "FROZEN_POSTRESULT_DESCRIPTIVE_AUDIT",
+  "frozen_date": "2026-09-30",
+  "source_result": {
+    "workflow_run_id": 36622802225,
+    "artifact_id": 11059622869,
+    "result_json_sha256": "34124094e6c25db04465cc1ff869af5813326729e6fd3b658a0921c45bc6f3e2"
+  },
+  "odsp": {
+    "repository": "zuizui0223/odsp",
+    "pinned_commit": "0bd83e1ebb372c48839654ab0e42124fe37b8faf"
+  },
+  "audit_execution": {
+    "workflow_run_id": 36651346211,
+    "workflow_conclusion": "success",
+    "head_sha": "9426d7f00444beb02ce6d1ac38445dfb5f060f6e",
+    "artifact_id": 11071096409,
+    "artifact_name": "e4-mica-odsp-postresult-audit-36651346211",
+    "artifact_digest": "sha256:edc19bae37786d03084ffeb08518fec5f2686a8170e29877dd7c1db8720fb269",
+    "audit_json_sha256": "d9280377f407b24ff61e11c2eab9e7b53d6293e2b24ce6b3187f36402e70838e"
+  },
+  "conclusions": {
+    "activity": {
+      "category": "robust_non_generalizing",
+      "mean_gain": -0.6390511804117178,
+      "lower_bound": -0.8381153205469307,
+      "upper_bound": -0.43998704027650487
+    },
+    "state": {
+      "category": "uncertain",
+      "mean_gain": 0.008390925023042506,
+      "lower_bound": -0.017381909014266686,
+      "upper_bound": 0.0341637590603517
+    }
+  },
+  "interpretation_boundary": {
+    "frozen_e4_decision_changed": false,
+    "population_superpopulation_interpretation_authorized": false,
+    "n3_transfer_value_handoff_authorized": false,
+    "combined_three_level_filtration_authorized": false,
+    "odsp_lattice_authorized": false,
+    "causal_claim_authorized": false,
+    "confirmatory_replication_authorized": false,
+    "rerun_or_retuning_authorized": false
+  }
+}
