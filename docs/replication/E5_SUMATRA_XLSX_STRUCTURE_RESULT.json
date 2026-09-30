@@ -1,0 +1,138 @@
+{
+  "candidate_id": "sumatra_mesopredator_paired_2014_2015",
+  "decision": {
+    "G2_pass_authorized": false,
+    "G3_pass_authorized": false,
+    "G4_pass_authorized": false,
+    "candidate_qualified": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "separate_child_contract_required_before_shared_strings_or_rows": true
+  },
+  "precheck_id": "e5-sumatra-xlsx-structure-precheck-result-v1",
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "response_boundary": {
+    "cell_values_read": 0,
+    "data_rows_read": 0,
+    "focal_response_opened": false,
+    "opened_xlsx_members": [
+      "xl/workbook.xml",
+      "xl/_rels/workbook.xml.rels",
+      "[Content_Types].xml"
+    ],
+    "r_scripts_opened": false,
+    "response_rows_read": 0,
+    "shared_strings_opened": false,
+    "worksheet_cell_xml_opened": false,
+    "worksheet_rows_read": 0
+  },
+  "schema_version": 1,
+  "source": {
+    "archive_sha256": "9fee3248185c92ef528ec669c322b7f1329bc1bac55e9ce309b8ed08cb4fb6c0",
+    "workbook_member": "Iding_spc_data.xlsx",
+    "workbook_sha256": "745ae0c5259845517dc4e235fe138e56678caf96322e61a6995930b4a85d5b6c"
+  },
+  "status": "E5_RESPONSE_BLIND_XLSX_STRUCTURE_PRECHECK",
+  "xlsx_structure": {
+    "member_count": 19,
+    "member_names": [
+      "[Content_Types].xml",
+      "_rels/.rels",
+      "docProps/app.xml",
+      "docProps/core.xml",
+      "docProps/thumbnail.jpeg",
+      "xl/_rels/workbook.xml.rels",
+      "xl/sharedStrings.xml",
+      "xl/styles.xml",
+      "xl/theme/theme1.xml",
+      "xl/workbook.xml",
+      "xl/worksheets/sheet1.xml",
+      "xl/worksheets/sheet2.xml",
+      "xl/worksheets/sheet3.xml",
+      "xl/worksheets/sheet4.xml",
+      "xl/worksheets/sheet5.xml",
+      "xl/worksheets/sheet6.xml",
+      "xl/worksheets/sheet7.xml",
+      "xl/worksheets/sheet8.xml",
+      "xl/worksheets/sheet9.xml"
+    ],
+    "shared_strings_member_present": true,
+    "structured_tables": [],
+    "worksheet_members_present": [
+      "xl/worksheets/sheet1.xml",
+      "xl/worksheets/sheet2.xml",
+      "xl/worksheets/sheet3.xml",
+      "xl/worksheets/sheet4.xml",
+      "xl/worksheets/sheet5.xml",
+      "xl/worksheets/sheet6.xml",
+      "xl/worksheets/sheet7.xml",
+      "xl/worksheets/sheet8.xml",
+      "xl/worksheets/sheet9.xml"
+    ],
+    "worksheets": [
+      {
+        "name": "focal_species",
+        "relationship_id": "rId1",
+        "sheetId": "1",
+        "state": "visible",
+        "target": "worksheets/sheet1.xml"
+      },
+      {
+        "name": "argus_matrix",
+        "relationship_id": "rId2",
+        "sheetId": "2",
+        "state": "visible",
+        "target": "worksheets/sheet2.xml"
+      },
+      {
+        "name": "cl_matrix",
+        "relationship_id": "rId3",
+        "sheetId": "3",
+        "state": "visible",
+        "target": "worksheets/sheet3.xml"
+      },
+      {
+        "name": "gc_matrix",
+        "relationship_id": "rId4",
+        "sheetId": "4",
+        "state": "visible",
+        "target": "worksheets/sheet4.xml"
+      },
+      {
+        "name": "mc_matrix",
+        "relationship_id": "rId5",
+        "sheetId": "5",
+        "state": "visible",
+        "target": "worksheets/sheet5.xml"
+      },
+      {
+        "name": "md_matrix",
+        "relationship_id": "rId6",
+        "sheetId": "6",
+        "state": "visible",
+        "target": "worksheets/sheet6.xml"
+      },
+      {
+        "name": "mj_matrix",
+        "relationship_id": "rId7",
+        "sheetId": "7",
+        "state": "visible",
+        "target": "worksheets/sheet7.xml"
+      },
+      {
+        "name": "pc_matrix",
+        "relationship_id": "rId8",
+        "sheetId": "8",
+        "state": "visible",
+        "target": "worksheets/sheet8.xml"
+      },
+      {
+        "name": "site_cov",
+        "relationship_id": "rId9",
+        "sheetId": "9",
+        "state": "visible",
+        "target": "worksheets/sheet9.xml"
+      }
+    ]
+  }
+}
