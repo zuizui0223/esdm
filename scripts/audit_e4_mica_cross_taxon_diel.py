@@ -36,9 +36,9 @@ def _find(archive: zipfile.ZipFile, basename: str) -> str:
 
 def _camera_day_exposure(deployments, ids):
     by_id = {str(row["deploymentID"]): row for row in deployments}
-    night = 0.0
-    day = 0.0
-    for deployment_id in ids:
+    night_parts = []
+    day_parts = []
+    for deployment_id in sorted(ids):
         row = by_id[deployment_id]
         start = _parse_iso(row["deploymentStart"])
         end = _parse_iso(row["deploymentEnd"])
@@ -54,10 +54,12 @@ def _camera_day_exposure(deployments, ids):
                 right = min(end, midnight + timedelta(hours=hour + 6))
                 effort = max(0.0, (right - left).total_seconds()) / 86400.0
                 if hour in (0, 18):
-                    night += effort
+                    night_parts.append(effort)
                 else:
-                    day += effort
+                    day_parts.append(effort)
             current += timedelta(days=1)
+    night = math.fsum(night_parts)
+    day = math.fsum(day_parts)
     if night <= 0.0 or day <= 0.0:
         raise ValueError("night/day exposure must both be positive")
     return night, day
