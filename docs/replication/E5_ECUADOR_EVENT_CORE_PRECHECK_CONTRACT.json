@@ -23,7 +23,7 @@
     "event_core_schema_read_authorized": true,
     "event_core_rows_read_authorized": true,
     "occurrence_extension_schema_location_may_be_identified_from_meta_xml": true,
-    "occurrence_extension_bytes_may_be_read": false,
+    "archive_container_download_and_hash_authorized": true,\n    "occurrence_extension_member_may_be_opened_or_decompressed": false,
     "occurrence_extension_rows_may_be_read": false,
     "focal_taxon_response_may_be_opened": false,
     "model_fitting_authorized": false
@@ -56,7 +56,7 @@
     "latitude/longitude completeness and geographic range",
     "samplingProtocol and sample-size/effort field availability",
     "response-blind landscape/source labels already present in Event core",
-    "occurrence extension filename and declared presence without reading its bytes"
+    "occurrence extension filename and declared presence without opening/decompressing its member content"
   ],
   "gates_allowed_to_assess": {
     "G1_INDEPENDENT_SOURCE": "already PASS from public provenance",
