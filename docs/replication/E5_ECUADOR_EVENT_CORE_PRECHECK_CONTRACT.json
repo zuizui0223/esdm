@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "ecuador_landscape_camera_2023",
+  "contract_id": "e5-ecuador-event-core-response-blind-precheck-v1",
+  "status": "FROZEN_PRECHECK_NOT_AUTHORIZED",
+  "frozen_date": "2026-09-30",
+  "source": {
+    "dataset_title": "Registro de trampas cámara del monitoreo a escala de paisajes",
+    "publisher": "Ministerio de Ambiente y Energía de Ecuador - MAE",
+    "gbif_uuid": "cb16fc5b-70b7-420c-ad10-e3c6b7baf184",
+    "doi": "10.15468/se979g",
+    "version": "1.3",
+    "publication_date": "2023-04-25",
+    "archive_url": "https://patrimonio.ambiente.gob.ec/iptmae/archive.do?r=proy_paisaje_trampas_camara&v=1.3",
+    "public_page_event_core_records": 958,
+    "public_page_occurrence_extension_records": 78299
+  },
+  "response_firewall": {
+    "archive_download_authorized": true,
+    "meta_xml_read_authorized": true,
+    "eml_xml_read_authorized": true,
+    "event_core_read_authorized": true,
+    "occurrence_extension_schema_may_be_read_from_meta_xml": true,
+    "occurrence_extension_data_read_authorized": false,
+    "expected_occurrence_rows_read": 0,
+    "occurrence_file_may_exist_in_archive": true,
+    "archive_may_not_be_uploaded_as_artifact": true,
+    "event_core_raw_rows_may_not_be_uploaded_as_artifact": true,
+    "no_taxon_counts": true,
+    "no_focal_species_values": true,
+    "no_occurrence_diel_values": true,
+    "no_effect_direction": true
+  },
+  "precheck_scope": {
+    "may_report": [
+      "archive SHA256 and member names",
+      "Darwin Core meta.xml core and extension schema declarations",
+      "Event-core row count",
+      "Event-core response-independent field availability",
+      "Event-core physical-location identifiers and coordinate geometry",
+      "Event-core sampling protocol and effort field availability",
+      "Event-core date/month support",
+      "Event-core repeated-event or repeated-visit geometry",
+      "Occurrence-extension field names declared in meta.xml without reading extension rows",
+      "preliminary G2/G3/G4/G5/G6 design hints"
+    ],
+    "may_not_report": [
+      "occurrence row values",
+      "species frequencies",
+      "focal taxon presence or counts",
+      "focal or nonfocal diel distributions",
+      "state frequencies",
+      "predictive scores",
+      "activity or detection effect directions"
+    ]
+  },
+  "gate_policy": {
+    "G1_INDEPENDENT_SOURCE": "PASS_FROM_PARENT_REGISTRY",
+    "G2_SCHEMA_EFFORT_TIME": "MAY_NOT_FULL_PASS_WITHOUT_OCCURRENCE_VALUE_PARSEABILITY; Event core and extension schema may only establish partial support",
+    "G3_CROSSED_DOMAIN": "MANUAL_REVIEW_ONLY",
+    "G4_DETECTION_IDENTIFIABILITY": "MAY_REPORT_POTENTIAL_REPEAT_VISIT_PATH_ONLY; no PASS from repetition alone",
+    "G5_PHYSICAL_REPLICATION": "MAY_REPORT_POTENTIAL_COUNTS_ONLY until a frozen geographic split exists",
+    "G6_TEMPORAL_SUPPORT": "MAY_REPORT_POTENTIAL_MONTH_SUPPORT_ONLY until a frozen geographic split exists",
+    "G7_MODEL_FREEZE": "NOT_REACHED"
+  },
+  "execution": {
+    "dedicated_branch": "e5/ecuador-event-core-precheck-v1",
+    "authorization_marker": "docs/replication/E5_ECUADOR_EVENT_CORE_PRECHECK_AUTHORIZED.json",
+    "one_shot": true,
+    "workflow_dispatch_authorized": false,
+    "pure_marker_commit_required": true,
+    "implementation_parent_must_match_marker": true
+  },
+  "outputs": {
+    "result_filename": "E5_ECUADOR_EVENT_CORE_PRECHECK_RESULT.json",
+    "result_status_if_completed": "E5_RESPONSE_BLIND_EVENT_CORE_PRECHECK",
+    "occurrence_rows_read_must_equal": 0,
+    "response_opening_authorized_by_result": false,
+    "model_fitting_authorized_by_result": false,
+    "selected_candidate_contract_authorized_by_result": false
+  },
+  "boundary": {
+    "candidate_qualification_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "E5_outcome_opening_authorized": false,
+    "E4_reanalysis_authorized": false
+  }
+}
