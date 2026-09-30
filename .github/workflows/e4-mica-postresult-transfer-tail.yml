@@ -1,0 +1,66 @@
+name: E4 MICA post-result transfer-tail audit
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/audit_e4_mica_transfer_tail.py'
+      - 'docs/replication/E2_MICA_TEMPORAL_INTEGRITY_RESULT.json'
+      - '.github/workflows/e4-mica-postresult-transfer-tail.yml'
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Compile audit
+        run: python -m py_compile scripts/audit_e4_mica_transfer_tail.py
+
+      - name: Download frozen E2 capture
+        uses: actions/download-artifact@v4
+        with:
+          name: e2-mica-full-response-capture-36369531079
+          path: captured/e2
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36369531079
+
+      - name: Repack frozen E2 capture for deterministic audit input
+        run: |
+          cd captured/e2
+          zip -q -r ../e2-capture.zip .
+
+      - name: Download frozen E4 empirical result
+        uses: actions/download-artifact@v4
+        with:
+          name: e4-mica-sparse-result-36622802225
+          path: captured/e4
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36622802225
+
+      - name: Build post-result transfer-tail audit
+        run: |
+          mkdir -p build/e4/postresult
+          python scripts/audit_e4_mica_transfer_tail.py \
+            --result captured/e4/E4_MICA_SPARSE_EMPIRICAL_RESULT.json \
+            --e2-capture-zip captured/e2-capture.zip \
+            --temporal-result docs/replication/E2_MICA_TEMPORAL_INTEGRITY_RESULT.json \
+            --out build/e4/postresult/E4_MICA_POSTRESULT_TRANSFER_TAIL_AUDIT.json
+
+      - name: Upload audit
+        uses: actions/upload-artifact@v4
+        with:
+          name: e4-mica-postresult-transfer-tail-${{ github.run_id }}
+          path: build/e4/postresult/E4_MICA_POSTRESULT_TRANSFER_TAIL_AUDIT.json
+          if-no-files-found: error
+          retention-days: 90
