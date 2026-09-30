@@ -1,0 +1,37 @@
+{
+  "archive": {
+    "member_count": 6,
+    "member_names": [
+      "Iding_spc_data.xlsx",
+      "KS_Bayes_multispecies_Occ_2018.R",
+      "__MACOSX/._Iding_spc_data.xlsx",
+      "__MACOSX/._KS_Bayes_multispecies_Occ_2018.R",
+      "__MACOSX/._overlap_KerinciSeblat_2018.R",
+      "overlap_KerinciSeblat_2018.R"
+    ],
+    "sha256": "9fee3248185c92ef528ec669c322b7f1329bc1bac55e9ce309b8ed08cb4fb6c0"
+  },
+  "candidate_id": "sumatra_mesopredator_paired_2014_2015",
+  "data_like_members_present_but_unopened": [
+    "Iding_spc_data.xlsx",
+    "__MACOSX/._Iding_spc_data.xlsx"
+  ],
+  "decision": {
+    "candidate_qualified": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "separate_metadata_child_contract_required": true
+  },
+  "inventory_id": "e5-sumatra-mesopredator-s1-inventory-result-v1",
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "readmes": [],
+  "response_boundary": {
+    "data_rows_read": 0,
+    "focal_response_opened": false,
+    "non_readme_members_opened": [],
+    "readme_members_opened": [],
+    "response_rows_read": 0
+  },
+  "schema_version": 1,
+  "status": "E5_RESPONSE_BLIND_PACKAGE_INVENTORY"
+}
