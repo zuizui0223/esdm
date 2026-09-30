@@ -1,0 +1,322 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "registry_id": "e5-response-blind-candidate-registry-v1",
+  "date": "2026-09-30",
+  "status": "RESPONSE_BLIND_SEARCH_IN_PROGRESS",
+  "selection_firewall": {
+    "focal_response_opened": false,
+    "focal_event_counts_used_for_selection": false,
+    "focal_diel_direction_used_for_selection": false,
+    "predictive_scores_used_for_selection": false,
+    "only_public_method_schema_geometry_information_used": true
+  },
+  "candidates": [
+    {
+      "candidate_id": "snapshot_usa_2024",
+      "title": "SNAPSHOT USA 2024",
+      "source_url": "https://datadryad.org/dataset/doi:10.5061/dryad.bnzs7h4qf",
+      "doi": "10.5061/dryad.bnzs7h4qf",
+      "response_opened": false,
+      "public_metadata": {
+        "deployment_records": 3127,
+        "unique_site_names": 2715,
+        "camera_trap_arrays": 184,
+        "states": 49,
+        "ecoregions": 12,
+        "wildlife_insights_projects": 4,
+        "date_range": "2024-08-01 to 2024-12-19",
+        "distance_calibration_arrays": 73,
+        "distance_calibration_note": "calibration signs every 3 m up to 24 m or maximum detection distance"
+      },
+      "gates": {
+        "G1_INDEPENDENT_SOURCE": "PASS",
+        "G2_SCHEMA_EFFORT_TIME": "PASS",
+        "G3_CROSSED_DOMAIN": "PENDING_METADATA_CONTINGENCY",
+        "G4_DETECTION_IDENTIFIABILITY": "PENDING_CALIBRATION_LINKAGE",
+        "G5_PHYSICAL_REPLICATION": "PROVISIONAL_PASS_COUNTS_ONLY",
+        "G6_TEMPORAL_SUPPORT": "FAIL",
+        "G7_MODEL_FREEZE": "NOT_REACHED"
+      },
+      "decision": "E5_CANDIDATE_NOT_QUALIFIED",
+      "hard_stop_reason": "public 2024 dataset spans only August through December, fewer than the frozen six distinct calendar months required in both training and heldout exposure",
+      "response_may_be_opened_for_E5": false
+    },
+    {
+      "candidate_id": "nakashima_double_observer_2022",
+      "title": "Double-observer paired-camera Japan and Cameroon field surveys",
+      "source_url": "https://www.nature.com/articles/s41598-022-05853-0",
+      "doi": "10.1038/s41598-022-05853-0",
+      "response_opened": false,
+      "public_metadata": {
+        "paired_camera_detection_design": true,
+        "same_small_focal_area_observed_from_two_directions": true,
+        "japan_camera_stations": 7,
+        "cameroon_camera_stations": 26,
+        "japan_period": "2018-08 to 2018-11",
+        "cameroon_period": "2018-10 to 2019-01",
+        "data_available_in_supplementary_information": true
+      },
+      "gates": {
+        "G1_INDEPENDENT_SOURCE": "PASS",
+        "G2_SCHEMA_EFFORT_TIME": "PENDING_FILE_SCHEMA",
+        "G3_CROSSED_DOMAIN": "PROMISING_STANDARDIZED_PAIRED_DESIGN",
+        "G4_DETECTION_IDENTIFIABILITY": "PASS_DESIGN_PRINCIPLE",
+        "G5_PHYSICAL_REPLICATION": "FAIL",
+        "G6_TEMPORAL_SUPPORT": "FAIL",
+        "G7_MODEL_FREEZE": "NOT_REACHED"
+      },
+      "decision": "E5_CANDIDATE_NOT_QUALIFIED",
+      "hard_stop_reason": "strict cross-geographic split cannot meet frozen >=20 training and >=10 heldout physical-location minima (26 Cameroon, 7 Japan), and each field survey spans only four calendar months",
+      "response_may_be_opened_for_E5": false
+    },
+    {
+      "candidate_id": "snapshot_usa_protocol_family",
+      "title": "SNAPSHOT USA multi-year protocol family",
+      "source_url": "https://www.snapshot-usa.org/section/protocol/",
+      "response_opened": false,
+      "gates": {
+        "G1_INDEPENDENT_SOURCE": "POTENTIALLY_PASS",
+        "G2_SCHEMA_EFFORT_TIME": "POTENTIALLY_PASS",
+        "G3_CROSSED_DOMAIN": "POTENTIALLY_PASS",
+        "G4_DETECTION_IDENTIFIABILITY": "POTENTIALLY_PASS_FOR_DISTANCE_CALIBRATION_SUBSET",
+        "G5_PHYSICAL_REPLICATION": "POTENTIALLY_PASS",
+        "G6_TEMPORAL_SUPPORT": "LIKELY_FAIL_ANNUAL_SEASONAL_PROTOCOL",
+        "G7_MODEL_FREEZE": "NOT_REACHED"
+      },
+      "decision": "SEARCH_REFERENCE_NOT_SELECTED",
+      "reason": "annual protocol is concentrated around September-October; multi-year repetition does not automatically provide six distinct calendar months per training/heldout regime",
+      "response_may_be_opened_for_E5": false
+    },
+    {
+      "candidate_id": "rad_rest_boso_2026",
+      "title": "RAD-REST Boso Peninsula camera-trap dataset",
+      "source_url": "https://datadryad.org/dataset/doi:10.5061/dryad.kprr4xhgt",
+      "doi": "10.5061/dryad.kprr4xhgt",
+      "response_opened": false,
+      "public_metadata": {
+        "geography": "Boso Peninsula, Japan",
+        "files": [
+          "detection_data.csv",
+          "station_data.csv",
+          "Rcode.R"
+        ],
+        "event_timestamp_field": "DateTimeCorrected",
+        "station_identifier_field": "Station",
+        "explicit_detection_process_modeling": true
+      },
+      "gates": {
+        "G1_INDEPENDENT_SOURCE": "PASS",
+        "G2_SCHEMA_EFFORT_TIME": "PARTIAL_METADATA_ONLY",
+        "G3_CROSSED_DOMAIN": "FAIL",
+        "G4_DETECTION_IDENTIFIABILITY": "PROMISING_MODEL_STRUCTURE",
+        "G5_PHYSICAL_REPLICATION": "PENDING",
+        "G6_TEMPORAL_SUPPORT": "PENDING",
+        "G7_MODEL_FREEZE": "NOT_REACHED"
+      },
+      "decision": "E5_CANDIDATE_NOT_QUALIFIED",
+      "hard_stop_reason": "single Boso Peninsula source/geographic domain does not satisfy the frozen crossed-domain requirement",
+      "response_may_be_opened_for_E5": false
+    },
+    {
+      "candidate_id": "kolowski_forrester_2017",
+      "title": "Paired trail/feature versus random cameras, Shenandoah Valley",
+      "source_url": "https://datadryad.org/dataset/doi:10.5061/dryad.1g53b",
+      "doi": "10.5061/dryad.1g53b",
+      "response_opened": false,
+      "public_metadata": {
+        "paired_camera_design": true,
+        "geography": "Shenandoah Valley, Virginia, USA",
+        "purpose": "placement bias and detection probability"
+      },
+      "gates": {
+        "G1_INDEPENDENT_SOURCE": "PASS",
+        "G2_SCHEMA_EFFORT_TIME": "PENDING",
+        "G3_CROSSED_DOMAIN": "FAIL",
+        "G4_DETECTION_IDENTIFIABILITY": "NOT_SUFFICIENT_AS_DECLARED",
+        "G5_PHYSICAL_REPLICATION": "PENDING",
+        "G6_TEMPORAL_SUPPORT": "PENDING",
+        "G7_MODEL_FREEZE": "NOT_REACHED"
+      },
+      "decision": "E5_CANDIDATE_NOT_QUALIFIED",
+      "hard_stop_reason": "single geographic study and paired feature-vs-random placement does not provide the frozen geography-by-source crossing required for E5",
+      "response_may_be_opened_for_E5": false
+    },
+    {
+      "candidate_id": "uljin_korea_2022_2023",
+      "title": "Year-long Uljin County camera-trap dataset, South Korea",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13379711/",
+      "response_opened": false,
+      "public_metadata": {
+        "geography": "Uljin County, Gyeongbuk Province, South Korea",
+        "physical_camera_stations": 82,
+        "site_strata": {
+          "UJ1": 52,
+          "UJ2": 30
+        },
+        "deployment_period": "2022-04 to 2023-05",
+        "continuous_24h_operation": true,
+        "harmonized_effort_from_camera_operation_log": true,
+        "station_level_covariates_available": true,
+        "event_timestamps_available": true,
+        "generalized_station_coordinates_available": true,
+        "camera_protocol": "single standardized Reconyx HP2X network"
+      },
+      "gates": {
+        "G1_INDEPENDENT_SOURCE": "PASS",
+        "G2_SCHEMA_EFFORT_TIME": "PASS_PUBLIC_DATA_DESCRIPTION",
+        "G3_CROSSED_DOMAIN": "FAIL",
+        "G4_DETECTION_IDENTIFIABILITY": "POTENTIALLY_IDENTIFIABLE_REPEATED_VISITS_BUT_NOT_CROSSED_SOURCE_CALIBRATION",
+        "G5_PHYSICAL_REPLICATION": "PASS_COUNTS",
+        "G6_TEMPORAL_SUPPORT": "PASS",
+        "G7_MODEL_FREEZE": "NOT_REACHED"
+      },
+      "decision": "E5_CANDIDATE_NOT_QUALIFIED",
+      "hard_stop_reason": "year-long effort and physical replication are strong, but the public design is one standardized study/source in one geographic region rather than the frozen geography-by-source crossed design",
+      "response_may_be_opened_for_E5": false
+    },
+    {
+      "candidate_id": "eastern_amazon_jaguar_2014_2020",
+      "title": "Seven-year eastern Amazon continuous camera-trap monitoring",
+      "source_url": "https://link.springer.com/article/10.1007/s13364-026-00897-3",
+      "doi": "10.1007/s13364-026-00897-3",
+      "response_opened": false,
+      "public_metadata": {
+        "geography": "Paragominas, Pará, eastern Brazilian Amazonia",
+        "physical_camera_locations": 42,
+        "monitoring_period": "2014-03 to 2020-12",
+        "continuous_24h_operation": true,
+        "camera_protocol": "Bushnell TrophyCamHD network",
+        "paired_camera_locations": 11,
+        "paired_camera_note": "paired cameras were used only during specific periods and did not always operate simultaneously",
+        "sampling_effort_modeled_as_trap_days": true,
+        "raw_event_deployment_repository_demonstrated": false
+      },
+      "gates": {
+        "G1_INDEPENDENT_SOURCE": "PASS",
+        "G2_SCHEMA_EFFORT_TIME": "FAIL_PUBLIC_RAW_EVENT_DEPLOYMENT_ACCESS_NOT_DEMONSTRATED",
+        "G3_CROSSED_DOMAIN": "FAIL",
+        "G4_DETECTION_IDENTIFIABILITY": "PROMISING_PAIRED_SUBSET_BUT_NOT_A_QUALIFIED_CROSSED_CALIBRATION",
+        "G5_PHYSICAL_REPLICATION": "PASS_COUNTS",
+        "G6_TEMPORAL_SUPPORT": "PASS",
+        "G7_MODEL_FREEZE": "NOT_REACHED"
+      },
+      "decision": "E5_CANDIDATE_NOT_QUALIFIED",
+      "hard_stop_reason": "long temporal coverage and a paired-camera subset are promising, but the published design is a single geographic/source network and a reproducibly accessible raw event/deployment package sufficient for E5 has not been demonstrated",
+      "response_may_be_opened_for_E5": false
+    },
+    {
+      "candidate_id": "sunda_islands_multistudy_2007_2016",
+      "title": "Sunda Islands multi-study camera-trap compilation (Borneo + Sumatra)",
+      "source_url": "https://doi.org/10.1111/acv.12771",
+      "doi": "10.1111/acv.12771",
+      "response_opened": false,
+      "public_metadata": {
+        "survey_years": "2007-2016",
+        "sampling_locations": 22,
+        "camera_trap_stations": 1544,
+        "trap_nights": 138515,
+        "borneo_sampling_locations": 15,
+        "sumatra_sampling_locations": 7,
+        "borneo_camera_stations": 801,
+        "sumatra_camera_stations": 743,
+        "same_survey_protocol_across_regions": true,
+        "cameras_per_station": 2,
+        "camera_models_recorded": true,
+        "shared_camera_model_across_regions": "Cuddeback Capture (CA)",
+        "supporting_information_contains_raw_event_table": false
+      },
+      "gates": {
+        "G1_INDEPENDENT_SOURCE": "PASS",
+        "G2_SCHEMA_EFFORT_TIME": "BLOCKED_RAW_EVENT_ACCESS_NOT_ESTABLISHED",
+        "G3_CROSSED_DOMAIN": "PROMISING_SHARED_PROTOCOL_AND_CAMERA_MODEL_CROSSING",
+        "G4_DETECTION_IDENTIFIABILITY": "PENDING_EVENT_OCCASION_STRUCTURE",
+        "G5_PHYSICAL_REPLICATION": "PROVISIONAL_PASS_COUNTS_ONLY",
+        "G6_TEMPORAL_SUPPORT": "PROVISIONAL_PASS_ISLAND_AGGREGATE_MONTH_COVERAGE",
+        "G7_MODEL_FREEZE": "NOT_REACHED"
+      },
+      "decision": "E5_CANDIDATE_NOT_YET_QUALIFIED",
+      "hard_stop_reason": "the publication documents strong multi-region geometry, two cameras per station, long multi-study temporal coverage, and shared camera models, but reproducibly accessible raw deployment/event-level material with timestamps has not yet been established; focal response must remain unopened",
+      "response_may_be_opened_for_E5": false,
+      "next_response_blind_check": "search original component-study repositories for separately accessible deployment/site/time/protocol metadata without opening species-specific event responses"
+    },
+    {
+      "candidate_id": "ecuador_landscape_camera_2023",
+      "title": "Registro de trampas cámara del monitoreo a escala de paisajes (Ecuador)",
+      "source_url": "https://doi.org/10.15468/se979g",
+      "doi": "10.15468/se979g",
+      "response_opened": false,
+      "public_metadata": {
+        "publication_version": "1.3",
+        "publication_date": "2023-04-25",
+        "dwca_event_core_records": 958,
+        "dwca_occurrence_extension_records": 78299,
+        "event_occurrence_tables_separated": true,
+        "standardized_protocol_across_predefined_landscapes": true,
+        "maximum_16km2_grid_cells_per_landscape": 45,
+        "visits_per_selected_grid": 2,
+        "cameras_installed_in_random_1km2_cells_per_grid": 2,
+        "metadata_eml_separately_downloadable": true,
+        "public_temporal_coverage": "2015-10-22 to 2018-01-27",
+        "selected_landscapes": 5,
+        "monitoring_phases": [
+          "2015-2016",
+          "2017",
+          "2018"
+        ]
+      },
+      "gates": {
+        "G1_INDEPENDENT_SOURCE": "PASS",
+        "G2_SCHEMA_EFFORT_TIME": "PROMISING_EVENT_CORE_SEPARATED_FROM_OCCURRENCE_NOT_YET_INSPECTED",
+        "G3_CROSSED_DOMAIN": "PROMISING_STANDARDIZED_MULTI_LANDSCAPE_PROTOCOL_MANUAL_REVIEW_REQUIRED",
+        "G4_DETECTION_IDENTIFIABILITY": "PENDING_EVENT_OCCASION_STRUCTURE",
+        "G5_PHYSICAL_REPLICATION": "PENDING_EVENT_CORE_GEOMETRY",
+        "G6_TEMPORAL_SUPPORT": "PROMISING_GLOBAL_RANGE_FINAL_SPLIT_PENDING",
+        "G7_MODEL_FREEZE": "NOT_REACHED"
+      },
+      "decision": "E5_CANDIDATE_NOT_YET_QUALIFIED",
+      "hard_stop_reason": "Event/Occurrence separation and long multi-landscape temporal coverage are promising, but the Event core has not yet been opened under the child precheck; the published two-visit field procedure includes camera installation then retrieval and is not by itself sufficient to establish a separately identifiable detection process",
+      "response_may_be_opened_for_E5": false,
+      "next_response_blind_check": "freeze a child metadata-only contract that permits EML + Event core only, explicitly forbids reading the Occurrence extension, and reports zero occurrence rows read"
+    }
+  ],
+  "search_universes": [
+    {
+      "universe_id": "wildlife_insights_public_projects",
+      "source_url": "https://www.wildlifeinsights.org/get-started/data-download/public",
+      "role": "PRIMARY_RESPONSE_BLIND_DISCOVERY_POOL",
+      "why_promising": [
+        "public downloads expose project, camera and deployment metadata separately from detections",
+        "project metadata records sensor layout, whether cameras are clustered or paired, sensor method and stratification",
+        "deployments retain physical locations, start/end dates, camera settings and other response-independent design fields",
+        "public projects span many independent organizations and geographies"
+      ],
+      "pre_response_screen": [
+        "public and downloadable project/deployment metadata",
+        ">=6 distinct calendar months of deployment exposure in candidate training and heldout regimes",
+        ">=20 training and >=10 heldout independent physical locations",
+        "paired/clustered sensors or another separately identifying detection-calibration path",
+        "geography and project/source/protocol not perfectly confounded",
+        "sufficient metadata to freeze source-by-diel and season-by-diel structure"
+      ],
+      "response_fields_forbidden_during_search": [
+        "species-specific detection counts",
+        "species-specific diel distributions",
+        "focal state frequencies",
+        "direction of any candidate effect"
+      ]
+    }
+  ],
+  "current_conclusion": {
+    "qualified_candidate_selected": false,
+    "strongest_current_discovery_pool": "Wildlife Insights public projects",
+    "snapshot_usa_2024_selected": false,
+    "response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "next_action": "freeze an Ecuador Event-core-only child precheck; forbid Occurrence extension reads; in parallel continue Wildlife Insights metadata screening",
+    "screened_candidate_count": 9,
+    "qualified_candidate_count": 0,
+    "strongest_current_named_candidate": "Ecuador landscape camera monitoring",
+    "named_candidate_status": "promising_event_occurrence_separation_child_precheck_needed"
+  }
+}
