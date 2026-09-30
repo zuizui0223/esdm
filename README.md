@@ -64,24 +64,35 @@ Neither result is confirmatory, causal, or a parameter-recovery claim. E4 is ter
 there is no same-programme rerun, threshold/stream retuning, or within-E4 switch to
 Laplace/INLA.
 
-A frozen post-result audit further shows that the activity failure is **not uniformly
-negative across deployments**. About **82.7%** of deployment-level activity gains are
-positive but essentially zero, while a small negative tail dominates the aggregate:
-the worst 50 deployments account for about **90.8%** of total negative activity-loss
-magnitude. The east-heldout activity covariate range is also entirely outside the
-training eastness support (training z range about **-0.94 to 1.65**; heldout about
-**3.20 to 8.49**). At observed heldout muskrat event contexts, posterior-mean activity
-probability is about **0.185**, versus the activity-knockout baseline of **0.438**.
+Frozen post-result audits show that the activity failure is **not uniformly negative
+across all 733 deployments**, but the apparent majority of tiny positive gains comes
+almost entirely from sites with no focal events. Of the **128 event-bearing heldout
+deployments, 127 favor the activity knockout**; the 605 zero-event deployments contribute
+only tiny positive gains. The worst 50 deployments account for about **90.8%** of total
+negative activity-loss magnitude.
 
-This supports a bounded working explanation: **process-specific activity slopes can
-create transfer tail risk when extrapolated far outside their training support**. It
-does not establish why muskrat activity behaves as it does biologically, and it does not
-show that activity is generally irrelevant. The small positive state gain is likewise
-not a broad deployment-wide effect; it should remain a descriptive exploratory result.
+The transfer also combines geographic extrapolation with source-domain shift. The
+east-heldout activity covariate range is entirely outside training eastness support
+(training z about **-0.94 to 1.65**; heldout about **3.20 to 8.49**), and a D-prefixed
+heldout source stratum absent from the training StateAnnotatedCount stratum contains
+about **99.0% of focal events** and **99.6% of negative activity-loss magnitude**.
+The raw night/day event-rate ratio drops from about **13.4** in the training annotated
+stratum to about **3.0** in heldout exposure. At observed heldout muskrat event contexts,
+posterior-mean activity probability is about **0.185**, versus the activity-knockout
+baseline of **0.438**.
+
+This supports a bounded working explanation: **a stationary process-specific activity
+relationship did not transfer safely across the combined geographic/covariate/source
+domain shift**. It does not establish a causal eastward behavioral change, a source or
+camera-protocol effect, or that activity is generally irrelevant. The small positive
+state gain is also localized and sign-mixed: among event-bearing deployments, **58 have
+positive and 70 negative state gains**, with the positive total concentrated in
+deployments containing group events.
 
 See
 `docs/replication/E4_MICA_SPARSE_FROZEN_RESULT.json`,
-`docs/replication/E4_MICA_POSTRESULT_TRANSFER_TAIL_AUDIT.json`, and
+`docs/replication/E4_MICA_POSTRESULT_TRANSFER_TAIL_AUDIT.json`,
+`docs/replication/E4_MICA_POSTRESULT_DOMAIN_SHIFT_SUPPLEMENT.json`, and
 `docs/replication/E4_MICA_SPARSE_RESULT.md`.
 
 The earlier Snapshot Japan, E2, and E3 endpoints remain frozen historical outcomes; E4
@@ -117,10 +128,13 @@ state gain               +0.008390925023042506
 ```
 
 The appropriate ecological reading is asymmetric. The activity channel failed to
-transfer safely across the strict east extrapolation, with failure concentrated in a
-minority of high-event deployments under strong covariate extrapolation. The state
-channel retained only a small positive heldout advantage. These are empirical predictive
-results for this endpoint, not evidence of causality or universal process importance.
+transfer safely across the strict east extrapolation. Post-result decomposition shows
+that **127/128 event-bearing heldout deployments favor the activity knockout** and that
+the response is dominated by a source stratum absent from the training annotated
+stratum, so geographic extrapolation and source-domain transfer are entangled. The state
+channel retained only a small, sign-mixed heldout advantage. These are empirical
+predictive results for this endpoint, not evidence of causality, a country/protocol
+effect, or universal process importance.
 
 ### E2 MICA empirical replication — consumed terminal stop
 
