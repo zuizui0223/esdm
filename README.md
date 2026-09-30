@@ -20,52 +20,121 @@ The repository name is historical/convenient. The project does **not** claim `ES
 
 ## Current scientific status
 
-The active scientific endpoint is **not another semi-synthetic generation**.
+The active empirical endpoint is now the separately named **E4 MICA exact-sparse
+programme**. The underlying process/state model is still the frozen **v0.4-R5b**
+generation; no new semi-synthetic rescue generation was introduced.
 
-The process/state design was frozen at **v0.4-R5b**, which passed its known-truth recovery
-and strict east-heldout transfer programme. The first preregistered empirical opening then
-used Snapshot Japan 2023 Camtrap DP 1.0.1 and consumed the real biological response
-exactly once. The frozen adapter stopped **before model fitting** because focal event
-`7815128` lay outside its declared deployment interval.
-
-Therefore the first empirical endpoint remains:
+The empirical lineage is deliberately cumulative rather than rewritten:
 
 ```text
-R5b semi-synthetic PASS
-  -> one-shot real-data opening
-  -> CONSUMED_STOP_SCHEMA_OR_ESTIMABILITY
-  -> model fits = 0
-  -> heldout scores = 0
+v0.4-R5b known-truth PASS
+  -> first Snapshot Japan opening: terminal data-contract stop before fit
+  -> E2 MICA: consumed zero-duration deployment stop before fit
+  -> E3 MICA exploratory reduced endpoint: dense NUTS infrastructure timeout
+  -> E4 MICA exact structural-exposure compaction
+  -> same scientific model / same posterior target
+  -> one-shot empirical fit completed
 ```
 
-This is a data-contract result, not evidence for or against the ecological activity/state
-decomposition.
+E4 changed **only the computational representation**. Contexts with zero structural
+exposure in every retained observation stream contribute exactly zero likelihood for all
+parameter values, so they were removed before latent fields were materialized. This
+reduced the training domain from **615,020 to 11,531 contexts** and the east-heldout
+domain from **560,012 to 10,168 contexts** without changing priors, covariates,
+likelihoods, response mapping, training/heldout partition, MCMC settings, or the
+posterior target.
 
-Two separately named follow-up audits clarify the failure without changing that endpoint:
+The frozen E4 one-shot result completed all three NUTS fits with **0 divergences** and
+serialized **733/733** east-heldout deployment scores:
 
-- Snapshot Japan temporal-linkage audit: **13/7,620** unique animal events were outside
-  deployment intervals, all after deployment end and all within 24 h. For
-  `Cervus nippon`, **4/1,430** events violated the exact rule.
-- Independent Camtrap DP replication on Amsterdamse Waterleidingduinen pilot2
-  (DOI `10.5281/zenodo.11440456`): **0/86** unique animal events violated the same exact
-  deployment interval rule.
+| Model | mean heldout log score |
+| --- | ---: |
+| Full | -7.6929864071 |
+| Activity knockout | -7.0539352267 |
+| State knockout | -7.7013773321 |
 
-The combined evidence therefore does **not** support the strongest explanation that exact
-deployment/event temporal matching is intrinsically incompatible with Camtrap DP.
-A Snapshot-Japan-specific, export-specific, or curation-specific boundary issue is more
-plausible, while the precise mechanism remains unresolved.
+Therefore:
 
-The project stop rule remains in force:
+- **activity gain = -0.6390511804**: activity information did **not** improve east-heldout
+  prediction in this exploratory MICA endpoint;
+- **state gain = +0.0083909250**: state information gave a **small descriptive
+  exploratory improvement** without independent direct state calibration.
 
-- do not create a new semi-synthetic v0.x gate to rescue this endpoint;
-- do not delete or repair the offending rows and rerun the first endpoint;
-- do not widen deployment intervals post hoc;
-- any future adjudication rule or empirical retry must be a separately named replication
-  programme frozen before its own outcome.
+Neither result is confirmatory, causal, or a parameter-recovery claim. E4 is terminal:
+there is no same-programme rerun, threshold/stream retuning, or within-E4 switch to
+Laplace/INLA.
 
-Machine-readable/current audit records live under `docs/empirical/` and
-`docs/replication/`.
+Frozen post-result audits show that the activity failure is **not uniformly negative
+across all 733 deployments**, but the apparent majority of tiny positive gains comes
+almost entirely from sites with no focal events. Of the **128 event-bearing heldout
+deployments, 127 favor the activity knockout**; the 605 zero-event deployments contribute
+only tiny positive gains. The worst 50 deployments account for about **90.8%** of total
+negative activity-loss magnitude.
 
+The transfer also combines geographic extrapolation with source-domain shift. The
+east-heldout activity covariate range is entirely outside training eastness support
+(training z about **-0.94 to 1.65**; heldout about **3.20 to 8.49**), and a D-prefixed
+heldout source stratum absent from the training StateAnnotatedCount stratum contains
+about **99.0% of focal events** and **99.6% of negative activity-loss magnitude**.
+The raw night/day event-rate ratio drops from about **13.4** in the training annotated
+stratum to about **3.0** in heldout exposure. At observed heldout muskrat event contexts,
+posterior-mean activity probability is about **0.185**, versus the activity-knockout
+baseline of **0.438**.
+
+This supports a bounded working explanation: **a stationary process-specific activity
+relationship did not transfer safely across the combined geographic/covariate/source
+domain shift**. It does not establish a causal eastward behavioral change, a source or
+camera-protocol effect, or that activity is generally irrelevant. The small positive
+state gain is also localized and sign-mixed: among event-bearing deployments, **58 have
+positive and 70 negative state gains**, with the positive total concentrated in
+deployments containing group events.
+
+See
+`docs/replication/E4_MICA_SPARSE_FROZEN_RESULT.json`,
+`docs/replication/E4_MICA_POSTRESULT_TRANSFER_TAIL_AUDIT.json`,
+`docs/replication/E4_MICA_POSTRESULT_DOMAIN_SHIFT_SUPPLEMENT.json`, and
+`docs/replication/E4_MICA_SPARSE_RESULT.md`.
+
+The earlier Snapshot Japan, E2, and E3 endpoints remain frozen historical outcomes; E4
+does not reopen or overwrite them.
+
+
+### E4 MICA exact-sparse empirical endpoint — terminal exploratory result
+
+E4 was created after the E3 dense-grid NUTS run hit its frozen 240-minute infrastructure
+limit without producing a scientific result. Before any new empirical outcome was
+opened, E4 froze and qualified an **exact structural-exposure compaction**. The same
+captured MICA response, R5b process graph, three model comparisons, priors, seeds, MCMC
+profile, and heldout score definition were then used once.
+
+The exact compaction was the decisive computational change: the one-shot E4 workflow
+completed successfully in roughly nine minutes instead of timing out. Because the
+removed contexts were unexposed under every retained stream, this is not an approximate
+posterior shortcut.
+
+Frozen result:
+
+```text
+sampling gate: PASS
+divergences: 0
+heldout deployment rows: 733 / 733
+
+full score              -7.6929864071241045
+activity knockout       -7.053935226712387
+activity gain            -0.6390511804117178
+
+state knockout          -7.701377332147147
+state gain               +0.008390925023042506
+```
+
+The appropriate ecological reading is asymmetric. The activity channel failed to
+transfer safely across the strict east extrapolation. Post-result decomposition shows
+that **127/128 event-bearing heldout deployments favor the activity knockout** and that
+the response is dominated by a source stratum absent from the training annotated
+stratum, so geographic extrapolation and source-domain transfer are entangled. The state
+channel retained only a small, sign-mixed heldout advantage. These are empirical
+predictive results for this endpoint, not evidence of causality, a country/protocol
+effect, or universal process importance.
 
 ### E2 MICA empirical replication — consumed terminal stop
 
