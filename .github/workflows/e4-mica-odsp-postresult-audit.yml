@@ -1,0 +1,117 @@
+name: E4 MICA empirical ODSP post-result audit
+
+on:
+  pull_request:
+    paths:
+      - 'src/esdm/transfer/e4_mica_odsp.py'
+      - 'src/esdm/transfer/__init__.py'
+      - 'scripts/export_e4_mica_odsp_parallel.py'
+      - 'scripts/summarize_e4_mica_odsp_audit.py'
+      - 'docs/replication/E4_MICA_ODSP_SERIALIZATION_CONTRACT.json'
+      - 'docs/replication/E4_MICA_ODSP_POSTRESULT_AUDIT_CONTRACT.json'
+      - 'tests/test_e4_mica_odsp_serialization.py'
+      - 'tests/test_e4_mica_odsp_postresult_audit.py'
+      - 'tests/test_e4_mica_odsp_workflow.py'
+      - '.github/workflows/e4-mica-odsp-postresult-audit.yml'
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install eSDM
+        run: python -m pip install -e '.[dev]'
+      - name: Validate frozen E4 ODSP boundary
+        run: >-
+          python -m pytest -q
+          tests/test_e4_mica_odsp_serialization.py
+          tests/test_e4_mica_odsp_postresult_audit.py
+          tests/test_e4_mica_odsp_workflow.py
+      - name: Compile audit runners
+        run: >-
+          python -m py_compile
+          scripts/export_e4_mica_odsp_parallel.py
+          scripts/summarize_e4_mica_odsp_audit.py
+
+  audit:
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install eSDM and pinned ODSP
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+          python -m pip install 'git+https://github.com/zuizui0223/odsp.git@0bd83e1ebb372c48839654ab0e42124fe37b8faf'
+
+      - name: Download immutable E4 empirical result
+        uses: actions/download-artifact@v4
+        with:
+          name: e4-mica-sparse-result-36622802225
+          path: build/source
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36622802225
+
+      - name: Verify immutable E4 raw result hash
+        run: |
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+
+          path = Path("build/source/E4_MICA_SPARSE_EMPIRICAL_RESULT.json")
+          observed = hashlib.sha256(path.read_bytes()).hexdigest()
+          expected = "34124094e6c25db04465cc1ff869af5813326729e6fd3b658a0921c45bc6f3e2"
+          if observed != expected:
+              raise SystemExit(f"E4 raw result sha256 mismatch: {observed} != {expected}")
+          PY
+
+      - name: Export parallel E4 ODSP bundles
+        run: |
+          python scripts/export_e4_mica_odsp_parallel.py \
+            --result build/source/E4_MICA_SPARSE_EMPIRICAL_RESULT.json \
+            --out-dir build/odsp
+
+      - name: Run activity ODSP block audit
+        run: |
+          odsp transfer \
+            --contract build/odsp/activity/endpoint.json \
+            --out build/odsp/activity/receipt.json
+
+      - name: Run state ODSP block audit
+        run: |
+          odsp transfer \
+            --contract build/odsp/state/endpoint.json \
+            --out build/odsp/state/receipt.json
+
+      - name: Summarize E4 parallel within-endpoint audits
+        run: |
+          python scripts/summarize_e4_mica_odsp_audit.py \
+            --source-receipt docs/replication/E4_MICA_SPARSE_FROZEN_RESULT.json \
+            --activity-receipt build/odsp/activity/receipt.json \
+            --state-receipt build/odsp/state/receipt.json \
+            --out build/E4_MICA_ODSP_AUDIT_RESULT_V1.json
+
+      - name: Upload E4 ODSP audit result
+        uses: actions/upload-artifact@v4
+        with:
+          name: e4-mica-odsp-postresult-audit-${{ github.run_id }}
+          path: |
+            build/E4_MICA_ODSP_AUDIT_RESULT_V1.json
+            build/odsp/activity/
+            build/odsp/state/
+          if-no-files-found: error
+          retention-days: 90

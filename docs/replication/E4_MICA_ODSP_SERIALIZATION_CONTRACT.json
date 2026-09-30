@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "contract_id": "e4-mica-odsp-parallel-serialization-v1",
+  "date": "2026-09-30",
+  "source_result_id": "e4-mica-exact-sparse-result-v1",
+  "source_programme": "E4_MICA_SPARSE_NUTS",
+  "source_endpoint": "E3_MICA_REDUCED_NO_DIRECT_STATE_CALIBRATION",
+  "required_source_status": "E4_SPARSE_EMPIRICAL_RESULT",
+  "required_sampling_gate_passed": true,
+  "required_heldout_rows": 733,
+  "source_provenance": {
+    "workflow_run_id": 36622802225,
+    "artifact_id": 11059622869,
+    "result_json_sha256": "34124094e6c25db04465cc1ff869af5813326729e6fd3b658a0921c45bc6f3e2",
+    "fixture_fingerprint_sha256": "2876b9f85bb34ddb600c39cd412fe196b3c78f47fa7306bca63c30245d740a23",
+    "training_retained_keys_sha256": "41bd70aa1f913bcb1c988f6c5cdae3441ed978d4ee0f6791bcfc497290710646",
+    "heldout_retained_keys_sha256": "0ed3fb9e96b1323a4290b7cb92621d219e317b8b916201a1b2665db4a272b1d9"
+  },
+  "row_semantics": {
+    "row_id": "deploymentID",
+    "endpoint_group": "MICA_MUSKRAT",
+    "block": "deploymentID",
+    "independent_group_count": 1,
+    "block_count": 733,
+    "rationale": "heldout deployments are within-endpoint resampling blocks, not independent biological systems"
+  },
+  "parallel_transfers": {
+    "activity": {
+      "endpoint_id": "esdm_e4_mica_activity_transfer_v1",
+      "lower": {
+        "name": "suitability_state",
+        "information": [
+          "suitability",
+          "state"
+        ],
+        "source_score": "activity_knockout_heldout_log_score"
+      },
+      "upper": {
+        "name": "suitability_state_activity",
+        "information": [
+          "suitability",
+          "state",
+          "activity"
+        ],
+        "source_score": "full_heldout_log_score"
+      }
+    },
+    "state": {
+      "endpoint_id": "esdm_e4_mica_state_transfer_v1",
+      "lower": {
+        "name": "suitability_activity",
+        "information": [
+          "suitability",
+          "activity"
+        ],
+        "source_score": "state_knockout_heldout_log_score"
+      },
+      "upper": {
+        "name": "suitability_activity_state",
+        "information": [
+          "suitability",
+          "activity",
+          "state"
+        ],
+        "source_score": "full_heldout_log_score"
+      }
+    }
+  },
+  "frozen_point_gains": {
+    "activity": -0.6390511804117178,
+    "state": 0.008390925023042506,
+    "odsp_must_not_change_e4_decision": true
+  },
+  "ordering_boundary": {
+    "natural_order_between_activity_and_state": false,
+    "combined_three_level_filtration_authorized": false,
+    "best_order_selection_authorized": false,
+    "odsp_lattice_authorized": false
+  },
+  "inference_boundary": {
+    "analysis_mode": "descriptive",
+    "superpopulation_interpretation_authorized": false,
+    "n3_transfer_value_handoff_authorized": false,
+    "odsp_certification_is_within_endpoint_block_resampling_only": true,
+    "e4_scientific_result_changed_by_odsp": false
+  }
+}

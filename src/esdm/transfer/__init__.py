@@ -27,6 +27,8 @@ __all__ = [
     "build_tr1_trait_odsp_bundle",
     "build_e3_mica_activity_odsp_bundle",
     "build_e3_mica_state_odsp_bundle",
+    "build_e4_mica_activity_odsp_bundle",
+    "build_e4_mica_state_odsp_bundle",
     "PORTFOLIO_SCHEMA",
     "PORTFOLIO_SCHEMA_V2",
     "TransferEvidenceItem",
@@ -62,6 +64,11 @@ from .odsp_adapter import (
     build_tr1_trait_odsp_bundle,
     build_e3_mica_activity_odsp_bundle,
     build_e3_mica_state_odsp_bundle,
+)
+
+from .e4_mica_odsp import (
+    build_e4_mica_activity_odsp_bundle,
+    build_e4_mica_state_odsp_bundle,
 )
 
 from .source_registry import (

@@ -1,0 +1,66 @@
+{
+  "activity": {
+    "block_count": 733,
+    "certified_category": "robust_non_generalizing",
+    "certified_group_status": "robust_nonpositive",
+    "certified_lower_bound": -0.8381153205469307,
+    "certified_transfer_ceiling": "suitability_state",
+    "certified_upper_bound": -0.43998704027650487,
+    "endpoint_id": "esdm_e4_mica_activity_transfer_v1",
+    "frozen_e4_point_gain": -0.6390511804117178,
+    "lower_level": "suitability_state",
+    "point_gain_identity_passed": true,
+    "point_mean_gain": -0.6390511804117178,
+    "point_transfer_ceiling": "suitability_state",
+    "population_result_scientific_use_authorized": false,
+    "population_result_serialized": true,
+    "row_count": 733,
+    "upper_level": "suitability_state_activity"
+  },
+  "audit_id": "e4-mica-odsp-parallel-audit-result-v1",
+  "audit_status": "POSTRESULT_DESCRIPTIVE_AUDIT",
+  "boundary": {
+    "backend_switch_authorized": false,
+    "causal_activity": false,
+    "causal_state": false,
+    "combined_three_level_filtration_authorized": false,
+    "confirmatory_replication": false,
+    "e4_rerun_or_retuning_authorized": false,
+    "n3_transfer_value_handoff_authorized": false,
+    "odsp_lattice_authorized": false,
+    "parallel_not_ordered": true,
+    "population_superpopulation_interpretation_authorized": false
+  },
+  "frozen_decision": {
+    "activity_predictive_support_descriptive": false,
+    "odsp_may_change_decision": false,
+    "state_predictive_support_descriptive": true
+  },
+  "schema_version": 1,
+  "source": {
+    "artifact_id": 11059622869,
+    "programme_id": "E4_MICA_SPARSE_NUTS",
+    "result_id": "e4-mica-exact-sparse-frozen-result-v1",
+    "result_json_sha256": "34124094e6c25db04465cc1ff869af5813326729e6fd3b658a0921c45bc6f3e2",
+    "status": "E4_SPARSE_EMPIRICAL_RESULT",
+    "workflow_run_id": 36622802225
+  },
+  "state": {
+    "block_count": 733,
+    "certified_category": "uncertain",
+    "certified_group_status": "uncertain",
+    "certified_lower_bound": -0.017381909014266686,
+    "certified_transfer_ceiling": "suitability_activity",
+    "certified_upper_bound": 0.0341637590603517,
+    "endpoint_id": "esdm_e4_mica_state_transfer_v1",
+    "frozen_e4_point_gain": 0.008390925023042506,
+    "lower_level": "suitability_activity",
+    "point_gain_identity_passed": true,
+    "point_mean_gain": 0.008390925023042506,
+    "point_transfer_ceiling": "suitability_activity_state",
+    "population_result_scientific_use_authorized": false,
+    "population_result_serialized": true,
+    "row_count": 733,
+    "upper_level": "suitability_activity_state"
+  }
+}

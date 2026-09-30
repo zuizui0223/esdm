@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "contract_id": "e4-mica-odsp-postresult-audit-v1",
+  "frozen_date": "2026-09-30",
+  "status": "POSTRESULT_DESCRIPTIVE_AUDIT_FROZEN",
+  "source": {
+    "frozen_receipt_path": "docs/replication/E4_MICA_SPARSE_FROZEN_RESULT.json",
+    "raw_result_filename": "E4_MICA_SPARSE_EMPIRICAL_RESULT.json",
+    "required_result_id": "e4-mica-exact-sparse-frozen-result-v1",
+    "required_programme_id": "E4_MICA_SPARSE_NUTS",
+    "required_status": "E4_SPARSE_EMPIRICAL_RESULT",
+    "required_sampling_gate_passed": true,
+    "required_heldout_row_count": 733,
+    "raw_result_workflow_run_id": 36622802225,
+    "raw_result_artifact_name": "e4-mica-sparse-result-36622802225",
+    "raw_result_sha256": "34124094e6c25db04465cc1ff869af5813326729e6fd3b658a0921c45bc6f3e2"
+  },
+  "odsp": {
+    "repository": "zuizui0223/odsp",
+    "pinned_commit": "0bd83e1ebb372c48839654ab0e42124fe37b8faf",
+    "command": "odsp transfer",
+    "activity_endpoint_id": "esdm_e4_mica_activity_transfer_v1",
+    "state_endpoint_id": "esdm_e4_mica_state_transfer_v1"
+  },
+  "row_semantics": {
+    "endpoint_group": "MICA_MUSKRAT",
+    "independent_group_count": 1,
+    "block_field": "deploymentID",
+    "expected_block_count": 733,
+    "population_superpopulation_authorized": false
+  },
+  "expected_point_gains": {
+    "activity": -0.6390511804117178,
+    "state": 0.008390925023042506,
+    "tolerance": 1e-12
+  },
+  "audit_outputs": {
+    "per_transfer": [
+      "point_mean_gain",
+      "point_transfer_ceiling",
+      "certified_category",
+      "certified_group_status",
+      "certified_lower_bound",
+      "certified_upper_bound",
+      "certified_transfer_ceiling",
+      "block_count",
+      "row_count"
+    ],
+    "population_result_may_be_serialized_by_odsp": true,
+    "population_result_scientific_use_authorized": false,
+    "n3_transfer_value_handoff_authorized": false
+  },
+  "interpretation": {
+    "allowed": [
+      "within-endpoint block-resampling uncertainty for the already-frozen activity contrast",
+      "within-endpoint block-resampling uncertainty for the already-frozen state contrast",
+      "comparison of ODSP certification with the already-frozen E4 point signs"
+    ],
+    "forbidden": [
+      "changing activity or state support decisions",
+      "superpopulation inference across biological systems",
+      "N3 transfer-value payload",
+      "causal activity or state effect",
+      "confirmatory replication",
+      "ordering activity and state",
+      "E4 rerun or retuning",
+      "backend switching"
+    ]
+  }
+}
