@@ -20,11 +20,11 @@
     "training_stratum": "frozen west training deployments assigned state_annotated"
   },
   "geometry": {
-    "heldout_D_day_camera_days": 2512.4311226851864,
+    "heldout_D_day_camera_days": 2512.431122685185,
     "heldout_D_deployments": 164,
-    "heldout_D_night_camera_days": 2525.9189467592605,
+    "heldout_D_night_camera_days": 2525.918946759259,
     "quarantined_event_identities_excluded": 11,
-    "training_day_camera_days": 3309.6208101851876,
+    "training_day_camera_days": 3309.6208101851853,
     "training_night_camera_days": 3344.9930787037038,
     "training_state_annotated_deployments": 266
   },
@@ -53,15 +53,15 @@
   "status": "POSTRESULT_EXPLORATORY_SUPPLEMENT",
   "summary": {
     "eligible_binomial_species_count": 8,
-    "focal_log_rate_ratio_change": -1.417921799423425,
+    "focal_log_rate_ratio_change": -1.4179217994234241,
     "focal_negative_shift_rank_most_negative_is_1": 6,
     "focal_species": "Ondatra zibethicus",
-    "median_log_rate_ratio_change": -2.1638031473975357,
-    "median_rate_ratio_multiplier": 0.11488735557505744,
+    "median_log_rate_ratio_change": -2.1638031473975348,
+    "median_rate_ratio_multiplier": 0.11488735557505754,
     "negative_log_ratio_shift_count": 7,
     "nonfocal_eligible_species_count": 7,
-    "nonfocal_median_log_rate_ratio_change": -2.166430299911327,
-    "nonfocal_median_rate_ratio_multiplier": 0.11458592509534783,
+    "nonfocal_median_log_rate_ratio_change": -2.166430299911326,
+    "nonfocal_median_rate_ratio_multiplier": 0.11458592509534794,
     "nonfocal_negative_log_ratio_shift_count": 6
   },
   "supplement_id": "e4-mica-postresult-cross-taxon-diel-v1",
@@ -72,10 +72,10 @@
       "heldout_D_day_events": 1019,
       "heldout_D_night_day_rate_ratio": 0.5085554271554994,
       "heldout_D_night_events": 521,
-      "log_rate_ratio_change": -3.1645599153462802,
+      "log_rate_ratio_change": -3.16455991534628,
       "scientificName": "Anas platyrhynchos",
       "training_day_events": 663,
-      "training_night_day_rate_ratio": 12.0417387896883,
+      "training_night_day_rate_ratio": 12.04173878968829,
       "training_night_events": 8069
     },
     {
@@ -84,22 +84,22 @@
       "heldout_D_day_events": 102,
       "heldout_D_night_day_rate_ratio": 0.5753426825489402,
       "heldout_D_night_events": 59,
-      "log_rate_ratio_change": -2.766781997117164,
+      "log_rate_ratio_change": -2.7667819971171634,
       "scientificName": "Ardea cinerea",
       "training_day_events": 20,
-      "training_night_day_rate_ratio": 9.15218410738145,
+      "training_night_day_rate_ratio": 9.152184107381444,
       "training_night_events": 185
     },
     {
       "direction": "lower",
       "focal": false,
       "heldout_D_day_events": 48,
-      "heldout_D_night_day_rate_ratio": 0.4558859391383551,
+      "heldout_D_night_day_rate_ratio": 0.4558859391383552,
       "heldout_D_night_events": 22,
-      "log_rate_ratio_change": -2.1611759948837443,
+      "log_rate_ratio_change": -2.1611759948837435,
       "scientificName": "Capreolus capreolus",
       "training_day_events": 4,
-      "training_night_day_rate_ratio": 3.957701235624411,
+      "training_night_day_rate_ratio": 3.9577012356244077,
       "training_night_events": 16
     },
     {
@@ -108,10 +108,10 @@
       "heldout_D_day_events": 436,
       "heldout_D_night_day_rate_ratio": 0.07984657816434912,
       "heldout_D_night_events": 35,
-      "log_rate_ratio_change": -2.1703103081878066,
+      "log_rate_ratio_change": -2.1703103081878057,
       "scientificName": "Fulica atra",
       "training_day_events": 1041,
-      "training_night_day_rate_ratio": 0.6995360493322687,
+      "training_night_day_rate_ratio": 0.6995360493322681,
       "training_night_events": 736
     },
     {
@@ -120,34 +120,34 @@
       "heldout_D_day_events": 1523,
       "heldout_D_night_day_rate_ratio": 0.07249329325282505,
       "heldout_D_night_events": 111,
-      "log_rate_ratio_change": -2.166430299911327,
+      "log_rate_ratio_change": -2.166430299911326,
       "scientificName": "Gallinula chloropus",
       "training_day_events": 2055,
-      "training_night_day_rate_ratio": 0.6326544310961649,
+      "training_night_day_rate_ratio": 0.6326544310961645,
       "training_night_events": 1314
     },
     {
       "direction": "lower",
       "focal": true,
       "heldout_D_day_events": 1279,
-      "heldout_D_night_day_rate_ratio": 2.964538545731028,
+      "heldout_D_night_day_rate_ratio": 2.9645385457310285,
       "heldout_D_night_events": 3812,
-      "log_rate_ratio_change": -1.417921799423425,
+      "log_rate_ratio_change": -1.4179217994234241,
       "scientificName": "Ondatra zibethicus",
       "training_day_events": 100,
-      "training_night_day_rate_ratio": 12.23919107116849,
+      "training_night_day_rate_ratio": 12.239191071168483,
       "training_night_events": 1237
     },
     {
       "direction": "higher",
       "focal": false,
       "heldout_D_day_events": 78,
-      "heldout_D_night_day_rate_ratio": 21.601979885325136,
+      "heldout_D_night_day_rate_ratio": 21.60197988532514,
       "heldout_D_night_events": 1694,
-      "log_rate_ratio_change": 0.8436717781532636,
+      "log_rate_ratio_change": 0.8436717781532643,
       "scientificName": "Rattus norvegicus",
       "training_day_events": 463,
-      "training_night_day_rate_ratio": 9.291622555342839,
+      "training_night_day_rate_ratio": 9.291622555342833,
       "training_night_events": 4348
     },
     {
@@ -156,10 +156,10 @@
       "heldout_D_day_events": 2,
       "heldout_D_night_day_rate_ratio": 12.433252885591505,
       "heldout_D_night_events": 25,
-      "log_rate_ratio_change": -0.6878702567742236,
+      "log_rate_ratio_change": -0.687870256774223,
       "scientificName": "Vulpes vulpes",
       "training_day_events": 2,
-      "training_night_day_rate_ratio": 24.735632722652568,
+      "training_night_day_rate_ratio": 24.73563272265255,
       "training_night_events": 50
     }
   ]
