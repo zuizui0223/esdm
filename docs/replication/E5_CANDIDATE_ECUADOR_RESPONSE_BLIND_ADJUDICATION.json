@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "ecuador_landscape_camera_2023",
+  "adjudication_id": "e5-ecuador-response-blind-candidate-adjudication-v1",
+  "status": "E5_CANDIDATE_NOT_QUALIFIED",
+  "date": "2026-09-30",
+  "response_boundary": {
+    "focal_response_opened": false,
+    "occurrence_extension_opened": false,
+    "occurrence_rows_read": 0,
+    "model_fit_run": false
+  },
+  "evidence": {
+    "one_shot_precheck": "docs/replication/E5_ECUADOR_EVENT_CORE_PRECHECK_RESULT.json",
+    "public_method_metadata": {
+      "temporal_coverage": "2015-10-22 to 2018-01-27",
+      "selected_landscapes": 5,
+      "protocol_domain": "single WCS-Ecuador 2015 landscape-monitoring protocol documented across selected landscapes",
+      "grid_design": "up to 45 grids of 16 km2 per selected landscape",
+      "visit_design": "each selected grid visited twice; camera deployed on first visit and removed 30 days later",
+      "source": "public IPT/GBIF resource metadata only"
+    }
+  },
+  "gates": {
+    "G1_INDEPENDENT_SOURCE": "PASS",
+    "G2_SCHEMA_EFFORT_TIME": "PARTIAL_EVENT_CORE_PASS_RESPONSE_SCHEMA_UNOPENED",
+    "G3_CROSSED_DOMAIN": "FAIL_FROZEN_ACCEPTABLE_CROSSING_NOT_ESTABLISHED",
+    "G4_DETECTION_IDENTIFIABILITY": "UNRESOLVED_REPEAT_VISIT_PATH_NOT_YET_IDENTIFIED",
+    "G5_PHYSICAL_REPLICATION": "POTENTIAL_697_COORDINATE_LOCATIONS_SPLIT_NOT_FROZEN",
+    "G6_TEMPORAL_SUPPORT": "POTENTIAL_FROM_PUBLIC_2015_2018_SCOPE_SPLIT_NOT_FROZEN",
+    "G7_MODEL_FREEZE": "NOT_REACHED"
+  },
+  "hard_stop": {
+    "gate": "G3_CROSSED_DOMAIN",
+    "reason": "public methods document one common WCS-Ecuador protocol across the landscape programme; none of the frozen acceptable geography-by-source/protocol crossing designs is established",
+    "event_date_parser_issue_needs_repair_for_this_candidate": false,
+    "occurrence_response_opening_needed": false
+  },
+  "decision": {
+    "candidate_qualified": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "event_date_format_rescue_authorized": false,
+    "occurrence_extension_opening_authorized": false,
+    "failure_is_scientific_negative_result": false,
+    "broader_candidate_search_authorized": true
+  }
+}

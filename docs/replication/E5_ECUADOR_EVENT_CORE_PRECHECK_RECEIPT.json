@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "ecuador_landscape_camera_2023",
+  "receipt_id": "e5-ecuador-event-core-precheck-receipt-v1",
+  "status": "FROZEN_RESPONSE_BLIND_PRECHECK_RESULT",
+  "frozen_date": "2026-09-30",
+  "execution": {
+    "workflow_run_id": 36663028218,
+    "workflow_conclusion": "success",
+    "authorization_sha": "d79134bce6c02402eaac3c95d9776f568cff0321",
+    "implementation_parent_sha": "7c77b7e2d21a7b8156194416f756cd01255afec2",
+    "artifact_id": 11074813407,
+    "artifact_name": "e5-ecuador-event-core-precheck-36663028218",
+    "artifact_digest": "sha256:a09203e11ed1e530dc0f407b6baeef2fbc64f78b917dcb91c8f70ad7d6c7852c",
+    "result_json_sha256": "c84e4feddb2e3c6a3a5e5dcd7c3d317e3f5e1d0e78781db810a8c41c7be982f6",
+    "source_archive_sha256": "6d71f62a430c39bbfa4acaa32c2a237f148d16ff86c888e610e9006288d16e67"
+  },
+  "response_boundary": {
+    "event_core_rows_read": 958,
+    "occurrence_rows_read": 0,
+    "occurrence_extension_opened": false,
+    "focal_response_opened": false,
+    "model_fitting_authorized": false
+  }
+}
