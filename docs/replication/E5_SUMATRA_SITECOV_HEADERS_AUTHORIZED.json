@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "sumatra_mesopredator_paired_2014_2015",
+  "contract_id": "e5-sumatra-sitecov-header-sharedstrings-response-blind-v1",
+  "contract_blob_sha": "99f9fe5c425efe92f80f28b0bda5ade5bb269e47",
+  "implementation_parent_sha": "9a72bb594ea22af995efc7edb4e01ae2b392dcc2",
+  "precheck_authorized": true,
+  "one_shot": true,
+  "target_indices": [
+    354,
+    355,
+    356,
+    357
+  ],
+  "site_cov_data_rows_authorized": false,
+  "focal_response_opening_authorized": false,
+  "model_fitting_authorized": false,
+  "authorized_date": "2026-09-30"
+}
