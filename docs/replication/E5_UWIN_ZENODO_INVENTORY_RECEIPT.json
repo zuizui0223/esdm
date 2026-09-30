@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "uwin_gallo_10city_2017_2018",
+  "receipt_id": "e5-uwin-zenodo-inventory-receipt-v1",
+  "status": "FROZEN_RESPONSE_BLIND_PACKAGE_INVENTORY",
+  "frozen_date": "2026-09-30",
+  "execution": {
+    "workflow_run_id": 36667619946,
+    "workflow_conclusion": "success",
+    "authorization_sha": "a3678b83e87656531131ce1dbe7b1672aef83117",
+    "implementation_parent_sha": "67f22196abf3a089b9c1cf7292de1beb5c8b0ba2",
+    "artifact_id": 11076861763,
+    "artifact_name": "e5-uwin-zenodo-inventory-36667619946",
+    "artifact_digest": "sha256:1ca652e07931f4bfd60d1ef582fbed6311aa98fc059dd2181bec3bae401a7f8c",
+    "inventory_json_sha256": "78edcb026efd583b073aa62c3277e2f5c4931b9c66f6fe8746eef3d0f89c8aad"
+  },
+  "source_identity": {
+    "canonical_dataset_doi": "10.5061/dryad.fxpnvx0tb",
+    "mirror_record": "https://zenodo.org/records/6366482",
+    "mirror_file": "Gallo_eLife_DryadData.zip",
+    "published_md5": "72c6e7d51f359e84e2e49154942b4c98",
+    "observed_archive_md5": "72c6e7d51f359e84e2e49154942b4c98",
+    "observed_archive_sha256": "c6c2e1843468cb58433516dadcaab0ec9d034127b8af20389d265c11b9cbf56c"
+  },
+  "inventory": {
+    "archive_member_count": 36,
+    "readme_member": "ForDryad/README.md",
+    "readme_sha256": "daae22b5328b3986db53e9147a061f0dd52156bb95c80ebeeae01d699671b5f8",
+    "data_like_members_present_but_unopened": 18
+  },
+  "response_boundary": {
+    "data_rows_read": 0,
+    "response_rows_read": 0,
+    "non_readme_members_opened": [],
+    "focal_response_opened": false,
+    "candidate_qualified_by_inventory": false,
+    "model_fitting_authorized": false
+  }
+}
