@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "programme_id": "E4_MICA_SPARSE_NUTS",
+  "supplement_id": "e4-mica-postresult-source-domain-supplement-v1",
+  "status": "POSTRESULT_EXPLORATORY_SUPPLEMENT",
+  "date": "2026-09-30",
+  "parent": {
+    "audit": "docs/replication/E4_MICA_POSTRESULT_TRANSFER_TAIL_AUDIT.json",
+    "domain_shift_supplement": "docs/replication/E4_MICA_POSTRESULT_DOMAIN_SHIFT_SUPPLEMENT.json"
+  },
+  "source_result": {
+    "workflow_run_id": 36622802225,
+    "artifact_id": 11059622869,
+    "result_json_sha256": "34124094e6c25db04465cc1ff869af5813326729e6fd3b658a0921c45bc6f3e2",
+    "fixture_fingerprint_sha256": "2876b9f85bb34ddb600c39cd412fe196b3c78f47fa7306bca63c30245d740a23",
+    "heldout_deployment_rows": 733
+  },
+  "analysis_boundary": {
+    "post_outcome": true,
+    "new_model_fit": false,
+    "posterior_refit": false,
+    "retuning": false,
+    "backend_switch": false,
+    "laplace_or_inla": false,
+    "claim_promotion": false,
+    "frozen_e4_result_changed": false
+  },
+  "physical_location_concentration": {
+    "heldout_deployments": 733,
+    "heldout_unique_location_names": 27,
+    "D_prefix": {
+      "deployments": 164,
+      "unique_location_names": 8,
+      "focal_events": 5091,
+      "fraction_of_all_heldout_focal_events": 0.989696734059098,
+      "activity_gain_sum": -466.6554637895475,
+      "fraction_of_net_activity_gain_sum": 0.9962234012211589
+    },
+    "D_MICA_prefix": {
+      "deployments": 163,
+      "unique_location_names": 7,
+      "focal_events": 5049,
+      "activity_gain_sum": -465.56682885343434,
+      "fraction_of_net_activity_gain_sum": 0.9938993662898291
+    },
+    "interpretation": "The 733 heldout deployment rows are repeated deployment units at only 27 named physical locations. The activity failure is therefore highly concentrated in one source/location domain rather than representing 733 independent geographic sites."
+  },
+  "deployment_metadata_shift": {
+    "comparison": {
+      "training_state_annotated_deployments": 266,
+      "heldout_D_prefix_deployments": 164
+    },
+    "cameraHeight_missing": {
+      "training_state_annotated": {"missing": 9, "total": 266, "fraction": 0.03383458646616541},
+      "heldout_D_prefix": {"missing": 163, "total": 164, "fraction": 0.9939024390243902}
+    },
+    "detectionDistance_missing": {
+      "training_state_annotated": {"missing": 9, "total": 266, "fraction": 0.03383458646616541},
+      "heldout_D_prefix": {"missing": 163, "total": 164, "fraction": 0.9939024390243902}
+    },
+    "deploymentTags_missing": {
+      "training_state_annotated": {"missing": 38, "total": 266, "fraction": 0.14285714285714285},
+      "heldout_D_prefix": {"missing": 158, "total": 164, "fraction": 0.9634146341463414}
+    },
+    "setupBy": {
+      "training_state_annotated_unique_nonempty": 6,
+      "training_state_annotated_top": {"value": "Jan Lodewijkx", "count": 118, "fraction": 0.44360902255639095},
+      "heldout_D_prefix_unique_nonempty": 3,
+      "heldout_D_prefix_top": {"value": "Björn Matthies", "count": 161, "fraction": 0.9817073170731707}
+    }
+  },
+  "annotation_metadata_shift": {
+    "focal_observation_rows": {
+      "training_state_annotated": 1340,
+      "heldout_D_prefix": 5113
+    },
+    "classifiedBy": {
+      "training_state_annotated_unique_nonempty": 16,
+      "training_state_annotated_top": {"value": "Liam Letheren", "count": 329, "fraction": 0.2455223880597015},
+      "heldout_D_prefix_unique_nonempty": 12,
+      "heldout_D_prefix_top": {"value": "Heiko Fritz", "count": 4957, "fraction": 0.9694895364746724}
+    },
+    "classificationMethod_missing": {
+      "training_state_annotated": {"missing": 326, "total": 1340, "fraction": 0.24328358208955223},
+      "heldout_D_prefix": {"missing": 1802, "total": 5113, "fraction": 0.3524359475845883}
+    },
+    "lifeStage_nonempty": {
+      "training_state_annotated": {"nonempty": 120, "total": 1340, "fraction": 0.08955223880597014},
+      "heldout_D_prefix": {"nonempty": 4833, "total": 5113, "fraction": 0.9454332094660669}
+    },
+    "interpretive_limit": "Different metadata completeness, setup personnel and annotation personnel establish a source-domain shift. They do not establish that camera protocol or classification practice caused the E4 activity failure."
+  },
+  "calendar_overlap": {
+    "training_state_annotated_start": "2019-09-18T07:12:52Z",
+    "training_state_annotated_end": "2023-05-01T21:16:17Z",
+    "heldout_D_prefix_start": "2020-04-28T10:21:55Z",
+    "heldout_D_prefix_end": "2023-02-15T08:03:43Z",
+    "overlap_present": true,
+    "interpretation": "The source-domain shift is not reducible to completely non-overlapping calendar years."
+  },
+  "observation_model_vulnerability": {
+    "state_annotated_detection": "KnownDetection(probability=1.0)",
+    "state_annotated_informs": ["activity", "state"],
+    "source_code": "src/esdm/validate/e2_mica_full_response.py",
+    "implication": "Any real source-specific change in effective camera detection or annotation-to-event yield is outside the fitted observation model and can be absorbed by the ecological activity channel. E4 therefore cannot identify behavioral nonstationarity separately from observation-process nonstationarity in this heldout source domain."
+  },
+  "ecological_context": {
+    "training_night_day_event_rate_ratio": 13.404766493011527,
+    "heldout_D_night_day_event_ratio": 2.964538545731028,
+    "interpretation": "Nocturnal elevation remains present in the heldout D stratum, but its magnitude is much weaker than in training. The failure is therefore not simply absence of the known nocturnal pattern."
+  },
+  "interpretation": {
+    "supported": [
+      "The E4 activity failure is a domain-transfer failure concentrated in a small number of physical source locations rather than a uniform failure across 733 independent sites.",
+      "The geographic east holdout is entangled with a strong deployment-metadata and annotation-metadata source shift.",
+      "Because annotated-stream detection is fixed at one, E4 cannot separate source-specific effective detectability from ecological activity when the observation domain changes.",
+      "The retained nocturnal signal and the large change in its magnitude are compatible with either ecological nonstationarity, observation-process nonstationarity, or both."
+    ],
+    "hypotheses_for_independent_future_data": [
+      "Conditional muskrat activity is regionally or contextually nonstationary, with more daytime/cathemeral activity in the high-event eastern source domain.",
+      "Effective camera detectability or event annotation yield differs across source domains and is partly absorbed into the fitted activity process.",
+      "Both ecological activity and observation process change across domains, so a future design must cross geography with survey source rather than confound them."
+    ],
+    "not_supported": [
+      "A causal country effect.",
+      "A causal observer, classifier, camera-height, or detection-distance effect.",
+      "Proof that activity is biologically irrelevant.",
+      "Changing the frozen E4 activity/state support decisions.",
+      "Rerunning, retuning, switching backend, or authorizing Laplace/INLA."
+    ]
+  }
+}
