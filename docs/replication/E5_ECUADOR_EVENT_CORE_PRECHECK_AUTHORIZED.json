@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "ecuador_landscape_camera_2023",
+  "contract_id": "e5-ecuador-event-core-response-blind-precheck-v1",
+  "contract_blob_sha": "abc16124ab57f0df56ccd396716c966bba835516",
+  "implementation_parent_sha": "7c77b7e2d21a7b8156194416f756cd01255afec2",
+  "precheck_authorized": true,
+  "one_shot": true,
+  "occurrence_extension_opening_authorized": false,
+  "focal_response_opening_authorized": false,
+  "model_fitting_authorized": false,
+  "authorized_date": "2026-09-30"
+}
