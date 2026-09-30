@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "registry_id": "e5-response-blind-candidate-registry-v1",
+  "date": "2026-09-30",
+  "status": "RESPONSE_BLIND_SEARCH_IN_PROGRESS",
+  "selection_firewall": {
+    "focal_response_opened": false,
+    "focal_event_counts_used_for_selection": false,
+    "focal_diel_direction_used_for_selection": false,
+    "predictive_scores_used_for_selection": false,
+    "only_public_method_schema_geometry_information_used": true
+  },
+  "candidates": [
+    {
+      "candidate_id": "snapshot_usa_2024",
+      "title": "SNAPSHOT USA 2024",
+      "source_url": "https://datadryad.org/dataset/doi:10.5061/dryad.bnzs7h4qf",
+      "doi": "10.5061/dryad.bnzs7h4qf",
+      "response_opened": false,
+      "public_metadata": {
+        "deployment_records": 3127,
+        "unique_site_names": 2715,
+        "camera_trap_arrays": 184,
+        "states": 49,
+        "ecoregions": 12,
+        "wildlife_insights_projects": 4,
+        "date_range": "2024-08-01 to 2024-12-19",
+        "distance_calibration_arrays": 73,
+        "distance_calibration_note": "calibration signs every 3 m up to 24 m or maximum detection distance"
+      },
+      "gates": {
+        "G1_INDEPENDENT_SOURCE": "PASS",
+        "G2_SCHEMA_EFFORT_TIME": "PASS",
+        "G3_CROSSED_DOMAIN": "PENDING_METADATA_CONTINGENCY",
+        "G4_DETECTION_IDENTIFIABILITY": "PENDING_CALIBRATION_LINKAGE",
+        "G5_PHYSICAL_REPLICATION": "PROVISIONAL_PASS_COUNTS_ONLY",
+        "G6_TEMPORAL_SUPPORT": "FAIL",
+        "G7_MODEL_FREEZE": "NOT_REACHED"
+      },
+      "decision": "E5_CANDIDATE_NOT_QUALIFIED",
+      "hard_stop_reason": "public 2024 dataset spans only August through December, fewer than the frozen six distinct calendar months required in both training and heldout exposure",
+      "response_may_be_opened_for_E5": false
+    },
+    {
+      "candidate_id": "nakashima_double_observer_2022",
+      "title": "Double-observer paired-camera Japan and Cameroon field surveys",
+      "source_url": "https://www.nature.com/articles/s41598-022-05853-0",
+      "doi": "10.1038/s41598-022-05853-0",
+      "response_opened": false,
+      "public_metadata": {
+        "paired_camera_detection_design": true,
+        "same_small_focal_area_observed_from_two_directions": true,
+        "japan_camera_stations": 7,
+        "cameroon_camera_stations": 26,
+        "japan_period": "2018-08 to 2018-11",
+        "cameroon_period": "2018-10 to 2019-01",
+        "data_available_in_supplementary_information": true
+      },
+      "gates": {
+        "G1_INDEPENDENT_SOURCE": "PASS",
+        "G2_SCHEMA_EFFORT_TIME": "PENDING_FILE_SCHEMA",
+        "G3_CROSSED_DOMAIN": "PROMISING_STANDARDIZED_PAIRED_DESIGN",
+        "G4_DETECTION_IDENTIFIABILITY": "PASS_DESIGN_PRINCIPLE",
+        "G5_PHYSICAL_REPLICATION": "FAIL",
+        "G6_TEMPORAL_SUPPORT": "FAIL",
+        "G7_MODEL_FREEZE": "NOT_REACHED"
+      },
+      "decision": "E5_CANDIDATE_NOT_QUALIFIED",
+      "hard_stop_reason": "strict cross-geographic split cannot meet frozen >=20 training and >=10 heldout physical-location minima (26 Cameroon, 7 Japan), and each field survey spans only four calendar months",
+      "response_may_be_opened_for_E5": false
+    },
+    {
+      "candidate_id": "snapshot_usa_protocol_family",
+      "title": "SNAPSHOT USA multi-year protocol family",
+      "source_url": "https://www.snapshot-usa.org/section/protocol/",
+      "response_opened": false,
+      "gates": {
+        "G1_INDEPENDENT_SOURCE": "POTENTIALLY_PASS",
+        "G2_SCHEMA_EFFORT_TIME": "POTENTIALLY_PASS",
+        "G3_CROSSED_DOMAIN": "POTENTIALLY_PASS",
+        "G4_DETECTION_IDENTIFIABILITY": "POTENTIALLY_PASS_FOR_DISTANCE_CALIBRATION_SUBSET",
+        "G5_PHYSICAL_REPLICATION": "POTENTIALLY_PASS",
+        "G6_TEMPORAL_SUPPORT": "LIKELY_FAIL_ANNUAL_SEASONAL_PROTOCOL",
+        "G7_MODEL_FREEZE": "NOT_REACHED"
+      },
+      "decision": "SEARCH_REFERENCE_NOT_SELECTED",
+      "reason": "annual protocol is concentrated around September-October; multi-year repetition does not automatically provide six distinct calendar months per training/heldout regime",
+      "response_may_be_opened_for_E5": false
+    },
+    {
+      "candidate_id": "rad_rest_boso_2026",
+      "title": "RAD-REST Boso Peninsula camera-trap dataset",
+      "source_url": "https://datadryad.org/dataset/doi:10.5061/dryad.kprr4xhgt",
+      "doi": "10.5061/dryad.kprr4xhgt",
+      "response_opened": false,
+      "public_metadata": {
+        "geography": "Boso Peninsula, Japan",
+        "files": [
+          "detection_data.csv",
+          "station_data.csv",
+          "Rcode.R"
+        ],
+        "event_timestamp_field": "DateTimeCorrected",
+        "station_identifier_field": "Station",
+        "explicit_detection_process_modeling": true
+      },
+      "gates": {
+        "G1_INDEPENDENT_SOURCE": "PASS",
+        "G2_SCHEMA_EFFORT_TIME": "PARTIAL_METADATA_ONLY",
+        "G3_CROSSED_DOMAIN": "FAIL",
+        "G4_DETECTION_IDENTIFIABILITY": "PROMISING_MODEL_STRUCTURE",
+        "G5_PHYSICAL_REPLICATION": "PENDING",
+        "G6_TEMPORAL_SUPPORT": "PENDING",
+        "G7_MODEL_FREEZE": "NOT_REACHED"
+      },
+      "decision": "E5_CANDIDATE_NOT_QUALIFIED",
+      "hard_stop_reason": "single Boso Peninsula source/geographic domain does not satisfy the frozen crossed-domain requirement",
+      "response_may_be_opened_for_E5": false
+    },
+    {
+      "candidate_id": "kolowski_forrester_2017",
+      "title": "Paired trail/feature versus random cameras, Shenandoah Valley",
+      "source_url": "https://datadryad.org/dataset/doi:10.5061/dryad.1g53b",
+      "doi": "10.5061/dryad.1g53b",
+      "response_opened": false,
+      "public_metadata": {
+        "paired_camera_design": true,
+        "geography": "Shenandoah Valley, Virginia, USA",
+        "purpose": "placement bias and detection probability"
+      },
+      "gates": {
+        "G1_INDEPENDENT_SOURCE": "PASS",
+        "G2_SCHEMA_EFFORT_TIME": "PENDING",
+        "G3_CROSSED_DOMAIN": "FAIL",
+        "G4_DETECTION_IDENTIFIABILITY": "NOT_SUFFICIENT_AS_DECLARED",
+        "G5_PHYSICAL_REPLICATION": "PENDING",
+        "G6_TEMPORAL_SUPPORT": "PENDING",
+        "G7_MODEL_FREEZE": "NOT_REACHED"
+      },
+      "decision": "E5_CANDIDATE_NOT_QUALIFIED",
+      "hard_stop_reason": "single geographic study and paired feature-vs-random placement does not provide the frozen geography-by-source crossing required for E5",
+      "response_may_be_opened_for_E5": false
+    }
+  ],
+  "search_universes": [
+    {
+      "universe_id": "wildlife_insights_public_projects",
+      "source_url": "https://www.wildlifeinsights.org/get-started/data-download/public",
+      "role": "PRIMARY_RESPONSE_BLIND_DISCOVERY_POOL",
+      "why_promising": [
+        "public downloads expose project, camera and deployment metadata separately from detections",
+        "project metadata records sensor layout, whether cameras are clustered or paired, sensor method and stratification",
+        "deployments retain physical locations, start/end dates, camera settings and other response-independent design fields",
+        "public projects span many independent organizations and geographies"
+      ],
+      "pre_response_screen": [
+        "public and downloadable project/deployment metadata",
+        ">=6 distinct calendar months of deployment exposure in candidate training and heldout regimes",
+        ">=20 training and >=10 heldout independent physical locations",
+        "paired/clustered sensors or another separately identifying detection-calibration path",
+        "geography and project/source/protocol not perfectly confounded",
+        "sufficient metadata to freeze source-by-diel and season-by-diel structure"
+      ],
+      "response_fields_forbidden_during_search": [
+        "species-specific detection counts",
+        "species-specific diel distributions",
+        "focal state frequencies",
+        "direction of any candidate effect"
+      ]
+    }
+  ],
+  "current_conclusion": {
+    "qualified_candidate_selected": false,
+    "strongest_current_discovery_pool": "Wildlife Insights public projects",
+    "snapshot_usa_2024_selected": false,
+    "response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "next_action": "screen Wildlife Insights public project metadata response-blind for projects or project combinations satisfying all E5 gates"
+  }
+}
