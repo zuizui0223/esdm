@@ -9,7 +9,7 @@ or predictive scores were opened.
 ## Why the candidate is attractive
 
 SNAPSHOT USA 2024 is independent of the E2–E4 MICA response and Snapshot Japan 2023.
-The public metadata describe 3,127 deployment rows, 2,715 physical camera locations,
+The public metadata describe 3,127 deployment rows, 3,124 reported unique deployment IDs, 2,715 physical camera locations,
 184 arrays across 49 U.S. states and 12 ecoregions.
 
 The especially useful feature for E5 is an explicit camera-distance calibration programme.
@@ -30,7 +30,7 @@ No threshold is lowered, no sequence file is inspected, and no model fit is auth
 ## Gate summary
 
 - G1 independent source: PASS
-- G2 schema/effort/time fields: PASS at schema level
+- G2 schema/effort/time fields: PARTIAL — fields declared, row values/identity uniqueness unverified
 - G3 geography × source crossing: PENDING deployment-level metadata cross-tab
 - G4 detection identification: PROMISING, but calibration-to-deployment linkage still required
 - G5 physical replication: capacity PASS; split not yet frozen
