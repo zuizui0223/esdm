@@ -86,6 +86,7 @@ def test_metadata_screener_contract_forbids_response_and_final_qualification():
     assert value["status"] == "RESPONSE_BLIND_DISCOVERY_TOOL"
     assert value["response_policy"]["response_rows_read_must_equal"] == 0
     assert value["response_policy"]["species_or_taxon_fields_may_not_be_used"] is True
+    assert "G2_SCHEMA_EFFORT_TIME" in value["automated_scope"]["may_not_qualify"]
     assert "G3_CROSSED_DOMAIN" in value["automated_scope"]["may_not_qualify"]
     assert "G4_DETECTION_IDENTIFIABILITY" in value["automated_scope"]["may_not_qualify"]
     assert value["discovery_hints"]["qualification_authorized"] is False
@@ -111,7 +112,9 @@ def test_screener_reports_geometry_and_temporal_hints_without_promoting_g3_g4(tm
 
     assert result["schema"]["missing_required_metadata_columns"] == []
     assert result["schema"]["geography_coordinates_present"] is True
-    assert result["preliminary_gate_hints"]["G2_SCHEMA_EFFORT_TIME"] == "PASS_METADATA_ONLY"
+    assert result["preliminary_gate_hints"]["G2_SCHEMA_EFFORT_TIME"] == (
+        "PARTIAL_DEPLOYMENT_METADATA_PASS_EVENT_SCHEMA_UNVERIFIED"
+    )
     assert result["preliminary_gate_hints"]["G5_PHYSICAL_REPLICATION"] == "POTENTIAL"
     assert result["preliminary_gate_hints"]["G6_TEMPORAL_SUPPORT"] == "POTENTIAL"
     assert result["preliminary_gate_hints"]["G3_CROSSED_DOMAIN"] == (
@@ -147,5 +150,5 @@ def test_screener_fails_g2_hint_on_duplicate_deployment_identity(tmp_path):
     result = screen(package)
     assert result["schema"]["duplicate_deployment_ids"] == ["d000"]
     assert result["preliminary_gate_hints"]["G2_SCHEMA_EFFORT_TIME"] == (
-        "FAIL_OR_INCOMPLETE_METADATA"
+        "FAIL_OR_INCOMPLETE_DEPLOYMENT_METADATA"
     )
