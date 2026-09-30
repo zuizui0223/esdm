@@ -81,16 +81,16 @@ def test_cross_taxon_receipt_pins_immutable_artifact_and_forbids_causal_promotio
     execution = value["audit_execution"]
 
     assert value["status"] == "FROZEN_POSTRESULT_EXPLORATORY_SUPPLEMENT"
-    assert execution["workflow_run_id"] == 36656041321
+    assert execution["workflow_run_id"] == 36657253598
     assert execution["head_sha"] == (
-        "7c1a24e8bb3b132d3882cad9e792e609c14eb383"
+        "d63fbce6a7606e186c4905bfa5d2d76a6c32bbc1"
     )
-    assert execution["artifact_id"] == 11073080845
+    assert execution["artifact_id"] == 11072868461
     assert execution["artifact_digest"] == (
-        "sha256:7ec2d4f86fba244b1f6cca2a0c6f3f40621d9fb31beb69e743d9592b1f5063db"
+        "sha256:7405b6a5bf00a3ecace784115cddcfdbe26cbde1de296acc6dbff866873499f5"
     )
     assert execution["supplement_json_sha256"] == (
-        "73f0275996a549ee408e9b3e637c3c894313b4fa7ac801fa7da7106e4837a545"
+        "ccbedd9894dc30590166a4bccd3ff3c30645951bc2d69d353fb89614443b402a"
     )
 
     boundary = value["interpretation_boundary"]
