@@ -1,0 +1,270 @@
+{
+  "activity_gain_decomposition": {
+    "aggregate_mean_gain": -0.6390511804117174,
+    "negative_gain_deployments": 127,
+    "negative_gain_magnitude_sum": 468.4269617596447,
+    "negative_tail_concentration": {
+      "deployments_to_reach_50pct_negative_magnitude": 13,
+      "deployments_to_reach_80pct_negative_magnitude": 34,
+      "deployments_to_reach_90pct_negative_magnitude": 49
+    },
+    "positive_event_deployments": {
+      "count": 128,
+      "mean_gain": -3.659567081342613,
+      "negative_gain_count": 127,
+      "positive_gain_count": 1,
+      "sum_gain": -468.4245864118545
+    },
+    "positive_gain_deployments": 606,
+    "positive_gain_sum": 0.0024465178558570463,
+    "zero_event_deployments": {
+      "count": 605,
+      "mean_gain": 1.1763647214391002e-07,
+      "negative_gain_count": 0,
+      "positive_gain_count": 605,
+      "sum_gain": 7.117006564706557e-05
+    }
+  },
+  "activity_posterior_mean_plugin": {
+    "event_context_activity_probability": {
+      "heldout_day_mean": 0.0007751734919448599,
+      "heldout_day_median": 0.0004199944151977102,
+      "heldout_mean": 0.1850237910245994,
+      "heldout_median": 0.10018190286032895,
+      "heldout_night_mean": 0.2463127093955653,
+      "heldout_night_median": 0.19918057488029697,
+      "training_state_annotated_mean": 0.8932193613227726,
+      "training_state_annotated_median": 0.9667416876586827
+    },
+    "heldout_eastness_z_train": {
+      "max": 8.489597743968039,
+      "median": 4.196319961755247,
+      "min": 3.1950123639867676,
+      "positive_event_deployment_mean": 5.312748540676168
+    },
+    "mean_logit_component_at_event_contexts": {
+      "heldout": {
+        "diurnal": 1.5550409857141034,
+        "eastness": -3.3778000094903566,
+        "intercept": -0.24889451482624286,
+        "precip": -1.4730224793610078,
+        "season": 0.4270879528651348
+      },
+      "training_state_annotated": {
+        "diurnal": 2.6780051236466,
+        "eastness": 0.4730462743705038,
+        "intercept": -0.24889451482624284,
+        "precip": 0.0186956429726972,
+        "season": 0.23218291787845063
+      }
+    },
+    "note": "Plug-in values use posterior means from the already-frozen full fit; they are descriptive diagnostics, not posterior predictive probabilities or a new fit.",
+    "parameter_summaries": {
+      "activity_beta_diurnal": {
+        "mean": 4.391490414483207,
+        "q05": 3.9768980383872985,
+        "q95": 4.894077253341675
+      },
+      "activity_beta_eastness": {
+        "mean": -0.5977252166046362,
+        "q05": -1.1318365275859832,
+        "q95": 0.05824380498379433
+      },
+      "activity_beta_precip": {
+        "mean": 0.41039494667942306,
+        "q05": -0.3217724695801735,
+        "q95": 0.9861825525760648
+      },
+      "activity_beta_season": {
+        "mean": 1.818504796368735,
+        "q05": 1.4438978254795076,
+        "q95": 2.22253600358963
+      },
+      "activity_intercept": {
+        "mean": -0.2488945148262428,
+        "q05": -0.774084296822548,
+        "q95": 0.44034410566091503
+      }
+    }
+  },
+  "analysis_boundary": {
+    "backend_switch": false,
+    "claim_promotion": false,
+    "laplace_or_inla": false,
+    "new_model_fit": false,
+    "post_outcome": true,
+    "posterior_refit": false,
+    "retuning": false,
+    "uses_existing_e4_scores_and_frozen_source_metadata_only": true
+  },
+  "date": "2026-09-30",
+  "diagnostic_id": "e4-mica-exact-sparse-postresult-descriptive-v1",
+  "diel_event_rate_diagnostic": {
+    "heldout_B": {
+      "day_effort_camera_days": 1495.8711574074075,
+      "day_event_rate_per_camera_day": 0.0,
+      "day_events": 0,
+      "night_day_rate_ratio": null,
+      "night_effort_camera_days": 1501.4883796296297,
+      "night_event_rate_per_camera_day": 0.0033300291016793242,
+      "night_events": 5
+    },
+    "heldout_D": {
+      "day_effort_camera_days": 2512.431122685185,
+      "day_event_rate_per_camera_day": 0.5090686819040262,
+      "day_events": 1279,
+      "night_day_rate_ratio": 2.964538545731028,
+      "night_effort_camera_days": 2525.9189467592596,
+      "night_event_rate_per_camera_day": 1.5091537299289732,
+      "night_events": 3812
+    },
+    "heldout_NL": {
+      "day_effort_camera_days": 2492.8814930555554,
+      "day_event_rate_per_camera_day": 0.002005711067264348,
+      "day_events": 5,
+      "night_day_rate_ratio": 8.584539137987651,
+      "night_effort_camera_days": 2497.371203703704,
+      "night_event_rate_per_camera_day": 0.01721810515642578,
+      "night_events": 43
+    },
+    "heldout_all": {
+      "day_effort_camera_days": 6501.183773148147,
+      "day_event_rate_per_camera_day": 0.19750249259270408,
+      "day_events": 1284,
+      "night_day_rate_ratio": 2.9953594665638916,
+      "night_effort_camera_days": 6524.778530092592,
+      "night_event_rate_per_camera_day": 0.591590960857521,
+      "night_events": 3860
+    },
+    "training_state_annotated": {
+      "day_effort_camera_days": 3438.607048611111,
+      "day_event_rate_per_camera_day": 0.028209097064225266,
+      "day_events": 97,
+      "night_day_rate_ratio": 13.404766493011527,
+      "night_effort_camera_days": 3472.292384259259,
+      "night_event_rate_per_camera_day": 0.37813635912463667,
+      "night_events": 1313
+    }
+  },
+  "interpretation": {
+    "hypotheses_for_independent_future_data": [
+      "Muskrat diel activity or camera detectability is region/context dependent rather than a stationary transferable species trait.",
+      "The strict east holdout also induces source-stratum and targeted-site domain shift, so geographic transfer and sampling-network transfer are entangled.",
+      "Future validation should separate spatial extrapolation from survey-network/domain shift and allow predeclared region-varying activity only in a new programme with new response data."
+    ],
+    "not_supported": [
+      "A causal eastward change in muskrat behaviour.",
+      "A causal protocol or country effect.",
+      "Retuning the E4 activity model, changing thresholds, rerunning E4, or switching backend.",
+      "Upgrading the small positive state gain to confirmatory or causal evidence."
+    ],
+    "supported": [
+      "The negative aggregate activity gain is concentrated in deployments with observed muskrat events: 127 of 128 event-bearing deployments favor the activity knockout, while all 605 zero-event deployments have tiny positive activity gains.",
+      "The activity failure is dominated by the D-prefixed heldout source stratum, which contains almost all heldout focal events and almost all negative activity-gain magnitude.",
+      "Raw diel event rates remain nocturnally elevated in heldout data, but the night/day rate contrast is much weaker than in the training StateAnnotatedCount stream.",
+      "The frozen full model extrapolates a strong diurnal activity slope plus spatial/climate activity slopes far outside the training eastness range; posterior-mean plug-in activity at heldout event contexts is much lower than at training event contexts.",
+      "The small positive state gain is not spatially ubiquitous: among event-bearing deployments the sign is mixed, and the net positive result is concentrated in a subset of deployments."
+    ]
+  },
+  "programme_id": "E4_MICA_SPARSE_NUTS",
+  "row_geometry": {
+    "heldout_deployments": 733,
+    "heldout_focal_events": 5144,
+    "heldout_group_events": 146,
+    "heldout_solitary_events": 4998,
+    "heldout_unique_locations": 27,
+    "positive_focal_event_deployments": 128,
+    "zero_focal_event_deployments": 605
+  },
+  "schema_version": 1,
+  "source_result": {
+    "artifact_digest": "sha256:da72e996014d988c9ee55e99ac6cebf5662030fa35abcf9203d3f83cf84c5bfe",
+    "artifact_id": 11059622869,
+    "fixture_fingerprint_sha256": "2876b9f85bb34ddb600c39cd412fe196b3c78f47fa7306bca63c30245d740a23",
+    "heldout_deployment_rows": 733,
+    "result_json_sha256": "34124094e6c25db04465cc1ff869af5813326729e6fd3b658a0921c45bc6f3e2",
+    "source_archive_sha256": "8346f3fe467a201525d6bedd4ebd6e2078457ee8bb778501d41d55ace7d962c9",
+    "workflow_run_id": 36622802225
+  },
+  "source_strata": {
+    "D_stratum_share": {
+      "activity_gain_sum_fraction_of_net": 0.9962234012211589,
+      "event_bearing_deployments": 104,
+      "focal_event_fraction": 0.989696734059098,
+      "locations_with_negative_mean_activity_gain": 8,
+      "negative_activity_gain_magnitude_fraction": 0.9962181981083186,
+      "unique_locations": 8
+    },
+    "heldout_by_prefix": {
+      "B": {
+        "activity_gain_mean": -0.002559945509327421,
+        "activity_gain_sum": -0.31999318866592763,
+        "deployment_count": 125,
+        "focal_event_count": 5,
+        "longitude_max": 5.669,
+        "longitude_min": 5.651,
+        "positive_event_deployment_count": 3,
+        "precip_z_train_mean": -6.308816892894835,
+        "state_gain_mean": -0.00039008453461325044,
+        "state_gain_sum": -0.048760566826656304
+      },
+      "D": {
+        "activity_gain_mean": -2.8454601450582166,
+        "activity_gain_sum": -466.6554637895475,
+        "deployment_count": 164,
+        "focal_event_count": 5091,
+        "longitude_max": 8.33,
+        "longitude_min": 6.794,
+        "positive_event_deployment_count": 104,
+        "precip_z_train_mean": -3.310700728222896,
+        "state_gain_mean": 0.03642045543979518,
+        "state_gain_sum": 5.972954692126409
+      },
+      "NL": {
+        "activity_gain_mean": -0.0032636447377824827,
+        "activity_gain_sum": -1.4490582635754223,
+        "deployment_count": 444,
+        "focal_event_count": 48,
+        "longitude_max": 6.288,
+        "longitude_min": 5.628,
+        "positive_event_deployment_count": 21,
+        "precip_z_train_mean": 2.136671019858774,
+        "state_gain_mean": 0.000509806118447593,
+        "state_gain_sum": 0.22635391659073129
+      }
+    },
+    "heldout_location_prefix_counts": {
+      "B": 125,
+      "D": 164,
+      "NL": 444
+    },
+    "heldout_unique_locations_by_prefix": {
+      "B": 7,
+      "D": 8,
+      "NL": 12
+    },
+    "training_state_annotated_location_prefix_counts": {
+      "B": 250,
+      "D": 0,
+      "Mica": 19,
+      "NL": 0
+    }
+  },
+  "state_gain_decomposition": {
+    "aggregate_mean_gain": 0.008390925023042953,
+    "group_event_deployments": {
+      "count": 26,
+      "state_gain_sum": 7.617023839699099
+    },
+    "heldout_group_fraction": 0.028382581648522552,
+    "no_group_event_deployments": {
+      "count": 102,
+      "state_gain_sum": -1.4664661688715759
+    },
+    "positive_event_deployments_gain_sum": 6.150557670827524,
+    "positive_event_deployments_negative_gain": 70,
+    "positive_event_deployments_positive_gain": 58,
+    "training_state_annotated_group_fraction": 0.006382978723404255
+  },
+  "status": "POST_OUTCOME_DESCRIPTIVE_ONLY"
+}
