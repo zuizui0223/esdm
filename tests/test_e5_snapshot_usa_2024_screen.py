@@ -27,7 +27,9 @@ def test_snapshot_usa_2024_has_strong_detection_calibration_but_fails_temporal_g
     metadata = value["response_blind_metadata"]
     calibration = metadata["detection_calibration"]
     assert metadata["camera_arrays"] == 184
-    assert metadata["physical_locations_reported"] == 2715\n    assert metadata["deployment_id_row_difference"] == 3\n    assert metadata["deployment_identity_uniqueness_verified"] is False
+    assert metadata["physical_locations_reported"] == 2715
+    assert metadata["deployment_id_row_difference"] == 3
+    assert metadata["deployment_identity_uniqueness_verified"] is False
     assert calibration["calibrated_arrays"] == 73
     assert calibration["calibrated_locations"] == 918
     assert metadata["survey_period"]["distinct_calendar_months"] == 5
