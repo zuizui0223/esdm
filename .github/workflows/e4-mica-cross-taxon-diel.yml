@@ -1,0 +1,46 @@
+name: E4 MICA cross-taxon diel audit
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/audit_e4_mica_cross_taxon_diel.py'
+      - '.github/workflows/e4-mica-cross-taxon-diel.yml'
+      - 'tests/test_e4_mica_cross_taxon_diel_workflow.py'
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install eSDM
+        run: python -m pip install -e .
+      - name: Download immutable E2 capture
+        uses: actions/download-artifact@v4
+        with:
+          name: e2-mica-full-response-capture-36369531079
+          path: captured/e2
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36369531079
+      - name: Run post-result cross-taxon diel audit
+        run: |
+          mkdir -p build/e4/postresult
+          python scripts/audit_e4_mica_cross_taxon_diel.py \
+            --archive captured/e2/build/e2/source/mica-v3.zip \
+            --temporal-result docs/replication/E2_MICA_TEMPORAL_INTEGRITY_RESULT.json \
+            --out build/e4/postresult/E4_MICA_POSTRESULT_CROSS_TAXON_DIEL_SUPPLEMENT.json
+      - name: Upload immutable descriptive supplement
+        uses: actions/upload-artifact@v4
+        with:
+          name: e4-mica-cross-taxon-diel-${{ github.run_id }}
+          path: build/e4/postresult/E4_MICA_POSTRESULT_CROSS_TAXON_DIEL_SUPPLEMENT.json
+          if-no-files-found: error
+          retention-days: 90
