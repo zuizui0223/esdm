@@ -1,0 +1,134 @@
+name: E5 Sumatra XLSX structure precheck once
+
+concurrency:
+  group: e5-sumatra-xlsx-structure-precheck-once
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - e5/sumatra-xlsx-structure-precheck-v1
+    paths:
+      - 'docs/replication/E5_SUMATRA_XLSX_STRUCTURE_AUTHORIZED.json'
+
+permissions:
+  contents: read
+
+jobs:
+  precheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify pure one-shot structure authorization
+        run: |
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+
+          marker_path = Path(
+              "docs/replication/E5_SUMATRA_XLSX_STRUCTURE_AUTHORIZED.json"
+          )
+          marker = json.loads(marker_path.read_text(encoding="utf-8"))
+          parent = subprocess.check_output(
+              ["git", "rev-parse", "HEAD^"], text=True
+          ).strip()
+          changed = subprocess.check_output(
+              ["git", "diff-tree", "--no-commit-id", "--name-only", "-r", "HEAD"],
+              text=True,
+          ).splitlines()
+          contract_path = Path(
+              "docs/replication/E5_SUMATRA_XLSX_STRUCTURE_CONTRACT.json"
+          )
+          contract_blob = subprocess.check_output(
+              ["git", "hash-object", str(contract_path)], text=True
+          ).strip()
+
+          if changed != [marker_path.as_posix()]:
+              raise SystemExit("authorization commit must change only marker")
+          if marker.get("implementation_parent_sha") != parent:
+              raise SystemExit("implementation parent mismatch")
+          if marker.get("programme_id") != "E5_INDEPENDENT_ACTIVITY_DETECTION":
+              raise SystemExit("programme mismatch")
+          if marker.get("candidate_id") != "sumatra_mesopredator_paired_2014_2015":
+              raise SystemExit("candidate mismatch")
+          if marker.get("contract_id") != (
+              "e5-sumatra-xlsx-structure-response-blind-precheck-v1"
+          ):
+              raise SystemExit("contract id mismatch")
+          if marker.get("contract_blob_sha") != (
+              "0c1800284c1db7ebed293042a62bb203a2fde345"
+          ):
+              raise SystemExit("contract blob pin mismatch")
+          if contract_blob != marker["contract_blob_sha"]:
+              raise SystemExit("working-tree contract blob mismatch")
+          if marker.get("precheck_authorized") is not True:
+              raise SystemExit("precheck not authorized")
+          if marker.get("one_shot") is not True:
+              raise SystemExit("authorization must be one-shot")
+          if marker.get("shared_strings_opening_authorized") is not False:
+              raise SystemExit("shared strings must remain forbidden")
+          if marker.get("worksheet_cell_opening_authorized") is not False:
+              raise SystemExit("worksheet cells must remain forbidden")
+          if marker.get("focal_response_opening_authorized") is not False:
+              raise SystemExit("focal response must remain forbidden")
+          PY
+
+      - name: Compile structure precheck
+        run: python -m py_compile scripts/precheck_e5_sumatra_xlsx_structure.py
+
+      - name: Download pinned PLOS S1 archive
+        run: |
+          mkdir -p build/private build/public
+          curl --location --fail --retry 3 --retry-delay 2 \
+            'https://journals.plos.org/plosone/article/file?id=10.1371%2Fjournal.pone.0202876.s001&type=supplementary' \
+            --output build/private/sumatra_s1.zip
+
+      - name: Verify pinned outer archive and run XLSX structure-only precheck
+        run: |
+          python scripts/precheck_e5_sumatra_xlsx_structure.py \
+            --archive build/private/sumatra_s1.zip \
+            --contract docs/replication/E5_SUMATRA_XLSX_STRUCTURE_CONTRACT.json \
+            --out build/public/E5_SUMATRA_XLSX_STRUCTURE_RESULT.json
+
+      - name: Verify zero worksheet/shared-string/data reads
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          value = json.loads(
+              Path("build/public/E5_SUMATRA_XLSX_STRUCTURE_RESULT.json")
+              .read_text(encoding="utf-8")
+          )
+          b = value["response_boundary"]
+          assert b["shared_strings_opened"] is False
+          assert b["worksheet_cell_xml_opened"] is False
+          assert b["worksheet_rows_read"] == 0
+          assert b["cell_values_read"] == 0
+          assert b["data_rows_read"] == 0
+          assert b["response_rows_read"] == 0
+          assert b["r_scripts_opened"] is False
+          assert b["focal_response_opened"] is False
+          assert value["decision"]["candidate_qualified"] is False
+          PY
+
+      - name: Destroy response-bearing archive before upload
+        run: |
+          rm -f build/private/sumatra_s1.zip
+          test ! -e build/private/sumatra_s1.zip
+
+      - name: Upload structure result only
+        uses: actions/upload-artifact@v4
+        with:
+          name: e5-sumatra-xlsx-structure-${{ github.run_id }}
+          path: build/public/E5_SUMATRA_XLSX_STRUCTURE_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
