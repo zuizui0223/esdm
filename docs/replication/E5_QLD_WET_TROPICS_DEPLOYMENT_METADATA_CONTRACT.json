@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "qld_wet_tropics_camtrapdp_2022_2023",
+  "contract_id": "e5-qld-wet-tropics-deployment-metadata-acquisition-v1",
+  "status": "FROZEN_METADATA_ACQUISITION_NOT_AUTHORIZED",
+  "frozen_date": "2026-10-01",
+  "source": {
+    "dataset_doi": "10.15468/kjqw3f",
+    "ala_data_resource_uid": "dr31594",
+    "wildobs_project_id": "ZAmir_QLD_Wet_Tropics_2022_WildObsID_0001",
+    "wildobs_public_api": "https://camdbapi.wildobs.org.au/find"
+  },
+  "allowed_collections": [
+    "metadata",
+    "deployments"
+  ],
+  "forbidden_collections": [
+    "observations",
+    "media"
+  ],
+  "deployment_fields_allowed": [
+    "deploymentID",
+    "locationID",
+    "locationName",
+    "latitude",
+    "longitude",
+    "coordinateUncertainty",
+    "deploymentStart",
+    "deploymentEnd",
+    "setupBy",
+    "cameraID",
+    "cameraModel",
+    "cameraDelay",
+    "cameraHeight",
+    "cameraDepth",
+    "cameraTilt",
+    "cameraHeading",
+    "detectionDistance",
+    "timestampIssues",
+    "baitUse",
+    "featureType",
+    "habitat",
+    "deploymentGroups",
+    "deploymentTags",
+    "deploymentComments",
+    "projectName"
+  ],
+  "response_firewall": {
+    "api_key_required_but_must_come_from_secret_environment": true,
+    "api_key_may_be_logged": false,
+    "api_key_may_be_committed": false,
+    "observation_collection_query_authorized": false,
+    "media_collection_query_authorized": false,
+    "species_fields_authorized": false,
+    "event_rows_authorized": false,
+    "focal_counts_authorized": false,
+    "focal_diel_values_authorized": false,
+    "effect_directions_authorized": false,
+    "predictive_scores_authorized": false
+  },
+  "may_report": [
+    "deployment row count and unique deployment IDs",
+    "physical-location count and repeated deployments per location",
+    "deployment start/end parseability and calendar-month coverage",
+    "camera ID/model and response-independent featureType/habitat metadata",
+    "response-independent geographic coordinates and bounding geometry",
+    "whether matched road/bush deployments can be identified from deployment metadata",
+    "whether camera brands/teams/protocol fields cross geography",
+    "candidate physical-location clusters usable for a future frozen split"
+  ],
+  "may_not_report": [
+    "any observation row",
+    "any scientificName/count/eventStart/eventEnd value from observations",
+    "species-specific presence or abundance",
+    "species-specific diel distributions",
+    "state frequencies",
+    "heldout scores or effect directions"
+  ],
+  "decision_boundary": {
+    "candidate_qualification_authorized": false,
+    "G3_pass_authorized_from_public_prescreen": false,
+    "G4_pass_authorized_from_public_prescreen": false,
+    "G5_pass_authorized_from_public_prescreen": false,
+    "G6_pass_authorized_from_public_prescreen": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "separate_geometry_adjudication_required_after_deployment_metadata_capture": true
+  },
+  "access_note": "WildObsR metadata_only=TRUE returns project metadata only; tabular deployments require authenticated public API access. No API credential is stored in this contract or repository."
+}
