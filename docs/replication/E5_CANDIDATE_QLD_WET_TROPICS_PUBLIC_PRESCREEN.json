@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "qld_wet_tropics_camtrapdp_2022_2023",
+  "screen_id": "e5-qld-wet-tropics-public-design-prescreen-v1",
+  "status": "E5_CANDIDATE_NOT_YET_QUALIFIED",
+  "screened_date": "2026-10-01",
+  "response_boundary": {
+    "focal_response_opened": false,
+    "deployment_rows_read": 0,
+    "observation_rows_read": 0,
+    "species_counts_inspected": false,
+    "focal_diel_distribution_inspected": false,
+    "effect_direction_inspected": false,
+    "predictive_scores_inspected": false
+  },
+  "source": {
+    "dataset_title": "Camera trap surveys in Queensland's Wet Tropics 2022-2023",
+    "dataset_doi": "10.15468/kjqw3f",
+    "ala_data_resource_uid": "dr31594",
+    "publisher": "Atlas of Living Australia / Wildlife Observatory of Australia",
+    "original_exchange_format": "Camtrap DP",
+    "ala_representation": "Darwin Core event-based dataset",
+    "wildobs_project_id": "ZAmir_QLD_Wet_Tropics_2022_WildObsID_0001",
+    "related_methods_article_doi": "10.1002/ece3.71464"
+  },
+  "public_design_evidence": {
+    "paired_sampling": {
+      "cameras_per_sampling_location": 2,
+      "first_camera": "road or trail / linear feature",
+      "second_camera": "bush camera",
+      "separation_m": "50-75 in related methods; ALA resource description states 50 m",
+      "approximate_sampling_location_spacing": "typically about 1 km in ALA description",
+      "paired_design_is_not_by_itself_detection_calibration": true
+    },
+    "related_methods": {
+      "combined_campaign_camera_placements": 454,
+      "combined_campaign_sites": 240,
+      "campaigns": [
+        "2019-04 to 2020-10",
+        "2022-09 to 2023-03"
+      ],
+      "per_camera_active_days_range": [
+        1,
+        93
+      ],
+      "mean_active_days": 57,
+      "sampling_occasion": "5-day window",
+      "detection_history_constructed": true,
+      "detection_covariates_tested": [
+        "number of cameras active in sampling unit",
+        "trail status / bush",
+        "feature type",
+        "camera brand",
+        "deployment team",
+        "season"
+      ],
+      "caution": "these counts/periods are from the related combined cassowary analysis and are not assumed to equal the exact 2022-2023 public CamtrapDP package until deployments are read response-blind"
+    },
+    "wildobs_package_structure": {
+      "resources_declared": [
+        "deployments",
+        "observations",
+        "covariates"
+      ],
+      "metadata_only_mode_returns_project_metadata_without_tabular_resources": true,
+      "tabular_resource_download_requires_api_key_or_db_url": true,
+      "current_screen_did_not_use_api_key_or_db_url": true
+    }
+  },
+  "gates": {
+    "G1_INDEPENDENT_SOURCE": "PASS",
+    "G2_SCHEMA_EFFORT_TIME": "PROMISING_CAMTRAPDP_DEPLOYMENTS_RESOURCE_DECLARED_DEPLOYMENT_ROWS_NOT_YET_READ",
+    "G3_CROSSED_DOMAIN": "PROMISING_MATCHED_ROAD_BUSH_PROTOCOL_AND_MULTILANDSCAPE_DESIGN_DEPLOYMENT_CROSS_TAB_REQUIRED",
+    "G4_DETECTION_IDENTIFIABILITY": "PROMISING_REPEATED_VISIT_DETECTION_PATH_PAIRED_LAYOUT_ALONE_INSUFFICIENT",
+    "G5_PHYSICAL_REPLICATION": "PROMISING_RELATED_STUDY_COUNTS_PACKAGE_GEOMETRY_NOT_YET_VERIFIED",
+    "G6_TEMPORAL_SUPPORT": "PENDING_SPLIT_SPECIFIC_DEPLOYMENT_MONTHS",
+    "G7_MODEL_FREEZE": "NOT_REACHED"
+  },
+  "detection_identifiability_note": {
+    "why_promising": "the related published analysis forms 5-day repeated detection histories and estimates an explicit detection process with trail/bush, effort, camera brand, team and season covariates",
+    "why_not_yet_pass": "road and bush cameras occupy different microhabitats, so the physical pair alone does not isolate detection from ecological habitat use; the E5 detection model and exact candidate deployment geometry must be frozen before outcome opening"
+  },
+  "access_boundary": {
+    "public_project_metadata_may_be_read": true,
+    "deployments_and_covariates_may_be_read_only_under_separate_child_contract": true,
+    "observations_may_be_read_during_candidate_selection": false,
+    "media_may_be_read_during_candidate_selection": false,
+    "wildobs_api_key_may_not_be_committed_to_repository": true,
+    "direct_wildobsr_metadata_only_is_insufficient_for_G2_G3_G5_G6": true
+  },
+  "decision": {
+    "candidate_qualified": false,
+    "focal_response_opening_authorized": false,
+    "observation_resource_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "next_required_step": "obtain deployments and covariates only, without observations, then freeze geography/source crossing, physical-location clusters, and split-specific temporal support",
+    "broader_candidate_search_authorized": true
+  }
+}
