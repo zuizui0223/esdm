@@ -115,7 +115,7 @@ def test_sunda_candidate_is_promising_but_blocked_before_response_opening():
     )
     assert row["gates"]["G3_CROSSED_DOMAIN"].startswith("PROMISING")
     assert row["gates"]["G4_DETECTION_IDENTIFIABILITY"] == "PENDING_EVENT_OCCASION_STRUCTURE"
-    assert row["decision"] == "E5_CANDIDATE_NOT_YET_QUALIFIED"
+    assert row["decision"] == "E5_CANDIDATE_NOT_QUALIFIED"
     assert row["response_may_be_opened_for_E5"] is False
 
 
@@ -131,7 +131,7 @@ def test_ecuador_candidate_requires_event_core_only_child_precheck():
     assert row["public_metadata"]["visits_per_selected_grid"] == 2
     assert row["public_metadata"]["selected_landscapes"] == 5
     assert row["public_metadata"]["public_temporal_coverage"] == "2015-10-22 to 2018-01-27"
-    assert row["gates"]["G2_SCHEMA_EFFORT_TIME"].startswith("PROMISING")
+    assert row["gates"]["G2_SCHEMA_EFFORT_TIME"] == "PARTIAL_EVENT_CORE_PASS_RESPONSE_SCHEMA_UNOPENED"
     assert row["gates"]["G4_DETECTION_IDENTIFIABILITY"] == "PENDING_EVENT_OCCASION_STRUCTURE"
     assert row["decision"] == "E5_CANDIDATE_NOT_YET_QUALIFIED"
     assert row["response_may_be_opened_for_E5"] is False
