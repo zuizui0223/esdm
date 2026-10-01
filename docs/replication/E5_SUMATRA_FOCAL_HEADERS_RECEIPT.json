@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "sumatra_mesopredator_paired_2014_2015",
+  "receipt_id": "e5-sumatra-focal-header-resolver-receipt-v1",
+  "status": "FROZEN_RESPONSE_BLIND_FOCAL_HEADER_RESOLUTION",
+  "frozen_date": "2026-10-01",
+  "execution": {
+    "workflow_run_id": 36788393607,
+    "workflow_conclusion": "success",
+    "authorization_sha": "9ce9de98313b11fd956019e830b1dd9027587776",
+    "implementation_parent_sha": "d62e8908d79be973ee5ae741dbf4964acbaafa52",
+    "artifact_id": 11131812567,
+    "artifact_name": "e5-sumatra-focal-headers-36788393607",
+    "artifact_digest": "sha256:7d4f3bd768b0b2737277e9934c1719240d7fc3e0157a62fe11dc5a419222d761",
+    "result_json_sha256": "95d722f8ce7ee2923cdd1a91fbc1b26cd8d639759eb1b37f392dbeb9e683aa85"
+  },
+  "finding": {
+    "headers": [
+      "No",
+      "Station_ID",
+      "time",
+      "spc",
+      "sa"
+    ],
+    "station_or_location_identifier_header_present": true,
+    "event_timestamp_header_present": true,
+    "species_or_taxon_header_present": true,
+    "individual_camera_identifier_header_present": false,
+    "paired_sensor_or_camera_side_header_present": false
+  },
+  "boundary": {
+    "target_indices_pre_frozen": true,
+    "shared_string_entries_traversed": 5,
+    "entries_after_max_target_parsed": 0,
+    "focal_species_data_rows_read": 0,
+    "response_rows_read": 0,
+    "focal_response_values_read": 0,
+    "candidate_qualified": false,
+    "model_fitting_authorized": false
+  }
+}
