@@ -1,0 +1,30 @@
+{
+  "adjudication": {
+    "candidate_qualified": false,
+    "geometry_available": false,
+    "next_same_authorization_retry_allowed": false,
+    "reason": "WILDOBSR_API_KEY secret is not configured",
+    "status": "E5_QLD_DEPLOYMENT_CAPTURE_TERMINAL_TRANSPORT_STOP"
+  },
+  "adjudication_id": "e5-qld-deployment-capture-adjudication-v1",
+  "candidate_id": "qld_wet_tropics_camtrapdp_2022_2023",
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "response_boundary": {
+    "candidate_qualification_authorized": false,
+    "focal_response_opened": false,
+    "media_rows_read": 0,
+    "model_fitting_authorized": false,
+    "observation_opening_authorized": false,
+    "observation_rows_read": 0,
+    "species_fields_read": 0
+  },
+  "schema_version": 1,
+  "source_execution": {
+    "artifact_digest": "sha256:baa324265c923ed129fba273b7137347fd3e332f8cb974a470adc589f187f114",
+    "artifact_id": 11273134334,
+    "artifact_name": "e5-qld-deployment-capture-37120434627",
+    "authorization_sha": "697d790bcae523f5df9a9f0f5163cb555c38e2c3",
+    "capture_json_sha256": "7de74a56dcf83b283f8c3ab4667a077bb6582e2787e3ae19d8c12480d072055f",
+    "workflow_run_id": 37120434627
+  }
+}
