@@ -1,0 +1,144 @@
+name: E5 Queensland EMoF measurementType precheck once
+
+concurrency:
+  group: e5-qld-emof-type-once
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - e5/qld-emof-type-v1
+    paths:
+      - 'docs/replication/E5_QLD_EMOF_TYPE_AUTHORIZED.json'
+
+permissions:
+  contents: read
+
+jobs:
+  precheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify pure one-shot EMoF authorization
+        run: |
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+
+          marker_path = Path(
+              "docs/replication/E5_QLD_EMOF_TYPE_AUTHORIZED.json"
+          )
+          marker = json.loads(marker_path.read_text(encoding="utf-8"))
+          parent = subprocess.check_output(
+              ["git", "rev-parse", "HEAD^"], text=True
+          ).strip()
+          changed = subprocess.check_output(
+              ["git", "diff-tree", "--no-commit-id", "--name-only", "-r", "HEAD"],
+              text=True,
+          ).splitlines()
+          contract_path = Path(
+              "docs/replication/E5_QLD_EMOF_TYPE_CONTRACT.json"
+          )
+          contract_blob = subprocess.check_output(
+              ["git", "hash-object", str(contract_path)], text=True
+          ).strip()
+
+          if changed != [marker_path.as_posix()]:
+              raise SystemExit("authorization commit must change only marker")
+          if marker.get("implementation_parent_sha") != parent:
+              raise SystemExit("implementation parent mismatch")
+          if marker.get("programme_id") != "E5_INDEPENDENT_ACTIVITY_DETECTION":
+              raise SystemExit("programme mismatch")
+          if marker.get("candidate_id") != "qld_wet_tropics_camtrapdp_2022_2023":
+              raise SystemExit("candidate mismatch")
+          if marker.get("contract_id") != (
+              "e5-qld-ala-emof-measurementtype-response-blind-v1"
+          ):
+              raise SystemExit("contract id mismatch")
+          if marker.get("contract_blob_sha") != "85f4d67420ce613a3128e595d23a9e55ba03f043":
+              raise SystemExit("contract blob pin mismatch")
+          if contract_blob != marker["contract_blob_sha"]:
+              raise SystemExit("working-tree contract blob mismatch")
+          if marker.get("precheck_authorized") is not True:
+              raise SystemExit("precheck not authorized")
+          if marker.get("one_shot") is not True:
+              raise SystemExit("authorization must be one-shot")
+          if marker.get("measurementvalue_decode_authorized") is not False:
+              raise SystemExit("measurementValue decoding remains forbidden")
+          if marker.get("occurrence_opening_authorized") is not False:
+              raise SystemExit("Occurrence remains forbidden")
+          if marker.get("focal_response_opening_authorized") is not False:
+              raise SystemExit("focal response remains forbidden")
+          PY
+
+      - name: Compile EMoF precheck
+        run: python -m py_compile scripts/precheck_e5_qld_emof_type.py
+
+      - name: Download pinned public ALA DwC-A
+        run: |
+          mkdir -p build/private build/public
+          curl --location --fail --retry 3 --retry-delay 2 \
+            'https://dwca-exports.ala.org.au/dr31594.zip' \
+            --output build/private/qld_dr31594.zip
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+          p = Path("build/private/qld_dr31594.zip")
+          observed = hashlib.sha256(p.read_bytes()).hexdigest()
+          expected = "f830085a5c1ad6ec9e130169188049670ffa83372a08a02924aa6190554de34e"
+          if observed != expected:
+              raise SystemExit(f"archive SHA drift: {observed}")
+          PY
+
+      - name: Run measurementType-only precheck
+        run: |
+          python scripts/precheck_e5_qld_emof_type.py \
+            --archive build/private/qld_dr31594.zip \
+            --contract docs/replication/E5_QLD_EMOF_TYPE_CONTRACT.json \
+            --out build/public/E5_QLD_EMOF_TYPE_RESULT.json
+
+      - name: Verify response firewall
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          value = json.loads(
+              Path("build/public/E5_QLD_EMOF_TYPE_RESULT.json")
+              .read_text(encoding="utf-8")
+          )
+          scan = value["scan"]
+          b = value["response_boundary"]
+          assert scan["measurementvalue_values_decoded"] == 0
+          assert scan["measurementvalue_values_retained"] == 0
+          assert scan["measurementvalue_values_reported"] == 0
+          assert b["event_core_rows_read"] == 0
+          assert b["occurrence_rows_read"] == 0
+          assert b["verbatim_occurrence_rows_read"] == 0
+          assert b["multimedia_rows_read"] == 0
+          assert b["species_or_taxon_values_read"] == 0
+          assert b["focal_response_opened"] is False
+          assert value["decision"]["candidate_qualified"] is False
+          assert value["decision"]["G4_pass_authorized"] is False
+          PY
+
+      - name: Destroy response-bearing archive before upload
+        run: |
+          rm -f build/private/qld_dr31594.zip
+          test ! -e build/private/qld_dr31594.zip
+
+      - name: Upload safe type summary only
+        uses: actions/upload-artifact@v4
+        with:
+          name: e5-qld-emof-type-${{ github.run_id }}
+          path: build/public/E5_QLD_EMOF_TYPE_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
