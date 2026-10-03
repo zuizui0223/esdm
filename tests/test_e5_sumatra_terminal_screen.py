@@ -66,7 +66,7 @@ def test_sumatra_candidate_stops_on_detection_identifiability_without_response_o
     assert value["decision"]["broader_candidate_search_authorized"] is True
 
 
-def test_e5_registry_no_longer_marks_stopped_candidates_as_leaders():
+def test_e5_registry_marks_qld_as_unqualified_transport_blocked_leader():
     value = _read(REGISTRY)
     by_id = {row["candidate_id"]: row for row in value["candidates"]}
 
@@ -75,4 +75,4 @@ def test_e5_registry_no_longer_marks_stopped_candidates_as_leaders():
     assert by_id["sumatra_mesopredator_paired_2014_2015"]["decision"] == "E5_CANDIDATE_NOT_QUALIFIED"
     assert value["current_conclusion"]["qualified_candidate_selected"] is False
     assert value["current_conclusion"]["qualified_candidate_count"] == 0
-    assert value["current_conclusion"]["strongest_current_named_candidate"] is None
+    assert value["current_conclusion"]["strongest_current_named_candidate"] == (\n        "qld_wet_tropics_camtrapdp_2022_2023"\n    )\n    assert by_id["qld_wet_tropics_camtrapdp_2022_2023"]["decision"] == (\n        "E5_CANDIDATE_NOT_YET_QUALIFIED_TRANSPORT_BLOCKED"\n    )
