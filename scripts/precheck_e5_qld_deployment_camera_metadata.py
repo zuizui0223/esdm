@@ -331,6 +331,18 @@ def precheck(archive_path: Path, contract_path: Path) -> dict[str, object]:
         root = ET.fromstring(z.read(contract["source"]["meta_xml_member"]))
         verbatim = _find_section(root, contract["source"]["verbatim_event_file"])
         emof = _find_section(root, contract["source"]["emof_file"])
+
+        forbidden_verbatim_terms = {
+            "scientificname", "taxonkey", "taxonid", "occurrenceid",
+            "individualcount", "occurrencestatus", "species",
+        }
+        declared_verbatim_terms = set(verbatim["fields"].values())
+        overlap = sorted(declared_verbatim_terms & forbidden_verbatim_terms)
+        if overlap:
+            raise ValueError(
+                f"VerbatimEvent unexpectedly declares biological response terms: {overlap}"
+            )
+
         deployments = _read_verbatim_deployments(z, verbatim, contract)
         emof_by_core, emof_scan = _read_emof_allowlist(z, emof, contract)
 
