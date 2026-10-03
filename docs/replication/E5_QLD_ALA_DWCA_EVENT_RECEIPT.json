@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "qld_wet_tropics_camtrapdp_2022_2023",
+  "receipt_id": "e5-qld-ala-dwca-event-core-receipt-v1",
+  "status": "FROZEN_RESPONSE_BLIND_EVENT_CORE_SCHEMA_STOP",
+  "frozen_date": "2026-10-03",
+  "execution": {
+    "workflow_run_id": 37125253303,
+    "workflow_conclusion": "success",
+    "authorization_sha": "2a6cdb59f03739f1806f18266e7fc1c2c42d8d28",
+    "implementation_parent_sha": "c9947ea39eb2ad283005fde5c17adea9630cb25b",
+    "artifact_id": 11274631556,
+    "artifact_name": "e5-qld-ala-dwca-event-37125253303",
+    "artifact_digest": "sha256:b3c69b6788edb08649477b6a14961c3140de4805fdd8036dbd8a57d3d8682475",
+    "result_json_sha256": "4dac80dc3830425e256f11958b72febfbdfd9db31b9b8c141dbe600f0273964c"
+  },
+  "archive": {
+    "url": "https://dwca-exports.ala.org.au/dr31594.zip",
+    "sha256": "f830085a5c1ad6ec9e130169188049670ffa83372a08a02924aa6190554de34e",
+    "member_count": 10
+  },
+  "event_core": {
+    "file": "event.txt",
+    "row_type": "http://rs.tdwg.org/dwc/terms/Event",
+    "status": "SCHEMA_STOP_RESPONSE_BEARING_CORE",
+    "forbidden_declared_terms": [
+      "taxonkey"
+    ],
+    "rows_read": 0
+  },
+  "safe_extension_candidate": {
+    "file": "verbatim_event.txt",
+    "row_type": "http://ala.org.au/terms/1.0/VerbatimEvent",
+    "declared_terms": [
+      "coordinateuncertaintyinmeters",
+      "decimallatitude",
+      "decimallongitude",
+      "deploymentgroups",
+      "eventdate",
+      "eventid",
+      "eventremarks",
+      "eventtype",
+      "habitat",
+      "locality",
+      "parenteventid",
+      "samplingeffort",
+      "samplingprotocol"
+    ],
+    "taxon_or_occurrence_terms_declared": false
+  },
+  "response_boundary": {
+    "event_core_rows_read": 0,
+    "occurrence_extension_opened": false,
+    "occurrence_rows_read": 0,
+    "media_files_opened": 0,
+    "species_or_taxon_values_read": 0,
+    "focal_response_opened": false,
+    "candidate_qualified": false,
+    "model_fitting_authorized": false
+  }
+}
