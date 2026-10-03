@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "qld_wet_tropics_camtrapdp_2022_2023",
+  "receipt_id": "e5-qld-emof-type-prefix-receipt-v1",
+  "status": "FROZEN_RESPONSE_BLIND_EMOF_TYPE_PREFIX_PRECHECK",
+  "frozen_date": "2026-10-04",
+  "execution": {
+    "workflow_run_id": 37154697945,
+    "workflow_conclusion": "success",
+    "authorization_sha": "0f07bb07bae102ae5edcd1970e46ea0ca7d0e46b",
+    "implementation_parent_sha": "f6163c5862c20e69712695923e064735c6d8cf00",
+    "artifact_id": 11284654893,
+    "artifact_name": "e5-qld-emof-type-37154697945",
+    "artifact_digest": "sha256:ac50ae27197848a8b12f97cec3758a6e7c597c2c80d4838f46b4782d1c99b0bf",
+    "result_json_sha256": "479958c6a5367921da1664a946fefa31b5f21b6cf9c3df05492987e2fee49d21"
+  },
+  "finding": {
+    "safe_allowlist_types": [
+      "cameraID",
+      "cameraModel",
+      "cameraDelay",
+      "cameraHeight",
+      "cameraTilt"
+    ],
+    "rows_per_allowlisted_type": 271,
+    "measurementvalue_values_decoded": 0,
+    "measurementvalue_values_retained": 0,
+    "measurementvalue_values_reported": 0
+  },
+  "boundary": {
+    "biological_extensions_opened": false,
+    "species_or_taxon_values_read": 0,
+    "focal_response_opened": false,
+    "candidate_qualified": false,
+    "model_fitting_authorized": false
+  }
+}
