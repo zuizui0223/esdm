@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "qld_wet_tropics_camtrapdp_2022_2023",
+  "contract_id": "e5-qld-ala-dwca-event-core-response-blind-v1",
+  "contract_blob_sha": "f654e244f73bf7970d9af5f1f416d9259d21aac1",
+  "implementation_parent_sha": "c9947ea39eb2ad283005fde5c17adea9630cb25b",
+  "precheck_authorized": true,
+  "one_shot": true,
+  "occurrence_extension_opening_authorized": false,
+  "focal_response_opening_authorized": false,
+  "model_fitting_authorized": false,
+  "authorized_date": "2026-10-03"
+}
