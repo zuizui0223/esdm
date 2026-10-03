@@ -54,7 +54,8 @@
     "verbatim_occurrence_rows_read_authorized": false,
     "multimedia_rows_read_authorized": false,
     "extended_measurement_rows_read_authorized": false,
-    "eventremarks_values_read_authorized": false,
+    "eventremarks_values_may_be_retained": false,
+    "eventremarks_values_may_be_reported": false,
     "species_or_taxon_value_read_authorized": false,
     "focal_response_opening_authorized": false,
     "model_fitting_authorized": false,
@@ -78,7 +79,7 @@
       "preliminary G2/G3/G5/G6 design assessment"
     ],
     "may_not_report": [
-      "eventRemarks values",
+      "eventRemarks values or free text",
       "Occurrence or VerbatimOccurrence values",
       "species/taxon values",
       "species counts",
