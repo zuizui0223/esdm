@@ -41,7 +41,7 @@
     "samplingeffort",
     "samplingprotocol"
   ],
-  "fields_declared_but_value_read_forbidden": [
+  "fields_declared_but_value_retention_reporting_forbidden": [
     "eventremarks",
     "coordinateuncertaintyinmeters"
   ],
