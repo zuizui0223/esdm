@@ -1,0 +1,128 @@
+name: E5 Queensland ALA metadata-only precheck once
+
+concurrency:
+  group: e5-qld-ala-metadata-once
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - e5/qld-ala-metadata-v1
+    paths:
+      - 'docs/replication/E5_QLD_ALA_METADATA_AUTHORIZED.json'
+
+permissions:
+  contents: read
+
+jobs:
+  precheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify pure one-shot ALA metadata authorization
+        run: |
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+
+          marker_path = Path(
+              "docs/replication/E5_QLD_ALA_METADATA_AUTHORIZED.json"
+          )
+          marker = json.loads(marker_path.read_text(encoding="utf-8"))
+          parent = subprocess.check_output(
+              ["git", "rev-parse", "HEAD^"], text=True
+          ).strip()
+          changed = subprocess.check_output(
+              ["git", "diff-tree", "--no-commit-id", "--name-only", "-r", "HEAD"],
+              text=True,
+          ).splitlines()
+          contract_path = Path(
+              "docs/replication/E5_QLD_ALA_METADATA_CONTRACT.json"
+          )
+          contract_blob = subprocess.check_output(
+              ["git", "hash-object", str(contract_path)], text=True
+          ).strip()
+
+          if changed != [marker_path.as_posix()]:
+              raise SystemExit("authorization commit must change only marker")
+          if marker.get("implementation_parent_sha") != parent:
+              raise SystemExit("implementation parent mismatch")
+          if marker.get("programme_id") != "E5_INDEPENDENT_ACTIVITY_DETECTION":
+              raise SystemExit("programme mismatch")
+          if marker.get("candidate_id") != "qld_wet_tropics_camtrapdp_2022_2023":
+              raise SystemExit("candidate mismatch")
+          if marker.get("contract_id") != "e5-qld-ala-dataresource-metadata-only-v1":
+              raise SystemExit("contract id mismatch")
+          if marker.get("contract_blob_sha") != "a8e2be58eb38dcacb5f857a7e328b8f59f7afefa":
+              raise SystemExit("contract blob pin mismatch")
+          if contract_blob != marker["contract_blob_sha"]:
+              raise SystemExit("working-tree contract blob mismatch")
+          if marker.get("precheck_authorized") is not True:
+              raise SystemExit("precheck not authorized")
+          if marker.get("one_shot") is not True:
+              raise SystemExit("authorization must be one-shot")
+          if marker.get("follow_discovered_urls_authorized") is not False:
+              raise SystemExit("discovered URLs must remain unfollowed")
+          if marker.get("focal_response_opening_authorized") is not False:
+              raise SystemExit("focal response remains forbidden")
+          PY
+
+      - name: Compile metadata precheck
+        run: python -m py_compile scripts/precheck_e5_qld_ala_metadata.py
+
+      - name: Download public ALA dataResource metadata only
+        run: |
+          mkdir -p build/private build/public
+          curl --location --fail --retry 3 --retry-delay 2 \
+            'https://api.ala.org.au/metadata/ws/dataResource/dr31594' \
+            --output build/private/qld_dr31594_metadata.json
+
+      - name: Summarize metadata without following discovered URLs
+        run: |
+          python scripts/precheck_e5_qld_ala_metadata.py \
+            --metadata build/private/qld_dr31594_metadata.json \
+            --contract docs/replication/E5_QLD_ALA_METADATA_CONTRACT.json \
+            --out build/public/E5_QLD_ALA_METADATA_RESULT.json
+
+      - name: Verify response firewall
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          value = json.loads(
+              Path("build/public/E5_QLD_ALA_METADATA_RESULT.json")
+              .read_text(encoding="utf-8")
+          )
+          b = value["response_boundary"]
+          assert b["metadata_json_objects_read"] == 1
+          assert b["discovered_urls_followed"] == 0
+          assert b["dataset_archive_downloaded"] is False
+          assert b["deployment_rows_read"] == 0
+          assert b["observation_rows_read"] == 0
+          assert b["media_rows_read"] == 0
+          assert b["species_fields_read"] == 0
+          assert b["focal_response_opened"] is False
+          assert value["decision"]["candidate_qualified"] is False
+          PY
+
+      - name: Destroy raw metadata before upload
+        run: |
+          rm -f build/private/qld_dr31594_metadata.json
+          test ! -e build/private/qld_dr31594_metadata.json
+
+      - name: Upload safe summary only
+        uses: actions/upload-artifact@v4
+        with:
+          name: e5-qld-ala-metadata-${{ github.run_id }}
+          path: build/public/E5_QLD_ALA_METADATA_RESULT.json
+          if-no-files-found: error
+          retention-days: 90

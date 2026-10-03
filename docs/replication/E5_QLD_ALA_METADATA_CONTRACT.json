@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "qld_wet_tropics_camtrapdp_2022_2023",
+  "contract_id": "e5-qld-ala-dataresource-metadata-only-v1",
+  "status": "FROZEN_PRECHECK_NOT_AUTHORIZED",
+  "frozen_date": "2026-10-03",
+  "parent_transport_stop": "docs/replication/E5_QLD_DEPLOYMENT_CAPTURE_RECEIPT.json",
+  "source": {
+    "ala_data_resource_uid": "dr31594",
+    "metadata_endpoint": "https://api.ala.org.au/metadata/ws/dataResource/dr31594",
+    "public_resource_name": "Camera trap surveys in Queensland's Wet Tropics 2022-2023",
+    "dataset_doi": "10.15468/kjqw3f"
+  },
+  "scientific_purpose": "discover a public response-independent archive or deployment-metadata route after the separately frozen WildObs secret transport stop",
+  "response_firewall": {
+    "ala_metadata_endpoint_read_authorized": true,
+    "raw_metadata_json_artifact_authorized": false,
+    "occurrence_api_query_authorized": false,
+    "image_api_query_authorized": false,
+    "media_download_authorized": false,
+    "gbif_occurrence_download_authorized": false,
+    "dataset_archive_download_authorized": false,
+    "camtrapdp_package_download_authorized": false,
+    "deployment_rows_read_authorized": false,
+    "observation_rows_read_authorized": false,
+    "species_fields_read_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false
+  },
+  "allowed_summary_fields": [
+    "uid",
+    "name",
+    "acronym",
+    "websiteUrl",
+    "pubDescription",
+    "dataProviderUid",
+    "institutionUid",
+    "connectionParameters keys and URL-like values only",
+    "dataLinks names/types/URLs only",
+    "externalIdentifiers",
+    "metadata timestamps",
+    "license/rights strings"
+  ],
+  "forbidden_followups_without_child_contract": [
+    "following archive/download URLs",
+    "querying occurrence records",
+    "querying images/media",
+    "opening Camtrap DP deployments",
+    "opening Camtrap DP observations",
+    "reading taxon-specific values"
+  ],
+  "decision_boundary": {
+    "candidate_qualification_authorized": false,
+    "G2_pass_authorized": false,
+    "G3_pass_authorized": false,
+    "G4_pass_authorized": false,
+    "G5_pass_authorized": false,
+    "G6_pass_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "separate_child_contract_required_before_following_any_discovered_data_url": true
+  },
+  "execution": {
+    "dedicated_branch": "e5/qld-ala-metadata-v1",
+    "authorization_marker": "docs/replication/E5_QLD_ALA_METADATA_AUTHORIZED.json",
+    "one_shot": true,
+    "pure_marker_commit_required": true,
+    "workflow_dispatch_authorized": false
+  }
+}
