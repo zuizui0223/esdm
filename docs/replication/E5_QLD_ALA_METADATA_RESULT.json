@@ -1,0 +1,83 @@
+{
+  "candidate_id": "qld_wet_tropics_camtrapdp_2022_2023",
+  "connection_parameters": {
+    "keys_only": [
+      "automation",
+      "csv_delimiter",
+      "csv_eol",
+      "csv_escape_char",
+      "csv_text_enclosure",
+      "incremental",
+      "protocol",
+      "strip",
+      "termsForUniqueKey"
+    ],
+    "present": true
+  },
+  "data_links": [],
+  "decision": {
+    "G2_pass_authorized": false,
+    "G3_pass_authorized": false,
+    "G4_pass_authorized": false,
+    "G5_pass_authorized": false,
+    "G6_pass_authorized": false,
+    "candidate_qualified": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "separate_child_contract_required_before_following_any_discovered_url": true
+  },
+  "external_identifiers": [],
+  "precheck_id": "e5-qld-ala-dataresource-metadata-result-v1",
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "response_boundary": {
+    "dataset_archive_downloaded": false,
+    "deployment_rows_read": 0,
+    "discovered_urls_followed": 0,
+    "focal_response_opened": false,
+    "media_rows_read": 0,
+    "metadata_json_objects_read": 1,
+    "observation_rows_read": 0,
+    "species_fields_read": 0
+  },
+  "safe_metadata": {
+    "acronym": null,
+    "dataProviderUid": null,
+    "dateCreated": "2025-06-04T03:03:48Z",
+    "institutionUid": null,
+    "lastUpdated": "2026-02-09T23:12:56Z",
+    "licenseType": "CC-BY 4.0 (Int)",
+    "name": "Camera trap surveys in Queensland's Wet Tropics 2022-2023",
+    "pubDescription": "This data was collected by Zachary Amir and the Ecolocical Cascades Lab at the University of Queensland to study interactions between native and invasive vertebrates in North Queensland's Wet Tropics Rainforests. The camera trap surveys conducted here complement and extend prior surveys conducted by Dr. Tom Bruce as part of his PhD research studying feral cats in North Queensland forests. Important to note that these surveys implemented paired camera deployments, where each sampling location received a camera placed on the road and another camera placed 50 m into the bush. Sampling locations were typically spaced 1km apart from each other, though this varies between small and large landscapes.\r\nThis dataset was provided to the ALA in the CamtrapDP data exchange format (https://camtrap-dp.tdwg.org/) and transformed into a Darwin Core event-based dataset.",
+    "rights": null,
+    "uid": "dr31594",
+    "websiteUrl": "https://www.ecologicalcascades.com/"
+  },
+  "schema_version": 1,
+  "source": {
+    "endpoint": "https://api.ala.org.au/metadata/ws/dataResource/dr31594",
+    "raw_metadata_sha256": "a3acd893e9e366fbdcbf150740ffd8c22fd35202848375a1eaaca3aa17f4fe0b"
+  },
+  "status": "E5_RESPONSE_BLIND_ALA_METADATA_PRECHECK",
+  "url_like_values": [
+    {
+      "path": "alaPublicUrl",
+      "url": "https://collections.ala.org.au/public/show/dr31594"
+    },
+    {
+      "path": "gbifArchiveUrl",
+      "url": "https://dwca-exports.ala.org.au/dr31594.zip"
+    },
+    {
+      "path": "provider.uri",
+      "url": "https://collections.ala.org.au/ws/dataProvider/dp5214"
+    },
+    {
+      "path": "publicArchiveUrl",
+      "url": "https://dwca-exports.ala.org.au/dr31594.zip"
+    },
+    {
+      "path": "websiteUrl",
+      "url": "https://www.ecologicalcascades.com/"
+    }
+  ]
+}
