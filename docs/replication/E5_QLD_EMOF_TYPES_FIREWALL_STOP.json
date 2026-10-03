@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "qld_wet_tropics_camtrapdp_2022_2023",
+  "receipt_id": "e5-qld-emof-types-firewall-stop-v1",
+  "status": "TERMINAL_RESPONSE_FIREWALL_IMPLEMENTATION_STOP",
+  "frozen_date": "2026-10-03",
+  "consumed_route": {
+    "workflow_run_id": 37128916426,
+    "workflow_conclusion": "success",
+    "authorization_sha": "40f759ec4faad9f29ca6c2a4df422fc9ca9ffe61",
+    "implementation_parent_sha": "33b8fb672cd80928aed27dcfa1e82595a8f22277",
+    "artifact_id": 11276445925,
+    "artifact_name": "e5-qld-emof-types-37128916426",
+    "artifact_digest": "sha256:5eb11de69a6066b698b2f88f4b2f42c0888bde4de1a9603093667542dcca6a4f"
+  },
+  "implementation_violation": {
+    "contract_claim": "measurementValue values are not read/retained/reported",
+    "observed_code_path": [
+      "archive.read(member).decode(...) decodes the complete EMoF file",
+      "csv.reader(...) parses complete rows including measurementValue before selecting authorized fields"
+    ],
+    "consequence": "the run may not be used as the response-blind E5 candidate-selection result even though measurementValue was not retained or reported",
+    "scientific_result_created": false
+  },
+  "governance": {
+    "same_route_rerun_allowed": false,
+    "type_result_adopted": false,
+    "candidate_status_changed": false,
+    "corrected_separately_named_value_blind_route_allowed": true,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false
+  }
+}
