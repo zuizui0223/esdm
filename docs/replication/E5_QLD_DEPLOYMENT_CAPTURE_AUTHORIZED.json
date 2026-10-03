@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "qld_wet_tropics_camtrapdp_2022_2023",
+  "contract_id": "e5-qld-wet-tropics-deployment-metadata-acquisition-v1",
+  "contract_blob_sha": "21d43a2e67aa65147602e0cbffb121fa729e23ba",
+  "implementation_parent_sha": "e26d313605a712ef060742b9f746183bebdefeb5",
+  "capture_authorized": true,
+  "one_shot": true,
+  "observations_authorized": false,
+  "media_authorized": false,
+  "model_fitting_authorized": false,
+  "authorized_date": "2026-10-03"
+}
