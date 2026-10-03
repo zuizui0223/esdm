@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "qld_wet_tropics_camtrapdp_2022_2023",
+  "contract_id": "e5-qld-deployment-camera-metadata-qualification-v1",
+  "status": "FROZEN_PRECHECK_NOT_AUTHORIZED",
+  "frozen_date": "2026-10-04",
+  "parents": {
+    "emof_type_receipt": "docs/replication/E5_QLD_EMOF_TYPE_RECEIPT.json",
+    "verbatim_event_receipt": "docs/replication/E5_QLD_VERBATIM_EVENT_RECEIPT.json"
+  },
+  "source": {
+    "archive_url": "https://dwca-exports.ala.org.au/dr31594.zip",
+    "archive_sha256": "f830085a5c1ad6ec9e130169188049670ffa83372a08a02924aa6190554de34e",
+    "meta_xml_member": "meta.xml",
+    "verbatim_event_file": "verbatim_event.txt",
+    "emof_file": "verbatim_extendedmeasurementorfact.txt"
+  },
+  "emof_value_allowlist": [
+    "cameraID",
+    "cameraModel",
+    "cameraDelay",
+    "cameraHeight",
+    "cameraTilt"
+  ],
+  "response_firewall": {
+    "archive_download_authorized": true,
+    "meta_xml_read_authorized": true,
+    "verbatim_event_rows_authorized": true,
+    "verbatim_event_declared_terms_only": true,
+    "deployment_eventremarks_token_classification_authorized": true,
+    "raw_eventremarks_retain_authorized": false,
+    "raw_eventremarks_report_authorized": false,
+    "emof_allowlisted_measurementvalue_decode_authorized": true,
+    "emof_nonallowlisted_measurementvalue_decode_authorized": false,
+    "raw_cameraid_report_authorized": false,
+    "raw_coreid_report_authorized": false,
+    "event_core_rows_read_authorized": false,
+    "occurrence_rows_read_authorized": false,
+    "verbatim_occurrence_rows_read_authorized": false,
+    "multimedia_rows_read_authorized": false,
+    "species_or_taxon_values_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false
+  },
+  "deployment_classification": {
+    "road_tokens": [
+      "road",
+      "trail",
+      "track"
+    ],
+    "bush_tokens": [
+      "bush",
+      "off road",
+      "off-road",
+      "forest"
+    ],
+    "raw_text_may_not_be_reported": true
+  },
+  "pairing_diagnostic": {
+    "same_locality_required": true,
+    "opposite_road_bush_class_required": true,
+    "overlapping_deployment_interval_required": true,
+    "distance_m_min": 25,
+    "distance_m_max": 100,
+    "purpose": "response-blind diagnostic of the publicly documented paired road/bush layout; does not by itself identify detection"
+  },
+  "output_policy": {
+    "may_report": [
+      "deployment and matched EMoF row counts",
+      "distinct cameraID count but not raw IDs",
+      "cameraModel values and counts",
+      "cameraDelay/cameraHeight/cameraTilt distinct values and counts",
+      "metadata completeness by deployment",
+      "locality-level deployment/coordinate/month counts",
+      "road/bush/unknown classification counts",
+      "nearest-neighbor distance summaries",
+      "matched road-bush pair count under the frozen geometric rule"
+    ],
+    "may_not_report": [
+      "raw eventID/coreID/cameraID",
+      "raw eventRemarks",
+      "species/taxon values",
+      "trigger-level biological outcomes",
+      "focal detections or diel distributions",
+      "effect directions or predictive scores"
+    ]
+  },
+  "gate_boundary": {
+    "G2_may_be_promoted_to_pass_if_metadata_complete": true,
+    "G3_may_only_be_reported_as_design_potential": true,
+    "G4_may_only_be_reported_as_design_potential": true,
+    "G5_may_only_be_reported_as_capacity_until_split_frozen": true,
+    "G6_may_only_be_reported_as_capacity_until_split_frozen": true,
+    "candidate_qualification_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "separate_split_and_model_freeze_child_required": true
+  },
+  "execution": {
+    "dedicated_branch": "e5/qld-deployment-camera-metadata-v1",
+    "authorization_marker": "docs/replication/E5_QLD_DEPLOYMENT_CAMERA_METADATA_AUTHORIZED.json",
+    "one_shot": true,
+    "pure_marker_commit_required": true,
+    "workflow_dispatch_authorized": false
+  }
+}

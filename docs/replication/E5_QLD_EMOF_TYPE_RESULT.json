@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "qld_wet_tropics_camtrapdp_2022_2023",
+  "precheck_id": "e5-qld-emof-measurementtype-precheck-v1",
+  "status": "E5_RESPONSE_BLIND_QLD_EMOF_MEASUREMENTTYPE_PRECHECK",
+  "source": {
+    "archive_sha256": "f830085a5c1ad6ec9e130169188049670ffa83372a08a02924aa6190554de34e",
+    "extension_file": "verbatim_extendedmeasurementorfact.txt",
+    "extension_row_type": "http://rs.iobis.org/obis/terms/ExtendedMeasurementOrFact",
+    "declared_terms": [
+      "eventid",
+      "measurementdeterminedby",
+      "measurementdetermineddate",
+      "measurementid",
+      "measurementtype",
+      "measurementtypeid",
+      "measurementvalue"
+    ],
+    "measurementtype_index": 2,
+    "measurementvalue_index": 6
+  },
+  "measurement_types": {
+    "safe_or_unclassified_distinct_count": 6,
+    "safe_or_unclassified": [
+      {
+        "measurement_type": "cameraDelay",
+        "row_count": 271,
+        "schema_classification": "POTENTIALLY_RESPONSE_INDEPENDENT"
+      },
+      {
+        "measurement_type": "cameraHeight",
+        "row_count": 271,
+        "schema_classification": "POTENTIALLY_RESPONSE_INDEPENDENT"
+      },
+      {
+        "measurement_type": "cameraID",
+        "row_count": 271,
+        "schema_classification": "POTENTIALLY_RESPONSE_INDEPENDENT"
+      },
+      {
+        "measurement_type": "cameraModel",
+        "row_count": 271,
+        "schema_classification": "POTENTIALLY_RESPONSE_INDEPENDENT"
+      },
+      {
+        "measurement_type": "cameraTilt",
+        "row_count": 271,
+        "schema_classification": "POTENTIALLY_RESPONSE_INDEPENDENT"
+      },
+      {
+        "measurement_type": "measurementType",
+        "row_count": 2,
+        "schema_classification": "UNCLASSIFIED"
+      }
+    ],
+    "masked_potentially_response_bearing_rows": 0
+  },
+  "scan": {
+    "row_count": 1357,
+    "prefix_parse_failures": 0,
+    "measurementvalue_values_decoded": 0,
+    "measurementvalue_values_retained": 0,
+    "measurementvalue_values_reported": 0
+  },
+  "response_boundary": {
+    "event_core_rows_read": 0,
+    "occurrence_rows_read": 0,
+    "verbatim_occurrence_rows_read": 0,
+    "multimedia_rows_read": 0,
+    "species_or_taxon_values_read": 0,
+    "focal_response_opened": false
+  },
+  "decision": {
+    "candidate_qualified": false,
+    "G2_pass_authorized": false,
+    "G3_pass_authorized": false,
+    "G4_pass_authorized": false,
+    "G5_pass_authorized": false,
+    "G6_pass_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "separate_value_allowlist_child_contract_required": true
+  }
+}
