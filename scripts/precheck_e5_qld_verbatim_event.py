@@ -191,7 +191,7 @@ def precheck(archive_path: Path, contract_path: Path) -> dict[str, object]:
             raise ValueError(f"response-bearing term declared in VerbatimEvent: {forbidden_declared!r}")
 
         authorized = set(contract["fields_authorized_for_values"])
-        forbidden_values = set(contract["fields_declared_but_value_read_forbidden"])
+        forbidden_values = set(contract["fields_declared_but_value_retention_reporting_forbidden"])
         if authorized & forbidden_values:
             raise ValueError("authorized and forbidden value fields overlap")
 
