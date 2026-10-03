@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "qld_wet_tropics_camtrapdp_2022_2023",
+  "contract_id": "e5-qld-ala-emof-measurementtype-response-blind-v1",
+  "contract_blob_sha": "85f4d67420ce613a3128e595d23a9e55ba03f043",
+  "implementation_parent_sha": "f6163c5862c20e69712695923e064735c6d8cf00",
+  "precheck_authorized": true,
+  "one_shot": true,
+  "measurementvalue_decode_authorized": false,
+  "occurrence_opening_authorized": false,
+  "focal_response_opening_authorized": false,
+  "model_fitting_authorized": false,
+  "authorized_date": "2026-10-04"
+}
