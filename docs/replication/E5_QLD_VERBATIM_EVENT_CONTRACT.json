@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "qld_wet_tropics_camtrapdp_2022_2023",
+  "contract_id": "e5-qld-ala-verbatim-event-response-blind-v1",
+  "status": "FROZEN_PRECHECK_NOT_AUTHORIZED",
+  "frozen_date": "2026-10-03",
+  "parent_event_core_receipt": "docs/replication/E5_QLD_ALA_DWCA_EVENT_RECEIPT.json",
+  "source": {
+    "archive_url": "https://dwca-exports.ala.org.au/dr31594.zip",
+    "archive_sha256": "f830085a5c1ad6ec9e130169188049670ffa83372a08a02924aa6190554de34e",
+    "meta_xml_member": "meta.xml",
+    "extension_file": "verbatim_event.txt",
+    "extension_row_type": "http://ala.org.au/terms/1.0/VerbatimEvent"
+  },
+  "expected_declared_terms": [
+    "coordinateuncertaintyinmeters",
+    "decimallatitude",
+    "decimallongitude",
+    "deploymentgroups",
+    "eventdate",
+    "eventid",
+    "eventremarks",
+    "eventtype",
+    "habitat",
+    "locality",
+    "parenteventid",
+    "samplingeffort",
+    "samplingprotocol"
+  ],
+  "fields_authorized_for_values": [
+    "decimallatitude",
+    "decimallongitude",
+    "deploymentgroups",
+    "eventdate",
+    "eventid",
+    "eventtype",
+    "habitat",
+    "locality",
+    "parenteventid",
+    "samplingeffort",
+    "samplingprotocol"
+  ],
+  "fields_declared_but_value_retention_reporting_forbidden": [
+    "eventremarks",
+    "coordinateuncertaintyinmeters"
+  ],
+  "response_firewall": {
+    "archive_download_authorized": true,
+    "meta_xml_read_authorized": true,
+    "verbatim_event_rows_read_authorized": true,
+    "event_core_rows_read_authorized": false,
+    "occurrence_extension_data_read_authorized": false,
+    "verbatim_occurrence_rows_read_authorized": false,
+    "multimedia_rows_read_authorized": false,
+    "extended_measurement_rows_read_authorized": false,
+    "eventremarks_values_may_be_retained": false,
+    "eventremarks_values_may_be_reported": false,
+    "species_or_taxon_value_read_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "raw_archive_artifact_authorized": false,
+    "raw_verbatim_event_artifact_authorized": false,
+    "expected_occurrence_rows_read": 0,
+    "expected_species_or_taxon_values_read": 0
+  },
+  "analysis_scope": {
+    "may_report": [
+      "row count and parse integrity",
+      "unique eventID and parentEventID counts",
+      "unique coordinate-pair and locality counts",
+      "calendar-month support",
+      "eventType distinct values and counts",
+      "deploymentGroups distinct values and counts",
+      "habitat distinct values and counts",
+      "samplingProtocol distinct values and counts",
+      "samplingEffort distinct values and counts",
+      "paired deployment geometry inferred only from response-independent metadata",
+      "preliminary G2/G3/G5/G6 design assessment"
+    ],
+    "may_not_report": [
+      "eventRemarks values or free text",
+      "Occurrence or VerbatimOccurrence values",
+      "species/taxon values",
+      "species counts",
+      "focal/nonfocal diel outcomes",
+      "state frequencies",
+      "effect directions",
+      "predictive scores"
+    ]
+  },
+  "gate_boundary": {
+    "G1_INDEPENDENT_SOURCE": "PASS_FROM_PUBLIC_PRE_SCREEN",
+    "G2_SCHEMA_EFFORT_TIME": "MAY_PASS_EVENT_METADATA_COMPONENT_IF_REQUIRED_FIELDS_AND_PARSEABILITY_ARE_PRESENT",
+    "G3_CROSSED_DOMAIN": "MAY_PASS_DESIGN_COMPONENT_IF_MATCHED_PROTOCOL_GROUPS_OCCUR_WITHIN_MULTIPLE_GEOGRAPHIC_LOCATIONS",
+    "G4_DETECTION_IDENTIFIABILITY": "NOT_AUTHORIZED_TO_PASS_FROM_THIS EXTENSION ALONE",
+    "G5_PHYSICAL_REPLICATION": "MAY_PASS_CAPACITY_IF_PHYSICAL_LOCATION_COUNTS_SUPPORT_FROZEN_MINIMA",
+    "G6_TEMPORAL_SUPPORT": "MAY_PASS_GLOBAL_CAPACITY_IF_AT_LEAST_6_MONTHS; SPLIT PASS STILL REQUIRES FROZEN SPLIT",
+    "G7_MODEL_FREEZE": "NOT_REACHED"
+  },
+  "decision_boundary": {
+    "candidate_qualification_authorized": false,
+    "G4_pass_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "separate_detection_identifiability_contract_required_before_candidate_qualification": true,
+    "separate_split_contract_required_before_final_G3_G5_G6_pass": true
+  },
+  "execution": {
+    "dedicated_branch": "e5/qld-verbatim-event-v1",
+    "authorization_marker": "docs/replication/E5_QLD_VERBATIM_EVENT_AUTHORIZED.json",
+    "one_shot": true,
+    "pure_marker_commit_required": true,
+    "workflow_dispatch_authorized": false
+  }
+}
