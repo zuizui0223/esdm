@@ -110,3 +110,24 @@ def test_emof_precheck_reads_no_biological_extensions(tmp_path):
     assert boundary["species_or_taxon_values_read"] == 0
     assert boundary["focal_response_opened"] is False
     assert value["decision"]["candidate_qualified"] is False
+
+
+def test_emof_precheck_never_decodes_measurementvalue_tail_bytes(tmp_path):
+    path = tmp_path / "invalid-tail.zip"
+    with zipfile.ZipFile(path, "w") as z:
+        z.writestr("meta.xml", META)
+        z.writestr("event.txt", b"must-not-open")
+        payload = (
+            b"eventID,who,date,measurementID,measurementType,typeID,measurementValue\n"
+            b"e1,a,b,m1,cameraModel,x," + bytes([0xff, 0xfe, 0x80]) + b"\n"
+        )
+        z.writestr("verbatim_extendedmeasurementorfact.txt", payload)
+        z.writestr("occurrence.txt", b"\xff\xfe\x00must-not-open")
+
+    value = precheck(path, _contract(tmp_path, path))
+    assert value["scan"]["row_count"] == 1
+    assert value["scan"]["prefix_parse_failures"] == 0
+    assert value["measurement_types"]["safe_or_unclassified"][0][
+        "measurement_type"
+    ] == "cameraModel"
+    assert value["scan"]["measurementvalue_values_decoded"] == 0
