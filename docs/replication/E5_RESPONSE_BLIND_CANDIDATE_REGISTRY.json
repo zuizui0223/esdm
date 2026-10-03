@@ -340,6 +340,33 @@
       "decision": "E5_CANDIDATE_NOT_QUALIFIED",
       "hard_stop_reason": "paired cameras existed in the field, but the public response collapses observations to station/time/species without individual camera or camera-side identity, so the pair cannot identify a separate detection channel",
       "response_may_be_opened_for_E5": false
+    },
+    {
+      "candidate_id": "qld_wet_tropics_camtrapdp_2022_2023",
+      "title": "Camera trap surveys in Queensland's Wet Tropics 2022-2023",
+      "source_url": "https://doi.org/10.15468/kjqw3f",
+      "doi": "10.15468/kjqw3f",
+      "response_opened": false,
+      "public_metadata": {
+        "original_exchange_format": "Camtrap DP",
+        "paired_sampling": "matched road/linear-feature and bush cameras at each sampling location",
+        "related_methods_repeated_visit_detection": true,
+        "sampling_occasion": "5-day window",
+        "exact_deployment_geometry_opened": false
+      },
+      "gates": {
+        "G1_INDEPENDENT_SOURCE": "PASS",
+        "G2_SCHEMA_EFFORT_TIME": "PROMISING_DEPLOYMENT_CAPTURE_PENDING",
+        "G3_CROSSED_DOMAIN": "PROMISING_MATCHED_PROTOCOL_DEPLOYMENT_CROSS_TAB_PENDING",
+        "G4_DETECTION_IDENTIFIABILITY": "PROMISING_REPEATED_VISIT_PATH_MODEL_FREEZE_REQUIRED",
+        "G5_PHYSICAL_REPLICATION": "PROMISING_EXACT_GEOMETRY_PENDING",
+        "G6_TEMPORAL_SUPPORT": "PENDING_SPLIT_SPECIFIC_DEPLOYMENT_MONTHS",
+        "G7_MODEL_FREEZE": "NOT_REACHED"
+      },
+      "decision": "E5_CANDIDATE_NOT_YET_QUALIFIED",
+      "hard_stop_reason": null,
+      "response_may_be_opened_for_E5": false,
+      "next_response_blind_check": "one-shot deployments-only WildObs capture; observations and media remain forbidden"
     }
   ],
   "search_universes": [
@@ -375,10 +402,10 @@
     "snapshot_usa_2024_selected": false,
     "response_opening_authorized": false,
     "model_fitting_authorized": false,
-    "next_action": "continue response-blind discovery for datasets that simultaneously provide >=6-month split support, geography-by-source crossing, and a detection-calibration stream whose sensor identity is retained in accessible metadata/event schema",
-    "screened_candidate_count": 11,
+    "next_action": "complete the already-authorized Queensland deployments-only capture; if geometry passes, freeze split and activity/detection model structure before any observation opening",
+    "screened_candidate_count": 12,
     "qualified_candidate_count": 0,
-    "strongest_current_named_candidate": null,
-    "named_candidate_status": "no_named_candidate_currently_meets_all_frozen_pre_response_gates"
+    "strongest_current_named_candidate": "qld_wet_tropics_camtrapdp_2022_2023",
+    "named_candidate_status": "public_prescreen_promising_deployment_capture_pending"
   }
 }
