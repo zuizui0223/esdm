@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "qld_wet_tropics_camtrapdp_2022_2023",
+  "contract_id": "e5-qld-ala-dwca-event-core-response-blind-v1",
+  "status": "FROZEN_PRECHECK_NOT_AUTHORIZED",
+  "frozen_date": "2026-10-03",
+  "parent_metadata_receipt": "docs/replication/E5_QLD_ALA_METADATA_RECEIPT.json",
+  "source": {
+    "data_resource_uid": "dr31594",
+    "archive_url": "https://dwca-exports.ala.org.au/dr31594.zip",
+    "archive_identity": "publicArchiveUrl discovered in the one-shot ALA dataResource metadata result",
+    "original_exchange_format": "Camtrap DP",
+    "transformed_exchange_format": "Darwin Core event-based dataset"
+  },
+  "response_firewall": {
+    "archive_download_authorized": true,
+    "archive_member_name_listing_authorized": true,
+    "meta_xml_read_authorized": true,
+    "eml_xml_read_authorized": true,
+    "event_core_schema_read_authorized": true,
+    "event_core_response_independent_rows_read_authorized": true,
+    "occurrence_extension_schema_from_meta_xml_authorized": true,
+    "occurrence_extension_data_read_authorized": false,
+    "media_file_read_authorized": false,
+    "species_or_taxon_value_read_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "archive_may_not_be_uploaded_as_artifact": true,
+    "raw_event_core_may_not_be_uploaded_as_artifact": true,
+    "expected_occurrence_rows_read": 0
+  },
+  "safe_event_terms": [
+    "eventID",
+    "parentEventID",
+    "locationID",
+    "eventDate",
+    "verbatimEventDate",
+    "samplingProtocol",
+    "samplingEffort",
+    "sampleSizeValue",
+    "sampleSizeUnit",
+    "decimalLatitude",
+    "decimalLongitude",
+    "locality",
+    "habitat",
+    "country",
+    "countryCode",
+    "stateProvince",
+    "county",
+    "municipality",
+    "fieldNumber",
+    "year",
+    "month",
+    "day"
+  ],
+  "forbidden_event_core_terms": [
+    "scientificName",
+    "taxon",
+    "occurrenceID",
+    "individualCount",
+    "occurrenceStatus",
+    "lifeStage",
+    "sex",
+    "behavior",
+    "organismID"
+  ],
+  "precheck_scope": {
+    "may_report": [
+      "archive SHA256 and member names",
+      "core/extension rowType and declared field names from meta.xml",
+      "Event-core row count",
+      "Event-core safe field availability",
+      "unique eventID/locationID counts",
+      "coordinate-location counts",
+      "event/interval month support",
+      "samplingProtocol/samplingEffort distinct-value counts and hashed categories",
+      "parentEventID hierarchy counts",
+      "preliminary G2/G5/G6 capacity hints"
+    ],
+    "may_not_report": [
+      "Occurrence-extension row values",
+      "species or taxon values",
+      "species counts",
+      "focal/nonfocal diel distributions",
+      "state frequencies",
+      "activity/detection effect directions",
+      "predictive scores"
+    ]
+  },
+  "gate_boundary": {
+    "G1_INDEPENDENT_SOURCE": "PASS_FROM_PUBLIC_PRE_SCREEN",
+    "G2_SCHEMA_EFFORT_TIME": "MAY_REPORT_EVENT_COMPONENT_ONLY",
+    "G3_CROSSED_DOMAIN": "NOT_AUTHORIZED_TO_PASS",
+    "G4_DETECTION_IDENTIFIABILITY": "NOT_AUTHORIZED_TO_PASS",
+    "G5_PHYSICAL_REPLICATION": "MAY_REPORT_GLOBAL_CAPACITY_ONLY",
+    "G6_TEMPORAL_SUPPORT": "MAY_REPORT_GLOBAL_CAPACITY_ONLY",
+    "G7_MODEL_FREEZE": "NOT_REACHED"
+  },
+  "decision_boundary": {
+    "candidate_qualification_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "separate_child_contract_required_before_occurrence_or_any_response_values": true,
+    "separate_split_contract_required_before_G3_G5_G6_pass": true
+  },
+  "execution": {
+    "dedicated_branch": "e5/qld-ala-dwca-event-v1",
+    "authorization_marker": "docs/replication/E5_QLD_ALA_DWCA_EVENT_AUTHORIZED.json",
+    "one_shot": true,
+    "pure_marker_commit_required": true,
+    "workflow_dispatch_authorized": false
+  }
+}
