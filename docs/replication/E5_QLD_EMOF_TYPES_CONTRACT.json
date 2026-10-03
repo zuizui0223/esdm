@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "qld_wet_tropics_camtrapdp_2022_2023",
+  "contract_id": "e5-qld-ala-emof-measurement-type-response-blind-v1",
+  "status": "FROZEN_PRECHECK_NOT_AUTHORIZED",
+  "frozen_date": "2026-10-03",
+  "parent_verbatim_event_receipt": "docs/replication/E5_QLD_VERBATIM_EVENT_RECEIPT.json",
+  "source": {
+    "archive_url": "https://dwca-exports.ala.org.au/dr31594.zip",
+    "archive_sha256": "f830085a5c1ad6ec9e130169188049670ffa83372a08a02924aa6190554de34e",
+    "meta_xml_member": "meta.xml",
+    "extension_file": "verbatim_extendedmeasurementorfact.txt",
+    "extension_row_type": "http://rs.iobis.org/obis/terms/ExtendedMeasurementOrFact"
+  },
+  "expected_declared_terms": [
+    "eventid",
+    "measurementdeterminedby",
+    "measurementdetermineddate",
+    "measurementid",
+    "measurementtype",
+    "measurementtypeid",
+    "measurementvalue"
+  ],
+  "fields_authorized_for_values": [
+    "eventid",
+    "measurementtype",
+    "measurementtypeid"
+  ],
+  "fields_declared_but_value_retention_reporting_forbidden": [
+    "measurementvalue",
+    "measurementdeterminedby",
+    "measurementdetermineddate",
+    "measurementid"
+  ],
+  "response_firewall": {
+    "archive_download_authorized": true,
+    "meta_xml_read_authorized": true,
+    "emof_rows_read_authorized": true,
+    "measurement_type_values_authorized": true,
+    "measurement_type_id_values_authorized": true,
+    "event_id_values_authorized": true,
+    "measurement_value_values_may_be_retained": false,
+    "measurement_value_values_may_be_reported": false,
+    "measurement_determined_by_values_may_be_retained": false,
+    "measurement_determined_date_values_may_be_retained": false,
+    "event_core_rows_read_authorized": false,
+    "verbatim_event_rows_read_authorized": false,
+    "occurrence_extension_data_read_authorized": false,
+    "verbatim_occurrence_rows_read_authorized": false,
+    "multimedia_rows_read_authorized": false,
+    "species_or_taxon_value_read_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "raw_archive_artifact_authorized": false,
+    "raw_emof_artifact_authorized": false,
+    "expected_occurrence_rows_read": 0,
+    "expected_species_or_taxon_values_read": 0,
+    "expected_measurement_values_read": 0
+  },
+  "target_type_patterns": {
+    "source_protocol_metadata": [
+      "feature",
+      "camera",
+      "model",
+      "device",
+      "sensor",
+      "setup",
+      "team",
+      "trail",
+      "road",
+      "bush",
+      "deployment",
+      "tag",
+      "bait"
+    ],
+    "detection_metadata": [
+      "detection",
+      "distance",
+      "delay",
+      "height",
+      "tilt",
+      "heading",
+      "flash",
+      "sensitivity"
+    ],
+    "response_like_types": [
+      "species",
+      "taxon",
+      "count",
+      "presence",
+      "occupancy",
+      "abundance",
+      "behavior",
+      "sex",
+      "lifestage",
+      "individual"
+    ]
+  },
+  "analysis_scope": {
+    "may_report": [
+      "row count and parse integrity",
+      "unique linked eventID count",
+      "distinct measurementType values and counts",
+      "distinct measurementTypeID values and counts",
+      "predeclared schema classification of measurementType names",
+      "whether response-independent source/protocol or detection metadata types exist"
+    ],
+    "may_not_report": [
+      "any measurementValue",
+      "measurementDeterminedBy values",
+      "measurementDeterminedDate values",
+      "Occurrence or VerbatimOccurrence values",
+      "species/taxon values from biological response",
+      "species counts",
+      "focal/nonfocal diel outcomes",
+      "state frequencies",
+      "effect directions",
+      "predictive scores"
+    ]
+  },
+  "gate_boundary": {
+    "G1_INDEPENDENT_SOURCE": "PASS_FROM_PUBLIC_PRE_SCREEN",
+    "G2_SCHEMA_EFFORT_TIME": "UNCHANGED_FROM_PARENT",
+    "G3_CROSSED_DOMAIN": "MAY_IDENTIFY_CANDIDATE_SOURCE_PROTOCOL_FIELDS_ONLY; NO PASS FROM TYPE NAMES ALONE",
+    "G4_DETECTION_IDENTIFIABILITY": "MAY_IDENTIFY_CANDIDATE_DETECTION_METADATA_FIELDS_ONLY; NO PASS FROM TYPE NAMES ALONE",
+    "G5_PHYSICAL_REPLICATION": "GLOBAL_CAPACITY_FROM_PARENT_ONLY",
+    "G6_TEMPORAL_SUPPORT": "GLOBAL_CAPACITY_FROM_PARENT_ONLY",
+    "G7_MODEL_FREEZE": "NOT_REACHED"
+  },
+  "decision_boundary": {
+    "candidate_qualification_authorized": false,
+    "G3_pass_authorized": false,
+    "G4_pass_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "separate_child_contract_required_before_opening_any_measurementValue": true,
+    "separate_split_contract_required_before_final_G3_G5_G6_pass": true
+  },
+  "execution": {
+    "dedicated_branch": "e5/qld-emof-types-v1",
+    "authorization_marker": "docs/replication/E5_QLD_EMOF_TYPES_AUTHORIZED.json",
+    "one_shot": true,
+    "pure_marker_commit_required": true,
+    "workflow_dispatch_authorized": false
+  }
+}
