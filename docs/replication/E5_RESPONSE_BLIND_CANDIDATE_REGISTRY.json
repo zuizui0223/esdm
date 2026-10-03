@@ -267,17 +267,79 @@
       },
       "gates": {
         "G1_INDEPENDENT_SOURCE": "PASS",
-        "G2_SCHEMA_EFFORT_TIME": "PROMISING_EVENT_CORE_SEPARATED_FROM_OCCURRENCE_NOT_YET_INSPECTED",
-        "G3_CROSSED_DOMAIN": "PROMISING_STANDARDIZED_MULTI_LANDSCAPE_PROTOCOL_MANUAL_REVIEW_REQUIRED",
-        "G4_DETECTION_IDENTIFIABILITY": "PENDING_EVENT_OCCASION_STRUCTURE",
-        "G5_PHYSICAL_REPLICATION": "PENDING_EVENT_CORE_GEOMETRY",
-        "G6_TEMPORAL_SUPPORT": "PROMISING_GLOBAL_RANGE_FINAL_SPLIT_PENDING",
+        "G2_SCHEMA_EFFORT_TIME": "PARTIAL_EVENT_CORE_PASS_RESPONSE_SCHEMA_UNOPENED",
+        "G3_CROSSED_DOMAIN": "FAIL_FROZEN_ACCEPTABLE_CROSSING_NOT_ESTABLISHED",
+        "G4_DETECTION_IDENTIFIABILITY": "UNRESOLVED_REPEAT_VISIT_PATH_NOT_IDENTIFIED",
+        "G5_PHYSICAL_REPLICATION": "POTENTIAL_697_COORDINATE_LOCATIONS_SPLIT_NOT_FROZEN",
+        "G6_TEMPORAL_SUPPORT": "POTENTIAL_FROM_PUBLIC_2015_2018_SCOPE_SPLIT_NOT_FROZEN",
         "G7_MODEL_FREEZE": "NOT_REACHED"
       },
-      "decision": "E5_CANDIDATE_NOT_YET_QUALIFIED",
-      "hard_stop_reason": "Event/Occurrence separation and long multi-landscape temporal coverage are promising, but the Event core has not yet been opened under the child precheck; the published two-visit field procedure includes camera installation then retrieval and is not by itself sufficient to establish a separately identifiable detection process",
-      "response_may_be_opened_for_E5": false,
-      "next_response_blind_check": "freeze a child metadata-only contract that permits EML + Event core only, explicitly forbids reading the Occurrence extension, and reports zero occurrence rows read"
+      "decision": "E5_CANDIDATE_NOT_QUALIFIED",
+      "hard_stop_reason": "response-blind Event-core precheck found strong geometry, but public methods document one common WCS-Ecuador protocol across landscapes, so frozen G3 geography-by-source crossing is not established",
+      "response_may_be_opened_for_E5": false
+    },
+    {
+      "candidate_id": "uwin_gallo_10city_2017_2018",
+      "title": "UWIN/Gallo 10-city diel-activity dataset",
+      "source_url": "https://doi.org/10.7554/eLife.74756",
+      "doi": "10.7554/eLife.74756",
+      "response_opened": false,
+      "public_metadata": {
+        "metropolitan_areas": 10,
+        "physical_sampling_sites": 453,
+        "trap_nights": 41594,
+        "period": "2017-2018",
+        "cameras_per_site": 1,
+        "response_blind_inventory_completed": true
+      },
+      "gates": {
+        "G1_INDEPENDENT_SOURCE": "PASS",
+        "G2_SCHEMA_EFFORT_TIME": "PARTIAL_NOT_FULL_PASS",
+        "G3_CROSSED_DOMAIN": "FAIL",
+        "G4_DETECTION_IDENTIFIABILITY": "FAIL",
+        "G5_PHYSICAL_REPLICATION": "CAPACITY_PASS_SPLIT_NOT_FROZEN",
+        "G6_TEMPORAL_SUPPORT": "POTENTIAL_NOT_NEEDED_AFTER_HARD_STOP",
+        "G7_MODEL_FREEZE": "NOT_REACHED"
+      },
+      "decision": "E5_CANDIDATE_NOT_QUALIFIED",
+      "hard_stop_reason": "one shared UWIN protocol across cities and one camera per site provide neither the frozen crossed source-domain design nor a separately identifiable detection-calibration path",
+      "response_may_be_opened_for_E5": false
+    },
+    {
+      "candidate_id": "sumatra_mesopredator_paired_2014_2015",
+      "title": "Sumatra paired-camera mesopredator study",
+      "source_url": "https://doi.org/10.1371/journal.pone.0202876",
+      "doi": "10.1371/journal.pone.0202876",
+      "response_opened": false,
+      "public_metadata": {
+        "study_areas": 4,
+        "paired_camera_stations": 292,
+        "camera_brands": [
+          "Cuddeback Ambush IR",
+          "Panthera IV"
+        ],
+        "public_response_headers": [
+          "No",
+          "Station_ID",
+          "time",
+          "spc",
+          "sa"
+        ],
+        "individual_camera_identifier_in_response_schema": false,
+        "paired_camera_side_in_response_schema": false
+      },
+      "gates": {
+        "G1_INDEPENDENT_SOURCE": "PASS",
+        "G2_SCHEMA_EFFORT_TIME": "PARTIAL_RESPONSE_SCHEMA_PASS_DEPLOYMENT_INTERVALS_NOT_SEPARATELY_RETAINED",
+        "G3_CROSSED_DOMAIN": "NOT_ESTABLISHED",
+        "G4_DETECTION_IDENTIFIABILITY": "FAIL_PAIRED_SENSOR_IDENTITY_NOT_RETAINED_IN_PUBLIC_RESPONSE_SCHEMA",
+        "G5_PHYSICAL_REPLICATION": "PASS_CAPACITY_292_STATIONS_SPLIT_NOT_FROZEN",
+        "G6_TEMPORAL_SUPPORT": "POTENTIAL_FROM_MULTI_AREA_CALENDAR_COVERAGE_SPLIT_NOT_FROZEN",
+        "G7_MODEL_FREEZE": "NOT_REACHED"
+      },
+      "decision": "E5_CANDIDATE_NOT_QUALIFIED",
+      "hard_stop_reason": "paired cameras existed in the field, but the public response collapses observations to station/time/species without individual camera or camera-side identity, so the pair cannot identify a separate detection channel",
+      "response_may_be_opened_for_E5": false
     }
   ],
   "search_universes": [
@@ -313,10 +375,10 @@
     "snapshot_usa_2024_selected": false,
     "response_opening_authorized": false,
     "model_fitting_authorized": false,
-    "next_action": "freeze an Ecuador Event-core-only child precheck; forbid Occurrence extension reads; in parallel continue Wildlife Insights metadata screening",
-    "screened_candidate_count": 9,
+    "next_action": "continue response-blind discovery for datasets that simultaneously provide >=6-month split support, geography-by-source crossing, and a detection-calibration stream whose sensor identity is retained in accessible metadata/event schema",
+    "screened_candidate_count": 11,
     "qualified_candidate_count": 0,
-    "strongest_current_named_candidate": "Ecuador landscape camera monitoring",
-    "named_candidate_status": "promising_event_occurrence_separation_child_precheck_needed"
+    "strongest_current_named_candidate": null,
+    "named_candidate_status": "no_named_candidate_currently_meets_all_frozen_pre_response_gates"
   }
 }

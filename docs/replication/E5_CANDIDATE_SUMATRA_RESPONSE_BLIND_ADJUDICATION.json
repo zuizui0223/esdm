@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "sumatra_mesopredator_paired_2014_2015",
+  "adjudication_id": "e5-sumatra-response-blind-terminal-screen-v1",
+  "status": "E5_CANDIDATE_NOT_QUALIFIED",
+  "date": "2026-10-01",
+  "response_boundary": {
+    "focal_response_opened": false,
+    "focal_species_data_rows_read": 0,
+    "other_species_sheet_rows_read": 0,
+    "site_cov_data_rows_read": 0,
+    "response_rows_read": 0,
+    "model_fit_run": false
+  },
+  "evidence": {
+    "package_inventory": "docs/replication/E5_SUMATRA_S1_INVENTORY_RECEIPT.json",
+    "xlsx_structure": "docs/replication/E5_SUMATRA_XLSX_STRUCTURE_RECEIPT.json",
+    "site_cov_schema": "docs/replication/E5_SUMATRA_SITECOV_HEADERS_RECEIPT.json",
+    "focal_schema": "docs/replication/E5_SUMATRA_FOCAL_HEADERS_RECEIPT.json",
+    "public_methods": {
+      "study_areas": [
+        "Bungo",
+        "Sipurak",
+        "RKE",
+        "Ipuh"
+      ],
+      "paired_camera_stations_total": 292,
+      "survey_periods": {
+        "Bungo": "2014-06 to 2014-11",
+        "Sipurak": "2014-11 to 2015-03",
+        "RKE": "2015-04 to 2015-08",
+        "Ipuh": "2015-09 to 2015-12"
+      },
+      "camera_brands": [
+        "Cuddeback Ambush IR",
+        "Panthera IV"
+      ],
+      "camera_configuration": "paired cameras of the same brand at each station",
+      "citation_doi": "10.1371/journal.pone.0202876"
+    }
+  },
+  "schema_findings": {
+    "site_cov_headers": [
+      "study_area",
+      "log_elev",
+      "log_river",
+      "log_for"
+    ],
+    "focal_species_headers": [
+      "No",
+      "Station_ID",
+      "time",
+      "spc",
+      "sa"
+    ],
+    "station_identity_retained": true,
+    "event_time_retained": true,
+    "species_identity_retained": true,
+    "individual_camera_identity_retained": false,
+    "paired_camera_side_or_sensor_identity_retained": false,
+    "camera_brand_retained_in_public_response_schema": false
+  },
+  "gates": {
+    "G1_INDEPENDENT_SOURCE": "PASS",
+    "G2_SCHEMA_EFFORT_TIME": "PARTIAL_RESPONSE_SCHEMA_PASS_DEPLOYMENT_INTERVALS_NOT_SEPARATELY_RETAINED",
+    "G3_CROSSED_DOMAIN": "NOT_ESTABLISHED",
+    "G4_DETECTION_IDENTIFIABILITY": "FAIL_PAIRED_SENSOR_IDENTITY_NOT_RETAINED_IN_PUBLIC_RESPONSE_SCHEMA",
+    "G5_PHYSICAL_REPLICATION": "PASS_CAPACITY_292_STATIONS_SPLIT_NOT_FROZEN",
+    "G6_TEMPORAL_SUPPORT": "POTENTIAL_FROM_MULTI_AREA_CALENDAR_COVERAGE_SPLIT_NOT_FROZEN",
+    "G7_MODEL_FREEZE": "NOT_REACHED"
+  },
+  "hard_stop": {
+    "gate": "G4_DETECTION_IDENTIFIABILITY",
+    "reason": "although cameras were physically paired in the field, the public response schema retains Station_ID and time but no individual camera identifier or paired-camera side/sensor identity, so the two cameras cannot be used as separately observed detection channels under the frozen E5 qualification",
+    "focal_data_rows_needed_to_resolve": false,
+    "response_opening_needed": false
+  },
+  "decision": {
+    "candidate_qualified": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "focal_species_data_row_opening_authorized": false,
+    "same_candidate_may_be_repaired_using_focal_response": false,
+    "failure_is_scientific_negative_result": false,
+    "broader_candidate_search_authorized": true
+  },
+  "interpretation_boundary": {
+    "does_not_claim_paired_cameras_are_useless_generally": true,
+    "does_not_claim_detection_is_constant": true,
+    "claim": "this public package does not retain the camera-level observation identity needed for the E5 activity-versus-detection test"
+  }
+}
