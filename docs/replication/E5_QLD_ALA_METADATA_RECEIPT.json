@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "qld_wet_tropics_camtrapdp_2022_2023",
+  "receipt_id": "e5-qld-ala-metadata-receipt-v1",
+  "status": "FROZEN_RESPONSE_BLIND_ALA_METADATA_PRECHECK",
+  "frozen_date": "2026-10-03",
+  "execution": {
+    "workflow_run_id": 37124529922,
+    "workflow_conclusion": "success",
+    "authorization_sha": "b0dc9e62b753ec6150365de2b83100a47584aaae",
+    "implementation_parent_sha": "64ea983265cbe99ad718124ce1bef4b593e38d71",
+    "artifact_id": 11274443830,
+    "artifact_name": "e5-qld-ala-metadata-37124529922",
+    "artifact_digest": "sha256:5f6bc87068f6bc95e8cbcdd99c3791e75dc30a4079eaae43945248de97b0f192",
+    "result_json_sha256": "2a290778289bed7e4712d19c1541896c5d49d9b7344ba6dfa9edcef275454f48"
+  },
+  "finding": {
+    "public_archive_url": "https://dwca-exports.ala.org.au/dr31594.zip",
+    "source_exchange_format": "Camtrap DP",
+    "ala_exchange_format": "Darwin Core event-based dataset",
+    "paired_camera_design_declared": true,
+    "discovered_url_followed": false
+  },
+  "boundary": {
+    "deployment_rows_read": 0,
+    "observation_rows_read": 0,
+    "media_rows_read": 0,
+    "species_fields_read": 0,
+    "focal_response_opened": false,
+    "candidate_qualified": false,
+    "model_fitting_authorized": false
+  }
+}
