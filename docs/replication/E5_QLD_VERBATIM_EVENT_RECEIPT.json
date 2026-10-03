@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "qld_wet_tropics_camtrapdp_2022_2023",
+  "receipt_id": "e5-qld-verbatim-event-receipt-v1",
+  "status": "FROZEN_RESPONSE_BLIND_VERBATIM_EVENT_PRECHECK",
+  "frozen_date": "2026-10-03",
+  "execution": {
+    "workflow_run_id": 37127819113,
+    "workflow_conclusion": "success",
+    "authorization_sha": "f36fd4006c15ae46f02e709d3fb0a44e3ef5bfbf",
+    "implementation_parent_sha": "b92f1d8e61df62ddc035f680ba35efe67001adc5",
+    "artifact_id": 11274888437,
+    "artifact_name": "e5-qld-verbatim-event-37127819113",
+    "artifact_digest": "sha256:263e5b3a02eea2866015ebdea879070f03c9de7301a46598ffb359bb00611759",
+    "result_json_sha256": "56e7c19749ad39ceb4cc8a69ff4a743a739969549ffb40ac623f2462c77bfac9"
+  },
+  "safe_geometry": {
+    "verbatim_event_rows": 33801,
+    "deployment_rows": 271,
+    "trigger_rows": 33522,
+    "unique_coordinate_pairs": 146,
+    "unique_localities": 7,
+    "distinct_calendar_months": [
+      "2022-09",
+      "2022-10",
+      "2022-11",
+      "2022-12",
+      "2023-01",
+      "2023-02",
+      "2023-03"
+    ],
+    "unique_deployment_groups": 7,
+    "deployment_groups_with_multiple_rows": 7,
+    "deployment_groups_with_multiple_coordinate_pairs": 6
+  },
+  "capacity_hints": {
+    "G2_event_metadata_component": "POTENTIAL",
+    "G3_matched_protocol_group_component": "NOT_DEMONSTRATED",
+    "G5_global_physical_location_capacity": true,
+    "G6_global_six_month_capacity": true
+  },
+  "response_boundary": {
+    "event_core_rows_read": 0,
+    "occurrence_rows_read": 0,
+    "verbatim_occurrence_rows_read": 0,
+    "multimedia_rows_read": 0,
+    "extended_measurement_rows_read": 0,
+    "species_or_taxon_values_read": 0,
+    "focal_response_opened": false,
+    "candidate_qualified": false,
+    "model_fitting_authorized": false
+  }
+}
