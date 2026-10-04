@@ -26,7 +26,7 @@
     "raw_eventdate_report_authorized": false,
     "raw_coordinates_report_authorized": false,
     "raw_locality_report_authorized": false,
-    "eventremarks_read_authorized": false,
+    "eventremarks_value_decode_authorized": false,
     "event_core_rows_read_authorized": false,
     "emof_rows_read_authorized": false,
     "occurrence_rows_read_authorized": false,
