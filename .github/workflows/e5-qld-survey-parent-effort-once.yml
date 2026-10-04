@@ -1,0 +1,107 @@
+name: E5 Queensland Survey-parent effort once
+
+concurrency:
+  group: e5-qld-survey-parent-effort-once
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - e5/qld-survey-parent-effort-v1
+    paths:
+      - 'docs/replication/E5_QLD_SURVEY_PARENT_EFFORT_AUTHORIZED.json'
+
+permissions:
+  contents: read
+
+jobs:
+  precheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify pure one-shot authorization
+        run: |
+          python - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          marker_path=Path("docs/replication/E5_QLD_SURVEY_PARENT_EFFORT_AUTHORIZED.json")
+          marker=json.loads(marker_path.read_text())
+          parent=subprocess.check_output(["git","rev-parse","HEAD^"],text=True).strip()
+          changed=subprocess.check_output(
+              ["git","diff-tree","--no-commit-id","--name-only","-r","HEAD"],
+              text=True,
+          ).splitlines()
+          contract=Path("docs/replication/E5_QLD_SURVEY_PARENT_EFFORT_CONTRACT.json")
+          blob=subprocess.check_output(["git","hash-object",str(contract)],text=True).strip()
+          assert changed == [marker_path.as_posix()]
+          assert marker["implementation_parent_sha"] == parent
+          assert marker["programme_id"] == "E5_INDEPENDENT_ACTIVITY_DETECTION"
+          assert marker["candidate_id"] == "qld_wet_tropics_camtrapdp_2022_2023"
+          assert marker["contract_id"] == "e5-qld-survey-parent-effort-response-blind-v1"
+          assert marker["contract_blob_sha"] == "a6b9e20a4b832f5e28a2bf270948144cfe621737"
+          assert blob == marker["contract_blob_sha"]
+          assert marker["precheck_authorized"] is True
+          assert marker["one_shot"] is True
+          assert marker["trigger_eventdate_use_authorized"] is False
+          assert marker["biological_response_opening_authorized"] is False
+          assert marker["model_fitting_authorized"] is False
+          PY
+
+      - name: Compile diagnostic
+        run: python -m py_compile scripts/precheck_e5_qld_survey_parent_effort.py
+
+      - name: Download pinned public ALA DwC-A
+        run: |
+          mkdir -p build/private build/public
+          curl --location --fail --retry 3 --retry-delay 2 \
+            'https://dwca-exports.ala.org.au/dr31594.zip' \
+            --output build/private/qld_dr31594.zip
+
+      - name: Run Survey-parent effort diagnostic
+        run: |
+          python scripts/precheck_e5_qld_survey_parent_effort.py \
+            --archive build/private/qld_dr31594.zip \
+            --contract docs/replication/E5_QLD_SURVEY_PARENT_EFFORT_CONTRACT.json \
+            --out build/public/E5_QLD_SURVEY_PARENT_EFFORT_RESULT.json
+
+      - name: Verify response firewall
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          value=json.loads(Path("build/public/E5_QLD_SURVEY_PARENT_EFFORT_RESULT.json").read_text())
+          b=value["response_boundary"]
+          assert b["trigger_eventdates_decoded"] == 0
+          assert b["eventremarks_values_decoded"] == 0
+          assert b["event_core_rows_read"] == 0
+          assert b["emof_rows_read"] == 0
+          assert b["occurrence_rows_read"] == 0
+          assert b["verbatim_occurrence_rows_read"] == 0
+          assert b["multimedia_rows_read"] == 0
+          assert b["species_or_taxon_values_read"] == 0
+          assert b["raw_eventids_reported"] == 0
+          assert b["raw_parent_eventids_reported"] == 0
+          assert b["raw_eventdates_reported"] == 0
+          assert b["focal_response_opened"] is False
+          assert value["decision"]["candidate_qualified"] is False
+          PY
+
+      - name: Destroy archive before upload
+        run: |
+          rm -f build/private/qld_dr31594.zip
+          test ! -e build/private/qld_dr31594.zip
+
+      - name: Upload diagnostic result only
+        uses: actions/upload-artifact@v4
+        with:
+          name: e5-qld-survey-parent-effort-${{ github.run_id }}
+          path: build/public/E5_QLD_SURVEY_PARENT_EFFORT_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
