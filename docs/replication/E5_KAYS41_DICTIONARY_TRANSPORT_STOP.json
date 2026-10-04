@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "kays41_emammal_team_2020",
+  "receipt_id": "e5-kays41-dictionary-transport-stop-v1",
+  "status": "TERMINAL_TRANSPORT_STOP_NO_DICTIONARY_READ",
+  "frozen_date": "2026-10-04",
+  "execution": {
+    "workflow_run_id": 37212411945,
+    "workflow_conclusion": "success",
+    "authorization_sha": "661dc0c96dd618cb23a6b231a5131194959aa3a3",
+    "implementation_parent_sha": "d9faac5c8c97d8619f58ab9f3d5108001d38724a",
+    "artifact_id": 11307385563,
+    "artifact_name": "e5-kays41-dictionary-37212411945",
+    "artifact_digest": "sha256:488fa9a9ab5f5265f79a4bb7a25da624307fc86c7b6c8d6e5635c80758a57bba",
+    "result_json_sha256": "a98fd3e7cbbf707ae921d0d5167edc9bc6a67ece072c645cadb1034409abe231",
+    "result_status": "E5_RESPONSE_BLIND_DICTIONARY_TRANSPORT_STOP"
+  },
+  "source": {
+    "dataset_doi": "10.5061/dryad.p8cz8w9m2",
+    "dictionary_file": "Data_Dictionary.rtf",
+    "dryad_file_id": 235085,
+    "attempted_endpoint": "https://datadryad.org/api/v2/files/235085/download"
+  },
+  "response_boundary": {
+    "dictionary_files_read": 0,
+    "response_files_downloaded": 0,
+    "response_files_opened": 0,
+    "detection_rows_read": 0,
+    "species_values_read": 0,
+    "focal_response_opened": false
+  },
+  "public_design_context": {
+    "camera_deployments": 2225,
+    "study_areas": 41,
+    "public_methods_report_multiple_camera_models": true,
+    "public_usage_notes_describe_raw_detections_as_date_time_species_organized_by_deployment": true,
+    "schema_dictionary_publicly_listed_but_not_retrieved": true
+  },
+  "governance": {
+    "same_authorization_rerun_allowed": false,
+    "candidate_scientific_status_changed": false,
+    "candidate_qualified": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "separately_named_response_blind_schema_route_allowed": true,
+    "broader_candidate_search_authorized": true
+  }
+}
