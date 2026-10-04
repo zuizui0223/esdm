@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "kays41_emammal_team_2020",
+  "contract_id": "e5-kays41-data-dictionary-response-blind-v1",
+  "status": "FROZEN_PRECHECK_NOT_AUTHORIZED",
+  "frozen_date": "2026-10-04",
+  "source": {
+    "dataset_title": "An empirical evaluation of camera trap study design: how many, how long, and when?",
+    "dataset_doi": "10.5061/dryad.p8cz8w9m2",
+    "dictionary_file": "Data_Dictionary.rtf",
+    "dryad_file_id": 235085,
+    "dictionary_download_url": "https://datadryad.org/api/v2/files/235085/download",
+    "public_dataset_facts": {
+      "camera_deployments": 2225,
+      "study_areas": 41,
+      "response_files": [
+        "seasonal.zip",
+        "Spatial_Raw_detections.csv",
+        "Temporal_Detection_rate.csv",
+        "Temporal_Species_diversity_accumulation.zip"
+      ],
+      "camera_brands_reported": [
+        "Reconyx",
+        "Bushnell",
+        "ScoutGuard"
+      ],
+      "raw_detection_usage_note": "date, time and species detections organized by deployments"
+    }
+  },
+  "response_firewall": {
+    "data_dictionary_download_authorized": true,
+    "data_dictionary_full_text_read_authorized": true,
+    "any_response_file_download_authorized": false,
+    "seasonal_zip_open_authorized": false,
+    "spatial_raw_detections_open_authorized": false,
+    "temporal_detection_rate_open_authorized": false,
+    "temporal_species_zip_open_authorized": false,
+    "focal_species_values_authorized": false,
+    "detection_rows_authorized": false,
+    "model_fitting_authorized": false
+  },
+  "precheck_scope": {
+    "may_report": [
+      "dictionary file SHA256 and byte size",
+      "response-independent schema/field names described in the dictionary",
+      "whether deployment/study/site/camera/date/time/occasion concepts are documented",
+      "whether camera model or device identity fields are documented",
+      "whether deployment start/end or effort fields are documented"
+    ],
+    "may_not_report": [
+      "any raw detection row",
+      "species names or counts",
+      "diel distributions",
+      "effect directions",
+      "predictive scores"
+    ]
+  },
+  "gate_boundary": {
+    "G1_INDEPENDENT_SOURCE": "PASS_FROM_PUBLIC_PROVENANCE",
+    "G2_SCHEMA_EFFORT_TIME": "MAY_REPORT_SCHEMA_SUPPORT_ONLY",
+    "G3_CROSSED_DOMAIN": "MAY_REPORT_POTENTIAL_ONLY",
+    "G4_DETECTION_IDENTIFIABILITY": "MAY_REPORT_POTENTIAL_ONLY",
+    "G5_PHYSICAL_REPLICATION": "PUBLIC_COUNTS_PROMISING_ONLY",
+    "G6_TEMPORAL_SUPPORT": "NOT_ADJUDICATED_BY_DICTIONARY",
+    "G7_MODEL_FREEZE": "NOT_REACHED"
+  },
+  "decision_boundary": {
+    "candidate_qualification_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "separate_child_contract_required_before_any_response_file_header_or_row": true
+  },
+  "execution": {
+    "dedicated_branch": "e5/kays41-dictionary-v1",
+    "authorization_marker": "docs/replication/E5_KAYS41_DICTIONARY_AUTHORIZED.json",
+    "one_shot": true,
+    "pure_marker_commit_required": true,
+    "workflow_dispatch_authorized": false
+  }
+}
