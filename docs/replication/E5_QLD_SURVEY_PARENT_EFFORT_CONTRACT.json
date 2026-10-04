@@ -19,8 +19,8 @@
     "parent_survey_event_id_must_be_unique": true,
     "parent_survey_eventdate_must_be_nonempty_and_parseable": true,
     "derived_deployment_interval_equals_parent_survey_interval": true,
-    "trigger_eventdate_may_not_be_used": false,
-    "biological_response_may_not_be_used": true,
+    "trigger_eventdate_use_authorized": false,
+    "biological_response_use_authorized": false,
     "rule_frozen_before_execution": true
   },
   "response_firewall": {
