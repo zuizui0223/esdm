@@ -2,7 +2,7 @@
   "schema_version": 1,
   "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
   "registry_id": "e5-response-blind-candidate-registry-v1",
-  "date": "2026-10-03",
+  "date": "2026-10-04",
   "status": "RESPONSE_BLIND_SEARCH_IN_PROGRESS",
   "selection_firewall": {
     "focal_response_opened": false,
@@ -357,21 +357,28 @@
         "collections_queried": 0,
         "observation_rows_read": 0,
         "media_rows_read": 0,
-        "species_fields_read": 0
+        "species_fields_read": 0,
+        "ala_public_archive_response_blind_diagnostics_completed": true,
+        "verbatim_event_metadata_rows": 33801,
+        "verbatim_event_unique_coordinate_pairs": 146,
+        "verbatim_event_distinct_calendar_months": 7,
+        "deployment_rows": 271,
+        "deployment_rows_missing_eventDate": 271,
+        "deployment_complete_case_rows": 0
       },
       "gates": {
         "G1_INDEPENDENT_SOURCE": "PASS",
-        "G2_SCHEMA_EFFORT_TIME": "PROMISING_BUT_DEPLOYMENT_METADATA_NOT_ACQUIRED",
-        "G3_CROSSED_DOMAIN": "PROMISING_BUT_UNVERIFIED",
-        "G4_DETECTION_IDENTIFIABILITY": "PROMISING_REPEATED_VISIT_PATH_MODEL_FREEZE_REQUIRED",
-        "G5_PHYSICAL_REPLICATION": "PROMISING_EXACT_GEOMETRY_UNAVAILABLE",
-        "G6_TEMPORAL_SUPPORT": "PENDING_SPLIT_SPECIFIC_DEPLOYMENT_MONTHS",
+        "G2_SCHEMA_EFFORT_TIME": "FAIL",
+        "G3_CROSSED_DOMAIN": "NOT_ADJUDICATED_AFTER_G2_HARD_STOP",
+        "G4_DETECTION_IDENTIFIABILITY": "NOT_ADJUDICATED_AFTER_G2_HARD_STOP",
+        "G5_PHYSICAL_REPLICATION": "NOT_QUALIFIED_ON_COMPLETE_CASE_DEPLOYMENTS",
+        "G6_TEMPORAL_SUPPORT": "FAIL_ON_DEPLOYMENT_EFFORT",
         "G7_MODEL_FREEZE": "NOT_REACHED"
       },
-      "decision": "E5_CANDIDATE_NOT_YET_QUALIFIED_TRANSPORT_BLOCKED",
-      "hard_stop_reason": "the one authorized WildObs deployments-only route ended before any collection query because WILDOBSR_API_KEY was not configured; this is an acquisition stop, not a scientific gate failure",
+      "decision": "E5_CANDIDATE_NOT_QUALIFIED",
+      "hard_stop_reason": "all 271 public Deployment rows lack eventDate, so no response-independent deployment effort interval can be constructed; inferring effort from trigger/detection events would violate the frozen response firewall",
       "response_may_be_opened_for_E5": false,
-      "next_response_blind_check": "use only a separately frozen response-blind metadata route; same authorization may not be retried"
+      "next_response_blind_check": "terminal for this public transformed archive; continue independent candidate search rather than repairing effort from biological events"
     }
   ],
   "search_universes": [
@@ -403,14 +410,14 @@
   ],
   "current_conclusion": {
     "qualified_candidate_selected": false,
-    "strongest_current_discovery_pool": "Wildlife Insights public projects",
+    "strongest_current_discovery_pool": "Wildlife Insights public projects and independently published paired/calibrated camera-trap packages",
     "snapshot_usa_2024_selected": false,
     "response_opening_authorized": false,
     "model_fitting_authorized": false,
-    "next_action": "seek a separately frozen public/deployment-metadata route for Queensland that does not open observations/media/species, while continuing response-blind discovery; do not retry run 37120434627",
+    "next_action": "continue response-blind search for a candidate that simultaneously has independent deployment effort intervals, geography-by-source separability, a separately identifiable detection path, >=20/10 physical locations, and >=6 months per split; do not repair Queensland effort from trigger/detection events",
     "screened_candidate_count": 12,
     "qualified_candidate_count": 0,
-    "strongest_current_named_candidate": "qld_wet_tropics_camtrapdp_2022_2023",
-    "named_candidate_status": "strongest_public_design_candidate_transport_blocked_unqualified"
+    "strongest_current_named_candidate": "none selected",
+    "named_candidate_status": "all currently screened named candidates fail or remain blocked before response opening"
   }
 }
