@@ -42,7 +42,7 @@ def _concepts(text: str) -> dict[str, bool]:
             r"deployment[_ ]?end", r"end[_ ]?date", r"retrieval[_ ]?date"
         ),
         "study_or_project_identifier": (
-            r"study[_ ]?id", r"project[_ ]?id", r"study area", r"project"
+            r"study[_ ]?id", r"project[_ ]?id", r"study[_ ]?area", r"project"
         ),
         "site_or_location_identifier": (
             r"site[_ ]?id", r"location[_ ]?id", r"camera[_ ]?site", r"site"
