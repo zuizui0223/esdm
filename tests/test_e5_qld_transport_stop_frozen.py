@@ -43,17 +43,18 @@ def test_qld_capture_receipt_pins_authorized_artifact():
     assert value["governance"]["candidate_scientific_status_changed"] is False
 
 
-def test_registry_tracks_qld_as_transport_blocked_not_qualified():
+def test_registry_preserves_transport_stop_history_after_terminal_metadata_stop():
     reg = _read(REGISTRY)
     qld = next(
         x for x in reg["candidates"]
         if x["candidate_id"] == "qld_wet_tropics_camtrapdp_2022_2023"
     )
-    assert qld["decision"] == "E5_CANDIDATE_NOT_YET_QUALIFIED_TRANSPORT_BLOCKED"
+    assert qld["decision"] == "E5_CANDIDATE_NOT_QUALIFIED"
     assert qld["response_opened"] is False
     assert qld["public_metadata"]["collections_queried"] == 0
+    assert qld["public_metadata"]["deployment_rows_missing_eventDate"] == 271
+    assert qld["public_metadata"]["parent_survey_rows_missing_eventDate"] == 6
+    assert qld["public_metadata"]["deployment_rows_with_valid_direct_or_parent_interval"] == 0
     assert qld["response_may_be_opened_for_E5"] is False
     assert reg["current_conclusion"]["qualified_candidate_count"] == 0
-    assert reg["current_conclusion"]["strongest_current_named_candidate"] == (
-        "qld_wet_tropics_camtrapdp_2022_2023"
-    )
+    assert reg["current_conclusion"]["strongest_current_named_candidate"] == "none selected"
