@@ -1,0 +1,181 @@
+name: E5 Kays41 data dictionary precheck once
+
+concurrency:
+  group: e5-kays41-dictionary-once
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - e5/kays41-dictionary-v1
+    paths:
+      - 'docs/replication/E5_KAYS41_DICTIONARY_AUTHORIZED.json'
+
+permissions:
+  contents: read
+
+jobs:
+  precheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify pure one-shot dictionary authorization
+        run: |
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+
+          marker_path = Path(
+              "docs/replication/E5_KAYS41_DICTIONARY_AUTHORIZED.json"
+          )
+          marker = json.loads(marker_path.read_text(encoding="utf-8"))
+          parent = subprocess.check_output(
+              ["git", "rev-parse", "HEAD^"], text=True
+          ).strip()
+          changed = subprocess.check_output(
+              ["git", "diff-tree", "--no-commit-id", "--name-only", "-r", "HEAD"],
+              text=True,
+          ).splitlines()
+          contract_path = Path(
+              "docs/replication/E5_KAYS41_DICTIONARY_CONTRACT.json"
+          )
+          contract_blob = subprocess.check_output(
+              ["git", "hash-object", str(contract_path)], text=True
+          ).strip()
+
+          if changed != [marker_path.as_posix()]:
+              raise SystemExit("authorization commit must change only marker")
+          if marker.get("implementation_parent_sha") != parent:
+              raise SystemExit("implementation parent mismatch")
+          if marker.get("programme_id") != "E5_INDEPENDENT_ACTIVITY_DETECTION":
+              raise SystemExit("programme mismatch")
+          if marker.get("candidate_id") != "kays41_emammal_team_2020":
+              raise SystemExit("candidate mismatch")
+          if marker.get("contract_id") != (
+              "e5-kays41-data-dictionary-response-blind-v1"
+          ):
+              raise SystemExit("contract id mismatch")
+          if marker.get("contract_blob_sha") != (
+              "454eb1ec3ab76f55dfb258cbdf1b4d081b2c0c06"
+          ):
+              raise SystemExit("contract blob pin mismatch")
+          if contract_blob != marker["contract_blob_sha"]:
+              raise SystemExit("working-tree contract blob mismatch")
+          if marker.get("precheck_authorized") is not True:
+              raise SystemExit("precheck not authorized")
+          if marker.get("one_shot") is not True:
+              raise SystemExit("authorization must be one-shot")
+          if marker.get("response_file_download_authorized") is not False:
+              raise SystemExit("response files remain forbidden")
+          if marker.get("focal_response_opening_authorized") is not False:
+              raise SystemExit("focal response remains forbidden")
+          if marker.get("model_fitting_authorized") is not False:
+              raise SystemExit("model fitting remains forbidden")
+          PY
+
+      - name: Compile dictionary precheck
+        run: python -m py_compile scripts/precheck_e5_kays41_dictionary.py
+
+      - name: Download dictionary only, fail closed on transport
+        id: dictionary
+        shell: bash
+        run: |
+          mkdir -p build/private build/public
+          set +e
+          curl --location --fail --retry 2 --retry-delay 2 \
+            'https://datadryad.org/api/v2/files/235085/download' \
+            --output build/private/Data_Dictionary.rtf
+          status=$?
+          set -e
+          if [ "$status" -ne 0 ]; then
+            rm -f build/private/Data_Dictionary.rtf
+            python - <<'PY'
+          import json
+          from pathlib import Path
+          out = {
+              "schema_version": 1,
+              "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+              "candidate_id": "kays41_emammal_team_2020",
+              "precheck_id": "e5-kays41-data-dictionary-result-v1",
+              "status": "E5_RESPONSE_BLIND_DICTIONARY_TRANSPORT_STOP",
+              "source": {
+                  "dataset_doi": "10.5061/dryad.p8cz8w9m2",
+                  "dryad_file_id": 235085,
+                  "dictionary_file": "Data_Dictionary.rtf",
+              },
+              "response_boundary": {
+                  "dictionary_files_read": 0,
+                  "response_files_downloaded": 0,
+                  "response_files_opened": 0,
+                  "detection_rows_read": 0,
+                  "species_values_read": 0,
+                  "focal_response_opened": False,
+              },
+              "decision": {
+                  "candidate_qualified": False,
+                  "transport_stop": True,
+                  "same_authorization_rerun_allowed": False,
+                  "focal_response_opening_authorized": False,
+                  "model_fitting_authorized": False,
+              },
+          }
+          Path("build/public/E5_KAYS41_DICTIONARY_RESULT.json").write_text(
+              json.dumps(out, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+          PY
+            echo "downloaded=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "downloaded=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run response-blind dictionary precheck
+        if: steps.dictionary.outputs.downloaded == 'true'
+        run: |
+          python scripts/precheck_e5_kays41_dictionary.py \
+            --dictionary build/private/Data_Dictionary.rtf \
+            --contract docs/replication/E5_KAYS41_DICTIONARY_CONTRACT.json \
+            --out build/public/E5_KAYS41_DICTIONARY_RESULT.json
+
+      - name: Verify response firewall and terminal semantics
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          value = json.loads(
+              Path("build/public/E5_KAYS41_DICTIONARY_RESULT.json")
+              .read_text(encoding="utf-8")
+          )
+          b = value["response_boundary"]
+          assert b["response_files_downloaded"] == 0
+          assert b["response_files_opened"] == 0
+          assert b["detection_rows_read"] == 0
+          assert b["species_values_read"] == 0
+          assert b["focal_response_opened"] is False
+          assert value["decision"]["candidate_qualified"] is False
+          assert value["decision"]["focal_response_opening_authorized"] is False
+          assert value["decision"]["model_fitting_authorized"] is False
+          PY
+
+      - name: Destroy dictionary before artifact upload
+        run: |
+          rm -f build/private/Data_Dictionary.rtf
+          test ! -e build/private/Data_Dictionary.rtf
+
+      - name: Upload result only
+        uses: actions/upload-artifact@v4
+        with:
+          name: e5-kays41-dictionary-${{ github.run_id }}
+          path: build/public/E5_KAYS41_DICTIONARY_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
