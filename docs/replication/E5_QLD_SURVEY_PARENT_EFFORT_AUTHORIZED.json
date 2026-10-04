@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "qld_wet_tropics_camtrapdp_2022_2023",
+  "contract_id": "e5-qld-survey-parent-effort-response-blind-v1",
+  "contract_blob_sha": "a6b9e20a4b832f5e28a2bf270948144cfe621737",
+  "implementation_parent_sha": "95a80c1fd81965c3a221b30b5278544a6573387b",
+  "precheck_authorized": true,
+  "one_shot": true,
+  "trigger_eventdate_use_authorized": false,
+  "biological_response_opening_authorized": false,
+  "model_fitting_authorized": false,
+  "authorized_date": "2026-10-04"
+}
