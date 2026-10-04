@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "qld_wet_tropics_camtrapdp_2022_2023",
+  "screen_id": "e5-qld-terminal-response-blind-screen-v1",
+  "status": "E5_CANDIDATE_NOT_QUALIFIED",
+  "screened_date": "2026-10-04",
+  "source": {
+    "dataset_title": "Camera trap surveys in Queensland's Wet Tropics 2022-2023",
+    "dataset_doi": "10.15468/kjqw3f",
+    "ala_data_resource_uid": "dr31594",
+    "parent_completeness_contract": "docs/replication/E5_QLD_DEPLOYMENT_COMPLETENESS_CONTRACT.json",
+    "immutable_archive_sha256": "f830085a5c1ad6ec9e130169188049670ffa83372a08a02924aa6190554de34e"
+  },
+  "response_boundary": {
+    "focal_response_opened": false,
+    "biological_event_core_rows_read": 0,
+    "emof_rows_read_in_terminal_diagnostic": 0,
+    "occurrence_rows_read": 0,
+    "verbatim_occurrence_rows_read": 0,
+    "multimedia_rows_read": 0,
+    "species_or_taxon_values_read": 0,
+    "eventremarks_values_decoded": 0,
+    "response_dependent_effort_inference_used": false
+  },
+  "terminal_diagnostic": {
+    "workflow_run_id": 37209976816,
+    "authorization_sha": "bae33cf0ad02f26e60b523e188aec541f24abbef",
+    "implementation_parent_sha": "d34270484ef7df53dd59d58ef7feec8f46c894a7",
+    "artifact_id": 11306560624,
+    "artifact_name": "e5-qld-deployment-completeness-37209976816",
+    "artifact_digest": "sha256:95119af1abf6916ed6868cc1b4e64edff9f74614b21f685b448b3f68792abd47",
+    "result_json_sha256": "7970889e49aee7ef77000b1a13a8a7066885a98c4bd77c01db6ea93a44d523ab",
+    "result_status": "E5_RESPONSE_BLIND_QLD_DEPLOYMENT_COMPLETENESS",
+    "deployment_rows": 271,
+    "deployment_rows_with_eventDate": 0,
+    "deployment_rows_missing_eventDate": 271,
+    "deployment_rows_missing_samplingProtocol": 271,
+    "complete_case_deployment_rows": 0,
+    "complete_case_unique_coordinate_pairs": 0,
+    "complete_case_unique_localities": 0,
+    "complete_case_distinct_calendar_months": 0
+  },
+  "prior_response_blind_evidence": {
+    "all_event_verbatim_geometry": {
+      "metadata_rows": 33801,
+      "unique_coordinate_pairs": 146,
+      "distinct_calendar_months": 7,
+      "interpretation": "global event metadata show broad geometry and time coverage, but these are not valid deployment effort intervals"
+    },
+    "public_design": {
+      "matched_road_bush_sampling_reported": true,
+      "repeated_visit_detection_design_reported": true,
+      "sampling_occasion": "5-day window",
+      "interpretation": "design remains ecologically interesting but cannot satisfy E5 without response-independent deployment effort"
+    }
+  },
+  "gates": [
+    {
+      "gate": "G1_INDEPENDENT_SOURCE",
+      "status": "PASS",
+      "reason": "independent Queensland response dataset not used in E2-E4 or Snapshot Japan"
+    },
+    {
+      "gate": "G2_SCHEMA_EFFORT_TIME",
+      "status": "FAIL",
+      "reason": "all 271 public Deployment rows lack eventDate, yielding zero response-independent deployment intervals; inferring effort from trigger/detection events would violate the E5 response firewall"
+    },
+    {
+      "gate": "G3_CROSSED_DOMAIN",
+      "status": "NOT_ADJUDICATED_AFTER_G2_HARD_STOP",
+      "reason": "matched road/bush design is promising, but no promotion is needed once required deployment effort is unavailable"
+    },
+    {
+      "gate": "G4_DETECTION_IDENTIFIABILITY",
+      "status": "NOT_ADJUDICATED_AFTER_G2_HARD_STOP",
+      "reason": "repeated-visit and camera metadata paths are scientifically promising, but cannot qualify a candidate that fails required effort/time metadata"
+    },
+    {
+      "gate": "G5_PHYSICAL_REPLICATION",
+      "status": "NOT_QUALIFIED_ON_COMPLETE_CASE_DEPLOYMENTS",
+      "reason": "public metadata show substantial spatial capacity, but zero deployments satisfy the frozen complete-case rule required for a qualifying split"
+    },
+    {
+      "gate": "G6_TEMPORAL_SUPPORT",
+      "status": "FAIL_ON_DEPLOYMENT_EFFORT",
+      "reason": "no Deployment row has a response-independent eventDate interval, so the frozen six-month train/heldout exposure requirement cannot be constructed"
+    },
+    {
+      "gate": "G7_MODEL_FREEZE",
+      "status": "NOT_REACHED",
+      "reason": "candidate fails G2/G6 before any selected-candidate model freeze"
+    }
+  ],
+  "decision": {
+    "all_pre_response_gates_required": true,
+    "candidate_qualified": false,
+    "hard_stop_gates": [
+      "G2_SCHEMA_EFFORT_TIME",
+      "G6_TEMPORAL_SUPPORT"
+    ],
+    "failure_is_scientific_negative_result": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "same_candidate_repair_from_detection_or_trigger_events_authorized": false,
+    "same_candidate_threshold_relaxation_authorized": false,
+    "broader_independent_candidate_search_authorized": true
+  },
+  "interpretation": {
+    "supported": "the public transformed Queensland archive cannot provide response-independent deployment effort intervals required by frozen E5",
+    "not_supported": [
+      "Queensland camera trapping is biologically unsuitable",
+      "the paired road/bush design lacks ecological value",
+      "repeated visits could never identify detection in another properly structured dataset"
+    ]
+  }
+}
