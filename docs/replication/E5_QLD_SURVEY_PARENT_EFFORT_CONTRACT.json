@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "qld_wet_tropics_camtrapdp_2022_2023",
+  "contract_id": "e5-qld-survey-parent-effort-response-blind-v1",
+  "status": "FROZEN_PRECHECK_NOT_AUTHORIZED",
+  "frozen_date": "2026-10-04",
+  "parent_completeness_receipt": "docs/replication/E5_QLD_DEPLOYMENT_COMPLETENESS_RECEIPT.json",
+  "source": {
+    "archive_url": "https://dwca-exports.ala.org.au/dr31594.zip",
+    "archive_sha256": "f830085a5c1ad6ec9e130169188049670ffa83372a08a02924aa6190554de34e",
+    "meta_xml_member": "meta.xml",
+    "verbatim_event_file": "verbatim_event.txt"
+  },
+  "inheritance_rule": {
+    "child_event_type": "Deployment",
+    "parent_event_type": "Survey",
+    "deployment_parent_event_id_must_be_nonempty": true,
+    "parent_survey_event_id_must_be_unique": true,
+    "parent_survey_eventdate_must_be_nonempty_and_parseable": true,
+    "derived_deployment_interval_equals_parent_survey_interval": true,
+    "trigger_eventdate_may_not_be_used": false,
+    "biological_response_may_not_be_used": true,
+    "rule_frozen_before_execution": true
+  },
+  "response_firewall": {
+    "archive_download_authorized": true,
+    "meta_xml_read_authorized": true,
+    "verbatim_event_prefix_rows_authorized": true,
+    "eventtype_decode_authorized": true,
+    "eventid_decode_authorized_for_in_memory_parent_join": true,
+    "parenteventid_decode_authorized_for_in_memory_parent_join": true,
+    "survey_eventdate_decode_authorized": true,
+    "deployment_coordinates_decode_authorized": true,
+    "deployment_locality_decode_authorized": true,
+    "deploymentgroups_decode_authorized": true,
+    "trigger_eventdate_decode_authorized": false,
+    "eventremarks_value_decode_authorized": false,
+    "raw_eventid_report_authorized": false,
+    "raw_parenteventid_report_authorized": false,
+    "raw_eventdate_report_authorized": false,
+    "raw_coordinates_report_authorized": false,
+    "raw_locality_report_authorized": false,
+    "event_core_rows_read_authorized": false,
+    "emof_rows_read_authorized": false,
+    "occurrence_rows_read_authorized": false,
+    "verbatim_occurrence_rows_read_authorized": false,
+    "multimedia_rows_read_authorized": false,
+    "species_or_taxon_values_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false
+  },
+  "output_policy": {
+    "may_report": [
+      "Survey row count and Survey eventDate missing/invalid counts",
+      "Deployment row count and parentEventID missing count",
+      "Deployment-to-Survey unique parent match count",
+      "Deployment rows inheriting a valid Survey interval",
+      "anonymized parent-Survey deployment counts",
+      "derived global calendar-month support",
+      "unique deployment coordinate-pair and locality counts without raw values",
+      "whether derived global physical/temporal capacity exceeds frozen E5 minima"
+    ],
+    "may_not_report": [
+      "raw Event/parent IDs",
+      "raw Survey or Deployment dates",
+      "raw coordinates or locality labels",
+      "Trigger eventDate values",
+      "eventRemarks",
+      "camera metadata values",
+      "species/taxon values",
+      "focal detections/diel distributions",
+      "effect directions or predictive scores"
+    ]
+  },
+  "gate_boundary": {
+    "G2_may_only_be_reported_as_parent_interval_metadata_capacity": true,
+    "G3_pass_authorized": false,
+    "G4_pass_authorized": false,
+    "G5_may_only_be_reported_as_global_capacity": true,
+    "G6_may_only_be_reported_as_global_capacity": true,
+    "candidate_qualification_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "separate_child_contract_required_before_camera_metadata_join_or_split": true
+  },
+  "execution": {
+    "dedicated_branch": "e5/qld-survey-parent-effort-v1",
+    "authorization_marker": "docs/replication/E5_QLD_SURVEY_PARENT_EFFORT_AUTHORIZED.json",
+    "one_shot": true,
+    "pure_marker_commit_required": true,
+    "workflow_dispatch_authorized": false
+  }
+}
