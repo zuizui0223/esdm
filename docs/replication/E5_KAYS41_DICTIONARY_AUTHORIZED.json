@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "kays41_emammal_team_2020",
+  "contract_id": "e5-kays41-data-dictionary-response-blind-v1",
+  "contract_blob_sha": "454eb1ec3ab76f55dfb258cbdf1b4d081b2c0c06",
+  "implementation_parent_sha": "d9faac5c8c97d8619f58ab9f3d5108001d38724a",
+  "precheck_authorized": true,
+  "one_shot": true,
+  "response_file_download_authorized": false,
+  "focal_response_opening_authorized": false,
+  "model_fitting_authorized": false,
+  "authorized_date": "2026-10-04"
+}
