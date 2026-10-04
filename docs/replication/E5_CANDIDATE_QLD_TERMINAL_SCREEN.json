@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "qld_wet_tropics_camtrapdp_2022_2023",
+  "screen_id": "e5-qld-terminal-response-blind-screen-v2",
+  "status": "E5_CANDIDATE_NOT_QUALIFIED",
+  "screened_date": "2026-10-04",
+  "source": {
+    "dataset_title": "Camera trap surveys in Queensland's Wet Tropics 2022-2023",
+    "dataset_doi": "10.15468/kjqw3f",
+    "ala_data_resource_uid": "dr31594",
+    "immutable_archive_sha256": "f830085a5c1ad6ec9e130169188049670ffa83372a08a02924aa6190554de34e"
+  },
+  "response_boundary": {
+    "focal_response_opened": false,
+    "biological_event_core_rows_read": 0,
+    "emof_rows_read_in_terminal_effort_diagnostics": 0,
+    "occurrence_rows_read": 0,
+    "verbatim_occurrence_rows_read": 0,
+    "multimedia_rows_read": 0,
+    "species_or_taxon_values_read": 0,
+    "eventremarks_values_decoded": 0,
+    "trigger_eventdates_decoded": 0,
+    "response_dependent_effort_inference_used": false
+  },
+  "deployment_diagnostic": {
+    "workflow_run_id": 37209976816,
+    "authorization_sha": "bae33cf0ad02f26e60b523e188aec541f24abbef",
+    "implementation_parent_sha": "d34270484ef7df53dd59d58ef7feec8f46c894a7",
+    "artifact_id": 11306560624,
+    "artifact_digest": "sha256:95119af1abf6916ed6868cc1b4e64edff9f74614b21f685b448b3f68792abd47",
+    "result_json_sha256": "7970889e49aee7ef77000b1a13a8a7066885a98c4bd77c01db6ea93a44d523ab",
+    "deployment_rows": 271,
+    "deployment_rows_missing_eventDate": 271,
+    "deployment_rows_missing_samplingProtocol": 271,
+    "complete_case_deployment_rows": 0
+  },
+  "survey_parent_diagnostic": {
+    "workflow_run_id": 37210779558,
+    "authorization_sha": "6fc14000e042313357cfe8080aba5054e1eaa194",
+    "implementation_parent_sha": "95a80c1fd81965c3a221b30b5278544a6573387b",
+    "artifact_id": 11306008942,
+    "artifact_digest": "sha256:0ffaeb187e1b36904a5f30adb7272dd0770f11e514673fcecd2cd23ffc59708c",
+    "result_json_sha256": "21daae422d44f6dca802aace438d2a5734981e47d4d3e254b032e2e063655f88",
+    "survey_rows": 6,
+    "survey_rows_missing_eventDate": 6,
+    "deployment_rows": 271,
+    "unique_deployment_to_survey_matches": 271,
+    "deployments_with_valid_inherited_interval": 0,
+    "trigger_rows_skipped_without_eventdate_decode": 33522
+  },
+  "prior_response_blind_evidence": {
+    "all_event_verbatim_geometry": {
+      "metadata_rows": 33801,
+      "unique_coordinate_pairs": 146,
+      "distinct_calendar_months": 7,
+      "interpretation": "broad event-level geometry exists, but it does not provide deployment effort intervals"
+    },
+    "public_design": {
+      "matched_road_bush_sampling_reported": true,
+      "repeated_visit_detection_design_reported": true,
+      "sampling_occasion": "5-day window"
+    }
+  },
+  "gates": [
+    {
+      "gate": "G1_INDEPENDENT_SOURCE",
+      "status": "PASS",
+      "reason": "independent Queensland response dataset not used in E2-E4 or Snapshot Japan"
+    },
+    {
+      "gate": "G2_SCHEMA_EFFORT_TIME",
+      "status": "FAIL",
+      "reason": "all 271 Deployment rows lack eventDate and all 6 uniquely linked parent Survey rows also lack eventDate, leaving zero response-independent effort intervals"
+    },
+    {
+      "gate": "G3_CROSSED_DOMAIN",
+      "status": "NOT_ADJUDICATED_AFTER_G2_HARD_STOP",
+      "reason": "matched road/bush structure is promising but cannot rescue missing response-independent effort"
+    },
+    {
+      "gate": "G4_DETECTION_IDENTIFIABILITY",
+      "status": "NOT_ADJUDICATED_AFTER_G2_HARD_STOP",
+      "reason": "repeated-visit/camera metadata routes remain scientifically interesting but cannot qualify a candidate without valid effort intervals"
+    },
+    {
+      "gate": "G5_PHYSICAL_REPLICATION",
+      "status": "NOT_QUALIFIED_ON_EFFORT_VALID_DEPLOYMENTS",
+      "reason": "spatial capacity is present in public metadata, but no deployment has a valid direct or inherited response-independent interval"
+    },
+    {
+      "gate": "G6_TEMPORAL_SUPPORT",
+      "status": "FAIL_ON_DEPLOYMENT_EFFORT",
+      "reason": "neither Deployment nor parent Survey rows provide usable intervals, so the frozen six-month split-specific exposure requirement cannot be constructed"
+    },
+    {
+      "gate": "G7_MODEL_FREEZE",
+      "status": "NOT_REACHED",
+      "reason": "candidate fails G2/G6 before any selected-candidate model freeze"
+    }
+  ],
+  "decision": {
+    "all_pre_response_gates_required": true,
+    "candidate_qualified": false,
+    "hard_stop_gates": [
+      "G2_SCHEMA_EFFORT_TIME",
+      "G6_TEMPORAL_SUPPORT"
+    ],
+    "failure_is_scientific_negative_result": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "infer_effort_from_trigger_or_detection_events_authorized": false,
+    "decode_trigger_eventdates_to_repair_candidate_authorized": false,
+    "threshold_relaxation_authorized": false,
+    "broader_independent_candidate_search_authorized": true
+  }
+}
