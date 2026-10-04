@@ -1,0 +1,73 @@
+{
+  "candidate_id": "qld_wet_tropics_camtrapdp_2022_2023",
+  "capacity_hints": {
+    "G2_COMPLETE_CASE_METADATA": "UNAVAILABLE",
+    "G5_GLOBAL_PHYSICAL_CAPACITY": false,
+    "G6_GLOBAL_SIX_MONTH_CAPACITY": false
+  },
+  "complete_case_geometry": {
+    "anonymized_locality_summaries": [],
+    "distinct_calendar_month_count": 0,
+    "distinct_calendar_months": [],
+    "unique_coordinate_pairs": 0,
+    "unique_localities": 0
+  },
+  "complete_case_rule": {
+    "coordinates_must_parse_as_finite_numbers": true,
+    "eventdate_must_parse_to_nonreversed_interval": true,
+    "no_biological_response_used": true,
+    "required_nonempty_fields": [
+      "eventID",
+      "eventDate",
+      "decimalLatitude",
+      "decimalLongitude",
+      "locality"
+    ],
+    "row_type_required": "Deployment",
+    "rule_frozen_before_diagnostic": true
+  },
+  "decision": {
+    "G3_pass_authorized": false,
+    "G4_pass_authorized": false,
+    "candidate_qualified": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "separate_child_contract_required_before_camera_metadata_join_or_split": true
+  },
+  "missingness": {
+    "complete_case_rows": 0,
+    "deployment_rows": 271,
+    "invalid_eventdate": 0,
+    "invalid_latitude": 0,
+    "invalid_longitude": 0,
+    "missing_eventdate": 271,
+    "missing_eventid": 0,
+    "missing_latitude": 0,
+    "missing_locality": 0,
+    "missing_longitude": 0,
+    "missing_samplingprotocol": 271
+  },
+  "precheck_id": "e5-qld-deployment-completeness-result-v1",
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "response_boundary": {
+    "emof_rows_read": 0,
+    "event_core_rows_read": 0,
+    "eventremarks_values_decoded": 0,
+    "focal_response_opened": false,
+    "multimedia_rows_read": 0,
+    "occurrence_rows_read": 0,
+    "raw_coordinates_reported": 0,
+    "raw_eventdates_reported": 0,
+    "raw_eventids_reported": 0,
+    "raw_localities_reported": 0,
+    "species_or_taxon_values_read": 0,
+    "verbatim_event_prefix_rows_scanned": true,
+    "verbatim_occurrence_rows_read": 0
+  },
+  "schema_version": 1,
+  "source": {
+    "archive_sha256": "f830085a5c1ad6ec9e130169188049670ffa83372a08a02924aa6190554de34e",
+    "verbatim_event_file": "verbatim_event.txt"
+  },
+  "status": "E5_RESPONSE_BLIND_QLD_DEPLOYMENT_COMPLETENESS"
+}
