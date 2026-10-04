@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "qld_wet_tropics_camtrapdp_2022_2023",
+  "receipt_id": "e5-qld-deployment-completeness-receipt-v1",
+  "status": "FROZEN_RESPONSE_BLIND_DEPLOYMENT_COMPLETENESS",
+  "frozen_date": "2026-10-04",
+  "execution": {
+    "workflow_run_id": 37209976816,
+    "workflow_conclusion": "success",
+    "authorization_sha": "bae33cf0ad02f26e60b523e188aec541f24abbef",
+    "implementation_parent_sha": "d34270484ef7df53dd59d58ef7feec8f46c894a7",
+    "artifact_id": 11306560624,
+    "artifact_name": "e5-qld-deployment-completeness-37209976816",
+    "artifact_digest": "sha256:95119af1abf6916ed6868cc1b4e64edff9f74614b21f685b448b3f68792abd47",
+    "result_json_sha256": "7970889e49aee7ef77000b1a13a8a7066885a98c4bd77c01db6ea93a44d523ab"
+  },
+  "finding": {
+    "deployment_rows": 271,
+    "deployment_rows_missing_eventdate": 271,
+    "deployment_rows_missing_samplingprotocol": 271,
+    "deployment_rows_missing_coordinates": 0,
+    "deployment_rows_missing_locality": 0,
+    "complete_case_rows": 0,
+    "interpretation": "deployment-level interval absence is systematic in the public ALA VerbatimEvent export, not an isolated bad row"
+  },
+  "boundary": {
+    "biological_response_opened": false,
+    "emof_rows_read": 0,
+    "occurrence_rows_read": 0,
+    "trigger_eventdates_used_to_reconstruct_effort": false,
+    "candidate_qualified": false,
+    "model_fitting_authorized": false
+  }
+}
