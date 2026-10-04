@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "qld_wet_tropics_camtrapdp_2022_2023",
+  "contract_id": "e5-qld-deployment-completeness-response-blind-v1",
+  "status": "FROZEN_PRECHECK_NOT_AUTHORIZED",
+  "frozen_date": "2026-10-04",
+  "parent_stop": "docs/replication/E5_QLD_DEPLOYMENT_CAMERA_METADATA_STOP.json",
+  "source": {
+    "archive_url": "https://dwca-exports.ala.org.au/dr31594.zip",
+    "archive_sha256": "f830085a5c1ad6ec9e130169188049670ffa83372a08a02924aa6190554de34e",
+    "meta_xml_member": "meta.xml",
+    "verbatim_event_file": "verbatim_event.txt"
+  },
+  "response_firewall": {
+    "archive_download_authorized": true,
+    "meta_xml_read_authorized": true,
+    "verbatim_event_rows_authorized": true,
+    "eventtype_field_read_authorized": true,
+    "deployment_eventdate_read_authorized": true,
+    "deployment_eventid_presence_check_authorized": true,
+    "deployment_coordinates_read_authorized": true,
+    "deployment_locality_read_authorized": true,
+    "samplingprotocol_presence_check_authorized": true,
+    "raw_eventid_report_authorized": false,
+    "raw_eventdate_report_authorized": false,
+    "raw_coordinates_report_authorized": false,
+    "raw_locality_report_authorized": false,
+    "eventremarks_value_decode_authorized": false,
+    "event_core_rows_read_authorized": false,
+    "emof_rows_read_authorized": false,
+    "occurrence_rows_read_authorized": false,
+    "verbatim_occurrence_rows_read_authorized": false,
+    "multimedia_rows_read_authorized": false,
+    "species_or_taxon_values_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false
+  },
+  "complete_case_rule": {
+    "row_type_required": "Deployment",
+    "required_nonempty_fields": [
+      "eventID",
+      "eventDate",
+      "decimalLatitude",
+      "decimalLongitude",
+      "locality"
+    ],
+    "eventdate_must_parse_to_nonreversed_interval": true,
+    "coordinates_must_parse_as_finite_numbers": true,
+    "rule_frozen_before_diagnostic": true,
+    "no_biological_response_used": true
+  },
+  "output_policy": {
+    "may_report": [
+      "total Deployment row count",
+      "missing/invalid counts for required metadata fields",
+      "complete-case Deployment row count",
+      "unique coordinate-pair count among complete rows",
+      "unique locality count among complete rows without locality labels",
+      "global distinct calendar months among complete rows",
+      "anonymized locality-level row/site/month-count summaries",
+      "whether complete-case global capacity exceeds frozen E5 physical and temporal minima"
+    ],
+    "may_not_report": [
+      "raw eventID",
+      "raw eventDate",
+      "raw coordinates",
+      "raw locality names",
+      "eventRemarks",
+      "camera metadata values",
+      "species/taxon values",
+      "trigger biological outcomes",
+      "focal detections or diel distributions",
+      "effect directions or predictive scores"
+    ]
+  },
+  "gate_boundary": {
+    "G2_may_only_be_reported_as_complete_case_metadata_capacity": true,
+    "G3_pass_authorized": false,
+    "G4_pass_authorized": false,
+    "G5_may_only_be_reported_as_global_capacity": true,
+    "G6_may_only_be_reported_as_global_capacity": true,
+    "candidate_qualification_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "separate_child_contract_required_before_any_camera_metadata_join_or_geographic_split": true
+  },
+  "execution": {
+    "dedicated_branch": "e5/qld-deployment-completeness-v1",
+    "authorization_marker": "docs/replication/E5_QLD_DEPLOYMENT_COMPLETENESS_AUTHORIZED.json",
+    "one_shot": true,
+    "pure_marker_commit_required": true,
+    "workflow_dispatch_authorized": false
+  }
+}
