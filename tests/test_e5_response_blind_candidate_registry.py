@@ -57,7 +57,7 @@ def test_wildlife_insights_is_discovery_pool_not_selected_outcome():
     assert universe["role"] == "PRIMARY_RESPONSE_BLIND_DISCOVERY_POOL"
     assert value["current_conclusion"]["qualified_candidate_selected"] is False
     assert value["current_conclusion"]["strongest_current_discovery_pool"] == (
-        "Wildlife Insights public projects"
+        "Wildlife Insights public projects and independently published paired/calibrated camera-trap packages"
     )
 
 
