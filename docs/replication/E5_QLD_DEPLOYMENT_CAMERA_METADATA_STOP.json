@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "qld_wet_tropics_camtrapdp_2022_2023",
+  "receipt_id": "e5-qld-deployment-camera-metadata-execution-stop-v1",
+  "status": "TERMINAL_PRECHECK_STOP_EMPTY_DEPLOYMENT_EVENTDATE",
+  "frozen_date": "2026-10-04",
+  "execution": {
+    "workflow_run_id": 37155994191,
+    "authorization_sha": "2fae3347ba6553fa27d72daa8e1672d16e1097db",
+    "implementation_parent_sha": "df666b5c9aef9e8ee4ab1ea6a3fae50d517fa950",
+    "conclusion": "failure",
+    "failed_step": "Verify archive and run precheck",
+    "exception": "ValueError: empty eventDate",
+    "archive_download_completed": true,
+    "archive_sha256_verified": true
+  },
+  "response_boundary": {
+    "verbatim_event_scan_started": true,
+    "emof_rows_read": 0,
+    "event_core_rows_read": 0,
+    "occurrence_rows_read": 0,
+    "verbatim_occurrence_rows_read": 0,
+    "multimedia_rows_read": 0,
+    "species_or_taxon_values_read": 0,
+    "focal_response_opened": false,
+    "result_artifact_created": false
+  },
+  "governance": {
+    "same_authorization_rerun_allowed": false,
+    "candidate_scientific_status_changed": false,
+    "candidate_qualified": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "separately_named_response_blind_metadata_diagnostic_allowed": true
+  }
+}
