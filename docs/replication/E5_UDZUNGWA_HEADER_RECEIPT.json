@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "udzungwa_paired_arrays_2013_2014",
+  "receipt_id": "e5-udzungwa-header-precheck-receipt-v1",
+  "status": "FROZEN_RESPONSE_BLIND_HEADER_PRECHECK",
+  "frozen_date": "2026-10-05",
+  "execution": {
+    "workflow_run_id": 37254391448,
+    "workflow_conclusion": "success",
+    "authorization_sha": "c7861e0a9d345f57cdc05c76324d921fe0a0663b",
+    "implementation_parent_sha": "cc58c0f6959a8c4c3363a2826dc84dcbdcf92553",
+    "artifact_id": 11321554847,
+    "artifact_name": "e5-udzungwa-header-37254391448",
+    "artifact_digest": "sha256:9b9923e01d9dd9d35490661301e5613e391ebfe087610abe5be2e9e7c64f6e20",
+    "result_json_sha256": "7b88b20163612343bfa4d9a06c40ae40341236c7829a99e7ec796c04cbb6510d"
+  },
+  "source_identity": {
+    "dataset_doi": "10.5061/dryad.cz8w9gj81",
+    "zenodo_record": "10942118",
+    "file_name": "dat_v3.csv",
+    "expected_md5": "fb6c9a82c237b8ec3ef80aa8933b8ede",
+    "observed_md5": "fb6c9a82c237b8ec3ef80aa8933b8ede",
+    "observed_sha256": "a4d0de09d8b0aebccfca3a11f0cf19d27a4722511bf300d732ea3b74afaf56fc"
+  },
+  "response_boundary": {
+    "header_lines_read": 1,
+    "data_rows_read": 0,
+    "response_rows_read": 0,
+    "species_values_read": 0,
+    "timestamp_values_read": 0,
+    "count_values_read": 0,
+    "focal_response_opened": false
+  },
+  "finding": {
+    "individual_camera_identifier_present": false,
+    "paired_sensor_or_camera_side_present": false,
+    "station_or_location_present": true,
+    "deployment_start_present": true,
+    "deployment_end_present": true,
+    "event_timestamp_present": true
+  }
+}
