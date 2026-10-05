@@ -477,10 +477,30 @@
     "snapshot_usa_2024_selected": false,
     "response_opening_authorized": false,
     "model_fitting_authorized": false,
-    "next_action": "continue response-blind schema/design search for Kays41 or another candidate that simultaneously retains source/protocol and separately identifiable detection information",
+    "next_action": "search first for public datasets retaining paired-camera member identity or deployment-linked detection calibration across at least two geographic regimes; treat Kays41 as promising but not privileged unless a separate schema route demonstrates G4",
     "screened_candidate_count": 14,
     "qualified_candidate_count": 0,
     "strongest_current_named_candidate": "kays41_emammal_team_2020",
-    "named_candidate_status": "promising_multi_study_design_but_dictionary_transport_blocked_unqualified"
+    "named_candidate_status": "promising_multi_study_design_but_dictionary_transport_blocked_unqualified",
+    "search_bottleneck": {
+      "screened_candidates": 14,
+      "qualified_candidates": 0,
+      "dominant_constraint": "joint_G3_G4_identifiability",
+      "interpretation": "independent datasets and nominal replication are common; the scarce property is a public design that crosses geography with source/protocol while retaining a separately identifiable detection channel",
+      "next_search_order": [
+        "G4: require public camera-member/paired-observer identity, explicit distance calibration linked to deployments, or another independent detection-calibration stream",
+        "G3: require that the detection/source/protocol factor overlaps at least two geographic regimes rather than being perfectly confounded with geography",
+        "G2: require response-independent deployment effort or another predeclared effort source",
+        "G6/G5: only after G3/G4 survive, verify >=6 months per split and >=20/10 physical locations"
+      ],
+      "reject_early": [
+        "paired cameras whose released response collapses pair-member identity",
+        "multiple camera models without overlap that can identify detection separately from geography",
+        "large single-protocol multi-city datasets with no independent detection calibration",
+        "long-duration datasets lacking response-independent effort intervals"
+      ],
+      "strongest_current_named_candidate": "kays41_emammal_team_2020",
+      "strongest_candidate_caveat": "Kays41 remains transport/schema blocked and has not demonstrated a separately identifiable detection channel; multiple camera models alone are insufficient for G4"
+    }
   }
 }
