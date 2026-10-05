@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "udzungwa_paired_arrays_2013_2014",
+  "screen_id": "e5-udzungwa-response-blind-terminal-screen-v1",
+  "status": "E5_CANDIDATE_NOT_QUALIFIED",
+  "screened_date": "2026-10-05",
+  "source": {
+    "title": "Leopard and spotted hyena camera trap dataset",
+    "doi": "10.5061/dryad.cz8w9gj81",
+    "header_receipt": "docs/replication/E5_UDZUNGWA_HEADER_RECEIPT.json"
+  },
+  "response_boundary": {
+    "formal_header_only_run_used_for_decision": true,
+    "data_rows_read": 0,
+    "response_rows_read": 0,
+    "species_values_read": 0,
+    "focal_response_opened": false
+  },
+  "public_design": {
+    "camera_arrays": 6,
+    "physical_camera_stations": 164,
+    "paired_cameras_per_station": 2,
+    "station_pair_geometry": "opposing cameras at each station",
+    "camera_sources": [
+      "Cuddeback Ambush",
+      "UOVision 565HD IR+"
+    ],
+    "UOVision_second_camera_stations": 87,
+    "array_duration_days_range": [
+      12,
+      49
+    ],
+    "survey_windows": [
+      "2013-08 to 2013-12",
+      "2014-06 to 2014-12"
+    ]
+  },
+  "formal_header_finding": {
+    "columns": [
+      "title",
+      "actual_date_out",
+      "retrieval_date",
+      "Lat",
+      "Long",
+      "timestamp",
+      "Common_Name",
+      "Scientific_Name",
+      "Count",
+      "Distance_to_River",
+      "Distance_to_boundary",
+      "Habitat",
+      "mean_prey_species_occupancy"
+    ],
+    "station_or_location_identifier_present": true,
+    "deployment_start_present": true,
+    "deployment_end_present": true,
+    "event_timestamp_present": true,
+    "individual_camera_identifier_present": false,
+    "paired_sensor_or_camera_side_present": false
+  },
+  "gates": [
+    {
+      "gate": "G1_INDEPENDENT_SOURCE",
+      "status": "PASS",
+      "reason": "independent Udzungwa 2013-2014 response dataset; not MICA, Snapshot Japan, or an E2-E4 derivative"
+    },
+    {
+      "gate": "G2_SCHEMA_EFFORT_TIME",
+      "status": "PARTIAL_RESPONSE_FILE_HEADER_PASS",
+      "reason": "formal header retains station, deployment start/end and event timestamp fields, but these coexist in the response-bearing flat file rather than a separate deployment table"
+    },
+    {
+      "gate": "G3_CROSSED_DOMAIN",
+      "status": "NOT_ESTABLISHED",
+      "reason": "public methods report two camera technologies, but the formal public response schema retains neither individual-camera identity nor camera-source identity, so source/protocol cannot be crossed with geography from the released data"
+    },
+    {
+      "gate": "G4_DETECTION_IDENTIFIABILITY",
+      "status": "FAIL_PAIRED_SENSOR_IDENTITY_NOT_RETAINED_IN_PUBLIC_RESPONSE_SCHEMA",
+      "reason": "paired cameras existed at every field station, but the formal header has no individual camera ID and no camera-side/pair-member field; paired detections therefore cannot be reconstructed as double-observer histories from the released data"
+    },
+    {
+      "gate": "G5_PHYSICAL_REPLICATION",
+      "status": "PASS_CAPACITY_164_STATIONS_SPLIT_NOT_FROZEN",
+      "reason": "164 public field stations exceed count capacity, but no E5 split is frozen after the G4 hard stop"
+    },
+    {
+      "gate": "G6_TEMPORAL_SUPPORT",
+      "status": "NOT_ADJUDICATED_AFTER_G4_HARD_STOP",
+      "reason": "overall survey windows span multiple months but each array ran 12-49 days; split-specific six-month support is not opened or optimized after G4 failure"
+    },
+    {
+      "gate": "G7_MODEL_FREEZE",
+      "status": "NOT_REACHED",
+      "reason": "candidate fails G4 before selected-candidate model freeze"
+    }
+  ],
+  "decision": {
+    "candidate_qualified": false,
+    "hard_stop_gate": "G4_DETECTION_IDENTIFIABILITY",
+    "failure_is_scientific_negative_result": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "same_candidate_may_be_repaired_using_focal_response": false,
+    "broader_candidate_search_authorized": true
+  },
+  "interpretation": {
+    "supported": "field pairing alone is insufficient when public data collapse camera-member identity",
+    "not_supported": [
+      "claim that paired cameras have no detection-calibration value in general",
+      "claim about leopard or hyena behavior",
+      "any E5 outcome or model result"
+    ]
+  }
+}
