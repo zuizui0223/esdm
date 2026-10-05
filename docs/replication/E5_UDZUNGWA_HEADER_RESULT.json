@@ -1,0 +1,73 @@
+{
+  "candidate_id": "udzungwa_paired_arrays_2013_2014",
+  "decision": {
+    "G2_pass_authorized": false,
+    "G3_pass_authorized": false,
+    "G4_pass_authorized": false,
+    "candidate_qualified": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false
+  },
+  "header": {
+    "column_count": 13,
+    "columns": [
+      "title",
+      "actual_date_out",
+      "retrieval_date",
+      "Lat",
+      "Long",
+      "timestamp",
+      "Common_Name",
+      "Scientific_Name",
+      "Count",
+      "Distance_to_River",
+      "Distance_to_boundary",
+      "Habitat",
+      "mean_prey_species_occupancy"
+    ],
+    "normalized_columns": [
+      "title",
+      "actual_date_out",
+      "retrieval_date",
+      "lat",
+      "long",
+      "timestamp",
+      "common_name",
+      "scientific_name",
+      "count",
+      "distance_to_river",
+      "distance_to_boundary",
+      "habitat",
+      "mean_prey_species_occupancy"
+    ]
+  },
+  "precheck_id": "e5-udzungwa-dat-v3-header-result-v1",
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "response_boundary": {
+    "count_values_read": 0,
+    "data_rows_read": 0,
+    "focal_response_opened": false,
+    "header_lines_read": 1,
+    "response_rows_read": 0,
+    "species_values_read": 0,
+    "timestamp_values_read": 0
+  },
+  "schema_version": 1,
+  "schema_viability": {
+    "count": true,
+    "deployment_end": true,
+    "deployment_start": true,
+    "event_timestamp": true,
+    "individual_camera": false,
+    "paired_sensor_or_camera_side": false,
+    "station_or_location": true,
+    "taxon": true
+  },
+  "source": {
+    "dataset_doi": "10.5061/dryad.cz8w9gj81",
+    "file_name": "dat_v3.csv",
+    "observed_md5": "fb6c9a82c237b8ec3ef80aa8933b8ede",
+    "observed_sha256": "a4d0de09d8b0aebccfca3a11f0cf19d27a4722511bf300d732ea3b74afaf56fc"
+  },
+  "status": "E5_RESPONSE_BLIND_HEADER_PRECHECK"
+}
