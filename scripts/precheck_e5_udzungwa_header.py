@@ -64,11 +64,13 @@ def precheck(csv_path: Path, contract_path: Path) -> dict[str, object]:
             f"source MD5 drift: {observed_md5} != {contract['source']['expected_md5']}"
         )
 
-    with csv_path.open("r", encoding="utf-8-sig", newline="") as handle:
-        header_line = handle.readline()
-        if not header_line:
+    with csv_path.open("rb") as handle:
+        header_bytes = handle.readline()
+        if not header_bytes:
             raise ValueError("empty CSV")
-        # Do not call readline again, iterate, or instantiate a DictReader on the file.
+        # Decode only the bytes returned before the first newline. This prevents the
+        # text decoder from buffering/decoding any response-bearing second-line bytes.
+        header_line = header_bytes.decode("utf-8-sig", errors="strict")
         headers = next(csv.reader([header_line]))
 
     patterns = contract["viability_patterns"]
