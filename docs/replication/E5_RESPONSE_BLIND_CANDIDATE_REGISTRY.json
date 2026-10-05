@@ -381,6 +381,36 @@
       "hard_stop_reason": "all 271 Deployment rows and all 6 uniquely linked parent Survey rows lack eventDate, leaving zero response-independent deployment effort intervals; Trigger/detection dates may not be used to repair effort",
       "response_may_be_opened_for_E5": false,
       "next_response_blind_check": "terminal for this public transformed archive; continue independent candidate search"
+    },
+    {
+      "candidate_id": "kays41_emammal_team_2020",
+      "title": "Kays et al. 2020 eMammal/TEAM 41-study camera-trap compilation",
+      "source_url": "https://doi.org/10.5061/dryad.p8cz8w9m2",
+      "doi": "10.5061/dryad.p8cz8w9m2",
+      "response_opened": false,
+      "public_metadata": {
+        "camera_deployments": 2225,
+        "study_areas": 41,
+        "data_dictionary_file": "Data_Dictionary.rtf",
+        "dictionary_transport_stop_run_id": 37212411945,
+        "dictionary_rows_read": 0,
+        "response_files_downloaded": 0,
+        "multiple_camera_models_reported": true,
+        "raw_detection_usage_note": "date, time and species detections organized as deployments representing periods when cameras were placed at locations"
+      },
+      "gates": {
+        "G1_INDEPENDENT_SOURCE": "PASS",
+        "G2_SCHEMA_EFFORT_TIME": "PROMISING_PUBLIC_DESCRIPTION_DICTIONARY_TRANSPORT_BLOCKED",
+        "G3_CROSSED_DOMAIN": "PROMISING_MULTI_STUDY_MULTI_CAMERA_MODEL_UNVERIFIED",
+        "G4_DETECTION_IDENTIFIABILITY": "UNRESOLVED",
+        "G5_PHYSICAL_REPLICATION": "PROMISING_2225_DEPLOYMENTS_LOCATION_COUNTS_UNVERIFIED",
+        "G6_TEMPORAL_SUPPORT": "UNVERIFIED_SPLIT_SPECIFIC",
+        "G7_MODEL_FREEZE": "NOT_REACHED"
+      },
+      "decision": "E5_CANDIDATE_NOT_YET_QUALIFIED_TRANSPORT_BLOCKED",
+      "hard_stop_reason": "the one authorized Data Dictionary route ended before reading the dictionary; no candidate-specific schema proof for effort, source crossing, or detection identification was obtained",
+      "response_may_be_opened_for_E5": false,
+      "next_response_blind_check": "seek a separately named public schema/metadata route or continue independent candidate search; do not rerun authorization 661dc0c96dd618cb23a6b231a5131194959aa3a3"
     }
   ],
   "search_universes": [
@@ -416,10 +446,10 @@
     "snapshot_usa_2024_selected": false,
     "response_opening_authorized": false,
     "model_fitting_authorized": false,
-    "next_action": "continue response-blind search for a candidate with independent deployment effort intervals, geography-by-source separability, a separately identifiable detection path, >=20/10 physical locations, and >=6 months per split; do not repair Queensland effort from Trigger/detection dates",
-    "screened_candidate_count": 12,
+    "next_action": "seek a response-blind schema route for Kays41 or another candidate that simultaneously has independent deployment effort, geography-by-source separability, a separately identifiable detection path, >=20/10 physical locations, and >=6 months per split",
+    "screened_candidate_count": 13,
     "qualified_candidate_count": 0,
-    "strongest_current_named_candidate": "none selected",
-    "named_candidate_status": "all currently screened named candidates fail or remain blocked before response opening"
+    "strongest_current_named_candidate": "kays41_emammal_team_2020",
+    "named_candidate_status": "promising_multi_study_design_but_dictionary_transport_blocked_unqualified"
   }
 }
