@@ -1,0 +1,107 @@
+name: E5 Udzungwa response-blind header precheck once
+
+concurrency:
+  group: e5-udzungwa-header-once
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - e5/udzungwa-header-v1
+    paths:
+      - 'docs/replication/E5_UDZUNGWA_HEADER_AUTHORIZED.json'
+
+permissions:
+  contents: read
+
+jobs:
+  precheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify pure one-shot authorization
+        run: |
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+          marker_path = Path("docs/replication/E5_UDZUNGWA_HEADER_AUTHORIZED.json")
+          marker = json.loads(marker_path.read_text(encoding="utf-8"))
+          parent = subprocess.check_output(["git","rev-parse","HEAD^"], text=True).strip()
+          changed = subprocess.check_output(
+              ["git","diff-tree","--no-commit-id","--name-only","-r","HEAD"], text=True
+          ).splitlines()
+          contract_path = Path("docs/replication/E5_UDZUNGWA_HEADER_CONTRACT.json")
+          contract_blob = subprocess.check_output(
+              ["git","hash-object",str(contract_path)], text=True
+          ).strip()
+          if changed != [marker_path.as_posix()]:
+              raise SystemExit("authorization commit must change only marker")
+          if marker.get("implementation_parent_sha") != parent:
+              raise SystemExit("implementation parent mismatch")
+          if marker.get("programme_id") != "E5_INDEPENDENT_ACTIVITY_DETECTION":
+              raise SystemExit("programme mismatch")
+          if marker.get("candidate_id") != "udzungwa_paired_arrays_2013_2014":
+              raise SystemExit("candidate mismatch")
+          if marker.get("contract_id") != "e5-udzungwa-dat-v3-header-response-blind-v1":
+              raise SystemExit("contract id mismatch")
+          if marker.get("contract_blob_sha") != "42813a1722da2227ec1f4e76cfe52fed8cb4a734":
+              raise SystemExit("contract blob mismatch")
+          if contract_blob != marker["contract_blob_sha"]:
+              raise SystemExit("working-tree contract mismatch")
+          if marker.get("precheck_authorized") is not True or marker.get("one_shot") is not True:
+              raise SystemExit("one-shot precheck not authorized")
+          if marker.get("data_rows_authorized") is not False:
+              raise SystemExit("data rows remain forbidden")
+          if marker.get("focal_response_opening_authorized") is not False:
+              raise SystemExit("focal response remains forbidden")
+          PY
+
+      - name: Download pinned public CSV
+        run: |
+          mkdir -p build/private build/public
+          curl --location --fail --retry 3 --retry-delay 2 \
+            'https://zenodo.org/records/10942118/files/dat_v3.csv?download=1' \
+            --output build/private/dat_v3.csv
+
+      - name: Run header-only precheck
+        run: |
+          python scripts/precheck_e5_udzungwa_header.py \
+            --csv build/private/dat_v3.csv \
+            --contract docs/replication/E5_UDZUNGWA_HEADER_CONTRACT.json \
+            --out build/public/E5_UDZUNGWA_HEADER_RESULT.json
+
+      - name: Verify firewall and destroy CSV
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          v=json.loads(Path("build/public/E5_UDZUNGWA_HEADER_RESULT.json").read_text())
+          b=v["response_boundary"]
+          assert b["header_lines_read"] == 1
+          assert b["data_rows_read"] == 0
+          assert b["response_rows_read"] == 0
+          assert b["species_values_read"] == 0
+          assert b["timestamp_values_read"] == 0
+          assert b["count_values_read"] == 0
+          assert b["focal_response_opened"] is False
+          assert v["decision"]["candidate_qualified"] is False
+          PY
+          rm -f build/private/dat_v3.csv
+          test ! -e build/private/dat_v3.csv
+
+      - name: Upload result only
+        uses: actions/upload-artifact@v4
+        with:
+          name: e5-udzungwa-header-${{ github.run_id }}
+          path: build/public/E5_UDZUNGWA_HEADER_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
