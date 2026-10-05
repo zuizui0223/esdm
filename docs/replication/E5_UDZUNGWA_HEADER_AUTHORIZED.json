@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "udzungwa_paired_arrays_2013_2014",
+  "contract_id": "e5-udzungwa-dat-v3-header-response-blind-v1",
+  "contract_blob_sha": "42813a1722da2227ec1f4e76cfe52fed8cb4a734",
+  "implementation_parent_sha": "cc58c0f6959a8c4c3363a2826dc84dcbdcf92553",
+  "precheck_authorized": true,
+  "one_shot": true,
+  "data_rows_authorized": false,
+  "focal_response_opening_authorized": false,
+  "model_fitting_authorized": false,
+  "authorized_date": "2026-10-05"
+}
