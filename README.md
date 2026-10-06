@@ -20,9 +20,12 @@ The repository name is historical/convenient. The project does **not** claim `ES
 
 ## Current scientific status
 
-The active empirical endpoint is now the separately named **E4 MICA exact-sparse
-programme**. The underlying process/state model is still the frozen **v0.4-R5b**
-generation; no new semi-synthetic rescue generation was introduced.
+The active empirical programme is now **E5 independent activity-detection
+validation**: a response-blind search for a genuinely independent dataset in which
+ecological activity and effective detection can be separately identified across
+geographic transfer. The underlying process/state model remains the frozen
+**v0.4-R5b** generation. **E4 MICA is terminal** and is retained as the empirical result
+that motivated E5; no new semi-synthetic rescue generation has been introduced.
 
 The empirical lineage is deliberately cumulative rather than rewritten:
 
@@ -34,7 +37,22 @@ v0.4-R5b known-truth PASS
   -> E4 MICA exact structural-exposure compaction
   -> same scientific model / same posterior target
   -> one-shot empirical fit completed
+  -> E5 independent validation: response-blind candidate qualification
 ```
+
+As of 2026-10-06, E5 has screened **15** independent candidate datasets with
+**0 pre-response qualifications**. The dominant bottleneck is joint G3/G4
+identifiability: the design must both separate detection from activity and carry that
+detection/calibration structure across geography. The strongest current design-level
+candidate is the European Observatory of Wildlife (EOW), whose standardized REM
+workflow uses deployment-linked photogrammetric calibration across multiple European
+geographies. EOW is not yet qualified because the current public results release does
+not establish the raw event-plus-deployment material required by frozen G2. Focal
+response opening and model fitting therefore remain forbidden.
+
+See `docs/replication/E5_G4_FIRST_DISCOVERY_POLICY.json`,
+`docs/replication/E5_CANDIDATE_EOW_PUBLIC_PRESCREEN.json`, and
+`docs/replication/E5_RESPONSE_BLIND_CANDIDATE_REGISTRY.json`.
 
 E4 changed **only the computational representation**. Contexts with zero structural
 exposure in every retained observation stream contribute exactly zero likelihood for all
