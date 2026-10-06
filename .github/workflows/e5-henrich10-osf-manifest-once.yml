@@ -63,7 +63,7 @@ jobs:
               raise SystemExit("candidate mismatch")
           if marker.get("contract_id") != "e5-henrich10-osf-manifest-response-blind-v1":
               raise SystemExit("contract id mismatch")
-          if marker.get("contract_blob_sha") != "4f4c461c413f4ee02e1dd9481ceb96d33bd28442":
+          if marker.get("contract_blob_sha") != "df711171ba19703c20a760c66e97f75a096861a5":
               raise SystemExit("contract blob pin mismatch")
           if contract_blob != marker["contract_blob_sha"]:
               raise SystemExit("working-tree contract mismatch")
