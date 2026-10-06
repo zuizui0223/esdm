@@ -2,7 +2,7 @@
   "schema_version": 1,
   "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
   "registry_id": "e5-response-blind-candidate-registry-v1",
-  "date": "2026-10-06",
+  "date": "2026-10-07",
   "status": "RESPONSE_BLIND_SEARCH_IN_PROGRESS",
   "selection_firewall": {
     "focal_response_opened": false,
@@ -460,21 +460,28 @@
         "reference_images_per_location_minimum": 2,
         "ranging_pole_known_distance_max_m": 16,
         "locations_missing_reference_images_in_original_analysis": 17,
-        "osf_node": "https://osf.io/3vwkq/"
+        "osf_node": "https://osf.io/3vwkq/",
+        "osf_manifest_run_id": 37482147928,
+        "osf_manifest_entry_count": 29,
+        "osf_manifest_file_count": 27,
+        "osf_samplingdays_files": 10,
+        "osf_distances_export_files": 10,
+        "osf_distance_sampling_scripts": 2,
+        "osf_named_reference_calibration_files": 0
       },
       "gates": {
         "G1_INDEPENDENT_SOURCE": "PASS",
-        "G2_SCHEMA_EFFORT_TIME": "PROMISING_PUBLIC_METHODS_OSF_SCHEMA_PENDING",
+        "G2_SCHEMA_EFFORT_TIME": "PARTIAL_PUBLIC_MANIFEST_EFFORT_ROUTE_NAMED_VALUES_UNOPENED",
         "G3_CROSSED_DOMAIN": "PASS_DESIGN_PRINCIPLE_PUBLIC_METHODS",
-        "G4_DETECTION_IDENTIFIABILITY": "PROMISING_CTDS_RADIAL_DISTANCE_PATH_PENDING_OSF_LINKAGE",
+        "G4_DETECTION_IDENTIFIABILITY": "FAIL_PUBLIC_REFERENCE_CALIBRATION_PATH_NOT_EXPOSED",
         "G5_PHYSICAL_REPLICATION": "PASS_CAPACITY_586_CAMERAS_SPLIT_NOT_FROZEN",
         "G6_TEMPORAL_SUPPORT": "PASS_PUBLIC_DESIGN_ONE_YEAR_PER_GEOGRAPHY",
         "G7_MODEL_FREEZE": "NOT_REACHED"
       },
-      "decision": "E5_CANDIDATE_NOT_YET_QUALIFIED_SCHEMA_PENDING",
-      "qualification_blocker": "public methods establish a plausible CTDS radial-distance route, but ranging-pole images calibrate distance mapping rather than detection probability itself; OSF manifest/schema must show deployment-linked reference calibration and an event-level radial-distance axis before final G4 can be adjudicated",
+      "decision": "E5_CANDIDATE_NOT_QUALIFIED",
       "response_may_be_opened_for_E5": false,
-      "next_response_blind_check": "execute only the frozen OSF manifest-only precheck after separate authorization; nominate a header/schema child only if public file names expose effort plus reference-calibration and CTDS/radial-distance paths; no file contents"
+      "next_response_blind_check": "terminal for this OSF manifest route; do not open README, scripts, headers, distance tables, or biological response to repair G4",
+      "hard_stop_reason": "the response-blind OSF manifest exposes effort (Samplingdays) and CTDS/event-distance outputs (distances_export) but no separately named ranging/reference calibration material; under the frozen three-route rule, effective detection cannot be established response-independently and the candidate stops at G4"
     }
   ],
   "search_universes": [
@@ -510,11 +517,11 @@
     "snapshot_usa_2024_selected": false,
     "response_opening_authorized": false,
     "model_fitting_authorized": false,
-    "next_action": "execute a separately authorized Henrich10 OSF manifest-only precheck; use it only to nominate a header/schema child for effort, reference calibration and CTDS/radial-distance linkage; open no focal response",
+    "next_action": "continue G4-first discovery for a public multi-region design retaining an independently reproducible detection-calibration channel before focal response opening; Kays41 remains unresolved but unqualified",
     "screened_candidate_count": 15,
     "qualified_candidate_count": 0,
-    "strongest_current_named_candidate": "henrich10_ctds_germany_2019_2020",
-    "named_candidate_status": "G3_pass_G4_promising_CTDS_radial_distance_path_schema_unverified",
+    "strongest_current_named_candidate": "kays41_emammal_team_2020",
+    "named_candidate_status": "promising_multi_study_design_but_dictionary_transport_blocked_unqualified",
     "search_bottleneck": {
       "screened_candidates": 15,
       "qualified_candidates": 0,
@@ -532,8 +539,8 @@
         "large single-protocol multi-city datasets with no independent detection calibration",
         "long-duration datasets lacking response-independent effort intervals"
       ],
-      "strongest_current_named_candidate": "henrich10_ctds_germany_2019_2020",
-      "strongest_candidate_caveat": "Henrich10 has the strongest current route because CTDS separates diel activity from a radial-distance detection likelihood across 10 geographies, but ranging-pole reference images only calibrate distance mapping. Final G4 remains unpassed until the public schema preserves deployment-linked reference calibration and event-level radial distances."
+      "strongest_current_named_candidate": "kays41_emammal_team_2020",
+      "strongest_candidate_caveat": "Kays41 is again the strongest named unresolved candidate after Henrich10 stopped at G4. Kays41 remains transport/schema blocked and has not demonstrated a separately identifiable detection channel; multiple camera models alone are insufficient for G4."
     }
   }
 }
