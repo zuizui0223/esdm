@@ -2,7 +2,7 @@
   "schema_version": 1,
   "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
   "registry_id": "e5-response-blind-candidate-registry-v1",
-  "date": "2026-10-05",
+  "date": "2026-10-06",
   "status": "RESPONSE_BLIND_SEARCH_IN_PROGRESS",
   "selection_firewall": {
     "focal_response_opened": false,
@@ -442,6 +442,39 @@
       "decision": "E5_CANDIDATE_NOT_QUALIFIED",
       "hard_stop_reason": "paired cameras existed in the field, but the released response schema contains neither individual camera identity nor camera-side/pair-member identity, so separate paired-camera detection cannot be reconstructed",
       "response_may_be_opened_for_E5": false
+    },
+    {
+      "candidate_id": "henrich10_ctds_germany_2019_2020",
+      "title": "Henrich et al. multi-protected-area German CTDS programme",
+      "source_url": "https://doi.org/10.1002/rse2.70030",
+      "doi": "10.1002/rse2.70030",
+      "response_opened": false,
+      "public_metadata": {
+        "protected_areas": 10,
+        "physical_camera_traps": 586,
+        "deployment_period": "2019-10 to 2020-09",
+        "nominal_duration": "1 year",
+        "camera_model": "Cuddeback C2",
+        "shared_protocol_across_geographies": true,
+        "daily_timelapse_effort_check": true,
+        "reference_images_per_location_minimum": 2,
+        "ranging_pole_known_distance_max_m": 16,
+        "locations_missing_reference_images_in_original_analysis": 17,
+        "osf_node": "https://osf.io/3vwkq/"
+      },
+      "gates": {
+        "G1_INDEPENDENT_SOURCE": "PASS",
+        "G2_SCHEMA_EFFORT_TIME": "PROMISING_PUBLIC_METHODS_OSF_SCHEMA_PENDING",
+        "G3_CROSSED_DOMAIN": "PASS_DESIGN_PRINCIPLE_PUBLIC_METHODS",
+        "G4_DETECTION_IDENTIFIABILITY": "PASS_DESIGN_PRINCIPLE_PUBLIC_METHODS_PENDING_OSF_LINKAGE",
+        "G5_PHYSICAL_REPLICATION": "PASS_CAPACITY_586_CAMERAS_SPLIT_NOT_FROZEN",
+        "G6_TEMPORAL_SUPPORT": "PASS_PUBLIC_DESIGN_ONE_YEAR_PER_GEOGRAPHY",
+        "G7_MODEL_FREEZE": "NOT_REACHED"
+      },
+      "decision": "E5_CANDIDATE_NOT_YET_QUALIFIED_SCHEMA_PENDING",
+      "qualification_blocker": "OSF file manifest/schema has not yet demonstrated separately retained deployment effort and calibration linkage without opening response-bearing file contents",
+      "response_may_be_opened_for_E5": false,
+      "next_response_blind_check": "execute only the frozen OSF manifest-only precheck after separate authorization; no file contents"
     }
   ],
   "search_universes": [
@@ -473,17 +506,17 @@
   ],
   "current_conclusion": {
     "qualified_candidate_selected": false,
-    "strongest_current_discovery_pool": "Wildlife Insights public projects and independently published paired/calibrated camera-trap packages",
+    "strongest_current_discovery_pool": "Henrich10 CTDS public OSF package plus G4-first discovery across independently calibrated multi-region camera-trap programmes",
     "snapshot_usa_2024_selected": false,
     "response_opening_authorized": false,
     "model_fitting_authorized": false,
-    "next_action": "search first for public datasets retaining paired-camera member identity or deployment-linked detection calibration across at least two geographic regimes; treat Kays41 as promising but not privileged unless a separate schema route demonstrates G4",
-    "screened_candidate_count": 14,
+    "next_action": "execute a separately authorized Henrich10 OSF manifest-only precheck; inspect no file contents and open no focal response, while continuing G4-first candidate discovery",
+    "screened_candidate_count": 15,
     "qualified_candidate_count": 0,
-    "strongest_current_named_candidate": "kays41_emammal_team_2020",
-    "named_candidate_status": "promising_multi_study_design_but_dictionary_transport_blocked_unqualified",
+    "strongest_current_named_candidate": "henrich10_ctds_germany_2019_2020",
+    "named_candidate_status": "public_methods_survive_G4_G3_G5_G6_but_osf_schema_linkage_unverified",
     "search_bottleneck": {
-      "screened_candidates": 14,
+      "screened_candidates": 15,
       "qualified_candidates": 0,
       "dominant_constraint": "joint_G3_G4_identifiability",
       "interpretation": "independent datasets and nominal replication are common; the scarce property is a public design that crosses geography with source/protocol while retaining a separately identifiable detection channel",
@@ -499,8 +532,8 @@
         "large single-protocol multi-city datasets with no independent detection calibration",
         "long-duration datasets lacking response-independent effort intervals"
       ],
-      "strongest_current_named_candidate": "kays41_emammal_team_2020",
-      "strongest_candidate_caveat": "Kays41 remains transport/schema blocked and has not demonstrated a separately identifiable detection channel; multiple camera models alone are insufficient for G4"
+      "strongest_current_named_candidate": "henrich10_ctds_germany_2019_2020",
+      "strongest_candidate_caveat": "Henrich10 is the first screened candidate whose public methods jointly show deployment-linked distance calibration across multiple geographies, year-round coverage and large replication, but the OSF package has not yet been inspected response-blind to prove that effort and calibration linkage are separately retained; it remains unqualified."
     }
   }
 }
