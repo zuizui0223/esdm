@@ -4,7 +4,7 @@ The E5 search has screened 15 independent candidate datasets without opening foc
 biological response for selection. None qualifies.
 
 The dominant bottleneck is **not lack of independent camera-trap data**. G1 passes for
-13 of 14 candidates, and many candidates have ample physical replication or long
+14 of 15 candidates, and many candidates have ample physical replication or long
 temporal coverage.
 
 The scarce design property is the **joint satisfaction of G3 and G4**:
@@ -32,13 +32,16 @@ temporal-support, and physical-location qualification.
 
 Henrich10 is now the strongest named unresolved candidate. Public methods document
 586 Cuddeback C2 cameras operated for one year across 10 German protected areas,
-at least two known-distance ranging-pole reference images per camera location, and
-daily time-lapse checks for effort interruptions. It is the first screened design to
-survive the G4-first and G3 checks at the public-methods level.
+at least two known-distance ranging-pole reference images per camera location, daily
+time-lapse checks for effort interruptions, and CTDS models that use event radial
+distances for the detection likelihood while diel event timing estimates activity.
 
-It is still **not qualified**. The OSF package has not yet been inspected response-blind
-to prove that deployment effort and calibration linkage are separately retained. The
-next step is manifest-only; no file contents, focal response, or fitting are authorized.
+This does **not** make G4 pass. The ranging-pole images calibrate image-to-distance
+mapping; they do not by themselves estimate detection probability. Henrich10 therefore
+has the strongest current *plausible* G4 route, but final G4 requires response-blind
+schema evidence that deployment-linked reference calibration and an event-level
+radial-distance axis survive in the public package. The next step is manifest-only;
+no file contents, focal response, or fitting are authorized.
 
 Kays41 remains a secondary unresolved multi-study candidate, but its dictionary route
 is transport-blocked and it has not demonstrated a separately identifiable detection
