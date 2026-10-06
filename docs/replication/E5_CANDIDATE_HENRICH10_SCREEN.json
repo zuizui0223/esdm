@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "henrich10_ctds_germany_2019_2020",
+  "screen_id": "e5-henrich10-public-methods-response-blind-screen-v1",
+  "status": "E5_CANDIDATE_PUBLIC_DESIGN_SURVIVES_G4_G3_PENDING_OSF_SCHEMA",
+  "screened_date": "2026-10-06",
+  "source": {
+    "title": "Camera traps and deep learning enable efficient large-scale density estimation of wildlife in temperate forest ecosystems",
+    "doi": "10.1002/rse2.70030",
+    "osf_node": "https://osf.io/3vwkq/",
+    "publication_year": 2026
+  },
+  "response_boundary": {
+    "public_methods_and_data_availability_only": true,
+    "osf_file_contents_opened": false,
+    "focal_event_rows_read": 0,
+    "focal_species_values_read": 0,
+    "focal_diel_distributions_read": 0,
+    "predictive_scores_used_for_selection": false,
+    "focal_response_opened": false
+  },
+  "public_design": {
+    "geographic_regimes": 10,
+    "geographic_scope": "10 protected areas across Germany",
+    "physical_camera_traps_total": 586,
+    "deployment_period": "2019-10 to 2020-09",
+    "nominal_duration": "1 year in every study area",
+    "camera_model": "Cuddeback C2",
+    "shared_protocol_across_geographies": true,
+    "daily_timelapse_for_effort_interruptions": true,
+    "deployment_linked_distance_calibration": {
+      "present_in_public_methods": true,
+      "reference_images_per_location_minimum": 2,
+      "ranging_pole_known_distance_max_m": 16,
+      "locations_missing_reference_images_in_original_analysis": 17
+    },
+    "osf_public_data_and_scripts_declared": true
+  },
+  "gates": [
+    {
+      "gate": "G1_INDEPENDENT_SOURCE",
+      "status": "PASS",
+      "reason": "independent 10-protected-area German camera-trap programme; not MICA, Snapshot Japan, or an E2-E4 derivative"
+    },
+    {
+      "gate": "G2_SCHEMA_EFFORT_TIME",
+      "status": "PROMISING_PUBLIC_METHODS_OSF_SCHEMA_PENDING",
+      "reason": "public methods specify one-year deployments and daily time-lapse checks for interruptions, but the response-blind OSF file structure has not yet been inspected to prove separately retained effort fields"
+    },
+    {
+      "gate": "G3_CROSSED_DOMAIN",
+      "status": "PASS_DESIGN_PRINCIPLE_PUBLIC_METHODS",
+      "reason": "the same Cuddeback C2 protocol and deployment-linked ranging-pole calibration were applied across 10 geographically distinct protected areas, so the detection-calibration mechanism is not confined to one geography"
+    },
+    {
+      "gate": "G4_DETECTION_IDENTIFIABILITY",
+      "status": "PASS_DESIGN_PRINCIPLE_PUBLIC_METHODS_PENDING_OSF_LINKAGE",
+      "reason": "at least two known-distance reference images were recorded at each camera location and used to estimate animal-to-camera distances; whether those calibration materials or their deployment linkage are retained in the public OSF package remains unopened"
+    },
+    {
+      "gate": "G5_PHYSICAL_REPLICATION",
+      "status": "PASS_CAPACITY_586_CAMERAS_SPLIT_NOT_FROZEN",
+      "reason": "586 cameras across 10 protected areas provide ample public-design capacity; exact training/heldout geography has not been selected"
+    },
+    {
+      "gate": "G6_TEMPORAL_SUPPORT",
+      "status": "PASS_PUBLIC_DESIGN_ONE_YEAR_PER_GEOGRAPHY",
+      "reason": "the common field programme ran from October 2019 through September 2020, providing all 12 calendar months before any geography split is frozen"
+    },
+    {
+      "gate": "G7_MODEL_FREEZE",
+      "status": "NOT_REACHED",
+      "reason": "candidate-specific model freeze remains forbidden until OSF schema/effort/calibration linkage is verified response-blind"
+    }
+  ],
+  "decision": {
+    "candidate_qualified": false,
+    "candidate_selected_for_response_opening": false,
+    "strongest_response_blind_named_candidate": true,
+    "next_step": "freeze and execute an OSF manifest-only precheck; inspect no file contents",
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "broader_candidate_search_authorized": true
+  },
+  "interpretation": {
+    "supported": "this is the first screened E5 candidate whose published design jointly supplies multi-geography overlap, deployment-linked distance calibration, year-round coverage, and large physical replication",
+    "not_supported": [
+      "claim that the public OSF package retains the needed deployment/calibration linkage",
+      "claim that G2 or final G4 has passed",
+      "claim about any species activity pattern",
+      "any E5 fitted outcome"
+    ]
+  }
+}
