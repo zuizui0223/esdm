@@ -71,11 +71,21 @@ def test_henrich10_manifest_parser_uses_names_only_for_child_route_hints():
                 {
                     "id": "file2",
                     "attributes": {
-                        "name": "distance_calibration.csv",
+                        "name": "ranging_pole_reference.csv",
                         "kind": "file",
-                        "materialized_path": "/metadata/distance_calibration.csv",
+                        "materialized_path": "/metadata/ranging_pole_reference.csv",
                         "provider": "osfstorage",
                         "size": 456,
+                    },
+                },
+                {
+                    "id": "file3",
+                    "attributes": {
+                        "name": "ctds_distance_estimates.csv",
+                        "kind": "file",
+                        "materialized_path": "/metadata/ctds_distance_estimates.csv",
+                        "provider": "osfstorage",
+                        "size": 789,
                     },
                 }
             ],
@@ -90,10 +100,11 @@ def test_henrich10_manifest_parser_uses_names_only_for_child_route_hints():
         return payloads[url]
 
     result = build_manifest(_contract(), getter=fake_get)
-    assert result["manifest"]["file_count"] == 2
+    assert result["manifest"]["file_count"] == 3
     assert result["manifest"]["folder_count"] == 1
     assert result["decision"]["manifest_supports_effort_child"] is True
-    assert result["decision"]["manifest_supports_calibration_child"] is True
+    assert result["decision"]["manifest_supports_reference_calibration_child"] is True
+    assert result["decision"]["manifest_supports_ctds_radial_distance_child"] is True
     assert result["decision"]["child_contract_recommended"] is True
     assert result["decision"]["candidate_qualified"] is False
     assert result["response_boundary"]["file_downloads_followed"] == 0
@@ -105,7 +116,7 @@ def test_henrich10_workflow_is_marker_only_and_pins_contract_blob():
     text = WORKFLOW.read_text(encoding="utf-8")
     assert "e5/henrich10-osf-manifest-v1" in text
     assert "E5_HENRICH10_OSF_MANIFEST_AUTHORIZED.json" in text
-    assert "4f4c461c413f4ee02e1dd9481ceb96d33bd28442" in text
+    assert "df711171ba19703c20a760c66e97f75a096861a5" in text
     assert "workflow_dispatch" not in text
     assert "file_content_read_authorized" in text
     assert "api.osf.io/v2/nodes/3vwkq/" in text
