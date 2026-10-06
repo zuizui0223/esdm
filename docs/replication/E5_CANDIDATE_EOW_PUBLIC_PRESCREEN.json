@@ -61,7 +61,7 @@
   },
   "decision": "E5_CANDIDATE_NOT_YET_QUALIFIED",
   "blocker": "The current public EOW results release exposes study-site metadata, site-year summaries and the protocol, but no reproducibly accessible event-plus-deployment package has yet been demonstrated for the frozen E5 G2 requirements.",
-  "next_response_blind_check": "Search only for a public EOW or EOW-affiliated Agouti/Camtrap-DP export that contains deployment intervals and event timestamps while preserving deployment-calibration linkage. Do not infer raw access from the summary database and do not open focal response values.",
+  "next_response_blind_check": "Do not repeat generic EOW discovery. Reopen EOW only when a concrete multi-geography public raw package preserves deployment intervals, event timestamps and deployment-calibration linkage, or a direct EOW raw-data endpoint is published.",
   "response_boundary": {
     "focal_response_opened": false,
     "focal_event_rows_opened": 0,
@@ -69,5 +69,6 @@
     "predictive_scores_opened": 0,
     "model_fitting_authorized": false
   },
-  "response_may_be_opened_for_E5": false
+  "response_may_be_opened_for_E5": false,
+  "raw_linkage_search_receipt": "docs/replication/E5_EOW_RAW_LINKAGE_SEARCH_STOP.json"
 }
