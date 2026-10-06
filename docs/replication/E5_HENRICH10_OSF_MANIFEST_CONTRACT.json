@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "henrich10_ctds_germany_2019_2020",
+  "contract_id": "e5-henrich10-osf-manifest-response-blind-v1",
+  "status": "FROZEN_PRECHECK_NOT_AUTHORIZED",
+  "frozen_date": "2026-10-06",
+  "source": {
+    "osf_node": "https://osf.io/3vwkq/",
+    "source_article_doi": "10.1002/rse2.70030"
+  },
+  "purpose": "determine whether the public OSF package exposes a response-independent path to deployment effort and deployment-linked distance calibration before any biological response file is opened",
+  "allowed_reads": [
+    "OSF project-level metadata",
+    "folder names",
+    "file names",
+    "file paths",
+    "file sizes",
+    "MIME/content-type labels",
+    "OSF file GUIDs and version metadata"
+  ],
+  "forbidden_reads": [
+    "file contents of any CSV, TSV, RDS, RData, XLSX, image, archive, script output or database",
+    "preview rows or column values",
+    "species or taxon identities from data files",
+    "event timestamps from biological observations",
+    "focal event counts",
+    "focal diel distributions",
+    "distance observations to animals",
+    "activity estimates",
+    "density estimates",
+    "predictive scores or effect directions"
+  ],
+  "response_boundary": {
+    "file_contents_opened": false,
+    "biological_rows_read": 0,
+    "response_values_allowed": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false
+  },
+  "adjudication": {
+    "manifest_only_can_qualify_candidate": false,
+    "pass_to_child_contract_if": [
+      "manifest shows separately named deployment/site/effort metadata",
+      "manifest shows separately named reference/calibration material or an explicit deployment-calibration linkage path"
+    ],
+    "stop_if": [
+      "only opaque monolithic response-bearing files are exposed",
+      "calibration linkage can only be inferred by reading focal biological rows"
+    ],
+    "child_contract_required_before_any_file_content_read": true
+  }
+}
