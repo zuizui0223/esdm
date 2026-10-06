@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "ceiling_id": "e5-public-data-ceiling-v1",
+  "status": "FROZEN_PUBLIC_DATA_CEILING",
+  "frozen_date": "2026-10-07",
+  "parent_registry": "docs/replication/E5_RESPONSE_BLIND_CANDIDATE_REGISTRY.json",
+  "evidence": {
+    "screened_candidates": 15,
+    "qualified_candidates": 0,
+    "focal_response_opened_for_candidate_selection": false,
+    "dominant_bottleneck": "joint_G3_G4_identifiability",
+    "decisive_patterns": [
+      "paired-camera field designs can fail because public releases collapse pair-member identity",
+      "large multi-city or multi-study datasets can lack a separately identifiable detection channel",
+      "long-duration datasets can fail source/protocol crossing",
+      "distance-sampling outputs can be public while the independent reference-calibration object is not",
+      "strong geometry and replication do not rescue missing response-independent effort or detection identification"
+    ],
+    "strongest_terminal_example": {
+      "candidate_id": "henrich10_ctds_germany_2019_2020",
+      "G3": "PASS_DESIGN_PRINCIPLE_PUBLIC_METHODS",
+      "G4": "FAIL_PUBLIC_REFERENCE_CALIBRATION_PATH_NOT_EXPOSED",
+      "response_opened": false
+    },
+    "strongest_unresolved_reference": {
+      "candidate_id": "kays41_emammal_team_2020",
+      "status": "UNQUALIFIED_TRANSPORT_SCHEMA_BLOCKED",
+      "interpretation": "unresolved is not pass; multiple camera models alone do not satisfy G4"
+    }
+  },
+  "search_stop_rule": {
+    "generic_candidate_discovery_authorized": false,
+    "candidate_count_may_increment_under_current_programme": false,
+    "stopped_candidate_repair_using_response_authorized": false,
+    "same_candidate_transport_or_schema_retry_authorized": false,
+    "reopen_E5_only_if_all": [
+      "a candidate is surfaced independently of E5 focal response values or prior candidate outcome direction",
+      "public methods/schema/metadata already demonstrate a separately identifiable detection path before focal response opening",
+      "the detection/source/protocol factor overlaps at least two geographic regimes rather than being perfectly confounded with geography",
+      "public design metadata make the frozen physical-replication and six-month temporal requirements plausibly satisfiable",
+      "the candidate is not a repair or rerun of a previously stopped authorization"
+    ],
+    "reopening_requires_new_frozen_child_contract": true
+  },
+  "decision": {
+    "candidate_search_closed": true,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "E4_remains_terminal_empirical_endpoint": true,
+    "E5_negative_biological_claim_authorized": false,
+    "future_different_estimand_route_must_be_separately_named": true
+  },
+  "interpretation": {
+    "supported": "under the frozen E5 requirements, the screened public-data universe did not yield a design that independently separates activity from effective detection while also supporting strict geographic transfer",
+    "not_supported": [
+      "no qualifying dataset exists anywhere",
+      "activity is biologically irrelevant",
+      "detection is unimportant",
+      "CTDS or paired-camera methods are invalid",
+      "the E4 activity failure is causal or behavioral"
+    ]
+  }
+}
