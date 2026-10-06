@@ -57,4 +57,4 @@ def test_registry_preserves_transport_stop_history_after_terminal_metadata_stop(
     assert qld["public_metadata"]["deployment_rows_with_valid_direct_or_parent_interval"] == 0
     assert qld["response_may_be_opened_for_E5"] is False
     assert reg["current_conclusion"]["qualified_candidate_count"] == 0
-    assert reg["current_conclusion"]["strongest_current_named_candidate"] == "kays41_emammal_team_2020"
+    assert reg["current_conclusion"]["strongest_current_named_candidate"] == "henrich10_ctds_germany_2019_2020"

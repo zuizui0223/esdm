@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "henrich10_ctds_germany_2019_2020",
+  "contract_id": "e5-henrich10-osf-manifest-response-blind-v1",
+  "status": "FROZEN_MANIFEST_NOT_AUTHORIZED",
+  "frozen_date": "2026-10-06",
+  "source": {
+    "osf_node": "https://osf.io/3vwkq/",
+    "source_article_doi": "10.1002/rse2.70030",
+    "node_api": "https://api.osf.io/v2/nodes/3vwkq/",
+    "osfstorage_api": "https://api.osf.io/v2/nodes/3vwkq/files/osfstorage/"
+  },
+  "purpose": "determine whether the public OSF package exposes response-blind paths to deployment effort, deployment-linked reference-distance calibration, and a separately inspectable CTDS/radial-distance event schema before any biological response values are opened",
+  "response_firewall": {
+    "project_metadata_read_authorized": true,
+    "storage_manifest_metadata_read_authorized": true,
+    "recursive_folder_manifest_read_authorized": true,
+    "file_content_read_authorized": false,
+    "file_download_authorized": false,
+    "file_preview_authorized": false,
+    "biological_rows_read_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false
+  },
+  "decision_boundary": {
+    "candidate_qualification_authorized": false,
+    "G2_pass_authorized": false,
+    "final_G4_pass_authorized": false,
+    "child_contract_required_before_any_file_content_read": true,
+    "manifest_can_only_nominate_header_schema_child": true,
+    "header_schema_child_requires_named_effort_path": true,
+    "header_schema_child_requires_named_reference_calibration_path": true,
+    "header_schema_child_requires_named_ctds_or_radial_distance_path": true,
+    "ranging_pole_reference_alone_can_pass_G4": false
+  },
+  "execution": {
+    "dedicated_branch": "e5/henrich10-osf-manifest-v1",
+    "authorization_marker": "docs/replication/E5_HENRICH10_OSF_MANIFEST_AUTHORIZED.json",
+    "one_shot": true,
+    "pure_marker_commit_required": true,
+    "workflow_dispatch_authorized": false
+  }
+}

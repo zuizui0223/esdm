@@ -1,10 +1,10 @@
-# E5 response-blind search bottleneck after 14 candidates
+# E5 response-blind search bottleneck after 15 candidates
 
-The E5 search has screened 14 independent candidate datasets without opening focal
+The E5 search has screened 15 independent candidate datasets without opening focal
 biological response for selection. None qualifies.
 
 The dominant bottleneck is **not lack of independent camera-trap data**. G1 passes for
-13 of 14 candidates, and many candidates have ample physical replication or long
+14 of 15 candidates, and many candidates have ample physical replication or long
 temporal coverage.
 
 The scarce design property is the **joint satisfaction of G3 and G4**:
@@ -30,6 +30,19 @@ That detection/source factor must then overlap at least two geographic regimes.
 Only candidates surviving those two checks should receive detailed effort, six-month
 temporal-support, and physical-location qualification.
 
-Kays41 remains the strongest named unresolved candidate because of its 41-study,
-multi-camera-model design, but it is **not privileged**: its dictionary transport is
-blocked and no separately identifiable detection path has yet been demonstrated.
+Henrich10 is now the strongest named unresolved candidate. Public methods document
+586 Cuddeback C2 cameras operated for one year across 10 German protected areas,
+at least two known-distance ranging-pole reference images per camera location, daily
+time-lapse checks for effort interruptions, and CTDS models that use event radial
+distances for the detection likelihood while diel event timing estimates activity.
+
+This does **not** make G4 pass. The ranging-pole images calibrate image-to-distance
+mapping; they do not by themselves estimate detection probability. Henrich10 therefore
+has the strongest current *plausible* G4 route, but final G4 requires response-blind
+schema evidence that deployment-linked reference calibration and an event-level
+radial-distance axis survive in the public package. The next step is manifest-only;
+no file contents, focal response, or fitting are authorized.
+
+Kays41 remains a secondary unresolved multi-study candidate, but its dictionary route
+is transport-blocked and it has not demonstrated a separately identifiable detection
+channel.
