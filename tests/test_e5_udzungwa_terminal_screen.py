@@ -54,12 +54,12 @@ def test_udzungwa_receipt_pins_one_shot_artifact():
         "7b88b20163612343bfa4d9a06c40ae40341236c7829a99e7ec796c04cbb6510d"
     )
 
-def test_registry_has_fourteen_candidates_and_kays_remains_strongest():
+def test_registry_has_fifteen_candidates_and_eow_is_strongest_design_candidate():
     v=_read(REGISTRY)
-    assert v["current_conclusion"]["screened_candidate_count"]==14
+    assert v["current_conclusion"]["screened_candidate_count"]==15
     assert v["current_conclusion"]["qualified_candidate_count"]==0
     assert v["current_conclusion"]["strongest_current_named_candidate"]==(
-        "kays41_emammal_team_2020"
+        "eow_europe_multisite_photogrammetry"
     )
     row=next(x for x in v["candidates"] if x["candidate_id"]=="udzungwa_paired_arrays_2013_2014")
     assert row["decision"]=="E5_CANDIDATE_NOT_QUALIFIED"
