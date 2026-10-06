@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "eow_europe_multisite_photogrammetry",
+  "search_id": "e5-eow-public-raw-linkage-targeted-search-v1",
+  "status": "TARGETED_PUBLIC_RAW_LINKAGE_NOT_ESTABLISHED",
+  "frozen_date": "2026-10-06",
+  "purpose": "Bound the public search for an EOW event-plus-deployment package that preserves deployment-level photogrammetric calibration, without opening focal biological response.",
+  "public_evidence": [
+    {
+      "source": "https://zenodo.org/records/21060656",
+      "finding": "Current EOW Results Database release exposes EOW_database.xlsx with policy information, study-site metadata, study-site/year summary data and legend, plus the REM protocol; the release does not itself advertise a raw event-plus-deployment package."
+    },
+    {
+      "source": "https://wildlifeobservatory.org/wp-content/uploads/2025/06/EFSA-Supporting-Publications-2023-A-pilot-on-integrated-wildlife-monitoring-at-European-scale-environmental.pdf",
+      "finding": "EOW methodology explicitly digitizes deployment-calibration images with a calibration pole to estimate speed and camera detection parameters."
+    },
+    {
+      "source": "https://wildlifeobservatory.org/wp-content/uploads/2025/12/3.1_A_EOW_2025_report.pdf",
+      "finding": "Current harmonized workflow uses Agouti and distinguishes camera-model calibration from deployment-specific calibration."
+    },
+    {
+      "source": "https://ipt.inbo.be/resource?r=gmu8_leuven&v=1",
+      "finding": "A public Agouti-derived Camtrap DP package tagged with EOW exists for GMU8_LEUVEN, with deployments, observations and media over a long time series, but the public metadata inspected do not establish preservation of EOW photogrammetric/deployment-calibration values and the package is one Belgian geographic region."
+    }
+  ],
+  "adjudication": {
+    "D1_EOW_METHOD_HAS_DETECTION_CALIBRATION": "PASS_DESIGN_PRINCIPLE",
+    "D2_EOW_METHOD_SPANS_MULTIPLE_GEOGRAPHIES": "PASS_DESIGN_PRINCIPLE",
+    "G2_PUBLIC_RAW_EVENT_DEPLOYMENT_CALIBRATION_LINKAGE": "NOT_ESTABLISHED",
+    "GMU8_AS_DIRECT_E5_CANDIDATE": "NOT_PROMOTED_SINGLE_GEOGRAPHY_AND_CALIBRATION_LINKAGE_UNPROVEN",
+    "candidate_qualified": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false
+  },
+  "stopping_rule": "Do not repeat generic EOW web searches. Reopen this path only if a concrete public EOW/Agouti/Camtrap-DP package is found that exposes deployment intervals, event timestamps and deployment-calibration linkage for at least two geographic regimes, or if an EOW data provider publishes a direct raw-data endpoint.",
+  "response_boundary": {
+    "focal_response_opened": false,
+    "event_rows_read": 0,
+    "species_values_read": 0,
+    "diel_values_read": 0,
+    "predictive_scores_read": 0
+  }
+}

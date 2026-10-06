@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "eow_europe_multisite_photogrammetry",
+  "title": "European Observatory of Wildlife standardized REM network",
+  "status": "E5_RESPONSE_BLIND_PUBLIC_PRESCREEN",
+  "frozen_date": "2026-10-06",
+  "response_opened": false,
+  "sources": [
+    {
+      "role": "latest_public_results_release",
+      "url": "https://zenodo.org/records/21060656",
+      "doi": "10.5281/zenodo.21060656",
+      "safe_fact_scope": "public file inventory and dataset description only"
+    },
+    {
+      "role": "network_and_2024_campaign_description",
+      "url": "https://doi.org/10.2903/sp.efsa.2024.en-9084",
+      "safe_fact_scope": "standardized multi-country EOW design and Agouti/photogrammetry workflow"
+    },
+    {
+      "role": "calibration_protocol_evidence",
+      "url": "https://fvo.si/wp-content/uploads/2023/04/EFSA-Supporting-Publications_2023_Wild-ungulate-density-data-generated-by-camera-trapping-in-37-European-areas.pdf",
+      "safe_fact_scope": "deployment-level camera calibration using calibration-pole images"
+    },
+    {
+      "role": "current_workflow_vocabulary",
+      "url": "https://wildlifeobservatory.org/wp-content/uploads/2025/12/3.1_A_EOW_2025_report.pdf",
+      "safe_fact_scope": "camera calibration, deployment calibration, Agouti and Camtrap DP workflow"
+    }
+  ],
+  "public_metadata": {
+    "multi_country_network": true,
+    "standardized_rem_camera_trap_protocol": true,
+    "agouti_workflow": true,
+    "photogrammetry": true,
+    "camera_model_calibration_by_make_model_resolution": true,
+    "deployment_calibration_per_deployment": true,
+    "calibration_pole_images_per_deployment": true,
+    "latest_public_results_release": "2026-06-30",
+    "latest_public_results_files": [
+      "EOW_database.xlsx",
+      "EOW_REM _protocol_2.1.pdf"
+    ],
+    "latest_public_results_content": "study-site metadata, site-year summaries, legend and protocol",
+    "raw_event_or_deployment_package_in_latest_results_release_demonstrated": false
+  },
+  "g4_first_entry": {
+    "D1_DETECTION_IDENTITY": "PASS_DESIGN_PRINCIPLE_DEPLOYMENT_LINKED_PHOTOGRAMMETRIC_CALIBRATION",
+    "D2_GEOGRAPHIC_OVERLAP": "PASS_DESIGN_PRINCIPLE_STANDARDIZED_CALIBRATION_USED_ACROSS_MULTIPLE_EUROPEAN_GEOGRAPHIES",
+    "D3_RESPONSE_FIREWALL": "PASS_PUBLIC_METHODS_AND_FILE_INVENTORY_ONLY"
+  },
+  "gates": {
+    "G1_INDEPENDENT_SOURCE": "PASS",
+    "G2_SCHEMA_EFFORT_TIME": "BLOCKED_RAW_EVENT_DEPLOYMENT_ACCESS_NOT_ESTABLISHED",
+    "G3_CROSSED_DOMAIN": "PROMISING_SHARED_CALIBRATION_PROTOCOL_OVERLAPS_MULTIPLE_GEOGRAPHIES",
+    "G4_DETECTION_IDENTIFIABILITY": "PASS_DESIGN_PRINCIPLE_DEPLOYMENT_LINKED_PHOTOGRAMMETRIC_CALIBRATION",
+    "G5_PHYSICAL_REPLICATION": "PROMISING_MULTI_SITE_COUNTS_SPLIT_NOT_FROZEN",
+    "G6_TEMPORAL_SUPPORT": "NOT_ADJUDICATED_BEFORE_G2",
+    "G7_MODEL_FREEZE": "NOT_REACHED"
+  },
+  "decision": "E5_CANDIDATE_NOT_YET_QUALIFIED",
+  "blocker": "The current public EOW results release exposes study-site metadata, site-year summaries and the protocol, but no reproducibly accessible event-plus-deployment package has yet been demonstrated for the frozen E5 G2 requirements.",
+  "next_response_blind_check": "Do not repeat generic EOW discovery. Reopen EOW only when a concrete multi-geography public raw package preserves deployment intervals, event timestamps and deployment-calibration linkage, or a direct EOW raw-data endpoint is published.",
+  "response_boundary": {
+    "focal_response_opened": false,
+    "focal_event_rows_opened": 0,
+    "focal_diel_values_opened": 0,
+    "predictive_scores_opened": 0,
+    "model_fitting_authorized": false
+  },
+  "response_may_be_opened_for_E5": false,
+  "raw_linkage_search_receipt": "docs/replication/E5_EOW_RAW_LINKAGE_SEARCH_STOP.json"
+}

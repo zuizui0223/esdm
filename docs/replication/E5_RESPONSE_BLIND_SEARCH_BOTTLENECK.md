@@ -1,6 +1,6 @@
-# E5 response-blind search bottleneck after 14 candidates
+# E5 response-blind search bottleneck after 15 candidates
 
-The E5 search has screened 14 independent candidate datasets without opening focal
+The E5 search has screened 15 independent candidate datasets without opening focal
 biological response for selection. None qualifies.
 
 The dominant bottleneck is **not lack of independent camera-trap data**. G1 passes for
@@ -30,6 +30,18 @@ That detection/source factor must then overlap at least two geographic regimes.
 Only candidates surviving those two checks should receive detailed effort, six-month
 temporal-support, and physical-location qualification.
 
-Kays41 remains the strongest named unresolved candidate because of its 41-study,
-multi-camera-model design, but it is **not privileged**: its dictionary transport is
-blocked and no separately identifiable detection path has yet been demonstrated.
+The European Observatory of Wildlife (EOW) is now the strongest **design-level**
+candidate under the G4-first policy. Its standardized REM workflow uses photogrammetric
+camera/deployment calibration, including deployment-specific calibration-pole imagery,
+across many European geographies. That directly addresses the detection-identification
+bottleneck more cleanly than camera-model labels alone.
+
+EOW is still **not qualified**. The current public EOW results release contains
+study-site metadata, site-year summaries and the protocol, but a reproducibly accessible
+raw event-plus-deployment package preserving effort intervals, event timestamps and
+deployment-calibration linkage has not yet been established. Therefore G2 remains
+blocked, G5/G6 are not promoted, and focal response remains closed.
+
+Kays41 remains the strongest unresolved candidate with a public raw-detection release,
+but its dictionary route is transport-blocked and no candidate-specific G4 path has been
+demonstrated.
