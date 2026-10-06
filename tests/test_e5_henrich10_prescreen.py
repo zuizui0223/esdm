@@ -13,15 +13,15 @@ def _read(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def test_henrich10_public_design_survives_g4_g3_without_response_opening():
+def test_henrich10_public_design_passes_g3_but_keeps_g4_promising():
     value = _read(SCREEN)
     gates = {row["gate"]: row["status"] for row in value["gates"]}
-    assert value["status"] == "E5_CANDIDATE_PUBLIC_DESIGN_SURVIVES_G4_G3_PENDING_OSF_SCHEMA"
+    assert value["status"] == "E5_CANDIDATE_G3_PASS_G4_PROMISING_PENDING_OSF_SCHEMA"
     assert value["public_design"]["geographic_regimes"] == 10
     assert value["public_design"]["physical_camera_traps_total"] == 586
     assert gates["G3_CROSSED_DOMAIN"] == "PASS_DESIGN_PRINCIPLE_PUBLIC_METHODS"
     assert gates["G4_DETECTION_IDENTIFIABILITY"] == (
-        "PASS_DESIGN_PRINCIPLE_PUBLIC_METHODS_PENDING_OSF_LINKAGE"
+        "PROMISING_CTDS_RADIAL_DISTANCE_PATH_PENDING_OSF_LINKAGE"
     )
     assert gates["G6_TEMPORAL_SUPPORT"] == "PASS_PUBLIC_DESIGN_ONE_YEAR_PER_GEOGRAPHY"
     assert value["response_boundary"]["focal_event_rows_read"] == 0
