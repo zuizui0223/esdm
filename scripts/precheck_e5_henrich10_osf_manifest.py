@@ -19,8 +19,16 @@ API_HOST = "api.osf.io"
 API_PATH_PREFIX = f"/v2/nodes/{NODE_ID}/"
 
 HINT_GROUPS = {
-    "effort": ("effort", "deployment", "camera", "site", "station", "timelapse", "time_lapse"),
-    "calibration": ("calibration", "reference", "ranging", "range", "distance", "pole"),
+    "effort": (
+        "effort", "deployment", "camera", "site", "station", "timelapse", "time_lapse"
+    ),
+    "reference_calibration": (
+        "calibration", "reference", "ranging", "range_pole", "ranging_pole", "mask"
+    ),
+    "ctds_radial_distance": (
+        "ctds", "radial", "animal_distance", "observation_distance",
+        "distance_estimate", "distance_estimates", "detection_function"
+    ),
 }
 
 
@@ -154,8 +162,17 @@ def build_manifest(
 
     decision = {
         "manifest_supports_effort_child": bool(matched["effort"]),
-        "manifest_supports_calibration_child": bool(matched["calibration"]),
-        "child_contract_recommended": bool(matched["effort"] and matched["calibration"]),
+        "manifest_supports_reference_calibration_child": bool(
+            matched["reference_calibration"]
+        ),
+        "manifest_supports_ctds_radial_distance_child": bool(
+            matched["ctds_radial_distance"]
+        ),
+        "child_contract_recommended": bool(
+            matched["effort"]
+            and matched["reference_calibration"]
+            and matched["ctds_radial_distance"]
+        ),
         "candidate_qualified": False,
         "G2_pass_authorized": False,
         "final_G4_pass_authorized": False,
