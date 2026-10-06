@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "kays41_emammal_team_2020",
+  "contract_id": "e5-kays41-spatial-raw-header-response-blind-v1",
+  "status": "FROZEN_HEADER_PRECHECK_NOT_AUTHORIZED",
+  "frozen_date": "2026-10-06",
+  "parent": "docs/replication/E5_KAYS41_DICTIONARY_TRANSPORT_STOP.json",
+  "source": {
+    "dataset_doi": "10.5061/dryad.p8cz8w9m2",
+    "file_name": "Spatial_Raw_detections.csv",
+    "dryad_file_id": 235084,
+    "public_download_url": "https://datadryad.org/downloads/file_stream/235084",
+    "public_file_size_note": "Dryad page reports approximately 265 MB; full-file download is forbidden by this contract."
+  },
+  "rationale": "The prior dictionary-only one-shot ended at transport before reading any dictionary bytes. Public Dryad metadata independently exposes the raw-detection filename and file identifier. A new child may inspect exactly the CSV header to determine whether candidate-specific deployment, camera, effort/time, source and detection-calibration fields exist, without reading any biological data row.",
+  "transport_contract": {
+    "http_range_required": true,
+    "accepted_http_status": [
+      206
+    ],
+    "range_header": "bytes=0-8191",
+    "maximum_header_bytes": 8192,
+    "reject_if_server_ignores_range": true,
+    "full_file_download_authorized": false,
+    "retry_authorized": false
+  },
+  "response_firewall": {
+    "header_line_read_authorized": true,
+    "data_row_read_authorized": false,
+    "response_value_read_authorized": false,
+    "species_value_read_authorized": false,
+    "focal_taxon_selection_authorized": false,
+    "diel_distribution_read_authorized": false,
+    "effect_direction_read_authorized": false,
+    "predictive_score_read_authorized": false,
+    "model_fitting_authorized": false
+  },
+  "may_report": [
+    "header SHA256 and column count",
+    "matched schema field names only",
+    "presence/absence of deployment, location, study/project, camera/device, camera model, deployment start/end, event date/time and distance/calibration concepts",
+    "transport status and response-firewall counters"
+  ],
+  "gate_boundary": {
+    "G1_INDEPENDENT_SOURCE": "PASS_FROM_PARENT_PUBLIC_PROVENANCE",
+    "G2_SCHEMA_EFFORT_TIME": "MAY_REPORT_SCHEMA_SUPPORT_ONLY_NO_PASS_FROM_HEADER_ALONE",
+    "G3_CROSSED_DOMAIN": "MAY_REPORT_SOURCE_OR_PROTOCOL_FIELD_POTENTIAL_ONLY",
+    "G4_DETECTION_IDENTIFIABILITY": "MAY_REPORT_CANDIDATE_CALIBRATION_FIELD_POTENTIAL_ONLY_NO_PASS_FROM_HEADER_ALONE",
+    "G5_PHYSICAL_REPLICATION": "NOT_ADJUDICATED",
+    "G6_TEMPORAL_SUPPORT": "NOT_ADJUDICATED",
+    "G7_MODEL_FREEZE": "NOT_REACHED"
+  },
+  "decision_boundary": {
+    "candidate_qualification_authorized": false,
+    "G2_pass_authorized": false,
+    "G3_pass_authorized": false,
+    "G4_pass_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "separate_child_contract_required_before_any_data_row_or_field_value": true
+  },
+  "execution": {
+    "dedicated_branch": "e5/kays41-raw-header-v1",
+    "authorization_marker": "docs/replication/E5_KAYS41_RAW_HEADER_AUTHORIZED.json",
+    "one_shot": true,
+    "pure_marker_commit_required": true,
+    "workflow_dispatch_authorized": false
+  }
+}
