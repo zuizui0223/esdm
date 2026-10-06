@@ -32,15 +32,15 @@ def test_henrich10_public_design_survives_g4_g3_without_response_opening():
 
 def test_henrich10_next_step_is_manifest_only_and_cannot_open_files():
     value = _read(CONTRACT)
-    assert value["status"] == "FROZEN_PRECHECK_NOT_AUTHORIZED"
-    assert value["adjudication"]["manifest_only_can_qualify_candidate"] is False
-    assert value["adjudication"]["child_contract_required_before_any_file_content_read"] is True
-    assert value["response_boundary"]["file_contents_opened"] is False
-    assert value["response_boundary"]["biological_rows_read"] == 0
-    forbidden = " ".join(value["forbidden_reads"])
-    assert "file contents" in forbidden
-    assert "focal diel distributions" in forbidden
-    assert value["response_boundary"]["focal_response_opening_authorized"] is False
+    assert value["status"] == "FROZEN_MANIFEST_NOT_AUTHORIZED"
+    assert value["decision_boundary"]["candidate_qualification_authorized"] is False
+    assert value["decision_boundary"]["child_contract_required_before_any_file_content_read"] is True
+    fw = value["response_firewall"]
+    assert fw["file_content_read_authorized"] is False
+    assert fw["file_download_authorized"] is False
+    assert fw["file_preview_authorized"] is False
+    assert fw["biological_rows_read_authorized"] is False
+    assert fw["focal_response_opening_authorized"] is False
 
 
 def test_registry_promotes_henrich10_only_as_strongest_unqualified_candidate():
