@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "discovery_id": "e5-g4-first-discovery-v1",
+  "status": "FROZEN_RESPONSE_BLIND_DISCOVERY_POLICY",
+  "date": "2026-10-06",
+  "parent_registry": "docs/replication/E5_RESPONSE_BLIND_CANDIDATE_REGISTRY.json",
+  "rationale": {
+    "screened_candidates": 14,
+    "qualified_candidates": 0,
+    "dominant_bottleneck": "joint_G3_G4_identifiability",
+    "target_design": "Nakashima-like independently identifying detection design at substantially larger spatial and temporal scale"
+  },
+  "hard_entry_requirements": [
+    {
+      "id": "D1_DETECTION_IDENTITY",
+      "pass_if_any": [
+        "paired or double-observer member identity retained in public schema",
+        "deployment-linked distance/detection calibration retained separately from biological response",
+        "auxiliary detection stream linked to the same physical deployments",
+        "another predeclared response-independent mechanism that identifies detection separately from activity"
+      ],
+      "reject_if": [
+        "field study used paired cameras but public response collapses pair-member identity",
+        "camera model names exist but no overlap/calibration identifies detection",
+        "detection can only be inferred from focal biological response"
+      ]
+    },
+    {
+      "id": "D2_GEOGRAPHIC_OVERLAP",
+      "requirement": "the detection/source/protocol factor used for G4 must occur in at least two geographic regimes so it is not perfectly confounded with geography"
+    },
+    {
+      "id": "D3_RESPONSE_FIREWALL",
+      "requirement": "D1 and D2 must be established from public methods/schema/metadata before focal response rows, focal diel distributions, focal counts, or predictive scores are inspected"
+    }
+  ],
+  "deferred_until_D1_D2_pass": [
+    "detailed effort reconstruction",
+    "six-month split-specific temporal qualification",
+    "20/10 physical-location qualification",
+    "candidate-specific model freeze",
+    "focal response opening"
+  ],
+  "preferred_search_classes": [
+    "large double-observer or paired-camera networks retaining camera-member identity",
+    "multi-region camera-distance-sampling networks with deployment-linked calibration distances",
+    "multi-region camera networks with independent sensor-calibration trials tied to deployments",
+    "public multi-project repositories where the same detection-calibration protocol overlaps multiple geographies"
+  ],
+  "deprioritized_classes": [
+    "single-protocol multi-city networks with one camera per site",
+    "paired-camera field studies whose released data collapse pair identity",
+    "single-region detection studies regardless of sample size",
+    "long-duration monitoring with no separately identifying detection stream"
+  ],
+  "response_boundary": {
+    "focal_response_opened": false,
+    "response_values_allowed_for_discovery": false,
+    "effect_direction_allowed_for_discovery": false,
+    "predictive_scores_allowed_for_discovery": false
+  },
+  "decision": {
+    "frozen_E5_gates_changed": false,
+    "candidate_selected": false,
+    "response_opening_authorized": false,
+    "model_fitting_authorized": false
+  }
+}
