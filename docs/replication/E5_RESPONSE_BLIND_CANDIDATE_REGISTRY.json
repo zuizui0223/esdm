@@ -2,7 +2,7 @@
   "schema_version": 1,
   "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
   "registry_id": "e5-response-blind-candidate-registry-v1",
-  "date": "2026-10-05",
+  "date": "2026-10-06",
   "status": "RESPONSE_BLIND_SEARCH_IN_PROGRESS",
   "selection_firewall": {
     "focal_response_opened": false,
@@ -442,6 +442,42 @@
       "decision": "E5_CANDIDATE_NOT_QUALIFIED",
       "hard_stop_reason": "paired cameras existed in the field, but the released response schema contains neither individual camera identity nor camera-side/pair-member identity, so separate paired-camera detection cannot be reconstructed",
       "response_may_be_opened_for_E5": false
+    },
+    {
+      "candidate_id": "eow_europe_multisite_photogrammetry",
+      "title": "European Observatory of Wildlife standardized REM network",
+      "source_url": "https://doi.org/10.5281/zenodo.21060656",
+      "doi": "10.5281/zenodo.21060656",
+      "response_opened": false,
+      "public_metadata": {
+        "multi_country_network": true,
+        "standardized_rem_camera_trap_protocol": true,
+        "agouti_workflow": true,
+        "photogrammetry": true,
+        "camera_model_calibration_by_make_model_resolution": true,
+        "deployment_calibration_per_deployment": true,
+        "calibration_pole_images_per_deployment": true,
+        "latest_public_results_release": "2026-06-30",
+        "latest_public_results_files": [
+          "EOW_database.xlsx",
+          "EOW_REM _protocol_2.1.pdf"
+        ],
+        "latest_public_results_content": "study-site metadata, site-year summaries, legend and protocol",
+        "raw_event_or_deployment_package_in_latest_results_release_demonstrated": false
+      },
+      "gates": {
+        "G1_INDEPENDENT_SOURCE": "PASS",
+        "G2_SCHEMA_EFFORT_TIME": "BLOCKED_RAW_EVENT_DEPLOYMENT_ACCESS_NOT_ESTABLISHED",
+        "G3_CROSSED_DOMAIN": "PROMISING_SHARED_CALIBRATION_PROTOCOL_OVERLAPS_MULTIPLE_GEOGRAPHIES",
+        "G4_DETECTION_IDENTIFIABILITY": "PASS_DESIGN_PRINCIPLE_DEPLOYMENT_LINKED_PHOTOGRAMMETRIC_CALIBRATION",
+        "G5_PHYSICAL_REPLICATION": "PROMISING_MULTI_SITE_COUNTS_SPLIT_NOT_FROZEN",
+        "G6_TEMPORAL_SUPPORT": "NOT_ADJUDICATED_BEFORE_G2",
+        "G7_MODEL_FREEZE": "NOT_REACHED"
+      },
+      "decision": "E5_CANDIDATE_NOT_YET_QUALIFIED",
+      "hard_stop_reason": "the current public EOW results release exposes study-site metadata, site-year summaries and the protocol, but no reproducibly accessible event-plus-deployment package has yet been demonstrated for the frozen E5 G2 requirements",
+      "response_may_be_opened_for_E5": false,
+      "next_response_blind_check": "search only for a public EOW or EOW-affiliated Agouti/Camtrap-DP export that contains deployment intervals and event timestamps while preserving deployment-calibration linkage; do not infer raw access from the summary database"
     }
   ],
   "search_universes": [
@@ -477,13 +513,13 @@
     "snapshot_usa_2024_selected": false,
     "response_opening_authorized": false,
     "model_fitting_authorized": false,
-    "next_action": "search first for public datasets retaining paired-camera member identity or deployment-linked detection calibration across at least two geographic regimes; treat Kays41 as promising but not privileged unless a separate schema route demonstrates G4",
-    "screened_candidate_count": 14,
+    "next_action": "seek a response-blind public EOW/Agouti Camtrap-DP export preserving deployment intervals, event timestamps and deployment-calibration linkage; if no such public export exists, retain EOW as design-level evidence only and continue independent G4-first discovery",
+    "screened_candidate_count": 15,
     "qualified_candidate_count": 0,
-    "strongest_current_named_candidate": "kays41_emammal_team_2020",
-    "named_candidate_status": "promising_multi_study_design_but_dictionary_transport_blocked_unqualified",
+    "strongest_current_named_candidate": "eow_europe_multisite_photogrammetry",
+    "named_candidate_status": "best_current_G4_first_design_but_G2_raw_event_deployment_access_unestablished",
     "search_bottleneck": {
-      "screened_candidates": 14,
+      "screened_candidates": 15,
       "qualified_candidates": 0,
       "dominant_constraint": "joint_G3_G4_identifiability",
       "interpretation": "independent datasets and nominal replication are common; the scarce property is a public design that crosses geography with source/protocol while retaining a separately identifiable detection channel",
@@ -499,8 +535,8 @@
         "large single-protocol multi-city datasets with no independent detection calibration",
         "long-duration datasets lacking response-independent effort intervals"
       ],
-      "strongest_current_named_candidate": "kays41_emammal_team_2020",
-      "strongest_candidate_caveat": "Kays41 remains transport/schema blocked and has not demonstrated a separately identifiable detection channel; multiple camera models alone are insufficient for G4"
+      "strongest_current_named_candidate": "eow_europe_multisite_photogrammetry",
+      "strongest_candidate_caveat": "EOW directly satisfies the G4-first design principle through deployment-linked photogrammetric calibration reused across multiple European geographies, but the current public results release does not establish the raw event/deployment package required by G2"
     }
   }
 }
