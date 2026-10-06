@@ -11,7 +11,7 @@
     "node_api": "https://api.osf.io/v2/nodes/3vwkq/",
     "osfstorage_api": "https://api.osf.io/v2/nodes/3vwkq/files/osfstorage/"
   },
-  "purpose": "determine whether the public OSF package exposes a response-independent path to deployment effort and deployment-linked distance calibration before any biological response file is opened",
+  "purpose": "determine whether the public OSF package exposes response-blind paths to deployment effort, deployment-linked reference-distance calibration, and a separately inspectable CTDS/radial-distance event schema before any biological response values are opened",
   "response_firewall": {
     "project_metadata_read_authorized": true,
     "storage_manifest_metadata_read_authorized": true,
@@ -27,7 +27,12 @@
     "candidate_qualification_authorized": false,
     "G2_pass_authorized": false,
     "final_G4_pass_authorized": false,
-    "child_contract_required_before_any_file_content_read": true
+    "child_contract_required_before_any_file_content_read": true,
+    "manifest_can_only_nominate_header_schema_child": true,
+    "header_schema_child_requires_named_effort_path": true,
+    "header_schema_child_requires_named_reference_calibration_path": true,
+    "header_schema_child_requires_named_ctds_or_radial_distance_path": true,
+    "ranging_pole_reference_alone_can_pass_G4": false
   },
   "execution": {
     "dedicated_branch": "e5/henrich10-osf-manifest-v1",
