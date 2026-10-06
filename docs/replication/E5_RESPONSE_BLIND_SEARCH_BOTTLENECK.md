@@ -1,6 +1,6 @@
-# E5 response-blind search bottleneck after 14 candidates
+# E5 response-blind search bottleneck after 15 candidates
 
-The E5 search has screened 14 independent candidate datasets without opening focal
+The E5 search has screened 15 independent candidate datasets without opening focal
 biological response for selection. None qualifies.
 
 The dominant bottleneck is **not lack of independent camera-trap data**. G1 passes for
@@ -30,6 +30,16 @@ That detection/source factor must then overlap at least two geographic regimes.
 Only candidates surviving those two checks should receive detailed effort, six-month
 temporal-support, and physical-location qualification.
 
-Kays41 remains the strongest named unresolved candidate because of its 41-study,
-multi-camera-model design, but it is **not privileged**: its dictionary transport is
-blocked and no separately identifiable detection path has yet been demonstrated.
+Henrich10 is now the strongest named unresolved candidate. Public methods document
+586 Cuddeback C2 cameras operated for one year across 10 German protected areas,
+at least two known-distance ranging-pole reference images per camera location, and
+daily time-lapse checks for effort interruptions. It is the first screened design to
+survive the G4-first and G3 checks at the public-methods level.
+
+It is still **not qualified**. The OSF package has not yet been inspected response-blind
+to prove that deployment effort and calibration linkage are separately retained. The
+next step is manifest-only; no file contents, focal response, or fitting are authorized.
+
+Kays41 remains a secondary unresolved multi-study candidate, but its dictionary route
+is transport-blocked and it has not demonstrated a separately identifiable detection
+channel.
