@@ -43,7 +43,7 @@ def test_henrich10_next_step_is_manifest_only_and_cannot_open_files():
     assert fw["focal_response_opening_authorized"] is False
 
 
-def test_registry_promotes_henrich10_only_as_strongest_unqualified_candidate():
+def test_registry_marks_henrich10_terminal_and_restores_kays41_priority():
     value = _read(REGISTRY)
     row = next(
         x for x in value["candidates"]
@@ -52,8 +52,11 @@ def test_registry_promotes_henrich10_only_as_strongest_unqualified_candidate():
     assert value["current_conclusion"]["screened_candidate_count"] == 15
     assert value["current_conclusion"]["qualified_candidate_count"] == 0
     assert value["current_conclusion"]["strongest_current_named_candidate"] == (
-        "henrich10_ctds_germany_2019_2020"
+        "kays41_emammal_team_2020"
     )
     assert row["response_opened"] is False
     assert row["response_may_be_opened_for_E5"] is False
-    assert row["decision"] == "E5_CANDIDATE_NOT_YET_QUALIFIED_SCHEMA_PENDING"
+    assert row["decision"] == "E5_CANDIDATE_NOT_QUALIFIED"
+    assert row["gates"]["G4_DETECTION_IDENTIFIABILITY"] == (
+        "FAIL_PUBLIC_REFERENCE_CALIBRATION_PATH_NOT_EXPOSED"
+    )
