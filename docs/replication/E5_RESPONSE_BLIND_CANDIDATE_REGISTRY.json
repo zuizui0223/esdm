@@ -466,15 +466,15 @@
         "G1_INDEPENDENT_SOURCE": "PASS",
         "G2_SCHEMA_EFFORT_TIME": "PROMISING_PUBLIC_METHODS_OSF_SCHEMA_PENDING",
         "G3_CROSSED_DOMAIN": "PASS_DESIGN_PRINCIPLE_PUBLIC_METHODS",
-        "G4_DETECTION_IDENTIFIABILITY": "PASS_DESIGN_PRINCIPLE_PUBLIC_METHODS_PENDING_OSF_LINKAGE",
+        "G4_DETECTION_IDENTIFIABILITY": "PROMISING_CTDS_RADIAL_DISTANCE_PATH_PENDING_OSF_LINKAGE",
         "G5_PHYSICAL_REPLICATION": "PASS_CAPACITY_586_CAMERAS_SPLIT_NOT_FROZEN",
         "G6_TEMPORAL_SUPPORT": "PASS_PUBLIC_DESIGN_ONE_YEAR_PER_GEOGRAPHY",
         "G7_MODEL_FREEZE": "NOT_REACHED"
       },
       "decision": "E5_CANDIDATE_NOT_YET_QUALIFIED_SCHEMA_PENDING",
-      "qualification_blocker": "OSF file manifest/schema has not yet demonstrated separately retained deployment effort and calibration linkage without opening response-bearing file contents",
+      "qualification_blocker": "public methods establish a plausible CTDS radial-distance route, but ranging-pole images calibrate distance mapping rather than detection probability itself; OSF manifest/schema must show deployment-linked reference calibration and an event-level radial-distance axis before final G4 can be adjudicated",
       "response_may_be_opened_for_E5": false,
-      "next_response_blind_check": "execute only the frozen OSF manifest-only precheck after separate authorization; no file contents"
+      "next_response_blind_check": "execute only the frozen OSF manifest-only precheck after separate authorization; nominate a header/schema child only if public file names expose effort plus reference-calibration and CTDS/radial-distance paths; no file contents"
     }
   ],
   "search_universes": [
@@ -510,11 +510,11 @@
     "snapshot_usa_2024_selected": false,
     "response_opening_authorized": false,
     "model_fitting_authorized": false,
-    "next_action": "execute a separately authorized Henrich10 OSF manifest-only precheck; inspect no file contents and open no focal response, while continuing G4-first candidate discovery",
+    "next_action": "execute a separately authorized Henrich10 OSF manifest-only precheck; use it only to nominate a header/schema child for effort, reference calibration and CTDS/radial-distance linkage; open no focal response",
     "screened_candidate_count": 15,
     "qualified_candidate_count": 0,
     "strongest_current_named_candidate": "henrich10_ctds_germany_2019_2020",
-    "named_candidate_status": "public_methods_survive_G4_G3_G5_G6_but_osf_schema_linkage_unverified",
+    "named_candidate_status": "G3_pass_G4_promising_CTDS_radial_distance_path_schema_unverified",
     "search_bottleneck": {
       "screened_candidates": 15,
       "qualified_candidates": 0,
@@ -533,7 +533,7 @@
         "long-duration datasets lacking response-independent effort intervals"
       ],
       "strongest_current_named_candidate": "henrich10_ctds_germany_2019_2020",
-      "strongest_candidate_caveat": "Henrich10 is the first screened candidate whose public methods jointly show deployment-linked distance calibration across multiple geographies, year-round coverage and large replication, but the OSF package has not yet been inspected response-blind to prove that effort and calibration linkage are separately retained; it remains unqualified."
+      "strongest_candidate_caveat": "Henrich10 has the strongest current route because CTDS separates diel activity from a radial-distance detection likelihood across 10 geographies, but ranging-pole reference images only calibrate distance mapping. Final G4 remains unpassed until the public schema preserves deployment-linked reference calibration and event-level radial distances."
     }
   }
 }
