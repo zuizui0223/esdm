@@ -75,7 +75,7 @@ def test_e5_registry_marks_qld_terminal_after_survey_parent_diagnostic():
     assert by_id["sumatra_mesopredator_paired_2014_2015"]["decision"] == "E5_CANDIDATE_NOT_QUALIFIED"
     assert value["current_conclusion"]["qualified_candidate_selected"] is False
     assert value["current_conclusion"]["qualified_candidate_count"] == 0
-    assert value["current_conclusion"]["strongest_current_named_candidate"] == "kays41_emammal_team_2020"
+    assert value["current_conclusion"]["strongest_current_named_candidate"] == "eow_europe_multisite_photogrammetry"
     assert by_id["qld_wet_tropics_camtrapdp_2022_2023"]["decision"] == (
         "E5_CANDIDATE_NOT_QUALIFIED"
     )
