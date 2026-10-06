@@ -3,7 +3,7 @@
   "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
   "candidate_id": "henrich10_ctds_germany_2019_2020",
   "screen_id": "e5-henrich10-public-methods-response-blind-screen-v1",
-  "status": "E5_CANDIDATE_PUBLIC_DESIGN_SURVIVES_G4_G3_PENDING_OSF_SCHEMA",
+  "status": "E5_CANDIDATE_G3_PASS_G4_PROMISING_PENDING_OSF_SCHEMA",
   "screened_date": "2026-10-06",
   "source": {
     "title": "Camera traps and deep learning enable efficient large-scale density estimation of wildlife in temperate forest ecosystems",
@@ -55,8 +55,8 @@
     },
     {
       "gate": "G4_DETECTION_IDENTIFIABILITY",
-      "status": "PASS_DESIGN_PRINCIPLE_PUBLIC_METHODS_PENDING_OSF_LINKAGE",
-      "reason": "at least two known-distance reference images were recorded at each camera location and used to estimate animal-to-camera distances; whether those calibration materials or their deployment linkage are retained in the public OSF package remains unopened"
+      "status": "PROMISING_CTDS_RADIAL_DISTANCE_PATH_PENDING_OSF_LINKAGE",
+      "reason": "known-distance ranging-pole reference images calibrate image-to-distance mapping, but do not by themselves estimate detection probability; the CTDS detection function is estimated from species-specific radial distances of observed animals. Final G4 therefore requires response-blind proof that the public package retains deployment-linked reference calibration plus an event-level radial-distance axis that can be modeled separately from diel activity."
     },
     {
       "gate": "G5_PHYSICAL_REPLICATION",
@@ -84,9 +84,10 @@
     "broader_candidate_search_authorized": true
   },
   "interpretation": {
-    "supported": "this is the first screened E5 candidate whose published design jointly supplies multi-geography overlap, deployment-linked distance calibration, year-round coverage, and large physical replication",
+    "supported": "Henrich10 is the strongest screened E5 design because public methods combine multi-geography overlap, year-round effort, large replication, deployment-linked distance mapping, and a CTDS radial-distance axis that could identify detection separately from diel activity if the required linkage survives in the public schema.",
     "not_supported": [
-      "claim that the public OSF package retains the needed deployment/calibration linkage",
+      "claim that ranging-pole reference images alone identify detection probability",
+      "claim that the public OSF package retains deployment/reference/event-distance linkage",
       "claim that G2 or final G4 has passed",
       "claim about any species activity pattern",
       "any E5 fitted outcome"
