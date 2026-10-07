@@ -3,7 +3,7 @@
   "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
   "candidate_id": "wolfson_wildpig_gps_camera_2015_2018",
   "screen_id": "e5-wildpig-gps-camera-public-prescreen-v1",
-  "status": "E5_CANDIDATE_G3_PASS_G4_PROMISING_EXTERNAL_ACTIVITY_ANCHOR",
+  "status": "E5_STANDARD_G4_UNPASSED_ACTIVITY_ANCHOR_ROUTE_PENDING_SCHEMA",
   "screened_date": "2026-10-07",
   "source": {
     "article_title": "Comparison of daily activity patterns across seasons using GPS telemetry and camera trap data for a widespread mammal",
@@ -71,8 +71,8 @@
     },
     {
       "gate": "G4_DETECTION_IDENTIFIABILITY",
-      "status": "PROMISING_EXTERNAL_ACTIVITY_ANCHOR_PENDING_SCHEMA",
-      "reason": "GPS telemetry provides an observation stream independent of camera detections in both geographies and can anchor ecological activity; final G4 requires predeclared schema/model proof that camera effective detection is identifiable conditional on that external activity stream"
+      "status": "NOT_PASSED_DIRECT_DETECTION_ROUTE",
+      "reason": "GPS telemetry anchors ecological activity rather than directly calibrating camera detection. The frozen direct-detection G4 is therefore not passed. A separately frozen external-activity-anchor route may estimate only relative diel camera observation distortion if its own schema and identifiability gates pass."
     },
     {
       "gate": "G5_PHYSICAL_REPLICATION",
@@ -93,16 +93,20 @@
   "decision": {
     "candidate_qualified": false,
     "strongest_response_blind_named_candidate": true,
-    "next_step": "freeze and execute a one-shot header-only precheck across the 16 pinned seasonal CSVs",
+    "next_step": "freeze and execute the one-shot header-only precheck across the 16 pinned seasonal CSVs under the separate external-activity-anchor route",
     "focal_response_opening_authorized": false,
     "model_fitting_authorized": false,
-    "broader_candidate_search_authorized": true
+    "broader_candidate_search_authorized": true,
+    "standard_e5_candidate_qualified": false,
+    "activity_anchor_route_id": "e5-external-activity-anchor-v1",
+    "activity_anchor_route_status": "PENDING_HEADER_SCHEMA"
   },
   "interpretation": {
-    "supported": "this is the strongest screened design so far because an external activity stream (GPS telemetry) is crossed with camera observations in two geographies with strong replication and seasonal coverage",
+    "supported": "the crossed GPS-camera design is the strongest screened response-blind basis for a separately frozen external-activity-anchor route; it does not pass the original direct-detection G4",
     "not_supported": [
-      "claim that GPS automatically identifies camera detection probability",
-      "claim that G2, final G4 or G6 has passed",
+      "claim that GPS directly calibrates camera detection probability",
+      "claim that the original E5 G4 has passed",
+      "claim that the external-activity-anchor route has passed A2-A6",
       "claim about the direction or magnitude of camera-versus-GPS activity differences",
       "any E5 fitted outcome"
     ]
