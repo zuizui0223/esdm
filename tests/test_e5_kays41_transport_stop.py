@@ -55,7 +55,7 @@ def test_registry_keeps_kays41_unqualified_after_transport_stop():
     value = _read(REGISTRY)
     row = next(
         item for item in value["candidates"]
-        if item["candidate_id"] == "wolfson_wildpig_gps_camera_2015_2018"
+        if item["candidate_id"] == "kays41_emammal_team_2020"
     )
 
     assert row["decision"] == "E5_CANDIDATE_NOT_YET_QUALIFIED_TRANSPORT_BLOCKED"
