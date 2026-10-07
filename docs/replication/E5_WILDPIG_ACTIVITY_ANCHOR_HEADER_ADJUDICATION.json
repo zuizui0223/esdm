@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "wolfson_wildpig_gps_camera_2015_2018",
+  "route_id": "e5-external-activity-anchor-v1",
+  "adjudication_id": "e5-wildpig-activity-anchor-header-adjudication-v1",
+  "status": "ACTIVITY_ANCHOR_ROUTE_SCHEMA_ADVANCES_A5",
+  "adjudicated_date": "2026-10-07",
+  "sources": {
+    "header_receipt": "docs/replication/E5_WILDPIG_GPS_CAMERA_HEADER_RECEIPT.json",
+    "public_methods_doi": "10.1002/ecs2.4728",
+    "route_contract": "docs/replication/E5_EXTERNAL_ACTIVITY_ANCHOR_ROUTE_CONTRACT.json"
+  },
+  "response_boundary": {
+    "header_values_only": true,
+    "data_rows_read": 0,
+    "camera_detection_values_read": 0,
+    "gps_location_or_activity_values_read": 0,
+    "focal_response_opened": false,
+    "model_fitting_authorized": false
+  },
+  "route_gates": [
+    {
+      "gate": "A1_CROSSED_METHOD_GEOGRAPHY",
+      "status": "PASS",
+      "reason": "Florida and California each retain camera and GPS channels, with spring/summer/fall/winter files for both methods"
+    },
+    {
+      "gate": "A2_ACTIVITY_ANCHOR_SCHEMA",
+      "status": "PASS_MANUAL_HEADER_ADJUDICATION",
+      "reason": "all GPS seasonal headers retain Indiv_ID, Fix_DateTime and X/Y; the Florida automatic failure is a matcher false negative caused by the two-character substring guard, not missing schema"
+    },
+    {
+      "gate": "A3_CAMERA_SCHEMA",
+      "status": "PASS_ROUTE_LEVEL_NETWORK_EXPOSURE_WITH_CAVEAT",
+      "reason": "all camera headers retain LocationName plus event-time fields; public methods define fixed 44-camera Florida and 48-camera California arrays with network exposure windows Dec 2015-Dec 2016 and Mar 2015-Mar 2017 respectively. No site-specific outage log is exposed, so this pass is limited to relative diel shape and cannot be reused as a standard E5 deployment-effort pass"
+    },
+    {
+      "gate": "A4_TEMPORAL_OVERLAP",
+      "status": "PASS_PUBLIC_METHODS",
+      "reason": "Florida GPS May 2015-Feb 2017 overlaps the camera interval Dec 2015-Dec 2016; California GPS Sep 2015-Aug 2017 overlaps the camera interval Mar 2015-Mar 2017. Both overlaps cover all four predeclared seasons"
+    },
+    {
+      "gate": "A5_RELATIVE_DISTORTION_IDENTIFIABILITY",
+      "status": "PENDING_STRUCTURAL_PROOF",
+      "reason": "requires a separate response-free algebraic identification proof for relative D(t) under the route normalization"
+    },
+    {
+      "gate": "A6_MODEL_AND_HOLDOUT_FREEZE",
+      "status": "NOT_REACHED",
+      "reason": "model/kernel construction and transfer statistic are not yet frozen"
+    }
+  ],
+  "original_e5_status": {
+    "G4_DETECTION_IDENTIFIABILITY": "NOT_PASSED_DIRECT_DETECTION_ROUTE",
+    "standard_candidate_qualified": false
+  },
+  "outcome_exposure_audit": {
+    "candidate_and_route_selected_before_published_outcome_direction_exposure": true,
+    "header_contract_frozen_before_published_outcome_direction_exposure": true,
+    "header_one_shot_executed_before_published_outcome_direction_exposure": true,
+    "qualitative_published_method_comparison_direction_exposed_before_A5_A6_freeze": true,
+    "consequence": "A1-A4 remain response-blind. Any A5/A6 choices must be theorem-based or mechanically inherited from public methods/code and may not be tuned to the published direction. A future empirical result must not be described as fully untouched preregistered validation."
+  },
+  "decision": {
+    "advance_to_A5_structural_proof": true,
+    "data_row_opening_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false
+  }
+}
