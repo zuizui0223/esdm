@@ -43,7 +43,9 @@ def test_wildpig_header_contract_is_bounded_and_value_blind():
     assert fw["camera_detection_values_authorized"] is False
     assert fw["gps_location_values_authorized"] is False
     assert fw["gps_activity_or_movement_values_authorized"] is False
-    assert value["decision_boundary"]["header_precheck_can_qualify_candidate"] is False\n    assert value["decision_boundary"]["original_G4_pass_authorized"] is False\n    assert value["route_contract"].endswith("E5_EXTERNAL_ACTIVITY_ANCHOR_ROUTE_CONTRACT.json")
+    assert value["decision_boundary"]["header_precheck_can_qualify_candidate"] is False
+    assert value["decision_boundary"]["original_G4_pass_authorized"] is False
+    assert value["route_contract"].endswith("E5_EXTERNAL_ACTIVITY_ANCHOR_ROUTE_CONTRACT.json")
 
 
 def test_wildpig_header_parser_can_validate_both_channels_without_data_rows():
