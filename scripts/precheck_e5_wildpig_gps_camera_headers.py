@@ -19,7 +19,11 @@ def _norm(value: str) -> str:
 
 def _has(headers: list[str], patterns: tuple[str, ...]) -> bool:
     values = [_norm(x) for x in headers]
-    return any(p == h or p in h for h in values for p in patterns)
+    return any(
+        p == h or (len(p) >= 3 and p in h)
+        for h in values
+        for p in patterns
+    )
 
 
 def fetch_prefix(url: str, max_bytes: int) -> bytes:
