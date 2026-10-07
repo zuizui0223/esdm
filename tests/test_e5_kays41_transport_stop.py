@@ -55,7 +55,7 @@ def test_registry_keeps_kays41_unqualified_after_transport_stop():
     value = _read(REGISTRY)
     row = next(
         item for item in value["candidates"]
-        if item["candidate_id"] == "kays41_emammal_team_2020"
+        if item["candidate_id"] == "wolfson_wildpig_gps_camera_2015_2018"
     )
 
     assert row["decision"] == "E5_CANDIDATE_NOT_YET_QUALIFIED_TRANSPORT_BLOCKED"
@@ -65,8 +65,8 @@ def test_registry_keeps_kays41_unqualified_after_transport_stop():
     assert row["response_may_be_opened_for_E5"] is False
 
     current = value["current_conclusion"]
-    assert current["screened_candidate_count"] == 15
+    assert current["screened_candidate_count"] == 16
     assert current["qualified_candidate_count"] == 0
-    assert current["strongest_current_named_candidate"] == "kays41_emammal_team_2020"
+    assert current["strongest_current_named_candidate"] == "wolfson_wildpig_gps_camera_2015_2018"
     assert current["response_opening_authorized"] is False
     assert current["model_fitting_authorized"] is False
