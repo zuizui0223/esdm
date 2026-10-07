@@ -4,12 +4,14 @@
   "candidate_id": "wolfson_wildpig_gps_camera_2015_2018",
   "route_id": "e5-external-activity-anchor-v1",
   "adjudication_id": "e5-wildpig-activity-anchor-header-adjudication-v1",
-  "status": "ACTIVITY_ANCHOR_ROUTE_SCHEMA_ADVANCES_A5",
+  "status": "ACTIVITY_ANCHOR_ROUTE_A1_A5_PASS_A6_FROZEN_NOT_AUTHORIZED",
   "adjudicated_date": "2026-10-07",
   "sources": {
     "header_receipt": "docs/replication/E5_WILDPIG_GPS_CAMERA_HEADER_RECEIPT.json",
     "public_methods_doi": "10.1002/ecs2.4728",
-    "route_contract": "docs/replication/E5_EXTERNAL_ACTIVITY_ANCHOR_ROUTE_CONTRACT.json"
+    "route_contract": "docs/replication/E5_EXTERNAL_ACTIVITY_ANCHOR_ROUTE_CONTRACT.json",
+    "A5_result": "docs/replication/E5_EXTERNAL_ACTIVITY_ANCHOR_IDENTIFICATION_RESULT.json",
+    "A6_model_contract": "docs/replication/E5_WILDPIG_ACTIVITY_ANCHOR_MODEL_CONTRACT.json"
   },
   "response_boundary": {
     "header_values_only": true,
@@ -42,13 +44,13 @@
     },
     {
       "gate": "A5_RELATIVE_DISTORTION_IDENTIFIABILITY",
-      "status": "PENDING_STRUCTURAL_PROOF",
-      "reason": "requires a separate response-free algebraic identification proof for relative D(t) under the route normalization"
+      "status": "PASS_RESPONSE_FREE_STRUCTURAL_PROOF",
+      "reason": "closed-form relative distortion is unique under positivity and mean(log D)=0; two synthetic recovery cases pass at floating-point tolerance with zero empirical values"
     },
     {
       "gate": "A6_MODEL_AND_HOLDOUT_FREEZE",
-      "status": "NOT_REACHED",
-      "reason": "model/kernel construction and transfer statistic are not yet frozen"
+      "status": "FROZEN_NOT_AUTHORIZED",
+      "reason": "symmetric two-direction geographic transfer, preprocessing, bootstrap, overlap gain and interpretation rule are frozen in E5_WILDPIG_ACTIVITY_ANCHOR_MODEL_CONTRACT.json; empirical values remain unauthorized"
     }
   ],
   "original_e5_status": {
@@ -64,6 +66,9 @@
   },
   "decision": {
     "advance_to_A5_structural_proof": true,
+    "A5_passed": true,
+    "A6_model_frozen": true,
+    "separate_empirical_one_shot_authorization_required": true,
     "data_row_opening_authorized": false,
     "focal_response_opening_authorized": false,
     "model_fitting_authorized": false
