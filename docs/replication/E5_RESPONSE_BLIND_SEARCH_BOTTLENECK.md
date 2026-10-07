@@ -1,10 +1,10 @@
-# E5 response-blind search bottleneck after 15 candidates
+# E5 response-blind search bottleneck after 16 candidates
 
-The E5 search has screened 15 independent candidate datasets without opening focal
+The E5 search has screened 16 independent candidate datasets without opening focal
 biological response for selection. None qualifies.
 
 The dominant bottleneck is **not lack of independent camera-trap data**. G1 passes for
-14 of 15 candidates, and many candidates have ample physical replication or long
+15 of 16 candidates, and many candidates have ample physical replication or long
 temporal coverage.
 
 The scarce design property is the **joint satisfaction of G3 and G4**:
@@ -41,10 +41,21 @@ The article describes ranging-pole reference images, but that calibration path i
 reproducibly exposed in the public manifest. Under the frozen three-route rule, Henrich10
 therefore stops without opening README contents, headers, event rows or focal response.
 
-Kays41 is again the strongest named unresolved candidate, but it remains unqualified:
-its dictionary route is transport-blocked and it has not demonstrated a separately
-identifiable detection channel.
-
 The Henrich10 stop sharpens the search criterion: **distance estimation is not the same
-thing as response-independent detection calibration**. Future candidates should expose
-the calibration object itself, not only downstream animal-distance outputs.
+thing as response-independent detection calibration**.
+
+Candidate 16 changes the search direction. Wolfson et al.'s wild-pig dataset has a
+two-by-two geography × observation-method design: Florida and California each contain
+both camera-trap and GPS telemetry data, and both methods are represented in all four
+seasons. Public methods report 44 and 48 camera sites and 62 and 21 GPS-tracked
+individuals in Florida and California, respectively.
+
+This is stronger than Kays41 because the second observation channel is not another
+camera configuration: GPS telemetry can provide an external ecological-activity anchor.
+It does **not** automatically pass G4. Final identifiability still requires the public
+GPS schema to retain individual, time and movement/activity information and a frozen
+joint model showing how the external activity channel identifies camera effective
+detection. The next response-blind step is therefore header-only across the 16 pinned
+seasonal CSVs; no data row or effect direction is authorized.
+
+Kays41 remains unresolved but is no longer the strongest named candidate.
