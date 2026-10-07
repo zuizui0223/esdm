@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "henrich10_ctds_germany_2019_2020",
+  "screen_id": "e5-henrich10-osf-manifest-terminal-screen-v1",
+  "status": "E5_CANDIDATE_NOT_QUALIFIED",
+  "screened_date": "2026-10-07",
+  "source": {
+    "article_doi": "10.1002/rse2.70030",
+    "osf_node": "https://osf.io/3vwkq/",
+    "manifest_receipt": "docs/replication/E5_HENRICH10_OSF_MANIFEST_RECEIPT.json"
+  },
+  "response_boundary": {
+    "manifest_only": true,
+    "file_contents_opened": 0,
+    "biological_rows_read": 0,
+    "focal_response_opened": false
+  },
+  "manifest_findings": {
+    "effort_files_named": true,
+    "effort_file_pattern": "Samplingdays_*_export.csv",
+    "effort_file_count": 10,
+    "ctds_distance_files_named": true,
+    "ctds_distance_file_pattern": "distances_export_*.csv",
+    "ctds_distance_file_count": 10,
+    "distance_sampling_scripts_named": 2,
+    "independently_named_reference_or_ranging_calibration_files": 0,
+    "readme_named": true,
+    "readme_contents_opened": false
+  },
+  "gates": [
+    {
+      "gate": "G1_INDEPENDENT_SOURCE",
+      "status": "PASS",
+      "reason": "independent German 10-protected-area CTDS programme"
+    },
+    {
+      "gate": "G2_SCHEMA_EFFORT_TIME",
+      "status": "PARTIAL_PUBLIC_MANIFEST_EFFORT_ROUTE_NAMED_VALUES_UNOPENED",
+      "reason": "10 Samplingdays files expose an effort route by name, but their headers/values remain unopened after the G4 hard stop"
+    },
+    {
+      "gate": "G3_CROSSED_DOMAIN",
+      "status": "PASS_DESIGN_PRINCIPLE_PUBLIC_METHODS",
+      "reason": "the standardized CTDS programme spans 10 geographic regimes"
+    },
+    {
+      "gate": "G4_DETECTION_IDENTIFIABILITY",
+      "status": "FAIL_PUBLIC_REFERENCE_CALIBRATION_PATH_NOT_EXPOSED",
+      "reason": "the public manifest exposes species/event-distance outputs and distance-sampling scripts, but no separately named ranging/reference calibration material. Ranging-pole calibration is described in the article but is not reproducibly exposed in the public package, so effective detection cannot be established response-independently under the frozen E5 rule"
+    },
+    {
+      "gate": "G5_PHYSICAL_REPLICATION",
+      "status": "PASS_CAPACITY_PUBLIC_METHODS_SPLIT_NOT_FROZEN",
+      "reason": "586 cameras provide capacity, but no split is frozen after the G4 stop"
+    },
+    {
+      "gate": "G6_TEMPORAL_SUPPORT",
+      "status": "PASS_PUBLIC_DESIGN_ONE_YEAR_PER_GEOGRAPHY",
+      "reason": "the common programme spans October 2019 through September 2020"
+    },
+    {
+      "gate": "G7_MODEL_FREEZE",
+      "status": "NOT_REACHED",
+      "reason": "candidate stops at G4 before model freeze"
+    }
+  ],
+  "hard_stop": {
+    "gate": "G4_DETECTION_IDENTIFIABILITY",
+    "reason": "independently named public reference/ranging calibration path is absent from the OSF manifest under the predeclared three-route requirement"
+  },
+  "decision": {
+    "candidate_qualified": false,
+    "failure_is_scientific_negative_result": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "same_candidate_may_be_repaired_using_focal_response": false,
+    "same_manifest_authorization_may_be_rerun": false,
+    "broader_candidate_search_authorized": true
+  },
+  "interpretation": {
+    "supported": "CTDS can provide separate diel-activity and radial-distance likelihood axes in principle, but this public package does not expose the independent reference-calibration path required to reproduce that separation before response opening",
+    "not_supported": [
+      "claim that Henrich et al. estimated detection incorrectly",
+      "claim that CTDS is generally unsuitable for E5",
+      "claim about any species activity or density result",
+      "any fitted E5 outcome"
+    ]
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "henrich10_ctds_germany_2019_2020",
+  "receipt_id": "e5-henrich10-osf-manifest-receipt-v1",
+  "status": "FROZEN_RESPONSE_BLIND_OSF_MANIFEST_RESULT",
+  "frozen_date": "2026-10-07",
+  "execution": {
+    "workflow_run_id": 37482147928,
+    "workflow_job_id": 112332763846,
+    "authorization_sha": "02bfea1968709cc682b53ddef2cc6b25d9a6b2a5",
+    "implementation_parent_sha": "b56d3fade74a668f0a606ee4152058b7a694d3ba",
+    "artifact_id": 11426981455,
+    "artifact_name": "e5-henrich10-osf-manifest-37482147928",
+    "artifact_digest": "sha256:73a98895a9ed936e29f522b7a94a4a4f046ddabcce45176ced30ff64bd6136cb",
+    "result_json_sha256": "1cd15f3b70fd849a513fd3920167c09809d5898b783b108795460bff528d2ad8",
+    "workflow_conclusion": "success"
+  },
+  "response_boundary": {
+    "metadata_requests_made": 4,
+    "file_downloads_followed": 0,
+    "file_previews_opened": 0,
+    "file_contents_opened": 0,
+    "biological_rows_read": 0,
+    "focal_response_opened": false
+  },
+  "manifest_summary": {
+    "entry_count": 29,
+    "file_count": 27,
+    "folder_count": 2,
+    "population_density_folder_present": true,
+    "image_classification_folder_present": true,
+    "samplingdays_files": 10,
+    "distances_export_files": 10,
+    "distance_sampling_scripts": 2,
+    "readme_files": 1
+  },
+  "manual_name_path_adjudication": {
+    "effort_route_visible": true,
+    "effort_evidence": "10 Samplingdays_*_export.csv files across named study areas",
+    "ctds_radial_distance_route_visible": true,
+    "ctds_radial_distance_evidence": "10 distances_export_*.csv files plus two Distance_sampling R scripts",
+    "independently_named_reference_calibration_route_visible": false,
+    "reference_calibration_evidence": [],
+    "child_contract_allowed_under_frozen_three_route_rule": false
+  },
+  "implementation_note": {
+    "automated_hint_matcher_reported_all_three_routes_false": true,
+    "reason": "the frozen matcher vocabulary did not include the literal Samplingdays/distances_export naming pattern",
+    "scientific_decision_changed_by_matcher_limitation": false,
+    "same_one_shot_rerun_allowed": false,
+    "rationale": "manual adjudication uses manifest names/paths only and still finds the independently named reference-calibration route absent; the frozen three-route rule therefore stops the candidate regardless"
+  },
+  "governance": {
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "same_authorization_retry_allowed": false,
+    "response_values_may_not_repair_candidate": true
+  }
+}

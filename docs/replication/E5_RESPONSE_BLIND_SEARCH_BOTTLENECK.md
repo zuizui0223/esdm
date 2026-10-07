@@ -30,19 +30,21 @@ That detection/source factor must then overlap at least two geographic regimes.
 Only candidates surviving those two checks should receive detailed effort, six-month
 temporal-support, and physical-location qualification.
 
-Henrich10 is now the strongest named unresolved candidate. Public methods document
-586 Cuddeback C2 cameras operated for one year across 10 German protected areas,
-at least two known-distance ranging-pole reference images per camera location, daily
-time-lapse checks for effort interruptions, and CTDS models that use event radial
-distances for the detection likelihood while diel event timing estimates activity.
+Henrich10 has now stopped at G4 after a one-shot response-blind OSF manifest precheck.
+The public package exposes 10 `Samplingdays_*_export.csv` effort files, 10
+`distances_export_*.csv` CTDS/event-distance files and two distance-sampling scripts,
+but no separately named ranging/reference-calibration material.
 
-This does **not** make G4 pass. The ranging-pole images calibrate image-to-distance
-mapping; they do not by themselves estimate detection probability. Henrich10 therefore
-has the strongest current *plausible* G4 route, but final G4 requires response-blind
-schema evidence that deployment-linked reference calibration and an event-level
-radial-distance axis survive in the public package. The next step is manifest-only;
-no file contents, focal response, or fitting are authorized.
+This distinction matters. Event-distance outputs can support a detection likelihood only
+after biological observations are opened; they are not an external calibration stream.
+The article describes ranging-pole reference images, but that calibration path is not
+reproducibly exposed in the public manifest. Under the frozen three-route rule, Henrich10
+therefore stops without opening README contents, headers, event rows or focal response.
 
-Kays41 remains a secondary unresolved multi-study candidate, but its dictionary route
-is transport-blocked and it has not demonstrated a separately identifiable detection
-channel.
+Kays41 is again the strongest named unresolved candidate, but it remains unqualified:
+its dictionary route is transport-blocked and it has not demonstrated a separately
+identifiable detection channel.
+
+The Henrich10 stop sharpens the search criterion: **distance estimation is not the same
+thing as response-independent detection calibration**. Future candidates should expose
+the calibration object itself, not only downstream animal-distance outputs.
