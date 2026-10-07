@@ -43,16 +43,16 @@ def test_henrich10_next_step_is_manifest_only_and_cannot_open_files():
     assert fw["focal_response_opening_authorized"] is False
 
 
-def test_registry_marks_henrich10_terminal_and_restores_kays41_priority():
+def test_registry_marks_henrich10_terminal_and_tracks_new_priority():
     value = _read(REGISTRY)
     row = next(
         x for x in value["candidates"]
         if x["candidate_id"] == "henrich10_ctds_germany_2019_2020"
     )
-    assert value["current_conclusion"]["screened_candidate_count"] == 15
+    assert value["current_conclusion"]["screened_candidate_count"] == 16
     assert value["current_conclusion"]["qualified_candidate_count"] == 0
     assert value["current_conclusion"]["strongest_current_named_candidate"] == (
-        "kays41_emammal_team_2020"
+        "wolfson_wildpig_gps_camera_2015_2018"
     )
     assert row["response_opened"] is False
     assert row["response_may_be_opened_for_E5"] is False
