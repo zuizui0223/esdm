@@ -1,0 +1,167 @@
+name: E5 wild-pig external activity-anchor outcome once
+
+concurrency:
+  group: e5-wildpig-activity-anchor-outcome-once
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - e5/wildpig-activity-anchor-outcome-v1
+    paths:
+      - 'docs/replication/E5_WILDPIG_ACTIVITY_ANCHOR_OUTCOME_AUTHORIZED.json'
+
+permissions:
+  contents: read
+
+jobs:
+  outcome:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - uses: r-lib/actions/setup-r@v2
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::overlap
+            any::sp
+            any::jsonlite
+            any::digest
+
+      - name: Verify pure one-shot authorization
+        run: |
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+
+          marker_path=Path(
+              "docs/replication/E5_WILDPIG_ACTIVITY_ANCHOR_OUTCOME_AUTHORIZED.json"
+          )
+          outcome_path=Path(
+              "docs/replication/E5_WILDPIG_ACTIVITY_ANCHOR_OUTCOME_CONTRACT.json"
+          )
+          model_path=Path(
+              "docs/replication/E5_WILDPIG_ACTIVITY_ANCHOR_MODEL_CONTRACT.json"
+          )
+          marker=json.loads(marker_path.read_text(encoding="utf-8"))
+          outcome=json.loads(outcome_path.read_text(encoding="utf-8"))
+          parent=subprocess.check_output(
+              ["git","rev-parse","HEAD^"],text=True
+          ).strip()
+          changed=subprocess.check_output(
+              ["git","diff-tree","--no-commit-id","--name-only","-r","HEAD"],
+              text=True,
+          ).splitlines()
+          outcome_blob=subprocess.check_output(
+              ["git","hash-object",str(outcome_path)],text=True
+          ).strip()
+          model_blob=subprocess.check_output(
+              ["git","hash-object",str(model_path)],text=True
+          ).strip()
+
+          if changed != [marker_path.as_posix()]:
+              raise SystemExit("authorization commit must change only marker")
+          if marker.get("implementation_parent_sha") != parent:
+              raise SystemExit("implementation parent mismatch")
+          if marker.get("programme_id") != "E5_INDEPENDENT_ACTIVITY_DETECTION":
+              raise SystemExit("programme mismatch")
+          if marker.get("candidate_id") != "wolfson_wildpig_gps_camera_2015_2018":
+              raise SystemExit("candidate mismatch")
+          if marker.get("route_id") != "e5-external-activity-anchor-v1":
+              raise SystemExit("route mismatch")
+          if marker.get("contract_id") != "e5-wildpig-activity-anchor-empirical-outcome-v1":
+              raise SystemExit("outcome contract mismatch")
+          if marker.get("outcome_contract_blob_sha") != "fdfed4e3e5bd9ee0d96a3caeca1fe286b56148dc":
+              raise SystemExit("outcome blob pin mismatch")
+          if marker.get("model_contract_blob_sha") != "910ffca4af2be05cf7d034586cb5e29a8ec0d446":
+              raise SystemExit("model blob pin mismatch")
+          if outcome_blob != marker["outcome_contract_blob_sha"]:
+              raise SystemExit("working-tree outcome contract mismatch")
+          if model_blob != marker["model_contract_blob_sha"]:
+              raise SystemExit("working-tree model contract mismatch")
+          if outcome.get("status") != "FROZEN_OUTCOME_NOT_AUTHORIZED":
+              raise SystemExit("outcome contract status drift")
+          if marker.get("outcome_authorized") is not True:
+              raise SystemExit("outcome not authorized")
+          if marker.get("full_rows_authorized") is not True:
+              raise SystemExit("full rows not authorized")
+          if marker.get("one_shot") is not True:
+              raise SystemExit("one-shot required")
+          if marker.get("original_G4_pass_authorized") is not False:
+              raise SystemExit("original G4 must remain unpassed")
+          PY
+
+      - name: Download exactly the 16 pinned seasonal inputs
+        run: |
+          python - <<'PY'
+          import json
+          import urllib.request
+          from pathlib import Path
+
+          contract=json.loads(
+              Path("docs/replication/E5_WILDPIG_GPS_CAMERA_HEADER_CONTRACT.json")
+              .read_text(encoding="utf-8")
+          )
+          specs=contract["source"]["seasonal_files"]
+          if len(specs) != 16:
+              raise SystemExit("expected exactly 16 frozen input files")
+          root=Path("build/private")
+          for spec in specs:
+              path=root/spec["path"]
+              path.parent.mkdir(parents=True,exist_ok=True)
+              req=urllib.request.Request(
+                  spec["raw_url"],
+                  headers={"User-Agent":"esdm-e5-wildpig-outcome/1"},
+              )
+              with urllib.request.urlopen(req,timeout=120) as response:
+                  path.write_bytes(response.read())
+          PY
+
+      - name: Run frozen external activity-anchor transfer model
+        run: |
+          mkdir -p build/public
+          Rscript scripts/run_e5_wildpig_activity_anchor_transfer.R \
+            --input-root build/private \
+            --header-contract docs/replication/E5_WILDPIG_GPS_CAMERA_HEADER_CONTRACT.json \
+            --model-contract docs/replication/E5_WILDPIG_ACTIVITY_ANCHOR_MODEL_CONTRACT.json \
+            --out build/public/E5_WILDPIG_ACTIVITY_ANCHOR_RESULT.json
+
+      - name: Verify claim boundary
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("build/public/E5_WILDPIG_ACTIVITY_ANCHOR_RESULT.json")
+          v=json.loads(p.read_text(encoding="utf-8"))
+          assert v["route_id"]=="e5-external-activity-anchor-v1"
+          assert v["route_boundary"]["original_G4_passed"] is False
+          assert v["route_boundary"]["absolute_detection_probability_identified"] is False
+          assert v["route_boundary"]["abundance_identified"] is False
+          assert v["route_boundary"]["untouched_preregistration"] is False
+          assert v["bootstrap"]["replicates"]==1000
+          assert v["primary_summary"]["total_transfers"]==8
+          assert v["claim_boundary"]["original_E5_G4_pass_claim"] is False
+          PY
+
+      - name: Destroy empirical inputs before upload
+        run: |
+          rm -rf build/private
+          test ! -e build/private
+
+      - name: Upload summary result only
+        uses: actions/upload-artifact@v4
+        with:
+          name: e5-wildpig-activity-anchor-outcome-${{ github.run_id }}
+          path: build/public/E5_WILDPIG_ACTIVITY_ANCHOR_RESULT.json
+          if-no-files-found: error
+          retention-days: 90

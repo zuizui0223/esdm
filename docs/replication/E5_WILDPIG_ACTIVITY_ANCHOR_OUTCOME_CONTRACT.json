@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "wolfson_wildpig_gps_camera_2015_2018",
+  "route_id": "e5-external-activity-anchor-v1",
+  "contract_id": "e5-wildpig-activity-anchor-empirical-outcome-v1",
+  "status": "FROZEN_OUTCOME_NOT_AUTHORIZED",
+  "frozen_date": "2026-10-07",
+  "parent_model_contract": "docs/replication/E5_WILDPIG_ACTIVITY_ANCHOR_MODEL_CONTRACT.json",
+  "parent_model_blob_sha": "910ffca4af2be05cf7d034586cb5e29a8ec0d446",
+  "source": {
+    "repository": "dwwolfson/gps_cameratrap_activity_comparison",
+    "pinned_commit": "bc97ff80ec91aba03f58f06629c7e8dfff9eb85d",
+    "input_manifest": "docs/replication/E5_WILDPIG_GPS_CAMERA_HEADER_CONTRACT.json",
+    "allowed_csv_count": 16
+  },
+  "authorized_if_marker_present": {
+    "full_rows_of_the_16_pinned_seasonal_csvs": true,
+    "execute_only_frozen_activity_anchor_model": true,
+    "bootstrap_replicates": 1000
+  },
+  "forbidden_inputs": [
+    "raw_data/monthly_trends.csv",
+    "figures.zip",
+    "published overlap result tables",
+    "published figures",
+    "any output file from the source repository",
+    "any post-hoc alternative model or threshold"
+  ],
+  "response_firewall": {
+    "empirical_opening_authorized_now": false,
+    "focal_camera_event_values_authorized_now": false,
+    "gps_location_values_authorized_now": false,
+    "model_fitting_authorized_now": false,
+    "separate_pure_marker_commit_required": true,
+    "one_shot_only": true,
+    "input_files_must_be_destroyed_before_artifact_upload": true,
+    "only_summary_result_json_may_be_uploaded": true
+  },
+  "execution": {
+    "dedicated_branch": "e5/wildpig-activity-anchor-outcome-v1",
+    "authorization_marker": "docs/replication/E5_WILDPIG_ACTIVITY_ANCHOR_OUTCOME_AUTHORIZED.json",
+    "workflow_dispatch_authorized": false,
+    "timeout_minutes": 120
+  },
+  "claim_boundary": {
+    "result_is_standard_E5_G4_validation": false,
+    "result_is_external_activity_anchor_reanalysis": true,
+    "untouched_preregistration_claim": false,
+    "absolute_detection_probability_claim": false,
+    "abundance_claim": false,
+    "causal_sensor_mechanism_claim": false
+  }
+}
