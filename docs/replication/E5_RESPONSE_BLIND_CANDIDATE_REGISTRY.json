@@ -522,15 +522,20 @@
         "G1_INDEPENDENT_SOURCE": "PASS",
         "G2_SCHEMA_EFFORT_TIME": "PENDING_HEADER_ONLY_PRECHECK",
         "G3_CROSSED_DOMAIN": "PASS_PUBLIC_FILE_GEOMETRY",
-        "G4_DETECTION_IDENTIFIABILITY": "PROMISING_EXTERNAL_ACTIVITY_ANCHOR_PENDING_SCHEMA",
+        "G4_DETECTION_IDENTIFIABILITY": "NOT_PASSED_DIRECT_DETECTION_ROUTE_ACTIVITY_ANCHOR_ROUTE_SEPARATE",
         "G5_PHYSICAL_REPLICATION": "PASS_CAPACITY_PUBLIC_METHODS_SPLIT_NOT_FROZEN",
         "G6_TEMPORAL_SUPPORT": "PROMISING_FOUR_SEASONS_BOTH_METHODS_BOTH_GEOGRAPHIES_HEADER_DATES_PENDING",
         "G7_MODEL_FREEZE": "NOT_REACHED"
       },
-      "decision": "E5_CANDIDATE_NOT_YET_QUALIFIED_HEADER_PENDING",
-      "qualification_blocker": "camera and GPS methods are cleanly crossed across Florida and California, but field headers remain unopened and final G4 still requires a predeclared model showing that the external GPS activity stream identifies camera effective detection rather than merely providing a second activity estimate",
+      "decision": "E5_STANDARD_CANDIDATE_NOT_QUALIFIED_ACTIVITY_ANCHOR_ROUTE_HEADER_PENDING",
+      "qualification_blocker": "GPS independently anchors activity but does not directly calibrate camera detection, so the frozen standard G4 remains unpassed. The separately frozen activity-anchor route must first establish telemetry and camera schema, temporal overlap, and relative-distortion identifiability.",
       "response_may_be_opened_for_E5": false,
-      "next_response_blind_check": "execute only the frozen bounded header-only precheck across the 16 pinned seasonal CSVs; no data rows"
+      "next_response_blind_check": "execute only the frozen bounded header-only precheck under e5-external-activity-anchor-v1; no data rows",
+      "activity_anchor_route": {
+        "route_id": "e5-external-activity-anchor-v1",
+        "status": "PENDING_HEADER_SCHEMA",
+        "original_G4_reclassified": false
+      }
     }
   ],
   "search_universes": [
@@ -566,11 +571,11 @@
     "snapshot_usa_2024_selected": false,
     "response_opening_authorized": false,
     "model_fitting_authorized": false,
-    "next_action": "execute a separately authorized bounded header-only precheck for the wild-pig Florida/California GPS-camera candidate; preserve zero data rows and freeze a joint activity-detection model only if both channel schemas survive",
+    "next_action": "execute the separately authorized bounded header-only precheck for the wild-pig external-activity-anchor route; preserve zero data rows and do not reclassify the original G4",
     "screened_candidate_count": 16,
     "qualified_candidate_count": 0,
     "strongest_current_named_candidate": "wolfson_wildpig_gps_camera_2015_2018",
-    "named_candidate_status": "G3_pass_external_activity_anchor_promising_header_pending",
+    "named_candidate_status": "standard_G4_unpassed_external_activity_anchor_route_header_pending",
     "search_bottleneck": {
       "screened_candidates": 16,
       "qualified_candidates": 0,
@@ -589,7 +594,7 @@
         "long-duration datasets lacking response-independent effort intervals"
       ],
       "strongest_current_named_candidate": "wolfson_wildpig_gps_camera_2015_2018",
-      "strongest_candidate_caveat": "Wild-pig GPS-camera data are the strongest current unresolved candidate because GPS and camera methods are crossed in both Florida and California with four seasonal files each. GPS is an external activity anchor, not automatic detection calibration; final G4 remains unpassed until schema and a frozen joint model establish identifiability."
+      "strongest_candidate_caveat": "Wild-pig GPS-camera data are the strongest current response-blind alternative route because methods are crossed in Florida and California and GPS movement can anchor ecological activity. This does not pass the frozen direct-detection G4; only a separately frozen relative-observation-distortion route is being evaluated."
     }
   }
 }
