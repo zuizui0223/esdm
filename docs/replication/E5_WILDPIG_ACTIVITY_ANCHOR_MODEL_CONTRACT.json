@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "wolfson_wildpig_gps_camera_2015_2018",
+  "route_id": "e5-external-activity-anchor-v1",
+  "contract_id": "e5-wildpig-activity-anchor-transfer-model-v1",
+  "status": "FROZEN_MODEL_NOT_AUTHORIZED",
+  "frozen_date": "2026-10-07",
+  "relationship_to_original_e5": {
+    "original_G4_passed": false,
+    "original_candidate_qualified": false,
+    "estimand": "relative diel effective observation distortion, not absolute detection probability"
+  },
+  "provenance": {
+    "source_repository": "dwwolfson/gps_cameratrap_activity_comparison",
+    "source_commit": "bc97ff80ec91aba03f58f06629c7e8dfff9eb85d",
+    "header_receipt": "docs/replication/E5_WILDPIG_GPS_CAMERA_HEADER_RECEIPT.json",
+    "A5_result": "docs/replication/E5_EXTERNAL_ACTIVITY_ANCHOR_IDENTIFICATION_RESULT.json"
+  },
+  "outcome_exposure_status": {
+    "qualitative_published_method_comparison_direction_exposed_after_candidate_route_and_header_freeze": true,
+    "model_freeze_occurs_after_that_qualitative_exposure": true,
+    "consequence": "the empirical analysis may be called a prospectively frozen reanalysis after qualitative publication exposure, but not untouched preregistered validation; no model, threshold, geography direction or metric may be selected from empirical values"
+  },
+  "inputs": {
+    "geographies": [
+      "FL",
+      "CA"
+    ],
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ],
+    "methods": [
+      "GPS",
+      "camera"
+    ],
+    "seasonal_csv_count": 16,
+    "forbidden_inputs": [
+      "raw_data/monthly_trends.csv",
+      "published overlap result tables",
+      "published figures",
+      "any derived output containing camera-vs-GPS outcome direction"
+    ]
+  },
+  "preprocessing": {
+    "time_standardization": {
+      "rule": "apply the source study's sun-time transformation to both channels before diel estimation",
+      "florida_timezone": "America/New_York",
+      "california_timezone": "America/Los_Angeles",
+      "florida_site_coordinate_lon_lat": [
+        -81.195665,
+        27.168992
+      ],
+      "california_site_coordinate_lon_lat": [
+        -118.7832222,
+        34.898505
+      ]
+    },
+    "gps_activity_anchor": {
+      "individual_field": "Indiv_ID",
+      "time_field": "Fix_DateTime",
+      "coordinate_fields": [
+        "X",
+        "Y"
+      ],
+      "sequence_rule": "sort fixes within individual by Fix_DateTime",
+      "interval_rule_minutes": "strictly >19 and <41, matching the public source code",
+      "movement_rate": "Euclidean distance between successive X/Y fixes divided by elapsed hours, rounded to nearest meter/hour as in source code",
+      "pseudo_event_rule": "for each accepted interval, generate N=rounded movement_rate pseudo-times uniformly within that interval, matching the public source algorithm",
+      "random_seed_rule": "derive a deterministic 31-bit seed from SHA256(source_commit + geography + season); no empirical tuning",
+      "individual_weighting": "construct one circular density per individual, normalize each to unit sum, then average individuals equally"
+    },
+    "camera_channel": {
+      "site_field": "LocationName",
+      "clock_time_field": "timeRad",
+      "date_field": "ImageDate",
+      "event_independence": "use released analysis-ready detections; do not alter the source study's >30 min independence preprocessing",
+      "site_resampling_unit": "LocationName"
+    },
+    "circular_density": {
+      "implementation_rule": "use the source study overlap::densityPlot convention on the sun-time scale",
+      "grid_points": 256,
+      "duplicate_midnight_endpoint_rule": "drop final duplicate endpoint, leaving 255 bins",
+      "normalization": "normalize each resulting vector to sum 1",
+      "positivity_floor": 1e-12
+    }
+  },
+  "distortion_estimation": {
+    "formula": "logD_b = log(C_b) - log(A_b) - mean_j(log(C_j)-log(A_j))",
+    "normalization": "mean(logD)=0 within geography-season",
+    "comparison_shape": "renormalize exp(logD) to sum 1 only for shape-overlap calculations",
+    "absolute_detection_probability_claim": false
+  },
+  "transfer_design": {
+    "rule": "symmetric two-direction geographic holdout; no single geography is privileged",
+    "transfers": [
+      "FL spring -> CA spring",
+      "FL summer -> CA summer",
+      "FL fall -> CA fall",
+      "FL winter -> CA winter",
+      "CA spring -> FL spring",
+      "CA summer -> FL summer",
+      "CA fall -> FL fall",
+      "CA winter -> FL winter"
+    ],
+    "corrected_prediction": "normalize(A_heldout_season * D_training_geography_same_season)",
+    "baseline_prediction": "A_heldout_season",
+    "observed_target": "heldout camera diel density C_heldout_season",
+    "overlap_metric": "sum_b min(pred_b, observed_b), range [0,1]",
+    "gain": "corrected_overlap - baseline_overlap"
+  },
+  "uncertainty": {
+    "bootstrap_replicates": 1000,
+    "gps_resampling_unit": "individual",
+    "camera_resampling_unit": "LocationName",
+    "resampling": "within geography-season with replacement",
+    "random_seed_rule": "derive deterministic seeds from SHA256(contract_id + replicate_index)",
+    "summaries": [
+      "gain for each of 8 transfers",
+      "median transfer gain",
+      "minimum transfer gain",
+      "number of positive gains"
+    ],
+    "confidence_intervals": "2.5th and 97.5th percentile bootstrap intervals"
+  },
+  "interpretation_rule": {
+    "supported": "95% bootstrap CI for median transfer gain is entirely > 0",
+    "unresolved": "95% bootstrap CI for median transfer gain includes 0",
+    "contradicted": "95% bootstrap CI for median transfer gain is entirely < 0",
+    "threshold_tuning_after_values": false
+  },
+  "route_gate_status_before_values": {
+    "A1_CROSSED_METHOD_GEOGRAPHY": "PASS",
+    "A2_ACTIVITY_ANCHOR_SCHEMA": "PASS_MANUAL_HEADER_ADJUDICATION",
+    "A3_CAMERA_SCHEMA": "PASS_ROUTE_LEVEL_NETWORK_EXPOSURE_WITH_CAVEAT",
+    "A4_TEMPORAL_OVERLAP": "PASS_PUBLIC_METHODS",
+    "A5_RELATIVE_DISTORTION_IDENTIFIABILITY": "PASS_RESPONSE_FREE_STRUCTURAL_PROOF",
+    "A6_MODEL_AND_HOLDOUT_FREEZE": "THIS_CONTRACT_FREEZES_A6_BUT_DOES_NOT_AUTHORIZE_VALUES"
+  },
+  "response_firewall": {
+    "empirical_data_rows_opening_authorized": false,
+    "focal_camera_event_values_opening_authorized": false,
+    "gps_location_values_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "separate_one_shot_authorization_required": true
+  },
+  "claims_if_executed": {
+    "may_claim_relative_distortion_transfer": true,
+    "may_claim_absolute_detection_probability": false,
+    "may_claim_abundance": false,
+    "may_claim_causal_sensor_mechanism": false,
+    "may_claim_original_E5_G4_pass": false,
+    "may_claim_untouched_preregistration": false
+  }
+}
