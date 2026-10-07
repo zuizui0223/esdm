@@ -19,13 +19,13 @@ def _read(path: Path) -> dict:
 def test_wildpig_public_file_geometry_crosses_method_and_geography_without_response():
     value = _read(SCREEN)
     gates = {row["gate"]: row["status"] for row in value["gates"]}
-    assert value["status"] == "E5_CANDIDATE_G3_PASS_G4_PROMISING_EXTERNAL_ACTIVITY_ANCHOR"
+    assert value["status"] == "E5_STANDARD_G4_UNPASSED_ACTIVITY_ANCHOR_ROUTE_PENDING_SCHEMA"
     assert value["public_design"]["crossed_method_geography_design"] is True
     assert value["public_design"]["total_camera_sites"] == 92
     assert value["public_design"]["total_gps_individuals"] == 83
     assert gates["G3_CROSSED_DOMAIN"] == "PASS_PUBLIC_FILE_GEOMETRY"
     assert gates["G4_DETECTION_IDENTIFIABILITY"] == (
-        "PROMISING_EXTERNAL_ACTIVITY_ANCHOR_PENDING_SCHEMA"
+        "NOT_PASSED_DIRECT_DETECTION_ROUTE"
     )
     assert value["response_boundary"]["data_rows_read"] == 0
     assert value["decision"]["candidate_qualified"] is False
@@ -43,7 +43,7 @@ def test_wildpig_header_contract_is_bounded_and_value_blind():
     assert fw["camera_detection_values_authorized"] is False
     assert fw["gps_location_values_authorized"] is False
     assert fw["gps_activity_or_movement_values_authorized"] is False
-    assert value["decision_boundary"]["header_precheck_can_qualify_candidate"] is False
+    assert value["decision_boundary"]["header_precheck_can_qualify_candidate"] is False\n    assert value["decision_boundary"]["original_G4_pass_authorized"] is False\n    assert value["route_contract"].endswith("E5_EXTERNAL_ACTIVITY_ANCHOR_ROUTE_CONTRACT.json")
 
 
 def test_wildpig_header_parser_can_validate_both_channels_without_data_rows():
@@ -75,7 +75,7 @@ def test_wildpig_workflow_pins_contract_and_has_no_manual_dispatch():
     text = WORKFLOW.read_text(encoding="utf-8")
     assert "e5/wildpig-gps-camera-header-v1" in text
     assert "E5_WILDPIG_GPS_CAMERA_HEADER_AUTHORIZED.json" in text
-    assert "e0959d9f68ec9916605e87788172559e6cea9631" in text
+    assert "3d9de43f30e89e2af9dae803f97ebf1f4cb82593" in text
     assert "workflow_dispatch" not in text
     assert "data_rows_authorized" in text
 
@@ -93,4 +93,4 @@ def test_registry_names_wildpig_as_strongest_unqualified_candidate():
     )
     assert row["response_opened"] is False
     assert row["response_may_be_opened_for_E5"] is False
-    assert row["decision"] == "E5_CANDIDATE_NOT_YET_QUALIFIED_HEADER_PENDING"
+    assert row["decision"] == "E5_STANDARD_CANDIDATE_NOT_QUALIFIED_ACTIVITY_ANCHOR_ROUTE_HEADER_PENDING"
