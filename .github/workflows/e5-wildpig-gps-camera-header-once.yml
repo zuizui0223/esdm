@@ -63,7 +63,7 @@ jobs:
               raise SystemExit("candidate mismatch")
           if marker.get("contract_id") != "e5-wildpig-gps-camera-header-response-blind-v1":
               raise SystemExit("contract id mismatch")
-          if marker.get("contract_blob_sha") != "e0959d9f68ec9916605e87788172559e6cea9631":
+          if marker.get("contract_blob_sha") != "3d9de43f30e89e2af9dae803f97ebf1f4cb82593":
               raise SystemExit("contract blob pin mismatch")
           if contract_blob != marker["contract_blob_sha"]:
               raise SystemExit("working-tree contract mismatch")
