@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "wolfson_wildpig_gps_camera_2015_2018",
+  "route_id": "e5-external-activity-anchor-v1",
+  "status": "EMPIRICAL_OUTCOME_UNRESOLVED_WITH_SAMPLE_IDENTITY_QC_HOLD",
+  "execution": {
+    "run_id": 37643401531,
+    "job_id": 112867814551,
+    "artifact_id": 11496704615,
+    "artifact_digest": "sha256:7ee6cb85280ed1f375009f438a3ed56193ccd2ced0ee78810ff2e6cebd797c35",
+    "result_json_sha256": "858e01abf32a9f78315049905d9847d245207e03b453198bef0019163de697f1"
+  },
+  "frozen_primary": {
+    "status": "UNRESOLVED",
+    "median_gain": 0.007875718209424398,
+    "ci_lower": -0.05019368081794174,
+    "ci_upper": 0.03124649854524571,
+    "positive_transfers": 6,
+    "total_transfers": 8,
+    "bootstrap_replicates": 1000
+  },
+  "qc": {
+    "field": "observed_sample_structure.CA_summer.camera_sites",
+    "observed": 434,
+    "public_design_sites": 48,
+    "reason": "reported distinct LocationName identities exceed the stated 48 camera sites by 386; possible file-level naming/identity granularity anomaly, not yet proven corruption",
+    "affected_inference": "camera-site cluster bootstrap and associated confidence intervals may be invalid; primary empirical interpretation cannot be treated as fully quality-qualified",
+    "other_season_sites": {
+      "CA_spring": 48,
+      "CA_fall": 48,
+      "CA_winter": 47
+    },
+    "data_rows_reopened": false,
+    "rerun_authorized": false
+  },
+  "decision": {
+    "frozen_statistical_label": "UNRESOLVED",
+    "quality_status": "HOLD_SAMPLE_IDENTITY",
+    "original_E5_G4_passed": false,
+    "standard_E5_qualified": false,
+    "claim_transferability_proved": false,
+    "claim_transferability_disproved": false,
+    "one_shot_rerun_permitted": false,
+    "next_legal_step": "response-free inspect source public documentation and source script for LocationName semantics; any additional empirical analysis requires distinct prospective exploratory route, with original outcome unrevised"
+  }
+}
