@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "wolfson_wildpig_gps_camera_2015_2018",
+  "route_id": "e5-external-activity-anchor-v1",
+  "contract_id": "e5-wildpig-activity-anchor-postoutcome-adjudication-v1",
+  "status": "FROZEN_BEFORE_EMPIRICAL_OUTCOME_COMPLETION",
+  "frozen_date": "2026-10-08",
+  "parent_outcome_contract": "docs/replication/E5_WILDPIG_ACTIVITY_ANCHOR_OUTCOME_CONTRACT.json",
+  "admissible_result_fields": [
+    "workflow run/job/artifact provenance and hashes",
+    "observed_sample_structure",
+    "8 frozen point transfer baseline/corrected overlap values and gains",
+    "8 frozen bootstrap percentile intervals",
+    "point median gain",
+    "point minimum gain",
+    "point positive-gain count",
+    "bootstrap 95% CI for median gain",
+    "frozen interpretation label"
+  ],
+  "decision_mapping": {
+    "SUPPORTED": "bootstrap median-gain 95% CI lower bound > 0",
+    "UNRESOLVED": "bootstrap median-gain 95% CI includes 0",
+    "CONTRADICTED": "bootstrap median-gain 95% CI upper bound < 0"
+  },
+  "postoutcome_rules": {
+    "same_outcome_authorization_may_be_rerun": false,
+    "model_or_threshold_changes_allowed": false,
+    "transfer_subset_selection_allowed": false,
+    "season_subset_selection_allowed": false,
+    "geography_direction_selection_allowed": false,
+    "alternate_primary_metric_allowed": false,
+    "published_result_comparison_may_be_descriptive_only": true,
+    "exploratory_followups_must_be_new_explicitly_labeled_routes": true
+  },
+  "registry_update_rule": {
+    "standard_E5_G4_must_remain": "NOT_PASSED_DIRECT_DETECTION_ROUTE",
+    "standard_candidate_must_remain_unqualified": true,
+    "activity_anchor_route_becomes_terminal_empirical_result": true,
+    "result_label_must_equal_frozen_output_status": true,
+    "original_G4_reclassification_forbidden": true
+  },
+  "claim_boundary": {
+    "maximum_positive_claim": "the frozen relative diel observation-distortion correction improves geographic transfer against a GPS-only activity baseline under the external-activity-anchor route",
+    "maximum_negative_claim": "the frozen relative diel observation-distortion correction does not show transferable improvement under this dataset and route",
+    "absolute_detection_probability_claim": false,
+    "abundance_claim": false,
+    "causal_sensor_mechanism_claim": false,
+    "original_E5_G4_pass_claim": false,
+    "untouched_preregistration_claim": false
+  }
+}
