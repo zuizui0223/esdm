@@ -1,0 +1,27 @@
+name: E5 wild-pig outcome runner syntax
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/run_e5_wildpig_activity_anchor_transfer.R'
+      - 'docs/replication/E5_WILDPIG_ACTIVITY_ANCHOR_OUTCOME_CONTRACT.json'
+      - 'docs/replication/E5_WILDPIG_ACTIVITY_ANCHOR_MODEL_CONTRACT.json'
+      - '.github/workflows/e5-wildpig-activity-anchor-outcome-once.yml'
+      - '.github/workflows/e5-wildpig-outcome-runner-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  parse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: r-lib/actions/setup-r@v2
+      - name: Parse frozen R runner without empirical data
+        run: |
+          Rscript -e "parse(file='scripts/run_e5_wildpig_activity_anchor_transfer.R')"
+      - name: Verify no empirical authorization marker is present
+        run: |
+          test ! -e docs/replication/E5_WILDPIG_ACTIVITY_ANCHOR_OUTCOME_AUTHORIZED.json

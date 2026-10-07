@@ -1,0 +1,95 @@
+name: E5 wild-pig outcome synthetic smoke
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/run_e5_wildpig_activity_anchor_transfer.R'
+      - 'docs/replication/E5_WILDPIG_ACTIVITY_ANCHOR_MODEL_CONTRACT.json'
+      - '.github/workflows/e5-wildpig-outcome-synthetic-smoke.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - uses: r-lib/actions/setup-r@v2
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::overlap
+            any::sp
+            any::jsonlite
+            any::digest
+
+      - name: Create synthetic crossed GPS-camera inputs only
+        run: |
+          python - <<'PY'
+          import csv
+          import json
+          from pathlib import Path
+
+          src=json.loads(
+              Path("docs/replication/E5_WILDPIG_GPS_CAMERA_HEADER_CONTRACT.json")
+              .read_text(encoding="utf-8")
+          )
+          root=Path("build/synthetic")
+          for spec in src["source"]["seasonal_files"]:
+              p=root/spec["path"]
+              p.parent.mkdir(parents=True,exist_ok=True)
+              if spec["method"]=="gps":
+                  rows=[
+                      ["Indiv_ID","Fix_DateTime","X","Y"],
+                      ["p1","2016/06/01 00:00","0","0"],
+                      ["p1","2016/06/01 00:30","10","0"],
+                      ["p1","2016/06/01 01:00","20","0"],
+                      ["p1","2016/06/01 01:30","30","0"],
+                      ["p2","2016/06/01 00:05","0","0"],
+                      ["p2","2016/06/01 00:35","0","12"],
+                      ["p2","2016/06/01 01:05","0","24"],
+                      ["p2","2016/06/01 01:35","0","36"],
+                  ]
+              else:
+                  rows=[
+                      ["LocationName","timeRad","ImageDate"],
+                      ["cam1","0.20","06/01/2016"],
+                      ["cam1","0.40","06/02/2016"],
+                      ["cam2","2.20","06/01/2016"],
+                      ["cam2","2.40","06/02/2016"],
+                      ["cam3","4.20","06/01/2016"],
+                      ["cam3","4.40","06/02/2016"],
+                  ]
+              with p.open("w",newline="",encoding="utf-8") as fh:
+                  csv.writer(fh).writerows(rows)
+          PY
+
+      - name: Run the exact frozen empirical runner on synthetic inputs
+        run: |
+          mkdir -p build/public
+          Rscript scripts/run_e5_wildpig_activity_anchor_transfer.R \
+            --input-root build/synthetic \
+            --header-contract docs/replication/E5_WILDPIG_GPS_CAMERA_HEADER_CONTRACT.json \
+            --model-contract docs/replication/E5_WILDPIG_ACTIVITY_ANCHOR_MODEL_CONTRACT.json \
+            --out build/public/synthetic_result.json
+
+      - name: Verify runner completes with frozen claim boundary
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          v=json.loads(Path("build/public/synthetic_result.json").read_text())
+          assert v["primary_summary"]["total_transfers"] == 8
+          assert v["bootstrap"]["replicates"] == 1000
+          assert v["route_boundary"]["original_G4_passed"] is False
+          assert v["route_boundary"]["absolute_detection_probability_identified"] is False
+          assert v["claim_boundary"]["original_E5_G4_pass_claim"] is False
+          PY
