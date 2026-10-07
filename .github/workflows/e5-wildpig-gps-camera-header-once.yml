@@ -1,0 +1,121 @@
+name: E5 wild-pig GPS-camera response-blind headers once
+
+concurrency:
+  group: e5-wildpig-gps-camera-header-once
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - e5/wildpig-gps-camera-header-v1
+    paths:
+      - 'docs/replication/E5_WILDPIG_GPS_CAMERA_HEADER_AUTHORIZED.json'
+
+permissions:
+  contents: read
+
+jobs:
+  precheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify pure one-shot authorization
+        run: |
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+
+          marker_path = Path(
+              "docs/replication/E5_WILDPIG_GPS_CAMERA_HEADER_AUTHORIZED.json"
+          )
+          contract_path = Path(
+              "docs/replication/E5_WILDPIG_GPS_CAMERA_HEADER_CONTRACT.json"
+          )
+          marker = json.loads(marker_path.read_text(encoding="utf-8"))
+          contract = json.loads(contract_path.read_text(encoding="utf-8"))
+          parent = subprocess.check_output(
+              ["git", "rev-parse", "HEAD^"], text=True
+          ).strip()
+          changed = subprocess.check_output(
+              ["git", "diff-tree", "--no-commit-id", "--name-only", "-r", "HEAD"],
+              text=True,
+          ).splitlines()
+          contract_blob = subprocess.check_output(
+              ["git", "hash-object", str(contract_path)], text=True
+          ).strip()
+
+          if changed != [marker_path.as_posix()]:
+              raise SystemExit("authorization commit must change only marker")
+          if marker.get("implementation_parent_sha") != parent:
+              raise SystemExit("implementation parent mismatch")
+          if marker.get("programme_id") != "E5_INDEPENDENT_ACTIVITY_DETECTION":
+              raise SystemExit("programme mismatch")
+          if marker.get("candidate_id") != "wolfson_wildpig_gps_camera_2015_2018":
+              raise SystemExit("candidate mismatch")
+          if marker.get("contract_id") != "e5-wildpig-gps-camera-header-response-blind-v1":
+              raise SystemExit("contract id mismatch")
+          if marker.get("contract_blob_sha") != "e0959d9f68ec9916605e87788172559e6cea9631":
+              raise SystemExit("contract blob pin mismatch")
+          if contract_blob != marker["contract_blob_sha"]:
+              raise SystemExit("working-tree contract mismatch")
+          if contract.get("status") != "FROZEN_HEADER_PRECHECK_NOT_AUTHORIZED":
+              raise SystemExit("contract status drift")
+          if marker.get("header_precheck_authorized") is not True:
+              raise SystemExit("header precheck not authorized")
+          if marker.get("one_shot") is not True:
+              raise SystemExit("authorization must be one-shot")
+          if marker.get("data_rows_authorized") is not False:
+              raise SystemExit("data rows remain forbidden")
+          if marker.get("focal_response_opening_authorized") is not False:
+              raise SystemExit("focal response remains forbidden")
+          PY
+
+      - name: Run bounded header-only precheck
+        run: |
+          mkdir -p build/public
+          python scripts/precheck_e5_wildpig_gps_camera_headers.py \
+            --contract docs/replication/E5_WILDPIG_GPS_CAMERA_HEADER_CONTRACT.json \
+            --out build/public/E5_WILDPIG_GPS_CAMERA_HEADER_RESULT.json
+
+      - name: Verify response firewall
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          value = json.loads(
+              Path("build/public/E5_WILDPIG_GPS_CAMERA_HEADER_RESULT.json")
+              .read_text(encoding="utf-8")
+          )
+          b = value["response_boundary"]
+          assert b["files_header_checked"] == 16
+          assert b["maximum_bytes_requested_per_file"] == 1024
+          assert b["decoded_header_lines"] == 16
+          assert b["data_rows_decoded"] == 0
+          assert b["camera_detection_values_read"] == 0
+          assert b["gps_location_or_activity_values_read"] == 0
+          assert b["timestamp_values_read"] == 0
+          assert b["effect_direction_read"] is False
+          assert b["focal_response_opened"] is False
+          d = value["decision"]
+          assert d["candidate_qualified"] is False
+          assert d["G2_pass_authorized"] is False
+          assert d["final_G4_pass_authorized"] is False
+          assert d["focal_response_opening_authorized"] is False
+          PY
+
+      - name: Upload header result only
+        uses: actions/upload-artifact@v4
+        with:
+          name: e5-wildpig-gps-camera-header-${{ github.run_id }}
+          path: build/public/E5_WILDPIG_GPS_CAMERA_HEADER_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
