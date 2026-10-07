@@ -13,6 +13,7 @@ from scripts.prove_e5_external_activity_anchor_identification import (
 
 ROOT=Path(__file__).resolve().parents[1]
 CONTRACT=ROOT/"docs"/"replication"/"E5_EXTERNAL_ACTIVITY_ANCHOR_IDENTIFICATION_CONTRACT.json"
+MODEL=ROOT/"docs"/"replication"/"E5_WILDPIG_ACTIVITY_ANCHOR_MODEL_CONTRACT.json"
 ADJ=ROOT/"docs"/"replication"/"E5_WILDPIG_ACTIVITY_ANCHOR_HEADER_ADJUDICATION.json"
 RECEIPT=ROOT/"docs"/"replication"/"E5_WILDPIG_GPS_CAMERA_HEADER_RECEIPT.json"
 
@@ -37,8 +38,11 @@ def test_manual_header_adjudication_advances_A2_A4_without_original_G4_reclassif
     assert gates["A2_ACTIVITY_ANCHOR_SCHEMA"]=="PASS_MANUAL_HEADER_ADJUDICATION"
     assert gates["A3_CAMERA_SCHEMA"]=="PASS_ROUTE_LEVEL_NETWORK_EXPOSURE_WITH_CAVEAT"
     assert gates["A4_TEMPORAL_OVERLAP"]=="PASS_PUBLIC_METHODS"
-    assert gates["A5_RELATIVE_DISTORTION_IDENTIFIABILITY"]=="PENDING_STRUCTURAL_PROOF"
+    assert gates["A5_RELATIVE_DISTORTION_IDENTIFIABILITY"]=="PASS_RESPONSE_FREE_STRUCTURAL_PROOF"
+    assert gates["A6_MODEL_AND_HOLDOUT_FREEZE"]=="FROZEN_NOT_AUTHORIZED"
     assert v["original_e5_status"]["G4_DETECTION_IDENTIFIABILITY"]=="NOT_PASSED_DIRECT_DETECTION_ROUTE"
+    assert v["decision"]["A5_passed"] is True
+    assert v["decision"]["A6_model_frozen"] is True
     assert v["decision"]["data_row_opening_authorized"] is False
 
 
@@ -76,3 +80,15 @@ def test_identification_contract_forbids_empirical_opening_and_absolute_detectio
     assert v["response_firewall"]["focal_camera_event_values_opened"] is False
     assert v["response_firewall"]["gps_location_values_opened"] is False
     assert v["response_firewall"]["model_fitting_authorized"] is False
+
+
+def test_A6_model_contract_freezes_symmetric_transfer_before_values():
+    v=_read(MODEL)
+    assert v["status"]=="FROZEN_MODEL_NOT_AUTHORIZED"
+    assert len(v["transfer_design"]["transfers"])==8
+    assert v["transfer_design"]["gain"]=="corrected_overlap - baseline_overlap"
+    assert v["uncertainty"]["bootstrap_replicates"]==1000
+    assert v["interpretation_rule"]["threshold_tuning_after_values"] is False
+    assert v["response_firewall"]["empirical_data_rows_opening_authorized"] is False
+    assert v["claims_if_executed"]["may_claim_original_E5_G4_pass"] is False
+    assert v["claims_if_executed"]["may_claim_untouched_preregistration"] is False
