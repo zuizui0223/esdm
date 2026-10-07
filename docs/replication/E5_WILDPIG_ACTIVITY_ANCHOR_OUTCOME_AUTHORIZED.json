@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "wolfson_wildpig_gps_camera_2015_2018",
+  "route_id": "e5-external-activity-anchor-v1",
+  "contract_id": "e5-wildpig-activity-anchor-empirical-outcome-v1",
+  "outcome_contract_blob_sha": "fdfed4e3e5bd9ee0d96a3caeca1fe286b56148dc",
+  "model_contract_blob_sha": "910ffca4af2be05cf7d034586cb5e29a8ec0d446",
+  "implementation_parent_sha": "6b771c474c3d57bdde60865b520b97c473d3bd40",
+  "outcome_authorized": true,
+  "full_rows_authorized": true,
+  "one_shot": true,
+  "original_G4_pass_authorized": false,
+  "authorized_date": "2026-10-08"
+}
