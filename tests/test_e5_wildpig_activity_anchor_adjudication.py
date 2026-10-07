@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-import numpy as np
 
 from scripts.prove_e5_external_activity_anchor_identification import (
     camera_shape,
@@ -20,6 +19,11 @@ RECEIPT=ROOT/"docs"/"replication"/"E5_WILDPIG_GPS_CAMERA_HEADER_RECEIPT.json"
 
 def _read(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _assert_close(a, b, tol=1e-12):
+    assert len(a) == len(b)
+    assert max(abs(x-y) for x,y in zip(a,b)) <= tol
 
 
 def test_header_receipt_preserves_zero_response_rows_and_pins_artifact():
@@ -47,20 +51,20 @@ def test_manual_header_adjudication_advances_A2_A4_without_original_G4_reclassif
 
 
 def test_relative_distortion_closed_form_recovers_normalized_shape():
-    a=np.array([0.2,0.4,0.1,0.3])
-    d_raw=np.array([0.5,2.0,1.0,4.0])
+    a=[0.2,0.4,0.1,0.3]
+    d_raw=[0.5,2.0,1.0,4.0]
     d=normalize_log_shape(d_raw)
     c=camera_shape(a,d_raw)
     got=recover_relative_distortion(a,c)
-    np.testing.assert_allclose(got,d,rtol=0,atol=1e-12)
+    _assert_close(got,d)
 
 
 def test_relative_distortion_is_invariant_to_raw_distortion_scale():
-    a=np.array([1.0,3.0,2.0,4.0])
-    d=np.array([0.4,1.2,3.0,0.7])
+    a=[1.0,3.0,2.0,4.0]
+    d=[0.4,1.2,3.0,0.7]
     one=recover_relative_distortion(a,camera_shape(a,d))
-    two=recover_relative_distortion(a,camera_shape(a,99*d))
-    np.testing.assert_allclose(one,two,rtol=0,atol=1e-12)
+    two=recover_relative_distortion(a,camera_shape(a,[99*v for v in d]))
+    _assert_close(one,two)
 
 
 def test_response_free_A5_proof_passes_but_claims_only_relative_shape():
