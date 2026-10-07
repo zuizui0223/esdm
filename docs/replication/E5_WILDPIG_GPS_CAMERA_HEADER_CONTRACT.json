@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "wolfson_wildpig_gps_camera_2015_2018",
+  "contract_id": "e5-wildpig-gps-camera-header-response-blind-v1",
+  "status": "FROZEN_HEADER_PRECHECK_NOT_AUTHORIZED",
+  "frozen_date": "2026-10-07",
+  "source": {
+    "github_repository": "dwwolfson/gps_cameratrap_activity_comparison",
+    "pinned_commit": "bc97ff80ec91aba03f58f06629c7e8dfff9eb85d",
+    "zenodo_doi": "10.5281/zenodo.7908800",
+    "seasonal_files": [
+      {
+        "geography": "FL",
+        "method": "camera",
+        "season": "fall",
+        "path": "raw_data/BIR_FL/Cameras/BIR_Fall_Cams.csv",
+        "raw_url": "https://raw.githubusercontent.com/dwwolfson/gps_cameratrap_activity_comparison/bc97ff80ec91aba03f58f06629c7e8dfff9eb85d/raw_data/BIR_FL/Cameras/BIR_Fall_Cams.csv"
+      },
+      {
+        "geography": "FL",
+        "method": "camera",
+        "season": "spring",
+        "path": "raw_data/BIR_FL/Cameras/BIR_Spring_Cams.csv",
+        "raw_url": "https://raw.githubusercontent.com/dwwolfson/gps_cameratrap_activity_comparison/bc97ff80ec91aba03f58f06629c7e8dfff9eb85d/raw_data/BIR_FL/Cameras/BIR_Spring_Cams.csv"
+      },
+      {
+        "geography": "FL",
+        "method": "camera",
+        "season": "summer",
+        "path": "raw_data/BIR_FL/Cameras/BIR_Summer_Cams.csv",
+        "raw_url": "https://raw.githubusercontent.com/dwwolfson/gps_cameratrap_activity_comparison/bc97ff80ec91aba03f58f06629c7e8dfff9eb85d/raw_data/BIR_FL/Cameras/BIR_Summer_Cams.csv"
+      },
+      {
+        "geography": "FL",
+        "method": "camera",
+        "season": "winter",
+        "path": "raw_data/BIR_FL/Cameras/BIR_Winter_Cams.csv",
+        "raw_url": "https://raw.githubusercontent.com/dwwolfson/gps_cameratrap_activity_comparison/bc97ff80ec91aba03f58f06629c7e8dfff9eb85d/raw_data/BIR_FL/Cameras/BIR_Winter_Cams.csv"
+      },
+      {
+        "geography": "FL",
+        "method": "gps",
+        "season": "fall",
+        "path": "raw_data/BIR_FL/GPS/BIRFallGPS.csv",
+        "raw_url": "https://raw.githubusercontent.com/dwwolfson/gps_cameratrap_activity_comparison/bc97ff80ec91aba03f58f06629c7e8dfff9eb85d/raw_data/BIR_FL/GPS/BIRFallGPS.csv"
+      },
+      {
+        "geography": "FL",
+        "method": "gps",
+        "season": "spring",
+        "path": "raw_data/BIR_FL/GPS/BIRSpringGPS.csv",
+        "raw_url": "https://raw.githubusercontent.com/dwwolfson/gps_cameratrap_activity_comparison/bc97ff80ec91aba03f58f06629c7e8dfff9eb85d/raw_data/BIR_FL/GPS/BIRSpringGPS.csv"
+      },
+      {
+        "geography": "FL",
+        "method": "gps",
+        "season": "summer",
+        "path": "raw_data/BIR_FL/GPS/BIRSummerGPS.csv",
+        "raw_url": "https://raw.githubusercontent.com/dwwolfson/gps_cameratrap_activity_comparison/bc97ff80ec91aba03f58f06629c7e8dfff9eb85d/raw_data/BIR_FL/GPS/BIRSummerGPS.csv"
+      },
+      {
+        "geography": "FL",
+        "method": "gps",
+        "season": "winter",
+        "path": "raw_data/BIR_FL/GPS/BIRWinterGPS.csv",
+        "raw_url": "https://raw.githubusercontent.com/dwwolfson/gps_cameratrap_activity_comparison/bc97ff80ec91aba03f58f06629c7e8dfff9eb85d/raw_data/BIR_FL/GPS/BIRWinterGPS.csv"
+      },
+      {
+        "geography": "CA",
+        "method": "camera",
+        "season": "fall",
+        "path": "raw_data/Tejon_CA/Camera/Fall_15-16_Cams.csv",
+        "raw_url": "https://raw.githubusercontent.com/dwwolfson/gps_cameratrap_activity_comparison/bc97ff80ec91aba03f58f06629c7e8dfff9eb85d/raw_data/Tejon_CA/Camera/Fall_15-16_Cams.csv"
+      },
+      {
+        "geography": "CA",
+        "method": "camera",
+        "season": "spring",
+        "path": "raw_data/Tejon_CA/Camera/Spring_15-16_Cams.csv",
+        "raw_url": "https://raw.githubusercontent.com/dwwolfson/gps_cameratrap_activity_comparison/bc97ff80ec91aba03f58f06629c7e8dfff9eb85d/raw_data/Tejon_CA/Camera/Spring_15-16_Cams.csv"
+      },
+      {
+        "geography": "CA",
+        "method": "camera",
+        "season": "summer",
+        "path": "raw_data/Tejon_CA/Camera/Summer_15-16_Cams.csv",
+        "raw_url": "https://raw.githubusercontent.com/dwwolfson/gps_cameratrap_activity_comparison/bc97ff80ec91aba03f58f06629c7e8dfff9eb85d/raw_data/Tejon_CA/Camera/Summer_15-16_Cams.csv"
+      },
+      {
+        "geography": "CA",
+        "method": "camera",
+        "season": "winter",
+        "path": "raw_data/Tejon_CA/Camera/Winter_15-17_Cams.csv",
+        "raw_url": "https://raw.githubusercontent.com/dwwolfson/gps_cameratrap_activity_comparison/bc97ff80ec91aba03f58f06629c7e8dfff9eb85d/raw_data/Tejon_CA/Camera/Winter_15-17_Cams.csv"
+      },
+      {
+        "geography": "CA",
+        "method": "gps",
+        "season": "fall",
+        "path": "raw_data/Tejon_CA/GPS/TejonFallGPS.csv",
+        "raw_url": "https://raw.githubusercontent.com/dwwolfson/gps_cameratrap_activity_comparison/bc97ff80ec91aba03f58f06629c7e8dfff9eb85d/raw_data/Tejon_CA/GPS/TejonFallGPS.csv"
+      },
+      {
+        "geography": "CA",
+        "method": "gps",
+        "season": "spring",
+        "path": "raw_data/Tejon_CA/GPS/TejonSpringGPS.csv",
+        "raw_url": "https://raw.githubusercontent.com/dwwolfson/gps_cameratrap_activity_comparison/bc97ff80ec91aba03f58f06629c7e8dfff9eb85d/raw_data/Tejon_CA/GPS/TejonSpringGPS.csv"
+      },
+      {
+        "geography": "CA",
+        "method": "gps",
+        "season": "summer",
+        "path": "raw_data/Tejon_CA/GPS/TejonSummerGPS.csv",
+        "raw_url": "https://raw.githubusercontent.com/dwwolfson/gps_cameratrap_activity_comparison/bc97ff80ec91aba03f58f06629c7e8dfff9eb85d/raw_data/Tejon_CA/GPS/TejonSummerGPS.csv"
+      },
+      {
+        "geography": "CA",
+        "method": "gps",
+        "season": "winter",
+        "path": "raw_data/Tejon_CA/GPS/TejonWinterGPS.csv",
+        "raw_url": "https://raw.githubusercontent.com/dwwolfson/gps_cameratrap_activity_comparison/bc97ff80ec91aba03f58f06629c7e8dfff9eb85d/raw_data/Tejon_CA/GPS/TejonWinterGPS.csv"
+      }
+    ]
+  },
+  "purpose": "establish response-blind schema support for the separately frozen external-activity-anchor route across Florida and California without reading any data row; this precheck cannot pass the original direct-detection G4",
+  "response_firewall": {
+    "http_range_max_bytes": 1024,
+    "first_csv_line_decode_authorized": true,
+    "second_csv_line_or_later_decode_authorized": false,
+    "data_rows_read_authorized": false,
+    "camera_detection_values_authorized": false,
+    "gps_location_values_authorized": false,
+    "gps_activity_or_movement_values_authorized": false,
+    "timestamp_values_authorized": false,
+    "effect_direction_authorized": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false
+  },
+  "schema_questions": {
+    "camera": [
+      "stable camera/site/location identifier",
+      "event date/time or timestamp field"
+    ],
+    "gps": [
+      "stable individual/collar identifier",
+      "date/time or timestamp field",
+      "movement/activity proxy field or coordinates sufficient for a predeclared movement-based activity proxy"
+    ],
+    "both": [
+      "geography remains fixed from directory identity",
+      "season remains fixed from file identity"
+    ]
+  },
+  "decision_boundary": {
+    "header_precheck_can_qualify_candidate": false,
+    "G3_status_frozen_from_public_file_geometry": "PASS_PUBLIC_FILE_GEOMETRY",
+    "G2_may_advance_to_value_blind_metadata_child": true,
+    "G4_may_only_advance_if_gps_header_exposes_individual_time_and_activity_or_movement_axis": true,
+    "focal_response_opening_authorized": false,
+    "separate_child_contract_required_before_any_data_row_read": true,
+    "original_G4_pass_authorized": false,
+    "activity_anchor_A2_schema_may_advance": true,
+    "activity_anchor_A3_schema_may_advance": true,
+    "activity_anchor_route_can_qualify_candidate": false
+  },
+  "execution": {
+    "dedicated_branch": "e5/wildpig-gps-camera-header-v1",
+    "authorization_marker": "docs/replication/E5_WILDPIG_GPS_CAMERA_HEADER_AUTHORIZED.json",
+    "one_shot": true,
+    "pure_marker_commit_required": true,
+    "workflow_dispatch_authorized": false
+  },
+  "route_contract": "docs/replication/E5_EXTERNAL_ACTIVITY_ANCHOR_ROUTE_CONTRACT.json"
+}

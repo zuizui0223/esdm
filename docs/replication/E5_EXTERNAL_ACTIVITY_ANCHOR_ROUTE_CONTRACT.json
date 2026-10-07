@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "route_id": "e5-external-activity-anchor-v1",
+  "status": "FROZEN_PRE_RESPONSE_ALTERNATIVE_ROUTE",
+  "frozen_date": "2026-10-07",
+  "relationship_to_existing_e5": {
+    "original_G4_changed": false,
+    "original_candidate_qualification_contract_changed": false,
+    "prior_candidate_outcomes_reclassified": false,
+    "wildpig_original_G4_passed": false,
+    "rationale": "this route identifies relative effective observation distortion by externally anchoring ecological activity rather than by directly calibrating detection; it is a distinct estimand and may not be called a pass of the frozen direct-detection G4"
+  },
+  "scientific_question": "when ecological diel activity is independently anchored by telemetry-derived movement, how much of the camera-trap diel pattern is attributable to effective observation distortion, and does that distortion transfer across geography and season?",
+  "identification_target": {
+    "activity_curve": "A_gs(t), relative diel ecological activity within geography g and season s",
+    "camera_observation_distortion": "D_gs(t), relative diel effective camera observation distortion conditional on A_gs(t)",
+    "camera_time_density_relationship": "p_camera_gs(t) proportional to A_gs(t) * D_gs(t)",
+    "identification_scale": "D_gs(t) is identified only up to a multiplicative constant and must be normalized within geography-season",
+    "absolute_detection_probability_identified": false,
+    "abundance_identified": false,
+    "sensor_detection_probability_identified": false
+  },
+  "external_activity_anchor": {
+    "acceptable_measurement": "movement rate derived from successive telemetry locations divided by elapsed time, or an equivalently predeclared independent activity proxy",
+    "must_be_independent_of_camera_detection": true,
+    "individual_identifier_required": true,
+    "timestamp_required": true,
+    "movement_or_coordinate_axis_required": true,
+    "sampling_interval_or_elapsed_time_reconstructable": true
+  },
+  "crossed_design_requirements": {
+    "minimum_geographic_regimes": 2,
+    "both_camera_and_activity_anchor_required_in_each_geography": true,
+    "overlapping_seasonal_support_required": true,
+    "geography_by_method_perfect_confounding_allowed": false
+  },
+  "model_freeze_requirements_before_values": {
+    "activity_anchor_construction_must_be_frozen": true,
+    "camera_event_independence_rule_must_be_frozen": true,
+    "diel_basis_or_kernel_rule_must_be_frozen": true,
+    "D_normalization_constraint_must_be_frozen": true,
+    "geography_and_season_interactions_must_be_frozen": true,
+    "heldout_geography_rule_must_be_frozen": true,
+    "post_response_model_selection_allowed": false
+  },
+  "route_gates": [
+    {
+      "gate": "A1_CROSSED_METHOD_GEOGRAPHY",
+      "pass": "at least two geographies each retain both camera and telemetry/activity-anchor channels"
+    },
+    {
+      "gate": "A2_ACTIVITY_ANCHOR_SCHEMA",
+      "pass": "telemetry schema retains individual identity, time, and movement/activity information or coordinates sufficient for the frozen proxy"
+    },
+    {
+      "gate": "A3_CAMERA_SCHEMA",
+      "pass": "camera schema retains physical sampling identity and event time with reproducible effort/exposure path"
+    },
+    {
+      "gate": "A4_TEMPORAL_OVERLAP",
+      "pass": "camera and telemetry exposure overlap sufficiently across the predeclared seasonal/diel support in both geographies"
+    },
+    {
+      "gate": "A5_RELATIVE_DISTORTION_IDENTIFIABILITY",
+      "pass": "the frozen joint likelihood identifies the relative diel shape of D(t) after anchoring A(t); only shape, not absolute detection or abundance, is claimed"
+    },
+    {
+      "gate": "A6_MODEL_AND_HOLDOUT_FREEZE",
+      "pass": "joint model, normalization and geographic heldout test are frozen before response values are opened"
+    }
+  ],
+  "response_firewall": {
+    "focal_camera_event_values_opened": false,
+    "gps_location_values_opened": false,
+    "gps_movement_values_opened": false,
+    "effect_direction_opened": false,
+    "camera_vs_gps_overlap_values_opened": false,
+    "predictive_scores_opened": false,
+    "model_fitting_authorized": false
+  },
+  "claims_if_route_eventually_qualifies": {
+    "maximum_claim": "relative diel camera observation distortion can be estimated against an independently anchored telemetry activity profile and tested for geographic transfer",
+    "absolute_camera_detection_claim": false,
+    "abundance_claim": false,
+    "causal_sensor_mechanism_claim": false,
+    "original_E5_G4_pass_claim": false
+  }
+}

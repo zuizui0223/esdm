@@ -482,6 +482,60 @@
       "response_may_be_opened_for_E5": false,
       "next_response_blind_check": "terminal for this OSF manifest route; do not open README, scripts, headers, distance tables, or biological response to repair G4",
       "hard_stop_reason": "the response-blind OSF manifest exposes effort (Samplingdays) and CTDS/event-distance outputs (distances_export) but no separately named ranging/reference calibration material; under the frozen three-route rule, effective detection cannot be established response-independently and the candidate stops at G4"
+    },
+    {
+      "candidate_id": "wolfson_wildpig_gps_camera_2015_2018",
+      "title": "Wolfson et al. wild-pig GPS telemetry and camera-trap activity comparison",
+      "source_url": "https://doi.org/10.5281/zenodo.7908800",
+      "doi": "10.5281/zenodo.7908800",
+      "response_opened": false,
+      "public_metadata": {
+        "geographies": [
+          "Buck Island Ranch, Florida",
+          "Tejon Ranch, California"
+        ],
+        "camera_sites_by_geography": {
+          "FL": 44,
+          "CA": 48
+        },
+        "gps_individuals_by_geography": {
+          "FL": 62,
+          "CA": 21
+        },
+        "study_period": "2015-2018",
+        "methods_crossed_in_both_geographies": [
+          "camera",
+          "gps"
+        ],
+        "seasons_crossed_in_both_methods_both_geographies": [
+          "spring",
+          "summer",
+          "fall",
+          "winter"
+        ],
+        "public_repo": "dwwolfson/gps_cameratrap_activity_comparison",
+        "public_repo_tag": "1.0",
+        "public_repo_commit": "bc97ff80ec91aba03f58f06629c7e8dfff9eb85d",
+        "seasonal_csv_files": 16
+      },
+      "gates": {
+        "G1_INDEPENDENT_SOURCE": "PASS",
+        "G2_SCHEMA_EFFORT_TIME": "PENDING_HEADER_ONLY_PRECHECK",
+        "G3_CROSSED_DOMAIN": "PASS_PUBLIC_FILE_GEOMETRY",
+        "G4_DETECTION_IDENTIFIABILITY": "NOT_PASSED_DIRECT_DETECTION_ROUTE_ACTIVITY_ANCHOR_ROUTE_SEPARATE",
+        "G5_PHYSICAL_REPLICATION": "PASS_CAPACITY_PUBLIC_METHODS_SPLIT_NOT_FROZEN",
+        "G6_TEMPORAL_SUPPORT": "PROMISING_FOUR_SEASONS_BOTH_METHODS_BOTH_GEOGRAPHIES_HEADER_DATES_PENDING",
+        "G7_MODEL_FREEZE": "NOT_REACHED"
+      },
+      "decision": "E5_STANDARD_CANDIDATE_NOT_QUALIFIED_ACTIVITY_ANCHOR_ROUTE_HEADER_PENDING",
+      "qualification_blocker": "GPS independently anchors activity but does not directly calibrate camera detection, so the frozen standard G4 remains unpassed. The separately frozen activity-anchor route must first establish telemetry and camera schema, temporal overlap, and relative-distortion identifiability.",
+      "response_may_be_opened_for_E5": false,
+      "next_response_blind_check": "execute only the frozen bounded header-only precheck under e5-external-activity-anchor-v1; no data rows",
+      "activity_anchor_route": {
+        "route_id": "e5-external-activity-anchor-v1",
+        "status": "PENDING_HEADER_SCHEMA",
+        "original_G4_reclassified": false
+      }
     }
   ],
   "search_universes": [
@@ -517,13 +571,13 @@
     "snapshot_usa_2024_selected": false,
     "response_opening_authorized": false,
     "model_fitting_authorized": false,
-    "next_action": "continue G4-first discovery for a public multi-region design retaining an independently reproducible detection-calibration channel before focal response opening; Kays41 remains unresolved but unqualified",
-    "screened_candidate_count": 15,
+    "next_action": "execute the separately authorized bounded header-only precheck for the wild-pig external-activity-anchor route; preserve zero data rows and do not reclassify the original G4",
+    "screened_candidate_count": 16,
     "qualified_candidate_count": 0,
-    "strongest_current_named_candidate": "kays41_emammal_team_2020",
-    "named_candidate_status": "promising_multi_study_design_but_dictionary_transport_blocked_unqualified",
+    "strongest_current_named_candidate": "wolfson_wildpig_gps_camera_2015_2018",
+    "named_candidate_status": "standard_G4_unpassed_external_activity_anchor_route_header_pending",
     "search_bottleneck": {
-      "screened_candidates": 15,
+      "screened_candidates": 16,
       "qualified_candidates": 0,
       "dominant_constraint": "joint_G3_G4_identifiability",
       "interpretation": "independent datasets and nominal replication are common; the scarce property is a public design that crosses geography with source/protocol while retaining a separately identifiable detection channel",
@@ -539,8 +593,8 @@
         "large single-protocol multi-city datasets with no independent detection calibration",
         "long-duration datasets lacking response-independent effort intervals"
       ],
-      "strongest_current_named_candidate": "kays41_emammal_team_2020",
-      "strongest_candidate_caveat": "Kays41 is again the strongest named unresolved candidate after Henrich10 stopped at G4. Kays41 remains transport/schema blocked and has not demonstrated a separately identifiable detection channel; multiple camera models alone are insufficient for G4."
+      "strongest_current_named_candidate": "wolfson_wildpig_gps_camera_2015_2018",
+      "strongest_candidate_caveat": "Wild-pig GPS-camera data are the strongest current response-blind alternative route because methods are crossed in Florida and California and GPS movement can anchor ecological activity. This does not pass the frozen direct-detection G4; only a separately frozen relative-observation-distortion route is being evaluated."
     }
   }
 }

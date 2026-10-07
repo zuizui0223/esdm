@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "wolfson_wildpig_gps_camera_2015_2018",
+  "screen_id": "e5-wildpig-gps-camera-public-prescreen-v1",
+  "status": "E5_STANDARD_G4_UNPASSED_ACTIVITY_ANCHOR_ROUTE_PENDING_SCHEMA",
+  "screened_date": "2026-10-07",
+  "source": {
+    "article_title": "Comparison of daily activity patterns across seasons using GPS telemetry and camera trap data for a widespread mammal",
+    "article_doi": "10.1002/ecs2.4728",
+    "zenodo_doi": "10.5281/zenodo.7908800",
+    "public_repo": "https://github.com/dwwolfson/gps_cameratrap_activity_comparison",
+    "public_repo_tag": "1.0",
+    "public_repo_commit": "bc97ff80ec91aba03f58f06629c7e8dfff9eb85d"
+  },
+  "response_boundary": {
+    "public_methods_and_file_names_only": true,
+    "csv_headers_opened": false,
+    "data_rows_read": 0,
+    "focal_camera_detection_values_read": 0,
+    "gps_location_or_activity_values_read": 0,
+    "effect_direction_used_for_selection": false,
+    "focal_response_opened": false
+  },
+  "public_design": {
+    "geographies": [
+      {
+        "id": "FL",
+        "name": "Buck Island Ranch, Florida",
+        "camera_sites": 44,
+        "gps_individuals": 62
+      },
+      {
+        "id": "CA",
+        "name": "Tejon Ranch, California",
+        "camera_sites": 48,
+        "gps_individuals": 21
+      }
+    ],
+    "study_period": "2015-2018",
+    "seasonal_files_each_method_each_geography": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ],
+    "crossed_method_geography_design": true,
+    "methods": [
+      "camera",
+      "gps"
+    ],
+    "raw_data_paths_separated_by_geography_and_method": true,
+    "total_camera_sites": 92,
+    "total_gps_individuals": 83
+  },
+  "gates": [
+    {
+      "gate": "G1_INDEPENDENT_SOURCE",
+      "status": "PASS",
+      "reason": "independent wild-pig response dataset not used in E2-E4 or Snapshot Japan"
+    },
+    {
+      "gate": "G2_SCHEMA_EFFORT_TIME",
+      "status": "PENDING_HEADER_ONLY_PRECHECK",
+      "reason": "public repository exposes geography/method/season-separated CSVs, but field headers remain unopened"
+    },
+    {
+      "gate": "G3_CROSSED_DOMAIN",
+      "status": "PASS_PUBLIC_FILE_GEOMETRY",
+      "reason": "both Florida and California contain both Camera and GPS directories with all four seasonal files, producing a geography-by-observation-method crossing"
+    },
+    {
+      "gate": "G4_DETECTION_IDENTIFIABILITY",
+      "status": "NOT_PASSED_DIRECT_DETECTION_ROUTE",
+      "reason": "GPS telemetry anchors ecological activity rather than directly calibrating camera detection. The frozen direct-detection G4 is therefore not passed. A separately frozen external-activity-anchor route may estimate only relative diel camera observation distortion if its own schema and identifiability gates pass."
+    },
+    {
+      "gate": "G5_PHYSICAL_REPLICATION",
+      "status": "PASS_CAPACITY_PUBLIC_METHODS_SPLIT_NOT_FROZEN",
+      "reason": "44 Florida and 48 California camera sites each exceed the frozen physical-location minima"
+    },
+    {
+      "gate": "G6_TEMPORAL_SUPPORT",
+      "status": "PROMISING_FOUR_SEASONS_BOTH_METHODS_BOTH_GEOGRAPHIES_HEADER_DATES_PENDING",
+      "reason": "public file geometry contains spring/summer/fall/winter camera and GPS files in both geographies, but date fields remain unopened"
+    },
+    {
+      "gate": "G7_MODEL_FREEZE",
+      "status": "NOT_REACHED",
+      "reason": "candidate-specific model remains forbidden until header-only schema qualification"
+    }
+  ],
+  "decision": {
+    "candidate_qualified": false,
+    "strongest_response_blind_named_candidate": true,
+    "next_step": "freeze and execute the one-shot header-only precheck across the 16 pinned seasonal CSVs under the separate external-activity-anchor route",
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "broader_candidate_search_authorized": true,
+    "standard_e5_candidate_qualified": false,
+    "activity_anchor_route_id": "e5-external-activity-anchor-v1",
+    "activity_anchor_route_status": "PENDING_HEADER_SCHEMA"
+  },
+  "interpretation": {
+    "supported": "the crossed GPS-camera design is the strongest screened response-blind basis for a separately frozen external-activity-anchor route; it does not pass the original direct-detection G4",
+    "not_supported": [
+      "claim that GPS directly calibrates camera detection probability",
+      "claim that the original E5 G4 has passed",
+      "claim that the external-activity-anchor route has passed A2-A6",
+      "claim about the direction or magnitude of camera-versus-GPS activity differences",
+      "any E5 fitted outcome"
+    ]
+  }
+}
