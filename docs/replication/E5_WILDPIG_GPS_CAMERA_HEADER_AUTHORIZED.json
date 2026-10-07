@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "wolfson_wildpig_gps_camera_2015_2018",
+  "contract_id": "e5-wildpig-gps-camera-header-response-blind-v1",
+  "contract_blob_sha": "3d9de43f30e89e2af9dae803f97ebf1f4cb82593",
+  "implementation_parent_sha": "35b3a76078dc1cfb1f5c1b3a8f96489d4228c20d",
+  "header_precheck_authorized": true,
+  "one_shot": true,
+  "data_rows_authorized": false,
+  "focal_response_opening_authorized": false,
+  "model_fitting_authorized": false,
+  "authorized_date": "2026-10-07"
+}
