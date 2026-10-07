@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "route_id": "e5-external-activity-anchor-v1",
+  "contract_id": "e5-external-activity-anchor-relative-distortion-identification-v1",
+  "status": "FROZEN_RESPONSE_FREE_STRUCTURAL_PROOF",
+  "frozen_date": "2026-10-07",
+  "estimand": {
+    "telemetry_activity_shape": "A_b > 0 with sum_b A_b = 1",
+    "camera_time_shape": "C_b > 0 with sum_b C_b = 1",
+    "effective_observation_distortion": "D_b > 0",
+    "observation_model": "C_b = A_b * D_b / sum_j(A_j * D_j)",
+    "normalization": "mean_b(log D_b) = 0",
+    "absolute_detection_probability_identified": false,
+    "abundance_identified": false
+  },
+  "theorem": {
+    "solution": "log D_b = log C_b - log A_b - mean_j(log C_j - log A_j)",
+    "uniqueness": "under positivity and the zero-mean log-D normalization, the relative distortion shape is unique",
+    "scale_claim_only": true
+  },
+  "proof_scope": {
+    "empirical_values_opened": false,
+    "sample_size_sufficiency_proved": false,
+    "finite_sample_bias_proved": false,
+    "causal_sensor_mechanism_proved": false,
+    "geographic_transfer_proved": false
+  },
+  "A5_decision_rule": "PASS structurally if numerical tests recover arbitrary normalized positive D from synthetic positive A and induced C to floating-point tolerance, including invariance to multiplicative rescaling of raw D",
+  "response_firewall": {
+    "focal_camera_event_values_opened": false,
+    "gps_location_values_opened": false,
+    "gps_movement_values_opened": false,
+    "published_effect_direction_may_not_set_any_threshold": true,
+    "model_fitting_authorized": false
+  }
+}
