@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "wolfson_wildpig_gps_camera_2015_2018",
+  "receipt_id": "e5-wildpig-gps-camera-header-receipt-v1",
+  "status": "FROZEN_RESPONSE_BLIND_HEADER_RESULT",
+  "frozen_date": "2026-10-07",
+  "execution": {
+    "workflow_run_id": 37611608664,
+    "workflow_job_id": 112759913302,
+    "authorization_sha": "793b3f02974ebc6ee5bd3bcbd39f1a3dd75fe8eb",
+    "implementation_parent_sha": "35b3a76078dc1cfb1f5c1b3a8f96489d4228c20d",
+    "artifact_id": 11477917856,
+    "artifact_name": "e5-wildpig-gps-camera-header-37611608664",
+    "artifact_digest": "sha256:d8c26ea6a6af2a3e5570d9c6bc1f85aba4045567fd489f9e76fc7e6e6496375e",
+    "result_json_sha256": "7d1463aeaf7ee8b50005bf0e0fe5c4466ec2187571703782ef79c4746513e584",
+    "workflow_conclusion": "success"
+  },
+  "response_boundary": {
+    "files_header_checked": 16,
+    "maximum_bytes_requested_per_file": 1024,
+    "decoded_header_lines": 16,
+    "data_rows_decoded": 0,
+    "camera_detection_values_read": 0,
+    "gps_location_or_activity_values_read": 0,
+    "timestamp_values_read": 0,
+    "effect_direction_read": false,
+    "focal_response_opened": false
+  },
+  "automatic_schema_summary": {
+    "camera_files_checked": 8,
+    "gps_files_checked": 8,
+    "camera_schema_viable_all_files": true,
+    "gps_external_activity_schema_viable_all_files": false,
+    "crossed_method_geography_file_geometry_preserved": true
+  },
+  "automatic_false_negative": {
+    "present": true,
+    "affected_files": [
+      "raw_data/BIR_FL/GPS/BIRFallGPS.csv",
+      "raw_data/BIR_FL/GPS/BIRSpringGPS.csv",
+      "raw_data/BIR_FL/GPS/BIRSummerGPS.csv",
+      "raw_data/BIR_FL/GPS/BIRWinterGPS.csv"
+    ],
+    "observed_header": [
+      "Indiv_ID",
+      "Fix_DateTime",
+      "X",
+      "Y"
+    ],
+    "cause": "generic token 'id' was intentionally ignored by the matcher because tokens shorter than three characters are not substring-matched; 'Indiv_ID' was therefore not recognized despite being an explicit individual identifier",
+    "same_one_shot_rerun_allowed": false,
+    "manual_header_adjudication_allowed": true
+  },
+  "governance": {
+    "candidate_qualified": false,
+    "original_G4_passed": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "same_authorization_retry_allowed": false
+  }
+}
