@@ -95,4 +95,9 @@ def test_registry_names_wildpig_as_strongest_unqualified_candidate():
     )
     assert row["response_opened"] is False
     assert row["response_may_be_opened_for_E5"] is False
-    assert row["decision"] == "E5_STANDARD_CANDIDATE_NOT_QUALIFIED_ACTIVITY_ANCHOR_ROUTE_HEADER_PENDING"
+    assert row["decision"] == (
+        "E5_STANDARD_CANDIDATE_NOT_QUALIFIED_ACTIVITY_ANCHOR_ROUTE_READY_FOR_SEPARATE_EMPIRICAL_AUTHORIZATION"
+    )
+    assert row["activity_anchor_route"]["status"] == (
+        "A1_A5_PASS_A6_FROZEN_EMPIRICAL_NOT_AUTHORIZED"
+    )

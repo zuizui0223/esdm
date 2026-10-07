@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "route_id": "e5-external-activity-anchor-v1",
+  "proof_id": "e5-external-activity-anchor-relative-distortion-proof-v1",
+  "status": "PASS",
+  "theorem": {
+    "observation_model": "C_b = A_b D_b / sum_j(A_j D_j)",
+    "normalization": "mean(log D)=0",
+    "closed_form": "log D_b = log C_b - log A_b - mean(log C - log A)",
+    "identified_quantity": "relative distortion shape only"
+  },
+  "synthetic_cases": [
+    {
+      "case": 1,
+      "bins": 6,
+      "max_abs_recovery_error": 4.440892098500626e-16,
+      "max_abs_scale_invariance_error": 4.440892098500626e-16,
+      "pass": true
+    },
+    {
+      "case": 2,
+      "bins": 8,
+      "max_abs_recovery_error": 4.440892098500626e-16,
+      "max_abs_scale_invariance_error": 8.881784197001252e-16,
+      "pass": true
+    }
+  ],
+  "response_boundary": {
+    "empirical_values_opened": false,
+    "camera_events_opened": false,
+    "gps_locations_opened": false,
+    "gps_movement_values_opened": false,
+    "model_fitting_authorized": false
+  },
+  "decision": {
+    "A5_structural_identifiability_pass": true,
+    "absolute_detection_probability_identified": false,
+    "abundance_identified": false,
+    "A6_model_freeze_required_before_empirical_values": true
+  }
+}
