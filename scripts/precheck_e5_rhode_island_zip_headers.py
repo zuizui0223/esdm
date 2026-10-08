@@ -153,7 +153,13 @@ def inspect(
     md5 = hashlib.md5(blob).hexdigest()
     if md5 != src["archive_public_md5"]:
         raise ValueError("frozen Zenodo archive MD5 mismatch")
+    return inspect_verified_archive(blob, contract, md5)
 
+
+def inspect_verified_archive(blob: bytes, contract: dict, md5: str) -> dict:
+    """Pure archive-directory/header logic; input integrity is checked by inspect()."""
+    src = contract["source"]
+    fw = contract["response_firewall"]
     result_members: dict[str, dict] = {}
     with zipfile.ZipFile(io.BytesIO(blob)) as archive:
         infos = archive.infolist()
