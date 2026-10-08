@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "wolfson_wildpig_gps_camera_2015_2018",
+  "route_id": "e5-wildpig-ca-locationname-postoutcome-qc-v1",
+  "contract_id": "e5-wildpig-ca-locationname-postoutcome-qc-v1",
+  "contract_blob_sha": "fe261b1b54c57be6e880488da4ec77517f52a0e9",
+  "implementation_parent_sha": "3c9c779968ed68b9907aa4767d87869f0f649da8",
+  "one_shot": true,
+  "LocationName_column_only_authorized": true,
+  "biological_response_columns_for_statistics_authorized": false,
+  "original_one_shot_rerun_authorized": false,
+  "model_refit_authorized": false,
+  "outcome_aware_exploratory_qc": true,
+  "authorized_date": "2026-10-08"
+}
