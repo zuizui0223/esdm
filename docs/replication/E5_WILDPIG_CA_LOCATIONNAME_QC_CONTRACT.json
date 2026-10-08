@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "wolfson_wildpig_gps_camera_2015_2018",
+  "route_id": "e5-wildpig-ca-locationname-postoutcome-qc-v1",
+  "contract_id": "e5-wildpig-ca-locationname-postoutcome-qc-v1",
+  "status": "FROZEN_EXPLORATORY_POSTOUTCOME_QC_NOT_AUTHORIZED",
+  "frozen_date": "2026-10-08",
+  "purpose": "Diagnose the 434 CA-summer LocationName clusters against the 48 physical cameras reported in the paper, without changing the frozen wild-pig transfer result or fitting another biological model",
+  "provenance": {
+    "reference_outcome_run": 37643401531,
+    "reference_outcome_artifact_id": 11496704615,
+    "reference_outcome_head_sha": "bdfd2000abb4737d531f655e935b25fa55e95ef2",
+    "source_repository": "dwwolfson/gps_cameratrap_activity_comparison",
+    "source_commit": "bc97ff80ec91aba03f58f06629c7e8dfff9eb85d",
+    "source_article_doi": "10.1002/ecs2.4728",
+    "public_design_ca_cameras": 48,
+    "source_code_rule": "the public R script diurnal_nocturnal_prop_table.R reports length(unique(tmp$LocationName)) without remapping labels to physical cameras",
+    "already_observed_ca_camera_site_counts": {
+      "spring": 48,
+      "summer": 434,
+      "fall": 48,
+      "winter": 47
+    }
+  },
+  "inputs": [
+    {
+      "season": "spring",
+      "path": "raw_data/Tejon_CA/Camera/Spring_15-16_Cams.csv",
+      "size_bytes": 35756,
+      "git_blob_sha": "a92574298031617a3843c4c0cd8dc477e4cb60d4"
+    },
+    {
+      "season": "summer",
+      "path": "raw_data/Tejon_CA/Camera/Summer_15-16_Cams.csv",
+      "size_bytes": 64568,
+      "git_blob_sha": "cc8ec84b81e9191b5c2e76973f6c71975a1ea731"
+    },
+    {
+      "season": "fall",
+      "path": "raw_data/Tejon_CA/Camera/Fall_15-16_Cams.csv",
+      "size_bytes": 107468,
+      "git_blob_sha": "0919fd00b0bac223adc1cc2ec61f87e1767e83ad"
+    },
+    {
+      "season": "winter",
+      "path": "raw_data/Tejon_CA/Camera/Winter_15-17_Cams.csv",
+      "size_bytes": 43558,
+      "git_blob_sha": "e798b8a89a2703acb236c3b4bac47c12714856e4"
+    }
+  ],
+  "required_header_field": "LocationName",
+  "authorized_operations": {
+    "download_entire_four_pinned_csv_files_in_memory": true,
+    "note_entire_source_CSVs_contain_biological_rows": true,
+    "project_only_LocationName_values_for_statistics": true,
+    "parse_other_columns_transiently_due_to_CSV_format": true,
+    "use_timestamps_or_species_or_event_outcomes": false,
+    "compute_per_season_total_rows_nonblank_rows_blank_rows": true,
+    "compute_per_season_raw_unique_label_counts": true,
+    "compute_per_season_trim_case_normalized_unique_label_counts": true,
+    "compute_per_season_singleton_label_counts": true,
+    "compute_pairwise_exact_and_normalized_label_overlap_counts": true,
+    "output_raw_location_labels": false,
+    "output_pseudonymized_location_labels": false,
+    "output_other_column_values": false,
+    "output_raw_CSV_files": false,
+    "fit_refit_or_reclassify_original_model": false
+  },
+  "normalization": {
+    "raw_id": "as decoded UTF-8 text without changing source characters",
+    "normalized_id": "Unicode NFKC; strip surrounding whitespace; collapse all internal whitespace runs to a single ASCII space; casefold",
+    "physical_site_remapping_authorized": false
+  },
+  "decision_rules": {
+    "summer_raw_unique_must_match_prior_434_for_provenance": true,
+    "if_summer_raw_unique_not_434": "STOP_FROZEN_OUTCOME_SOURCE_MISMATCH",
+    "if_any_normalized_unique_gt_48": "PERSISTENT_IDENTITY_GRANULARITY_CONFLICT",
+    "if_raw_summer_gt_48_but_all_normalized_unique_le_48": "TRIM_CASE_LABEL_FORMAT_ONLY_POSSIBLE",
+    "otherwise": "NOT_IDENTIFIABLE_FROM_LABEL_COUNTS",
+    "regardless_of_result_original_one_shot_remains_unchanged": true,
+    "regardless_of_result_original_quality_hold_cannot_be_lifted_by_this_diagnostic_alone": true
+  },
+  "output_fields": [
+    "seasonal row count, missing-id count, raw-unique and normalized-unique counts",
+    "seasonal singleton label counts and labels shared with other seasons",
+    "pairwise raw and normalized label overlap counts",
+    "original outcome/source file provenance and fixed audit decision",
+    "zero raw identifiers and zero event/timestamp/activity values"
+  ],
+  "governance": {
+    "analysis_is_exploratory_and_post_outcome": true,
+    "original_outcome_status_frozen": "UNRESOLVED",
+    "original_outcome_qc_status_frozen": "HOLD_SAMPLE_IDENTITY",
+    "original_one_shot_rerun_authorized": false,
+    "new_qc_one_shot_allowed_once_only": true,
+    "original_E5_G4_passed": false,
+    "focal_model_reestimation_authorized": false,
+    "result_may_not_be_presented_as_preregistered_confirmatory_test": true,
+    "metadata_only_claim_for_this_qc_forbidden": true
+  },
+  "execution": {
+    "branch": "e5/wildpig-ca-locationname-qc-once-v1",
+    "marker": "docs/replication/E5_WILDPIG_CA_LOCATIONNAME_QC_AUTHORIZED.json",
+    "requires_exact_parent_sha": true,
+    "requires_pinned_contract_blob_sha": true,
+    "pure_marker_commit_only": true,
+    "workflow_dispatch": false
+  }
+}
