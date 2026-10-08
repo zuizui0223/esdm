@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "rhode_island_paired_cameras_2018_2023",
+  "contract_id": "e5-rhode-island-paired-zip-header-response-blind-v1",
+  "contract_blob_sha": "47e26e6e01d5763f055a634ce00bc4c89e8b57f4",
+  "implementation_parent_sha": "b868fb61b117160e630a51094b33437609818837",
+  "zip_header_precheck_authorized": true,
+  "archive_bytes_transferred_with_biological_rows": true,
+  "only_two_pinned_CSV_header_lines_decode_authorized": true,
+  "one_shot": true,
+  "CSV_data_rows_authorized": false,
+  "focal_response_opening_authorized": false,
+  "model_fitting_authorized": false,
+  "G3_pass_authorized": false,
+  "G4_pass_authorized": false,
+  "authorized_date": "2026-10-08"
+}
