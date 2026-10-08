@@ -65,7 +65,8 @@
     "output_pseudonymized_location_labels": false,
     "output_other_column_values": false,
     "output_raw_CSV_files": false,
-    "fit_refit_or_reclassify_original_model": false
+    "fit_refit_or_reclassify_original_model": false,
+    "response_row_counts_are_exploratory_identifier_frequency_summaries_not_response_independent": true
   },
   "normalization": {
     "raw_id": "as decoded UTF-8 text without changing source characters",
@@ -73,10 +74,10 @@
     "physical_site_remapping_authorized": false
   },
   "decision_rules": {
-    "summer_raw_unique_must_match_prior_434_for_provenance": true,
-    "if_summer_raw_unique_not_434": "STOP_FROZEN_OUTCOME_SOURCE_MISMATCH",
-    "if_any_normalized_unique_gt_48": "PERSISTENT_IDENTITY_GRANULARITY_CONFLICT",
-    "if_raw_summer_gt_48_but_all_normalized_unique_le_48": "TRIM_CASE_LABEL_FORMAT_ONLY_POSSIBLE",
+    "caveat": "The original run counts only LocationName values on rows with parseable dates and finite camera times. This limited QC intentionally does not read date/time values; therefore all-row label counts cannot be required to equal 434 exactly.",
+    "if_summer_all_row_raw_unique_lt_prior_valid_row_434": "STOP_FROZEN_OUTCOME_SOURCE_MISMATCH",
+    "if_any_normalized_unique_gt_48": "PERSISTENT_RAW_LABEL_GRANULARITY_CONFLICT",
+    "if_raw_summer_unique_gt_48_but_all_normalized_unique_le_48": "TRIM_CASE_LABEL_FORMAT_ONLY_POSSIBLE",
     "otherwise": "NOT_IDENTIFIABLE_FROM_LABEL_COUNTS",
     "regardless_of_result_original_one_shot_remains_unchanged": true,
     "regardless_of_result_original_quality_hold_cannot_be_lifted_by_this_diagnostic_alone": true
