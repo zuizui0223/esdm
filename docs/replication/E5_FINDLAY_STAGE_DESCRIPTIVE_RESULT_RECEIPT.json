@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "route_id": "e5-findlay-known-pass-stage-descriptive-v1",
+  "receipt_id": "e5-findlay-known-pass-stage-terminal-receipt-v1",
+  "status": "RETROSPECTIVE_DESCRIPTIVE_COMPLETED_NO_E5_GATE_PROMOTION",
+  "frozen_on": "2026-10-08",
+  "provenance": {
+    "workflow_run_id": 37770893387,
+    "workflow_run_attempt": 1,
+    "workflow_head_sha": "ddb4ce7750aaf4cdd40eac3c5594d129637b7823",
+    "artifact_id": 11547502193,
+    "artifact_name": "e5-findlay-cctv-stage-descriptive-37770893387",
+    "artifact_zip_sha256": "9a8c6b167c488bdbdd08087a4a5074ca32bbd8c0aa371b181824b2a3cecb01a2",
+    "result_json_sha256": "2c49577d66d078e5d5fe9200d632ad625baf0fda6f71e8f1cf2792323c2a58ad",
+    "source_repo": "melaniefindlay/CT-Detection",
+    "source_commit": "abc72f535bb59ebed202fb7acca852fc1647e97a",
+    "published_qualitative_direction_exposed_before_contract": true,
+    "original_preregistered_geographic_validation": false
+  },
+  "frozen_bin_rules": {
+    "lateral_orientation_only": true,
+    "near": "0 < distance <= 1 m",
+    "middle": "1 < distance <= 3 m",
+    "far": "distance > 3 m",
+    "no_postresult_bin_changes": true
+  },
+  "stage_cells": [
+    {
+      "species": "BADGER",
+      "distance_bin": "near_le_1m",
+      "cctv_reference_passes": 47,
+      "triggered_reference_passes": 36,
+      "registration_eligible_triggered_rows": 36,
+      "registered_images": 12,
+      "p_trigger": 0.7659574468085106,
+      "p_registration_given_trigger": 0.3333333333333333,
+      "p_composite_given_pass": 0.2553191489361702,
+      "count_cohort_alignment": true
+    },
+    {
+      "species": "BADGER",
+      "distance_bin": "mid_1_to_3m",
+      "cctv_reference_passes": 120,
+      "triggered_reference_passes": 89,
+      "registration_eligible_triggered_rows": 89,
+      "registered_images": 37,
+      "p_trigger": 0.7416666666666667,
+      "p_registration_given_trigger": 0.4157303370786517,
+      "p_composite_given_pass": 0.30833333333333335,
+      "count_cohort_alignment": true
+    },
+    {
+      "species": "BADGER",
+      "distance_bin": "far_gt_3m",
+      "cctv_reference_passes": 82,
+      "triggered_reference_passes": 16,
+      "registration_eligible_triggered_rows": 15,
+      "registered_images": 8,
+      "p_trigger": 0.1951219512195122,
+      "p_registration_given_trigger": 0.5333333333333333,
+      "p_composite_given_pass": null,
+      "count_cohort_alignment": false
+    },
+    {
+      "species": "FOX",
+      "distance_bin": "near_le_1m",
+      "cctv_reference_passes": 88,
+      "triggered_reference_passes": 55,
+      "registration_eligible_triggered_rows": 55,
+      "registered_images": 19,
+      "p_trigger": 0.625,
+      "p_registration_given_trigger": 0.34545454545454546,
+      "p_composite_given_pass": 0.2159090909090909,
+      "count_cohort_alignment": true
+    },
+    {
+      "species": "FOX",
+      "distance_bin": "mid_1_to_3m",
+      "cctv_reference_passes": 190,
+      "triggered_reference_passes": 97,
+      "registration_eligible_triggered_rows": 97,
+      "registered_images": 27,
+      "p_trigger": 0.5105263157894737,
+      "p_registration_given_trigger": 0.27835051546391754,
+      "p_composite_given_pass": 0.14210526315789476,
+      "count_cohort_alignment": true
+    },
+    {
+      "species": "FOX",
+      "distance_bin": "far_gt_3m",
+      "cctv_reference_passes": 175,
+      "triggered_reference_passes": 47,
+      "registration_eligible_triggered_rows": 47,
+      "registered_images": 27,
+      "p_trigger": 0.26857142857142857,
+      "p_registration_given_trigger": 0.574468085106383,
+      "p_composite_given_pass": 0.1542857142857143,
+      "count_cohort_alignment": true
+    }
+  ],
+  "near_vs_far": {
+    "FOX": {
+      "status": "DESCRIPTIVE_OPPOSING_STAGES",
+      "log_trigger_ratio": -0.8446347429677199,
+      "log_registration_ratio": 0.508583470360301,
+      "log_composite_ratio": -0.3360512726074188,
+      "compensation_index": 0.7516651273995529,
+      "composite_far_vs_near_relative_change": -0.28541353383458634
+    },
+    "BADGER": {
+      "status": "COHORT_NONCOMPARABLE",
+      "far_triggered_CCTV_passes": 16,
+      "far_registration_eligible_triggered_rows": 15,
+      "composite_far_vs_near_not_estimated": true,
+      "mismatch_reason_not_proven": true
+    }
+  },
+  "exclusion_counts": {
+    "trigger": {
+      "all_rows": 881,
+      "eligible_rows": 702,
+      "not_lateral": 178,
+      "invalid_distance": 1
+    },
+    "registration": {
+      "all_rows": 881,
+      "eligible_rows": 339,
+      "not_lateral": 178,
+      "invalid_distance": 1,
+      "registration_untriggered_excluded": 362,
+      "invalid_capture": 1
+    }
+  },
+  "quality_limits": {
+    "count_cohort_alignment_does_not_demonstrate_passage_level_record_linkage": true,
+    "FOX_composite_conditioned_on_unverified_row_identity": true,
+    "BADGER_far_cohort_count_mismatch": true,
+    "causal_effect_of_distance_established": false,
+    "inferential_confidence_intervals_authorized": false,
+    "effect_direction_already_published": true,
+    "time_of_day_or_diel_detection_estimated": false,
+    "geographic_transfer_estimated": false
+  },
+  "gate_boundary": {
+    "original_standard_E5_candidates_screened": 17,
+    "original_standard_E5_qualified": 0,
+    "original_standard_E5_G4_passed": false,
+    "changes_to_wildpig_or_rhode_one_shot_outcomes": false,
+    "original_Findlay_one_shot_rerun": false,
+    "any_further_empirical_rescue_covered_by_this_result": false
+  },
+  "supported_description": "In the fixed FOX lateral passage bins, stage trigger and conditional registration probabilities have opposing near-to-far descriptive shifts; the stage product changes less strongly than trigger alone. No statistical uncertainty or passage-level match proof is provided.",
+  "unsupported_claims": [
+    "statistical significance",
+    "causal behavioral shift due to distance",
+    "diel activity shift",
+    "geographic portability",
+    "universal sensor performance",
+    "E5 G4 qualification",
+    "unconditional landscape abundance/activity"
+  ]
+}
