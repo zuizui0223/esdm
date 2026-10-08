@@ -2,7 +2,7 @@
   "schema_version": 1,
   "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
   "registry_id": "e5-response-blind-candidate-registry-v1",
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "status": "RESPONSE_BLIND_SEARCH_IN_PROGRESS",
   "selection_firewall": {
     "focal_response_opened": false,
@@ -569,6 +569,50 @@
       },
       "response_opened_under_route": "e5-external-activity-anchor-v1",
       "response_opened_for_original_standard_E5": false
+    },
+    {
+      "candidate_id": "rhode_island_paired_cameras_2018_2023",
+      "title": "Rhode Island multi-year paired-camera survey with retained camera-member IDs",
+      "source_url": "https://zenodo.org/records/14508932",
+      "doi": "10.1002/ecy.70094",
+      "response_opened": false,
+      "public_metadata": {
+        "years": "2018-2023",
+        "survey_sites_total": 249,
+        "survey_periods": 12,
+        "survey_season_count": {
+          "winter": 6,
+          "summer": 5,
+          "spring": 1
+        },
+        "paired_cameras_per_site_after_2018": 2,
+        "approximate_pair_spacing_m": "50-100 (reported range 20-130 in associated methods)",
+        "geography_sections": [
+          "western Rhode Island",
+          "eastern Rhode Island"
+        ],
+        "zenodo_record_id": 14508932,
+        "zip_file": "DataS1.zip",
+        "zip_file_public_md5": "c66943e6c2a9aab0abce2a1eba8ce02e",
+        "version": "v3",
+        "source_reports_deployment_site_and_camera_ids": true,
+        "source_reports_event_site_and_camera_ids": true,
+        "source_reports_deployment_start_end_and_event_time": true,
+        "v3_row_grain": "one row per image; triggers/bursts not independent events"
+      },
+      "gates": {
+        "G1_INDEPENDENT_SOURCE": "PASS_PUBLIC_SOURCE",
+        "G2_SCHEMA_EFFORT_TIME": "PROMISING_PUBLIC_DESCRIPTION_PENDING_ZIP_MEMBER_HEADERS",
+        "G3_CROSSED_DOMAIN": "POTENTIAL_PAIRED_SITE_DESIGN_PENDING_GEOGRAPHY_AND_PROTOCOL_CROSSWALK",
+        "G4_DETECTION_IDENTIFIABILITY": "PROMISING_REPLICATE_CAMERA_IDENTITIES_UNPROVEN_EFFECTIVE_DETECTION",
+        "G5_PHYSICAL_REPLICATION": "PROMISING_STATEWIDE_249_SITE_COUNT_SPLIT_UNVERIFIED",
+        "G6_TEMPORAL_SUPPORT": "PROMISING_MULTIYEAR_TWO_SEASON_SCOPE_SPLIT_UNVERIFIED",
+        "G7_MODEL_FREEZE": "NOT_REACHED"
+      },
+      "decision": "E5_CANDIDATE_NOT_YET_QUALIFIED_ZIP_HEADER_PENDING",
+      "qualification_blocker": "camera-member identifiers reportedly survive release unlike previous paired candidates, but the public ZIP member headers, paired physical deployment mapping, west/east split, and identifiable detection mechanism have not been checked. Pair cameras 50-100m apart do not automatically calibrate shared-passage detection.",
+      "response_may_be_opened_for_E5": false,
+      "next_response_blind_check": "frozen one-shot ZIP member names and first CSV header line only for deployment and detection tables; no event values, species counts, diel directions or models"
     }
   ],
   "search_universes": [
@@ -604,13 +648,13 @@
     "snapshot_usa_2024_selected": false,
     "response_opening_authorized": false,
     "model_fitting_authorized": false,
-    "next_action": "keep wild-pig alternate route terminal UNRESOLVED/QC HOLD with no rerun; pursue original E5 G4 candidate search separately, and request original source camera-ID crosswalk or independently frozen exploratory identifier grammar check only if its value is clear",
-    "screened_candidate_count": 16,
+    "next_action": "one-shot response-blind ZIP member and header-only precheck for Rhode Island paired-camera dataset; preserve original G4 gate and wild-pig terminal UNRESOLVED/QC HOLD",
+    "screened_candidate_count": 17,
     "qualified_candidate_count": 0,
-    "strongest_current_named_candidate": "kays41_emammal_team_2020",
-    "named_candidate_status": "kays41_unqualified_dictionary_transport_blocked",
+    "strongest_current_named_candidate": "rhode_island_paired_cameras_2018_2023",
+    "named_candidate_status": "multi-year_paired_member_id_public_description_zip_schema_pending_unqualified",
     "search_bottleneck": {
-      "screened_candidates": 16,
+      "screened_candidates": 17,
       "qualified_candidates": 0,
       "dominant_constraint": "joint_G3_G4_identifiability",
       "interpretation": "independent datasets and nominal replication are common; the scarce property is a public design that crosses geography with source/protocol while retaining a separately identifiable detection channel",
@@ -626,8 +670,8 @@
         "large single-protocol multi-city datasets with no independent detection calibration",
         "long-duration datasets lacking response-independent effort intervals"
       ],
-      "strongest_current_named_candidate": "kays41_emammal_team_2020",
-      "strongest_candidate_caveat": "Kays41 remains the strongest unresolved named original-E5 search candidate but is transport/schema blocked; wild-pig is a terminal alternative activity-anchor analysis, not an original G4 pass (UNRESOLVED and sample-identity QC HOLD)",
+      "strongest_current_named_candidate": "rhode_island_paired_cameras_2018_2023",
+      "strongest_candidate_caveat": "Rhode Island offers 2019-2023 within-site paired cameras and individually identified cameras in public deployment/detection descriptions, but 50-100m separation does NOT prove matched animal-passage detection; west/east geography, >=6-month per-regime support and effective-detection identifiability are all unverified.",
       "latest_completed_alternative_route": {
         "candidate_id": "wolfson_wildpig_gps_camera_2015_2018",
         "outcome_run_id": 37643401531,
