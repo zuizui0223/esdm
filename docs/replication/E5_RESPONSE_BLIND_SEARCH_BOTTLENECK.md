@@ -59,4 +59,28 @@ detection. The next response-blind step is therefore header-only across the 16 p
 seasonal CSVs; no data row or effect direction is authorized.
 
 Kays41 remains unresolved but is no longer the strongest named candidate.
-\n## Current frontier: retained camera-member identity (candidate 17)\n\nThe original standard E5 route remains **0/17 qualified**, even after the\nWolfson wild-pig GPS/camera alternative completed with frozen UNRESOLVED\ntransfer gain and a California sample-identity QC HOLD. That separate\nactivity-anchor route must never be treated as an original G4 pass.\n\nMayer et al.'s Rhode Island 2018–2023 survey is now the strongest *unresolved*\nnamed original-E5 candidate at the public-design stage, not qualified. It\ndiffers from earlier paired-camera failures: the Zenodo v3 description\nexplicitly states that camera-level identifiers survive in **both**\ndeployment and detection tables. The associated 2019–2023 methods place\ntwo cameras at each site, approximately 50–100 m apart, across statewide\neast/west sections and repeated summer/winter survey windows. The public\nreported total is 249 survey sites.\n\nBut 50–100 m separation is **not** a double-observer shared-passage design.\nCamera member identity alone cannot pass effective-detection G4. The\nnecessary next steps are one frozen ZIP member/CSV-header check, then\nresponse-independent verification of paired physical site membership,\ndeployment overlap, geographically heldout effort and a structural\ndetection-identifiability argument for the actual paired geometry.\nNo focal event rows, taxon selection, effect directions or fits are\nauthorized by the initial ZIP-header route.\n
+
+## Current frontier: retained camera-member identity (candidate 17)
+
+The original standard E5 route remains **0/17 qualified**, even after the
+Wolfson wild-pig GPS/camera alternative completed with frozen UNRESOLVED
+transfer gain and a California sample-identity QC HOLD. That separate
+activity-anchor route must never be treated as an original G4 pass.
+
+Mayer et al.'s Rhode Island 2018–2023 survey is now the strongest *unresolved*
+named original-E5 candidate at the public-design stage, not qualified. It
+differs from earlier paired-camera failures: the Zenodo v3 description
+explicitly states that camera-level identifiers survive in **both**
+deployment and detection tables. The associated 2019–2023 methods place
+two cameras at each site, approximately 50–100 m apart, across statewide
+east/west sections and repeated summer/winter survey windows. The public
+reported total is 249 survey sites.
+
+But 50–100 m separation is **not** a double-observer shared-passage design.
+Camera member identity alone cannot pass effective-detection G4. The
+necessary next steps are one frozen ZIP member/CSV-header check, then
+response-independent verification of paired physical site membership,
+deployment overlap, geographically heldout effort and a structural
+detection-identifiability argument for the actual paired geometry.
+No focal event rows, taxon selection, effect directions or fits are
+authorized by the initial ZIP-header route.
