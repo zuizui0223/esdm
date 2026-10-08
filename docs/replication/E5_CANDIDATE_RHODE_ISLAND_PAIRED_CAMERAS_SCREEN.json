@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "rhode_island_paired_cameras_2018_2023",
+  "screen_id": "e5-rhode-island-paired-cameras-public-prescreen-v1",
+  "status": "E5_NEW_NAMED_G3_G4_PROMISING_PAIRED_IDENTITY_SCHEMA_PENDING",
+  "screened_date": "2026-10-08",
+  "source": {
+    "publication_title": "Rhode Island wildlife camera trap survey 2018 to 2023",
+    "publication_doi": "10.1002/ecy.70094",
+    "supporting_methods_doi": "10.1002/ece3.73834",
+    "public_zenodo_record": "https://zenodo.org/records/14508932",
+    "zenodo_record_id": 14508932,
+    "zip_file": "DataS1.zip",
+    "zip_download_url": "https://zenodo.org/records/14508932/files/DataS1.zip?download=1",
+    "zip_public_md5": "c66943e6c2a9aab0abce2a1eba8ce02e",
+    "zip_public_file_size_bytes": 12059878
+  },
+  "public_methods": {
+    "geographic_scope": "Rhode Island, USA, statewide design divided into western and eastern sections",
+    "study_years": "2018-2023",
+    "reported_distinct_survey_sites_statewide": 249,
+    "reported_survey_periods": 12,
+    "survey_seasons": "six winter, five summer and one spring",
+    "camera_pairs_introduced": "2019 onward",
+    "cameras_per_site_from_2019": 2,
+    "paired_camera_spacing_m": "approximately 20-130 m across associated studies, typically 50-100 m",
+    "camera_models": [
+      "Browning Strike Force Pro XD",
+      "Bushnell Trophy Cam"
+    ],
+    "original_study_focal_animals": [
+      "bobcats",
+      "fishers"
+    ],
+    "open_package_files_described": [
+      "RI_CameraSurvey_Deployments.csv",
+      "RI_CameraSurvey_Detections.csv"
+    ],
+    "deployment_fields_described": "start/end operation dates, camera location, coordinates, Site and camera IDs",
+    "detection_fields_described": "Site, camera identifier, timestamp and species identity",
+    "package_version_note": "v3 reports one row per image, not a predeclared independent detection event; image bursts must not be treated as independent observations"
+  },
+  "response_boundary": {
+    "public_methods_and_zip_listing_only": true,
+    "zip_contents_decoded": false,
+    "camera_focal_events_opened": false,
+    "biological_rows_read": 0,
+    "focal_species_or_diel_effect_directions_used_for_selection": false,
+    "original_wildpig_outcome_used_for_selection": false
+  },
+  "gates": [
+    {
+      "gate": "G1_INDEPENDENT_SOURCE",
+      "status": "PASS_PUBLIC_SOURCE",
+      "reason": "Rhode Island independent long-term camera dataset not used in E2-E4, Snapshot Japan or the wild-pig alternative route"
+    },
+    {
+      "gate": "G2_SCHEMA_EFFORT_TIME",
+      "status": "PROMISING_PUBLIC_DESCRIPTION_PENDING_ZIP_MEMBER_HEADERS",
+      "reason": "Zenodo v3 describes separate deployment/observation CSVs with stable Site+Camera identifiers and date/time; compressed member names and exact fields unverified"
+    },
+    {
+      "gate": "G3_CROSSED_DOMAIN",
+      "status": "POTENTIAL_PAIRED_SITE_DESIGN_PENDING_GEOGRAPHY_AND_PROTOCOL_CROSSWALK",
+      "reason": "two cameras per site in later survey seasons may create paired within-context contrasts; must show physically distinct west/east regimes and paired camera/protocol overlap without confounding"
+    },
+    {
+      "gate": "G4_DETECTION_IDENTIFIABILITY",
+      "status": "PROMISING_REPLICATE_CAMERA_IDENTITIES_UNPROVEN_EFFECTIVE_DETECTION",
+      "reason": "individual camera identity is described as retained, unlike earlier paired datasets. Cameras 50-100m apart do not observe the same animal passage automatically: detection identifiability must be proven for matched site/occasion repeats without conflating placement/activity"
+    },
+    {
+      "gate": "G5_PHYSICAL_REPLICATION",
+      "status": "PROMISING_STATEWIDE_249_SITE_COUNT_SPLIT_UNVERIFIED",
+      "reason": "249 total survey sites, but split-specific unique physical counts and repeat nesting are unverified"
+    },
+    {
+      "gate": "G6_TEMPORAL_SUPPORT",
+      "status": "PROMISING_MULTIYEAR_TWO_SEASON_SCOPE_SPLIT_UNVERIFIED",
+      "reason": "12 seasonal survey periods span 2018-2023; >=6 distinct months and matched seasonal exposure in each west/east split have not been measured"
+    },
+    {
+      "gate": "G7_MODEL_FREEZE",
+      "status": "NOT_REACHED",
+      "reason": "candidate remains unqualified, no response opening or model fitting"
+    }
+  ],
+  "decision": {
+    "candidate_qualified": false,
+    "final_G3_pass": false,
+    "final_G4_pass": false,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "next_step": "response-blind ZIP member names and CSV header-only precheck, then independently adjudicate Site/Camera/year-season/start/end/time fields before any biological values",
+    "stop_rule": "if paired camera identity, deployment linkage, geographic regimes, or feasible detection-identification design is absent, stop before opening focal rows"
+  },
+  "interpretation": {
+    "supported": "first newly surfaced E5 candidate with multi-year exposure and explicit camera-member identifiers in both deployment and detection descriptions; plausible paired-camera calibration route",
+    "not_supported": [
+      "claim that two cameras 50-100 m apart share animal passages",
+      "claim that G3 or G4 has passed",
+      "claim about species-specific activity",
+      "claim of >=6 months in each geographically heldout split",
+      "post hoc outcome-driven selection"
+    ]
+  }
+}
