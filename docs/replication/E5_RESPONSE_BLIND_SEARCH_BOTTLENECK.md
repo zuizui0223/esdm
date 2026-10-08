@@ -1,10 +1,10 @@
-# E5 response-blind search bottleneck after 16 candidates
+# E5 response-blind search bottleneck after 17 candidates
 
-The E5 search has screened 16 independent candidate datasets without opening focal
+The E5 search has screened 17 independent candidate datasets without opening focal
 biological response for selection. None qualifies.
 
 The dominant bottleneck is **not lack of independent camera-trap data**. G1 passes for
-15 of 16 candidates, and many candidates have ample physical replication or long
+16 of 17 candidates, and many candidates have ample physical replication or long
 temporal coverage.
 
 The scarce design property is the **joint satisfaction of G3 and G4**:
@@ -59,3 +59,28 @@ detection. The next response-blind step is therefore header-only across the 16 p
 seasonal CSVs; no data row or effect direction is authorized.
 
 Kays41 remains unresolved but is no longer the strongest named candidate.
+
+## Current frontier: retained camera-member identity (candidate 17)
+
+The original standard E5 route remains **0/17 qualified**, even after the
+Wolfson wild-pig GPS/camera alternative completed with frozen UNRESOLVED
+transfer gain and a California sample-identity QC HOLD. That separate
+activity-anchor route must never be treated as an original G4 pass.
+
+Mayer et al.'s Rhode Island 2018–2023 survey is now the strongest *unresolved*
+named original-E5 candidate at the public-design stage, not qualified. It
+differs from earlier paired-camera failures: the Zenodo v3 description
+explicitly states that camera-level identifiers survive in **both**
+deployment and detection tables. The associated 2019–2023 methods place
+two cameras at each site, approximately 50–100 m apart, across statewide
+east/west sections and repeated summer/winter survey windows. The public
+reported total is 249 survey sites.
+
+But 50–100 m separation is **not** a double-observer shared-passage design.
+Camera member identity alone cannot pass effective-detection G4. The
+necessary next steps are one frozen ZIP member/CSV-header check, then
+response-independent verification of paired physical site membership,
+deployment overlap, geographically heldout effort and a structural
+detection-identifiability argument for the actual paired geometry.
+No focal event rows, taxon selection, effect directions or fits are
+authorized by the initial ZIP-header route.

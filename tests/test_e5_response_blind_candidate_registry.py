@@ -92,7 +92,7 @@ def test_longterm_amazon_candidate_is_not_rescued_by_duration_or_paired_subset()
 
 def test_registry_has_no_qualified_candidate_after_sixteen_response_blind_screens():
     value = _read()
-    assert value["current_conclusion"]["screened_candidate_count"] == 16
+    assert value["current_conclusion"]["screened_candidate_count"] == 17
     assert value["current_conclusion"]["qualified_candidate_count"] == 0
     assert not any(
         row.get("decision") == "E5_CANDIDATE_QUALIFIED_PRE_RESPONSE"

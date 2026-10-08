@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "rhode_island_paired_cameras_2018_2023",
+  "contract_id": "e5-rhode-island-paired-zip-header-response-blind-v1",
+  "status": "FROZEN_ZIP_MEMBER_HEADER_PRECHECK_NOT_AUTHORIZED",
+  "frozen_date": "2026-10-08",
+  "source": {
+    "zenodo_record_id": 14508932,
+    "doi": "10.5281/zenodo.14508932",
+    "source_edition": "v3",
+    "archive_name": "DataS1.zip",
+    "archive_download_url": "https://zenodo.org/records/14508932/files/DataS1.zip?download=1",
+    "archive_public_md5": "c66943e6c2a9aab0abce2a1eba8ce02e",
+    "archive_bytes": 12059878,
+    "required_CSV_member_basenames": [
+      "RI_CameraSurvey_Deployments.csv",
+      "RI_CameraSurvey_Detections.csv"
+    ]
+  },
+  "purpose": "verify the public ZIP retains paired-camera and effort/event identifier schema without opening biological values, animal counts, time values or model outcomes",
+  "response_firewall": {
+    "whole_archive_bytes_transferred": true,
+    "archive_may_contain_biological_response_rows": true,
+    "archive_zip_directory_metadata_allowed": true,
+    "decode_only_first_CSV_header_line_of_2_pinned_members": true,
+    "compressed_CSV_stream_first_bytes_limit": 8192,
+    "unzip_or_save_entire_members_authorized": false,
+    "inspect_CSV_data_rows_authorized": false,
+    "inspect_species_values_authorized": false,
+    "inspect_event_time_values_authorized": false,
+    "inspect_focal_diel_or_detection_counts_authorized": false,
+    "model_fitting_authorized": false,
+    "focal_response_opening_authorized": false,
+    "upload_raw_ZIP_or_CSV_authorized": false
+  },
+  "schema_questions": {
+    "deployment": [
+      "stable physical site ID",
+      "individual camera/deployment ID separate from site",
+      "start and end effort times",
+      "geographic coordinates or east/west field",
+      "survey season/year or corresponding recoverable interval"
+    ],
+    "detection": [
+      "stable physical site ID",
+      "individual camera ID retained per image",
+      "event timestamp",
+      "taxonomic identity column only, no values",
+      "year/season key or date field for joining"
+    ],
+    "paired_identification_obligations_not_resolved_by_header": [
+      "two different sensors share a physical site and overlap in time",
+      "east/west geographic splits have paired sensor contrasts",
+      "at least six distinct months and >=20/10 independent physical sites in split",
+      "matched passage vs site occupancy detection identifiability requires separately frozen mathematical argument"
+    ]
+  },
+  "decision_boundary": {
+    "automatic_header_flags_are_nomination_only": true,
+    "G2_pass_authorized": false,
+    "G3_pass_authorized": false,
+    "G4_pass_authorized": false,
+    "candidate_qualification_authorized": false,
+    "model_freeze_authorized": false,
+    "focal_response_opening_authorized": false,
+    "next_child_requires_separately_frozen_response_independent_deployment_geometry_contract": true,
+    "no_child_if_camera_identity_absent_in_either_required_CSV": true,
+    "no_child_if_start_end_or_event_time_header_absent": true
+  },
+  "execution": {
+    "dedicated_branch": "e5/rhode-island-paired-camera-zip-headers-once-v1",
+    "authorization_marker": "docs/replication/E5_RHODE_ISLAND_ZIP_HEADERS_AUTHORIZED.json",
+    "pure_marker_commit_required": true,
+    "one_shot": true,
+    "no_workflow_dispatch": true
+  }
+}

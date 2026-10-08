@@ -56,9 +56,9 @@ def test_udzungwa_receipt_pins_one_shot_artifact():
 
 def test_registry_has_sixteen_candidates_and_wildpig_is_strongest_unresolved():
     v=_read(REGISTRY)
-    assert v["current_conclusion"]["screened_candidate_count"]==16
+    assert v["current_conclusion"]["screened_candidate_count"]== 17
     assert v["current_conclusion"]["qualified_candidate_count"]==0
-    assert v["current_conclusion"]["strongest_current_named_candidate"]==("kays41_emammal_team_2020"
+    assert v["current_conclusion"]["strongest_current_named_candidate"]==("rhode_island_paired_cameras_2018_2023"
     )
     row=next(x for x in v["candidates"] if x["candidate_id"]=="udzungwa_paired_arrays_2013_2014")
     assert row["decision"]=="E5_CANDIDATE_NOT_QUALIFIED"
