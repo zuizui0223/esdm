@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "evidence_id": "e5-independent-passage-referenced-detection-calibration-donor-v1",
+  "evidence_class": "EXTERNAL_G4_COMPONENT_CALIBRATION_WITNESS_NOT_FULL_E5_DATASET",
+  "source": {
+    "study": "Findlay, Briers & White (2020), Component processes of detection probability in camera-trap studies",
+    "doi": "10.1007/s13364-020-00478-y",
+    "article_url": "https://link.springer.com/article/10.1007/s13364-020-00478-y",
+    "public_repo": "melaniefindlay/CT-Detection",
+    "public_commit": "abc72f535bb59ebed202fb7acca852fc1647e97a",
+    "published_data_code_url": "https://github.com/melaniefindlay/CT-Detection/tree/abc72f535bb59ebed202fb7acca852fc1647e97a",
+    "R_analysis_file": "Defining component processes of detectability-Findlay Briers White 30 12 18.R",
+    "R_analysis_blob_sha": "eb8b65cc594737afea3dc5a7a7b831a35d537ec8",
+    "released_CSV_files": [
+      {
+        "filename": "TRIGGER_FOX_BADGER.csv",
+        "blob_sha": "565578ec07e61fed8d6b1cbddc758914586119ba",
+        "size_bytes": 21539
+      },
+      {
+        "filename": "REGISTRATION_FOX_BADGER.csv",
+        "blob_sha": "d2dc9852ca1f2a1380b991acba425d16e12327d5",
+        "size_bytes": 26557
+      },
+      {
+        "filename": "TRIGGER_OTTER.csv",
+        "blob_sha": "6666ef46c9c622afe23d915cb3a8091a3aabd659",
+        "size_bytes": 31378
+      },
+      {
+        "filename": "REGISTRATION_OTTER.csv",
+        "blob_sha": "9112f784bb3d0a157bb0faeeb0553eeed2e535de",
+        "size_bytes": 45317
+      },
+      {
+        "filename": "TRIGGER_OTTER_WET.DRY.csv",
+        "blob_sha": "1f2fef008470ad1263d76beeb5be2b7006ff85aa",
+        "size_bytes": 21781
+      }
+    ]
+  },
+  "study_design_from_published_methods": {
+    "region1": "south-east Scotland wild fox and badger mammal run",
+    "region1_dates": "2017-02-21 to 2017-04-14",
+    "region2": "south-west England captive otter enclosure",
+    "region2_dates": "2017-11-14 to 2017-12-05",
+    "CCTV_reference": "continuous video 24 h per day, two CCTV units per study area",
+    "camera_trap_stations_per_area": 4,
+    "focal_taxa_different_between_geographies": true,
+    "calibration_unit": "CCTV-identified pass at each relevant camera-trap location",
+    "reported_stage_definitions": {
+      "trigger_given_pass": "binary TRIGGER from CCTV pass denominator, including missed triggers",
+      "registration_given_trigger": "binary CAPTURE conditional on TRIGGER=1"
+    }
+  },
+  "response_blind_source_inspection": {
+    "only_article_methods_repository_tree_and_R_source_code_inspected": true,
+    "released_biological_CSV_data_rows_read": false,
+    "species_counts_or_effect_directions_used_for_source_selection": false,
+    "diel_timestamp_column_schema_verified": false,
+    "camera_deployment_effort_tables_verified": false,
+    "any_model_fit_authorized": false
+  },
+  "what_is_identified_under_reliable_CCTV_reference": {
+    "trigger_probability_given_pass": true,
+    "registration_probability_given_trigger": true,
+    "composite_detection_given_pass": "P(trigger|pass) * P(registration|trigger), within this CCTV-observed scene and covariate conditioning",
+    "target_limit": "conditional measurement detection of known passage; NOT P(pass|animal present in broad habitat), overall abundance, or all ecological activity"
+  },
+  "original_E5_gate_alignment": {
+    "G4_calibration_mechanism": "PRESENT_IN_THIS_SOURCE_DESIGN_CCTV_PASS_DENOMINATOR",
+    "G3_crossed_geography_source": "NOT_PASSED_two_geographies_have_different_taxa_wild_vs_captive_and_unmatched_protocol_context",
+    "G5_physical_replication": "NOT_PASSED_four_camera_trap_positions_per_geographic_area_below_20_training_and_10_heldout",
+    "G6_temporal_support": "NOT_PASSED_both_study_windows_under_two_calendar_months_no_six_month_split",
+    "diel_detection_curve": "NOT_CONFIRMED_timestamp_column_not_checked_and_one_season_per_region",
+    "candidate_qualified": false,
+    "not_added_to_17_candidate_registry": true,
+    "biological_focal_response_opening_authorized": false,
+    "no_performance_or_ecological_direction_claim": true,
+    "may_not_calibrate_wildpig_or_rhode_island_without_matched_camera_protocols_environments_species": true
+  },
+  "decision": {
+    "source_role": "REFERENCE_CALIBRATION_EXAMPLE_FOR_E5_FUTURE_DESIGN_NOT_E5_TRANSFER_TEST",
+    "next_data_acquisition_criterion": "seek deployments with independent known passes, per-pass event timestamp/camera identity, concurrent CT trigger and registration, at least two crossed geographic contexts with sufficient sites and six-month per-context support",
+    "no_new_synthetic_execution_or_empirical_analysis_authorized": true
+  }
+}
