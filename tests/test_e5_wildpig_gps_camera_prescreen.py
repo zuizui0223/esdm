@@ -90,14 +90,13 @@ def test_registry_names_wildpig_as_strongest_unqualified_candidate():
     )
     assert value["current_conclusion"]["screened_candidate_count"] == 16
     assert value["current_conclusion"]["qualified_candidate_count"] == 0
-    assert value["current_conclusion"]["strongest_current_named_candidate"] == (
-        "wolfson_wildpig_gps_camera_2015_2018"
+    assert value["current_conclusion"]["strongest_current_named_candidate"] == ("kays41_emammal_team_2020"
     )
-    assert row["response_opened"] is False
+    assert row["response_opened"] is True
     assert row["response_may_be_opened_for_E5"] is False
     assert row["decision"] == (
-        "E5_STANDARD_CANDIDATE_NOT_QUALIFIED_ACTIVITY_ANCHOR_ROUTE_READY_FOR_SEPARATE_EMPIRICAL_AUTHORIZATION"
+        "E5_STANDARD_CANDIDATE_NOT_QUALIFIED_ACTIVITY_ANCHOR_TERMINAL_UNRESOLVED_QC_HOLD"
     )
     assert row["activity_anchor_route"]["status"] == (
-        "A1_A5_PASS_A6_FROZEN_EMPIRICAL_NOT_AUTHORIZED"
+        "TERMINAL_EMPIRICAL_UNRESOLVED_SAMPLE_IDENTITY_QC_HOLD"
     )
