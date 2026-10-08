@@ -104,5 +104,11 @@
       "claim of >=6 months in each geographically heldout split",
       "post hoc outcome-driven selection"
     ]
+  },
+  "identifiability_obligation": {
+    "response_free_counterexample": "docs/replication/E5_RHODE_ISLAND_PAIRED_PRODUCT_NONIDENTIFICATION.json",
+    "obligation": "two uncalibrated time-varying camera processes possess a common multiplicative gauge with latent activity; member identities/headers alone cannot pass original G4",
+    "possible_escape_requires": "independently calibrated detection, actual common-passage co-detection histories or a separately demonstrated repeated-occasion detection identification path",
+    "final_G4_pass_authorized": false
   }
 }

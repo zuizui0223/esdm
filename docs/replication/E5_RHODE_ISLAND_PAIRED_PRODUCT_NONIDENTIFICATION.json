@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "proof_id": "e5-rhode-island-uncalibrated-paired-product-gauge-v1",
+  "status": "FROZEN_RESPONSE_FREE_NECESSARY_G4_OBLIGATION",
+  "candidate_id": "rhode_island_paired_cameras_2018_2023",
+  "scientific_question": "Can two independent camera-member event rates at a common site identify diel ecological activity separately from a common diel effective-detection factor?",
+  "conditional_model": {
+    "observations": "E[Y_j(t)]= effort_j(t) * lambda(t) * p_j(t), for j=1,2",
+    "assumptions": [
+      "effort_j(t) is known from deployment records",
+      "lambda(t) is latent ecological encounter/activity intensity",
+      "p_j(t) is camera-specific effective detection and may vary by time",
+      "camera members retain separate identities but do not observe labeled common passage events"
+    ],
+    "gauge_witness": "For any positive nonconstant h(t) with p_j(t)/h(t) <= 1, lambda'(t)=h(t)lambda(t), p_j'(t)=p_j(t)/h(t) leaves both expected rates unchanged",
+    "uniquely_recoverable_under_equal_exposure": "relative p1(t)/p2(t) may be inferred under a COMMON encounter intensity, not the absolute detection probabilities or common diel factor",
+    "two_cameras_50_100m_apart_additional_risk": "different camera microsites may have different local lambda_j(t), so even relative p1/p2 is confounded with unequal activity in their fields of view"
+  },
+  "escape_routes_that_must_be_verified_before_final_G4": [
+    "paired co-detection of identified same animal passages from jointly observed fields, with independently justified conditional-detection assumptions",
+    "external calibrated passage counts or another detection/distance calibration channel indexed by physical camera deployments",
+    "a separately justified repeated-visit observation model which proves diel activity-detection identification and is not just site occupancy detection"
+  ],
+  "what_this_does_not_prove": [
+    "all paired-camera designs fail",
+    "the published Rhode Island field study is invalid",
+    "relative source-camera detection can never be estimated",
+    "any focal empirical outcome"
+  ],
+  "outcome_firewall": {
+    "source_CSV_data_rows_opened": false,
+    "animal_frequencies_used": false,
+    "published_effect_directions_used": false,
+    "model_fitting_authorized": false
+  },
+  "candidate_decision": "G4 REMAINS UNPASSED; ZIP headers alone cannot pass G4, even if camera IDs exist"
+}
