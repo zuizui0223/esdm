@@ -1,0 +1,115 @@
+name: E5 Rhode Island paired-camera ZIP headers once
+
+concurrency:
+  group: e5-rhode-island-zip-headers-once
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - e5/rhode-island-paired-camera-zip-headers-once-v1
+    paths:
+      - 'docs/replication/E5_RHODE_ISLAND_ZIP_HEADERS_AUTHORIZED.json'
+
+permissions:
+  contents: read
+
+jobs:
+  precheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify pure marker and frozen source contract
+        run: |
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+          marker_path=Path("docs/replication/E5_RHODE_ISLAND_ZIP_HEADERS_AUTHORIZED.json")
+          contract_path=Path("docs/replication/E5_RHODE_ISLAND_ZIP_HEADER_CONTRACT.json")
+          marker=json.loads(marker_path.read_text(encoding="utf-8"))
+          contract=json.loads(contract_path.read_text(encoding="utf-8"))
+          parent=subprocess.check_output(["git","rev-parse","HEAD^"],text=True).strip()
+          changed=subprocess.check_output(
+              ["git","diff-tree","--no-commit-id","--name-only","-r","HEAD"],text=True
+          ).splitlines()
+          blob=subprocess.check_output(
+              ["git","hash-object",str(contract_path)],text=True
+          ).strip()
+          if changed != [marker_path.as_posix()]:
+              raise SystemExit("authorization commit must change only marker")
+          if marker.get("implementation_parent_sha") != parent:
+              raise SystemExit("implementation parent SHA mismatch")
+          if marker.get("contract_id") != "e5-rhode-island-paired-zip-header-response-blind-v1":
+              raise SystemExit("contract ID mismatch")
+          if marker.get("candidate_id") != "rhode_island_paired_cameras_2018_2023":
+              raise SystemExit("candidate ID mismatch")
+          if marker.get("contract_blob_sha") != "47e26e6e01d5763f055a634ce00bc4c89e8b57f4":
+              raise SystemExit("pinned contract blob SHA mismatch")
+          if blob != marker["contract_blob_sha"]:
+              raise SystemExit("working-tree contract SHA mismatch")
+          if contract.get("status") != "FROZEN_ZIP_MEMBER_HEADER_PRECHECK_NOT_AUTHORIZED":
+              raise SystemExit("contract was altered")
+          if marker.get("zip_header_precheck_authorized") is not True:
+              raise SystemExit("precheck not authorized")
+          if marker.get("one_shot") is not True:
+              raise SystemExit("one-shot required")
+          for key in (
+              "CSV_data_rows_authorized",
+              "focal_response_opening_authorized",
+              "model_fitting_authorized",
+              "G3_pass_authorized",
+              "G4_pass_authorized",
+          ):
+              if marker.get(key) is not False:
+                  raise SystemExit("response gate must be false: " + key)
+          PY
+
+      - name: Download pinned ZIP and inspect only two first-line headers
+        run: |
+          mkdir -p build/public
+          python scripts/precheck_e5_rhode_island_zip_headers.py \
+            --contract docs/replication/E5_RHODE_ISLAND_ZIP_HEADER_CONTRACT.json \
+            --out build/public/E5_RHODE_ISLAND_ZIP_HEADER_RESULT.json
+
+      - name: Verify no biological data-row parsing or original G4 promotion
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(
+              Path("build/public/E5_RHODE_ISLAND_ZIP_HEADER_RESULT.json").read_text(
+                  encoding="utf-8"
+              )
+          )
+          b=r["response_boundary"]
+          d=r["decision"]
+          assert b["full_archive_containing_biological_rows_transferred"] is True
+          assert b["decoded_biological_data_rows"] == 0
+          assert b["species_values_inspected"] is False
+          assert b["event_time_values_inspected"] is False
+          assert b["model_fits_executed"] == 0
+          assert b["uploaded_raw_ZIP_or_CSV"] is False
+          assert d["candidate_qualified"] is False
+          assert d["G2_pass_authorized"] is False
+          assert d["G3_pass_authorized"] is False
+          assert d["G4_pass_authorized"] is False
+          assert d["focal_response_opening_authorized"] is False
+          assert d["model_fitting_authorized"] is False
+          PY
+
+      - name: Upload header-only result
+        uses: actions/upload-artifact@v4
+        with:
+          name: e5-rhode-island-zip-headers-${{ github.run_id }}
+          path: build/public/E5_RHODE_ISLAND_ZIP_HEADER_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
