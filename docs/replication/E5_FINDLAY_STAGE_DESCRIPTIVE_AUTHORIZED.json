@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "route_id": "e5-findlay-known-pass-stage-descriptive-v1",
+  "candidate_id": "findlay_CCTV_pass_reference_fox_badger",
+  "contract_id": "e5-findlay-known-pass-stage-descriptive-v1",
+  "contract_blob_sha": "094929464b0db61474e3d86faee5b7547788d3d5",
+  "implementation_parent_sha": "4f66592f8f4796cf3d28ab5c0ec3444d3e716bba",
+  "one_shot": true,
+  "retrospective_biological_rows_authorized": true,
+  "published_qualitative_direction_exposed_before_freeze": true,
+  "original_E5_outcome_or_qualification_authorized": false,
+  "no_model_fitting": true,
+  "authorized_date": "2026-10-08"
+}
