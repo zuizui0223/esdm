@@ -129,8 +129,8 @@ def test_registry_17_unqualified_and_rhode_strongest_named():
     row=next(x for x in v["candidates"] if x["candidate_id"]=="rhode_island_paired_cameras_2018_2023")
     assert v["current_conclusion"]["screened_candidate_count"]==17
     assert v["current_conclusion"]["qualified_candidate_count"]==0
-    assert v["current_conclusion"]["strongest_current_named_candidate"]==row["candidate_id"]
-    assert row["decision"]=="E5_CANDIDATE_NOT_YET_QUALIFIED_ZIP_HEADER_PENDING"
+    assert v["current_conclusion"]["strongest_current_named_candidate"]=="kays41_emammal_team_2020"
+    assert row["decision"]=="E5_CANDIDATE_NOT_QUALIFIED_AT_G4_CURRENT_PUBLIC_PAIR_DESIGN"
     assert row["response_opened"] is False
     assert row["response_may_be_opened_for_E5"] is False
 

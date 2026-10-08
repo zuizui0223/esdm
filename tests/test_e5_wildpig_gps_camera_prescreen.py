@@ -90,7 +90,7 @@ def test_registry_names_wildpig_as_strongest_unqualified_candidate():
     )
     assert value["current_conclusion"]["screened_candidate_count"] == 17
     assert value["current_conclusion"]["qualified_candidate_count"] == 0
-    assert value["current_conclusion"]["strongest_current_named_candidate"] == ("rhode_island_paired_cameras_2018_2023"
+    assert value["current_conclusion"]["strongest_current_named_candidate"] == ("kays41_emammal_team_2020"
     )
     assert row["response_opened"] is True
     assert row["response_may_be_opened_for_E5"] is False

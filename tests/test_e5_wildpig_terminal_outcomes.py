@@ -64,7 +64,7 @@ def test_registry_discloses_empirical_opening_only_in_alternative_route():
     row=next(x for x in v["candidates"] if x["candidate_id"]=="wolfson_wildpig_gps_camera_2015_2018")
     assert v["current_conclusion"]["screened_candidate_count"]== 17
     assert v["current_conclusion"]["qualified_candidate_count"]==0
-    assert v["current_conclusion"]["strongest_current_named_candidate"]=="rhode_island_paired_cameras_2018_2023"
+    assert v["current_conclusion"]["strongest_current_named_candidate"]=="kays41_emammal_team_2020"
     assert row["response_opened"] is True
     assert row["response_opened_under_route"]=="e5-external-activity-anchor-v1"
     assert row["response_opened_for_original_standard_E5"] is False

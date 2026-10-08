@@ -51,7 +51,7 @@ def test_registry_marks_henrich10_terminal_and_tracks_new_priority():
     )
     assert value["current_conclusion"]["screened_candidate_count"] == 17
     assert value["current_conclusion"]["qualified_candidate_count"] == 0
-    assert value["current_conclusion"]["strongest_current_named_candidate"] == ("rhode_island_paired_cameras_2018_2023"
+    assert value["current_conclusion"]["strongest_current_named_candidate"] == ("kays41_emammal_team_2020"
     )
     assert row["response_opened"] is False
     assert row["response_may_be_opened_for_E5"] is False
