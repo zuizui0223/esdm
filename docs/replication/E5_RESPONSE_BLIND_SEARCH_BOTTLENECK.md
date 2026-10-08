@@ -84,3 +84,13 @@ deployment overlap, geographically heldout effort and a structural
 detection-identifiability argument for the actual paired geometry.
 No focal event rows, taxon selection, effect directions or fits are
 authorized by the initial ZIP-header route.
+
+## Candidate 17 deployment-geometry outcome (2026-10-08)
+
+The one-shot run [37765754779](https://github.com/zuizui0223/esdm/actions/runs/37765754779) succeeded on **deployment metadata only**, with 0 focal biological rows opened. It confirms 2,982 valid deployment rows and 1,488 site-period groups; 132 coordinate-consistent site identifiers in each operational longitudinal half, 126/120 paired-overlap site identifiers, and all 12 calendar-month numbers in each half. This is pooled over years, not proof of continuous exposure or matched original study zones.
+
+The frozen result is **DEPLOYMENT_GEOMETRY_INCOMPLETE_OR_QC_HOLD**: one site ID has spatially inconsistent coordinates, and the 264 coordinate-consistent site IDs have no independently documented crosswalk to the published 249 survey sites. No identities have been inferred or corrected.
+
+More decisively, **G4 fails under the released uncalibrated separated-camera design**. Camera members about 50–100 m apart with overlapping deployment dates are not matched observers of a known shared-passage denominator. The response-free multiplicative gauge proof records why common diel effective detection and diel activity are not uniquely separable from two event-rate streams. Camera-member identities are necessary for evaluating relative sources but insufficient to identify the common observation process. No detection CSV rows are authorized for opening or rescue.
+
+Original E5 remains **0/17 qualified**. Rhode Island is a terminal negative qualification assessment for the currently available calibration route, **not a biological null result**. Kays41 remains an unresolved named data source with its dictionary transport blocked, not a qualified candidate. The next useful discovery must start from a truly independent sensor/passage calibration source rather than another uncalibrated camera-pair archive. See `E5_RHODE_ISLAND_DEPLOYMENT_GEOMETRY_RECEIPT.json` and `E5_RHODE_ISLAND_GEOMETRY_TERMINAL_INTERPRETATION.md`.

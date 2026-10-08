@@ -598,21 +598,38 @@
         "source_reports_deployment_site_and_camera_ids": true,
         "source_reports_event_site_and_camera_ids": true,
         "source_reports_deployment_start_end_and_event_time": true,
-        "v3_row_grain": "one row per image; triggers/bursts not independent events"
+        "v3_row_grain": "one row per image; triggers/bursts not independent events",
+        "deployment_geometry_run_id": 37765754779,
+        "deployment_geometry_artifact_id": 11544492725,
+        "deployment_metadata_rows": 2982,
+        "valid_effort_rows": 2982,
+        "site_period_groups": 1488,
+        "coordinate_consistent_site_IDs": 264,
+        "spatially_conflicting_site_IDs": 1,
+        "published_site_count": 249,
+        "west_operational_site_IDs": 132,
+        "east_operational_site_IDs": 132,
+        "west_matched_overlapping_pair_site_IDs": 126,
+        "east_matched_overlapping_pair_site_IDs": 120,
+        "west_calendar_month_numbers": 12,
+        "east_calendar_month_numbers": 12,
+        "detection_CSV_member_opened": false
       },
       "gates": {
         "G1_INDEPENDENT_SOURCE": "PASS_PUBLIC_SOURCE",
-        "G2_SCHEMA_EFFORT_TIME": "PROMISING_PUBLIC_DESCRIPTION_PENDING_ZIP_MEMBER_HEADERS",
-        "G3_CROSSED_DOMAIN": "POTENTIAL_PAIRED_SITE_DESIGN_PENDING_GEOGRAPHY_AND_PROTOCOL_CROSSWALK",
-        "G4_DETECTION_IDENTIFIABILITY": "PROMISING_REPLICATE_CAMERA_IDENTITIES_UNPROVEN_EFFECTIVE_DETECTION",
-        "G5_PHYSICAL_REPLICATION": "PROMISING_STATEWIDE_249_SITE_COUNT_SPLIT_UNVERIFIED",
-        "G6_TEMPORAL_SUPPORT": "PROMISING_MULTIYEAR_TWO_SEASON_SCOPE_SPLIT_UNVERIFIED",
+        "G2_SCHEMA_EFFORT_TIME": "DEPLOYMENT_EFFORT_AND_IDENTIFIERS_CONFIRMED_EVENT_VALUES_UNOPENED",
+        "G3_CROSSED_DOMAIN": "PARTIAL_PAIRED_DEPLOYMENT_GEOMETRY_PASSED_ORIGINAL_GEOGRAPHY_AND_SOURCE_PROTOCOL_UNVERIFIED",
+        "G4_DETECTION_IDENTIFIABILITY": "FAIL_CURRENT_UNCALIBRATED_PAIR_PRODUCT_GAUGE",
+        "G5_PHYSICAL_REPLICATION": "PROVISIONAL_132_AND_132_SITE_IDS_ONE_COORDINATE_CONFLICT_249_VS_264_ID_DISCREPANCY",
+        "G6_TEMPORAL_SUPPORT": "PROVISIONAL_12_MONTH_NUMBERS_PER_OPERATIONAL_BLOCK_NO_CONTINUOUS_OR_MATCHED_SEASON_PROOF",
         "G7_MODEL_FREEZE": "NOT_REACHED"
       },
-      "decision": "E5_CANDIDATE_NOT_YET_QUALIFIED_ZIP_HEADER_PENDING",
-      "qualification_blocker": "camera-member identifiers reportedly survive release unlike previous paired candidates, but the public ZIP member headers, paired physical deployment mapping, west/east split, and identifiable detection mechanism have not been checked. Pair cameras 50-100m apart do not automatically calibrate shared-passage detection.",
+      "decision": "E5_CANDIDATE_NOT_QUALIFIED_AT_G4_CURRENT_PUBLIC_PAIR_DESIGN",
+      "qualification_blocker": "One-shot deployment metadata confirms widespread within-site camera overlap but no independently calibrated detection channel or identified common-passage pair is documented. The distinct cameras are ~50-100 m apart; the ecological activity/common diel detection product gauge remains nonidentified. One spatially inconsistent site ID and 264 consistent coordinate-linked site IDs vs 249 published survey sites additionally require independent crosswalk; these cannot be fixed with species/event values.",
       "response_may_be_opened_for_E5": false,
-      "next_response_blind_check": "frozen one-shot ZIP member names and first CSV header line only for deployment and detection tables; no event values, species counts, diel directions or models"
+      "next_response_blind_check": "terminal for this released uncalibrated paired-camera route; only a genuinely independent pre-response same-passage/detection calibration source could justify a new prospective route; do not inspect detection event rows or rerun 37765754779",
+      "hard_stop_reason": "One-shot deployment metadata confirms widespread within-site camera overlap but no independently calibrated detection channel or identified common-passage pair is documented. The distinct cameras are ~50-100 m apart; the ecological activity/common diel detection product gauge remains nonidentified. One spatially inconsistent site ID and 264 consistent coordinate-linked site IDs vs 249 published survey sites additionally require independent crosswalk; these cannot be fixed with species/event values.",
+      "deployment_geometry_receipt": "docs/replication/E5_RHODE_ISLAND_DEPLOYMENT_GEOMETRY_RECEIPT.json"
     }
   ],
   "search_universes": [
@@ -648,11 +665,11 @@
     "snapshot_usa_2024_selected": false,
     "response_opening_authorized": false,
     "model_fitting_authorized": false,
-    "next_action": "one-shot response-blind ZIP member and header-only precheck for Rhode Island paired-camera dataset; preserve original G4 gate and wild-pig terminal UNRESOLVED/QC HOLD",
+    "next_action": "retain 0/17 standard-E5 qualified; close Rhode Island original-G4 route without opening event rows. Seek only truly independent passage/detection calibration connected to deployable raw data; stop promoting camera pairing, member identity, GPS activity anchors or repeated visits by themselves.",
     "screened_candidate_count": 17,
     "qualified_candidate_count": 0,
-    "strongest_current_named_candidate": "rhode_island_paired_cameras_2018_2023",
-    "named_candidate_status": "multi-year_paired_member_id_public_description_zip_schema_pending_unqualified",
+    "strongest_current_named_candidate": "kays41_emammal_team_2020",
+    "named_candidate_status": "kays41_dictionary_transport_blocked_unqualified_no_current_G4_pass",
     "search_bottleneck": {
       "screened_candidates": 17,
       "qualified_candidates": 0,
@@ -670,8 +687,8 @@
         "large single-protocol multi-city datasets with no independent detection calibration",
         "long-duration datasets lacking response-independent effort intervals"
       ],
-      "strongest_current_named_candidate": "rhode_island_paired_cameras_2018_2023",
-      "strongest_candidate_caveat": "Rhode Island offers 2019-2023 within-site paired cameras and individually identified cameras in public deployment/detection descriptions, but 50-100m separation does NOT prove matched animal-passage detection; west/east geography, >=6-month per-regime support and effective-detection identifiability are all unverified.",
+      "strongest_current_named_candidate": "kays41_emammal_team_2020",
+      "strongest_candidate_caveat": "Kays41 is unresolved, not qualified; dictionary transport failed. Rhode Island paired-camera 2018-23 has 132+132 operational site IDs, paired exposures in both halves and 12 calendar month numbers, but fails current independent diel detection route and has one spatial site-ID conflict plus published site count discrepancy. Do not select by focal outcomes.",
       "latest_completed_alternative_route": {
         "candidate_id": "wolfson_wildpig_gps_camera_2015_2018",
         "outcome_run_id": 37643401531,
@@ -679,10 +696,18 @@
         "qc_run_id": 37706547653,
         "qc_status": "PERSISTENT_RAW_LABEL_GRANULARITY_CONFLICT",
         "quality": "HOLD_SAMPLE_IDENTITY"
+      },
+      "last_hard_G4_stop": {
+        "candidate_id": "rhode_island_paired_cameras_2018_2023",
+        "run_id": 37765754779,
+        "reason": "NO_INDEPENDENT_COMMON_DIEL_DETECTION_CALIBRATION",
+        "biological_rows_opened": 0
       }
     },
     "strongest_completed_alternative_route": "wolfson_wildpig_gps_camera_2015_2018",
     "completed_alternative_route_status": "UNRESOLVED_WITH_SAMPLE_IDENTITY_QC_HOLD",
-    "empirical_outcome_run_completed": 37643401531
+    "empirical_outcome_run_completed": 37643401531,
+    "latest_metadata_only_screened_candidate": "rhode_island_paired_cameras_2018_2023",
+    "latest_metadata_only_screen_status": "G4_FAIL_CURRENT_UNCALIBRATED_PAIR_PRODUCT_GAUGE__DEPLOYMENT_GEOMETRY_QC_HOLD"
   }
 }

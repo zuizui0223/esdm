@@ -67,6 +67,6 @@ def test_registry_keeps_kays41_unqualified_after_transport_stop():
     current = value["current_conclusion"]
     assert current["screened_candidate_count"] == 17
     assert current["qualified_candidate_count"] == 0
-    assert current["strongest_current_named_candidate"] == "rhode_island_paired_cameras_2018_2023"
+    assert current["strongest_current_named_candidate"] == "kays41_emammal_team_2020"
     assert current["response_opening_authorized"] is False
     assert current["model_fitting_authorized"] is False

@@ -79,7 +79,7 @@ def test_registry_freezes_henrich10_terminal_and_keeps_zero_qualified():
 
     assert value["current_conclusion"]["screened_candidate_count"] == 17
     assert value["current_conclusion"]["qualified_candidate_count"] == 0
-    assert value["current_conclusion"]["strongest_current_named_candidate"] == ("rhode_island_paired_cameras_2018_2023"
+    assert value["current_conclusion"]["strongest_current_named_candidate"] == ("kays41_emammal_team_2020"
     )
     assert row["decision"] == "E5_CANDIDATE_NOT_QUALIFIED"
     assert row["gates"]["G4_DETECTION_IDENTIFIABILITY"] == (
