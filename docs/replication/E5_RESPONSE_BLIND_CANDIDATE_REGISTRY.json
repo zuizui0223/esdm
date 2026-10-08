@@ -9,7 +9,9 @@
     "focal_event_counts_used_for_selection": false,
     "focal_diel_direction_used_for_selection": false,
     "predictive_scores_used_for_selection": false,
-    "only_public_method_schema_geometry_information_used": true
+    "only_public_method_schema_geometry_information_used": true,
+    "candidate_selection_only": true,
+    "post_selection_empirical_opening_occurred_in_separate_activity_anchor_route": true
   },
   "candidates": [
     {
@@ -488,7 +490,7 @@
       "title": "Wolfson et al. wild-pig GPS telemetry and camera-trap activity comparison",
       "source_url": "https://doi.org/10.5281/zenodo.7908800",
       "doi": "10.5281/zenodo.7908800",
-      "response_opened": false,
+      "response_opened": true,
       "public_metadata": {
         "geographies": [
           "Buck Island Ranch, Florida",
@@ -523,29 +525,50 @@
         "header_precheck_data_rows_decoded": 0,
         "gps_headers_manual_A2_pass": true,
         "camera_headers_route_A3_pass": true,
-        "temporal_overlap_route_A4_pass": true
+        "temporal_overlap_route_A4_pass": true,
+        "original_activity_anchor_outcome_run_id": 37643401531,
+        "original_activity_anchor_artifact_id": 11496704615,
+        "original_activity_anchor_result_status": "UNRESOLVED",
+        "original_activity_anchor_qc_status": "HOLD_SAMPLE_IDENTITY",
+        "ca_summer_raw_unique_location_labels": 434,
+        "ca_summer_singleton_location_labels": 383,
+        "ca_summer_labels_unique_to_summer": 386,
+        "ca_winter_rows_missing_location_id": 194,
+        "ca_locationname_diagnostic_run_id": 37706547653,
+        "ca_locationname_diagnostic_artifact_id": 11519564272,
+        "ca_locationname_diagnostic_status": "PERSISTENT_RAW_LABEL_GRANULARITY_CONFLICT"
       },
       "gates": {
         "G1_INDEPENDENT_SOURCE": "PASS",
         "G2_SCHEMA_EFFORT_TIME": "STANDARD_G2_NOT_RECLASSIFIED_ACTIVITY_ANCHOR_A2_A4_PASS",
         "G3_CROSSED_DOMAIN": "PASS_PUBLIC_FILE_GEOMETRY",
-        "G4_DETECTION_IDENTIFIABILITY": "NOT_PASSED_DIRECT_DETECTION_ROUTE_ACTIVITY_ANCHOR_A5_PASS_A6_FROZEN",
-        "G5_PHYSICAL_REPLICATION": "PASS_CAPACITY_PUBLIC_METHODS_SPLIT_NOT_FROZEN",
+        "G4_DETECTION_IDENTIFIABILITY": "NOT_PASSED_DIRECT_DETECTION_ROUTE_ACTIVITY_ANCHOR_UNRESOLVED_QC_HOLD",
+        "G5_PHYSICAL_REPLICATION": "PUBLIC_CAPACITY_92_CAMERAS_ORIGINAL_CA_SUMMER_CLUSTER_QC_HOLD",
         "G6_TEMPORAL_SUPPORT": "PROMISING_FOUR_SEASONS_BOTH_METHODS_BOTH_GEOGRAPHIES_HEADER_DATES_PENDING",
-        "G7_MODEL_FREEZE": "STANDARD_G7_NOT_REACHED_ACTIVITY_ANCHOR_A6_FROZEN"
+        "G7_MODEL_FREEZE": "STANDARD_G7_NOT_REACHED_ACTIVITY_ANCHOR_OUTCOME_COMPLETED"
       },
-      "decision": "E5_STANDARD_CANDIDATE_NOT_QUALIFIED_ACTIVITY_ANCHOR_ROUTE_READY_FOR_SEPARATE_EMPIRICAL_AUTHORIZATION",
-      "qualification_blocker": "original direct-detection G4 remains unpassed; the separate external-activity-anchor route has A1-A5 passed and A6 frozen but empirical data-row opening still requires a distinct one-shot authorization",
+      "decision": "E5_STANDARD_CANDIDATE_NOT_QUALIFIED_ACTIVITY_ANCHOR_TERMINAL_UNRESOLVED_QC_HOLD",
+      "qualification_blocker": "original direct-detection G4 remains unpassed; the separate activity-anchor result is UNRESOLVED with sample-identity QC HOLD after 434 CA-summer LocationName labels for a 48-camera array; 383 labels are singletons; no valid physical-camera crosswalk is established",
       "response_may_be_opened_for_E5": false,
-      "next_response_blind_check": "authorize only the frozen e5-wildpig-activity-anchor-transfer-model-v1 empirical route; do not reinterpret it as original G4",
+      "next_response_blind_check": "terminal for this frozen outcome route: no rerun, no post-hoc model repair. Further QC on source label grammar needs a distinct exploratory nonconfirmatory route and can never retroactively change this result",
       "activity_anchor_route": {
         "route_id": "e5-external-activity-anchor-v1",
-        "status": "A1_A5_PASS_A6_FROZEN_EMPIRICAL_NOT_AUTHORIZED",
+        "status": "TERMINAL_EMPIRICAL_UNRESOLVED_SAMPLE_IDENTITY_QC_HOLD",
         "original_G4_reclassified": false,
         "header_receipt": "docs/replication/E5_WILDPIG_GPS_CAMERA_HEADER_RECEIPT.json",
         "A5_result": "docs/replication/E5_EXTERNAL_ACTIVITY_ANCHOR_IDENTIFICATION_RESULT.json",
-        "A6_model_contract": "docs/replication/E5_WILDPIG_ACTIVITY_ANCHOR_MODEL_CONTRACT.json"
-      }
+        "A6_model_contract": "docs/replication/E5_WILDPIG_ACTIVITY_ANCHOR_MODEL_CONTRACT.json",
+        "outcome_receipt": "docs/replication/E5_WILDPIG_ACTIVITY_ANCHOR_OUTCOME_RECEIPT.json",
+        "terminal_result": "docs/replication/E5_WILDPIG_ACTIVITY_ANCHOR_TERMINAL_RESULT.json",
+        "locationname_qc_receipt": "docs/replication/E5_WILDPIG_CA_LOCATIONNAME_QC_RESULT_RECEIPT.json",
+        "original_empirical_run_id": 37643401531,
+        "locationname_qc_run_id": 37706547653,
+        "empirical_outcome_status": "UNRESOLVED",
+        "quality_status": "HOLD_SAMPLE_IDENTITY",
+        "no_rerun": true
+      },
+      "response_opened_under_route": "e5-external-activity-anchor-v1",
+      "response_opened_for_original_standard_E5": false
     }
   ],
   "search_universes": [
@@ -581,11 +604,11 @@
     "snapshot_usa_2024_selected": false,
     "response_opening_authorized": false,
     "model_fitting_authorized": false,
-    "next_action": "merge the wild-pig header/A5/A6 freeze, then create a separate pure-marker one-shot authorization for the frozen external-activity-anchor transfer model; original G4 remains unpassed",
+    "next_action": "keep wild-pig alternate route terminal UNRESOLVED/QC HOLD with no rerun; pursue original E5 G4 candidate search separately, and request original source camera-ID crosswalk or independently frozen exploratory identifier grammar check only if its value is clear",
     "screened_candidate_count": 16,
     "qualified_candidate_count": 0,
-    "strongest_current_named_candidate": "wolfson_wildpig_gps_camera_2015_2018",
-    "named_candidate_status": "standard_G4_unpassed_activity_anchor_A1_A5_pass_A6_frozen_empirical_not_authorized",
+    "strongest_current_named_candidate": "kays41_emammal_team_2020",
+    "named_candidate_status": "kays41_unqualified_dictionary_transport_blocked",
     "search_bottleneck": {
       "screened_candidates": 16,
       "qualified_candidates": 0,
@@ -603,8 +626,19 @@
         "large single-protocol multi-city datasets with no independent detection calibration",
         "long-duration datasets lacking response-independent effort intervals"
       ],
-      "strongest_current_named_candidate": "wolfson_wildpig_gps_camera_2015_2018",
-      "strongest_candidate_caveat": "Wild-pig GPS-camera remains the strongest alternative route: A1-A5 pass and A6 is frozen, but the original direct-detection G4 is still unpassed and empirical values require a separate authorization. Any result is a relative observation-distortion reanalysis, not absolute detection calibration."
-    }
+      "strongest_current_named_candidate": "kays41_emammal_team_2020",
+      "strongest_candidate_caveat": "Kays41 remains the strongest unresolved named original-E5 search candidate but is transport/schema blocked; wild-pig is a terminal alternative activity-anchor analysis, not an original G4 pass (UNRESOLVED and sample-identity QC HOLD)",
+      "latest_completed_alternative_route": {
+        "candidate_id": "wolfson_wildpig_gps_camera_2015_2018",
+        "outcome_run_id": 37643401531,
+        "outcome": "UNRESOLVED",
+        "qc_run_id": 37706547653,
+        "qc_status": "PERSISTENT_RAW_LABEL_GRANULARITY_CONFLICT",
+        "quality": "HOLD_SAMPLE_IDENTITY"
+      }
+    },
+    "strongest_completed_alternative_route": "wolfson_wildpig_gps_camera_2015_2018",
+    "completed_alternative_route_status": "UNRESOLVED_WITH_SAMPLE_IDENTITY_QC_HOLD",
+    "empirical_outcome_run_completed": 37643401531
   }
 }
