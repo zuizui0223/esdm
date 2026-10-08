@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "rhode_island_paired_cameras_2018_2023",
+  "receipt_id": "e5-rhode-island-deployment-geometry-response-independent-receipt-v1",
+  "status": "FROZEN_DEPLOYMENT_GEOMETRY_INCOMPLETE_OR_QC_HOLD",
+  "recorded_date": "2026-10-08",
+  "provenance": {
+    "workflow_run_id": 37765754779,
+    "workflow_job_id": 113272885181,
+    "authorization_commit_sha": "f7b300572593d981e2431c7fa7002dd9455074a5",
+    "implementation_parent_sha": "2163b92fd01debb4c52e92f0fcab76e4ffb56014",
+    "artifact_id": 11544492725,
+    "artifact_name": "e5-rhode-island-deployment-geometry-37765754779",
+    "artifact_zip_sha256": "cafcec32ef9636cf026bca7b39e365cf711234fed0ae5887c8909d9644afaa2c",
+    "result_json_sha256": "a0a67b7ed1adae0f5f7275570c75594abed531e25786997fd29fe9355a7497d4",
+    "zenodo_record_id": 14508932,
+    "zenodo_archive_md5": "c66943e6c2a9aab0abce2a1eba8ce02e",
+    "workflow_conclusion": "success"
+  },
+  "response_firewall": {
+    "full_source_archive_transferred": true,
+    "deployment_metadata_rows_processed": 2982,
+    "detection_csv_member_opened": false,
+    "biological_response_rows_processed": 0,
+    "taxon_or_event_datetime_values_opened": false,
+    "model_fitting": false,
+    "raw_site_camera_names_coordinates_or_dates_uploaded": false
+  },
+  "deployment": {
+    "rows": 2982,
+    "valid_effort_rows": 2982,
+    "valid_site_period_groups": 1488,
+    "missing_identifier_rows": 0,
+    "invalid_coordinate_rows": 0,
+    "invalid_or_missing_dates": 0,
+    "site_identifiers_with_consistent_coordinates": 264,
+    "site_identifiers_with_spatial_conflict": 1,
+    "published_site_count": 249,
+    "published_site_count_mismatch_resolved": false,
+    "the_265_total_IDs_cannot_be_asserted_as_265_independent_physical_sites": true
+  },
+  "operational_blocks": {
+    "WEST_OPERATIONAL": {
+      "valid_effort_rows": 1543,
+      "independent_site_IDs_with_valid_effort": 132,
+      "site_IDs_with_matched_camera_operational_overlap": 126,
+      "site_period_groups_with_overlap": 692,
+      "calendar_month_numbers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "EAST_OPERATIONAL": {
+      "valid_effort_rows": 1422,
+      "independent_site_IDs_with_valid_effort": 132,
+      "site_IDs_with_matched_camera_operational_overlap": 120,
+      "site_period_groups_with_overlap": 630,
+      "calendar_month_numbers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    }
+  },
+  "paired_by_period": [
+    {
+      "period": "s18",
+      "site_period_groups_with_overlap": 0
+    },
+    {
+      "period": "s19",
+      "site_period_groups_with_overlap": 100
+    },
+    {
+      "period": "s20",
+      "site_period_groups_with_overlap": 100
+    },
+    {
+      "period": "s21",
+      "site_period_groups_with_overlap": 235
+    },
+    {
+      "period": "s22",
+      "site_period_groups_with_overlap": 236
+    },
+    {
+      "period": "sp22",
+      "site_period_groups_with_overlap": 7
+    },
+    {
+      "period": "w18",
+      "site_period_groups_with_overlap": 0
+    },
+    {
+      "period": "w19",
+      "site_period_groups_with_overlap": 20
+    },
+    {
+      "period": "w20",
+      "site_period_groups_with_overlap": 100
+    },
+    {
+      "period": "w21",
+      "site_period_groups_with_overlap": 198
+    },
+    {
+      "period": "w22",
+      "site_period_groups_with_overlap": 235
+    },
+    {
+      "period": "w23",
+      "site_period_groups_with_overlap": 99
+    }
+  ],
+  "fixed_interpretation": {
+    "G2": "DEPLOYMENT_TIME_AND_IDENTITY_SCHEMA_VALID_ONLY__DETECTION_VALUES_UNOPENED",
+    "G3": "POTENTIAL_PAIRED_WITHIN_SITE_CROSSING__SOURCE_PROTOCOL_AND_ORIGINAL_GEOGRAPHY_NOT_PROVED",
+    "G4": "NOT_PASSED_UNCALIBRATED_SEPARATED_PAIRED_SENSORS",
+    "G5": "PROVISIONAL_PHYSICAL_SITE_CAPACITY_BOTH_OPERATIONAL_BLOCKS__ONE_SPATIAL_CONFLICT_AND_249_VS_264_ID_MISMATCH",
+    "G6": "CALENDAR_MONTH_NUMBERS_PRESENT_ALL_12_PER_OPERATIONAL_BLOCK__NOT_EQUIVALENT_TO_CONTINUOUS_SAMPLING_OR_STATION_SEASON_OVERLAP",
+    "G7": "NOT_REACHED",
+    "full_candidate_qualified": false,
+    "original_G4_reclassified": false,
+    "continued_focal_response_opening_authorized": false,
+    "same_authorization_rerun": false
+  },
+  "scientific_limit": "Two approximately 50-100-m-separated cameras with temporally overlapping deployments do not supply common animal-passage detection histories. If Y_j(t) = effort_j(t) A(t) D_j(t), arbitrary positive diel h(t) can replace A(t) by A(t)h(t) and both D_j(t) by D_j(t)/h(t), leaving observations unchanged. Thus the common activity-versus-detection diel axis remains nonidentified absent separately justified auxiliary calibration or matched-passage observations.",
+  "next_action": "close this published-data route at original G4 unless an independently documented same-passage or detection calibration source becomes available; do not open detection rows or alter the frozen pre-response gates"
+}
