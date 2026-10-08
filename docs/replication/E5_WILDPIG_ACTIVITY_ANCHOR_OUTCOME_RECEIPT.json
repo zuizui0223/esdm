@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "wolfson_wildpig_gps_camera_2015_2018",
+  "route_id": "e5-external-activity-anchor-v1",
+  "receipt_id": "e5-wildpig-activity-anchor-outcome-receipt-v1",
+  "status": "FROZEN_EMPIRICAL_OUTCOME_RECEIPT",
+  "execution": {
+    "run_id": 37643401531,
+    "job_id": 112867814551,
+    "artifact_id": 11496704615,
+    "artifact_digest": "sha256:7ee6cb85280ed1f375009f438a3ed56193ccd2ced0ee78810ff2e6cebd797c35",
+    "result_json_sha256": "858e01abf32a9f78315049905d9847d245207e03b453198bef0019163de697f1",
+    "authorization_sha": "bdfd2000abb4737d531f655e935b25fa55e95ef2",
+    "frozen_model_parent_sha": "6b771c474c3d57bdde60865b520b97c473d3bd40",
+    "conclusion": "success"
+  },
+  "adjudication": {
+    "frozen_result_status": "UNRESOLVED",
+    "bootstrap_median_gain_ci_lower": -0.05019368081794174,
+    "bootstrap_median_gain_ci_upper": 0.03124649854524571,
+    "point_median_gain": 0.007875718209424398,
+    "point_minimum_gain": -0.06625620329383908,
+    "point_positive_gain_count": 6,
+    "total_transfers": 8,
+    "bootstrap_replicates": 1000
+  },
+  "adjudication_contract": "docs/replication/E5_WILDPIG_ACTIVITY_ANCHOR_POSTOUTCOME_CONTRACT.json",
+  "quality_audit": {
+    "status": "HOLD_SAMPLE_IDENTITY",
+    "audit": "docs/replication/E5_WILDPIG_CA_LOCATIONNAME_QC_RESULT_RECEIPT.json",
+    "ca_summer_pseudo_site_clusters": 434,
+    "ca_public_design_camera_count": 48,
+    "ca_summer_extra_labels": 386,
+    "ca_summer_singleton_labels": 383,
+    "ca_winter_missing_location_id_rows": 194,
+    "camera_cluster_bootstrap_validated": false
+  },
+  "no_reanalysis": true,
+  "no_rerun": true,
+  "absolute_detection_probability_claim": false,
+  "standard_E5_G4_passed": false,
+  "standard_E5_qualified": false
+}

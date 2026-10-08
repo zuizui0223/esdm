@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "wolfson_wildpig_gps_camera_2015_2018",
+  "route_id": "e5-external-activity-anchor-v1",
+  "screen_id": "e5-wildpig-activity-anchor-terminal-result-v1",
+  "status": "UNRESOLVED",
+  "quality_status": "HOLD_SAMPLE_IDENTITY",
+  "primary_summary": {
+    "frozen_result_status": "UNRESOLVED",
+    "bootstrap_median_gain_ci_lower": -0.05019368081794174,
+    "bootstrap_median_gain_ci_upper": 0.03124649854524571,
+    "point_median_gain": 0.007875718209424398,
+    "point_minimum_gain": -0.06625620329383908,
+    "point_positive_gain_count": 6,
+    "total_transfers": 8,
+    "bootstrap_replicates": 1000
+  },
+  "transfer_gain_summary": [
+    {
+      "training_geography": "FL",
+      "heldout_geography": "CA",
+      "season": "spring",
+      "gain": 0.010256070159309738,
+      "bootstrap_ci_lower": -0.10555303899930904,
+      "bootstrap_ci_upper": 0.08155325174336864
+    },
+    {
+      "training_geography": "FL",
+      "heldout_geography": "CA",
+      "season": "summer",
+      "gain": 0.07995088243035264,
+      "bootstrap_ci_lower": -0.02427768824413531,
+      "bootstrap_ci_upper": 0.13187859746643793
+    },
+    {
+      "training_geography": "FL",
+      "heldout_geography": "CA",
+      "season": "fall",
+      "gain": 0.06120882336957689,
+      "bootstrap_ci_lower": -0.024515796742933926,
+      "bootstrap_ci_upper": 0.11795434253488206
+    },
+    {
+      "training_geography": "FL",
+      "heldout_geography": "CA",
+      "season": "winter",
+      "gain": 0.0011551231039372833,
+      "bootstrap_ci_lower": -0.0953903571985631,
+      "bootstrap_ci_upper": 0.05397645832816535
+    },
+    {
+      "training_geography": "CA",
+      "heldout_geography": "FL",
+      "season": "spring",
+      "gain": 0.0054953662595390584,
+      "bootstrap_ci_lower": -0.10901237255835787,
+      "bootstrap_ci_upper": 0.03915115997573401
+    },
+    {
+      "training_geography": "CA",
+      "heldout_geography": "FL",
+      "season": "summer",
+      "gain": 0.02194669475826494,
+      "bootstrap_ci_lower": -0.07496841796175592,
+      "bootstrap_ci_upper": 0.07209342412890897
+    },
+    {
+      "training_geography": "CA",
+      "heldout_geography": "FL",
+      "season": "fall",
+      "gain": -0.06091022509918409,
+      "bootstrap_ci_lower": -0.16965527168584504,
+      "bootstrap_ci_upper": 0.043919641155559415
+    },
+    {
+      "training_geography": "CA",
+      "heldout_geography": "FL",
+      "season": "winter",
+      "gain": -0.06625620329383908,
+      "bootstrap_ci_lower": -0.14610860606446585,
+      "bootstrap_ci_upper": -0.015325382614098541
+    }
+  ],
+  "diagnostic_findings": {
+    "suspect_location_id_granularity_CA_summer": true,
+    "CA_summer_labels": 434,
+    "physical_camera_sites_reported": 48,
+    "summer_unique_label_excess": 386,
+    "summer_singleton_labels": 383,
+    "summer_labels_shared_with_other_seasons": 48,
+    "winter_location_id_missing_rows": 194,
+    "exact_48_camera_mapping_identified": false,
+    "biological_reason_for_differences_identified": false
+  },
+  "standard_e5": {
+    "G4_DETECTION_IDENTIFIABILITY": "NOT_PASSED_DIRECT_DETECTION_ROUTE",
+    "candidate_qualified": false,
+    "original_G4_reclassified": false
+  },
+  "claim_boundary": {
+    "transfer_gain_positive_as_point_median": true,
+    "evidence_of_portable_distortion_supported": false,
+    "evidence_of_no_portable_distortion_supported": false,
+    "primary_confidence_interval_contains_zero": true,
+    "quality_qualified_empirical_conclusion": false,
+    "absolute_detection_probability_claim": false,
+    "abundance_claim": false,
+    "causal_sensor_mechanism_claim": false,
+    "untouched_preregistration_claim": false
+  },
+  "data_provenance": {
+    "original_run": {
+      "run_id": 37643401531,
+      "job_id": 112867814551,
+      "artifact_id": 11496704615,
+      "artifact_digest": "sha256:7ee6cb85280ed1f375009f438a3ed56193ccd2ced0ee78810ff2e6cebd797c35",
+      "result_json_sha256": "858e01abf32a9f78315049905d9847d245207e03b453198bef0019163de697f1",
+      "authorization_sha": "bdfd2000abb4737d531f655e935b25fa55e95ef2",
+      "frozen_model_parent_sha": "6b771c474c3d57bdde60865b520b97c473d3bd40",
+      "conclusion": "success"
+    },
+    "qc_result": "docs/replication/E5_WILDPIG_CA_LOCATIONNAME_QC_RESULT_RECEIPT.json"
+  },
+  "outcome_recomputed": false,
+  "original_one_shot_rerun": false
+}

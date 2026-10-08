@@ -58,8 +58,7 @@ def test_registry_has_sixteen_candidates_and_wildpig_is_strongest_unresolved():
     v=_read(REGISTRY)
     assert v["current_conclusion"]["screened_candidate_count"]==16
     assert v["current_conclusion"]["qualified_candidate_count"]==0
-    assert v["current_conclusion"]["strongest_current_named_candidate"]==(
-        "wolfson_wildpig_gps_camera_2015_2018"
+    assert v["current_conclusion"]["strongest_current_named_candidate"]==("kays41_emammal_team_2020"
     )
     row=next(x for x in v["candidates"] if x["candidate_id"]=="udzungwa_paired_arrays_2013_2014")
     assert row["decision"]=="E5_CANDIDATE_NOT_QUALIFIED"

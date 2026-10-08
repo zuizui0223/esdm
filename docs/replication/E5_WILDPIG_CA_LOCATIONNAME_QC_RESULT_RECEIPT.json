@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "wolfson_wildpig_gps_camera_2015_2018",
+  "route_id": "e5-wildpig-ca-locationname-postoutcome-qc-v1",
+  "result_id": "e5-wildpig-ca-locationname-qc-frozen-receipt-v1",
+  "status": "PERSISTENT_RAW_LABEL_GRANULARITY_CONFLICT",
+  "frozen_date": "2026-10-08",
+  "source": {
+    "original_one_shot_run_id": 37643401531,
+    "diagnostic_run_id": 37706547653,
+    "diagnostic_job_id": 113082164284,
+    "authorization_head_sha": "7051a54797dbc817567e8f567e8d34b7c211a3e7",
+    "implementation_parent_sha": "3c9c779968ed68b9907aa4767d87869f0f649da8",
+    "diagnostic_artifact_id": 11519564272,
+    "diagnostic_artifact_name": "e5-wildpig-ca-locationname-qc-37706547653",
+    "zip_sha256": "854cfd57c0df5cfd6db4bd37086c48ce6937abf458ba7c7c6dc1ae2a71da7fee",
+    "result_json_sha256": "60bafdcf4ed0d716dc4e5e8887abb8e9ac8b18661156dd8e4309f332dd6d053e",
+    "source_dataset_commit": "bc97ff80ec91aba03f58f06629c7e8dfff9eb85d",
+    "workflow_conclusion": "success"
+  },
+  "summary": {
+    "physical_camera_count_from_public_methods": 48,
+    "normalized_equivalent_to_raw_label_counts": true,
+    "ca_spring": {
+      "all_rows": 868,
+      "blank_or_missing_location_id_rows": 0,
+      "raw_unique_ids": 48,
+      "normalized_unique_ids": 48,
+      "singletons": 0
+    },
+    "ca_summer": {
+      "all_rows": 1475,
+      "blank_or_missing_location_id_rows": 0,
+      "raw_unique_ids": 434,
+      "normalized_unique_ids": 434,
+      "singletons": 383,
+      "shared_with_any_other_season": 48,
+      "exclusive_to_summer": 386
+    },
+    "ca_fall": {
+      "all_rows": 2053,
+      "blank_or_missing_location_id_rows": 0,
+      "raw_unique_ids": 48,
+      "normalized_unique_ids": 48,
+      "singletons": 0
+    },
+    "ca_winter": {
+      "all_rows": 917,
+      "blank_or_missing_location_id_rows": 194,
+      "raw_unique_ids": 47,
+      "normalized_unique_ids": 47,
+      "singletons": 2
+    },
+    "pairwise_shared_raw_ids": {
+      "spring_summer": 48,
+      "spring_fall": 48,
+      "spring_winter": 47,
+      "summer_fall": 48,
+      "summer_winter": 47,
+      "fall_winter": 47
+    },
+    "frozen_original_ca_summer_camera_site_clusters": 434,
+    "frozen_original_ca_winter_camera_events": 723,
+    "original_winter_all_rows_minus_blank_ids": 723
+  },
+  "conclusions": {
+    "additional_summer_only_labels_are_real_exact_source_values_not_case_trim_whitespace_artifacts": true,
+    "physical_camera_count_increase_to_434_demonstrated": false,
+    "cause_of_extra_summer_ids_proven": false,
+    "site_identity_mapping_to_48_cameras_available": false,
+    "camera_site_cluster_bootstrap_integrity": "HOLD",
+    "original_frozen_statistical_label": "UNRESOLVED",
+    "original_result_recomputed": false,
+    "original_one_shot_rerun": false,
+    "original_E5_G4_passed": false,
+    "original_E5_qualified": false
+  },
+  "access_boundary": {
+    "source_camera_csv_files_opened_under_new_exploratory_route": 4,
+    "this_diagnostic_is_response_blind": false,
+    "only_LocationName_statistics": true,
+    "biological_event_columns_used_for_statistics": false,
+    "original_model_refitted": false,
+    "raw_identifier_values_uploaded": false,
+    "sample_identity_hold_cannot_be_lifted_by_this_diagnostic": true
+  }
+}
