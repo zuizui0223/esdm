@@ -141,6 +141,8 @@ def inspect(
             raise ValueError(f"response firewall drift: {key}")
     src = contract["source"]
     expected_bytes = int(src["archive_bytes"])
+    if src["archive_download_url"] != EXPECTED_URL:
+        raise ValueError("unfrozen source URL")
     if expected_bytes != 12059878:
         raise ValueError("unexpected archive byte length")
     if src["required_CSV_member_basenames"] != list(EXPECTED_BASENAMES):
