@@ -1,0 +1,95 @@
+name: E5 Findlay CCTV stage retrospective once
+
+concurrency:
+  group: e5-findlay-stage-descriptive-once
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - e5/findlay-stage-descriptive-once-v1
+    paths:
+      - 'docs/replication/E5_FINDLAY_STAGE_DESCRIPTIVE_AUTHORIZED.json'
+
+permissions:
+  contents: read
+
+jobs:
+  stages:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify authorization is a pure marker commit
+        run: |
+          python - <<'PY'
+          import json,subprocess
+          from pathlib import Path
+          marker_path=Path("docs/replication/E5_FINDLAY_STAGE_DESCRIPTIVE_AUTHORIZED.json")
+          contract_path=Path("docs/replication/E5_FINDLAY_STAGE_DESCRIPTIVE_CONTRACT.json")
+          marker=json.loads(marker_path.read_text())
+          contract=json.loads(contract_path.read_text())
+          changed=subprocess.check_output(
+              ["git","diff-tree","--no-commit-id","--name-only","-r","HEAD"],
+              text=True).splitlines()
+          parent=subprocess.check_output(["git","rev-parse","HEAD^"],text=True).strip()
+          blob=subprocess.check_output(
+              ["git","hash-object",str(contract_path)],text=True).strip()
+          if changed != [marker_path.as_posix()]:
+              raise SystemExit("authorization must be pure marker only")
+          if parent != marker["implementation_parent_sha"]:
+              raise SystemExit("unexpected parent SHA")
+          if marker.get("contract_blob_sha") != "094929464b0db61474e3d86faee5b7547788d3d5":
+              raise SystemExit("contract blob must match freeze")
+          if blob != marker["contract_blob_sha"]:
+              raise SystemExit("contract drift")
+          if contract["status"] != "FROZEN_RETROSPECTIVE_PUBLISHED_DIRECTION_EXPOSED_NOT_AUTHORIZED":
+              raise SystemExit("contract status drift")
+          if marker.get("one_shot") is not True:
+              raise SystemExit("one-shot required")
+          if marker.get("retrospective_biological_rows_authorized") is not True:
+              raise SystemExit("explicit retrospective authorization required")
+          if marker.get("original_E5_outcome_or_qualification_authorized") is not False:
+              raise SystemExit("no original E5 outcome authorization")
+          if marker.get("no_model_fitting") is not True:
+              raise SystemExit("no fitting allowed")
+          PY
+      - name: Read exactly two pinned published CCTV pass-stage CSVs
+        run: |
+          mkdir -p build/public
+          python scripts/run_e5_findlay_pass_stage_descriptive.py \
+            --contract docs/replication/E5_FINDLAY_STAGE_DESCRIPTIVE_CONTRACT.json \
+            --out build/public/E5_FINDLAY_STAGE_DESCRIPTIVE_RESULT.json
+      - name: Validate stage-only output and no E5 gate promotion
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          out=json.loads(
+              Path("build/public/E5_FINDLAY_STAGE_DESCRIPTIVE_RESULT.json").read_text()
+          )
+          b=out["boundary"]
+          assert out["status"]=="RETROSPECTIVE_DESCRIPTIVE_COMPLETED_NO_E5_GATE_PROMOTION"
+          assert out["fixed_distance_bins"]==["near_le_1m","mid_1_to_3m","far_gt_3m"]
+          assert len(out["stage_cells"])==6
+          assert b["published_direction_exposed_before_contract"] is True
+          assert b["biological_CSVs_decoded_for_this_separate_route"]==2
+          assert b["no_model_fitted"] is True
+          assert b["no_inferential_confidence_interval"] is True
+          assert b["no_geographic_transfer_claim"] is True
+          assert b["original_E5_G4_passed"] is False
+          assert b["original_E5_qualified_candidates"]==0
+          assert b["raw_event_records_uploaded"] is False
+          PY
+      - name: Upload aggregates only
+        uses: actions/upload-artifact@v4
+        with:
+          name: e5-findlay-cctv-stage-descriptive-${{ github.run_id }}
+          path: build/public/E5_FINDLAY_STAGE_DESCRIPTIVE_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
