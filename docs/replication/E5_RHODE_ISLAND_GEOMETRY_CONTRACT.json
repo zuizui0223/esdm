@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "rhode_island_paired_cameras_2018_2023",
+  "contract_id": "e5-rhode-island-metadata-only-deployment-geometry-v1",
+  "status": "FROZEN_METADATA_ONLY_GEOMETRY_NOT_AUTHORIZED",
+  "frozen_date": "2026-10-08",
+  "parent_header_receipt": "docs/replication/E5_RHODE_ISLAND_ZIP_HEADER_RECEIPT.json",
+  "source": {
+    "archive_download_url": "https://zenodo.org/records/14508932/files/DataS1.zip?download=1",
+    "archive_bytes": 12059878,
+    "archive_md5": "c66943e6c2a9aab0abce2a1eba8ce02e",
+    "allowed_member": "RI_CameraSurvey_Deployments.csv",
+    "forbidden_member": "RI_CameraSurvey_Detections.csv",
+    "allowed_member_fields": [
+      "YearSeason",
+      "Primary.Site.ID",
+      "Trap.Station.Name",
+      "Camera.Name",
+      "Setup.Date",
+      "Retrieval.Date",
+      "Latitude",
+      "Longitude"
+    ]
+  },
+  "scope": {
+    "full_archive_transfer_containing_biological_rows": true,
+    "open_only_deployment_member": true,
+    "deployment_metadata_rows_allowed": true,
+    "detection_CSV_stream_open_authorized": false,
+    "taxon_values_open_authorized": false,
+    "event_datetime_values_open_authorized": false,
+    "biological_outcomes_open_authorized": false,
+    "modeling_or_selection_by_biological_values_authorized": false,
+    "raw_deployment_site_ids_in_output_authorized": false,
+    "raw_coordinates_or_exact_dates_in_output_authorized": false
+  },
+  "grouping": {
+    "physical_site": "Primary.Site.ID",
+    "camera_station_within_site": "Trap.Station.Name",
+    "camera_member_device": "Camera.Name",
+    "survey_period": "YearSeason",
+    "valid_effort": "Setup.Date and Retrieval.Date both parse, retrieval >= setup",
+    "time_unit": "calendar date (local survey calendar, inclusive endpoints)",
+    "accepted_date_formats": [
+      "%Y-%m-%d",
+      "%m/%d/%Y",
+      "%Y/%m/%d",
+      "%m/%d/%y",
+      "%Y-%m-%d %H:%M:%S",
+      "%m/%d/%Y %H:%M:%S",
+      "%Y-%m-%d %H:%M",
+      "%m/%d/%Y %H:%M"
+    ],
+    "paired_site_period": "at least two distinct camera-member IDs AND two distinct Trap.Station.Name IDs within Primary.Site.ID x YearSeason",
+    "paired_operational_interval": "at least two camera-member deployments with positive overlap of their validated setup/retrieval calendar-day intervals",
+    "duplicates": "same Site x YearSeason x Camera.Name repeated deployments remain nested in same camera, never count as independent physical camera",
+    "location_consistency": "within-site longitude and latitude range each <=0.02 decimal degrees; otherwise flag site-identity coordinate conflict"
+  },
+  "geography": {
+    "external_publisher_west_east_label_absent_in_header": true,
+    "construction": "purely response-independent balanced longitudinal blocks derived from physical site coordinates",
+    "rule": "for each stable physical Site take median longitude; sort sites by longitude then SHA256(Site ID) for ties; lower half is WEST_OPERATIONAL and upper half EAST_OPERATIONAL",
+    "physical_site_across_periods_must_stay_in_one_geographic_block": true,
+    "caution": "these operational longitude blocks are not claimed identical to original paper's west/east survey sections",
+    "no_geography_selection_after_detection_values": true,
+    "split_physical_site_minima": {
+      "training": 20,
+      "heldout": 10
+    },
+    "required_exposure_calendar_months_per_block": 6,
+    "day_night_effort_from_dates_alone_proved": false
+  },
+  "allowed_aggregates": [
+    "total deployment rows and missing/invalid key, date or coordinate counts",
+    "unique stable physical site, camera-member, and site-period counts",
+    "site-periods with two named cameras, two camera stations and matched operational intervals",
+    "survey-period-level metadata row/site/paired-site counts",
+    "paired membership and interval-overlap totals in each operational geographic block",
+    "distinct calendar months covered by valid deployments in each operational block",
+    "per-block physical-site counts and site-longitude-separation summary without raw coordinates",
+    "number of spatially inconsistent site IDs (without listing IDs)",
+    "schema/metadata-only gates with no original G4 pass"
+  ],
+  "decision_boundary": {
+    "G2_deployment_part_only_may_be_adjudicated": true,
+    "G2_event_time_taxon_value_parse_authorized": false,
+    "G3_paired_member_identity_may_be_adjudicated_in_operational_geographic_blocks": true,
+    "G4_effective_detection_pass_authorized": false,
+    "G5_physical_replication_may_be_adjudicated_on_independent_sites": true,
+    "G6_calendar_month_support_may_be_adjudicated_from_dates": true,
+    "G6_day_night_observation_process_pass_authorized": false,
+    "any_G2_G3_G5_G6_partial_pass_cannot_override_G4": false,
+    "candidate_qualification_authorized": false,
+    "focal_response_opening_authorized": false,
+    "post_metadata_geometry_detection_identifiability_must_be_separate_structural_decision": true
+  },
+  "execution": {
+    "branch": "e5/rhode-island-metadata-geometry-once-v1",
+    "authorization_marker": "docs/replication/E5_RHODE_ISLAND_GEOMETRY_AUTHORIZED.json",
+    "one_shot": true,
+    "pure_marker_commit_only": true,
+    "workflow_dispatch": false
+  }
+}

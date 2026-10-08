@@ -1,0 +1,112 @@
+name: E5 Rhode Island deployment geometry once
+
+concurrency:
+  group: e5-rhode-island-metadata-geometry-once
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - e5/rhode-island-metadata-geometry-once-v1
+    paths:
+      - 'docs/replication/E5_RHODE_ISLAND_GEOMETRY_AUTHORIZED.json'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify exactly one pure metadata authorization marker
+        run: |
+          python - <<'PY'
+          import json,subprocess
+          from pathlib import Path
+          marker_path=Path("docs/replication/E5_RHODE_ISLAND_GEOMETRY_AUTHORIZED.json")
+          contract_path=Path("docs/replication/E5_RHODE_ISLAND_GEOMETRY_CONTRACT.json")
+          marker=json.loads(marker_path.read_text(encoding="utf-8"))
+          contract=json.loads(contract_path.read_text(encoding="utf-8"))
+          parent=subprocess.check_output(["git","rev-parse","HEAD^"],text=True).strip()
+          changed=subprocess.check_output(
+              ["git","diff-tree","--no-commit-id","--name-only","-r","HEAD"],
+              text=True
+          ).splitlines()
+          blob=subprocess.check_output(["git","hash-object",str(contract_path)],text=True).strip()
+          if changed != [marker_path.as_posix()]:
+              raise SystemExit("authorization commit must change only marker")
+          if marker.get("implementation_parent_sha") != parent:
+              raise SystemExit("implementation parent SHA mismatch")
+          if marker.get("contract_id") != "e5-rhode-island-metadata-only-deployment-geometry-v1":
+              raise SystemExit("metadata contract id mismatch")
+          if marker.get("candidate_id") != "rhode_island_paired_cameras_2018_2023":
+              raise SystemExit("candidate id mismatch")
+          if marker.get("contract_blob_sha") != "387e1f17d5dd93f213d1b8ddb5ae8ac197b9657c":
+              raise SystemExit("contract pin mismatch")
+          if blob != marker["contract_blob_sha"]:
+              raise SystemExit("working-tree contract blob mismatch")
+          if contract.get("status") != "FROZEN_METADATA_ONLY_GEOMETRY_NOT_AUTHORIZED":
+              raise SystemExit("contract freeze drift")
+          if marker.get("metadata_geometry_precheck_authorized") is not True:
+              raise SystemExit("metadata geometry not authorized")
+          if marker.get("one_shot") is not True:
+              raise SystemExit("one-shot required")
+          for key in (
+              "detection_CSV_opening_authorized",
+              "biological_response_values_authorized",
+              "G4_pass_authorized",
+              "model_fitting_authorized",
+          ):
+              if marker.get(key) is not False:
+                  raise SystemExit("forbidden value must be false: "+key)
+          PY
+
+      - name: Audit response-independent deployment geometry only
+        run: |
+          mkdir -p build/public
+          python scripts/precheck_e5_rhode_island_deployment_geometry.py \
+            --contract docs/replication/E5_RHODE_ISLAND_GEOMETRY_CONTRACT.json \
+            --out build/public/E5_RHODE_ISLAND_GEOMETRY_RESULT.json
+
+      - name: Verify no detection stream opening or premature G4 claim
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          v=json.loads(
+              Path("build/public/E5_RHODE_ISLAND_GEOMETRY_RESULT.json").read_text(
+                  encoding="utf-8"
+              )
+          )
+          b=v["response_boundary"]
+          d=v["decision"]
+          assert b["full_ZIP_archive_containing_biological_records_transferred"] is True
+          assert b["detection_CSV_stream_opened"] is False
+          assert b["taxon_values_read"] is False
+          assert b["event_datetime_values_read"] is False
+          assert b["biological_response_rows_processed"] == 0
+          assert b["raw_site_or_camera_ID_values_uploaded"] is False
+          assert b["raw_lat_lon_or_individual_dates_uploaded"] is False
+          assert b["fitted_model_count"] == 0
+          assert d["G2_full_pass_authorized"] is False
+          assert d["G3_final_pass_authorized"] is False
+          assert d["G4_effective_detection_pass_authorized"] is False
+          assert d["candidate_qualified"] is False
+          assert d["focal_response_opening_authorized"] is False
+          PY
+
+      - name: Upload aggregate deployment-only geometry report
+        uses: actions/upload-artifact@v4
+        with:
+          name: e5-rhode-island-deployment-geometry-${{ github.run_id }}
+          path: build/public/E5_RHODE_ISLAND_GEOMETRY_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
