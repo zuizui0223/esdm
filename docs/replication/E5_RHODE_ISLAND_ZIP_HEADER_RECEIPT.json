@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "rhode_island_paired_cameras_2018_2023",
+  "receipt_id": "e5-rhode-island-paired-zip-header-receipt-v1",
+  "status": "FROZEN_ZIP_CSV_HEADERS_MATCH_PAIRED_IDENTITY_NOMINATION",
+  "frozen_date": "2026-10-08",
+  "execution": {
+    "run_id": 37747242192,
+    "job_id": 113211520618,
+    "artifact_id": 11536362715,
+    "artifact_name": "e5-rhode-island-zip-headers-37747242192",
+    "artifact_zip_sha256": "33ca3aeae4ab20cdf28273df95d6d8318a95a07c61ad8d62c1dcaad1ba51d8e9",
+    "result_json_sha256": "e10410b0f98e8781b00fa1eb0c16cfa14b7e656b90bfdf3f2c2df428b85c947b",
+    "authorization_sha": "8c453a014c24a11945debec4ad2aae0f38f784d2",
+    "parent_implementation_sha": "b868fb61b117160e630a51094b33437609818837",
+    "conclusion": "success"
+  },
+  "source": {
+    "zenodo_record_id": 14508932,
+    "zip_bytes": 12059878,
+    "zip_md5": "c66943e6c2a9aab0abce2a1eba8ce02e",
+    "zip_directory_entries": 2,
+    "deployment_member_uncompressed_bytes": 273870,
+    "detection_member_uncompressed_bytes": 245234894
+  },
+  "fieldnames": {
+    "deployment": [
+      "YearSeason",
+      "Primary.Site.ID",
+      "Trap.Station.Name",
+      "Camera.Name",
+      "Setup.Date",
+      "Retrieval.Date",
+      "Latitude",
+      "Longitude"
+    ],
+    "detection": [
+      "YearSeason",
+      "Primary.Site.ID",
+      "Trap.Station.Name",
+      "Camera.Name",
+      "Date.Time",
+      "Date",
+      "Time",
+      "Common.Name",
+      "Class",
+      "Order",
+      "Family",
+      "Genus",
+      "Species",
+      "Genus.and.Species",
+      "Sighting.Quantity"
+    ]
+  },
+  "response_boundary": {
+    "full_ZIP_archive_downloaded": true,
+    "deployment_rows_decoded": 0,
+    "detection_rows_decoded": 0,
+    "focal_species_values_decoded": 0,
+    "event_time_values_decoded": 0,
+    "model_fits_executed": 0
+  },
+  "gates_after_headers": {
+    "G2_SCHEMA_EFFORT_TIME": "PROMISING_SCHEMA_ONLY_EFFORT_AND_EVENT_FIELDS_UNVERIFIED_VALUES",
+    "G3_CROSSED_DOMAIN": "PENDING_RESPONSE_INDEPENDENT_DEPLOYMENT_PAIR_AND_REGION_GEOMETRY",
+    "G4_DETECTION_IDENTIFIABILITY": "NOT_PASSED_UNCALIBRATED_TWO_CAMERA_PRODUCT_GAUGE",
+    "candidate_qualified": false
+  },
+  "decision": {
+    "nominate_separate_metadata_only_deployment_geometry_child": true,
+    "focal_response_opening_authorized": false,
+    "model_fitting_authorized": false,
+    "original_one_shot_rerun_authorized": false
+  }
+}
