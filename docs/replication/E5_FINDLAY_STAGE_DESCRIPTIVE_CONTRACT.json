@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "route_id": "e5-findlay-known-pass-stage-descriptive-v1",
+  "contract_id": "e5-findlay-known-pass-stage-descriptive-v1",
+  "status": "FROZEN_RETROSPECTIVE_PUBLISHED_DIRECTION_EXPOSED_NOT_AUTHORIZED",
+  "date": "2026-10-08",
+  "role": "within-donor descriptive replication of published detection processes, NOT E5 geographic transfer, NOT untouched preregistration",
+  "source": {
+    "repo": "melaniefindlay/CT-Detection",
+    "commit": "abc72f535bb59ebed202fb7acca852fc1647e97a",
+    "article_doi": "10.1007/s13364-020-00478-y",
+    "files": [
+      {
+        "name": "TRIGGER_FOX_BADGER.csv",
+        "sha": "565578ec07e61fed8d6b1cbddc758914586119ba",
+        "bytes": 21539
+      },
+      {
+        "name": "REGISTRATION_FOX_BADGER.csv",
+        "sha": "d2dc9852ca1f2a1380b991acba425d16e12327d5",
+        "bytes": 26557
+      }
+    ]
+  },
+  "cohort_rules": {
+    "species": [
+      "BADGER",
+      "FOX"
+    ],
+    "orientation": "L",
+    "distance_column": "DIST",
+    "distance_units": "metres, per published source code",
+    "distance_bins": [
+      {
+        "id": "near_le_1m",
+        "lower_exclusive": 0,
+        "upper_inclusive": 1
+      },
+      {
+        "id": "mid_1_to_3m",
+        "lower_exclusive": 1,
+        "upper_inclusive": 3
+      },
+      {
+        "id": "far_gt_3m",
+        "lower_exclusive": 3,
+        "upper_inclusive": null
+      }
+    ],
+    "trigger_reference": "all CCTV-confirmed lateral passes in TRIGGER_FOX_BADGER.csv with nonmissing DIST/TRIGGER",
+    "registration_reference": "lateral passes in REGISTRATION_FOX_BADGER.csv with TRIGGER=1, nonmissing DIST/CAPTURE",
+    "bin_population_check": "require number of triggered passes in first file equal to number of registration-eligible rows in second file within every species×bin; otherwise refrain from computing composite probabilities for that species",
+    "numeric_binary_values": [
+      "0",
+      "1"
+    ],
+    "no_covariate_filter_selected_from_outcome": true,
+    "minimum_reference_passes_per_bin": 10,
+    "minimum_triggered_passes_per_bin": 5,
+    "missingness_rule": "document excluded/missing counts; no imputation; no posthoc threshold changes"
+  },
+  "frozen_estimands": {
+    "p_trigger": "n_triggered / n_reference_CCTV_passes, per species×distance bin",
+    "p_register_given_trigger": "n_registered / n_registration_triggered_rows, per species×distance bin",
+    "p_total": "p_trigger × p_register_given_trigger only if cohorts align exactly",
+    "primary_contrast": "near_le_1m versus far_gt_3m separately for FOX and BADGER; descriptive only",
+    "stage_decomposition": "log(Ptotal_far/Ptotal_near) = log(Ptrigger_far/Ptrigger_near)+log(Pregister_far/Pregister_near) when all probabilities >0",
+    "compensation_index": "1 - abs(total_log_ratio)/(abs(trigger_log_ratio)+abs(register_log_ratio)) if sum absolute stage shifts >0",
+    "contrast_status": [
+      "COHORT_NONCOMPARABLE",
+      "INSUFFICIENT_BIN_SUPPORT",
+      "ZERO_PROBABILITY_LOG_UNDEFINED",
+      "DESCRIPTIVE_OPPOSING_STAGES",
+      "DESCRIPTIVE_SAME_DIRECTION_STAGES",
+      "DESCRIPTIVE_STAGE_STABILITY"
+    ],
+    "confidence_intervals_authorized": false,
+    "causal_geographic_transfer_claim_authorized": false
+  },
+  "firewall": {
+    "entire_pinned_CSVs_contain_biological_response_and_are_opened_in_execution": true,
+    "no_focal_E5_geographic_holdout_opening": true,
+    "published_qualitative_direction_already_known": true,
+    "numerical_outcomes_opened_before_freeze": false,
+    "raw_event_rows_in_artifact": false,
+    "raw_passage_IDs_or_timestamps_in_artifact": false,
+    "permitted_outputs": "species by fixed-bin counts/rates, denominator comparability, log stage contrasts, QC flags; no raw rows",
+    "no_model_fitting": true,
+    "no_exploratory_season_or_species_selection": true,
+    "original_E5_G4_status": "NOT_PASSED",
+    "original_E5_qualified_candidates": 0,
+    "original_E5_screened_candidates": 17,
+    "wildpig_and_rhode_results_unchanged": true,
+    "no_reanalysis_of_frozen_wildpig_or_rhode": true
+  },
+  "execution": {
+    "branch": "e5/findlay-stage-descriptive-once-v1",
+    "marker": "docs/replication/E5_FINDLAY_STAGE_DESCRIPTIVE_AUTHORIZED.json",
+    "only_pure_marker_commit": true,
+    "one_shot": true,
+    "no_workflow_dispatch": true
+  }
+}
