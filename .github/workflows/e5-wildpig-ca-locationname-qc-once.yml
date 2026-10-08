@@ -1,0 +1,106 @@
+name: E5 wild-pig California LocationName QC once
+
+concurrency:
+  group: e5-wildpig-ca-locationname-qc-once
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - e5/wildpig-ca-locationname-qc-once-v1
+    paths:
+      - 'docs/replication/E5_WILDPIG_CA_LOCATIONNAME_QC_AUTHORIZED.json'
+
+permissions:
+  contents: read
+
+jobs:
+  qc:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Validate pure-marker one-shot authorization
+        run: |
+          python - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          marker_path = Path("docs/replication/E5_WILDPIG_CA_LOCATIONNAME_QC_AUTHORIZED.json")
+          contract_path = Path("docs/replication/E5_WILDPIG_CA_LOCATIONNAME_QC_CONTRACT.json")
+          marker = json.loads(marker_path.read_text(encoding="utf-8"))
+          contract = json.loads(contract_path.read_text(encoding="utf-8"))
+          parent = subprocess.check_output(["git", "rev-parse", "HEAD^"], text=True).strip()
+          changed = subprocess.check_output(
+              ["git", "diff-tree", "--no-commit-id", "--name-only", "-r", "HEAD"],
+              text=True,
+          ).splitlines()
+          blob = subprocess.check_output(
+              ["git", "hash-object", str(contract_path)], text=True
+          ).strip()
+          if changed != [marker_path.as_posix()]:
+              raise SystemExit("authorization commit must change only marker")
+          if marker.get("implementation_parent_sha") != parent:
+              raise SystemExit("implementation parent mismatch")
+          if marker.get("contract_id") != "e5-wildpig-ca-locationname-postoutcome-qc-v1":
+              raise SystemExit("QC contract mismatch")
+          if marker.get("candidate_id") != "wolfson_wildpig_gps_camera_2015_2018":
+              raise SystemExit("QC candidate mismatch")
+          if marker.get("contract_blob_sha") != "fe261b1b54c57be6e880488da4ec77517f52a0e9":
+              raise SystemExit("frozen contract SHA mismatch")
+          if blob != marker["contract_blob_sha"]:
+              raise SystemExit("working-tree contract blob mismatch")
+          if contract["status"] != "FROZEN_EXPLORATORY_POSTOUTCOME_QC_NOT_AUTHORIZED":
+              raise SystemExit("contract not frozen")
+          if marker.get("one_shot") is not True:
+              raise SystemExit("one shot required")
+          if marker.get("LocationName_column_only_authorized") is not True:
+              raise SystemExit("LocationName-only read not authorized")
+          if marker.get("biological_response_columns_for_statistics_authorized") is not False:
+              raise SystemExit("response columns remain forbidden for statistics")
+          if marker.get("original_one_shot_rerun_authorized") is not False:
+              raise SystemExit("original one-shot cannot rerun")
+          if marker.get("model_refit_authorized") is not False:
+              raise SystemExit("no refitting")
+          PY
+
+      - name: Execute four-file pinned exploratory identifier audit
+        run: |
+          mkdir -p build/public
+          python scripts/audit_e5_wildpig_ca_locationname.py \
+            --contract docs/replication/E5_WILDPIG_CA_LOCATIONNAME_QC_CONTRACT.json \
+            --out build/public/qc_result.json
+
+      - name: Verify no outcome reclassification
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          v = json.loads(Path("build/public/qc_result.json").read_text(encoding="utf-8"))
+          assert v["source"]["CA_camera_files_downloaded_and_blob_verified"] == 4
+          assert v["access_boundary"]["downloaded_complete_CSVs_containing_camera_event_rows"] == 4
+          assert v["access_boundary"]["only_LocationName_column_used_in_statistics"] is True
+          assert v["access_boundary"]["raw_identifiers_in_output"] == 0
+          assert v["access_boundary"]["other_biological_columns_used_in_statistics"] == 0
+          assert v["access_boundary"]["empirical_model_reestimated"] is False
+          assert v["access_boundary"]["original_one_shot_rerun"] is False
+          assert v["decision"]["original_statistical_label_unchanged"] == "UNRESOLVED"
+          assert v["decision"]["original_quality_hold_remains"] is True
+          assert v["decision"]["original_G4_passed"] is False
+          assert v["decision"]["original_E5_qualified"] is False
+          assert v["decision"]["confirmatory_transfer_claim_authorized"] is False
+          PY
+
+      - name: Upload aggregate QC result only
+        uses: actions/upload-artifact@v4
+        with:
+          name: e5-wildpig-ca-locationname-qc-${{ github.run_id }}
+          path: build/public/qc_result.json
+          if-no-files-found: error
+          retention-days: 90
