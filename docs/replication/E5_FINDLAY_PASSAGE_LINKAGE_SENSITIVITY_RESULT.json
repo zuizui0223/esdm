@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "result_id": "e5-findlay-passage-linkage-aggregate-sensitivity-v1",
+  "status": "EXPLORATORY_SENSITIVITY_NOT_PASSAGE_LINKAGE_VALIDATION",
+  "source": {
+    "original_run_id": 37770893387,
+    "source_receipt": "docs/replication/E5_FINDLAY_STAGE_DESCRIPTIVE_RESULT_RECEIPT.json",
+    "source_result_sha256": "2c49577d66d078e5d5fe9200d632ad625baf0fda6f71e8f1cf2792323c2a58ad"
+  },
+  "assumption": "At most k hypothetical registered-outcome substitutions in each of two equally sized trigger-conditioned FOX cohorts; fixed CCTV reference/trigger denominators",
+  "observed_k_not_estimated": true,
+  "observed_max_k_not_bounded": true,
+  "FOX": {
+    "near": {
+      "CCTV_passes": 88,
+      "triggered": 55,
+      "registered": 19
+    },
+    "far": {
+      "CCTV_passes": 175,
+      "triggered": 47,
+      "registered": 27
+    },
+    "first_k_to_erase_near_greater_than_far_composite": 4,
+    "first_k_to_erase_far_greater_than_near_conditional_registration": 6,
+    "trace": [
+      {
+        "k": 0,
+        "registered_near": [
+          19,
+          19
+        ],
+        "registered_far": [
+          27,
+          27
+        ],
+        "min_near_minus_far_composite": 0.061623376623376636,
+        "min_far_minus_near_conditional": 0.22901353965183757
+      },
+      {
+        "k": 1,
+        "registered_near": [
+          18,
+          20
+        ],
+        "registered_far": [
+          26,
+          28
+        ],
+        "min_near_minus_far_composite": 0.044545454545454555,
+        "min_far_minus_near_conditional": 0.1895551257253385
+      },
+      {
+        "k": 2,
+        "registered_near": [
+          17,
+          21
+        ],
+        "registered_far": [
+          25,
+          29
+        ],
+        "min_near_minus_far_composite": 0.027467532467532474,
+        "min_far_minus_near_conditional": 0.15009671179883943
+      },
+      {
+        "k": 3,
+        "registered_near": [
+          16,
+          22
+        ],
+        "registered_far": [
+          24,
+          30
+        ],
+        "min_near_minus_far_composite": 0.010389610389610393,
+        "min_far_minus_near_conditional": 0.11063829787234036
+      },
+      {
+        "k": 4,
+        "registered_near": [
+          15,
+          23
+        ],
+        "registered_far": [
+          23,
+          31
+        ],
+        "min_near_minus_far_composite": -0.006688311688311688,
+        "min_far_minus_near_conditional": 0.0711798839458414
+      },
+      {
+        "k": 5,
+        "registered_near": [
+          14,
+          24
+        ],
+        "registered_far": [
+          22,
+          32
+        ],
+        "min_near_minus_far_composite": -0.02376623376623377,
+        "min_far_minus_near_conditional": 0.03172147001934239
+      },
+      {
+        "k": 6,
+        "registered_near": [
+          13,
+          25
+        ],
+        "registered_far": [
+          21,
+          33
+        ],
+        "min_near_minus_far_composite": -0.04084415584415585,
+        "min_far_minus_near_conditional": -0.007736943907156679
+      }
+    ]
+  },
+  "BADGER_far": {
+    "CCTV_passes": 82,
+    "triggered": 16,
+    "registration_eligible": 15,
+    "registered": 8,
+    "conditional_bounds_if_15_are_subset_of_16_and_one_outcome_missing": [
+      0.0975609756097561,
+      0.10975609756097561
+    ],
+    "subset_condition_verified": false,
+    "composite_identified": false
+  },
+  "forbidden_claims": {
+    "passage_matching_proven": false,
+    "new_data_opened": false,
+    "original_empirical_result_refit": false,
+    "CI_or_p_value": false,
+    "diel_effect_identified": false,
+    "original_G4_passed": false,
+    "E5_qualified_candidate_count": 0
+  }
+}
