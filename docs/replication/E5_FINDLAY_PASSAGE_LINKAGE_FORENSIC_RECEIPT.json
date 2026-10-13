@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "route_id": "e5-findlay-postoutcome-record-linkage-forensic-v1",
+  "receipt_id": "e5-findlay-postoutcome-record-linkage-forensic-receipt-v1",
+  "status": "ROW_ORDER_AGREEMENT_NO_PASS_ID",
+  "recorded_date": "2026-10-13",
+  "provenance": {
+    "run_id": 38351094780,
+    "run_attempt": 1,
+    "job_id": 115143435624,
+    "marker_head_sha": "7a0c83918c82f04f648975e14fd1671bfa8be24a",
+    "parent_implementation_sha": "869f02335f0c2cba9f68a5fb361a71da1f6ae489",
+    "artifact_id": 11790294376,
+    "artifact_name": "e5-findlay-passage-linkage-forensic-38351094780",
+    "artifact_zip_sha256": "b052c1a0a46ad65d4fdc9ee7eaffe1c4fc29c8887ab6454ff03c3b535896e3b7",
+    "inner_result_json_sha256": "27eee40415de794f78c06e30086513ffd42ae7c89cdab6749c2707897ba8b5b1",
+    "source_repo": "melaniefindlay/CT-Detection",
+    "source_commit": "abc72f535bb59ebed202fb7acca852fc1647e97a",
+    "workflow_conclusion": "success"
+  },
+  "frozen_comparison": {
+    "trigger_csv_rows": 881,
+    "registration_csv_rows": 881,
+    "shared_covariate_fields": [
+      "SPECIES",
+      "CT.POS",
+      "ORIENT",
+      "DIST",
+      "LOIT",
+      "AIR"
+    ],
+    "same_row_order_shared_covariate_signatures": 881,
+    "same_row_order_trigger_flags": 881,
+    "unique_shared_covariate_fingerprint_pairs": 530,
+    "identical_but_ambiguous_duplicate_fingerprint_rows": 351,
+    "unmatched_trigger_covariate_rows": 0,
+    "unmatched_registration_covariate_rows": 0,
+    "permitted_shared_stable_pass_ID_columns_found": 0,
+    "internal_unique_passage_ID_linkage_verified": false
+  },
+  "interpretation": {
+    "original_trigger_registration_CSVs_strongly_consistent_with_common_row_order_source": true,
+    "independently_verified_unique_known_passage_identity": false,
+    "shared_fingerprint_uniqueness_is_not_verified_identity": true,
+    "count_alignment_and_row_order_are_stronger_support_than_count_alignment_alone": true,
+    "original_FOX_stage_descriptive_claim_promoted_to_confirmatory": false,
+    "original_FOX_compensation_values_unchanged": true,
+    "original_k4_and_k6_hypothetical_sensitivity_unchanged": true,
+    "actual_mismatch_k_observed_or_bounded": false,
+    "original_BADGER_far_cohort_count_mismatch_unchanged": true,
+    "no_new_detection_rates_estimated": true,
+    "no_geographic_transfer_or_diel_effect_test": true,
+    "original_E5_G4_passed": false,
+    "original_E5_qualified_candidates": 0,
+    "old_one_shot_repeated": false
+  },
+  "data_handling": {
+    "separate_explicitly_postoutcome_exploratory_two_CSV_scan": true,
+    "raw_pass_ID_values_uploaded": false,
+    "raw_row_fields_or_hashes_uploaded": false,
+    "old_Findlay_frozen_output_recomputed": false,
+    "model_fits": 0
+  }
+}
