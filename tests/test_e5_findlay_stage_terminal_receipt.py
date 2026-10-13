@@ -76,3 +76,23 @@ def test_original_E5_registry_unchanged():
            if x["candidate_id"]=="wolfson_wildpig_gps_camera_2015_2018")
     assert w["activity_anchor_route"]["empirical_outcome_status"]=="UNRESOLVED"
     assert w["activity_anchor_route"]["quality_status"]=="HOLD_SAMPLE_IDENTITY"
+
+def test_published_distance_eligibility_difference_is_caveated_without_refit():
+    # This proves a *possible* criterion difference, not that a released
+    # biological observation occurred below 1 m. Never open the raw CSV.
+    from scripts.run_e5_findlay_pass_stage_descriptive import distance_bin
+
+    assert distance_bin("0.5") == "near_le_1m"
+    assert distance_bin("1") == "near_le_1m"
+    assert distance_bin("0") is None
+    interpretation = (
+        ROOT / "docs" / "replication"
+        / "E5_FINDLAY_STAGE_TERMINAL_INTERPRETATION.md"
+    ).read_text(encoding="utf-8")
+    assert "excluding passes with animals less than 1 m" in interpretation
+    assert "Whether such records occurred" in interpretation
+    assert "no raw biological row was reopened" in interpretation
+    assert "exact replication of the publication" in interpretation
+    r = _read(RESULT)
+    assert r["gate_boundary"]["original_Findlay_one_shot_rerun"] is False
+    assert r["gate_boundary"]["original_standard_E5_G4_passed"] is False
