@@ -20,9 +20,12 @@ The repository name is historical/convenient. The project does **not** claim `ES
 
 ## Current scientific status
 
-The active empirical endpoint is now the separately named **E4 MICA exact-sparse
-programme**. The underlying process/state model is still the frozen **v0.4-R5b**
-generation; no new semi-synthetic rescue generation was introduced.
+The most recent **main ecological-model empirical fit** is the terminal **E4 MICA
+exact-sparse programme**. Subsequently, the independent **E5 activity-versus-detection
+evidence programme** tested whether camera observation can be separated from animal
+activity. E5 has **0/17 standard-qualified datasets**, and no claim of a second
+successful cross-geography E5 fit. The underlying process/state model remains the
+frozen **v0.4-R5b** generation; no semi-synthetic rescue generation was introduced.
 
 The empirical lineage is deliberately cumulative rather than rewritten:
 
@@ -97,6 +100,54 @@ See
 
 The earlier Snapshot Japan, E2, and E3 endpoints remain frozen historical outcomes; E4
 does not reopen or overwrite them.
+
+### E5 independent activity–detection evidence — bounded empirical results
+
+A follow-on programme examined whether a change in *observed* daily activity can
+be assigned to actual animal passage/activity rather than to camera trigger,
+registration, placement, exposure or observation-source effects. The empirical
+results are **distinct**, not estimates of one shared species/process effect:
+
+- **E4 MICA predictive transfer (the last main process-model fit):** activity
+  gain **−0.6391** heldout log score (physical-location resampling interval
+  **[−1.2594, −0.0187]**). The model's frozen activity term failed to transfer.
+  In the same camera network, **6/7 eligible nonfocal taxa** also showed a
+  reduced heldout night/day event-rate ratio. Neither result isolates causal
+  behavioral change or sensor detection.
+- **Wild-pig GPS/camera alternative route:** **6/8** geography-season point gains
+  positive, but median gain **+0.00788** with 95% bootstrap interval
+  **[−0.0502,+0.0312]** ⇒ **UNRESOLVED**. California summer `LocationName`
+  contained **434** values despite **48** reported cameras; the cluster
+  bootstrap remains under `HOLD_SAMPLE_IDENTITY`.
+- **Rhode Island paired cameras:** **2,982** valid deployment records and
+  operational paired overlap were established, but cameras roughly 50–100 m
+  apart lack verified shared-passage calibration. Under this released design,
+  the common diel activity × detection component remains **not identified**.
+  One spatially inconsistent site ID and the **249 published sites versus 264
+  coordinate-consistent IDs** add an independent quality limitation.
+- **Findlay continuous-CCTV donor:** the camera's **trigger given a known
+  passage** and **usable registration given trigger** can be measured
+  separately. In the **descriptive, previously published-direction** fox
+  near/far contrast, trigger rates were **62.5% / 26.86%** while conditional
+  registration was **34.55% / 57.45%**, and recorded/pass fell from
+  **21.59% to 15.43%**. A separate post-outcome audit found **881/881**
+  rows consistently ordered between the source stage tables, but no
+  independently documented unique passage identifier, no qualified
+  geographic transfer design and no authorized inferential CI.
+
+**Research conclusion:** We have evidence of *predictive non-generalization
+of a specified ecological activity term* and of *stage-dependent observation
+filtering in a separate CCTV-calibrated study*. We do **not** have evidence
+that detection caused the MICA transfer failure, nor an independent test
+demonstrating transferability of a diel detection correction. E5 original
+detection-identifiability gate G4 and full data qualification remain
+**unpassed (0/17)**. More semi-synthetic generations or same-one-shot
+reruns will not resolve the missing passage-reference information.
+
+See the [E4–E5 ecological evidence synthesis](docs/replication/E4_E5_ECOLOGICAL_EVIDENCE_SYNTHESIS.md)
+for the specific animal-behavior hypotheses, effect sizes, source receipts,
+limitations and a source-calibrated observational design needed for a genuine
+future geographic test.
 
 
 ### E4 MICA exact-sparse empirical endpoint — terminal exploratory result
