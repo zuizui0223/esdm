@@ -94,6 +94,7 @@ Do **not** promote this to a claim of causal behavior, E5 original G4 qualificat
 - E5 specification: [unchanged qualification contract](E5_INDEPENDENT_ACTIVITY_DETECTION_QUALIFICATION_CONTRACT.json); **0/17 full standard-qualified candidates**.
 
 All underlying one-shot outputs remain frozen, and there is no authorization in this synthesis for new biological value openings, model fitting or reruns.
+
 ## Follow-on descriptive diel-attribution frontier (2026-10-13)
 
 Using **only the frozen E4 post-result aggregate ratios**, the observed night/day contrast is 13.4048 in annotated training and 2.9645 in heldout D: a ratio-of-ratios of **0.22116**. Algebraically, this equals the cross-cohort *true reference-zone passage* diel-ratio change multiplied by the cross-cohort *effective observation* diel-ratio change. Their individual contributions are **not identified**. [The read-only scenario calculation](E4_E5_DIEL_ATTRIBUTION_FRONTIER.md) gives the exact counterfactual factor pairs and the missing known-pass calibration target; it introduces no model fit, independently estimated detection factor, causal claim or E5 G4 promotion.
