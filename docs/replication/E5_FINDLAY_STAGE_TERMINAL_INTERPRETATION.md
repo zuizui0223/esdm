@@ -41,3 +41,8 @@ Those last propositions are **mechanistic hypotheses** requiring new, jointly ob
 - This exact one-shot must not be rerun, and threshold/species selection must not be revised post-outcome. Any further data access for per-pass joining must be transparently labeled exploratory and must not retroactively validate this result.
 
 The strongest next ecological study is a geographically crossed *known-passage* camera dataset with a reliable per-pass ID, contemporaneous behavior (speed/distance/gait), stage-labeled trigger/registration, fixed settings and true exposure, rather than more uncalibrated paired-camera deployments.
+
+
+### Later source linkage QC (2026-10-13; separate post-outcome audit)
+
+The later one-shot [38351094780](https://github.com/zuizui0223/esdm/actions/runs/38351094780) found that all 881 records in the original TRIGGER and REGISTRATION CSVs align **in row order**, with matching shared passage covariates and TRIGGER flags. Exactly 530 shared attribute fingerprints were unique and 351 rows belonged to repeated fingerprint groups. No predeclared unique shared per-passage ID field was found. This strengthens source-level cohort correspondence beyond count matching, but **does not independently prove a unique CCTV passage mapping**; the stage probabilities remain retrospective/descriptive, the BADGER 16-versus-15 mismatch remains, and the original frozen stage result is not revised. See `E5_FINDLAY_PASSAGE_LINKAGE_FORENSIC_RECEIPT.json`.
