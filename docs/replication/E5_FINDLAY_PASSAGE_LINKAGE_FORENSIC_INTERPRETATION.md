@@ -25,7 +25,7 @@ It does **not** establish an independently verified, one-to-one passage identity
 
 The original frozen FOX rates remain a **descriptive** stage calculation: close (`<=1m`) trigger 55/88, registration 19/55; far (`>3m`) trigger 47/175, registration 27/47. Their composite per-pass rates remain 19/88 versus 27/175 *conditional on proper source passage correspondence*. The new 881-row order consistency makes that correspondence more plausible, without proving it through immutable per-pass IDs.
 
-The aggregate post-outcome (k\)-substitution sensitivity record remains valid **as a hypothetical stress test**, but the observed number or bound of linkage mismatches `k` remains unknown. The k=4 (composite reversal) and k=6 (registration reversal) thresholds have **not** been observed. The BADGER far 16-versus-15 eligible-trigger count discrepancy is not repaired or attributed to a specific passage.
+The aggregate post-outcome \`k\`-substitution sensitivity record remains valid **as a hypothetical stress test**, but the observed number or bound of linkage mismatches `k` remains unknown. The k=4 (composite reversal) and k=6 (registration reversal) thresholds have **not** been observed. The BADGER far 16-versus-15 eligible-trigger count discrepancy is not repaired or attributed to a specific passage.
 
 **No original Findlay result was reclassified.** No new biological response rate, ecological transfer performance, causality, confidence interval, diel correction, E5 G4 pass or qualified candidate is claimed. Original standard E5 remains **0/17 qualified**; wild-pig UNRESOLVED/QC HOLD and Rhode Island's G4 hard stop remain unchanged.
 
