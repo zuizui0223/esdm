@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "route_id": "e5-findlay-postoutcome-record-linkage-forensic-v1",
+  "contract_id": "e5-findlay-postoutcome-record-linkage-forensic-v1",
+  "contract_blob_sha": "e04860c2a93d1cd69a9aacf2b4e5812a85543570",
+  "implementation_parent_sha": "869f02335f0c2cba9f68a5fb361a71da1f6ae489",
+  "one_shot": true,
+  "postoutcome_exploratory_record_linkage_read_authorized": true,
+  "original_Findlay_one_shot_rerun_authorized": false,
+  "model_fitting_authorized": false,
+  "original_E5_G4_reclassification_authorized": false,
+  "effect_threshold_selection_authorized": false,
+  "raw_row_upload_authorized": false,
+  "authorized_date": "2026-10-13"
+}
