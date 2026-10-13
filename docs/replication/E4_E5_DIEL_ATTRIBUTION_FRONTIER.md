@@ -19,7 +19,7 @@ For regime `r`, diel bin `t` and known reference-zone passes, define recorded ev
 
 `Y[r,t] / E[r,t] = A[r,t] * D[r,t]`.
 
-`A` denotes the **effort-weighted intensity of actual animal passage within the reference zone**, *not* regional population density; `D` denotes the **passage-weighted probability of producing the observation endpoint**, including passage composition, trigger, registration and annotation. At an aggregated regime/bin level, the identity remains exact when `D` is weighted by the actual passes contributing to `A`; it is not generally a product of unweighted averages over cameras.
+`A` denotes the **effort-weighted intensity of actual animal passage within the reference zone**, *not* regional population density; `D` denotes the **effective recorded-event yield per actual passage**, accounting for passage composition, trigger, registration, annotation and event-unit definition. Only under verified one-pass/at-most-one-record correspondence without extraneous events could `D` be interpreted as a probability. **That correspondence is unverified for E4**: here `D` is a constructed accounting term, not a measured camera sensitivity. At an aggregated regime/bin level, the identity remains exact by defining `D = (Y/E)/A` whenever `A>0`, with passage-weighted aggregation where meaningful; it is not a product of unweighted camera averages.
 
 Let `R_obs,r`, `R_pass,r`, `R_det,r` be the night/day ratios of the respective quantities, and let `P = R_pass,heldout / R_pass,training` and `Q = R_det,heldout / R_det,training`. Then
 
