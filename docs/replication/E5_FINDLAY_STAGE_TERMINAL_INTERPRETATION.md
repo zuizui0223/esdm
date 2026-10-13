@@ -46,3 +46,9 @@ The strongest next ecological study is a geographically crossed *known-passage* 
 ### Later source linkage QC (2026-10-13; separate post-outcome audit)
 
 The later one-shot [38351094780](https://github.com/zuizui0223/esdm/actions/runs/38351094780) found that all 881 records in the original TRIGGER and REGISTRATION CSVs align **in row order**, with matching shared passage covariates and TRIGGER flags. Exactly 530 shared attribute fingerprints were unique and 351 rows belonged to repeated fingerprint groups. No predeclared unique shared per-passage ID field was found. This strengthens source-level cohort correspondence beyond count matching, but **does not independently prove a unique CCTV passage mapping**; the stage probabilities remain retrospective/descriptive, the BADGER 16-versus-15 mismatch remains, and the original frozen stage result is not revised. See `E5_FINDLAY_PASSAGE_LINKAGE_FORENSIC_RECEIPT.json`.
+
+### Later aggregate/code-level reconciliation of BADGER attrition (2026-10-13)
+
+The separate [frozen-receipt/source-code audit](E5_FINDLAY_BADGER_FAR_ATTRITION_AUDIT.md) found that the **sole** BADGER far-bin eligible-count gap (16 triggered CCTV passages vs 15 registration-eligible entries) is exactly accounted for by the single `invalid_capture` exclusion already recorded by the original ESDM parser. All other five predefined species × distance cells have zero count gap, and both published source exports retain the same row-order shared attributes and `TRIGGER` flags. The original authors' R script conditions on `TRIGGER=1` before applying `na.omit()` to registration.
+
+This is a **proximate pipeline-level** explanation, not a determination of why the `CAPTURE` value was missing/non-binary, not an independently verified unique per-CCTV-passage match, and **not a retroactive repair**. Frozen BADGER `COHORT_NONCOMPARABLE`, FOX descriptive-only status, and E5 G4 failure all remain unchanged.
