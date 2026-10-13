@@ -34,3 +34,6 @@ No source CSV was opened, no frozen run was repeated, and the original
 Findlay count-aligned descriptive result is unchanged. E5 original
 qualification is still 0/17; G4 unpassed. Wolfson UNRESOLVED/QC HOLD
 and Rhode Island original G4 hard stop remain unchanged.
+
+
+**Later row-order evidence, without sensitivity rescue:** A separate audit on 2026-10-13 found matching row order, shared covariate signatures and TRIGGER flags for all 881 rows in both source CSVs; see `E5_FINDLAY_PASSAGE_LINKAGE_FORENSIC_RECEIPT.json`. This is stronger empirical support for common-source export than mere bin counts but does not establish an independent unique passage ID. The k=4 and k=6 thresholds here remain *hypothetical robustness scenarios*, not observed mismatch counts or a reason to revise the immutable descriptive outcome.
