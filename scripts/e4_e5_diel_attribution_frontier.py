@@ -29,9 +29,10 @@ def attribution_frontier(
 ) -> dict:
     """Compute passage-by-detection factorizations of an observed ratio change.
 
-    R_obs,r = R_pass,r * R_det,r, with both factors defined for the *same*
-    effort-weighted aggregate r. Between regimes C = P * Q. The input Q
-    scenarios are hypothetical, not measured detection corrections.
+    R_obs,r = R_pass,r * R_det,r for the *same* effort-weighted cohort,
+    where R_det is a constructed effective recorded-event-yield factor, NOT
+    independently measured per-pass detection in E4. Between regimes C=P*Q.
+    All Q scenarios are hypothetical, not calibrated corrections.
     """
     ratios = (float(training_observed_night_day), float(heldout_observed_night_day))
     qs = tuple(float(x) for x in relative_detection_diel_changes)
