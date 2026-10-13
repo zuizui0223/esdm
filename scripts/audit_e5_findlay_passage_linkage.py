@@ -29,7 +29,7 @@ PASS_IDS=("PASS.ID","PASSAGE.ID","EVENT.ID","RECORD.ID","CCTV.PASS.ID",
 
 
 def blob_sha(blob:bytes)->str:
-    return hashlib.sha1(b"blob "+str(len(blob)).encode()+b"\\0"+blob).hexdigest()
+    return hashlib.sha1(b"blob "+str(len(blob)).encode()+b"\0"+blob).hexdigest()
 
 
 def pinned_download(spec:dict)->bytes:
@@ -240,7 +240,7 @@ def main()->int:
     inputs={spec["name"]:pinned_download(spec) for spec in contract["source"]["files"]}
     out=audit(contract,inputs)
     args.out.parent.mkdir(parents=True,exist_ok=True)
-    args.out.write_text(json.dumps(out,indent=2,sort_keys=True)+"\\n",encoding="utf-8")
+    args.out.write_text(json.dumps(out,indent=2,sort_keys=True)+"\n",encoding="utf-8")
     return 0
 
 
