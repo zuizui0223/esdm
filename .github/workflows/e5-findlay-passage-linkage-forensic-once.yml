@@ -1,0 +1,102 @@
+name: E5 Findlay post-outcome passage-linkage forensic once
+
+concurrency:
+  group: e5-findlay-passage-linkage-forensic-once
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - e5/findlay-passage-linkage-audit-once-v1
+    paths:
+      - 'docs/replication/E5_FINDLAY_LINKAGE_AUDIT_AUTHORIZED.json'
+
+permissions:
+  contents: read
+
+jobs:
+  forensic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Enforce exact pure-marker authorization and frozen source
+        run: |
+          python - <<'PY'
+          import json,subprocess
+          from pathlib import Path
+          marker_path=Path("docs/replication/E5_FINDLAY_LINKAGE_AUDIT_AUTHORIZED.json")
+          contract_path=Path("docs/replication/E5_FINDLAY_PASSAGE_LINKAGE_AUDIT_CONTRACT.json")
+          marker=json.loads(marker_path.read_text(encoding="utf-8"))
+          contract=json.loads(contract_path.read_text(encoding="utf-8"))
+          parent=subprocess.check_output(["git","rev-parse","HEAD^"],text=True).strip()
+          changed=subprocess.check_output(
+              ["git","diff-tree","--no-commit-id","--name-only","-r","HEAD"],
+              text=True
+          ).splitlines()
+          blob=subprocess.check_output(["git","hash-object",str(contract_path)],text=True).strip()
+          assert changed==[str(marker_path)],"authorization commit must change only marker"
+          assert marker["implementation_parent_sha"]==parent
+          assert marker["contract_id"]=="e5-findlay-postoutcome-record-linkage-forensic-v1"
+          assert marker["contract_blob_sha"]=="e04860c2a93d1cd69a9aacf2b4e5812a85543570"
+          assert blob==marker["contract_blob_sha"]
+          assert contract["status"]=="FROZEN_POSTOUTCOME_EXPLORATORY_NOT_AUTHORIZED"
+          assert marker["one_shot"] is True
+          assert marker["postoutcome_exploratory_record_linkage_read_authorized"] is True
+          for key in (
+              "original_Findlay_one_shot_rerun_authorized",
+              "model_fitting_authorized",
+              "original_E5_G4_reclassification_authorized",
+              "effect_threshold_selection_authorized",
+              "raw_row_upload_authorized",
+          ):
+              assert marker[key] is False,key
+          PY
+
+      - name: Check Python source can compile without empirical rows
+        run: python -m py_compile scripts/audit_e5_findlay_passage_linkage.py
+
+      - name: Inspect exactly two frozen CSVs for passage linkage only
+        run: |
+          mkdir -p build/public
+          python scripts/audit_e5_findlay_passage_linkage.py \
+            --contract docs/replication/E5_FINDLAY_PASSAGE_LINKAGE_AUDIT_CONTRACT.json \
+            --out build/public/E5_FINDLAY_PASSAGE_LINKAGE_QC.json
+
+      - name: Confirm result has no raw identities and cannot promote old E5
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path("build/public/E5_FINDLAY_PASSAGE_LINKAGE_QC.json").read_text(encoding="utf-8"))
+          assert r["route_id"]=="e5-findlay-postoutcome-record-linkage-forensic-v1"
+          d=r["decision"]
+          assert d["original_FOX_stage_effect_unchanged"] is True
+          assert d["original_BADGER_count_mismatch_not_repaired"] is True
+          assert d["original_Findlay_one_shot_rerun"] is False
+          assert d["original_G4_passed"] is False
+          assert d["original_E5_qualified"] is False
+          assert d["new_biological_result_fitted"] is False
+          assert d["CCTV_known_passage_diel_calibration_proven"] is False
+          assert d["original_stage_receipt_must_not_be_reclassified"] is True
+          f=r["response_firewall"]
+          assert f["two_pinned_biological_CSVs_opened_under_separate_exploratory_route"]==2
+          assert f["raw_passage_ID_values_or_fingerprints_uploaded"] is False
+          assert f["raw_rows_or_date_values_uploaded"] is False
+          assert f["new_rates_or_effect_directions_computed"] is False
+          assert f["model_fits"]==0
+          PY
+
+      - name: Upload aggregate-only identity forensic artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: e5-findlay-passage-linkage-forensic-${{ github.run_id }}
+          path: build/public/E5_FINDLAY_PASSAGE_LINKAGE_QC.json
+          if-no-files-found: error
+          retention-days: 90
