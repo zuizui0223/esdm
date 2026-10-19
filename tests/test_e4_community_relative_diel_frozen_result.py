@@ -64,9 +64,9 @@ def test_shared_site_reversal_is_separated_under_all_one_site_deletions():
     assert (west["sites_with_both_species"], east["sites_with_both_species"]) == (20, 8)
     assert (west["loo_valid_contrasts"], east["loo_valid_contrasts"]) == (20, 8)
     assert west["loo_max"] < 1 < east["loo_min"]
-    assert west["recorded_muskrat_events_in_shared_sites"] == 1337
-    assert east["recorded_muskrat_events_in_shared_sites"] == 5091
-    assert east["recorded_rat_events_in_shared_sites"] == 1772
+    assert west["muskrat_records_in_shared_sites"] == 1337
+    assert east["muskrat_records_in_shared_sites"] == 5091
+    assert east["rat_records_in_shared_sites"] == 1772
     assert 0 < west["mh_rat_over_muskrat_diel_odds"] < 1
     assert east["mh_rat_over_muskrat_diel_odds"] > 1
     assert math.isclose(
