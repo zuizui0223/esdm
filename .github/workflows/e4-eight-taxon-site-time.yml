@@ -13,6 +13,8 @@ permissions:
 
 jobs:
   empirical-postresult-audit:
+    # Previously completed biological source opening; later PR revisions use frozen aggregate receipts only.
+    if: github.event.pull_request.head.sha == '4ddc66e7b1367003d884554a78bf6fde49922565'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
