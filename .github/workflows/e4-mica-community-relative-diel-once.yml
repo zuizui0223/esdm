@@ -21,7 +21,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install eSDM
-        run: python -m pip install -e .
+        run: python -m pip install -e . 'pytest>=8'
       - name: Verify static audit and test contracts
         run: |
           python -m py_compile scripts/audit_e4_community_relative_diel.py
