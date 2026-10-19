@@ -1,0 +1,59 @@
+name: E6 independent SNAPSHOT USA metadata audit
+
+# Public metadata are accessible; file bodies return HTTP 401 without OAuth.
+# Do not automatically replay the same failed anonymous transport.
+# This workflow may be manually invoked only after authorized source access
+# and provenance have been made available through GitHub's secret controls.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  metadata-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test frozen response-blind schema and geometry logic
+        run: |
+          python -m compileall -q scripts/e6_snapshot_deployment_geometry.py
+          python -m unittest discover -s tests -p test_e6_snapshot_deployment_geometry.py -v
+      - name: Download ONLY published deployment metadata
+        env:
+          DRYAD_API_TOKEN: ${{ secrets.DRYAD_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${DRYAD_API_TOKEN}" ]; then
+            echo "::error::Dryad file access requires GitHub secret DRYAD_API_TOKEN; see E6_SNAPSHOT_DRYAD_TRANSPORT_STOP.md"
+            exit 4
+          fi
+          mkdir -p source/e6
+          curl --fail --location --retry 3 --connect-timeout 30 --max-time 300 --header "Authorization: Bearer ${DRYAD_API_TOKEN}" \
+            -o source/e6/ssusa_finaldeployments.csv \
+            https://datadryad.org/api/v2/files/4016828/download
+          curl --fail --location --retry 3 --connect-timeout 30 --max-time 300 --header "Authorization: Bearer ${DRYAD_API_TOKEN}" \
+            -o source/e6/ssusa_2024_deployments.csv \
+            https://datadryad.org/api/v2/files/4788613/download
+          printf '%s\n' \
+            '9e837bba556de86af5934abcb5d8a487206df2b340a8b28fa8cc135c7bb7ec56  source/e6/ssusa_finaldeployments.csv' \
+            'b742e8789fa18c83713f2dec76e342857c122c012ee464db5563f3b06d29970d  source/e6/ssusa_2024_deployments.csv' \
+            | sha256sum --check
+      - name: Inspect metadata/year/development/geography WITHOUT species responses
+        run: |
+          mkdir -p build/e6
+          python scripts/e6_snapshot_deployment_geometry.py \
+            --historical-deployments source/e6/ssusa_finaldeployments.csv \
+            --holdout-deployments source/e6/ssusa_2024_deployments.csv \
+            --output build/e6/E6_SNAPSHOT_RESPONSE_BLIND_METADATA_RESULT.json
+      - name: Export metadata-only receipt (NO sequence file downloaded)
+        uses: actions/upload-artifact@v4
+        with:
+          name: e6-snapshot-response-blind-geometry-${{ github.run_id }}
+          path: build/e6/E6_SNAPSHOT_RESPONSE_BLIND_METADATA_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
