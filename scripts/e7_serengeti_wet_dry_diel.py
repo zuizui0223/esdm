@@ -9,6 +9,7 @@ Output contains aggregate category, period and support summaries only.
 from __future__ import annotations
 
 import argparse
+import gc
 from collections import Counter, defaultdict
 from datetime import datetime
 import hashlib
@@ -19,7 +20,6 @@ from pathlib import Path
 import re
 import zipfile
 
-import ijson
 
 DISCOVERY = tuple(range(1, 6))
 VALIDATION = tuple(range(6, 12))
@@ -99,9 +99,15 @@ def parse_season(path: Path, season: int, counts: Counter, occupancy: dict,
         raise ValueError("not a downloaded metadata ZIP")
     with zipfile.ZipFile(path) as archive:
         member = _member(archive)
+        # LILA COCO JSON contains nonstandard bare NaN values in optional
+        # consensus count/behavior fields; the default streaming JSON parser
+        # refuses them. The standard-library decoder accepts these tokens.
+        # They are normalized to None and NEVER used in the diel analysis.
+        with archive.open(member) as handle:
+            doc = json.load(handle, parse_constant=lambda _: None)
         with archive.open(member) as f:
             category_ids = {}
-            for c in ijson.items(f, "categories.item"):
+            for c in doc["categories"]:
                 category_ids[str(c["id"])] = normal_name(c.get("name", ""))
         if len(category_ids) < 10:
             raise ValueError("unexpectedly sparse COCO categories")
@@ -109,7 +115,7 @@ def parse_season(path: Path, season: int, counts: Counter, occupancy: dict,
         seq_meta = {}
         conflicts = set()
         with archive.open(member) as f:
-            for img in ijson.items(f, "images.item"):
+            for img in doc["images"]:
                 qc["images"] += 1
                 imageid, seq = str(img.get("id", "")), str(img.get("seq_id", ""))
                 loc, date_text = str(img.get("location","")), str(img.get("datetime",""))
@@ -132,10 +138,12 @@ def parse_season(path: Path, season: int, counts: Counter, occupancy: dict,
                 elif stamp < old[1]:
                     seq_meta[seq] = (loc, stamp)
         qc["distinct_sequences_with_image_metadata"] = len(seq_meta)
+        doc.pop("images", None)
+        gc.collect()
         qc["conflicting_sequence_locations"] = len(conflicts)
         seen = set()
         with archive.open(member) as f:
-            for item in ijson.items(f, "annotations.item"):
+            for item in doc["annotations"]:
                 qc["annotations"] += 1
                 name = category_ids.get(str(item.get("category_id", "")))
                 if name is None:
@@ -166,6 +174,8 @@ def parse_season(path: Path, season: int, counts: Counter, occupancy: dict,
                 counts[(loc, hydro, phase, name, clock)] += 1
                 folder_support[(loc, hydro, phase)].add(season)
                 qc["valid_focal_hour_sequences"] += 1
+    del doc
+    gc.collect()
     qc["collection_season"] = season
     return dict(qc)
 
