@@ -45,7 +45,7 @@ jobs:
             '2868d5d33358160ca2c0859c4ea4de1cf3c981f8930ec594cf33cad974814f2f  source/e7/SnapshotSerengetiS08.json.zip' \
             '9c0754681c4f926a45e3225e7a33b29ebe1688c41323feb3d6084fc4ed7477fd  source/e7/SnapshotSerengetiS09.json.zip' \
             '8e0021a537e64d85275ae6074910c4664c2f4e226c6be4c47a885b02ed1b049b  source/e7/SnapshotSerengetiS10.json.zip' \
-            '57b4618eee202f0ab1a4f64dfed78f17fa6d9631c0a815d9fa4252079614f3d7  source/e7/SnapshotSerengetiS11.json.zip'
+            '57b4618eee202f0ab1a4f64dfed78f17fa6d9631c0a815d9fa4252079614f3d7  source/e7/SnapshotSerengetiS11.json.zip' \
             | sha256sum --check
       - name: Transparently repaired initial E7 source-format biological analysis
         run: |
