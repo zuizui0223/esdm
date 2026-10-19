@@ -217,12 +217,8 @@ def load_events(path: Path, cohort: str, deployments: dict) -> tuple[dict, dict,
     return counts, occupancy, {**qc, "distinct_retained_taxa": len(occupancy), "taxa_sites": {s:len(v) for s,v in species_sites.items()}}
 
 
-def fixed_top_taxa(occupancy: dict, site_counts: dict) -> list[str]:
-    """Ranks by historical array-year frequency, then site-year, then name."""
-    site_presence = Counter()
-    for site, species in site_counts.items():
-        for name in species:
-            site_presence[name] += 1
+def fixed_top_taxa(occupancy: dict, site_presence: dict) -> list[str]:
+    """Ranks by full-day historical array-year frequency and site-year, then name."""
     ranked = sorted(
         occupancy, key=lambda name: (-len(occupancy[name]), -site_presence[name], name)
     )
@@ -352,7 +348,7 @@ def audit(history_deploy: Path, history_sequences: Path,
     hist, hist_meta_qc = load_deployments(history_deploy, "history")
     hold, hold_meta_qc = load_deployments(holdout_deploy, "holdout_2024")
     events_h, occupancy, h_qc = load_events(history_sequences, "history", hist)
-    roster = fixed_top_taxa(occupancy, events_h)
+    roster = fixed_top_taxa(occupancy, h_qc['taxa_sites'])
     if len(roster) < 2:
         raise ValueError("too few historically supported species to define panel")
     result_h = summarize_pairs(events_h, hist, roster)
