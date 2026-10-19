@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "programme_id": "E7_SERENGETI_WET_DRY_COMMUNITY",
+  "status": "RESPONSE_BLIND_HEAD_PASS",
+  "verified_date": "2026-10-19",
+  "provenance": {
+    "run_id": 39219387725,
+    "head_sha": "12e30b8d93871a52c72e8e54ef170c5b06f05dda",
+    "workflow_conclusion": "success",
+    "artifact_id": 12170404907,
+    "artifact_sha256": "e37fe98f446e7e0e61ffb521564baf453d8ada5dae7d63bd17f449852a7eecdb"
+  },
+  "source": "https://lila.science/datasets/snapshot-serengeti",
+  "checked": {
+    "S01": {
+      "http_status": 200,
+      "content_length_bytes": 19016457,
+      "etag": "0x8DC62E1123D9B03"
+    },
+    "S06": {
+      "http_status": 200,
+      "content_length_bytes": 22187437,
+      "etag": "0x8DC6198483DF4E1"
+    },
+    "S11": {
+      "http_status": 200,
+      "content_length_bytes": 24463908,
+      "etag": "0x8DC62B2A81EBCEA"
+    }
+  },
+  "scope": {
+    "probed_seasons": [
+      1,
+      6,
+      11
+    ],
+    "total_requested_seasons": 11,
+    "animal_label_records_read": 0,
+    "metadata_body_bytes_read": 0,
+    "source_sha256_pinned_for_all_11": false,
+    "full_empirical_workflow_created": true
+  },
+  "interpretation": {
+    "anonymous_LILA_HEAD_access_verified": true,
+    "all_11_downloads_verified": false,
+    "biological_result_available": false,
+    "original_E4_fit_modified": false,
+    "original_E5_G4_passed": false
+  }
+}
