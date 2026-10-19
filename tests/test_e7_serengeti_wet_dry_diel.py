@@ -53,7 +53,7 @@ class E7Tests(unittest.TestCase):
                     for frame in (1,2,3):
                         n+=1
                         images.append({"id":f"i{n}","seq_id":seq,"location":"C14","datetime":dt})
-                        annotations.append({"id":n,"image_id":f"i{n}","category_id":cat})
+                        annotations.append({"id":n,"image_id":f"i{n}","category_id":cat,"count":float("nan")})
             doc={"info":{"version":"2.0"},"categories":categories,"images":images,"annotations":annotations}
             with zipfile.ZipFile(archive,"w",compression=zipfile.ZIP_DEFLATED) as z:
                 z.writestr("sample.json",json.dumps(doc))
