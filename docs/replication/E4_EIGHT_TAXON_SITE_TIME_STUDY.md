@@ -39,3 +39,45 @@ Site grouping reduces some location/season composition bias but **does not** mat
 - A later independent dataset must couple year-round shared-site physical replication to passage-reference/taxon-specific camera calibration and crossed geographic/source design before inferring true temporal niche mechanisms.
 
 Related existing results: [frozen E4 cross-taxon receipt](E4_MICA_POSTRESULT_CROSS_TAXON_DIEL_SUPPLEMENT.json), [rodent shared-camera-site audit](E4_COMMUNITY_RELATIVE_DIEL_RESULT_RECEIPT.json), and [E4–E5 evidence limits](E4_E5_ECOLOGICAL_EVIDENCE_SYNTHESIS.md). This independent analysis has **no new biological result at the time of freezing these fixed rules**.
+
+
+---
+
+## Completed independent site–time diagnostic (post-outcome, 2026-10-19)
+
+The already-specified audit [GitHub Actions run 39208596309](https://github.com/zuizui0223/esdm/actions/runs/39208596309) succeeded after **7 synthetic contract tests passed**, using the SHA256-pinned original MICA archive and the original eight-taxon event counts. It introduced no model fit and exported no event-level rows or camera names. Original aggregate result ZIP: artifact **12167010654**, SHA256 `bbbdf19749f1551f5105f8d4ae7cbddb68cc88dd3e08f65ae0dc65f921190748`. See the [frozen result receipt](E4_EIGHT_TAXON_SITE_TIME_RESULT_RECEIPT.json) and the [complete fixed 56-row output](E4_EIGHT_TAXON_SITE_TIME_ALL_PAIRS.csv), which includes nonestimable pairs rather than selectively omitting them.
+
+| Full eight-taxon fixed-pair comparison | Site × season | Site × calendar year-month |
+|---|---:|---:|
+| Possible pairs | 28 | 28 |
+| Data-qualified pair contrasts | **15/28** | **12/28** |
+| Pairs crossing species-relative recorded diel odds = 1 | **5** | **3** |
+| Reversals with fully separated leave-one-physical-site-out ranges | **2** | **1** |
+| Unestimable pair contrasts | **13** | **16** |
+
+### Fixed rodent pair: reversal retained under both temporal controls
+
+For `Rattus norvegicus` **relative to** `Ondatra zibethicus`:
+
+| Descriptive site-time-adjusted measure | Annotated training | Heldout D | Cross-domain ratio |
+|---|---:|---:|---:|
+| Rat/muskrat odds, site × season | **0.67033** (16 sites) | **4.51466** (8 sites) | **6.73495×** |
+| Rat/muskrat odds, site × year-month | **0.65377** (14 sites) | **6.35765** (8 sites) | **9.72464×** |
+
+Both reversals survive deletion of any individual informative physical site **within each cohort**. These are not two independent replications: they reuse the same observed E4 network with distinct time-stratum definitions and different subsets of informative sites. Their changes from the earlier 8.706× site-only ratio should **not** be construed as effect-size improvements produced by the adjustment.
+
+**Substantive ecological-pattern finding:** the relative *recorded* night/day timing of these two rodents changes across the observed camera-network regimes even after controlling for whether the two species share a physical camera location and a calendar season, or the same site/year-month. Consequently unequal seasonal mixtures and disjoint recorded physical camera locations alone are insufficient explanations *within these summaries*. This does **not** exclude taxon-specific sensor detection, within-camera microhabitat-use differences, site-heterogeneous weighting, or geographic/source protocol confounding.
+
+### Second inversion: two waterbirds, weaker temporal robustness
+
+The `Fulica atra` / `Gallinula chloropus` recorded-diel pair reverses under site×season control: **1.38066 → 0.77188** (20 vs 7 informative sites). Both ranges from leave-one-site deletion stay on opposite sides of one (training **1.25406–1.64405**; D **0.71609–0.85552**).
+
+Under finer site×year-month control, the descriptive point estimates remain on opposite sides of one (**1.26919 → 0.86640**, 17 vs 5 informative sites), but **the D leave-one-site-out interval-like sensitivity range crosses one** (0.81113–1.20090). Thus this pair is **not** robust at the finer time resolution; do not collapse the 2 season-level reversals into 2 reliable monthly reversals.
+
+The other 3 season-level and 2 month-level reversals did not satisfy the declared leave-one-site robustness criterion; all are shown in the pair matrix. These are descriptive post-selection contrasts, not statistically controlled multiple comparisons.
+
+### Meaning and next scientific step
+
+The new positive empirical insight is **heterogeneous relative daily observation profiles within a recorded multispecies assemblage**, not merely the failure of a muskrat predictive activity term. A taxon-common within-site/time detection factor would cancel from an individual 2×2 species-relative odds, but **that common-factor assumption is untested**, and the Mantel–Haenszel mean itself can change through site weighting in heterogeneous contexts. We cannot claim actual species behavioral niche movement, competition, a general law of animal communities, or a second geographically independent validation. Original E4 and E5 status stays unchanged (E5 0/17 standard-qualified).
+
+A test of **true ecological temporal partitioning** should collect independent known-passage/video denominators or matched taxon-specific sensor calibration at simultaneous year-round multispecies sites, use crossed geography/sensor source, and prespecify community-relative and taxon-specific diel contrasts. In independent data, the *observable claim* to examine prospectively is whether the same rodent relative timing shift appears after controlling for site and month; the *causal mechanism* requires new calibration.
