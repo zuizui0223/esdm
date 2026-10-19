@@ -12,6 +12,8 @@ permissions:
 
 jobs:
   independent-exploratory-empirical:
+    # Biological source may be opened only at this frozen one-shot commit.
+    if: github.event.pull_request.head.sha == 'd2af6528a25ab4ffd131e3eee9e41160bcc607a5'
     runs-on: ubuntu-latest
     timeout-minutes: 55
     steps:
