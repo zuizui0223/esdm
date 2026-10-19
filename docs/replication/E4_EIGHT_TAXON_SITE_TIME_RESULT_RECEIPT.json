@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "programme_id": "E4_MICA_POSTRESULT_EIGHT_TAXON_SITE_TIME",
+  "receipt_id": "e4-eight-taxon-site-time-frozen-descriptive-2026-10-19",
+  "analysis_status": "POSTRESULT_OUTCOME_SELECTED_EIGHT_TAXON_COMMUNITY_AUDIT",
+  "recorded_date": "2026-10-19",
+  "provenance": {
+    "workflow_run_id": 39208596309,
+    "workflow_head_sha": "4ddc66e7b1367003d884554a78bf6fde49922565",
+    "workflow_attempt": 1,
+    "workflow_conclusion": "success",
+    "unit_tests_passed_before_response": 7,
+    "artifact_id": 12167010654,
+    "artifact_name": "e4-eight-taxon-site-time-39208596309",
+    "artifact_zip_sha256": "bbbdf19749f1551f5105f8d4ae7cbddb68cc88dd3e08f65ae0dc65f921190748",
+    "original_e2_capture_run_id": 36369531079,
+    "original_mica_archive_sha256": "8346f3fe467a201525d6bedd4ebd6e2078457ee8bb778501d41d55ace7d962c9",
+    "prior_cross_taxon_receipt": "E4_MICA_POSTRESULT_CROSS_TAXON_DIEL_SUPPLEMENT.json",
+    "prior_rodent_site_only_receipt": "E4_COMMUNITY_RELATIVE_DIEL_RESULT_RECEIPT.json",
+    "all_pairs_file": "E4_EIGHT_TAXON_SITE_TIME_ALL_PAIRS.csv",
+    "frozen_design": "E4_EIGHT_TAXON_SITE_TIME_STUDY.md"
+  },
+  "cohort_geometry": {
+    "training_annotated_deployments": 266,
+    "heldout_D_deployments": 164,
+    "fixed_taxa": 8,
+    "fixed_taxon_pairs": 28
+  },
+  "eligibility": {
+    "min_independent_physical_sites": 3,
+    "min_informative_site_time_tables": 4,
+    "min_distinct_time_bins": 2,
+    "pseudocounts_used": false,
+    "show_insufficient_pairs": true
+  },
+  "primary_site_season": {
+    "all_possible_pairs": 28,
+    "comparable_pairs": 15,
+    "observed_pairwise_reversals": 5,
+    "leave_one_site_stable_reversals": 2,
+    "rat_vs_muskrat": {
+      "training_odds": 0.67033275799478,
+      "heldout_D_odds": 4.514657454720875,
+      "D_over_train_ratio": 6.734949770657086,
+      "informative_sites_training": 16,
+      "informative_sites_heldout": 8,
+      "LOO_robust": true
+    },
+    "leave_one_site_stable_pair_species_1_vs_species_2": [
+      {
+        "species_1": "Fulica atra",
+        "species_2": "Gallinula chloropus",
+        "training_odds": 1.3806642402222384,
+        "D_odds": 0.7718826211327149,
+        "informative_sites_training": 20,
+        "informative_sites_D": 7,
+        "train_LOO_range": [
+          1.254058490429015,
+          1.6440542609530466
+        ],
+        "D_LOO_range": [
+          0.716092839922395,
+          0.8555170604043194
+        ]
+      },
+      {
+        "species_1": "Ondatra zibethicus",
+        "species_2": "Rattus norvegicus",
+        "training_odds": 1.491796407192422,
+        "D_odds": 0.22150074729464195,
+        "informative_sites_training": 16,
+        "informative_sites_D": 8,
+        "train_LOO_range": [
+          1.3149354557353776,
+          1.6469737234925366
+        ],
+        "D_LOO_range": [
+          0.1978552653363207,
+          0.2705544535278867
+        ]
+      }
+    ]
+  },
+  "sensitivity_site_yearmonth": {
+    "all_possible_pairs": 28,
+    "comparable_pairs": 12,
+    "observed_pairwise_reversals": 3,
+    "leave_one_site_stable_reversals": 1,
+    "rat_vs_muskrat": {
+      "training_odds": 0.6537663967071111,
+      "heldout_D_odds": 6.357645040012318,
+      "D_over_train_ratio": 9.72464334666708,
+      "informative_sites_training": 14,
+      "informative_sites_D": 8,
+      "LOO_robust": true
+    },
+    "stable_species_1_vs_species_2": [
+      "Ondatra zibethicus",
+      "Rattus norvegicus"
+    ],
+    "stable_rodent_inverted_orientation_LOO": {
+      "train_Ondatra_over_Rattus": [
+        1.3527122811861347,
+        1.7248675329789012
+      ],
+      "D_Ondatra_over_Rattus": [
+        0.13261867451364517,
+        0.19300960335410855
+      ]
+    },
+    "waterbird_pair_note": "Fulica vs Gallinula remains directionally reversed at the point estimates (1.269 vs 0.866) but fails single-location deletion robustness (heldout leave-one-site maximum 1.201); do not claim it survives monthly sensitivity."
+  },
+  "inferential_bounds": {
+    "taxon_roster_and_rat_pair_selected_after_earlier_outcomes": true,
+    "all_28_pairs_reported_for_both_controls": true,
+    "metric": "descriptive site×time Mantel–Haenszel record-based species-relative night/day odds",
+    "site_source_geography_fully_crossed": false,
+    "independent_known_passage_denominator_available": false,
+    "species_specific_detection_calibrated": false,
+    "infer_true_species_activity_or_competition": false,
+    "represent_community_wide_universal_reversal": false,
+    "event_level_CI_or_pvalues_computed": false,
+    "original_E4_fit_rerun": false,
+    "original_E5_qualified_candidates": 0,
+    "original_E5_G4_passed": false
+  }
+}
