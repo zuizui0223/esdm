@@ -23,7 +23,7 @@ The relative **detected** night/day odds, rat divided by muskrat, are
 
 `OR_D / OR_train = 9.59837274` (log shift `+2.26159358`).
 
-Thus a **rank-order reversal in the observed aggregate community relative diel profile** is present in the fixed archived result: rat records are relatively less nocturnally skewed than muskrat in annotated training, and relatively more nocturnally skewed in heldout D. Six of the seven other eligible nonfocal taxa have negative diel ratio shifts (rat is the only positive case among all eight). These are observed record patterns, not estimates of underlying passage timing.
+Thus a **rank-order reversal in the observed aggregate community relative diel profile** is present in the fixed archived result: rat records are relatively less nocturnally skewed than muskrat in annotated training, and relatively more nocturnally skewed in heldout D. The other six nonfocal taxa and the focal muskrat have negative diel ratio shifts (rat is the only positive case among all eight). These are observed record patterns, not estimates of underlying passage timing.
 
 ## Why this is not only the preceding detection-failure story
 
@@ -48,7 +48,7 @@ The companion script reads the already-pinned E2 MICA archive and frozen quarant
 3. A **descriptive Mantel–Haenszel site-stratified rat/muskrat night/day odds ratio** only if at least **3** informative locations and both pooled cross-products are positive in *each* cohort;
 4. A descriptive ratio of the two site-stratified odds and leave-one-informative-location-out range where separately computable.
 
-The minimum site support and the two target species are fixed before this site-level output is inspected. If either cohort is insufficient, the terminal status is `SITE_MATCHED_TRANSFER_NOT_ESTIMABLE_WITH_FROZEN_SUPPORT`. **No threshold reduction, endpoint selection, new estimator or rerun** is licensed by a failure. The site-stratified contrasts do not create paired longitudinal geographic sites: the two cohorts contain different physical locations and a confounded source/geography shift.
+The minimum site support and the two target species are fixed before this site-level output is inspected. If either cohort is insufficient, the terminal status is `SITE_MATCHED_TRANSFER_NOT_ESTIMABLE_WITH_FROZEN_SUPPORT`. **No threshold reduction, endpoint selection, new estimator or rerun** is licensed by a failure. A Mantel–Haenszel summary can change under site-heterogeneous observation shifts if the weights of different sites change; the within-site contrasts, support and leave-one-out range should be read first. The site-stratified contrasts do not create paired longitudinal geographic sites: the two cohorts contain different physical locations and a confounded source/geography shift.
 
 Counts are never output with individual location names; only aggregate site-support and summary contrasts leave the isolated action. An event-level confidence interval would pseudo-replicate within-location and temporal autocorrelation, so **no new inferential p value or confidence interval is calculated**.
 
