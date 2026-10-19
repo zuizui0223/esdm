@@ -1,0 +1,51 @@
+name: E4 MICA exploratory rodent community diel site-match
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/audit_e4_community_relative_diel.py'
+      - 'tests/test_e4_community_relative_diel.py'
+      - '.github/workflows/e4-mica-community-relative-diel-once.yml'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  single-descriptive-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install eSDM
+        run: python -m pip install -e .
+      - name: Verify static audit and test contracts
+        run: |
+          python -m py_compile scripts/audit_e4_community_relative_diel.py
+          python -m pytest -q tests/test_e4_community_relative_diel.py
+      - name: Download previously frozen MICA capture
+        uses: actions/download-artifact@v4
+        with:
+          name: e2-mica-full-response-capture-36369531079
+          path: captured/e2
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36369531079
+      - name: Run outcome-labelled descriptive site match (no model fitting)
+        run: |
+          mkdir -p build/e4/community
+          python scripts/audit_e4_community_relative_diel.py \
+            --archive captured/e2/build/e2/source/mica-v3.zip \
+            --temporal docs/replication/E2_MICA_TEMPORAL_INTEGRITY_RESULT.json \
+            --prior-cross-taxon docs/replication/E4_MICA_POSTRESULT_CROSS_TAXON_DIEL_SUPPLEMENT.json \
+            --out build/e4/community/E4_COMMUNITY_RELATIVE_DIEL_AUDIT.json
+      - name: Preserve aggregate-only site-matched result
+        uses: actions/upload-artifact@v4
+        with:
+          name: e4-community-relative-diel-${{ github.run_id }}
+          path: build/e4/community/E4_COMMUNITY_RELATIVE_DIEL_AUDIT.json
+          if-no-files-found: error
+          retention-days: 90
