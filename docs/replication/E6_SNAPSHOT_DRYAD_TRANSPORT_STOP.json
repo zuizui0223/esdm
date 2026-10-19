@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "programme_id": "E6_INDEPENDENT_SNAPSHOT_USA_URBAN_TEMPORAL_ASSEMBLY",
+  "status": "RESPONSE_UNOPENED_TRANSPORT_STOP_AUTH_REQUIRED",
+  "recorded_date": "2026-10-19",
+  "design_frozen_before_outcome": "docs/replication/E6_SNAPSHOT_URBAN_TEMPORAL_ASSEMBLY_FROZEN_DESIGN.md",
+  "direct_source_metadata": {
+    "historical": {
+      "doi": "10.5061/dryad.k0p2ngfhn",
+      "version_id": 358059,
+      "public_file_id": 4016828,
+      "expected_sha256": "9e837bba556de86af5934abcb5d8a487206df2b340a8b28fa8cc135c7bb7ec56"
+    },
+    "year2024": {
+      "doi": "10.5061/dryad.bnzs7h4qf",
+      "version_id": 445070,
+      "public_file_id": 4788613,
+      "expected_sha256": "b742e8789fa18c83713f2dec76e342857c122c012ee464db5563f3b06d29970d"
+    }
+  },
+  "operational_evidence": {
+    "metadata_workflow_run_id": 39213249450,
+    "job_id": 117931156045,
+    "synthetic_metadata_unit_tests_passed": 4,
+    "run_conclusion": "failure",
+    "failure_step": "Download ONLY published deployment metadata",
+    "official_download_url": "https://datadryad.org/api/v2/files/4016828/download",
+    "observed_http_status": 401,
+    "source_file_hash_verified_locally": false,
+    "data_file_bytes_received": false,
+    "reason": "Dryad REST API requires authenticated token to download file bodies; anonymous public metadata retrieval succeeds but file download does not.",
+    "metadata_rows_decoded": 0,
+    "biological_sequence_rows_decoded": 0,
+    "original_E4_data_reused_as_independent": false
+  },
+  "follow_up_boundary": {
+    "terminal_scientific_finding": false,
+    "no_2024_species_effect_estimated": true,
+    "no_urbanization_effect_estimated": true,
+    "no_change_to_frozen_species_selection_or_timing": true,
+    "no_E5_candidate_qualification": true,
+    "safe_resume_only_from_documented_source_authorized_Dryad_download_or_verified_identical_file_bytes": true,
+    "no_response_based_tuning_permitted": true
+  }
+}
