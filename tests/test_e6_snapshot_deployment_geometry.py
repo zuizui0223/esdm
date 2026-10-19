@@ -25,7 +25,7 @@ class TestE6SnapshotMetadata(unittest.TestCase):
                 writer.writeheader()
                 for arr, dev, lat, lon in (
                     ("a", "Wild", 38, -90),
-                    ("b", "Urban", 39, -91),
+                    ("b", "Urban", 39, -89),
                     ("c", "Rural", 42, -82),
                     ("d", "Suburban", 44, -88),
                 ):
