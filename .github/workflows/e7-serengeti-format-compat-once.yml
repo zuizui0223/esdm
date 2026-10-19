@@ -12,6 +12,8 @@ permissions:
 
 jobs:
   source-format-compatibility:
+    # Exactly one fixed technical compatibility run; do not reopen wildlife records on later PR updates.
+    if: github.event.pull_request.head.sha == 'c4ad5103e66c64db435bd4da5c9c92312d69a0a5'
     runs-on: ubuntu-latest
     timeout-minutes: 55
     steps:
