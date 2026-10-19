@@ -122,6 +122,23 @@ cross-taxon outcomes were visible and is not new E5 independent evidence.
 See [the ecological research note](docs/replication/E4_COMMUNITY_RELATIVE_DIEL_RESEARCH_NOTE.md)
 and [frozen aggregate receipt](docs/replication/E4_COMMUNITY_RELATIVE_DIEL_RESULT_RECEIPT.json).
 
+
+**Eight-taxon follow-on, controlling seasonal context:** A separate outcome-selected,
+post-result site×season audit of the **full fixed 28-pair universe** could compare
+**15/28 pairs**; **5** had descriptive relative diel-order reversals and **2**
+survived every computable single-physical-site deletion. With the finer
+site×year-month control, **12/28** were comparable, **3** reversed, and **1**
+remained leave-one-site stable. The preselected rat/muskrat comparison was
+stable under both temporal controls (relative change **6.73×** with site×season
+and **9.72×** with site×year-month). The coot/moorhen inversion was stable
+only under the coarser seasonal control, not the monthly site-deletion check.
+Unestimable pairs were retained explicitly and no event-level confidence
+intervals were claimed. These are **recorded-assemblage patterns, not
+independently measured true animal temporal niches**. See the [fixed design and
+ecological result](docs/replication/E4_EIGHT_TAXON_SITE_TIME_STUDY.md),
+[aggregate receipt](docs/replication/E4_EIGHT_TAXON_SITE_TIME_RESULT_RECEIPT.json)
+and [all 56 pair/time rows](docs/replication/E4_EIGHT_TAXON_SITE_TIME_ALL_PAIRS.csv).
+
 ### E5 independent activity–detection evidence — bounded empirical results
 
 A follow-on programme examined whether a change in *observed* daily activity can

@@ -1,0 +1,53 @@
+name: E4 post-outcome 8-taxon site-time community audit
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/audit_e4_eight_taxon_site_time.py'
+      - 'tests/test_e4_eight_taxon_site_time.py'
+      - '.github/workflows/e4-eight-taxon-site-time.yml'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  empirical-postresult-audit:
+    # Previously completed biological source opening; later PR revisions use frozen aggregate receipts only.
+    if: github.event.pull_request.head.sha == '4ddc66e7b1367003d884554a78bf6fde49922565'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install ESDM and test dependency
+        run: python -m pip install -e . 'pytest>=8'
+      - name: Fixed synthetic correctness and source-code compilation
+        run: |
+          python -m py_compile scripts/audit_e4_eight_taxon_site_time.py
+          python -m pytest -q tests/test_e4_eight_taxon_site_time.py
+      - name: Download frozen E2 MICA response capture
+        uses: actions/download-artifact@v4
+        with:
+          name: e2-mica-full-response-capture-36369531079
+          path: captured/e2
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36369531079
+      - name: Execute one exploratory 28-pair site-time aggregate audit
+        run: |
+          mkdir -p build/e4/eight_taxon
+          python scripts/audit_e4_eight_taxon_site_time.py \
+            --archive captured/e2/build/e2/source/mica-v3.zip \
+            --temporal docs/replication/E2_MICA_TEMPORAL_INTEGRITY_RESULT.json \
+            --prior-eight-taxa docs/replication/E4_MICA_POSTRESULT_CROSS_TAXON_DIEL_SUPPLEMENT.json \
+            --output build/e4/eight_taxon/E4_EIGHT_TAXON_SITE_TIME_RESULT.json
+      - name: Export only aggregate site-season/site-month summaries
+        uses: actions/upload-artifact@v4
+        with:
+          name: e4-eight-taxon-site-time-${{ github.run_id }}
+          path: build/e4/eight_taxon/E4_EIGHT_TAXON_SITE_TIME_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
