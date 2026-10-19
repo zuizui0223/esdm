@@ -1,12 +1,11 @@
 name: E6 independent SNAPSHOT USA metadata audit
 
+# Public metadata are accessible; file bodies return HTTP 401 without OAuth.
+# Do not automatically replay the same failed anonymous transport.
+# This workflow may be manually invoked only after authorized source access
+# and provenance have been made available through GitHub's secret controls.
 on:
-  pull_request:
-    paths:
-      - 'scripts/e6_snapshot_deployment_geometry.py'
-      - 'tests/test_e6_snapshot_deployment_geometry.py'
-      - '.github/workflows/e6-snapshot-metadata.yml'
-      - 'docs/replication/E6_SNAPSHOT_URBAN_TEMPORAL_ASSEMBLY_FROZEN_DESIGN.md'
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -25,13 +24,19 @@ jobs:
           python -m compileall -q scripts/e6_snapshot_deployment_geometry.py
           python -m unittest discover -s tests -p test_e6_snapshot_deployment_geometry.py -v
       - name: Download ONLY published deployment metadata
+        env:
+          DRYAD_API_TOKEN: ${{ secrets.DRYAD_API_TOKEN }}
         run: |
           set -euo pipefail
+          if [ -z "${DRYAD_API_TOKEN}" ]; then
+            echo "::error::Dryad file access requires GitHub secret DRYAD_API_TOKEN; see E6_SNAPSHOT_DRYAD_TRANSPORT_STOP.md"
+            exit 4
+          fi
           mkdir -p source/e6
-          curl --fail --location --retry 3 --connect-timeout 30 --max-time 300 \
+          curl --fail --location --retry 3 --connect-timeout 30 --max-time 300 --header "Authorization: Bearer ${DRYAD_API_TOKEN}" \
             -o source/e6/ssusa_finaldeployments.csv \
             https://datadryad.org/api/v2/files/4016828/download
-          curl --fail --location --retry 3 --connect-timeout 30 --max-time 300 \
+          curl --fail --location --retry 3 --connect-timeout 30 --max-time 300 --header "Authorization: Bearer ${DRYAD_API_TOKEN}" \
             -o source/e6/ssusa_2024_deployments.csv \
             https://datadryad.org/api/v2/files/4788613/download
           printf '%s\n' \
