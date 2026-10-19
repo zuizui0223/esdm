@@ -69,7 +69,7 @@ def test_rodent_reversal_survives_both_site_time_controls():
     assert season["informative_sites_training"] == 16
     assert season["informative_sites_heldout"] == 8
     assert month["informative_sites_training"] == 14
-    assert month["informative_sites_heldout"] == 8
+    assert month["informative_sites_D"] == 8
     assert season["LOO_robust"] and month["LOO_robust"]
     assert season["training_odds"] < 1 < season["heldout_D_odds"]
     assert month["training_odds"] < 1 < month["heldout_D_odds"]
