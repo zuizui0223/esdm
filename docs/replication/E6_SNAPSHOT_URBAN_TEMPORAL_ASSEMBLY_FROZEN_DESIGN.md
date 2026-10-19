@@ -33,6 +33,7 @@ This dataset is not a generic geographic replicate of MICA: it is US-based, has 
 
 - Select exactly September 1–October 31 of each sequence's recorded calendar year. This is the shared target survey season; August and November–December observations are excluded **for both partitions**. Do not add discarded months to rescue sample size.
 - Use only animals with `Class = Mammalia` and a nonempty binomial `Genus + Species`. Unidentified animals and nonanimal trigger records do not contribute to pair ratios.
+- **Exclude obvious humans/domestic pets/livestock** using a fixed pre-response list: `Homo sapiens`, `Felis catus`, `Canis familiaris`, `Bos taurus`, `Equus caballus`, `Ovis aries`, `Capra hircus`. No response-informed modification of the list. Wild/feral taxa not on the list remain eligible.
 - Map each sequence to its deployment via exact `Deployment_ID`. Require a uniquely defined deployment metadata row; duplicate deployment IDs with conflicting site, array or development metadata are excluded, never arbitrarily joined.
 - Unique event = (`Deployment_ID`, `Sequence_ID`, normalized `Genus`, normalized `Species`). Image/sequence duplicates never inflate counts.
 - Physical site identity = (`Camera_Trap_Array`, `Site_Name`) within calendar year, with invalid blank names excluded. Unique camera **array** is the cluster/block for assessment and uncertainty; site-year sequence rows are **not independent spatial replicates**.
