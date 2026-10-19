@@ -23,6 +23,20 @@ import zipfile
 
 DISCOVERY = tuple(range(1, 6))
 VALIDATION = tuple(range(6, 12))
+EXPECTED_SOURCE_SHA256 = {
+    "S01": "5b0b004c58e05f97cc23d0b572bfd3e63b6d52c9297cb031ef81eb700f762c29",
+    "S02": "1c33f782ecc5ab2dc005683e6e0ca328ebf37993316aae311b26a9b44caffb56",
+    "S03": "b2732aa283b1d1dde03b210f0951dd0a587ec8c659818aecb5b986e36cd78962",
+    "S04": "913fa6a8bb90a004d149446c23e0fc4d707121d6527d3e4a696e619f3fc71835",
+    "S05": "9da4b5ce311728e3e4d494921c04ba0e3470b260ce1936f932e5a6b62ff9bb75",
+    "S06": "0d1e59a76ee46b5fa8bcbe8943ccb239b3fcac588549e2b7c5cf1315f548ccb8",
+    "S07": "9b23a59dc9e56e187f40f6b5338d1f9e0ed2ed6aaba519ab8d9d5f92f78b35a2",
+    "S08": "2868d5d33358160ca2c0859c4ea4de1cf3c981f8930ec594cf33cad974814f2f",
+    "S09": "9c0754681c4f926a45e3225e7a33b29ebe1688c41323feb3d6084fc4ed7477fd",
+    "S10": "8e0021a537e64d85275ae6074910c4664c2f4e226c6be4c47a885b02ed1b049b",
+    "S11": "57b4618eee202f0ab1a4f64dfed78f17fa6d9631c0a815d9fa4252079614f3d7"
+}
+
 TOP_N = 12
 MIN_SITES = 5
 MIN_SITE_YEARS = 10
@@ -297,7 +311,10 @@ def run(input_dir: Path) -> dict:
     qc={}
     for season in DISCOVERY:
         path=input_dir/f"SnapshotSerengetiS{season:02d}.json.zip"
-        digests[f"S{season:02d}"]=sha256(path)
+        digest=sha256(path)
+        if digest != EXPECTED_SOURCE_SHA256[f"S{season:02d}"]:
+            raise ValueError("LILA metadata ZIP bytes differ from pinned first download")
+        digests[f"S{season:02d}"]=digest
         qc[f"S{season:02d}"]=parse_season(path,season,counts_train,occupancy,source_train)
     roster=choose_discovery_panel(counts_train,occupancy)
     if len(roster)<2:
@@ -307,7 +324,10 @@ def run(input_dir: Path) -> dict:
     # E7 validation files are opened only after roster has been fixed.
     for season in VALIDATION:
         path=input_dir/f"SnapshotSerengetiS{season:02d}.json.zip"
-        digests[f"S{season:02d}"]=sha256(path)
+        digest=sha256(path)
+        if digest != EXPECTED_SOURCE_SHA256[f"S{season:02d}"]:
+            raise ValueError("LILA metadata ZIP bytes differ from pinned first download")
+        digests[f"S{season:02d}"]=digest
         qc[f"S{season:02d}"]=parse_season(path,season,counts_valid,
                                            defaultdict(set),source_valid)
     val_results=all_pair_results(counts_valid,source_valid,roster)
