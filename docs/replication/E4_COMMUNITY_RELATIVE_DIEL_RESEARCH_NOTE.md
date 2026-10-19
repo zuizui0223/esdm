@@ -67,4 +67,22 @@ This contrasts with the narrower claim that a fixed marginal detector correction
 - [Prior E4/E5 evidence limits](E4_E5_ECOLOGICAL_EVIDENCE_SYNTHESIS.md)
 - [Source and site-level audit script](../../scripts/audit_e4_community_relative_diel.py)
 
-**Site-level audit result:** not yet opened as of this note. Its one-time GitHub Actions artifact is the next finite, inspectable empirical step.
+## Completed site-matched field-data diagnostic (2026-10-19)
+
+The independently labeled [GitHub Actions run 39203272457](https://github.com/zuizui0223/esdm/actions/runs/39203272457) completed successfully with **6/6 synthetic gate and algebra tests passed**, then read the pinned real E2 capture. Its SHA256-verified input and aggregate-only output are frozen in [the result receipt](E4_COMMUNITY_RELATIVE_DIEL_RESULT_RECEIPT.json); the original artifact ID is **12164721283** (ZIP digest `sha256:ec2d6e77e69a9926148200851430d2033ebc70530ff40e4c6080f3542294971a`).
+
+| Descriptive, physical-location stratified comparison | Annotated training | Heldout D |
+|---|---:|---:|
+| Physical locations | **27** | **8** |
+| Locations recording both fixed rodent taxa | **20** | **8** |
+| Sites informative for species × diel contrast | **20** | **8** |
+| Rat events in those shared locations | **4,624** | **1,772** |
+| Muskrat events in those shared locations | **1,337** | **5,091** |
+| Site-stratified Mantel–Haenszel rat/muskrat night/day odds | **0.59621** | **5.19065** |
+| Leave-one-informative-location-out descriptive range | **0.54109–0.66495** | **3.73915–6.00673** |
+
+**Site-matched odds ratio of ratios: 8.70607**, compared with the previously known *pooled* 9.59837. All 28 leave-one-location-out calculations preserve the ordering: the maximum training contrast (**0.665**) is far below the minimum D contrast (**3.739**). Therefore this descriptive *observed* reversal is not driven solely by aggregating species over disjoint physical camera locations or by one single highly influential camera location. Importantly, different regions still comprise **different** physical sites and different source/geographic regimes.
+
+**Ecological conclusion (bounded):** the relative timing *of camera records for the two rodents* is different across the frozen survey domains, even when each domain is first stratified by named physical camera location. One universal taxon-common time-of-day detector multiplier at shared cameras is inadequate as an explanation under the idealized multiplicative model. Taxon-specific detectability, species use of different locations **within each site**, and seasonal/site differences remain live alternatives. The Mantel–Haenszel combined estimate itself can shift with heterogeneous site weights; no calibrated behavioral passage intensities or location-clustered uncertainty interval were estimated. The 8 D locations are a small physical sample. This does **not** prove temporal niche competition, an eastward change in animal behavior, or survey-detection causality.
+
+**Outcome firewall:** The rat-vs-muskrat contrast was selected after the initial cross-taxon result; this is exploratory follow-on analysis, not untouched independent confirmation, not a new E5 qualified source, and no E4 model was rerun.
