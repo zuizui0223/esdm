@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "programme_id": "E4_POSTRESULT_COMMUNITY_DIEL_DIAGNOSTIC",
+  "status": "POSTRESULT_OUTCOME_SELECTED_COMMUNITY_RELATIVE_DIEL_AUDIT",
+  "recorded_date": "2026-10-19",
+  "provenance": {
+    "workflow_run_id": 39203272457,
+    "workflow_run_attempt": 1,
+    "workflow_head_sha": "1403c981707f4f9c01e5650730fd028a66da1e47",
+    "workflow_conclusion": "success",
+    "audit_artifact_id": 12164721283,
+    "audit_artifact_name": "e4-community-relative-diel-39203272457",
+    "audit_artifact_zip_digest": "sha256:ec2d6e77e69a9926148200851430d2033ebc70530ff40e4c6080f3542294971a",
+    "original_source_capture_run_id": 36369531079,
+    "original_mica_archive_sha256": "8346f3fe467a201525d6bedd4ebd6e2078457ee8bb778501d41d55ace7d962c9",
+    "parent_cross_taxon_receipt": "docs/replication/E4_MICA_POSTRESULT_CROSS_TAXON_DIEL_SUPPLEMENT.json",
+    "original_temporal_quarantine": "docs/replication/E2_MICA_TEMPORAL_INTEGRITY_RESULT.json"
+  },
+  "fixed_design": {
+    "outcome_selected_species": [
+      "Rattus norvegicus",
+      "Ondatra zibethicus"
+    ],
+    "selection_informed_by_previously_observed_species_directions": true,
+    "training_deployments": 266,
+    "heldout_D_deployments": 164,
+    "physical_site_key": "locationName within frozen stratum",
+    "record_key": "deploymentID + eventID + scientificName",
+    "night": "local eventStart 18:00-05:59",
+    "day": "local eventStart 06:00-17:59",
+    "site_matched_min_informative_locations": 3,
+    "estimator": "descriptive Mantel-Haenszel species-by-diel odds within physical sites",
+    "numeric_uncertainty_interval_computed": false
+  },
+  "pooled_observation_result": {
+    "training_rat_over_muskrat_diel_odds": 0.7591696625466405,
+    "heldout_D_rat_over_muskrat_diel_odds": 7.286793391987516,
+    "heldout_over_training_ratio": 9.598372737319233,
+    "log_ratio": 2.2615935775766887
+  },
+  "site_stratified": {
+    "training": {
+      "all_physical_locations": 27,
+      "sites_with_both_species": 20,
+      "informative_sites": 20,
+      "rat_records_in_shared_sites": 4624,
+      "muskrat_records_in_shared_sites": 1337,
+      "mh_rat_over_muskrat_diel_odds": 0.5962107017242175,
+      "loo_valid_contrasts": 20,
+      "loo_min": 0.5410871775110079,
+      "loo_max": 0.6649495662982648
+    },
+    "heldout_D": {
+      "all_physical_locations": 8,
+      "sites_with_both_species": 8,
+      "informative_sites": 8,
+      "rat_records_in_shared_sites": 1772,
+      "muskrat_records_in_shared_sites": 5091,
+      "mh_rat_over_muskrat_diel_odds": 5.190651201597811,
+      "loo_valid_contrasts": 8,
+      "loo_min": 3.7391534470763865,
+      "loo_max": 6.006725315201738
+    },
+    "ratio_of_site_stratified_MH_odds": 8.706068486504277,
+    "qualitative_decision": "SITE_MATCHED_DESCRIPTIVE_ESTIMABLE_NO_CAUSAL_ATTRIBUTION",
+    "all_leave_one_site_out_ranges_remain_separated": true
+  },
+  "integrity_and_claims": {
+    "source_archive_digest_verified": true,
+    "matches_prior_frozen_cross_taxon_counts": true,
+    "raw_animal_rows_exported": false,
+    "individual_site_identifiers_exported": false,
+    "new_fit": false,
+    "E4_frozen_result_changed": false,
+    "E5_original_G4_passed": false,
+    "E5_original_qualified_candidates": 0,
+    "independently_identified_true_passage_or_detection": false,
+    "confirmatory_inference": false,
+    "new_E5_independent_response": false
+  },
+  "ecological_interpretation": {
+    "supported": [
+      "The camera-recorded rat/muskrat night-versus-day composition reverses between the original annotated training and east-heldout D domains.",
+      "A site-stratified Mantel-Haenszel description retains the reversal at the 20 and 8 informative named physical locations respectively.",
+      "Deleting any single informative physical location within either domain does not bridge the separated descriptive odds-ratio ranges.",
+      "A single taxon-common detection multiplier at each matched site cannot on its own create a within-site difference in species-relative diel odds, conditional on the idealized shared-factor model."
+    ],
+    "not_supported": [
+      "A causal eastward shift of true rat or muskrat daily activity.",
+      "An independently calibrated detection mechanism common across both taxa.",
+      "Competition or temporal niche partitioning as a demonstrated mechanism.",
+      "A longitudinal matched-physical-site geographic contrast.",
+      "A confirmed population-level cross-region effect with site-clustered confidence interval.",
+      "Rescuing the frozen E4 activity prediction or passing E5 detection-identifiability G4."
+    ]
+  }
+}

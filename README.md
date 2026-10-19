@@ -101,6 +101,27 @@ See
 The earlier Snapshot Japan, E2, and E3 endpoints remain frozen historical outcomes; E4
 does not reopen or overwrite them.
 
+
+### New descriptive community-relative diel result (2026-10-19)
+
+A separate **post-outcome, outcome-selected exploratory comparison** examined the existing
+eight-taxon MICA evidence from an ecological community perspective, using rat
+(*Rattus norvegicus*) versus muskrat (*Ondatra zibethicus*). Their recorded
+night/day odds ratio **relative to each other** changed by **9.60-fold**
+between annotated training and east-heldout D. The difference was not solely
+an artifact of pooling different physical locations: a physical-site
+stratification retained a relative shift of **8.71-fold** (training
+Mantel–Haenszel odds **0.596** across **20** informative physical locations;
+D odds **5.191** across **8**). Leave-one-location-out descriptive ranges
+remained separated, but no site-clustered inferential interval was estimated.
+
+This is a **positive observed species-relative community pattern** under a
+combined geography/source change, **not a demonstrated change in true
+behavior, competition or detectability**. It was selected after the original
+cross-taxon outcomes were visible and is not new E5 independent evidence.
+See [the ecological research note](docs/replication/E4_COMMUNITY_RELATIVE_DIEL_RESEARCH_NOTE.md)
+and [frozen aggregate receipt](docs/replication/E4_COMMUNITY_RELATIVE_DIEL_RESULT_RECEIPT.json).
+
 ### E5 independent activity–detection evidence — bounded empirical results
 
 A follow-on programme examined whether a change in *observed* daily activity can
