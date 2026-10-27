@@ -27,6 +27,33 @@ activity. E5 has **0/17 standard-qualified datasets**, and no claim of a second
 successful cross-geography E5 fit. The underlying process/state model remains the
 frozen **v0.4-R5b** generation; no semi-synthetic rescue generation was introduced.
 
+
+### Separate ecological field-data result — E7 Serengeti (2026-10-19)
+
+A **new independent African-savanna camera-trap dataset**, Snapshot Serengeti
+(11 collection seasons, **2,659,222** metadata-bearing sequences), provided a
+finite test of the species-relative wet/dry diel reordering idea motivated by
+E4. The fixed discovery panel was 12 mammal categories / 66 species pairs.
+**54 pairs** were estimable in S01–S05 (**14** rank reversals, **2**
+single-physical-camera-deletion-stable), versus **50 pairs** in S06–S11
+(**3** reversals, **0** stable). Among the **46** pairs estimable in both
+partitions, only **23 (50%)** had concordant dry/wet effect directions and
+**zero** stable rank inversions transferred.
+
+This is **positive evidence that relative *camera-recorded* diel relationships
+vary within the monitored community**, but **no support for a portable fixed
+species-pair inversion rule** across collection seasons. Taxon-specific
+detection, camera effort/geometry, season-specific populations and migration
+were not independently calibrated. The first empirical attempt failed on
+published nonstandard JSON NaN; the separately disclosed format-compatibility
+restart succeeded without changing ecological thresholds or opening images.
+This is **not** a second E4 model fit, an E5 qualified dataset, or proof of
+causal animal behavioral changes.
+
+See the [full ecological interpretation and comparison](docs/replication/E7_SERENGETI_WET_DRY_EMPIRICAL_SYNTHESIS.md),
+[frozen result receipt](docs/replication/E7_SERENGETI_WET_DRY_FROZEN_RESULT_RECEIPT.json),
+and [inspectable GitHub action artifact](https://github.com/zuizui0223/esdm/actions/runs/39222089646/artifacts/12173010259).
+
 The empirical lineage is deliberately cumulative rather than rewritten:
 
 ```text
