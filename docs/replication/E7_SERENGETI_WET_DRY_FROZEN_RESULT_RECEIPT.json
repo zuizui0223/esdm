@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "programme_id": "E7_SERENGETI_WET_DRY_COMMUNITY",
+  "status": "EXPLORATORY_COMPLETED_NO_STABLE_SEASONAL_PAIR_REVERSAL_TRANSFER",
+  "recorded_date": "2026-10-28",
+  "empirical_provenance": {
+    "original_format_failure_run_id": 39220306440,
+    "technical_compatibility_success_run_id": 39222089646,
+    "technical_compatibility_success_run_attempt": 1,
+    "successful_workflow_head_sha": "c4ad5103e66c64db435bd4da5c9c92312d69a0a5",
+    "successful_workflow_conclusion": "success",
+    "original_result_artifact_id": 12173010259,
+    "artifact_zip_sha256": "e210adc894a94827a295afba87ad72fa485e8721a65ca7db11c5931655e4edfe",
+    "artifact_json_sha256": "21a0b03d8c17442ddeeed79023ec28d23525c2815ca7a0bbaf54faec12e65f2a",
+    "original_result_file": "E7_SERENGETI_WET_DRY_FORMAT_COMPAT_RESULT.json",
+    "original_result_size_bytes": 126404,
+    "original_archive_sha_receipt": "docs/replication/E7_SERENGETI_SOURCE_FORMAT_STOP.json",
+    "technical_restart_disclosed": true,
+    "claimed_untouched_one_shot": false
+  },
+  "input_scope": {
+    "public_dataset": "https://lila.science/datasets/snapshot-serengeti",
+    "published_collection_seasons": 11,
+    "discovery_collection_seasons": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "validation_collection_seasons": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "all_source_shas_verified_against_initial_technical_attempt": true,
+    "aggregate_image_records": 7178440,
+    "aggregate_annotation_rows": 7261545,
+    "distinct_sequences_with_image_metadata": 2659222,
+    "eligible_species_sequence_events_in_wet_or_dry_core_months": 494385,
+    "eligible_species_sequence_events_in_frozen_night_or_midday_hours": 309945,
+    "image_files_downloaded": 0,
+    "raw_camera_and_sequence_identifiers_exported": 0,
+    "original_data_read_method": "11 authenticated-free public ZIPs; JSON permissive NaN decoding; sequence-level deduplication"
+  },
+  "frozen_selection": {
+    "method": "choose 12 categories using discovery-only camera-hydrological-year occupancy, before validation responses",
+    "fixed_roster": [
+      "zebra",
+      "wildebeest",
+      "hyenaSpotted",
+      "gazelleThomsons",
+      "warthog",
+      "gazelleGrants",
+      "giraffe",
+      "elephant",
+      "hartebeest",
+      "buffalo",
+      "lion",
+      "reedbuck"
+    ],
+    "panel_size": 12,
+    "total_unordered_pairs": 66,
+    "wet_core_months": [
+      11,
+      12,
+      1,
+      2,
+      3,
+      4
+    ],
+    "dry_core_months": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "deep_night_hours": "21:00–03:59",
+    "midday_hours": "10:00–15:59",
+    "minimum_distinct_physical_sites": 5,
+    "minimum_matched_hydrological_site_years": 10,
+    "minimum_original_collection_season_folders": 3,
+    "data_selected_after_first_response_opening": false,
+    "biological_effect_rules_changed_from_frozen_design": false
+  },
+  "discovery": {
+    "estimable_pairs": 54,
+    "rank_reversals_across_wet_dry_recorded_odds": 14,
+    "single_camera_leave_one_out_stable_reversals": 2,
+    "stable_pair_details": [
+      {
+        "species_1": "buffalo",
+        "species_2": "wildebeest",
+        "wet_relative_record_odds": 2.840995072053937,
+        "dry_relative_record_odds": 0.35440622243090636,
+        "paired_sites": 28,
+        "paired_site_years": 31,
+        "validation_wet_relative_record_odds": 1.2912127502231048,
+        "validation_dry_relative_record_odds": 2.604920508293653,
+        "validation_stable_reversal": false
+      },
+      {
+        "species_1": "giraffe",
+        "species_2": "hartebeest",
+        "wet_relative_record_odds": 0.2934348509827803,
+        "dry_relative_record_odds": 3.351235708476335,
+        "paired_sites": 17,
+        "paired_site_years": 19,
+        "validation_wet_relative_record_odds": 0.31675134689323414,
+        "validation_dry_relative_record_odds": 0.4463682445898342,
+        "validation_stable_reversal": false
+      }
+    ]
+  },
+  "validation": {
+    "estimable_pairs": 50,
+    "rank_reversals_across_wet_dry_recorded_odds": 3,
+    "single_camera_leave_one_out_stable_reversals": 0
+  },
+  "temporal_transfer": {
+    "estimable_in_both_partitions": 46,
+    "concordant_dry_vs_wet_effect_direction": 23,
+    "concordant_fraction": 0.5,
+    "both_partitions_stable_rank_reversal": 0,
+    "reversed_rank_in_both_partitions": 2,
+    "repeated_rank_reversal_same_direction": 1,
+    "repeated_rank_reversal_same_direction_species": [
+      "lion",
+      "wildebeest"
+    ],
+    "repeated_rank_reversal_same_direction_loo_robust": false,
+    "tested_pairs_are_statistically_dependent": true,
+    "no_inferential_pvalue_or_confidence_interval": true
+  },
+  "bounded_conclusion": {
+    "supported": [
+      "Season-associated reversals of relative animal-record diel odds occur in the discovery and validation subsets of this independent camera-network dataset.",
+      "The discovered pair-specific directions failed to show compelling descriptive transport: 23 of 46 comparable pair effects had concordant signs.",
+      "Two within-discovery leave-one-camera-site-stable pair inversions were not stable inversions in the later collection seasons.",
+      "Records allow matched camera/hydrological-year observational comparisons in an independent biological system, with a frozen taxon roster and split."
+    ],
+    "not_supported": [
+      "A repeatable, universal pairwise temporal-niche reversal law across seasons.",
+      "That absence of concordance proves unchanged or random animal behavioral niches.",
+      "The direction is a causal wet/dry change rather than camera effort, species-specific detection, observer or calendar/source heterogeneity.",
+      "Independent calibration of detection probabilities or true individual activity.",
+      "An E5 qualified dataset or a revision to frozen E4 model scores."
+    ]
+  },
+  "governance": {
+    "original_E4_fit_changed": false,
+    "original_E5_G4_passed": false,
+    "original_E5_qualified_candidates": 0,
+    "terminal_interpretation_post_outcome_descriptive": true,
+    "original_workflow_not_repeated_after_compatibility_success": true
+  }
+}
