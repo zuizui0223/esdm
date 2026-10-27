@@ -1,0 +1,36 @@
+name: E7 Serengeti response-blind metadata transport
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/e7-serengeti-metadata-head.yml'
+      - 'scripts/e7_serengeti_metadata_preflight.py'
+      - 'tests/test_e7_serengeti_metadata_preflight.py'
+
+permissions:
+  contents: read
+
+jobs:
+  metadata-headers-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Synthetic HEAD-only tests
+        run: python -m unittest discover -s tests -p test_e7_serengeti_metadata_preflight.py -v
+      - name: Check official LILA metadata ZIP headers only
+        run: |
+          mkdir -p build/e7
+          python scripts/e7_serengeti_metadata_preflight.py \
+            --output build/e7/E7_SERENGETI_HEAD_PREFLIGHT.json
+      - name: Upload response-blind receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e7-serengeti-headers-only-${{ github.run_id }}
+          path: build/e7/E7_SERENGETI_HEAD_PREFLIGHT.json
+          if-no-files-found: error
+          retention-days: 90

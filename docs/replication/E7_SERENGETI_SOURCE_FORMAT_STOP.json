@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "programme_id": "E7_SERENGETI_WET_DRY_ASSEMBLY",
+  "status": "SOURCE_JSON_NAN_PARSER_COMPATIBILITY_STOP_NO_ESTIMATES",
+  "recorded_date": "2026-10-19",
+  "run_id": 39220306440,
+  "job_id": 117953791952,
+  "head_sha": "d2af6528a25ab4ffd131e3eee9e41160bcc607a5",
+  "workflow_status": "failure",
+  "completed_steps": [
+    "six_synthetic_tests_PASS",
+    "all_11_exact_public_LILA_metadata_ZIPs_downloaded",
+    "all_11_SHA256_recorded"
+  ],
+  "failed_step": "Open E7 discovery labels once then validation labels after roster freeze",
+  "exception_class": "ijson.common.IncompleteJSONError",
+  "example_nonstandard_token": "\"count\": NaN",
+  "failure_stage": "First original season JSON parser; before completion of category metadata pass and before any biological contrast output.",
+  "discovered_species_panel": null,
+  "biological_effect_estimates_produced": 0,
+  "source_file_sha256": {
+    "S01": "5b0b004c58e05f97cc23d0b572bfd3e63b6d52c9297cb031ef81eb700f762c29",
+    "S02": "1c33f782ecc5ab2dc005683e6e0ca328ebf37993316aae311b26a9b44caffb56",
+    "S03": "b2732aa283b1d1dde03b210f0951dd0a587ec8c659818aecb5b986e36cd78962",
+    "S04": "913fa6a8bb90a004d149446c23e0fc4d707121d6527d3e4a696e619f3fc71835",
+    "S05": "9da4b5ce311728e3e4d494921c04ba0e3470b260ce1936f932e5a6b62ff9bb75",
+    "S06": "0d1e59a76ee46b5fa8bcbe8943ccb239b3fcac588549e2b7c5cf1315f548ccb8",
+    "S07": "9b23a59dc9e56e187f40f6b5338d1f9e0ed2ed6aaba519ab8d9d5f92f78b35a2",
+    "S08": "2868d5d33358160ca2c0859c4ea4de1cf3c981f8930ec594cf33cad974814f2f",
+    "S09": "9c0754681c4f926a45e3225e7a33b29ebe1688c41323feb3d6084fc4ed7477fd",
+    "S10": "8e0021a537e64d85275ae6074910c4664c2f4e226c6be4c47a885b02ed1b049b",
+    "S11": "57b4618eee202f0ab1a4f64dfed78f17fa6d9631c0a815d9fa4252079614f3d7"
+  },
+  "technical_repair": {
+    "route": "E7_SOURCE_FORMAT_COMPATIBILITY_RETRY",
+    "changes": [
+      "Decode original JSON with Python stdlib permissive NaN lexer and map only nonfinite optional numeric values to None",
+      "Retain original SHA256 verification of every metadata ZIP",
+      "Keep original species whitelist, wet/dry and night/day definitions, discovery/validation partition, thresholds and full pair universe"
+    ],
+    "changes_biological_endpoint": false,
+    "completed_independent_validation": false,
+    "claims_untouched_preregistered_one_shot": false,
+    "classification": "separate transparent technical restart, not rescue by biological outcome selection"
+  }
+}

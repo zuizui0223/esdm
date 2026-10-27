@@ -1,0 +1,64 @@
+name: E7 transparent technical format-compatibility restart
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/e7-serengeti-format-compat-once.yml'
+      - 'scripts/e7_serengeti_wet_dry_diel.py'
+      - 'tests/test_e7_serengeti_wet_dry_diel.py'
+
+permissions:
+  contents: read
+
+jobs:
+  source-format-compatibility:
+    # Exactly one fixed technical compatibility run; do not reopen wildlife records on later PR updates.
+    if: github.event.pull_request.head.sha == 'c4ad5103e66c64db435bd4da5c9c92312d69a0a5'
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify published bare NaN is accepted in synthetic JSON test
+        run: |
+          python -m pip install 'pytest>=8'
+          python -m pytest -q tests/test_e7_serengeti_wet_dry_diel.py
+      - name: Download all same 11 original LILA source ZIPs
+        run: |
+          set -euo pipefail
+          mkdir -p source/e7
+          BASE=https://lilawildlife.blob.core.windows.net/lila-wildlife/snapshotserengeti-v-2-0
+          for SEASON in $(seq -w 1 11); do
+            TARGET="source/e7/SnapshotSerengetiS${SEASON}.json.zip"
+            curl --fail --location --retry 3 --retry-delay 2 \
+              --connect-timeout 30 --max-time 600 --silent --show-error \
+              --output "${TARGET}" "${BASE}/SnapshotSerengetiS${SEASON}.json.zip"
+          done
+          printf '%s\n' \
+            '5b0b004c58e05f97cc23d0b572bfd3e63b6d52c9297cb031ef81eb700f762c29  source/e7/SnapshotSerengetiS01.json.zip' \
+            '1c33f782ecc5ab2dc005683e6e0ca328ebf37993316aae311b26a9b44caffb56  source/e7/SnapshotSerengetiS02.json.zip' \
+            'b2732aa283b1d1dde03b210f0951dd0a587ec8c659818aecb5b986e36cd78962  source/e7/SnapshotSerengetiS03.json.zip' \
+            '913fa6a8bb90a004d149446c23e0fc4d707121d6527d3e4a696e619f3fc71835  source/e7/SnapshotSerengetiS04.json.zip' \
+            '9da4b5ce311728e3e4d494921c04ba0e3470b260ce1936f932e5a6b62ff9bb75  source/e7/SnapshotSerengetiS05.json.zip' \
+            '0d1e59a76ee46b5fa8bcbe8943ccb239b3fcac588549e2b7c5cf1315f548ccb8  source/e7/SnapshotSerengetiS06.json.zip' \
+            '9b23a59dc9e56e187f40f6b5338d1f9e0ed2ed6aaba519ab8d9d5f92f78b35a2  source/e7/SnapshotSerengetiS07.json.zip' \
+            '2868d5d33358160ca2c0859c4ea4de1cf3c981f8930ec594cf33cad974814f2f  source/e7/SnapshotSerengetiS08.json.zip' \
+            '9c0754681c4f926a45e3225e7a33b29ebe1688c41323feb3d6084fc4ed7477fd  source/e7/SnapshotSerengetiS09.json.zip' \
+            '8e0021a537e64d85275ae6074910c4664c2f4e226c6be4c47a885b02ed1b049b  source/e7/SnapshotSerengetiS10.json.zip' \
+            '57b4618eee202f0ab1a4f64dfed78f17fa6d9631c0a815d9fa4252079614f3d7  source/e7/SnapshotSerengetiS11.json.zip' \
+            | sha256sum --check
+      - name: Transparently repaired initial E7 source-format biological analysis
+        run: |
+          mkdir -p build/e7
+          python scripts/e7_serengeti_wet_dry_diel.py \
+            --input-dir source/e7 \
+            --output build/e7/E7_SERENGETI_WET_DRY_FORMAT_COMPAT_RESULT.json
+      - name: Preserve original-source hashes and aggregate-only scientific output
+        uses: actions/upload-artifact@v4
+        with:
+          name: e7-serengeti-format-compat-${{ github.run_id }}
+          path: build/e7/E7_SERENGETI_WET_DRY_FORMAT_COMPAT_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
