@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "status": "E7_POSTRESULT_RELATIONAL_COHERENCE_DESCRIPTIVE",
+  "source": {
+    "original_E7_empirical_artifact_run_id": 39222089646,
+    "original_E7_result_sha256": "21a0b03d8c17442ddeeed79023ec28d23525c2815ca7a0bbaf54faec12e65f2a",
+    "all_66_pair_table_sha256": "688bf6ff6d5289be6f577583f30a753f460bc53b03ca9c5d207a60f50d51951b"
+  },
+  "support": {
+    "original_taxa": 12,
+    "pair_universe": 66,
+    "shared_estimated_pairs": 46,
+    "taxa_in_connected_shared_pair_graph": 11,
+    "taxa_without_any_shared_eligible_edge": [
+      "reedbuck"
+    ],
+    "same_edge_support_in_both_splits": true
+  },
+  "method": {
+    "contrast": "log((species1/species2 night/midday OR dry)/(wet))",
+    "candidate_scalar_species_gradient": "delta_ij=beta_i-beta_j with sum(beta)=0",
+    "fit": "equal-pair-weight Laplacian least-squares on exactly the common estimated 46 pairs",
+    "score": "1 - residual_sum_squared / sum(observed_log_shift_squared); zero-shift null is baseline",
+    "triangle_closure": "delta_ab + delta_bc - delta_ac; must equal zero for exact species-potential differences",
+    "not_an_ecological_model_refit": true
+  },
+  "discovery": {
+    "RMSE_log_dry_wet": 0.8113458284418713,
+    "complete_taxon_triples": 104,
+    "cycle_gaps_are_not_independent_observations": true,
+    "energy_explained_relative_zero": 0.5512442064061597,
+    "unexplained_energy_fraction": 0.4487557935938403,
+    "max_absolute_log_cycle_gap": 4.825368478608745,
+    "median_absolute_log_cycle_gap": 0.8510528222801812,
+    "relative_species_score": {
+      "buffalo": -0.30594926357655977,
+      "elephant": -0.05326195691484521,
+      "gazelleGrants": -0.11418871095862661,
+      "gazelleThomsons": -0.2593358426882202,
+      "giraffe": 0.8064883800537216,
+      "hartebeest": -0.003718054474898687,
+      "hyenaSpotted": -1.2960138077019867,
+      "lion": -0.46538917440853483,
+      "warthog": 0.8340165404410438,
+      "wildebeest": 0.9228002779404566,
+      "zebra": -0.0654483877115499
+    }
+  },
+  "validation": {
+    "RMSE_log_dry_wet": 0.6088369123324754,
+    "complete_taxon_triples": 104,
+    "cycle_gaps_are_not_independent_observations": true,
+    "energy_explained_relative_zero": 0.37443908947904125,
+    "unexplained_energy_fraction": 0.6255609105209587,
+    "max_absolute_log_cycle_gap": 3.351106195234688,
+    "median_absolute_log_cycle_gap": 0.7080204284474858,
+    "relative_species_score": {
+      "buffalo": 0.20801922762629088,
+      "elephant": 0.13890430638420545,
+      "gazelleGrants": 0.09644447005669704,
+      "gazelleThomsons": 0.5307390925866909,
+      "giraffe": -0.13188171617437625,
+      "hartebeest": -0.4277510554448346,
+      "hyenaSpotted": -0.6109613391106224,
+      "lion": -0.3028422784305763,
+      "warthog": 0.07783492402399417,
+      "wildebeest": 0.30185013047922576,
+      "zebra": 0.11964423800330529
+    }
+  },
+  "out_of_period": {
+    "discovery_species_gradient_on_validation_pair_edges_skill_vs_zero": -0.7552148994346888,
+    "pair_shift_sign_agreement": 23,
+    "shared_pairs": 46
+  },
+  "ecological_boundary": {
+    "this_is_post_outcome_no_new_biological_response": true,
+    "scalar_scores_are_descriptive_not_true_species_activity_traits": true,
+    "pairwise_MH_uses_different_camera_subset_weights": true,
+    "triangle_inconsistency_does_not_prove_interspecific_interaction": true,
+    "geography_season_sensor_and_plant_visibility_not_separately_identified": true,
+    "pair_edges_and_triangles_statistically_dependent_no_p_values": true,
+    "source_detection_process_uncalibrated": true,
+    "original_E4_scores_unchanged": true,
+    "original_E5_G4_passed": false
+  }
+}

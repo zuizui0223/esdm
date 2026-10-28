@@ -1,0 +1,50 @@
+name: E7 frozen relational-coherence audit
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/e7_relational_coherence.py'
+      - 'tests/test_e7_relational_coherence.py'
+      - 'docs/replication/E7_RELATIONAL_PAIRWISE_66.csv'
+      - '.github/workflows/e7-relational-coherence.yml'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  frozen-aggregate-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install test runtime and validate synthetic closed/nontransitive graphs
+        run: |
+          python -m pip install 'pytest>=8'
+          python -m pytest -q tests/test_e7_relational_coherence.py
+      - name: Download ONLY frozen E7 aggregate result (no raw camera data)
+        uses: actions/download-artifact@v4
+        with:
+          name: e7-serengeti-format-compat-39222089646
+          path: captured/e7
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 39222089646
+      - name: Prove committed 66-pair CSV exactly matches immutable E7 result SHA
+        run: |
+          python -m py_compile scripts/e7_relational_coherence.py
+          mkdir -p build/e7
+          python scripts/e7_relational_coherence.py \
+            --pair-table docs/replication/E7_RELATIONAL_PAIRWISE_66.csv \
+            --original-result captured/e7/E7_SERENGETI_WET_DRY_FORMAT_COMPAT_RESULT.json \
+            --out build/e7/E7_RELATIONAL_COHERENCE_REPRODUCED.json
+      - name: Preserve only derived, aggregate results
+        uses: actions/upload-artifact@v4
+        with:
+          name: e7-relational-coherence-${{ github.run_id }}
+          path: build/e7/E7_RELATIONAL_COHERENCE_REPRODUCED.json
+          if-no-files-found: error
+          retention-days: 90
