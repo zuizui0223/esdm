@@ -54,6 +54,22 @@ See the [full ecological interpretation and comparison](docs/replication/E7_SERE
 [frozen result receipt](docs/replication/E7_SERENGETI_WET_DRY_FROZEN_RESULT_RECEIPT.json),
 and [inspectable GitHub action artifact](https://github.com/zuizui0223/esdm/actions/runs/39222089646/artifacts/12173010259).
 
+
+**Further E7 structural result, aggregate-only (2026-10-28):** on the **same
+46 estimable pair edges** of **11 taxa**, a zero-sum species-specific seasonal
+shift axis explains **55.1%** of original discovery squared log-shift energy
+but only **37.4%** of validation. The pair network has substantial
+three-taxon nonclosure (104 complete triangles per split; median absolute
+log closure **0.851 / 0.708**). Transferring discovery species scores without
+adjustment to validation gives **negative skill −0.755 against predicting
+zero change**, not a stable species-only temporal reorganization rule.
+**This is an algebraic description of camera-recorded, pair-specific
+Mantel–Haenszel aggregates; heterogeneous site composition/detection and
+noncollapsibility can produce triangle nonclosure without any true
+three-species biological interaction.** [Study and caveats](docs/replication/E7_RELATIONAL_TEMPORAL_COHERENCE.md),
+[complete frozen pair table](docs/replication/E7_RELATIONAL_PAIRWISE_66.csv),
+[reproducible derived result](docs/replication/E7_RELATIONAL_COHERENCE_RESULT.json).
+
 The empirical lineage is deliberately cumulative rather than rewritten:
 
 ```text
