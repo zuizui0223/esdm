@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "status": "E7_FROZEN_AGGREGATE_RELATIONAL_REPRODUCTION_PASS",
+  "audited_on": "2026-10-28",
+  "original_empirical_e7": {
+    "workflow_run_id": 39222089646,
+    "source_json_sha256": "21a0b03d8c17442ddeeed79023ec28d23525c2815ca7a0bbaf54faec12e65f2a",
+    "biological_rows_reopened": false
+  },
+  "postresult_reproduction": {
+    "workflow_run_id": 40610811425,
+    "workflow_conclusion": "success",
+    "output_artifact_id": 12782597287,
+    "output_artifact_name": "e7-relational-coherence-40610811425",
+    "output_zip_sha256": "1bcd596848e79e41c36ff0aac946d5e8af68ce59f5a952d892052081ee75ac49",
+    "synthetic_and_frozen_regression_tests": 6,
+    "successful_original_csv_exact_comparison": true,
+    "file": "docs/replication/E7_RELATIONAL_COHERENCE_RESULT.json",
+    "all_66_pair_table": "docs/replication/E7_RELATIONAL_PAIRWISE_66.csv",
+    "all_66_pair_table_sha256": "688bf6ff6d5289be6f577583f30a753f460bc53b03ca9c5d207a60f50d51951b"
+  },
+  "checked_results": {
+    "matched_pairs": 46,
+    "active_connected_taxa": 11,
+    "unmatched_taxa": [
+      "reedbuck"
+    ],
+    "complete_triangles_each_partition": 104,
+    "discovery_scalar_energy_explained": 0.5512442064061597,
+    "validation_scalar_energy_explained": 0.37443908947904125,
+    "discovery_median_abs_triangle_gap": 0.8510528222801812,
+    "validation_median_abs_triangle_gap": 0.7080204284474858,
+    "out_of_period_species_gradient_skill_vs_zero": -0.7552148994346888
+  },
+  "scientific_boundary": {
+    "source_pairwise_E7_results_not_refitted": true,
+    "no_new_unopened_camera_or_biological_response": true,
+    "camera_specific_detector_identified": false,
+    "infer_ecological_competition_from_cycle_gap": false,
+    "statistical_independence_of_pair_edges_or_triangles": false,
+    "E4_frozen_results_modified": false,
+    "E5_original_G4_passed": false,
+    "E5_original_qualified_candidates": 0
+  }
+}
