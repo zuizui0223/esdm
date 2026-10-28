@@ -117,6 +117,29 @@ See the [E7-C empirical synthesis](docs/replication/E7_DIRECT_CAMERA_YEAR_DIEL_E
 [separate source-opening evidence](docs/replication/E7_DIRECT_CAMERA_YEAR_FROZEN_RESULT_RECEIPT.json),
 and [all 66 pair results](https://github.com/zuizui0223/esdm/actions/runs/40618416135/artifacts/12785339858).
 
+
+**E7-C observed-data support audit (2026-10-28; no new wildlife
+response):** A read-only audit of the original hash-pinned E7-C result
+showed that across all **66 species pairs**, **30 discovery / 27 validation**
+pairs had *zero* exact complete camera-years; a further **23 / 20** had
+only 1–4, **12 / 10** had 5–9, and just **1 / 9** reached 10.
+The 12/10 near-supported pairs already met the distinct-camera and source
+folder requirements, so a lack of complete paired camera-years was the
+decisive original eligibility barrier. This is **not** a negative test of
+seasonal behavior, a rescue of E7-C, or evidence that a recorded zero is
+true ecological absence rather than camera nonoperation/detection failure.
+
+An [explicitly hypothetical eight-cell Poisson observation illustration](docs/replication/E7C_COMPLETE_CELL_OBSERVABILITY_AND_NEXT_STUDY.md)
+shows why abundant total image counts do not ensure all species×season×clock
+cells are recorded. The complete 66-pair support/shortfall ledger is an
+[inspectable GitHub artifact](https://github.com/zuizui0223/esdm/actions/runs/40636253505/artifacts/12792949937),
+and the [frozen aggregate evidence receipt](docs/replication/E7C_OBSERVABILITY_FROZEN_RESULT_RECEIPT.json)
+preserves the original input SHA and this read-only workflow. Planning
+lower bounds are for a **new independent study only**, not retrospective
+completion of E7-C. The next useful data require camera-day/night effort
+logs, reference-passage/taxon-specific detection and independently fixed
+rainfall/vegetation context.
+
 The empirical lineage is deliberately cumulative rather than rewritten:
 
 ```text
