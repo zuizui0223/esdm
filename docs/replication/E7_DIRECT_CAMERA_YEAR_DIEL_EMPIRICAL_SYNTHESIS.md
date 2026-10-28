@@ -20,6 +20,20 @@ E7-C instead uses the same camera location and hydrological year, with **all fou
 | Within-cell three-species algebraic closure tests | 85 | 137 |
 | Maximum numerical closure error | 8.9×10⁻¹⁶ | 8.9×10⁻¹⁶ |
 
+### How severe is the overlap limitation?
+
+Among the **66** original unordered species pairs, **30** discovery pairs and **27** validation pairs had **zero** camera-year blocks where both species satisfied the four strictly positive wet/dry × night/midday record counts. The median number of matched camera-years per pair was **1** in **both** partitions.
+
+| Count of exact shared complete camera-years per pair | Discovery S01–S05 | Validation S06–S11 |
+|---|---:|---:|
+| 0 | **30** | **27** |
+| 1–4 | 23 | 20 |
+| 5–9 | 12 | 10 |
+| ≥10 | **1** | **9** |
+| **Total fixed pairs** | **66** | **66** |
+
+This stricter four-bin-positive filter especially excludes rare or strongly diel-specialized taxa; it does not mean an animal was absent from the landscape. Requiring more camera seasons or better reference detection is the next **sampling design** issue; post-hoc zero imputation or relaxing thresholds would not make the old E7-C endpoint independently valid.
+
 **This is a support/estimand difference, not proof that the old E7 MH calculation was arithmetically wrong.** It does establish that the existing records cannot support the same community-wide comparisons under strict four-bin overlap without changing the method. There is no authorization to relax the preregistered gate or insert continuity pseudocounts after inspecting this outcome.
 
 ### The only pair directly comparable in both collection-period partitions
