@@ -13,6 +13,9 @@ permissions:
 
 jobs:
   separate-postresult-source-opening:
+    # E7-C biological source was opened once at this successful audit commit.
+    # Do not reopen the same response when adding frozen result notes/tests.
+    if: github.event.pull_request.head.sha == '9bd1d7814db50f31830e8cdcf625a62fa0504ea9'
     runs-on: ubuntu-latest
     timeout-minutes: 55
     steps:
