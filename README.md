@@ -90,6 +90,33 @@ frozen-aggregate-only methodological check; no new animal record was opened.
 See the [audit and counterexample](docs/replication/E7_PAIR_TRANSFER_COMPONENTS_AND_NONCOLLAPSIBILITY.md)
 and [verifiable result receipt](docs/replication/E7_PAIR_TRANSFER_COMPONENTS_RESULT_RECEIPT.json).
 
+
+**Distinct E7-C exact same-camera/year field diagnostic (2026-10-28):**
+The original E7 paired-Mantel–Haenszel summaries could estimate **54/66**
+discovery and **50/66** validation species pairs. A new, explicitly
+post-result secondary access to the *same 11 source archives* calculated
+each species' change in observed night/midday odds **within the same
+camera/year**, requiring all four wet/dry×night/midday cells strictly
+positive. With fixed support (≥10 camera-years, ≥5 cameras, ≥3 source
+folders), only **1/66** discovery and **9/66** validation pairs were
+estimable; the **sole** pair eligible in both periods was
+**wildebeest/zebra**, with camera-year median local log shift **+1.395**
+in discovery versus **−0.073** in validation (validation leave-one-camera
+range includes zero). Within-cell triangle closure passed all **85**
+and **137** algebraic checks, but this is an identity, not evidence for
+or against species interactions.
+
+**Scientific conclusion:** the old pooled E7 comparisons generally lack
+enough complete *same-camera/year* observation support for a direct
+non-weighted check. The stricter selection is a *different estimand* and
+does not invalidate the original MH arithmetic, prove absence of
+seasonal ecology, or identify species-specific detector effects.
+Source archive hashes and all **11/11 per-season QC records** matched
+the original frozen E7 outcome; original E4/E5/E7 decisions unchanged.
+See the [E7-C empirical synthesis](docs/replication/E7_DIRECT_CAMERA_YEAR_DIEL_EMPIRICAL_SYNTHESIS.md),
+[separate source-opening evidence](docs/replication/E7_DIRECT_CAMERA_YEAR_FROZEN_RESULT_RECEIPT.json),
+and [all 66 pair results](https://github.com/zuizui0223/esdm/actions/runs/40618416135/artifacts/12785339858).
+
 The empirical lineage is deliberately cumulative rather than rewritten:
 
 ```text
