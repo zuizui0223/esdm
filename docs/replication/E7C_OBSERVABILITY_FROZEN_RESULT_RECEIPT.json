@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "programme_id": "E7C_FROZEN_OBSERVABILITY",
+  "status": "SUPPORT_BOTTLENECK_ACCOUNTED_NO_BIOLOGICAL_RESPONSE_REOPENED",
+  "date": "2026-10-28",
+  "provenance": {
+    "analysis_run_id": 40636253505,
+    "run_conclusion": "success",
+    "artifact_id": 12792949937,
+    "artifact_zip_sha256": "254467d8f9c8d29a767ce88ae5fbda52edb1b67ff749fd71969c852bac0fcdb2",
+    "inner_aggregate_json_sha256": "152543fd55ff739240675fc3798e2afd6fd476c031b551fc85a2daa5dee9e3df",
+    "inner_aggregate_json_bytes": 78230,
+    "source_original_E7C_run_id": 40618416135,
+    "source_original_E7C_result_sha256": "a032635e1acfabd89c253fe52308469735c4e13776ae3f49b7294cded9e7b6cf",
+    "synthetic_tests_passed": 6,
+    "all_66_pair_ids_reported": true,
+    "original_wildlife_archive_or_image_downloaded": false
+  },
+  "fixed_eligibility": {
+    "min_complete_camera_years": 10,
+    "min_distinct_cameras": 5,
+    "min_original_collection_folders": 3,
+    "positive_record_bins_per_pair_camera_year": 8
+  },
+  "actual_support": {
+    "discovery": {
+      "original_estimable": 1,
+      "zero_complete_year_pairs": 30,
+      "one_to_four_year_pairs": 23,
+      "five_to_nine_year_pairs": 12,
+      "ten_plus_year_pairs": 1,
+      "pairs_missing_only_ten_year_gate": 12,
+      "one_complete_year_below_gate": 3,
+      "zero_complete_year_species": [
+        "reedbuck"
+      ]
+    },
+    "validation": {
+      "original_estimable": 9,
+      "zero_complete_year_pairs": 27,
+      "one_to_four_year_pairs": 20,
+      "five_to_nine_year_pairs": 10,
+      "ten_plus_year_pairs": 9,
+      "pairs_missing_only_ten_year_gate": 10,
+      "one_complete_year_below_gate": 1,
+      "zero_complete_year_species": [
+        "warthog"
+      ]
+    },
+    "comparable_both_periods": 1,
+    "note": "All 5–9-year pairs satisfy distinct physical camera and original collection-folder gates, but fail ten-complete-year gate."
+  },
+  "hypothetical_future_support_only_examples": [
+    {
+      "taxa": [
+        "elephant",
+        "wildebeest"
+      ],
+      "observed_complete_years_discovery": 9,
+      "validation": 13,
+      "minimum_additional_in_separate_future_experiment": 1
+    },
+    {
+      "taxa": [
+        "giraffe",
+        "zebra"
+      ],
+      "observed_complete_years_discovery": 9,
+      "validation": 17,
+      "minimum_additional_in_separate_future_experiment": 1
+    },
+    {
+      "taxa": [
+        "gazelleGrants",
+        "zebra"
+      ],
+      "observed_complete_years_discovery": 9,
+      "validation": 9,
+      "minimum_additional_in_separate_future_experiment": 2
+    }
+  ],
+  "illustrative_eight_cell_independent_poisson": {
+    "probability_all_positive_at_lambda_1": 0.02549173076596687,
+    "probability_all_positive_at_lambda_2": 0.3124509872361312,
+    "probability_all_positive_at_lambda_3": 0.6646109497208131,
+    "probability_all_positive_at_lambda_4": 0.8625315296687566,
+    "expected_sequences_per_cell_for_80pct_completeness": 3.59329558325999,
+    "estimated_from_serengeti": false
+  },
+  "scientific_boundary": {
+    "possible_future_additions_are_not_usable_to_reopen_old_E7C": true,
+    "no_source_zeros_imputed_or_support_threshold_changed": true,
+    "no_camera_effort_or_true_passage_denominator_available": true,
+    "cannot_distinguish_no_activity_from_no_detection_or_downtime": true,
+    "new_field_replication_completed": false,
+    "no_mechanistic_effect_or_competition_claim": true,
+    "original_E4_E5_E7_E7C_results_unchanged": true
+  }
+}

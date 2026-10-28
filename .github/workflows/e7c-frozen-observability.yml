@@ -1,0 +1,49 @@
+name: E7-C frozen-result-only observability feasibility
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/e7c_future_observability_audit.py'
+      - 'tests/test_e7c_future_observability_audit.py'
+      - '.github/workflows/e7c-frozen-observability.yml'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  frozen-aggregate-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test frozen gate identities and explicitly hypothetical Poisson observation model
+        run: |
+          python -m pip install 'pytest>=8'
+          python -m pytest -q tests/test_e7c_future_observability_audit.py
+          python -m py_compile scripts/e7c_future_observability_audit.py
+      - name: Download ONLY previously frozen E7-C aggregate (no animal source ZIPs)
+        uses: actions/download-artifact@v4
+        with:
+          name: e7-direct-camera-year-40618416135
+          path: source/frozen
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 40618416135
+      - name: Independently verify original aggregate bytes and compute support bounds
+        run: |
+          echo 'a032635e1acfabd89c253fe52308469735c4e13776ae3f49b7294cded9e7b6cf  source/frozen/E7_DIRECT_CAMERA_YEAR_DIEL_RESULT.json' | sha256sum --check
+          mkdir -p build/e7c
+          python scripts/e7c_future_observability_audit.py \
+            --original-e7c source/frozen/E7_DIRECT_CAMERA_YEAR_DIEL_RESULT.json \
+            --out build/e7c/E7C_SUPPORT_FEASIBILITY_RESULT.json
+      - name: Upload aggregate-only observational support receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: e7c-frozen-observability-${{ github.run_id }}
+          path: build/e7c/E7C_SUPPORT_FEASIBILITY_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
