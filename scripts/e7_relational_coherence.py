@@ -149,6 +149,7 @@ def _gradient_fit(edges: list[tuple[str, str]], shifts: list[float], taxa: list[
         lap[a][a] += 1
         lap[b][b] += 1
         lap[a][b] -= 1
+        lap[b][a] -= 1
         rhs[a] += value
         rhs[b] -= value
     beta = _solve_linear(lap, rhs)
