@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "programme_id": "E7_SERENGETI_POSTRESULT_RELATIONAL_TRANSFER",
+  "status": "FROZEN_AGGREGATE_GRADIENT_CYCLE_TRANSFER_DIAGNOSTIC",
+  "recorded_date": "2026-10-28",
+  "provenance": {
+    "workflow_run_id": 40614625337,
+    "workflow_attempt": 1,
+    "workflow_head_sha": "14139b9bcf0a8626ef85edfe3f41bd7a584c865c",
+    "workflow_conclusion": "success",
+    "artifact_id": 12783798278,
+    "artifact_name": "e7-gradient-cycle-aggregate-40614625337",
+    "artifact_zip_sha256": "a83f0dbd846c9ef785771013f7c2c025fafb233f16f4298c3a357bc762e162cc",
+    "generated_json_sha256": "26f4fb6e852c137f86e27f8426ee56d108170f1828ba1c039190e3d83456b1b6",
+    "original_11_season_empirical_run_id": 39222089646,
+    "input_pair_table": "docs/replication/E7_RELATIONAL_PAIRWISE_66.csv",
+    "input_pair_table_sha256": "688bf6ff6d5289be6f577583f30a753f460bc53b03ca9c5d207a60f50d51951b",
+    "original_graph_audit": "docs/replication/E7_RELATIONAL_COHERENCE_RESULT.json"
+  },
+  "support": {
+    "common_taxon_pair_edges": 46,
+    "taxa_on_connected_graph": 11,
+    "graph_gradient_dimension": 10,
+    "graph_cycle_dimension": 36,
+    "prior_complete_triangles_not_independent": 104
+  },
+  "discovery_validation": {
+    "raw_pair_cosine": 0.029631361851061206,
+    "species_gradient_cosine": 0.42626821279724475,
+    "graph_residual_cosine": -0.3095896906762197,
+    "raw_cross_dot": 1.2707981978143306,
+    "gradient_cross_dot": 8.305590898852127,
+    "residual_cross_dot": -7.034792701037792,
+    "dot_decomposition_exact_identity": true,
+    "direct_full_discovery_to_validation_skill_vs_zero": -2.38229498004733,
+    "discovery_gradient_to_raw_validation_skill_vs_zero": -0.7552148994346888,
+    "discovery_gradient_to_validation_gradient_skill_vs_zero": -2.0169232343915326,
+    "discovery_cycle_to_validation_cycle_skill_vs_zero": -2.6009938492762132,
+    "leave_one_taxon_out_exclusions": 11,
+    "gradient_positive_residual_negative_exclusions": 10,
+    "exception_taxon": "hyenaSpotted"
+  },
+  "noncollapsibility_counterexample": {
+    "synthetic_species": 3,
+    "synthetic_physical_sites": 3,
+    "same_sites_for_all_three_pairs": true,
+    "each_species_wet_and_dry_night_midday_ratio_identical_at_each_site": true,
+    "stage_multipliers_scale_each_species_both_diel_periods_equally": true,
+    "pair_log_changes": {
+      "AB": 0.612032948540649,
+      "AC": -0.29534246580144946,
+      "BC": 0.6976970855027381
+    },
+    "triangle_closure_log_units": 1.6050724998448367,
+    "conclusion": "Pooled MH nonclosure possible without any within-site diel profile change or three-way interaction"
+  },
+  "science_boundaries": {
+    "aggregate_only_rederived_no_new_wildlife_event_rows": true,
+    "pairwise_edges_depend_on_shared_species_and_sampling": true,
+    "gradient_cosine_not_true_activity_trait_transfer": true,
+    "cycle_residual_not_an_interaction_effect": true,
+    "zero_skill_baseline_both_direct_transfer_scores_negative": true,
+    "no_inferential_p_values_or_CIs": true,
+    "original_E4_fit_or_scores_modified": false,
+    "original_E5_qualified_candidates": 0,
+    "original_E5_G4_passed": false,
+    "original_E7_field_results_modified": false
+  }
+}
