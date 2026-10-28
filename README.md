@@ -70,6 +70,26 @@ three-species biological interaction.** [Study and caveats](docs/replication/E7_
 [complete frozen pair table](docs/replication/E7_RELATIONAL_PAIRWISE_66.csv),
 [reproducible derived result](docs/replication/E7_RELATIONAL_COHERENCE_RESULT.json).
 
+
+**E7 transfer decomposition and falsification (2026-10-28):** On the same
+46 original pair contrasts, discovery/validation cosine is nearly zero
+(**+0.030**); the species-gradient component is moderately positively aligned
+(**+0.426**), but the orthogonal residual is negatively aligned (**−0.310**).
+Their cross-inner-product contributions **+8.306 and −7.035** nearly cancel.
+The opposing signs persist when any one of **10/11 taxa** is omitted; excluding
+spotted hyena is the exception. Neither full discovery pairs (**−2.382**)
+nor the discovery species gradient (**−0.755**) has positive transfer skill
+versus predicting no shift.
+
+A decisive **synthetic same-site counterexample** has zero wet/dry diel change
+for each species at each camera but produces a **+1.605 log-unit pairwise MH
+triangle closure gap** solely from changes in aggregation weights.
+Therefore summary-level nonclosure is **not evidence of three-way ecological
+interaction or a species' actual temporal-niche change**. This is a
+frozen-aggregate-only methodological check; no new animal record was opened.
+See the [audit and counterexample](docs/replication/E7_PAIR_TRANSFER_COMPONENTS_AND_NONCOLLAPSIBILITY.md)
+and [verifiable result receipt](docs/replication/E7_PAIR_TRANSFER_COMPONENTS_RESULT_RECEIPT.json).
+
 The empirical lineage is deliberately cumulative rather than rewritten:
 
 ```text
