@@ -1,0 +1,74 @@
+name: E7-C distinct direct-camera-year exploratory audit
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/e7-direct-camera-year-diel-once.yml'
+      - 'scripts/e7_direct_camera_year_diel.py'
+      - 'tests/test_e7_direct_camera_year_diel.py'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  separate-postresult-source-opening:
+    # E7-C biological source was opened once at this successful audit commit.
+    # Do not reopen the same response when adding frozen result notes/tests.
+    if: github.event.pull_request.head.sha == '9bd1d7814db50f31830e8cdcf625a62fa0504ea9'
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify E7-C strict-cell and no-rescue synthetic tests
+        run: |
+          python -m pip install 'pytest>=8'
+          python -m pytest -q tests/test_e7_direct_camera_year_diel.py
+          python -m compileall -q scripts/e7_direct_camera_year_diel.py
+      - name: Download already frozen successful E7 aggregate for source QC
+        uses: actions/download-artifact@v4
+        with:
+          name: e7-serengeti-format-compat-39222089646
+          path: source/e7frozen
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 39222089646
+      - name: Verify original E7 result bytes before any wildlife opening
+        run: |
+          echo '21a0b03d8c17442ddeeed79023ec28d23525c2815ca7a0bbaf54faec12e65f2a  source/e7frozen/E7_SERENGETI_WET_DRY_FORMAT_COMPAT_RESULT.json' | sha256sum --check
+      - name: Download the same eleven original pinned Serengeti metadata ZIPs
+        run: |
+          set -euo pipefail
+          mkdir -p source/e7zips
+          BASE=https://lilawildlife.blob.core.windows.net/lila-wildlife/snapshotserengeti-v-2-0
+          for SEASON in $(seq -w 1 11); do
+            FILENAME="SnapshotSerengetiS${SEASON}.json.zip"
+            curl --fail --location --retry 3 --retry-delay 2 \
+              --connect-timeout 30 --max-time 600 --silent --show-error \
+              --output "source/e7zips/${FILENAME}" "${BASE}/${FILENAME}"
+          done
+          python - <<'PY'
+          from pathlib import Path
+          from scripts.e7_serengeti_wet_dry_diel import EXPECTED_SOURCE_SHA256, sha256
+          for name, digest in EXPECTED_SOURCE_SHA256.items():
+              archive = Path("source/e7zips") / f"SnapshotSerengeti{name}.json.zip"
+              assert sha256(archive) == digest, name
+              print(f"{name} source SHA256 verified")
+          PY
+      - name: Open new E7-C within-camera-year endpoint once
+        run: |
+          mkdir -p build/e7c
+          python -m scripts.e7_direct_camera_year_diel \
+            --archive-dir source/e7zips \
+            --original-e7-result source/e7frozen/E7_SERENGETI_WET_DRY_FORMAT_COMPAT_RESULT.json \
+            --out build/e7c/E7_DIRECT_CAMERA_YEAR_DIEL_RESULT.json
+      - name: Upload aggregate-only E7-C result, no location or sequence IDs
+        uses: actions/upload-artifact@v4
+        with:
+          name: e7-direct-camera-year-${{ github.run_id }}
+          path: build/e7c/E7_DIRECT_CAMERA_YEAR_DIEL_RESULT.json
+          if-no-files-found: error
+          retention-days: 90

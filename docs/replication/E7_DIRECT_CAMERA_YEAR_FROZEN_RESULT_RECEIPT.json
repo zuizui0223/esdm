@@ -1,0 +1,206 @@
+{
+  "schema_version": 1,
+  "programme_id": "E7_C_DIRECT_MATCHED_CAMERA_YEAR_DIEL",
+  "status": "DIRECT_CELL_SUPPORT_LIMITED_NO_CROSS_PERIOD_SIGN_TRANSFER",
+  "audit_date": "2026-10-28",
+  "source": {
+    "original_biological_source": "Snapshot Serengeti, 11 published LILA metadata ZIPs",
+    "original_E7_empirical_run_id": 39222089646,
+    "original_E7_result_sha256": "21a0b03d8c17442ddeeed79023ec28d23525c2815ca7a0bbaf54faec12e65f2a",
+    "source_zip_hashes_reference": "docs/replication/E7_SERENGETI_SOURCE_FORMAT_STOP.json",
+    "all_11_source_sha256_verified": true,
+    "all_11_per_season_QC_identical_to_original_E7": true
+  },
+  "execution": {
+    "new_distinct_postresult_run_id": 40618416135,
+    "workflow_head_sha": "9bd1d7814db50f31830e8cdcf625a62fa0504ea9",
+    "workflow_conclusion": "success",
+    "synthetic_preflight_tests_passed": 5,
+    "artifact_id": 12785339858,
+    "artifact_name": "e7-direct-camera-year-40618416135",
+    "artifact_zip_sha256": "65c09a20f9368f638c1d56ae8306650de3af6ebeedf2e443c728e76bf84f869f",
+    "original_result_json_sha256": "a032635e1acfabd89c253fe52308469735c4e13776ae3f49b7294cded9e7b6cf",
+    "original_result_json_bytes": 107504,
+    "raw_camera_or_sequence_identifiers_exported": false
+  },
+  "estimand": {
+    "original_frozen_taxa": 12,
+    "all_possible_unordered_species_pairs": 66,
+    "original_discovery_collections": "S01–S05",
+    "original_validation_collections": "S06–S11",
+    "wet_core_months": [
+      11,
+      12,
+      1,
+      2,
+      3,
+      4
+    ],
+    "dry_core_months": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "night": "21:00–03:59",
+    "midday": "10:00–15:59",
+    "local_species_log_change": "log(dry night/dry midday) - log(wet night/wet midday), same physical camera x hydrological year",
+    "local_pair_change": "local_species1_change - local_species2_change",
+    "primary_pair_summary": "equal-site-year median of local pair change, not pooled pair-specific MH",
+    "every_4_species_time_phase_counts_positive": true,
+    "min_complete_siteyears": 10,
+    "min_distinct_camera_names": 5,
+    "min_original_collection_season_folders": 3,
+    "no_pseudocounts_or_response_adaptive_thresholds": true
+  },
+  "discovery": {
+    "matched_siteyears_with_at_least_one_complete_species": 125,
+    "estimable_pairs": 1,
+    "all_possible_pairs": 66,
+    "leave_one_camera_sign_stable_pairs": 1,
+    "complete_siteyears_by_species": {
+      "buffalo": 17,
+      "elephant": 26,
+      "gazelleGrants": 17,
+      "gazelleThomsons": 15,
+      "giraffe": 22,
+      "hartebeest": 9,
+      "hyenaSpotted": 4,
+      "lion": 6,
+      "reedbuck": 0,
+      "warthog": 1,
+      "wildebeest": 32,
+      "zebra": 62
+    },
+    "sole_estimable_pair": {
+      "species_1": "wildebeest",
+      "species_2": "zebra",
+      "matched_siteyears": 19,
+      "distinct_cameras": 18,
+      "collection_folders": 5,
+      "median_local_log_relative_change": 1.3949078715028365,
+      "fraction_siteyears_positive": 0.6842105263157895,
+      "leave_one_camera": {
+        "all_18_deletions_eligible": true,
+        "min_median": 1.041441484857803,
+        "max_median": 1.8140580179505108,
+        "direction_stable": true
+      }
+    },
+    "within_cell_identity": {
+      "three_species_matched_camera_years": 24,
+      "checked_three_species_relations": 85,
+      "maximum_absolute_triangle_gap": 8.881784197001252e-16
+    }
+  },
+  "validation": {
+    "matched_siteyears_with_at_least_one_complete_species": 202,
+    "estimable_pairs": 9,
+    "all_possible_pairs": 66,
+    "leave_one_camera_sign_stable_pairs": 3,
+    "complete_siteyears_by_species": {
+      "buffalo": 18,
+      "elephant": 50,
+      "gazelleGrants": 18,
+      "gazelleThomsons": 40,
+      "giraffe": 36,
+      "hartebeest": 10,
+      "hyenaSpotted": 13,
+      "lion": 5,
+      "reedbuck": 1,
+      "warthog": 0,
+      "wildebeest": 59,
+      "zebra": 118
+    },
+    "sole_cross_period_eligible_pair": {
+      "species_1": "wildebeest",
+      "species_2": "zebra",
+      "matched_siteyears": 46,
+      "distinct_cameras": 40,
+      "collection_folders": 5,
+      "median_local_log_relative_change": -0.07287998051185596,
+      "fraction_siteyears_positive": 0.4782608695652174,
+      "leave_one_camera_min_median": -0.16022394521019284,
+      "leave_one_camera_max_median": 0.0030292941309714716,
+      "sign_stable": false
+    },
+    "other_estimable_pairs_and_median_changes": [
+      [
+        "elephant",
+        "giraffe",
+        0.9984422575197932,
+        false
+      ],
+      [
+        "elephant",
+        "wildebeest",
+        -0.008898835142130412,
+        false
+      ],
+      [
+        "elephant",
+        "zebra",
+        -1.5456263996891464,
+        true
+      ],
+      [
+        "gazelleGrants",
+        "gazelleThomsons",
+        0.09070475299762892,
+        false
+      ],
+      [
+        "gazelleThomsons",
+        "wildebeest",
+        -0.12917304982229372,
+        false
+      ],
+      [
+        "gazelleThomsons",
+        "zebra",
+        -0.7540559336469377,
+        true
+      ],
+      [
+        "giraffe",
+        "wildebeest",
+        -0.5878895114183701,
+        false
+      ],
+      [
+        "giraffe",
+        "zebra",
+        0.3461782791333895,
+        true
+      ]
+    ],
+    "within_cell_identity": {
+      "three_species_matched_camera_years": 39,
+      "checked_three_species_relations": 137,
+      "maximum_absolute_triangle_gap": 8.881784197001252e-16
+    }
+  },
+  "transfer": {
+    "pairs_estimable_in_both": 1,
+    "same_direction_pairs": 0,
+    "both_periods_leave_one_camera_sign_robust": 0,
+    "comparable_pair_wildebeest_zebra_discovery_to_validation_direction": "positive_to_near_zero_negative",
+    "original_E7_pooled_pair_MH_estimable_discovery": 54,
+    "original_E7_pooled_pair_MH_estimable_validation": 50,
+    "distinct_stricter_estimand_not_directly_comparable_as_same_effect_size": true
+  },
+  "science_limits": {
+    "strict_complete_cell_support_reduces_estimability": true,
+    "local_same_camera_year_triangle_identity_is_algebraic_not_ecological": true,
+    "disappearance_of_supported_pairs_does_not_prove_absence_of_seasonal_changes": true,
+    "absence_of_frozen_E7_MH_effects_is_not_established": true,
+    "species_specific_camera_detection_uncalibrated": true,
+    "weather_NDVI_or_plant_resources_not_measured": true,
+    "biological_competition_or_causal_temporal_niches_not_identified": true,
+    "exploratory_reopening_of_existing_E7_data": true,
+    "new_external_independent_field_replication": false,
+    "E4_original_fit_scores_unchanged": true,
+    "E5_original_qualified_datasets": 0,
+    "E5_G4_passed": false
+  }
+}
