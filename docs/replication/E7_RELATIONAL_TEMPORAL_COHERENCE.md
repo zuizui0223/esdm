@@ -66,3 +66,10 @@ where `q` must distinguish true passage/activity from observation-process yield,
 ## Reproducibility
 
 The read-only script [scripts/e7_relational_coherence.py](../../scripts/e7_relational_coherence.py) verifies both original summary and compact 66-pair data hashes, checks the exact pair-table derivation if provided with the GitHub Actions original artifact, rejects disconnected common-support graphs, calculates the zero-sum species-potential by a deterministic 11×11 linear solve, and records all species scores and triangle summaries in [E7_RELATIONAL_COHERENCE_RESULT.json](E7_RELATIONAL_COHERENCE_RESULT.json). Synthetic exact-transitivity and broken-transitivity cases are tested separately. No biological archive, raw camera site names or individual images enter the calculation.
+
+
+### Independent algebraic counterexample to overinterpreting nonclosure (2026-10-28)
+
+A [separate frozen-aggregate transfer audit](E7_PAIR_TRANSFER_COMPONENTS_AND_NONCOLLAPSIBILITY.md) decomposed the same 46-edge vectors into species-gradient and orthogonal residual/cycle components. Their **discovery–validation cosines were +0.426 and −0.310**, respectively, nearly cancelling the whole-vector **+0.030**. This is an exact descriptive decomposition, **not** a transfer of underlying species activities.
+
+More importantly, a synthetic dataset with **exactly the same three sites for all three species pairs** and **no wet/dry change in any species' night/midday odds at any site** produced an aggregate Mantel–Haenszel triangle closure error of **+1.605 log units**. Thus *even pairwise camera-site overlap does not by itself rescue an ecological interpretation of pooled triangle nonclosure*: changing aggregate weights and noncollapsibility can create it without biological interaction or a shift in species diel profiles. The original 104 triangles span at most a 36-dimensional residual cycle space on the 46-edge, 11-species connected graph. No new Serengeti biological records were reopened.
