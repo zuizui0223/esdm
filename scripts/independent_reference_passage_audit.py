@@ -209,6 +209,7 @@ def _read_passages(path: Path, effort: dict, coverage: dict) -> tuple[dict, dict
         matching = [
             window for window in coverage[key]
             if window["source"] == ref_id
+            and timestamp.utcoffset() == window["start"].utcoffset()
             and window["start"] <= timestamp < window["end"]
         ]
         if len(matching) != 1:
