@@ -111,6 +111,7 @@ def test_reference_independence_and_camera_artifact_on_360min_clock_windows():
     ("reference_equals_camera_event","reused as focal camera"),
     ("outside_coverage_same_clock","outside uniquely matched"),
     ("wrong_reference_source","outside uniquely matched"),
+    ("passage_wrong_timezone_offset","outside uniquely matched"),
 ])
 def test_unsafe_passage_identity_time_or_crosswalk_is_refused(mutation,message):
     with _test_environment() as folder:
@@ -136,6 +137,8 @@ def test_unsafe_passage_identity_time_or_crosswalk_is_refused(mutation,message):
             pr[0]["reference_timestamp"]="2026-06-22T22:15:00+09:00"
         elif mutation=="wrong_reference_source":
             pr[0]["reference_source_id"]="wrong_video"
+        elif mutation=="passage_wrong_timezone_offset":
+            pr[0]["reference_timestamp"]="2026-06-20T22:15:00+08:00"
         _write(p,REQUIRED_PASSAGES,pr)
         with pytest.raises(ValueError,match=message):
             audit(e,p,c)
