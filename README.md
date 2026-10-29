@@ -140,6 +140,28 @@ completion of E7-C. The next useful data require camera-day/night effort
 logs, reference-passage/taxon-specific detection and independently fixed
 rainfall/vegetation context.
 
+
+**Next-independent-evidence contract (2026-10-29; no new animal outcome):**
+A concrete [independent reference-passage and ecological sampling protocol](docs/replication/INDEPENDENT_REFERENCE_PASSAGE_AND_ECOLOGY_PROTOCOL.md)
+and [validated CSV audit](scripts/independent_reference_passage_audit.py)
+now separate **known video/thermal passages**, focal-camera **triggering**,
+**species registration**, and independently recorded operational effort at
+each physical camera×environmental phase×night/midday cell. Synthetic data
+show no change in actual reference night/day passage rates but a **4×
+apparent camera nocturnality decline** solely from declining night camera
+capture. The validator rejects ambiguous passage IDs, unsupported camera
+crosswalks, missing 0/1 stage flags, trigger-selected reference recordings
+and unobserved effort. **No real wildlife reference calibration has been
+obtained, and E5 remains 0/17 G4-unpassed.**
+
+The newly identified [Glasgow 2024 urban wildlife dataset](https://doi.org/10.5285/e41601be-1fc7-47ed-85c4-ec00be0c3f93)
+includes camera setup/takedown, detection-zone and dog-use metadata at 24
+green spaces for fox, roe deer and grey squirrel. It may support a distinct
+**observational urban-ecology** test after schema/access checks, but
+camera-zone geometry or motion-triggered video alone is **not** a
+known-undetected-passage denominator and does not meet the outstanding E5
+calibration need.
+
 The empirical lineage is deliberately cumulative rather than rewritten:
 
 ```text
