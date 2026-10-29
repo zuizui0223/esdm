@@ -59,7 +59,7 @@ def test_independent_reference_shows_camera_artifact_without_animal_diel_change(
     with TemporaryDirectory() as temp:
         e,p,_,_= _generate(Path(temp))
         result=audit(e,p)
-        assert result["source"]["independent_passage_rows"]==40
+        assert result["source"]["reference_passage_rows"]==40
         assert len(result["strata"])==4
         bins={(s["phase"],s["clock_bin"]):s["species_calibration"][0]
               for s in result["strata"]}
