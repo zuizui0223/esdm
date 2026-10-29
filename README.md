@@ -151,8 +151,13 @@ show no change in actual reference night/day passage rates but a **4×
 apparent camera nocturnality decline** solely from declining night camera
 capture. The validator rejects ambiguous passage IDs, unsupported camera
 crosswalks, missing 0/1 stage flags, trigger-selected reference recordings
-and unobserved effort. **No real wildlife reference calibration has been
-obtained, and E5 remains 0/17 G4-unpassed.**
+and unobserved effort. **The first two-table prototype has been corrected:**
+actual exposure now requires a **third timestamped camera/reference interval
+CSV**, verifies that all passages fall within the exact overlapping operating
+windows, and recomputes minutes rather than trusting declared totals. The
+illustrative night/midday reference exposure is **6 hours per bin**, not an
+impossible 10 hours within the fixed clock windows. **No real wildlife
+reference calibration has been obtained, and E5 remains 0/17 G4-unpassed.**
 
 The newly identified [Glasgow 2024 urban wildlife dataset](https://doi.org/10.5285/e41601be-1fc7-47ed-85c4-ec00be0c3f93)
 includes camera setup/takedown, detection-zone and dog-use metadata at 24
