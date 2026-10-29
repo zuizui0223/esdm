@@ -14,6 +14,8 @@ Do **not** assume a new ecological response, positive effect, or transfer succes
 
 At each matched site and period:
 
+**Exposure-integrity correction (2026-10-29):** Merely specifying independent-reference minutes is insufficient: timestamps could be outside the time the camera and reference were both recording. The deployed validator now *requires a third timestamped interval file*, rejects exposed-minute mismatches and rejects passages outside the exact overlapping time windows. The original two-CSV interface must not be used for verified conditional reference rates.
+
 - An **independent continuous or pre-randomized-time reference video/thermal sensor**, time-synchronized to the focal motion camera, covers a **pre-defined focal camera reference zone**. Reference observation times must **not be chosen because the focal camera triggered**. Every passage gets an independent persistent ID *before* matching camera events.
 - Preserve independent reference identity (`independent_passage_id`) and trigger-event identity (`camera_event_id`), including **reference-known passes not triggering any image**. Use one-to-one audit of crosswalk; ambiguous, duplicated or uncertain matches are rejected rather than guessed by similar species/time.
 - Log the exact overlap of operating focal-camera minutes and reference-observation minutes for each **physical site × ecological phase × clock window**; record all camera downtime and non-reference intervals. A zero event count with verified reference operation differs from a camera that was turned off.
@@ -23,11 +25,13 @@ At each matched site and period:
 
 ### Machine-readable source contract (implemented)
 
-`scripts/independent_reference_passage_audit.py` consumes exactly two UTF-8 CSVs:
+`scripts/independent_reference_passage_audit.py` consumes exactly **three** UTF-8 CSVs:
 
 **`reference_effort.csv`**: `site_id, phase, clock_bin, camera_operational_minutes, independent_reference_minutes, reference_sampling_scheme`. Every exposure must be strictly positive. Reference time is the overlap with focal camera operation. Valid sampling schemes: `continuous_reference` and `randomized_time_blocks`. A camera-trigger-selected reference is **rejected**. If randomized, its fixed probability/inclusion design must separately be recorded for valid landscape extrapolation.
 
-**`reference_passages.csv`**: `independent_passage_id, site_id, phase, clock_bin, species, reference_source_id, reference_timestamp, camera_triggered, species_registered, camera_event_id`. Passage ID must be unique, timestamps have an explicit UTC offset and agree with the declared clock bin, camera stage flags must be 0/1, no camera event may match two passages, and registered species must never exceed triggered passes. A pass known to the independent video but **missed by the motion camera** has `camera_triggered=0, species_registered=0, camera_event_id=""`.
+**`reference_coverage_intervals.csv`**: `interval_id, site_id, phase, clock_bin, reference_source_id, camera_start, camera_end, reference_start, reference_end`. Each source timestamp is offset-aware ISO-8601. Every interval represents **one continuous active period** of both the independent reference and the focal camera. Their positive intersection is the only accepted passage-exposure window. The validator checks that all four endpoints lie entirely within their declared 21:00–03:59 or 10:00–15:59 clock bin, forbids overlapping camera intervals at the same physical site, and **recalculates** operational camera minutes and reference-overlap minutes from the interval endpoints. Both values must match the separately declared effort CSV; missing, inconsistent and overlapping coverage fails closed. A daylight-saving transition must be split into separate constant-UTC-offset intervals. An independently observed passage must have a timestamp that lies in **exactly one** matching reference-source/camera exposure interval, not merely the right hour of an arbitrary day.
+
+**`reference_passages.csv`**: `independent_passage_id, site_id, phase, clock_bin, species, reference_source_id, reference_timestamp, camera_triggered, species_registered, camera_event_id`. Passage ID must be unique, timestamps have an explicit UTC offset and agree with the declared clock bin **and a real coverage interval belonging to that reference source**, camera stage flags must be 0/1, no camera event may match two passages, and registered species must never exceed triggered passes. A pass known to the independent video but **missed by the motion camera** has `camera_triggered=0, species_registered=0, camera_event_id=""`.
 
 For observed reference passages in a cell, the code reports:
 
@@ -45,12 +49,12 @@ These are **within-zone, within-sampled-time conditional descriptors**. They are
 
 ## Synthetic, falsifiable demonstration: a false nocturnality shift
 
-In the new tests, the true **independent reference passage counts are 10 night and 10 midday in each of two phases** (both 10 hours of verified reference exposure). In phase A, the camera correctly registers **5/10** night and **5/10** midday; in phase B, **2/10** night but **8/10** midday.
+In the new tests, the **independent reference passage counts are 10 night and 10 midday in each of two phases** (both **6 hours** of verified reference/camera overlap). In phase A, the camera correctly registers **5/10** night and **5/10** midday; in phase B, **2/10** night but **8/10** midday.
 
 - Independent reference night/midday rate ratio stays **1.0 → 1.0**: zero observed ecological passage-ratio shift in this controlled, synthetic setting.
 - Camera registered night/midday ratio shifts **1.0 → 0.25**, a four-fold *apparent* decline in nocturnal activity.
 - Known-passage effective camera yield shifts from **50% / 50%** (night/midday) to **20% / 80%** in B: exactly the source of the false shift.
-- The validator rejects duplicate independent IDs, missing trigger fields, registration without a trigger, one camera event matched to multiple reference passes, wrong timestamp bin, no reference exposure, and camera-trigger-selected reference observations.
+- The validator rejects duplicate independent IDs, missing trigger fields, registration without a trigger, one camera event matched to multiple reference passes, wrong timestamp bin, **a passage outside recorded operating overlap**, inconsistent declared effort versus timed intervals, no reference exposure, and camera-trigger-selected reference observations.
 
 This is a **constructed proof-of-identifiability illustration, not an observed animal result**. It concretely shows why E7-C's complete camera count cells, even when present, cannot by themselves distinguish animal activity from observation process.
 
@@ -67,8 +71,12 @@ These are **not interchangeable ecological responses**. Do not merge them into a
 
 ## Practical independent ecological validation design
 
-A future study can separately test: **(H1)** a species × measured-environment difference in independently referenced night/midday passage ratios; **(H2)** a species × environment × clock change in trigger or registration yield; and **(H3)** whether a passage-based estimate learned at one set of physical sites predicts **unopened** sites, with explicit effort, sensor and reference protocol crossing.
+A future study can separately test: **(H1)** a species × measured-environment difference in independently referenced night/midday passage ratios; **(H2)** a species × environment × clock change in trigger or registration yield, with every reference-passage timestamp matched to independently logged camera/reference overlap; and **(H3)** whether a passage-based estimate learned at one set of physical sites predicts **unopened** sites, with explicit effort, sensor and reference protocol crossing.
 
 The ecological estimand is not the number of positive camera images, but the difference of **reference-observed passage-rate log night/midday contrasts** for two prespecified species and two prespecified environments, with independently estimated detection yield used to explain camera-only discrepancies. Formally, for species `i`, environmental phase `e` and clock `t`: `lambda_ref(i,e,t)=N_known(i,e,t)/E_ref(e,t)`; compute species-relative `[log(lambda_ref(i,e,N)/lambda_ref(i,e,D)) - log(lambda_ref(j,e,N)/lambda_ref(j,e,D))]` only where both reference rates are defined. Count zeros remain explicit; do not impute or invent the numerator. Reference temporal strata, not image timestamps alone, define the denominator. Population-level inference must respect physical-camera clustering and independently verify reference sensitivity.
 
 **No claim now** that Glasgow, MammAlps or this new code provides those passage-based estimates. The existing E4, E5 (0/17, G4 unpassed), E7 and E7-C endpoints are unchanged. Avoid more synthetic model generations; the actual missing scientific input is **independently recorded passage × operational reference effort × taxon-specific camera yield**, not another model variant.
+
+## Additional observational source, distinct from reference-passage calibration
+
+A 2026 South Korean dataset (Jeon & Lim, Biodiversity Data Journal, [DOI 10.3897/BDJ.14.e191556](https://doi.org/10.3897/BDJ.14.e191556); [EcoBank original data release](https://doi.org/10.22756/ETC.20260000001022)) reports **4,623 camera-detected ungulate events** across **82 stations**, and **29,850 functional vs 30,410 scheduled camera-trap nights** with original operation and downtime logs plus a human-activity site covariate. This is a concrete independent source for **effort-aware observational temporal niche tests** in four ungulates. Its "independent events" are detections separated by a 30-minute rule; they are **not continuously observed independent passages missed by cameras**. No underlying event row or operational log was opened in the present code repair. A separate ecological design and source-access audit, not an automatic E5 G4 pass, is required before it is used.
