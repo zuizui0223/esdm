@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "programme_id": "E5_INDEPENDENT_ACTIVITY_DETECTION",
+  "candidate_id": "kays41_emammal_team_2020",
+  "contract_id": "e5-kays41-spatial-raw-header-response-blind-v1",
+  "contract_blob_sha": "136e1c98dafd5f67ddf1ad8244989b1efcbd0ab0",
+  "implementation_parent_sha": "1ef5f62daaf24efec902aa60a711ef9f0b6b0c73",
+  "authorized_date": "2026-10-06",
+  "precheck_authorized": true,
+  "one_shot": true,
+  "header_line_read_authorized": true,
+  "data_row_read_authorized": false,
+  "response_value_read_authorized": false,
+  "focal_response_opening_authorized": false,
+  "model_fitting_authorized": false
+}
