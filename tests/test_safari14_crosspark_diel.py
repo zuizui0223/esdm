@@ -54,6 +54,7 @@ def test_streaming_source_nonfinite_numeric_normalizer():
 def test_source_sequence_dedup_and_SER_exclusion():
     cats=[{"id":1,"name":"lionFemale"},{"id":2,"name":"zebra"},
           {"id":3,"name":"human"},{"id":4,"name":"empty"}]
+    cats.extend({"id":100+i,"name":f"nonmammal{i}"} for i in range(26))
     images=[]
     annotations=[]
     index=0
