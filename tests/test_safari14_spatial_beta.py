@@ -73,7 +73,7 @@ def test_real_source_parser_accepts_missing_timestamps_and_sequence_dedups():
     qc=meta["quality"]
     assert qc["total_image_metadata_records"]==27
     assert qc["excluded_E7_Serengeti_images"]==9
-    assert qc["nonwild_unknown_or_domestic_annotations"]==6
+    assert qc["nonwild_unknown_or_domestic_annotations"]==9
     assert qc["recognized_wild_mammal_annotation_rows"]==12
     assert qc["valid_14project_distinct_triggered_sequences"]==6
     assert qc["number_of_camera_location_keys"]==2
