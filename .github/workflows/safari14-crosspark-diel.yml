@@ -32,6 +32,7 @@ jobs:
             --connect-timeout 30 --max-time 900 --silent --show-error \
             --output source/safari14/snapshot_safari_2024_metadata.zip \
             https://storage.googleapis.com/public-datasets-lila/snapshot-safari-2024-expansion/snapshot_safari_2024_metadata.zip
+          echo '2327ffec714f6460eff7307efc32c32c61c6805dbcab8334d4d6485eeb079ac1  source/safari14/snapshot_safari_2024_metadata.zip' | sha256sum --check
           python - <<'PY'
           from pathlib import Path
           import hashlib,zipfile
