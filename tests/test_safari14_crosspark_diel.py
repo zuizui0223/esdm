@@ -15,6 +15,7 @@ from scripts.safari14_crosspark_diel import (
     MIN_PARKS_PER_PARTITION, TOP_TAXA,
     clock_bin, normalize_name, normalise_json_stream, project_from_filename,
     select_panel, _project_effect, _partition, pair_results, collect_metadata,
+    source_sha256,
 )
 
 
@@ -75,7 +76,7 @@ def test_source_sequence_dedup_and_SER_exclusion():
             z.writestr("data.json",json.dumps({
                 "categories":cats,"images":images,"annotations":annotations
             }))
-        full,clock,info=collect_metadata(archive)
+        full,clock,info=collect_metadata(archive, expected_source_sha256=source_sha256(archive))
     assert info["quality"]["images_seen"]==36
     assert info["quality"]["excluded_SER_images"]==12
     assert info["quality"]["nonfinite_json_tokens_normalized"]==36
