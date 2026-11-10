@@ -107,6 +107,7 @@ def normalise_json_stream(input_file, output_file, chunksize=4*1024*1024):
         output_file.write(head)
     end, n = NONFINITE.subn(lambda m: m.group(1)+b"null"+m.group(2), pending)
     output_file.write(end)
+    changed += n
     return changed
 
 
