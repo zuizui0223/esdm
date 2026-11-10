@@ -128,10 +128,10 @@ def _first_datetime(value):
         return None
 
 
-def collect_metadata(archive: Path) -> tuple[Counter, Counter, dict]:
+def collect_metadata(archive: Path, *, expected_source_sha256: str = PINNED_SOURCE_SHA256) -> tuple[Counter, Counter, dict]:
     """Parse metadata only; hold image-to-sequence keys, not image content."""
     input_digest = source_sha256(archive)
-    if input_digest != PINNED_SOURCE_SHA256:
+    if input_digest != expected_source_sha256:
         raise ValueError("Safari 2024 source archive SHA256 differs from first downloaded archive")
     qc = Counter()
     with tempfile.TemporaryDirectory() as temp:
