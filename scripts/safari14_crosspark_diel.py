@@ -32,6 +32,7 @@ MIN_CAMERA_EVENTS = 8
 MIN_CAMERAS_PER_PROJECT_PAIR = 5
 MIN_PARKS_PER_PARTITION = 3
 TOP_TAXA = 12
+PINNED_SOURCE_SHA256 = "2327ffec714f6460eff7307efc32c32c61c6805dbcab8334d4d6485eeb079ac1"
 
 # Prespecified recognizable wild African mammal labels; all others are
 # excluded, not manually reclassified after seeing diel results.
@@ -130,6 +131,8 @@ def _first_datetime(value):
 def collect_metadata(archive: Path) -> tuple[Counter, Counter, dict]:
     """Parse metadata only; hold image-to-sequence keys, not image content."""
     input_digest = source_sha256(archive)
+    if input_digest != PINNED_SOURCE_SHA256:
+        raise ValueError("Safari 2024 source archive SHA256 differs from first downloaded archive")
     qc = Counter()
     with tempfile.TemporaryDirectory() as temp:
         normalized = Path(temp)/"source_normalized.json"
@@ -146,9 +149,18 @@ def collect_metadata(archive: Path) -> tuple[Counter, Counter, dict]:
         first_time = {}
         location_ids = set()
         seen_projects = Counter()
+        sampled_image_field_names = set()
+        sampled_filename_head_components = Counter()
+        sampled_presence = Counter()
         with normalized.open("rb") as src:
             for im in ijson.items(src, "images.item"):
                 qc["images_seen"] += 1
+                if qc["images_seen"] <= 50:
+                    sampled_image_field_names.update(im)
+                    sampled_filename_head_components[str(im.get("file_name", "")).split("/",1)[0]] += 1
+                    for name in ("seq_id","location","datetime","file_name","id","date_captured"):
+                        if im.get(name) not in (None, ""):
+                            sampled_presence[name] += 1
                 project = project_from_filename(im.get("file_name", ""))
                 if project == "EXCLUDED_SER":
                     qc["excluded_SER_images"] += 1
@@ -180,6 +192,15 @@ def collect_metadata(archive: Path) -> tuple[Counter, Counter, dict]:
         qc["distinct_included_sequences_with_time"] = len(first_time)
         qc["source_project_image_counts"] = dict(sorted(seen_projects.items()))
         if len(first_time) == 0:
+            print("RESPONSE_BLIND_SAFARI_SCHEMA_DIAGNOSTIC="+json.dumps({
+                "sampled_image_fields":sorted(sampled_image_field_names),
+                "sampled_file_name_first_components":dict(sampled_filename_head_components),
+                "sampled_presence_of_fixed_fields":dict(sampled_presence),
+                "source_images_seen":qc["images_seen"],
+                "unknown_project_images":qc["unknown_project_images"],
+                "missing_sequence_location_time":qc["image_missing_sequence_location_time"],
+                "recognized_camera_keys":len(location_ids),
+            },sort_keys=True),flush=True)
             raise ValueError("no identified camera+sequence timestamps")
 
         seen = set()
