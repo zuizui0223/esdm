@@ -176,5 +176,14 @@
     "E4_E5_E7_E7C_original_results_unmodified": true,
     "E5_original_qualified_datasets": 0,
     "E5_G4_passed": false
+  },
+  "illustrative_individual_project_pair_exception": {
+    "project_1": "LEC",
+    "project_2": "TSW",
+    "group": "cross",
+    "pairwise_median_sim": 0.14285714285714285,
+    "pairwise_median_sne": 0.36363636363636365,
+    "fraction_of_500_draws_turnover_exceeds_nestedness": 0.206,
+    "confirms_global_result_does_not_apply_to_every_pair": true
   }
 }
