@@ -12,6 +12,9 @@ permissions:
 
 jobs:
   spatial-metadata-only-one-shot:
+    # Biological source already opened successfully at the frozen first SHA.
+    # Subsequent PR receipt/test updates MUST NOT read wildlife responses again.
+    if: github.event.pull_request.head.sha == '5773e252654896e304decd935be5db5716dc79ab'
     runs-on: ubuntu-latest
     timeout-minutes: 65
     steps:
