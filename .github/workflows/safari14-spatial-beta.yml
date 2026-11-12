@@ -1,0 +1,51 @@
+name: Safari14 spatial mammal turnover vs nestedness
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/safari14-spatial-beta.yml'
+      - 'scripts/safari14_spatial_beta.py'
+      - 'tests/test_safari14_spatial_beta.py'
+
+permissions:
+  contents: read
+
+jobs:
+  spatial-metadata-only-one-shot:
+    # Biological source already opened successfully at the frozen first SHA.
+    # Subsequent PR receipt/test updates MUST NOT read wildlife responses again.
+    if: github.event.pull_request.head.sha == '5773e252654896e304decd935be5db5716dc79ab'
+    runs-on: ubuntu-latest
+    timeout-minutes: 65
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prove source grammar and beta diversity formulas on synthetic data
+        run: |
+          python -m pip install 'ijson>=3.2,<4' 'pytest>=8'
+          python -m compileall -q scripts/safari14_spatial_beta.py
+          python -m pytest -q tests/test_safari14_spatial_beta.py
+      - name: Download and SHA256-verify original public metadata ZIP only
+        run: |
+          set -euo pipefail
+          mkdir -p source/safari14
+          curl --fail --location --retry 3 --retry-delay 2 \
+            --connect-timeout 30 --max-time 900 --silent --show-error \
+            --output source/safari14/snapshot_safari_2024_metadata.zip \
+            https://storage.googleapis.com/public-datasets-lila/snapshot-safari-2024-expansion/snapshot_safari_2024_metadata.zip
+          echo '2327ffec714f6460eff7307efc32c32c61c6805dbcab8334d4d6485eeb079ac1  source/safari14/snapshot_safari_2024_metadata.zip' | sha256sum --check
+      - name: Execute fixed 14-project equal-camera observed-species beta decomposition
+        run: |
+          mkdir -p build/safari14_spatial
+          python -m scripts.safari14_spatial_beta \
+            --zip source/safari14/snapshot_safari_2024_metadata.zip \
+            --out build/safari14_spatial/SAFARI14_SPATIAL_BETA_RESULT.json
+      - name: Preserve only 14-park and 91-pair aggregate result
+        uses: actions/upload-artifact@v4
+        with:
+          name: safari14-spatial-beta-${{ github.run_id }}
+          path: build/safari14_spatial/SAFARI14_SPATIAL_BETA_RESULT.json
+          if-no-files-found: error
+          retention-days: 90

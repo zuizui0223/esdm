@@ -28,6 +28,40 @@ successful cross-geography E5 fit. The underlying process/state model remains th
 frozen **v0.4-R5b** generation; no semi-synthetic rescue generation was introduced.
 
 
+### Independent African protected-area mammal assemblages (Safari14, 2026-11-12)
+
+A **separately frozen spatial macroecology** analysis used the public
+[Snapshot Safari 2024 Expansion](https://lila.science/datasets/snapshot-safari-2024-expansion/)
+COCO metadata, excluding the previously opened Serengeti \`SER\` network
+and reading **no wildlife image files or timestamps**. Across
+**2,230,118** in-scope image metadata records from **1,322,887 recorded
+sequences**, **12** original protected-area codes qualified
+(**7** discovery and **5** validation; original \`MLP\` and \`NIA\` codes
+had no assignable cameras; no substitutions).
+
+With **10 cameras per park** and species recorded at ≥2 sampled cameras,
+all 500 predeclared deterministic camera subsamples had **median
+between-park Simpson turnover > nestedness-resultant dissimilarity** in
+*both* discovery and validation. The discovery medians were
+**β_sim 0.444 vs β_sne 0.126** (21 park pairs), validation
+**0.356 vs 0.063** (10 pairs), and cross-partition
+**0.333 vs 0.124** (35 pairs). This **positive observational
+assemblage-replacement pattern** does not apply consistently to every
+park pair: only **11/21** discovery and **6/10** validation park pairs
+were turnover-dominated in ≥95% of the camera subsamples.
+
+The 500 subsamples reuse the same cameras and do not constitute 500
+independent ecological replicates. The study describes **recorded mammal
+labels**, not true species occupancy, and does not correct for actual
+camera uptime, taxon-specific detection, or habitat effects. **No**
+process-based eSDM superiority, day/night difference, competition or
+environmental cause has been established by this result. The original
+E4/E5/E7/E7-C conclusions remain frozen. See the
+[scientific synthesis](docs/replication/SAFARI14_SPATIAL_BETA_ECOLOGICAL_SYNTHESIS.md),
+[pinned 14-project source and result receipt](docs/replication/SAFARI14_SPATIAL_BETA_FROZEN_RESULT_RECEIPT.json),
+and [full 91-park-pair original action artifact](https://github.com/zuizui0223/esdm/actions/runs/42848095854/artifacts/13779138089).
+
+
 ### Separate ecological field-data result — E7 Serengeti (2026-10-19)
 
 A **new independent African-savanna camera-trap dataset**, Snapshot Serengeti

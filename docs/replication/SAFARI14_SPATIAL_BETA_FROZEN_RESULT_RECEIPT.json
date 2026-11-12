@@ -1,0 +1,189 @@
+{
+  "schema_version": 1,
+  "programme_id": "S14_SPATIAL_BETA_MAMMAL_ASSEMBLAGES",
+  "status": "OBSERVED_TURNOVER_DOMINANCE_RECURS_IN_TWO_PROJECT_PARTITIONS",
+  "original_empirical_run_date": "2026-11-10",
+  "reviewed_date": "2026-11-12",
+  "evidence_provenance": {
+    "original_successful_workflow_run_id": 42848095854,
+    "successful_workflow_head_sha": "5773e252654896e304decd935be5db5716dc79ab",
+    "successful_workflow_conclusion": "success",
+    "result_artifact_id": 13779138089,
+    "result_artifact_name": "safari14-spatial-beta-42848095854",
+    "artifact_zip_sha256": "320d14fd10a191330d74f2a41a40ea2ccf8f94dee911224e96e6e0ec90b7a582",
+    "result_json_filename": "SAFARI14_SPATIAL_BETA_RESULT.json",
+    "result_json_sha256": "f9d263daa232651d9337f4d4125ae54ff34dcb248a91aef7ee7be75578cff6c7",
+    "result_json_bytes": 39552,
+    "public_original_zip": "https://storage.googleapis.com/public-datasets-lila/snapshot-safari-2024-expansion/snapshot_safari_2024_metadata.zip",
+    "original_source_zip_sha256": "2327ffec714f6460eff7307efc32c32c61c6805dbcab8334d4d6485eeb079ac1",
+    "original_source_zip_bytes": 62158011,
+    "independent_of_original_E7_Serengeti": "SER project excluded",
+    "one_shot_source_reopening_locked_to_successful_sha": true
+  },
+  "input_coverage": {
+    "all_published_source_image_metadata_rows": 4029374,
+    "overlap_project_SER_excluded_images": 1380098,
+    "unrecognized_project_prefix_images_excluded": 419158,
+    "images_in_14_predeclared_non_SER_project_prefixes": 2230118,
+    "distinct_recorded_sequences_in_14_projects": 1322887,
+    "unique_physical_camera_location_keys": 1153,
+    "eligible_cameras_at_least_30_sequences": 1106,
+    "recognized_wild_mammal_annotation_rows": 594868,
+    "recognized_wild_mammal_label_categories": 38,
+    "no_wildlife_photos_downloaded": true,
+    "no_day_night_timestamps_published": true
+  },
+  "preregistered_design": {
+    "project_codes_discovery": [
+      "APN",
+      "CDB",
+      "ENO",
+      "KAR",
+      "KGA",
+      "KRU",
+      "LEC"
+    ],
+    "project_codes_validation": [
+      "MAD",
+      "MLP",
+      "MTZ",
+      "NIA",
+      "PLN",
+      "RUA",
+      "TSW"
+    ],
+    "original_source_project_excluded": "SER",
+    "project_station_metadata_unavailable_for_codes": [
+      "MLP",
+      "NIA"
+    ],
+    "station_sequence_opportunity_gate": 30,
+    "rarefied_cameras_per_eligible_project": 10,
+    "taxon_positive_min_distinct_sampled_cameras": 2,
+    "deterministic_subsamples": 500,
+    "prng_seed": 20261111,
+    "minimum_valid_projects_per_split": 5,
+    "primary_components": [
+      "Sørensen beta_sor",
+      "Simpson turnover beta_sim",
+      "nestedness resultant beta_sne"
+    ],
+    "initial_turnover_decision_rule": "both discovery and validation split medians beta_sim > beta_sne in >=475/500 draws",
+    "covariance_or_inferential_interval_reported": false
+  },
+  "actual_support": {
+    "discovery_eligible_projects": [
+      "APN",
+      "CDB",
+      "ENO",
+      "KAR",
+      "KGA",
+      "KRU",
+      "LEC"
+    ],
+    "validation_eligible_projects": [
+      "MAD",
+      "MTZ",
+      "PLN",
+      "RUA",
+      "TSW"
+    ],
+    "validation_ineligible_projects": [
+      "MLP",
+      "NIA"
+    ],
+    "all_predeclared_pairs": 91,
+    "valid_eligible_project_pairs": 66,
+    "discovery_pairs": 21,
+    "validation_pairs": 10,
+    "cross_partition_pairs": 35,
+    "all_66_eligible_pairs_observable_in_500_draws": true,
+    "eligible_cameras_by_project": {
+      "APN": 146,
+      "CDB": 58,
+      "ENO": 77,
+      "KAR": 93,
+      "KGA": 118,
+      "KRU": 107,
+      "LEC": 97,
+      "MAD": 136,
+      "MLP": 0,
+      "MTZ": 74,
+      "NIA": 0,
+      "PLN": 63,
+      "RUA": 47,
+      "TSW": 90
+    },
+    "median_species_in_10_cameras_by_project": {
+      "APN": 17,
+      "CDB": 10,
+      "ENO": 19.5,
+      "KAR": 9,
+      "KGA": 7,
+      "KRU": 15,
+      "LEC": 6,
+      "MAD": 15,
+      "MLP": null,
+      "MTZ": 13,
+      "NIA": null,
+      "PLN": 15,
+      "RUA": 20,
+      "TSW": 15
+    }
+  },
+  "fixed_primary_comparisons": {
+    "discovery": {
+      "eligible_projects": 7,
+      "eligible_pairs": 21,
+      "subsample_draws": 500,
+      "median_projectpair_sor_over_draws": 0.6428571428571429,
+      "median_projectpair_sim_over_draws": 0.4444444444444444,
+      "median_projectpair_sne_over_draws": 0.12571428571428567,
+      "draws_with_median_turnover_exceeding_median_nestedness": 500,
+      "project_pairs_with_turnover_dominant_in_at_least_95pct_draws": 11
+    },
+    "validation": {
+      "eligible_projects": 5,
+      "eligible_pairs": 10,
+      "subsample_draws": 500,
+      "median_projectpair_sor_over_draws": 0.4250693000693001,
+      "median_projectpair_sim_over_draws": 0.35564600840336136,
+      "median_projectpair_sne_over_draws": 0.06272776787482669,
+      "draws_with_median_turnover_exceeding_median_nestedness": 500,
+      "project_pairs_with_turnover_dominant_in_at_least_95pct_draws": 6
+    },
+    "cross": {
+      "eligible_project_pairs": 35,
+      "subsample_draws": 500,
+      "median_projectpair_sor_over_draws": 0.5,
+      "median_projectpair_sim_over_draws": 0.3333333333333333,
+      "median_projectpair_sne_over_draws": 0.12406947890818859,
+      "draws_with_median_turnover_exceeding_median_nestedness": 500,
+      "project_pairs_with_turnover_dominant_in_at_least_95pct_draws": 16
+    },
+    "original_predeclared_primary_decision_met": true
+  },
+  "interpretation_firewalls": {
+    "claim": "Recorded camera-trap assemblage differences between eligible reserve networks are more turnover-dominated than nestedness-resultant, at equal recorded station opportunity under frozen taxon identification and resampling.",
+    "not_all_individual_project_pairs_consistently_turnover_dominated": true,
+    "resampled_draws_are_not_independent_biological_replications": true,
+    "original_data_is_single_source_expansion_not_independent_providers": true,
+    "detected_camera_label_species_not_true_regional_occupancy": true,
+    "equal_cameras_and_min_sequences_do_not_control_operational_time_or_detection": true,
+    "no_environmental_causes_or_pollinator_or_daynight_claims": true,
+    "no_pvalues_or_CIs": true,
+    "medians_of_components_need_not_sum_to_median_of_sorensen": true,
+    "E4_E5_E7_E7C_original_results_unmodified": true,
+    "E5_original_qualified_datasets": 0,
+    "E5_G4_passed": false
+  },
+  "illustrative_individual_project_pair_exception": {
+    "project_1": "LEC",
+    "project_2": "TSW",
+    "group": "cross",
+    "pairwise_median_sim": 0.14285714285714285,
+    "pairwise_median_sne": 0.36363636363636365,
+    "fraction_of_500_draws_turnover_exceeds_nestedness": 0.206,
+    "confirms_global_result_does_not_apply_to_every_pair": true
+  }
+}

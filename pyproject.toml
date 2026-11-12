@@ -16,6 +16,7 @@ dependencies = []
 inference = ["numpyro>=0.21,<0.22; python_version >= '3.11'"]
 dev = [
   "pytest>=8",
+  "ijson>=3.2,<4",
   "numpyro>=0.21,<0.22; python_version >= '3.11'",
 ]
 
