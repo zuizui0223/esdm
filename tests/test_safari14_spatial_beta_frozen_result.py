@@ -92,5 +92,5 @@ def test_claim_firewall_and_report_prevent_unsupported_temporal_or_causal_infere
     assert c["E5_original_qualified_datasets"]==0
     assert c["E5_G4_passed"] is False
     report=(EVIDENCE/"SAFARI14_SPATIAL_BETA_ECOLOGICAL_SYNTHESIS.md").read_text(encoding="utf-8")
-    for key in ("500/500","11/21","6/10","0.206","MLP","NIA","not an inferential p-value"):
+    for key in ("500/500","11/21","6/10","20.6%","MLP","NIA","not an inferential p-value"):
         assert key in report
