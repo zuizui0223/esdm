@@ -49,7 +49,7 @@ def _camera_matrix(*, stable=False):
     out={}
     for park in PROJECTS:
         cams=[]
-        for i in range(12):
+        for i in range(9 if park in ('MLP','NIA') else 12):
             # Equal nominal per-camera row richness; park-specific
             # species replacement if not stationary.
             if stable:
@@ -66,7 +66,7 @@ def test_original_subsample_indices_match_original_tuple_sample_rng():
     planned=camera_index_draws(cameras,draws=25)
     rng=random.Random(20261111)
     for selection in planned:
-        for park in PROJECTS:
+        for park in selection:
             by_indices=[cameras[park][i] for i in selection[park]]
             by_original=rng.sample(cameras[park],10)
             assert by_indices==by_original
