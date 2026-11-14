@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "status": "RANDOM_UNIFORM_LABEL_ASSEMBLAGE_ALSO_TURNOVER_DOMINANT_NOT_ASSEMBLY_NULL_REJECTION",
+  "reviewed_date": "2026-11-14",
+  "evidence": {
+    "frozen_empirical_run_id": 42848095854,
+    "frozen_empirical_json_sha256": "f9d263daa232651d9337f4d4125ae54ff34dcb248a91aef7ee7be75578cff6c7",
+    "frozen_safari_zip_sha256": "2327ffec714f6460eff7307efc32c32c61c6805dbcab8334d4d6485eeb079ac1",
+    "new_aggregate_only_run_id": 43577782379,
+    "new_run_head_sha": "b5519496433ba4d8e569c27d64c0e2199fe35c13",
+    "new_run_conclusion": "success",
+    "artifact_id": 14106593727,
+    "artifact_zip_sha256": "a8e71dc30fdb2f0e102bc5d1b75dc4305e07cf975be854205598d53dd2e4b0be",
+    "result_json_sha256": "c4cacd72617d414791e2f44cc8832fad982b00e4f4187d103bdc8ee3f727b303",
+    "new_wildlife_rows_opened": 0
+  },
+  "setup": {
+    "original_eligible_discovery_parks": 7,
+    "original_eligible_validation_parks": 5,
+    "original_original_park_richness_medians_rounded_half_up": true,
+    "original_eligible_mammal_labels": 38,
+    "source_label_weight_proxy": "original global image annotation rows, not true encounter frequency",
+    "species_weights_exponents": [
+      0,
+      0.5,
+      1
+    ],
+    "iterations_per_scenario": 500,
+    "seed": 20261114,
+    "original_discovery_median_richness_range": [
+      6,
+      19.5
+    ],
+    "original_validation_median_richness_range": [
+      13,
+      20
+    ],
+    "median_pair_abs_richness_gap_discovery": 6,
+    "median_pair_abs_richness_gap_validation": 2
+  },
+  "original_observed": {
+    "discovery_beta_sim": 0.4444444444444444,
+    "discovery_beta_sne": 0.12571428571428567,
+    "validation_beta_sim": 0.35564600840336136,
+    "validation_beta_sne": 0.06272776787482669,
+    "both_splits_turnover_dominant_original_camera_draws": 500
+  },
+  "scenarios": [
+    {
+      "alpha": 0,
+      "discovery_sim": 0.5882352941176471,
+      "discovery_sne": 0.08381226053639845,
+      "discovery_dominant": 500,
+      "validation_sim": 0.5397435897435898,
+      "validation_sne": 0.030219780219780223,
+      "validation_dominant": 500
+    },
+    {
+      "alpha": 0.5,
+      "discovery_sim": 0.3333333333333333,
+      "discovery_sne": 0.16666666666666669,
+      "discovery_dominant": 485,
+      "validation_sim": 0.3205128205128205,
+      "validation_sne": 0.049450549450549414,
+      "validation_dominant": 500
+    },
+    {
+      "alpha": 1,
+      "discovery_sim": 0.1111111111111111,
+      "discovery_sne": 0.2222222222222222,
+      "discovery_dominant": 4,
+      "validation_sim": 0.14358974358974358,
+      "validation_sne": 0.06318681318681317,
+      "validation_dominant": 494
+    }
+  ],
+  "inference_limits": {
+    "post_outcome_illustrative_not_confirmatory": true,
+    "original_turnover_dominance_observation_unchanged": true,
+    "artificial_sets_not_actual_camera_by_species_incidence": true,
+    "global_frequency_proxy_derived_from_image_annotations_not_trap_detection": true,
+    "null_simulation_frequency_not_formal_p_value_or_confidence_interval": true,
+    "environmental_filtering_dispersal_or_interactions_not_inferred": true,
+    "original_E4_E5_E7_E7C_S14_results_unchanged": true,
+    "E5_G4_unpassed": true
+  }
+}
