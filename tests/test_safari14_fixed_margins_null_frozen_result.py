@@ -58,12 +58,11 @@ def test_both_partitions_observed_excess_but_not_independent_significance():
         assert math.isclose(q["fixed_margins_null_median_sim"],mean_null,abs_tol=1e-12)
         assert q["null_draws_with_sim_gt_sne"]==dominance
         assert math.isclose(q["median_paired_sim_excess"],median_delta,abs_tol=1e-12)
-        assert q["fully_eligible_paired_draws"] if "fully_eligible_paired_draws" in q else q["complete_paired_draws"]==500
+        assert q["complete_paired_draws"]==500
         assert q["observed_sim_gt_null_draws"]==500
         assert q["park_pairs_total"]==pairs
         assert q["park_pair_excess_positive"]==positive_pairs
         assert q["fixed_descriptive_criterion_passed"] is True
-        assert q["observed_median_sim"] if "observed_median_sim" in q else True
         orig=original["fixed_primary_comparisons"][g]["median_projectpair_sim_over_draws"]
         assert math.isclose(q["observed_median_sim"],orig,abs_tol=1e-12)
     assert x["discovery"]["pair_exceptions"]==["CDB vs KAR","APN vs KRU"]
@@ -93,5 +92,5 @@ def test_report_limits_detection_park_pool_and_causal_assembly_claims():
     assert b["E5_original_qualified_datasets"]==0
     assert b["E5_original_G4_passed"] is False
     md=(DOC/"SAFARI14_FIXED_MARGINS_NULL_ECOLOGICAL_RESULT.md").read_text(encoding="utf-8")
-    for token in ("500/500","19/21","10/10","0.3889","0.2396","not a formal", "not independently", "nonrandom"):
+    for token in ("500/500","19/21","10/10","0.3889","0.2396","not a formal", "independently collected", "nonrandom"):
         assert token.lower() in md.lower()
