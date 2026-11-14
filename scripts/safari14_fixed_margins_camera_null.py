@@ -322,7 +322,8 @@ def run(original_zip: Path, original_json: Path, *,
     partial={}
     for index,(group,projects) in enumerate(NULL_SPLITS.items()):
         group_parks=tuple(p for p in projects if len(cameras[p])>=RAREFACTION_CAMERAS)
-        if len(group_parks)!=len(projects):
+        expected_group=tuple(p for p in projects if p in prior["results"]["eligible_projects"])
+        if group_parks!=expected_group or len(group_parks)<5:
             raise ValueError("previously frozen eligible park split changed")
         partial[group]=per_partition_null(
             cameras,group_parks,selections,observed["draws"][group],
