@@ -80,6 +80,38 @@ See [the source-frozen retrospective audit](docs/replication/SAFARI14_STRUCTURAL
 and [the recorded scenario values](docs/replication/SAFARI14_STRUCTURAL_NULL_RESULT_RECEIPT.json).
 
 
+**Stricter observed-camera incidence null (S14-FM, 2026-11-14):**
+A separate, explicitly post-result analysis reconstructed the original
+eligible **1,106 physical camera × mammal-label** incidence rows, verified
+the unchanged original source and **reproduced every original 500 camera
+draw and project-pair statistic before evaluating new nulls**. Within the
+original **7 discovery / 5 validation** eligible parks, camera-by-species
+curveball trades preserved **each camera's recorded species richness and
+each species' positive-camera incidence frequency** exactly, while
+randomizing which reserve cameras held those labels.
+
+Compared with this stronger fixed-margins randomization, the original
+park-pair-median **observed Simpson turnover β_sim** was **0.444 vs 0.083**
+in discovery and **0.356 vs 0.118** in validation. The observed value
+exceeded its matched null draw in **500/500** draws in both groups; the
+median *paired* β_sim excess was **+0.389 / +0.240**. Individual pair
+heterogeneity remains: **19/21** discovery and **10/10** validation
+park pairs had larger observed than null β_sim medians, not every
+discovery pair.
+
+This is **positive recorded-reserve sorting relative to a conditional,
+within-partition camera-label-exchangeability null**, not proof of
+ecological habitat filtering, dispersal barriers, true occupancy or a
+formal significance level. Parks have different source pools, sensor
+conditions and unknown effective camera exposure; mixing of the 500
+serial null matrices is not a proven uniform fixed-margin draw.
+The original observational Safari14 result and its weaker-null
+counterexample **both remain true**. See the
+[source-reconciled S14-FM result and caveats](docs/replication/SAFARI14_FIXED_MARGINS_NULL_ECOLOGICAL_RESULT.md),
+[machine-readable frozen receipt](docs/replication/SAFARI14_FIXED_MARGINS_NULL_RESULT_RECEIPT.json),
+and [full 31-park-pair result](https://github.com/zuizui0223/esdm/actions/runs/43580142370/artifacts/14107094556).
+
+
 ### Separate ecological field-data result — E7 Serengeti (2026-10-19)
 
 A **new independent African-savanna camera-trap dataset**, Snapshot Serengeti
