@@ -1,0 +1,64 @@
+name: S14 fixed camera/species incidence-margins null
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/safari14-fixed-margins-null.yml'
+      - 'scripts/safari14_fixed_margins_camera_null.py'
+      - 'tests/test_safari14_fixed_margins_camera_null.py'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  independent-camera-margin-audit:
+    # The biological camera-species source was opened successfully ONCE at this SHA.
+    # Subsequent receipt/document changes must not repeat the source opening.
+    if: github.event.pull_request.head.sha == '62b9d529d05c6ff1a14981d8705f4e0a5e828acb'
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run purely synthetic exact-degree-preservation and camera-sampling tests
+        run: |
+          python -m pip install 'ijson>=3.2,<4' 'pytest>=8'
+          python -m py_compile scripts/safari14_fixed_margins_camera_null.py
+          python -m pytest -q tests/test_safari14_fixed_margins_camera_null.py
+      - name: Download original frozen S14 empirical aggregate, not a new response
+        uses: actions/download-artifact@v4
+        with:
+          name: safari14-spatial-beta-42848095854
+          path: source/frozen_safari14
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 42848095854
+      - name: Verify frozen original aggregate JSON before camera data read
+        run: |
+          echo 'f9d263daa232651d9337f4d4125ae54ff34dcb248a91aef7ee7be75578cff6c7  source/frozen_safari14/SAFARI14_SPATIAL_BETA_RESULT.json' | sha256sum --check
+      - name: Download only the identical published 62MB source metadata ZIP
+        run: |
+          set -euo pipefail
+          mkdir -p source/safari14
+          curl --fail --location --retry 3 --retry-delay 2 \
+            --connect-timeout 30 --max-time 900 --silent --show-error \
+            --output source/safari14/snapshot_safari_2024_metadata.zip \
+            https://storage.googleapis.com/public-datasets-lila/snapshot-safari-2024-expansion/snapshot_safari_2024_metadata.zip
+          echo '2327ffec714f6460eff7307efc32c32c61c6805dbcab8334d4d6485eeb079ac1  source/safari14/snapshot_safari_2024_metadata.zip' | sha256sum --check
+      - name: Reproduce original S14 stats then compare 500 strict-margins null matrices per partition
+        run: |
+          mkdir -p build/safari14_fixed_margins
+          python -m scripts.safari14_fixed_margins_camera_null \
+            --source-zip source/safari14/snapshot_safari_2024_metadata.zip \
+            --original-result source/frozen_safari14/SAFARI14_SPATIAL_BETA_RESULT.json \
+            --out build/safari14_fixed_margins/SAFARI14_FIXED_MARGINS_NULL_RESULT.json
+      - name: Export aggregate diagnostics, 31 within-partition park-pair null comparisons only
+        uses: actions/upload-artifact@v4
+        with:
+          name: safari14-fixed-margins-null-${{ github.run_id }}
+          path: build/safari14_fixed_margins/SAFARI14_FIXED_MARGINS_NULL_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
