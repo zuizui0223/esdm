@@ -62,3 +62,34 @@ The original E4 fitted model, E5 original **0/17 standard qualified and G4 unpas
 - [Fixed before wildlife outcome](SAFARI14_SPATIAL_BETA_FROZEN_DESIGN.md).
 - [Stable ecological evidence and full source/validity receipt](SAFARI14_SPATIAL_BETA_FROZEN_RESULT_RECEIPT.json).
 - [Deterministic source parser and equal-camera resampling](../../scripts/safari14_spatial_beta.py) with 6 synthetic tests.
+
+
+## Post-result audit of the *ecological interpretation* (2026-11-14)
+
+A separate, **retrospective, aggregate-only structural null check**
+was performed **without reopening any wildlife record**. With the original
+twelve eligible parks' 10-camera median mammal-label richness preserved,
+uniformly random assignment of the same 38 globally recorded labels also
+produced partition-median **turnover > nestedness in 500/500 artificial
+draws for both fixed reserve partitions**. Artificial global
+image-frequency-weighted draws varied dramatically: the fully
+image-count-weighted artificial pool yielded only 4/500 turnover-dominant
+draws in the discovery parks versus 494/500 in validation.
+
+These simulations are **not a field replication, an ecological null
+hypothesis significance test, or frequency-preserving randomizations
+of the real camera-by-species incidence matrix**. The frequency proxy is
+image annotation rows (including burst frames), not true species presence
+or independent animal passes. The mathematical result is nonetheless
+decisive on one claim boundary: **the original positive observed
+turnover-dominance criterion does not by itself demonstrate nonrandom
+community assembly, dispersal limitations, climate filtering or
+complementarity beyond a random baseline**. The original source, medians,
+park and pair support, and original frozen primary result remain valid
+and unchanged.
+
+See [the full post-result null comparison](SAFARI14_STRUCTURAL_NULL_ECOLOGICAL_INTERPRETATION.md)
+and [its pinned frozen aggregate receipt](SAFARI14_STRUCTURAL_NULL_RESULT_RECEIPT.json).
+A future assembly-process claim needs park-by-species/camera incidence
+margins, real effort, detection and biologically justified region-specific
+species pools with an independently frozen response/validation design.
