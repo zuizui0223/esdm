@@ -45,3 +45,25 @@ This is a **positive validation of the scientific caution**, not a new animal fi
 - [Retrospective diagnostic definitions and limitations](SAFARI14_STRUCTURAL_NULL_DIAGNOSTIC.md).
 - [Full simulated sensitivity artifact](https://github.com/zuizui0223/esdm/actions/runs/43577782379/artifacts/14106593727) and [machine-readable result receipt](SAFARI14_STRUCTURAL_NULL_RESULT_RECEIPT.json).
 - Original E4 predictive outcomes unchanged; E5 remains **0/17 standard-qualified, G4 unpassed**; E7 seasonal relative diel transfer and E7-C exact-support results unchanged. This script performs no eSDM field fit and no new biological source opening.
+
+
+## Distinct later fixed-incidence test (also 2026-11-14)
+
+The earlier **richness-median-only random-set null** remains a valid
+falsification of the claim that β_sim > β_sne *alone* diagnoses nonrandom
+assembly. A [separate S14-FM analysis](SAFARI14_FIXED_MARGINS_NULL_ECOLOGICAL_RESULT.md),
+with a protocol frozen before its camera-level response opening,
+reconstructed the original eligible camera×mammal incidence and
+conditioned on **both** each camera's species richness and each species'
+number of recorded cameras *within each park partition*. It found
+observed median β_sim **larger than the incidence-margins null in
+500/500 paired camera subsamples** in the original 7 discovery and
+5 validation parks. This later result provides positive evidence for
+**recorded park-specific species sorting relative to that more
+restrictive conditional-null model**, but neither analysis identifies
+ecological environmental filtering, true absence/occupancy, measured
+camera detection or independent reserve-provider replication.
+
+The original weak-null result was **not overwritten**, and the two null
+families answer different mathematical questions. Neither should be
+reported as a formal P-value or an experimentally identified mechanism.
