@@ -78,7 +78,7 @@ def test_crosspark_null_preserves_margins_and_reports_all_pairs_without_sign_ass
     observed=original_camera_draws(cameras,selections)
     discovery=per_partition_null(cameras,DISCOVERY,selections,
         observed["draws"]["discovery"],seed=20261114,burn=20,between=12)
-    validation=per_partition_null(cameras,VALIDATION,selections,
+    validation=per_partition_null(cameras,("MAD","MTZ","PLN","RUA","TSW"),selections,
         observed["draws"]["validation"],seed=20261115,burn=20,between=12)
     for r,expected in ((discovery,7*12),(validation,5*12)):
         assert r["source_camera_rows"]==expected
