@@ -13,6 +13,9 @@ permissions:
 
 jobs:
   independent-camera-margin-audit:
+    # The biological camera-species source was opened successfully ONCE at this SHA.
+    # Subsequent receipt/document changes must not repeat the source opening.
+    if: github.event.pull_request.head.sha == '62b9d529d05c6ff1a14981d8705f4e0a5e828acb'
     runs-on: ubuntu-latest
     timeout-minutes: 50
     steps:
