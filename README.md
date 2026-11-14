@@ -62,6 +62,24 @@ E4/E5/E7/E7-C conclusions remain frozen. See the
 and [full 91-park-pair original action artifact](https://github.com/zuizui0223/esdm/actions/runs/42848095854/artifacts/13779138089).
 
 
+**Important post-result random-assembly falsification (2026-11-14):**
+The original observed **500/500** turnover-dominant camera subsamples are
+real, but a new read-only counterexample preserved each park's observed
+median mammal-label richness and assigned the same **38 labels uniformly
+at random across parks**. This *purely artificial* scenario also showed
+median turnover > nestedness in **500/500** draws in **both** partitions.
+Changing assumed global image-label prevalence greatly altered this:
+an aggressively image-frequency-weighted artificial null showed turnover
+dominance in only **4/500** discovery draws (though **494/500**
+validation draws). These are illustration scenarios, **not significance
+tests or a fitted ecological null**; image-label totals are not true
+camera occupancy probabilities. The original S14 observational
+replacement result remains unchanged, but **turnover dominance alone
+cannot support nonrandom environmental assembly or dispersal filtering**.
+See [the source-frozen retrospective audit](docs/replication/SAFARI14_STRUCTURAL_NULL_ECOLOGICAL_INTERPRETATION.md)
+and [the recorded scenario values](docs/replication/SAFARI14_STRUCTURAL_NULL_RESULT_RECEIPT.json).
+
+
 ### Separate ecological field-data result — E7 Serengeti (2026-10-19)
 
 A **new independent African-savanna camera-trap dataset**, Snapshot Serengeti
