@@ -1,0 +1,173 @@
+{
+  "inference_limits": {
+    "leave_one_out_values_not_confidence_intervals": true,
+    "no_new_ecological_process_or_detection_identified": true,
+    "original_S14_FM_E4_E5_E7_E7C_decisions_unchanged": true,
+    "park_pairs_not_independent": true,
+    "source_description_link_pairs_selected_after_outcomes_known": true,
+    "source_descriptions_are_not_spatial_distance_or_biome_GIS_covariates": true
+  },
+  "metric": "median across ORIGINAL park-pair medians of (observed beta_sim - fixed-margins null beta_sim)",
+  "metric_not_original_primary_paired_draw_median": true,
+  "partitions": {
+    "discovery": {
+      "leave_one_park_max_median": 0.43790849673202614,
+      "leave_one_park_min_median": 0.3333333333333333,
+      "leave_one_park_out": [
+        {
+          "median_of_pair_level_excess": 0.4,
+          "negative_pairs": 1,
+          "omitted_park": "APN",
+          "positive_pairs": 14,
+          "remaining_pairs": 15
+        },
+        {
+          "median_of_pair_level_excess": 0.4,
+          "negative_pairs": 1,
+          "omitted_park": "CDB",
+          "positive_pairs": 14,
+          "remaining_pairs": 15
+        },
+        {
+          "median_of_pair_level_excess": 0.3333333333333333,
+          "negative_pairs": 2,
+          "omitted_park": "ENO",
+          "positive_pairs": 13,
+          "remaining_pairs": 15
+        },
+        {
+          "median_of_pair_level_excess": 0.4,
+          "negative_pairs": 1,
+          "omitted_park": "KAR",
+          "positive_pairs": 14,
+          "remaining_pairs": 15
+        },
+        {
+          "median_of_pair_level_excess": 0.4,
+          "negative_pairs": 2,
+          "omitted_park": "KGA",
+          "positive_pairs": 13,
+          "remaining_pairs": 15
+        },
+        {
+          "median_of_pair_level_excess": 0.3333333333333333,
+          "negative_pairs": 1,
+          "omitted_park": "KRU",
+          "positive_pairs": 14,
+          "remaining_pairs": 15
+        },
+        {
+          "median_of_pair_level_excess": 0.43790849673202614,
+          "negative_pairs": 2,
+          "omitted_park": "LEC",
+          "positive_pairs": 13,
+          "remaining_pairs": 15
+        }
+      ],
+      "leave_one_park_positive_count": 7,
+      "median_of_pair_level_excess": 0.4,
+      "negative_pair_count": 2,
+      "pair_count": 21,
+      "positive_pair_count": 19,
+      "retrospective_named_landscape_links": {
+        "matched_median_excess": -0.02857142857142858,
+        "matched_minus_unmatched_median_excess": -0.4641923436041083,
+        "matched_pair_count": 3,
+        "matched_pairs": [
+          {
+            "low_excess_rank_among_all_pairs": 2,
+            "null_beta_sim_pair_median": 0.1,
+            "observed_beta_sim_pair_median": 0.07142857142857142,
+            "pair_median_excess": -0.02857142857142858,
+            "park_pair": [
+              "APN",
+              "KRU"
+            ],
+            "source_description": "adjacent unfenced APNR-Kruger grid/woodland transect"
+          },
+          {
+            "low_excess_rank_among_all_pairs": 1,
+            "null_beta_sim_pair_median": 0.16666666666666666,
+            "observed_beta_sim_pair_median": 0.125,
+            "pair_median_excess": -0.04166666666666666,
+            "park_pair": [
+              "CDB",
+              "KAR"
+            ],
+            "source_description": "shared named Nama Karoo biome"
+          },
+          {
+            "low_excess_rank_among_all_pairs": 5,
+            "null_beta_sim_pair_median": 0.25,
+            "observed_beta_sim_pair_median": 0.42857142857142855,
+            "pair_median_excess": 0.17857142857142855,
+            "park_pair": [
+              "KGA",
+              "LEC"
+            ],
+            "source_description": "shared named Kalahari region"
+          }
+        ],
+        "source": "https://lila.science/datasets/snapshot-safari-2024-expansion/",
+        "status": "POST_OUTCOME_EXPLORATORY_NOT_CONFIRMED",
+        "unmatched_median_excess": 0.43562091503267975,
+        "unmatched_pair_count": 18
+      }
+    },
+    "validation": {
+      "leave_one_park_max_median": 0.3008012820512821,
+      "leave_one_park_min_median": 0.21106948606948606,
+      "leave_one_park_out": [
+        {
+          "median_of_pair_level_excess": 0.3008012820512821,
+          "negative_pairs": 0,
+          "omitted_park": "MAD",
+          "positive_pairs": 6,
+          "remaining_pairs": 6
+        },
+        {
+          "median_of_pair_level_excess": 0.21106948606948606,
+          "negative_pairs": 0,
+          "omitted_park": "MTZ",
+          "positive_pairs": 6,
+          "remaining_pairs": 6
+        },
+        {
+          "median_of_pair_level_excess": 0.24171245421245424,
+          "negative_pairs": 0,
+          "omitted_park": "PLN",
+          "positive_pairs": 6,
+          "remaining_pairs": 6
+        },
+        {
+          "median_of_pair_level_excess": 0.24171245421245424,
+          "negative_pairs": 0,
+          "omitted_park": "RUA",
+          "positive_pairs": 6,
+          "remaining_pairs": 6
+        },
+        {
+          "median_of_pair_level_excess": 0.22897241647241648,
+          "negative_pairs": 0,
+          "omitted_park": "TSW",
+          "positive_pairs": 6,
+          "remaining_pairs": 6
+        }
+      ],
+      "leave_one_park_positive_count": 5,
+      "median_of_pair_level_excess": 0.24171245421245424,
+      "negative_pair_count": 0,
+      "pair_count": 10,
+      "positive_pair_count": 10
+    }
+  },
+  "schema_version": 1,
+  "source": {
+    "artifact_id": 14107094556,
+    "artifact_zip_sha256": "a9f32536b4120c249abd57c59981e6cfcaab4deb19016b788a0000ac35bd06dc",
+    "downloaded_wildlife_images": false,
+    "inner_json_sha256": "4dcf8212510524dccefbfa250e05277fe55085f3b838c33a1c5f7fc8ee593b5e",
+    "reopened_wildlife_source": false
+  },
+  "status": "AGGREGATE_ONLY_POST_OUTCOME_PARK_PAIR_SENSITIVITY"
+}
