@@ -2,7 +2,7 @@ name: C1 CamTrapAsia independent mammal IBD IBE test (one-shot)
 
 on:
   pull_request:
-    types: [opened]
+    types: [opened, reopened]
     paths:
       - 'docs/replication/CAMTRAPASIA_SPATIAL_IBE_FROZEN_DESIGN.md'
       - 'scripts/camtrapasia_spatial_ibe.py'
@@ -23,7 +23,8 @@ jobs:
           python-version: '3.12'
       - name: Synthetic-only mathematical and schema checks before reading response
         run: |
-          python -m pip install 'pytest>=8'\n          python -m py_compile scripts/camtrapasia_spatial_ibe.py
+          python -m pip install 'pytest>=8'
+          python -m py_compile scripts/camtrapasia_spatial_ibe.py
           python -m pytest -q tests/test_camtrapasia_spatial_ibe.py
       - name: Download exactly one published independent source version, hash first, then evaluate once
         run: |
