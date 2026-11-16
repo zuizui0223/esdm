@@ -1,0 +1,60 @@
+name: NEON C2 region-conditioned mammal incidence null (one-shot)
+
+on:
+  pull_request:
+    types: [opened]
+
+permissions:
+  contents: read
+
+jobs:
+  independent_neon_c2_one_shot:
+    # PR 'opened' is the only authorized biological source opening. No push,
+    # synchronize, schedule or manual workflow_dispatch trigger can rerun it.
+    if: github.event.action == 'opened'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate frozen source-independent synthetic mathematics
+        run: |
+          python -m pip install 'pytest>=8'
+          python -m py_compile scripts/neon_c2_region_pool_null.py
+          python -m pytest -q tests/test_neon_c2_region_pool_null.py
+      - name: Initialize a truthful terminal transport stop before any network request
+        run: |
+          mkdir -p source/neon_c2 build/neon_c2
+          printf '%s\n' '{"schema_version":1,"status":"TRANSPORT_OR_SOURCE_STOP","note":"Default pre-source sentinel; if any source acquisition step failed, no ecological result was computed."}' > build/neon_c2/NEON_C2_REGION_POOL_RESULT.json
+      - name: Fetch exact Zenodo v1 CSVs and check original source MD5s
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 2 --retry-delay 2 --max-time 150 --silent --show-error \
+            'https://zenodo.org/records/20826511/files/camera_trap_deployments.csv?download=1' \
+            --output source/neon_c2/camera_trap_deployments.csv
+          curl --fail --location --retry 2 --retry-delay 2 --max-time 150 --silent --show-error \
+            'https://zenodo.org/records/20826511/files/subproject_descriptions.csv?download=1' \
+            --output source/neon_c2/subproject_descriptions.csv
+          curl --fail --location --retry 2 --retry-delay 2 --max-time 150 --silent --show-error \
+            'https://zenodo.org/records/20826511/files/camera_trap_sequences.csv?download=1' \
+            --output source/neon_c2/camera_trap_sequences.csv
+          echo '82537cdf0a586fa14c9a8b6afd7be470  source/neon_c2/camera_trap_deployments.csv' | md5sum --check
+          echo 'be1502427995886ef1c64c10410d1ee2  source/neon_c2/subproject_descriptions.csv' | md5sum --check
+          echo '7531a5b9fb3848ef33e162d5206a6f43  source/neon_c2/camera_trap_sequences.csv' | md5sum --check
+      - name: Evaluate once, storing aggregates not wildlife camera identifiers
+        run: |
+          python -m scripts.neon_c2_region_pool_null \
+            --deployment source/neon_c2/camera_trap_deployments.csv \
+            --sequence source/neon_c2/camera_trap_sequences.csv \
+            --description source/neon_c2/subproject_descriptions.csv \
+            --out build/neon_c2/NEON_C2_REGION_POOL_RESULT.json
+      - name: Publish aggregate-only result or documented stop
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neon-c2-region-pool-${{ github.run_id }}
+          path: build/neon_c2/NEON_C2_REGION_POOL_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
