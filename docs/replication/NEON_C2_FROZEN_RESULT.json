@@ -1,0 +1,11 @@
+{
+  "date": "2026-11-17",
+  "inference_limits": {
+    "model_fit_performed": false,
+    "no_positive_result_claimed": true,
+    "previous_results_changed": false
+  },
+  "reason": "RESPONSE_SCHEMA_STOP: taxonomic class conflicts for a binomial",
+  "schema_version": 1,
+  "status": "RESPONSE_SCHEMA_STOP"
+}

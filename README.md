@@ -28,6 +28,29 @@ successful cross-geography E5 fit. The underlying process/state model remains th
 frozen **v0.4-R5b** generation; no semi-synthetic rescue generation was introduced.
 
 
+### NEON C2 region-conditioned mammal community test (2026-11-17)
+
+A separately frozen **independent US forest camera study** attempted to
+measure whether observed project-specific mammal-label turnover survives a
+two-stratum (West/East at −100°) **within-region fixed-camera-richness and
+fixed-species-camera-incidence null**. The study used the published
+[NEON+forest-plot Zenodo v1 data](https://doi.org/10.5281/zenodo.20826511).
+All three published input MD5 checks and all **13 synthetic pre-response tests**
+passed. However, the **one** biological source opening encountered a binomial
+with conflicting taxonomic-class labels and stopped at the **predeclared
+`RESPONSE_SCHEMA_STOP`** before computing any community-turnover or null
+effects. The GitHub Actions job successfully wrote a *stop receipt*, **not**
+a positive or negative ecological result.
+
+No species were removed to rescue the analysis, no new threshold or
+source version was substituted, and no C2 model fits or wildlife photos
+were opened. See the [frozen design](docs/replication/NEON_C2_REGION_CONSTRAINED_FROZEN_DESIGN.md),
+[one-shot unchanged result](docs/replication/NEON_C2_FROZEN_RESULT.json),
+[scientific stop interpretation](docs/replication/NEON_C2_TERMINAL_RESULT.md),
+and [execution receipt](https://github.com/zuizui0223/esdm/actions/runs/43900837691).
+This result cannot validate or refute Safari14, C1, the original E4 fit,
+or E5's still-unmet detector-calibration requirements.
+
 ### Independent Asian mammal assemblage C1 (CamTrapAsia, 2026-11-17)
 
 A separately frozen one-shot **study-level** test used public
