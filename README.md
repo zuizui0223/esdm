@@ -28,6 +28,41 @@ successful cross-geography E5 fit. The underlying process/state model remains th
 frozen **v0.4-R5b** generation; no semi-synthetic rescue generation was introduced.
 
 
+### Independent Asian mammal assemblage C1 (CamTrapAsia, 2026-11-17)
+
+A separately frozen one-shot **study-level** test used public
+[CamTrapAsia](https://doi.org/10.5281/zenodo.10780971) camera-trap metadata and
+mammal independent-record counts, not the African Snapshot Safari source.
+Of 239 published studies, **154** met the original effort, camera, species
+record and richness rules (**121 studies / 51 discovery landscapes;
+33 / 14 unopened validation landscapes**). Original published file MD5 values
+were checked before the biological response was used.
+
+The question was whether predeclared **20-km environment dissimilarity**
+(forest cover, temperature, precipitation, human footprint) improved
+heldout-landscape prediction of study-pair recorded Simpson mammal
+turnover beyond **log geographic distance and trap-night ratio**,
+using the same fixed ridge penalty. It **did not**:
+**MAE 0.133083** (geography + effort) versus **0.136163** (+ environment),
+so the predeclared MAE gain was **−0.003080** (required **≥ +0.020**
+plus a positive environment coefficient). Within-country and
+different-country heldout subgroup gains were also negative.
+A positive discovery-fit geography coefficient **does not identify
+geographic causation** or validate a process-specific spatial kernel.
+
+This is a scientifically valid **negative incremental environment-prediction
+result** for one study-level contrast, *not* proof that IBE does not occur.
+Species-specific detection and true occupancy are uncalibrated, different
+source names cross the landscape split, domestic category was not excluded
+by the frozen design, and pairwise comparisons are dependent.
+This is **not an eSDM field fit or demonstration of eSDM superiority**;
+original v0.4-R5b/E4, E5 0/17 G4-unpassed, E7/E7-C and Safari14
+decisions remain unchanged.
+See the [before-response frozen design](docs/replication/CAMTRAPASIA_SPATIAL_IBE_FROZEN_DESIGN.md),
+[exact source-backed frozen JSON](docs/replication/CAMTRAPASIA_SPATIAL_IBE_FROZEN_RESULT.json),
+[ecological synthesis](docs/replication/CAMTRAPASIA_SPATIAL_IBE_ECOLOGICAL_RESULT.md),
+and [successful one-shot workflow](https://github.com/zuizui0223/esdm/actions/runs/43894683151).
+
 ### Independent African protected-area mammal assemblages (Safari14, 2026-11-12)
 
 A **separately frozen spatial macroecology** analysis used the public
