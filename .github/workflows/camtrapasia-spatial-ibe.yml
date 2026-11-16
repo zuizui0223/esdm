@@ -1,0 +1,76 @@
+name: C1 CamTrapAsia independent mammal IBD IBE test (one-shot)
+
+on:
+  pull_request:
+    types: [opened]
+    paths:
+      - 'docs/replication/CAMTRAPASIA_SPATIAL_IBE_FROZEN_DESIGN.md'
+      - 'scripts/camtrapasia_spatial_ibe.py'
+      - 'tests/test_camtrapasia_spatial_ibe.py'
+      - '.github/workflows/camtrapasia-spatial-ibe.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  predeclared-one-shot-independent-response:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Synthetic-only mathematical and schema checks before reading response
+        run: |
+          python -m py_compile scripts/camtrapasia_spatial_ibe.py
+          python -m pytest -q tests/test_camtrapasia_spatial_ibe.py
+      - name: Download exactly one published independent source version, hash first, then evaluate once
+        run: |
+          set -euo pipefail
+          mkdir -p source/camtrapasia build/camtrapasia
+          python - <<'PY'
+          import hashlib, json, pathlib, subprocess
+          root=pathlib.Path('source/camtrapasia')
+          out=pathlib.Path('build/camtrapasia/CAMTRAPASIA_SPATIAL_IBE_RESULT.json')
+          source_files={
+            'metadata':('CamTrapAsia_Metadata_20231031.csv','2b50c534737b0c98a93da54128b10a32'),
+            'captures':('CamTrapAsia_Captures_20231031.csv','a73975d7626def4012a4e1197497ba87'),
+            'traits':('Species_Traits_20231031.csv','59e0748f8aaf59b23b936248f1e63fc9'),
+          }
+          try:
+            for key,(name,digest) in source_files.items():
+              target=root/name
+              url='https://zenodo.org/records/10780971/files/'+name+'?download=1'
+              result=subprocess.run(['curl','--fail','--location','--silent','--show-error',
+                       '--connect-timeout','30','--max-time','200','--retry','0','-o',str(target),url],
+                       capture_output=True,text=True)
+              if result.returncode:
+                raise RuntimeError(f'{key} DOWNLOAD_FAILED curl_exit={result.returncode}')
+              found=hashlib.md5(target.read_bytes()).hexdigest()
+              if found!=digest:
+                raise RuntimeError(f'{key} MD5_MISMATCH')
+            cmd=['python','-m','scripts.camtrapasia_spatial_ibe',
+                 '--metadata',str(root/source_files['metadata'][0]),
+                 '--captures',str(root/source_files['captures'][0]),
+                 '--traits',str(root/source_files['traits'][0]),'--out',str(out)]
+            result=subprocess.run(cmd, capture_output=True,text=True)
+            if result.returncode:
+              raise RuntimeError('ANALYSIS_STOP: '+result.stderr[-350:])
+            print(result.stdout)
+          except Exception as e:
+            # This is terminal for this pre-registered source opening, not an invitation to rescue.
+            status='TRANSPORT_OR_SOURCE_STOP' if 'DOWNLOAD' in str(e) or 'MD5_' in str(e) else 'RESPONSE_SCHEMA_OR_RUNTIME_STOP'
+            out.write_text(json.dumps({'schema_version':1,'status':status,
+               'source':'CamTrapAsia Zenodo 10780971','error':str(e),
+               'no_response_based_threshold_changes':True,
+               'retry_same_source_route_not_authorized':True}, indent=2)+'\n')
+            print(status+': '+str(e))
+          PY
+      - name: Publish aggregate-only results or explicit terminal stop (no raw wildlife table)
+        uses: actions/upload-artifact@v4
+        with:
+          name: camtrapasia-spatial-ibe-${{ github.run_id }}
+          path: build/camtrapasia/CAMTRAPASIA_SPATIAL_IBE_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
