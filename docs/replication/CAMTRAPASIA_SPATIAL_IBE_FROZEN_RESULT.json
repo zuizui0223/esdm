@@ -1,0 +1,134 @@
+{
+  "date": "2026-11-17",
+  "frozen_design": "docs/replication/CAMTRAPASIA_SPATIAL_IBE_FROZEN_DESIGN.md",
+  "inference_limits": {
+    "not_confirmation_of_Safari14_mechanism": true,
+    "not_detection_calibrated": true,
+    "not_eSDM_model_fit": true,
+    "not_formal_CI_or_p_value": true,
+    "pairwise_rows_not_independent": true
+  },
+  "overlap": {
+    "distinct_source_names_discovery": 55,
+    "distinct_source_names_validation": 20,
+    "shared_named_sources_discovery_validation": 7
+  },
+  "pair_descriptives": {
+    "discovery": {
+      "fraction_beta_sim_positive": 0.987741046831956,
+      "median_beta_sim": 0.5,
+      "median_environmental_distance": 2.1230667972401305,
+      "median_geo_distance_km": 1305.5012103749136,
+      "pair_count": 7260
+    },
+    "validation": {
+      "fraction_beta_sim_positive": 0.9981060606060606,
+      "median_beta_sim": 0.5527777777777778,
+      "median_environmental_distance": 2.099467374305658,
+      "median_geo_distance_km": 1674.3385401895507,
+      "pair_count": 528
+    }
+  },
+  "primary": {
+    "fit_base": {
+      "alpha": 5.0,
+      "coef": [
+        0.1236026477641622,
+        -0.00984445458548408
+      ],
+      "intercept": 0.5108482014718575,
+      "predictors": [
+        "geography",
+        "effort"
+      ],
+      "xmean": [
+        6.835855817200975,
+        1.0324204471443008
+      ],
+      "xsd": [
+        1.2510814420779608,
+        0.7510568545218204
+      ]
+    },
+    "fit_full": {
+      "alpha": 5.0,
+      "coef": [
+        0.11571099465366858,
+        -0.008509859881255686,
+        0.01990317591274089
+      ],
+      "intercept": 0.5108482014718575,
+      "predictors": [
+        "geography",
+        "effort",
+        "environment"
+      ],
+      "xmean": [
+        6.835855817200975,
+        1.0324204471443008,
+        2.4456308520965706
+      ],
+      "xsd": [
+        1.2510814420779608,
+        0.7510568545218204,
+        1.4441455612022174
+      ]
+    },
+    "heldout_mae_gain_baseline_minus_full": -0.003080205651043444,
+    "mae_geography_effort_environment": 0.13616314973575872,
+    "mae_geography_effort_only": 0.13308294408471527,
+    "positive_rule_mae_0_02_and_positive_environment_coefficient": false,
+    "train_environment_coefficient_standardized": 0.01990317591274089
+  },
+  "quality": {
+    "captures": {
+      "not_eligible_study": 416,
+      "not_mammal": 575,
+      "not_species": 369,
+      "qualified_mammal_rows": 3194,
+      "total_rows": 4554
+    },
+    "domestic_category_not_excluded_per_frozen_design": true,
+    "metadata_eligible": 193,
+    "metadata_excluded": {
+      "effort_camera_threshold": 46
+    },
+    "metadata_total": 239,
+    "response_eligible_studies_atleast_five_species": 154
+  },
+  "schema_version": 1,
+  "secondary": {
+    "different_country": {
+      "heldout_pairs": 421,
+      "mae_gain": -0.0034530640058151596,
+      "status": "ESTIMABLE"
+    },
+    "same_country": {
+      "heldout_pairs": 107,
+      "mae_gain": -0.0016131648346053296,
+      "status": "ESTIMABLE"
+    }
+  },
+  "source": {
+    "doi": "10.5281/zenodo.10780971",
+    "file_md5": {
+      "captures": "a73975d7626def4012a4e1197497ba87",
+      "metadata": "2b50c534737b0c98a93da54128b10a32",
+      "traits": "59e0748f8aaf59b23b936248f1e63fc9"
+    },
+    "file_sha256": {
+      "captures": "8cacd1d45e00a9ddd103da300b357fb43be04cf6092c9ef9696276c4dce44b4d",
+      "metadata": "3dbdeb891e427a9267e76a0fb09f86ed6f387c403621e52605ddfda6ab93f184",
+      "traits": "ce8ff8901fc614cb73d0a7e78ff29ed82f88df305f197e8f39242dee9932ef3e"
+    }
+  },
+  "status": "C1_EVALUATED_NO_INCREMENTAL_PREDICTIVE_EVIDENCE",
+  "support": {
+    "discovery_landscapes": 51,
+    "discovery_pairs": 7260,
+    "discovery_studies": 121,
+    "validation_landscapes": 14,
+    "validation_pairs": 528,
+    "validation_studies": 33
+  }
+}
