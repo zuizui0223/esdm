@@ -1,0 +1,20 @@
+{
+  "date": "2026-11-18",
+  "ecological_transfer_test_completed": false,
+  "execution": {
+    "run_id": "44252651086",
+    "workflow_sha": "1791872507f5d03da4da080fcce54f09afbfb0fe"
+  },
+  "frozen_design": "docs/replication/C3_CROSSYEAR_COUNTRY_PRIOR_FROZEN_DESIGN.md",
+  "prior_ecological_results_unchanged": true,
+  "schema_version": 1,
+  "source": {
+    "doi": "10.17617/3.7YLWMU",
+    "file_id": 345505,
+    "published_md5": "102a0e35504eaa95c1b59bcd71c42a0d",
+    "published_sha256": "8c19b00949be1cea77447fbd1d9804ebfbfafc17ed8d9b2088b577fc3da02f54"
+  },
+  "source_animal_response_may_have_been_opened": false,
+  "status": "RESPONSE_SCHEMA_STOP",
+  "stop_reason": "RESPONSE_SCHEMA_STOP: physical camera mapped to conflicting country/array"
+}
