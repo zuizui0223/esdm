@@ -43,3 +43,22 @@ def test_two_zips_not_silently_selected():
                        'dataFile':{'id':503,'filesize':100}})
     y=extract_public_manifest(x)
     assert len(y['eligible_zip_file_ids'])==2 and not y['single_unrestricted_zip']
+
+def test_dataverse_identity_in_latest_version_is_supported():
+    x=_stub()
+    x['data'].pop('persistentId')
+    x['data']['latestVersion']['datasetPersistentId']='doi:10.17617/3.7YLWMU'
+    assert extract_public_manifest(x)['single_unrestricted_zip']
+
+def test_dataverse_identity_as_components_is_supported():
+    x=_stub()
+    x['data'].pop('persistentId')
+    x['data'].update(protocol='doi',authority='10.17617',identifier='3.7YLWMU')
+    assert extract_public_manifest(x)['status']=='EDMOND_PUBLIC_METADATA_READ_NO_RESPONSE'
+
+def test_other_canonical_doi_is_rejected():
+    x=_stub()
+    x['data'].pop('persistentId')
+    x['data']['latestVersion']['datasetPersistentId']='doi:10.17617/WRONG'
+    with pytest.raises(ValueError):
+        extract_public_manifest(x)
