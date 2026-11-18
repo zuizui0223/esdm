@@ -28,6 +28,38 @@ successful cross-geography E5 fit. The underlying process/state model remains th
 frozen **v0.4-R5b** generation; no semi-synthetic rescue generation was introduced.
 
 
+### Shared-region cross-site identification boundary (2026-11-18; response-free)
+
+A separate **mathematical, not empirical** extension of the one-site
+identification audit shows that *regional pool*, *conditional local
+occupancy*, and *effective camera recording* **can be jointly
+distinguished under strong multi-region hierarchical assumptions**.
+For independent replicated regions with shared within-region availability,
+two independent physical sites per region and two independent observation
+occasions per site, the exact population moments are
+`m1=rho*psi*d`, `m_same=rho*psi*d²`,
+and `m_cross=rho*psi²*d²`, where `d=a*p`.
+Then `rho=m1²/m_cross`, `psi=m_cross/m_same`, and
+`d=m_same/m1`. Exact log-moment Jacobian rank rises from 2
+(single site) to 3 (two sites) and to 4 only with an independent,
+valid reference for conditional camera registration `p`.
+A 16-history exact enumeration and 31 source-free tests support
+these **conditional algebraic statements**, not an observed animal result.
+
+**Important:** one region containing only two actual cameras is
+not sufficient to estimate population moments reliably. The identities
+require many independent exchangeable region or region-species replicates,
+homogeneous conditional probabilities, site/occasion independence,
+known effort and stable *physical stations* (not a reusable camera
+hardware ID). Spatial animal movements or common detector conditions
+can invalidate the identities. Nor does this change the original
+Snapshot Europe C3 terminal station-identity schema stop.
+Original Safari14/C1/C2/C3/E4/E5/E7 outcomes remain frozen;
+E5 is still **0/17 G4-qualified**, and no esdm superiority
+is claimed. See the [full mathematical/field-data requirements](docs/replication/MULTIREGION_POOL_IDENTIFICATION_AUDIT.md),
+[exact receipt](docs/replication/MULTIREGION_POOL_IDENTIFICATION_RESULT.json),
+and [source-free executable](scripts/prove_multiregion_pool_identification.py).
+
 ### Independent C3 Snapshot Europe cross-year array test (2026-11-18)
 
 The independent standardized European mammal camera project Iannarilli et al.
