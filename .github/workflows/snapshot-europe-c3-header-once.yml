@@ -18,7 +18,7 @@ jobs:
   snapshot_europe_official_metadata_only:
     # Original PMC technical screen returned non-ZIP HTTP 200; read no rows.
     # This explicit same-DOI Edmond preflight is PR #237 ONLY, first attempt.
-    if: github.event.action == 'reopened' && github.event.pull_request.number == 237 && github.event.pull_request.head.ref == 'analysis/snapshot-europe-c3-metadata-preflight-20261118' && github.run_attempt == 1
+    if: github.event.action == 'reopened' && github.event.pull_request.number == 237 && github.event.pull_request.head.ref == 'analysis/snapshot-europe-c3-metadata-preflight-20261118' && github.run_attempt == 1 && github.event.pull_request.head.sha == 'f0e75da26c13d785b18044fca98b2a79a32d8b3e'
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
