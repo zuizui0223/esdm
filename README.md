@@ -58,7 +58,7 @@ two-stratum (West/East at −100°) **within-region fixed-camera-richness and
 fixed-species-camera-incidence null**. The study used the published
 [NEON+forest-plot Zenodo v1 data](https://doi.org/10.5281/zenodo.20826511).
 All three published input MD5 checks and all **13 synthetic pre-response tests**
-passed. However, the **one** biological source opening encountered a binomial
+passed. The **original authorized** biological opening encountered a binomial
 with conflicting taxonomic-class labels and stopped at the **predeclared
 `RESPONSE_SCHEMA_STOP`** before computing any community-turnover or null
 effects. The GitHub Actions job successfully wrote a *stop receipt*, **not**
@@ -70,6 +70,11 @@ were opened. See the [frozen design](docs/replication/NEON_C2_REGION_CONSTRAINED
 [one-shot unchanged result](docs/replication/NEON_C2_FROZEN_RESULT.json),
 [scientific stop interpretation](docs/replication/NEON_C2_TERMINAL_RESULT.md),
 and [execution receipt](https://github.com/zuizui0223/esdm/actions/runs/43900837691).
+An unrelated PR #236 inadvertently triggered **one additional biological schema
+check** on 2026-11-18 because the C2 workflow only checked the PR event kind.
+It reproduced the same terminal schema stop, **not** a new ecological result.
+The workflow now pins the authorized PR number, frozen source head and first
+run attempt, with [an incident and reproducibility audit](docs/replication/ONE_SHOT_WORKFLOW_TRIGGER_RETIREMENT_20261118.md).
 This result cannot validate or refute Safari14, C1, the original E4 fit,
 or E5's still-unmet detector-calibration requirements.
 
