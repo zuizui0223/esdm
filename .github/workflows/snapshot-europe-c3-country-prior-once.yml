@@ -1,0 +1,58 @@
+name: C3 Snapshot Europe country-prior heldout-year ecological check (one-shot)
+
+on:
+  pull_request:
+    types: [opened]
+    paths:
+      - '.github/workflows/snapshot-europe-c3-country-prior-once.yml'
+      - 'docs/replication/C3_CROSSYEAR_COUNTRY_PRIOR_FROZEN_DESIGN.md'
+      - 'scripts/snapshot_europe_c3_country_prior.py'
+      - 'tests/test_snapshot_europe_c3_country_prior.py'
+
+permissions:
+  contents: read
+
+jobs:
+  frozen_crossyear_new_array_one_shot:
+    # This is the only authorized opening of C3 animal response.
+    # A distinct source-independent freeze commit MUST precede PR opening.
+    # After the opening, pin its PR/head and retire this job permanently.
+    if: github.event.action == 'opened' && github.event.pull_request.head.ref == 'analysis/snapshot-europe-c3-crossyear-country-prior-20261118' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run response-free schema, score, and support tests before source acquisition
+        run: |
+          python -m pip install 'pytest>=8'
+          python -m py_compile scripts/snapshot_europe_c3_country_prior.py
+          python -m pytest -q tests/test_snapshot_europe_c3_country_prior.py
+      - name: Create an immutable truthful stop receipt before source fetch
+        run: |
+          mkdir -p source/c3 build/c3
+          printf '%s\n' '{"schema_version":1,"status":"TRANSPORT_OR_SOURCE_STOP","reason":"Default pre-source sentinel; if network acquisition failed, no wildlife data were opened.","ecological_transfer_test_completed":false}' > build/c3/C3_COUNTRY_PRIOR_RESULT.json
+      - name: Download only original Edmond 77MB publication ZIP with no retries
+        run: |
+          set -euo pipefail
+          curl --fail --location --connect-timeout 35 --max-time 1200 --silent --show-error \
+            'https://edmond.mpg.de/api/access/datafile/345505' \
+            --output source/c3/DataS1.zip
+          test "$(stat -c %s source/c3/DataS1.zip)" = '77352666'
+          echo '102a0e35504eaa95c1b59bcd71c42a0d  source/c3/DataS1.zip' | md5sum --check
+          echo '8c19b00949be1cea77447fbd1d9804ebfbfafc17ed8d9b2088b577fc3da02f54  source/c3/DataS1.zip' | sha256sum --check
+      - name: Open original wildlife records exactly once and score frozen new-array holdout
+        run: |
+          python -m scripts.snapshot_europe_c3_country_prior \
+            --zip source/c3/DataS1.zip \
+            --out build/c3/C3_COUNTRY_PRIOR_RESULT.json
+      - name: Publish aggregate-only terminal result, including negative and technical stops
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: snapshot-europe-c3-country-prior-${{ github.run_id }}
+          path: build/c3/C3_COUNTRY_PRIOR_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
