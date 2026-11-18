@@ -14,6 +14,9 @@ permissions:
 
 jobs:
   predeclared-one-shot-independent-response:
+    # The one authorized biological opening was PR #234's technical reopen at
+    # the response-frozen head. Never repeat it for future PRs touching C1 files.
+    if: github.event.action == 'reopened' && github.event.pull_request.number == 234 && github.event.pull_request.head.sha == '8cb348c1996343c25b55c7c86d9679beb04d9449' && github.run_attempt == 1
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:

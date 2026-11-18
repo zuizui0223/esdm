@@ -28,6 +28,28 @@ successful cross-geography E5 fit. The underlying process/state model remains th
 frozen **v0.4-R5b** generation; no semi-synthetic rescue generation was introduced.
 
 
+### Exact pool/state/availability/detection identification boundary (2026-11-18)
+
+A separate **response-free, exact submodel identification audit** formalizes
+the next bottleneck rather than creating a new semi-synthetic fitted model.
+For a one-region/species/site four-gate camera model with a persistent
+regional pool and site state, independent per-occasion availability, and
+conditional camera registration, repeated camera histories identify only
+`q = P(pool) * P(site | pool)` and
+`d = P(available | site) * P(camera register | available)`.
+Two distinct parameter vectors yield identical likelihoods for every
+binary history at **1, 2, 3, 6 and 10** occasions. The exact
+proof is not a general theorem against multi-region or multi-site
+hierarchical occupancy models. It does not promote a new biological
+finding, absolute detection calibration or **E5 G4 qualification**
+(still **0/17**). All E4/E5/E7, Safari14, C1 and C2 empirical
+outcomes remain frozen. The actionable next evidence is independent
+pool/accessibility information **and** non-trigger-selected known
+reference passages tied to verified camera/ref operating exposure.
+See the [mathematical and ecological inference audit](docs/replication/POOL_STATE_DETECTION_IDENTIFICATION_AUDIT.md),
+[deterministic machine-readable certificate](docs/replication/POOL_STATE_DETECTION_IDENTIFICATION_RESULT.json),
+and [executable proof](scripts/audit_pool_state_detection_identification.py).
+
 ### NEON C2 region-conditioned mammal community test (2026-11-17)
 
 A separately frozen **independent US forest camera study** attempted to
@@ -36,7 +58,7 @@ two-stratum (West/East at −100°) **within-region fixed-camera-richness and
 fixed-species-camera-incidence null**. The study used the published
 [NEON+forest-plot Zenodo v1 data](https://doi.org/10.5281/zenodo.20826511).
 All three published input MD5 checks and all **13 synthetic pre-response tests**
-passed. However, the **one** biological source opening encountered a binomial
+passed. The **original authorized** biological opening encountered a binomial
 with conflicting taxonomic-class labels and stopped at the **predeclared
 `RESPONSE_SCHEMA_STOP`** before computing any community-turnover or null
 effects. The GitHub Actions job successfully wrote a *stop receipt*, **not**
@@ -48,6 +70,11 @@ were opened. See the [frozen design](docs/replication/NEON_C2_REGION_CONSTRAINED
 [one-shot unchanged result](docs/replication/NEON_C2_FROZEN_RESULT.json),
 [scientific stop interpretation](docs/replication/NEON_C2_TERMINAL_RESULT.md),
 and [execution receipt](https://github.com/zuizui0223/esdm/actions/runs/43900837691).
+An unrelated PR #236 inadvertently triggered **one additional biological schema
+check** on 2026-11-18 because the C2 workflow only checked the PR event kind.
+It reproduced the same terminal schema stop, **not** a new ecological result.
+The workflow now pins the authorized PR number, frozen source head and first
+run attempt, with [an incident and reproducibility audit](docs/replication/ONE_SHOT_WORKFLOW_TRIGGER_RETIREMENT_20261118.md).
 This result cannot validate or refute Safari14, C1, the original E4 fit,
 or E5's still-unmet detector-calibration requirements.
 

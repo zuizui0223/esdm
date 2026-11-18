@@ -9,9 +9,11 @@ permissions:
 
 jobs:
   independent_neon_c2_one_shot:
-    # PR 'opened' is the only authorized biological source opening. No push,
-    # synchronize, schedule or manual workflow_dispatch trigger can rerun it.
-    if: github.event.action == 'opened'
+    # Historical C2 one-shot was authorized ONLY for PR #235 at its frozen initial head.
+    # Without the exact PR number AND head SHA, all future PR opens MUST skip.
+    # Earlier workflow used action=='opened' alone and incorrectly reran on PR #236;
+    # this guard repairs that implementation bug, never opens C2 biology again.
+    if: github.event.action == 'opened' && github.event.pull_request.number == 235 && github.event.pull_request.head.sha == 'b3921e1d9cb3a10ff5ae525836a93c04761a8d54' && github.run_attempt == 1
     runs-on: ubuntu-latest
     timeout-minutes: 40
     steps:
