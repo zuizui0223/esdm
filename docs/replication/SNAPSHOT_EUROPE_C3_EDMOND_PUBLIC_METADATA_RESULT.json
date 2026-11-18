@@ -1,0 +1,34 @@
+{
+  "E5_G4_pass": false,
+  "animal_data_read": false,
+  "api_url": "https://edmond.mpg.de/api/datasets/:persistentId/?persistentId=doi:10.17617/3.7YLWMU",
+  "dataset_doi": "doi:10.17617/3.7YLWMU",
+  "ecological_fit_performed": false,
+  "eligible_zip_file_ids": [
+    345505
+  ],
+  "files": [
+    {
+      "checksum": "102a0e35504eaa95c1b59bcd71c42a0d",
+      "checksum_type": "MD5",
+      "file_id": 345505,
+      "filename": "DataS1.zip",
+      "restricted": false,
+      "size": 77352666
+    },
+    {
+      "checksum": "cae9fc3a5fe03f7c0345343ec69558d1",
+      "checksum_type": "MD5",
+      "file_id": 337815,
+      "filename": "ReadME.txt",
+      "restricted": false,
+      "size": 393
+    }
+  ],
+  "published_file_count": 2,
+  "schema_version": 1,
+  "single_unrestricted_zip": true,
+  "source_rows_opened": 0,
+  "status": "EDMOND_PUBLIC_METADATA_READ_NO_RESPONSE",
+  "version": "2.0"
+}

@@ -1,0 +1,95 @@
+name: C3 Snapshot Europe official Edmond schema-only preflight
+
+on:
+  pull_request:
+    types: [reopened]
+    paths:
+      - 'docs/replication/SNAPSHOT_EUROPE_C3_RESPONSE_BLIND_SOURCE_PREFLIGHT.md'
+      - 'scripts/snapshot_europe_public_header_gate.py'
+      - 'scripts/snapshot_europe_edmond_public_manifest.py'
+      - 'tests/test_snapshot_europe_public_header_gate.py'
+      - 'tests/test_snapshot_europe_edmond_public_manifest.py'
+      - '.github/workflows/snapshot-europe-c3-header-once.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  snapshot_europe_official_metadata_only:
+    # Original PMC technical screen returned non-ZIP HTTP 200; read no rows.
+    # This explicit same-DOI Edmond preflight is PR #237 ONLY, first attempt.
+    if: github.event.action == 'reopened' && github.event.pull_request.number == 237 && github.event.pull_request.head.ref == 'analysis/snapshot-europe-c3-metadata-preflight-20261118' && github.run_attempt == 1 && github.event.pull_request.head.sha == 'f0e75da26c13d785b18044fca98b2a79a32d8b3e'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Initialize explicit no-response transport sentinel
+        run: |
+          mkdir -p build/snapshot_europe_c3 source/snapshot_europe_c3
+          printf '%s\n' '{"schema_version":1,"status":"EDMOND_METADATA_TRANSPORT_STOP","source_url":"https://edmond.mpg.de/api/datasets/:persistentId/?persistentId=doi:10.17617/3.7YLWMU","raw_rows_opened":0,"biology_values_opened":false,"model_fitted":false}' > build/snapshot_europe_c3/HEADER_SCREEN_RESULT.json
+      - name: Run 20 synthetic-only ZIP and API-manifest tests
+        run: |
+          python -m pip install 'pytest>=8'
+          python -m pytest -q tests/test_snapshot_europe_public_header_gate.py tests/test_snapshot_europe_edmond_public_manifest.py
+      - name: Download ONLY official public Edmond dataset metadata JSON
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 2 --retry-delay 3 --connect-timeout 25 --max-time 120 --silent --show-error \
+            'https://edmond.mpg.de/api/datasets/:persistentId/?persistentId=doi:10.17617/3.7YLWMU' \
+            --output source/snapshot_europe_c3/edmond_public_dataset_metadata.json
+          python -m scripts.snapshot_europe_edmond_public_manifest \
+            --json source/snapshot_europe_c3/edmond_public_dataset_metadata.json \
+            --out build/snapshot_europe_c3/EDMOND_PUBLIC_METADATA_RESULT.json \
+            --file-id-out build/snapshot_europe_c3/selected_public_zip_id.txt
+      - name: If exactly one public ZIP, verify checksum and inspect ZIP headers only
+        run: |
+          set -euo pipefail
+          id="$(cat build/snapshot_europe_c3/selected_public_zip_id.txt)"
+          if [ -z "$id" ]; then
+            printf '%s\n' '{"schema_version":1,"status":"EDMOND_METADATA_COMPLETE_NO_UNIQUE_PUBLIC_ZIP","raw_rows_opened":0,"biology_values_opened":false,"model_fitted":false}' > build/snapshot_europe_c3/HEADER_SCREEN_RESULT.json
+            exit 0
+          fi
+          curl --fail --location --retry 2 --retry-delay 3 --connect-timeout 25 --max-time 950 --silent --show-error \
+            "https://edmond.mpg.de/api/access/datafile/${id}" \
+            --output source/snapshot_europe_c3/SNAPSHOT_EUROPE_EDMOND_DATA_S1.zip
+          python - <<'PY'
+          import hashlib,json,pathlib
+          root=pathlib.Path('build/snapshot_europe_c3')
+          d=json.loads((root/'EDMOND_PUBLIC_METADATA_RESULT.json').read_text())
+          file_id=int((root/'selected_public_zip_id.txt').read_text())
+          match=[r for r in d['files'] if r['file_id']==file_id]
+          if len(match)!=1:raise ValueError('EDMOND_SOURCE_STOP: no selected file entry')
+          check=match[0]
+          source=pathlib.Path('source/snapshot_europe_c3/SNAPSHOT_EUROPE_EDMOND_DATA_S1.zip')
+          if source.stat().st_size!=check['size']:
+              raise ValueError('EDMOND_SOURCE_STOP: public metadata byte size mismatch')
+          typ=check.get('checksum_type')
+          expected=check.get('checksum')
+          if typ and expected:
+              algo=str(typ).replace('-','').lower()
+              if algo not in ('md5','sha1','sha256'):
+                  raise ValueError('EDMOND_SOURCE_STOP: unrecognized checksum scheme')
+              h=hashlib.new(algo)
+              with source.open('rb') as fh:
+                  for part in iter(lambda:fh.read(1024*1024),b''):h.update(part)
+              if h.hexdigest().lower()!=expected.lower():
+                  raise ValueError('EDMOND_SOURCE_STOP: published checksum mismatch')
+          print('Official Edmond byte size and supplied checksum verified; no data rows read')
+          PY
+          python -m scripts.snapshot_europe_public_header_gate \
+            --zip source/snapshot_europe_c3/SNAPSHOT_EUROPE_EDMOND_DATA_S1.zip \
+            --source-url "https://edmond.mpg.de/api/access/datafile/${id}" \
+            --out build/snapshot_europe_c3/HEADER_SCREEN_RESULT.json
+      - name: Upload only public metadata / CSV header schema or truthful terminal stop
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: snapshot-europe-c3-edmond-${{ github.run_id }}
+          path: |
+            build/snapshot_europe_c3/HEADER_SCREEN_RESULT.json
+            build/snapshot_europe_c3/EDMOND_PUBLIC_METADATA_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
