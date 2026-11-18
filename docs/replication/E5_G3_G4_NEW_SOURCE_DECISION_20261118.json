@@ -41,7 +41,7 @@
       "published_camera_inventory_images": 235778,
       "G2_deployment_event_effort": "PARTIAL_TRUE_CAMERA_OPERATIONAL_DAYS_UNVERIFIED",
       "G3_crossed_geography_protocol": "FAIL_SINGLE_GEOGRAPHIC_STUDY",
-      "G4_independent_detection_identification": "FAIL_NO_KNOWN_UNDETECTED_SAME_ZONE_PASSAGE_REFERENCE",
+      "G4_independent_detection_identification": "NOT_DEMONSTRATED_NO_SEPARATELY_IDENTIFIED_DETECTOR_CHANNEL",
       "G6_six_months_each_split": "FAIL_JUNE_TO_SEPTEMBER_2025",
       "independent_known_missed_passages": false,
       "prequalification": "NOT_QUALIFIED",
@@ -57,7 +57,7 @@
       "released_contents": ["Camera effort and georeferenced station documentation", "Temporal-threshold-filtered wildlife detections, manually annotated and reviewed"],
       "G2_deployment_event_effort": "PROMISING_EFFORT_AND_EVENT_TABLES_PUBLISHED",
       "G3_crossed_geography_protocol": "FAIL_SINGLE_REGIONAL_NETWORK",
-      "G4_independent_detection_identification": "FAIL_TIME_FILTERED_EVENTS_ARE_CAMERA_TRIGGERED_NOT_REFERENCE_PASSES",
+      "G4_independent_detection_identification": "NOT_DEMONSTRATED_TIME_FILTERED_EVENTS_NOT_EXTERNAL_REFERENCE",
       "G6_six_months_each_split": "UNVERIFIED_CROSSED_SPLIT",
       "independent_known_missed_passages": false,
       "prequalification": "NOT_QUALIFIED",
@@ -65,7 +65,7 @@
       "next_input_if_offered": "A second crossed region/protocol with an independent reference passage, camera uptime and focal zone crosswalk."
     }
   ],
-  "field_evidence_required_for_reconsideration": [
+  "preferred_independent_passage_route_requirements": [
     "stable physical station and deployment-to-device identity; no reuse of hardware ID as a station",
     "multiple independent regional replicates and sites with fixed closed observation windows",
     "timestamped, known camera and independent-reference operating overlap intervals",
@@ -79,6 +79,7 @@
     "counts_are_dataset_inventory_not_independent_ecological_replicates": true,
     "no_eSDM_superiority_claim": true,
     "no_reanalysis_of_consumed_safari14_c1_c2_c3_e4_e5_e7": true,
-    "public_documentation_not_exhaustive_proof_of_no_private_data": true
+    "public_documentation_not_exhaustive_proof_of_no_private_data": true,
+    "original_E5_other_G4_identification_routes_remain_allowed": true
   }
 }
