@@ -1,0 +1,54 @@
+name: C3 Snapshot Europe independent source header preflight (one-shot)
+
+on:
+  pull_request:
+    types: [opened]
+    paths:
+      - 'docs/replication/SNAPSHOT_EUROPE_C3_RESPONSE_BLIND_SOURCE_PREFLIGHT.md'
+      - 'scripts/snapshot_europe_public_header_gate.py'
+      - 'tests/test_snapshot_europe_public_header_gate.py'
+      - '.github/workflows/snapshot-europe-c3-header-once.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  snapshot_europe_metadata_header_only:
+    # Response-blind schema opening is tied to this one named new branch only.
+    # On receipt completion, retire by exact PR number + original head SHA.
+    if: github.event.action == 'opened' && github.event.pull_request.head.ref == 'analysis/snapshot-europe-c3-metadata-preflight-20261118' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run synthetic source-independent ZIP and header tests
+        run: |
+          python -m pip install 'pytest>=8'
+          python -m pytest -q tests/test_snapshot_europe_public_header_gate.py
+      - name: Initialize explicit source transport failure result
+        run: |
+          mkdir -p build/snapshot_europe_c3 source/snapshot_europe_c3
+          printf '%s\n' '{"schema_version":1,"status":"SOURCE_TRANSPORT_STOP","source_url":"https://pmc.ncbi.nlm.nih.gov/articles/instance/13740659/bin/ECY-107-e70516-s001.zip","rows_opened":0,"biology_values_opened":false,"model_fitted":false}' > build/snapshot_europe_c3/HEADER_SCREEN_RESULT.json
+      - name: Download publisher-linked Supporting Information Data S1 without opening cells
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 2 --retry-delay 3 --connect-timeout 25 --max-time 950 --silent --show-error \
+            'https://pmc.ncbi.nlm.nih.gov/articles/instance/13740659/bin/ECY-107-e70516-s001.zip' \
+            --output source/snapshot_europe_c3/SNAPSHOT_EUROPE_DATA_S1.zip
+      - name: Open ZIP central directory and CSV TSV column names ONLY
+        run: |
+          python -m scripts.snapshot_europe_public_header_gate \
+            --zip source/snapshot_europe_c3/SNAPSHOT_EUROPE_DATA_S1.zip \
+            --source-url 'https://pmc.ncbi.nlm.nih.gov/articles/instance/13740659/bin/ECY-107-e70516-s001.zip' \
+            --out build/snapshot_europe_c3/HEADER_SCREEN_RESULT.json
+      - name: Publish schema-only result or truthful transport stop; no source archive
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: snapshot-europe-c3-header-${{ github.run_id }}
+          path: build/snapshot_europe_c3/HEADER_SCREEN_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
