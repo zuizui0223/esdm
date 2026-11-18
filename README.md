@@ -28,6 +28,28 @@ successful cross-geography E5 fit. The underlying process/state model remains th
 frozen **v0.4-R5b** generation; no semi-synthetic rescue generation was introduced.
 
 
+### Exact pool/state/availability/detection identification boundary (2026-11-18)
+
+A separate **response-free, exact submodel identification audit** formalizes
+the next bottleneck rather than creating a new semi-synthetic fitted model.
+For a one-region/species/site four-gate camera model with a persistent
+regional pool and site state, independent per-occasion availability, and
+conditional camera registration, repeated camera histories identify only
+`q = P(pool) * P(site | pool)` and
+`d = P(available | site) * P(camera register | available)`.
+Two distinct parameter vectors yield identical likelihoods for every
+binary history at **1, 2, 3, 6 and 10** occasions. The exact
+proof is not a general theorem against multi-region or multi-site
+hierarchical occupancy models. It does not promote a new biological
+finding, absolute detection calibration or **E5 G4 qualification**
+(still **0/17**). All E4/E5/E7, Safari14, C1 and C2 empirical
+outcomes remain frozen. The actionable next evidence is independent
+pool/accessibility information **and** non-trigger-selected known
+reference passages tied to verified camera/ref operating exposure.
+See the [mathematical and ecological inference audit](docs/replication/POOL_STATE_DETECTION_IDENTIFICATION_AUDIT.md),
+[deterministic machine-readable certificate](docs/replication/POOL_STATE_DETECTION_IDENTIFICATION_RESULT.json),
+and [executable proof](scripts/audit_pool_state_detection_identification.py).
+
 ### NEON C2 region-conditioned mammal community test (2026-11-17)
 
 A separately frozen **independent US forest camera study** attempted to
