@@ -21,9 +21,20 @@ def extract_public_manifest(obj: object) -> dict:
     if not isinstance(obj,dict) or str(obj.get('status','')).upper() != 'OK':
         raise ValueError('EDMOND_METADATA_STOP: API response status not OK')
     data=obj.get('data')
-    if not isinstance(data,dict) or data.get('persistentId') != PERSISTENT_ID:
-        raise ValueError('EDMOND_METADATA_STOP: not the fixed dataset DOI')
+    if not isinstance(data,dict):
+        raise ValueError('EDMOND_METADATA_STOP: missing dataset metadata object')
     version=data.get('latestVersion')
+    # Dataverse may encode the same DOI on dataset or version or as
+    # protocol/authority/identifier. Each accepted identity must match exactly.
+    identities=[data.get('persistentId'),
+                version.get('datasetPersistentId') if isinstance(version,dict) else None]
+    if data.get('protocol') and data.get('authority') and data.get('identifier'):
+        identities.append(f"{data['protocol']}:{data['authority']}/{data['identifier']}")
+    if isinstance(data.get('persistentUrl'),str):
+        suffix=data['persistentUrl'].removeprefix('https://doi.org/')
+        identities.extend([suffix, 'doi:'+suffix])
+    if PERSISTENT_ID not in identities:
+        raise ValueError('EDMOND_METADATA_STOP: no exact fixed dataset DOI in published metadata')
     if not isinstance(version,dict) or version.get('versionState','RELEASED') not in ('RELEASED','DEACCESSIONED'):
         raise ValueError('EDMOND_METADATA_STOP: no public released version')
     if version.get('versionState')=='DEACCESSIONED':
