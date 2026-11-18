@@ -1,0 +1,126 @@
+{
+  "data_boundary": {
+    "independent_calibration_obtained": false,
+    "new_simulated_validation_generation": false,
+    "prior_empirical_fits_changed": false,
+    "wildlife_rows_opened": false
+  },
+  "decision": {
+    "E5_G4_qualified_by_this_proof": false,
+    "eSDM_superiority_claim_authorized": false,
+    "idealized_two_anchor_recovery_pass": true,
+    "observational_equivalence_pass": true,
+    "two_visit_composites_pass": true
+  },
+  "distinct_parameter_vectors": {
+    "A": {
+      "camera_registration": 0.6,
+      "per_occasion_availability": 0.5,
+      "regional_pool": 0.6,
+      "site_occupancy": 0.8
+    },
+    "B": {
+      "camera_registration": 0.4,
+      "per_occasion_availability": 0.75,
+      "regional_pool": 0.8,
+      "site_occupancy": 0.6
+    }
+  },
+  "equal_composite_probabilities": {
+    "d": 0.3,
+    "q": 0.48,
+    "single_visit_positive": 0.144
+  },
+  "exact_two_visit_joint_probabilities_A": {
+    "00": 0.7552,
+    "01": 0.10079999999999999,
+    "10": 0.10079999999999999,
+    "11": 0.043199999999999995
+  },
+  "identification_ladder": {
+    "closed_repeated_visits_no_anchors": {
+      "identified": [
+        "q = rho*psi",
+        "d = a*p"
+      ],
+      "not_identified": [
+        "rho",
+        "psi",
+        "a",
+        "p"
+      ],
+      "requirements": [
+        "at least two visits with population replication",
+        "closure and conditional occasion independence",
+        "non-degenerate detection",
+        "known active survey effort"
+      ]
+    },
+    "closed_repeats_plus_independent_registration_reference": {
+      "identified": [
+        "q = rho*psi",
+        "a",
+        "p"
+      ],
+      "not_identified": [
+        "rho",
+        "psi"
+      ],
+      "requirements": [
+        "matched independently observed passage denominator",
+        "verified camera/reference overlapping exposure and zone",
+        "calibrated or qualified reference sensitivity"
+      ]
+    },
+    "closed_repeats_plus_pool_and_registration_anchors": {
+      "identified": [
+        "rho",
+        "psi",
+        "a",
+        "p"
+      ],
+      "not_identified": [],
+      "requirements": [
+        "independent measured pool probability or fixed verified eligibility",
+        "independently calibrated camera registration",
+        "closed conditionally independent repeated visits"
+      ]
+    },
+    "one_visit_no_anchors": {
+      "identified": [
+        "q*d = rho*psi*a*p"
+      ],
+      "not_identified": [
+        "rho",
+        "psi",
+        "a",
+        "p",
+        "q",
+        "d"
+      ],
+      "requirements": [
+        "no false positives",
+        "known exposure"
+      ]
+    }
+  },
+  "max_likelihood_probability_discrepancy_by_number_of_visits": {
+    "1": 2.7755575615628914e-17,
+    "10": 1.734723475976807e-18,
+    "2": 1.3877787807814457e-17,
+    "3": 1.3877787807814457e-17,
+    "6": 3.469446951953614e-18
+  },
+  "not_a_universal_multiscale_occupancy_nonidentifiability_claim": true,
+  "recovered_with_both_exact_independent_anchors_A": {
+    "camera_registration": 0.6,
+    "identified_availability_registration_product_d": 0.3,
+    "identified_occupancy_product_q": 0.48,
+    "per_occasion_availability": 0.5,
+    "regional_pool": 0.6,
+    "site_occupancy": 0.8
+  },
+  "schema_version": 1,
+  "scope": "One region-species-by-site observational unit with shared pool and site states, independent occasion-level availability; no false positives",
+  "status": "EXACT_OBSERVATIONAL_EQUIVALENCE_MINIMAL_SITE_MODEL"
+}
