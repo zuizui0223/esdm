@@ -4,7 +4,7 @@ import json
 import zipfile
 from pathlib import Path
 import pytest
-from snapshot_europe_public_header_gate import inspect_archive, tabular_header
+from scripts.snapshot_europe_public_header_gate import inspect_archive, tabular_header
 
 
 def _archive(tmp_path:Path, members:dict[str,bytes])->Path:
