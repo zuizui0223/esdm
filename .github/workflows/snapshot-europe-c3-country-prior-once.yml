@@ -17,7 +17,7 @@ jobs:
     # This is the only authorized opening of C3 animal response.
     # A distinct source-independent freeze commit MUST precede PR opening.
     # After the opening, pin its PR/head and retire this job permanently.
-    if: github.event.action == 'opened' && github.event.pull_request.head.ref == 'analysis/snapshot-europe-c3-crossyear-country-prior-20261118' && github.run_attempt == 1
+    if: github.event.action == 'opened' && github.event.pull_request.head.ref == 'analysis/snapshot-europe-c3-crossyear-country-prior-20261118' && github.run_attempt == 1 && github.event.pull_request.number == 238 && github.event.pull_request.head.sha == 'f300e7650fddcac2cadedd00f97a072fce63c90f'
     runs-on: ubuntu-latest
     timeout-minutes: 35
     steps:
