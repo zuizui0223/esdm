@@ -54,10 +54,11 @@ def test_no_false_absence_or_causal_claims():
     assert fire['no_eSDM_superiority_claim'] is True
     assert fire['no_reanalysis_of_consumed_safari14_c1_c2_c3_e4_e5_e7'] is True
     assert fire['public_documentation_not_exhaustive_proof_of_no_private_data'] is True
+    assert fire['original_E5_other_G4_identification_routes_remain_allowed'] is True
 
 
 def test_exact_observational_requirements():
-    req = load()['field_evidence_required_for_reconsideration']
+    req = load()['preferred_independent_passage_route_requirements']
     assert len(req) == 6
     assert any('station' in x and 'device' in x for x in req)
     assert any('reference' in x and 'overlap' in x for x in req)
@@ -72,9 +73,9 @@ def test_documented_source_inventory_counts_not_promoted():
     assert s['published_camera_events'] == 19785
     assert s['published_camera_inventory_images'] == 235778
     assert s['G3_crossed_geography_protocol'].startswith('FAIL')
-    assert s['G4_independent_detection_identification'].startswith('FAIL')
+    assert s['G4_independent_detection_identification'].startswith('NOT_DEMONSTRATED')
     q=rs['qilian_mountains_zenodo_2025_events']
-    assert q['G4_independent_detection_identification'].startswith('FAIL')
+    assert q['G4_independent_detection_identification'].startswith('NOT_DEMONSTRATED')
     e=rs['eow_zenodo_2026_june_v13']
     assert e['G2_deployment_event_effort'].startswith('NOT_DEMONSTRATED')
 
