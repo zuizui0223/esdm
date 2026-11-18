@@ -28,6 +28,30 @@ successful cross-geography E5 fit. The underlying process/state model remains th
 frozen **v0.4-R5b** generation; no semi-synthetic rescue generation was introduced.
 
 
+### Independent C3 Snapshot Europe cross-year array test (2026-11-18)
+
+The independent standardized European mammal camera project Iannarilli et al.
+(2026) was source-authenticated at its original
+[Edmond DOI](https://doi.org/10.17617/3.7YLWMU), version 2.0.
+A **zero-response header/source preflight** was completed in [PR #237](https://github.com/zuizui0223/esdm/pull/237),
+including immutable original MD5/SHA256 and the five released CSV headers.
+
+A distinct **2021 training → 2022 new-array heldout** country-prior design was
+[frozen before opening biological values](docs/replication/C3_CROSSYEAR_COUNTRY_PRIOR_FROZEN_DESIGN.md).
+The one source-backed empirical [run 44252651086](https://github.com/zuizui0223/esdm/actions/runs/44252651086)
+verified the exact original source but **stopped before opening any animal sequence row**:
+`RESPONSE_SCHEMA_STOP: physical camera mapped to conflicting country/array`.
+This is an observational-unit issue (device IDs cannot automatically stand
+for invariant camera stations), **not** a positive or negative ecological
+prediction result. No taxon roster, camera × species matrix, Brier score,
+regional source-pool effect or detection calibration was produced. The
+original C3 schema stop is [archived without modification](docs/replication/C3_CROSSYEAR_COUNTRY_PRIOR_FROZEN_RESULT.json)
+with [scientific interpretation](docs/replication/C3_CROSSYEAR_COUNTRY_PRIOR_TERMINAL_INTERPRETATION.md).
+The original one-shot workflow is retired by its PR/head/attempt guard.
+Do **not** repair C3 by switching camera keys after inspecting the source.
+Existing Safari14, CamTrapAsia C1, NEON C2 and E4/E5/E7 conclusions remain
+unchanged, including **E5 0/17 qualified, G4 not passed**.
+
 ### Exact pool/state/availability/detection identification boundary (2026-11-18)
 
 A separate **response-free, exact submodel identification audit** formalizes
