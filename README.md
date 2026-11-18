@@ -27,6 +27,15 @@ activity. E5 has **0/17 standard-qualified datasets**, and no claim of a second
 successful cross-geography E5 fit. The underlying process/state model remains the
 frozen **v0.4-R5b** generation; no semi-synthetic rescue generation was introduced.
 
+**Independent detection-evidence update (2026-11-18):** A public-documentation-only
+reassessment of EOW results, SmartWilds cross-modal sensors, and Qilian
+Mountains time-declustered camera events [finds no new E5-qualified source](docs/replication/E5_G3_G4_NEW_SOURCE_DECISION_20261118.md).
+Co-located modalities or temporally independent camera detections are **not**
+independently enumerated missed animal passages. The E5 screened-candidate
+registry stays at **17** with **0 qualified**; no wildlife response or E5
+model was opened and no previous frozen ecological result was changed.
+
+
 
 ### Shared-region cross-site identification boundary (2026-11-18; response-free)
 
