@@ -1,0 +1,61 @@
+name: NeoBat GBIF credential-presence gate (no external request)
+
+on:
+  push:
+    branches:
+      - design/neobat-trophic-sdm-phase1-20261119
+    paths:
+      - .github/workflows/neobat-gbif-auth-presence.yml
+
+permissions:
+  contents: write
+
+jobs:
+  check_authorized_credential_presence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GBIF_USERNAME: ${{ secrets.GBIF_USERNAME }}
+      GBIF_USERNAME_VAR: ${{ vars.GBIF_USERNAME }}
+      GBIF_PASSWORD: ${{ secrets.GBIF_PASSWORD }}
+      GBIF_EMAIL: ${{ secrets.GBIF_EMAIL }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check only configuration availability, never print or send credential values
+        run: |
+          python - <<'PY'
+          import json, os, pathlib
+          present_username=bool(os.environ.get("GBIF_USERNAME") or os.environ.get("GBIF_USERNAME_VAR"))
+          present_password=bool(os.environ.get("GBIF_PASSWORD"))
+          present_email=bool(os.environ.get("GBIF_EMAIL"))
+          ready=all([present_username,present_password,present_email])
+          report={
+            "schema_version":1,
+            "status":"AUTH_ENV_PRESENT_NOT_VERIFIED" if ready else "AUTH_CONFIG_INCOMPLETE",
+            "required_fields":["GBIF_USERNAME_or_variable","GBIF_PASSWORD","GBIF_EMAIL"],
+            "missing_field_names":(
+              ([] if present_username else ["GBIF_USERNAME_or_variable"]) +
+              ([] if present_password else ["GBIF_PASSWORD"]) +
+              ([] if present_email else ["GBIF_EMAIL"])
+            ),
+            "credential_values_seen_or_saved":False,
+            "GBIF_authentication_attempted":False,
+            "download_requested":False,
+            "GBIF_download_DOI":None
+          }
+          path=pathlib.Path("docs/replication/neobat/gbif_auth_presence.json")
+          path.parent.mkdir(parents=True,exist_ok=True)
+          path.write_text(json.dumps(report,indent=2)+"\n")
+          print(report["status"], "missing_names=", report["missing_field_names"])
+          PY
+      - name: Commit status-only report on the research branch
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/gbif_auth_presence.json
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: record status-only GBIF auth availability, no secret values"
+            git pull --rebase origin design/neobat-trophic-sdm-phase1-20261119
+            git push origin HEAD:design/neobat-trophic-sdm-phase1-20261119
+          fi
