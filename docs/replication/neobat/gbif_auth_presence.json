@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "status": "AUTH_CONFIG_INCOMPLETE",
+  "required_fields": [
+    "GBIF_USERNAME_or_variable",
+    "GBIF_PASSWORD",
+    "GBIF_EMAIL"
+  ],
+  "missing_field_names": [
+    "GBIF_USERNAME_or_variable",
+    "GBIF_PASSWORD",
+    "GBIF_EMAIL"
+  ],
+  "credential_values_seen_or_saved": false,
+  "GBIF_authentication_attempted": false,
+  "download_requested": false,
+  "GBIF_download_DOI": null
+}
