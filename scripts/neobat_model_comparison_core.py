@@ -1,4 +1,4 @@
-"""NeoBat M0/M1/M3/N1 country-heldout relative-rank benchmark core.
+"""NeoBat M0/M1/M2/M3/N1 country-heldout relative-rank benchmark core.
 
 This implements a *model comparison* only when independently prepared
 bat/background events, outcountry cross-fitted plant relative suitabilities,
@@ -232,14 +232,18 @@ def compare_fold(records,plants,links,manifest,bat,holdout,*,null_draws=199,seed
     xtr,ytr=_arrays(training,universe,predictors,partners,holdout)
     xte,yte=_arrays(testing,universe,predictors,partners,holdout)
     auc={}
+    # M2 is an explicitly secondary decomposition (M0 + observed partner
+    # resource index). The frozen primary contrasts remain M3 vs M1/N1.
     for k,features in {"M0":tuple(range(5)),"M1":tuple(range(6)),
-                       "M3":tuple(range(7))}.items():
+                       "M2":tuple(range(5))+(6,),"M3":tuple(range(7))}.items():
         auc[k],_,_=_ridge_logit_auc(xtr,ytr,xte,yte,features)
     base_edges=_network_edges(train_links)
     if not _is_rewirable(base_edges):
         raise QualificationStop("DEGREE_PRESERVING_NETWORK_NULL_NOT_IDENTIFIABLE")
     rng=random.Random(seed)
     null=[]
+    null_partner_sets=set()
+    null_original_partner_draws=0
     current=list(base_edges)
     # Fixed burn-in and move attempts; no adaptive stopping based on scores.
     current,steps=degree_preserving_rewire(current,rng,100*len(current))
@@ -248,12 +252,19 @@ def compare_fold(records,plants,links,manifest,bat,holdout,*,null_draws=199,seed
     for rep in range(null_draws):
         current,steps=degree_preserving_rewire(current,rng,20*len(current))
         npartners=sorted(p for s,p in current if s==bat)
+        null_partner_sets.add(tuple(npartners))
+        if npartners==partners:
+            null_original_partner_draws+=1
         if len(npartners)!=len(partners):
             raise QualificationStop("DEGREE_PRESERVATION_FAILED")
         ntr,_=_arrays(training,universe,predictors,npartners,holdout)
         nte,_=_arrays(testing,universe,predictors,npartners,holdout)
         a,_,_=_ridge_logit_auc(ntr,ytr,nte,yte,tuple(range(7)))
         null.append(a)
+    # Network swaps elsewhere do not constitute an identity null for the
+    # focal bat unless its own partner identities actually vary.
+    if null_partner_sets=={tuple(partners)}:
+        raise QualificationStop("NULL_FOCAL_LINK_IDENTITIES_INVARIANT")
     nm=sum(null)/len(null)
     return {
         "schema_version":1,
@@ -268,10 +279,14 @@ def compare_fold(records,plants,links,manifest,bat,holdout,*,null_draws=199,seed
         "training_events":len(training),"heldout_events":len(testing),
         "presence_rank_auc":auc,
         "heldout_M3_minus_M1":auc["M3"]-auc["M1"],
+        "secondary_M2_minus_M0":auc["M2"]-auc["M0"],
+        "secondary_M3_minus_M2":auc["M3"]-auc["M2"],
         "rewired_N1_auc_mean":nm,
         "M3_minus_rewired_N1_mean":auc["M3"]-nm,
         "rewire_p_upper_tail":(1+sum(x>=auc["M3"] for x in null))/(len(null)+1),
         "rewire_draws":len(null),
+        "N1_distinct_focal_partner_sets":len(null_partner_sets),
+        "N1_draws_with_unchanged_focal_partners":null_original_partner_draws,
         "background_is_not_true_absence":True,
         "plant_predictions_are_relative_not_probability":True,
         "source_country_heldout_not_unopened_independent_confirmation":True if not synthetic else None,
