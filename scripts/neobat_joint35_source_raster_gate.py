@@ -98,18 +98,21 @@ def audit(cells,sourcekeys,selected,holdouts,countries,source35,source1802,
     for (_,country),mapping in cells.items():
         full_country_cells[country].update(mapping)
     xfm=Transformer.from_crs("EPSG:6933","EPSG:4326",always_xy=True)
+    # Build the 255-plant source->cell index ONCE; rerendering this index
+    # per 35×17 fold would be a large avoidable memory/CPU penalty.
+    source_index=ds.country_dataset_cells(cells)
     cache={}
     results=[]
     countries_report=[]
     for holdout in holdouts:
         banned=set(sourcekeys[holdout])
         allowed_taxa=unbanned_plant_taxa_for_holdout(
-            source_index=ds.country_dataset_cells(cells),banned=banned,holdout=holdout)
+            source_index=source_index,banned=banned,holdout=holdout)
         excluded=set(full_country_cells[holdout])
         ready=0
         for name in selected:
             a=evaluate_cell_trainability(
-                cells,ds.country_dataset_cells(cells),allowed_taxa,name,holdout,
+                cells,source_index,allowed_taxa,name,holdout,
                 countries,banned,excluded,rasters,xfm,cache)
             old=prior_map[name,holdout]
             if not old["train_quantity_eligible_after_global_dataset_embargo"]:
