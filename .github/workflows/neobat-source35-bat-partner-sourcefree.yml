@@ -1,0 +1,28 @@
+name: NeoBat source35 original-fruitlink source-free contract tests
+
+on:
+  push:
+    branches:
+      - analysis/neobat-fixed35-source-disjoint-fruitlinks-20261119
+    paths:
+      - scripts/neobat_source35_bat_partner_gate.py
+      - tests/test_neobat_source35_bat_partner_gate.py
+      - .github/workflows/neobat-source35-bat-partner-sourcefree.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify full 1802 plant source denominator and exact 35 global pool
+        run: |
+          python -m py_compile scripts/neobat_source35_bat_partner_gate.py
+          python -m unittest discover -s tests -p 'test_neobat_source35_bat_partner_gate.py' -v
