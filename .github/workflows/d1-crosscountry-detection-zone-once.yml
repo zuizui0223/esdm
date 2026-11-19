@@ -14,7 +14,7 @@ jobs:
   single_published_edd_response:
     # Fail closed for ANY later ordinary source/code/docs push or job rerun.
     # Source may open only on the single uniquely named technical-restart marker push.
-    if: github.event_name == 'push' && github.run_attempt == 1 && github.event.head_commit.message == 'D1 technical restart after skipped original (zero source rows read)'
+    if: false # TERMINAL: published D1 source consumed in successful run 44448539715; no future reruns
     runs-on: ubuntu-latest
     timeout-minutes: 18
     steps:
