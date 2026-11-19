@@ -3,10 +3,11 @@ import unittest
 from scripts import neobat_audit_gbif_submission_run as audit
 
 def mocked_api(p):
-    if "workflows/" in p and "/runs?" in p:
+    if p.startswith("/actions/runs?head_sha="):
         return {"workflow_runs":[
             {"id":100,"head_sha":"different","event":"push","conclusion":"success"},
             {"id":123456,"head_sha":audit.MARKER_SHA,"event":"push",
+             "name":"NeoBat DOI-backed GBIF bat and plant occurrence downloads (single authorization)",
              "status":"completed","conclusion":"failure","run_attempt":1,
              "created_at":"2026-11-19T00:00:00Z","updated_at":"2026-11-19T00:01:00Z"}
         ]}
