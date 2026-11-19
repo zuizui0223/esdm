@@ -8,7 +8,7 @@ from scripts import neobat_model_comparison_core as m
 HAS_NUMPY=importlib.util.find_spec("numpy") is not None
 
 PLANTS=("Ficus insipida","Piper aduncum","Cecropia obtusifolia",
-        "Ficus trigonata","Solanum rugosum")
+        "Ficus trigonata","Solanum rugosum","Cecropia obtusa")
 BAT="Testus frugivorus"
 OTHER="Testus omnivorus"
 
@@ -25,9 +25,11 @@ def toy():
         r={"bat":BAT,"region":country,"cell_id":cell,
            "source_event_id":f"event{i}","source_dataset_key":f"ds{i//3}",
            "role":"presence" if case else "target_background",
-           "temperature":i*0.1,"precipitation":50+(i%3),
-           "forest":0.4+(i%4)/10,"topography":i%3,
-           "effort":0.5+(i%2)*0.1}
+           # Each presence and paired target background has identical
+           # environment/effort. M0 cannot discriminate on known truth.
+           "temperature":10+(i//2)*0.1,"precipitation":50+((i//2)%3),
+           "forest":0.4+((i//2)%4)/10,"topography":(i//2)%3,
+           "effort":0.5+((i//2)%2)*0.1}
         rows.append(r)
         for j,plant in enumerate(PLANTS):
             # The first 3 plant features contain a strong synthetic
@@ -66,6 +68,12 @@ class TestPredictiveCore(unittest.TestCase):
         self.assertEqual(result["trained_fruit_partner_names"],3)
         self.assertIn("M3",result["presence_rank_auc"])
         self.assertTrue(all(0<=v<=1 for v in result["presence_rank_auc"].values()))
+        # Known-truth gate: generic B is deliberately uninformative;
+        # only the actual outcountry documented fruit partners add signal.
+        self.assertAlmostEqual(result["presence_rank_auc"]["M0"],0.5,places=6)
+        self.assertAlmostEqual(result["presence_rank_auc"]["M1"],0.5,places=6)
+        self.assertGreaterEqual(result["presence_rank_auc"]["M3"],0.95)
+        self.assertGreater(result["heldout_M3_minus_M1"],0.4)
         self.assertTrue(result["background_is_not_true_absence"])
         self.assertFalse(result["causal_interaction_established"])
 
