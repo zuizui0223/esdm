@@ -1,9 +1,10 @@
 {
   "status": "GBIF_SEARCH_METADATA_ONLY",
-  "updated_utc": "2026-11-19T03:13:21.833163+00:00",
+  "updated_utc": "2026-11-19T03:41:30.066833+00:00",
   "evaluated_candidates": 26,
-  "search_count_pass": 25,
-  "taxon_ambiguous": 1,
+  "search_count_pass": 26,
+  "audited_taxonomic_alias_count": 1,
+  "taxon_ambiguous": 0,
   "remote_stop": 0,
   "GBIF_download_DOI": null,
   "spatial_cell_eligibility_tested": false,
@@ -236,7 +237,7 @@
     },
     {
       "bat": "Carollia brevicauda",
-      "status": "TAXON_AMBIGUOUS",
+      "status": "GBIF_COUNTS_AUDITED_ALIAS",
       "match": {
         "matchType": "FUZZY",
         "rank": "SPECIES",
@@ -245,7 +246,28 @@
         "scientificName": "Carollia brevicaudum (Schinz, 1821)",
         "usageKey": 2433177,
         "acceptedUsageKey": null
-      }
+      },
+      "world_records": 7604,
+      "regional_records_upper_bound": 7604,
+      "regional_country_counts": {
+        "CO": 5846,
+        "BR": 609,
+        "EC": 562,
+        "PE": 294,
+        "SR": 90,
+        "PA": 84,
+        "GY": 72,
+        "GF": 19,
+        "BO": 8,
+        "GT": 7,
+        "CR": 6,
+        "BZ": 4,
+        "NI": 3
+      },
+      "countries_with_5plus_records": 11,
+      "country_facet_truncated": false,
+      "spatial_25km_cells_verified": false,
+      "GBIF_download_DOI": null
     },
     {
       "bat": "Artibeus phaeotis",
