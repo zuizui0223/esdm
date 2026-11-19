@@ -1,5 +1,6 @@
 name: NeoBat country-linked resource input preflight (source only)
-# One source-only proof-of-input run; no GBIF occurrence API calls or spatial model fitting.
+# Frozen 55-page sampled result; successive technical repeats produced identical country cell counts.
+# This job reads only pinned NeoBat source CSV and frozen aggregate GBIF preflight, not occurrence records.
 
 on:
   push:
@@ -27,7 +28,7 @@ jobs:
       - name: Verify fixed 14-taxon sampled-country source receipt
         run: |
           set -euo pipefail
-          test "$(git hash-object docs/replication/neobat/spatial_country_lb.json)" = "5cb30d3ce76ab689535c0a9164a01e04f5197965"
+          test "$(git hash-object docs/replication/neobat/spatial_country_lb.json)" = "fcf957d0e4f4facd9239acdf69b37be9f99bd8d6"
       - name: Synthetic-only same-reference holdout and country joining
         run: |
           python -m py_compile scripts/neobat_resource_country_gate.py
