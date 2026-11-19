@@ -1,0 +1,63 @@
+name: NeoBat inspect original GBIF submission run (read-only)
+
+on:
+  push:
+    branches:
+      - design/neobat-trophic-sdm-phase1-20261119
+    paths:
+      - .github/workflows/neobat-gbif-action-audit.yml
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: neobat-original-gbif-run-audit
+  cancel-in-progress: false
+
+jobs:
+  inspect_original_trigger_without_resubmit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Source-independent offline contract tests
+        run: |
+          python -m py_compile scripts/neobat_audit_gbif_submission_run.py
+          python -m unittest discover -s tests -p 'test_neobat_audit_gbif_submission_run.py' -v
+      - name: Read GitHub Actions metadata for original exact marker commit only
+        run: |
+          set +e
+          python -m scripts.neobat_audit_gbif_submission_run --out docs/replication/neobat/gbif_one_shot_action_audit.json
+          rc=$?
+          set -e
+          echo "$rc" > docs/replication/neobat/gbif_one_shot_action_audit_exit_code.txt
+          echo "GITHUB_RUN_METADATA_AUDIT_EXIT=$rc"
+      - name: Preserve status-only evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-original-gbif-submission-status
+          path: |
+            docs/replication/neobat/gbif_one_shot_action_audit.json
+            docs/replication/neobat/gbif_one_shot_action_audit_exit_code.txt
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Publish only step conclusions and safe artifact identifiers
+        if: always()
+        run: |
+          set -euo pipefail
+          if [ ! -f docs/replication/neobat/gbif_one_shot_action_audit.json ]; then exit 1; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/gbif_one_shot_action_audit.json docs/replication/neobat/gbif_one_shot_action_audit_exit_code.txt
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: locate initial NeoBat GBIF push run and failure step without resubmission"
+            git pull --rebase origin design/neobat-trophic-sdm-phase1-20261119
+            git push origin HEAD:design/neobat-trophic-sdm-phase1-20261119
+          fi
