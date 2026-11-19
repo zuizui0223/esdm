@@ -1,0 +1,84 @@
+name: NeoBat original 106x17 full source-intensity diagnostic (discovery source once)
+on:
+  push:
+    branches:
+      - analysis/neobat-106x17-source-intensity-diagnostic-20261119
+    paths:
+      - docs/replication/neobat/NEOBAT_106x17_INTENSITY_ORIGINAL_ONCE_20261119.txt
+
+permissions:
+  contents: write
+
+concurrency:
+  group: neobat-intensity-full-106x17-source-only-20261119
+  cancel-in-progress: false
+
+jobs:
+  fixed_all_1802_country_source_models:
+    if: github.event.head_commit.message == 'dispatch NeoBat frozen 106x17 source-intensity process diagnostic once' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: analysis/neobat-106x17-source-intensity-diagnostic-20261119
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install source+model pinned dependencies
+        run: |
+          python -m pip install 'numpy==2.2.6' 'scikit-learn==1.7.2' 'rasterio==1.4.3' 'pyproj==3.7.2'
+      - name: Validate frozen design, exact previous-106x17 source result, source-free regression
+        run: |
+          test -f docs/replication/NEOBAT_106x17_SOURCE_INTENSITY_FULL_DIAGNOSTIC_FROZEN_20261119.md
+          test -f docs/replication/neobat/plant_dataset_matched_106x17.json
+          test -f docs/replication/neobat/plant_CO_source_datasetmatched_pilot.json
+          python -m py_compile scripts/neobat_plant_106x17_intensity_diagnostic.py
+          python -m unittest discover -s tests -p 'test_neobat_plant_106x17_intensity_diagnostic.py' -v
+      - name: Run full original DOI + pinned raster source process model across 106 x 17 with all STOPs
+        run: |
+          mkdir -p build/neobat
+          set +e
+          python -m scripts.neobat_plant_106x17_intensity_diagnostic \
+            --out build/neobat/plant_106x17_source_intensity_diagnostic.json \
+            --compact build/neobat/plant_106x17_source_intensity_compact.json
+          code=$?
+          set -e
+          echo "$code" > build/neobat/plant_106x17_source_intensity_exit_code.txt
+          echo "NEOBAT_106x17_INTENSITY_EXIT=$code"
+      - name: Save only aggregate taxon-country score table and diagnostic/status
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-106x17-source-intensity-aggregate-only
+          path: |
+            build/neobat/plant_106x17_source_intensity_diagnostic.json
+            build/neobat/plant_106x17_source_intensity_compact.json
+            build/neobat/plant_106x17_source_intensity_exit_code.txt
+          retention-days: 90
+          if-no-files-found: warn
+      - name: Commit only source-supported aggregate result/STOP, never raw observations
+        if: always()
+        run: |
+          set -euo pipefail
+          test -f build/neobat/plant_106x17_source_intensity_diagnostic.json
+          cp build/neobat/plant_106x17_source_intensity_diagnostic.json docs/replication/neobat/
+          cp build/neobat/plant_106x17_source_intensity_compact.json docs/replication/neobat/
+          cp build/neobat/plant_106x17_source_intensity_exit_code.txt docs/replication/neobat/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/plant_106x17_source_intensity_*
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: full 106x17 source-matched plant intensity-vs-climate process diagnostic only"
+            git pull --rebase origin analysis/neobat-106x17-source-intensity-diagnostic-20261119
+            git push origin HEAD:analysis/neobat-106x17-source-intensity-diagnostic-20261119
+          fi
+      - name: Stop on source mismatch, unqualified models, or frozen sentinel drift
+        run: |
+          test "$(cat build/neobat/plant_106x17_source_intensity_exit_code.txt)" = "0"
