@@ -1,0 +1,40 @@
+name: B1 Barry Clare independent public source manifest once
+on:
+  pull_request:
+    types: [opened]
+    paths:
+      - '.github/workflows/b1-multimethod-source-manifest-once.yml'
+      - 'scripts/preflight_multimethod_public_manifests.py'
+      - 'tests/test_preflight_multimethod_public_manifests.py'
+      - 'docs/replication/B1_BARRY_CLARE_RESPONSE_BLIND_MANIFEST_FREEZE.md'
+permissions:
+  contents: read
+jobs:
+  response_blind_public_manifests:
+    if: github.event.action == 'opened' && github.event.pull_request.head.ref == 'analysis/b1-barry-clare-public-manifest-20261119' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Initialize truthful source-access stop before any requests
+        run: |
+          mkdir -p build/b1
+          printf '%s\n' '{"schema_version":1,"status":"SOURCE_TRANSPORT_OR_EXECUTION_STOP","animal_response_opened":false,"original_data_files_downloaded":0}' > build/b1/B1_SOURCE_MANIFEST_RESULT.json
+      - name: Test response-blind metadata code on synthetic records
+        run: |
+          python -m pip install 'pytest>=8'
+          python -m pytest -q tests/test_preflight_multimethod_public_manifests.py
+      - name: Read only public Figshare and Dryad dataset API metadata
+        run: |
+          python -m scripts.preflight_multimethod_public_manifests --out build/b1/B1_SOURCE_MANIFEST_RESULT.json
+      - name: Publish aggregate public manifest or truthful stop
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: b1-public-metadata-${{ github.run_id }}
+          path: build/b1/B1_SOURCE_MANIFEST_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
