@@ -1,0 +1,67 @@
+name: NeoBat corrected WorldClim BIO1/BIO12 verified-archive source inspection
+
+on:
+  push:
+    branches:
+      - design/neobat-trophic-sdm-phase1-20261119
+    paths:
+      - docs/replication/neobat/WORLDCLIM_BIO1_BIO12_CORRECTED_PREFLIGHT_ONCE.txt
+
+permissions:
+  contents: write
+
+jobs:
+  check_worldclim_original_raster_hashes_and_geometry:
+    if: github.event.head_commit.message == 'dispatch NeoBat corrected WorldClim source only BIO1 BIO12 qualification' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: design/neobat-trophic-sdm-phase1-20261119
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned raster-only dependencies
+        run: |
+          python -m pip install 'numpy==2.2.6' 'rasterio==1.4.3'
+      - name: Validate artificial GeoTIFF hash, CRS and source guards
+        run: |
+          python -m py_compile scripts/neobat_worldclim_source_preflight.py
+          python -m unittest discover -s tests -p 'test_neobat_worldclim_source_preflight.py' -v
+      - name: Verify WorldClim official original archive SHA and BIO1/BIO12 headers
+        run: |
+          mkdir -p docs/replication/neobat
+          set +e
+          python -m scripts.neobat_worldclim_source_preflight \
+            --out docs/replication/neobat/worldclim_bio1_bio12_corrected_source_preflight.json
+          status=$?
+          set -e
+          echo "$status" > docs/replication/neobat/worldclim_bio1_bio12_corrected_source_preflight_exit_code.txt
+          echo "NEOBAT_WORLDCLIM_SOURCE_PREFLIGHT_EXIT=$status"
+      - name: Archive source-only qualification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-worldclim-bio1-bio12-corrected-source-only
+          path: |
+            docs/replication/neobat/worldclim_bio1_bio12_source_preflight.json
+            docs/replication/neobat/worldclim_bio1_bio12_source_preflight_exit_code.txt
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Commit only raster hashes and header metadata on research branch
+        if: always()
+        run: |
+          set -euo pipefail
+          test -f docs/replication/neobat/worldclim_bio1_bio12_source_preflight.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/worldclim_bio1_bio12_source_preflight*
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: verify pinned WorldClim BIO1 BIO12 georaster sources, no bat response"
+            git pull --rebase origin design/neobat-trophic-sdm-phase1-20261119
+            git push origin HEAD:design/neobat-trophic-sdm-phase1-20261119
+          fi
+      - name: Do not promote source failures
+        run: |
+          test "$(cat docs/replication/neobat/worldclim_bio1_bio12_source_preflight_exit_code.txt)" = "0"
