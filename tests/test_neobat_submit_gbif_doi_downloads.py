@@ -11,7 +11,7 @@ def fixtures():
            "match":{"usageKey":100+i}} for i in range(26)]
     plants=[{"plant":f"Plant{i} species{i}","status":"GBIF_PLANT_COUNTS_ONLY",
              "match":{"usageKey":2000+i}} for i in range(255)]
-    countries=["BR"]*29
+    countries=["AR","BO","BR","BZ","CL","CO","CR","CU","CW","DO","EC","GF","GT","GY","HN","HT","JM","MX","NI","PA","PE","PR","PY","SR","SV","TT","UY","VE","BS"]
     def pred(keys):
         return {"type":"and","predicates":[
             {"type":"in","key":"TAXON_KEY","values":list(map(str,keys))},
