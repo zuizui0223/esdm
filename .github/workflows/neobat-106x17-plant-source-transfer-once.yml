@@ -1,0 +1,76 @@
+name: NeoBat original 106x17 botanical source-intensity portability once
+
+on:
+  push:
+    branches:
+      - analysis/neobat-106plant-17country-effort-transfer-20261119
+    paths:
+      - docs/replication/neobat/NEOBAT_PLANT_106x17_TRANSFER_ONCE_20261119.txt
+
+permissions:
+  contents: write
+concurrency:
+  group: neobat-106x17-plant-portability-original-once-20261119
+  cancel-in-progress: false
+
+jobs:
+  original_plant_106x17_source_portability:
+    if: github.event.head_commit.message == 'dispatch fixed 106x17 original NeoBat botanical source effort transfer once' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: analysis/neobat-106plant-17country-effort-transfer-20261119
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install exact numerical and raster-source libraries
+        run: |
+          python -m pip install 'numpy==2.2.6' 'scikit-learn==1.7.2' 'rasterio==1.4.3' 'pyproj==3.7.2'
+      - name: Prove prospective all-cohort design and source-free synthetic correctness
+        run: |
+          test -f docs/replication/NEOBAT_106x17_PLANT_SOURCE_EFFORT_TRANSFER_FROZEN_20261119.md
+          test -f docs/replication/neobat/plant_CO_source_datasetmatched_pilot.json
+          test -f docs/replication/neobat/plant_dataset_matched_106x17_compact.json
+          python -m py_compile scripts/neobat_106plant_17country_source_effort_transfer.py
+          python -m unittest discover -s tests -p 'test_neobat_106plant_17country_source_effort_transfer.py' -v
+      - name: Stream original plant DOI and raster ZIPs and score fixed 1802 source country transfer folds
+        run: |
+          mkdir -p build/neobat
+          set +e
+          python -m scripts.neobat_106plant_17country_source_effort_transfer \
+            --out build/neobat/plant_106x17_source_effort_transfer.json \
+            --compact build/neobat/plant_106x17_source_effort_transfer_compact.json
+          code=$?
+          set -e
+          echo "$code" > build/neobat/plant_106x17_source_effort_transfer_exit_code.txt
+          echo "NEOBAT_106x17_PLANT_TRANSFER_EXIT=$code"
+      - name: Preserve aggregate 1802 fold result or source STOP
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-plant-106x17-source-observation-effort-transfer-aggregate
+          path: |
+            build/neobat/plant_106x17_source_effort_transfer.json
+            build/neobat/plant_106x17_source_effort_transfer_compact.json
+            build/neobat/plant_106x17_source_effort_transfer_exit_code.txt
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Commit 1802 aggregate source ranks and compact method uncertainty
+        if: always()
+        run: |
+          set -euo pipefail
+          test -f build/neobat/plant_106x17_source_effort_transfer.json
+          cp build/neobat/plant_106x17_source_effort_transfer* docs/replication/neobat/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/plant_106x17_source_effort_transfer*
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: fixed 106x17 plant source-effort portability and country-level uncertainty"
+            git pull --rebase origin analysis/neobat-106plant-17country-effort-transfer-20261119
+            git push origin HEAD:analysis/neobat-106plant-17country-effort-transfer-20261119
+          fi
+      - name: Fail closed if original source, sentinel replay or full-cohort score incomplete
+        run: |
+          test "$(cat build/neobat/plant_106x17_source_effort_transfer_exit_code.txt)" = "0"
