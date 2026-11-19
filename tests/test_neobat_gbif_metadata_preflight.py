@@ -77,5 +77,20 @@ class TestNeoBatPreflight(unittest.TestCase):
         self.assertEqual(r["search_count_pass"], 1)
 
 
+    def test_only_source_audited_carollia_alias_can_pass_fuzzy_match(self):
+        def alias_get(url):
+            if "species/match" in url:
+                return b'{"rank":"SPECIES","matchType":"FUZZY","status":"ACCEPTED","confidence":97,"scientificName":"Carollia brevicaudum (Schinz, 1821)","usageKey":2433177}'
+            return b'{"count":250,"facets":[{"field":"COUNTRY","counts":[{"name":"BR","count":230}]}]}'
+        with patch.object(pre, "get", side_effect=alias_get):
+            r = pre.gbif_screen([{"bat": "Carollia brevicauda", "primary_candidate": True}])
+        self.assertEqual(r["search_count_pass"], 1)
+        self.assertEqual(r["audited_taxonomic_alias_count"], 1)
+        self.assertEqual(r["records"][0]["status"], "GBIF_COUNTS_AUDITED_ALIAS")
+        with patch.object(pre, "get", side_effect=alias_get):
+            u = pre.gbif_screen([{"bat": "Carollia madeupensis", "primary_candidate": True}])
+        self.assertEqual(u["taxon_ambiguous"], 1)
+
+
 if __name__ == "__main__":
     unittest.main()
