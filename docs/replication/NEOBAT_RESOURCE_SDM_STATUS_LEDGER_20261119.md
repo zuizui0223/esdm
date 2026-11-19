@@ -1,5 +1,7 @@
 # NeoBat resource-linked SDM — evidence and decision ledger (2026-11-19)
 
+> **最新の現在地 (2026-11-19):** 下記の第1〜4節は記録時点の歴史的スナップショットです。初期の WorldClim STOP は原本SHAの誤転記と保存経路の不整合として解決済みです。現在の出典独立性・ラスタ・植物予測・bat shadow検定の判定は末尾 **第5節** を優先してください。**元の生態学的M3–M1/N1は依然として未推定**です。
+
 **Current status:** DOI-backed source acquisition + original ZIP verification + complete raw-source quality screening are **complete**. Full-DOI country resource-input qualification is complete: 84/754 strict bat×country pairs (16 bats with at least 2 countries), with an independently required 20 outcountry recorded cells per linked plant. **No M1-vs-M3 ecological effect has been fitted or claimed.**
 
 **Repository:** `zuizui0223/esdm`, research branch `design/neobat-trophic-sdm-phase1-20261119`, draft PR #244. **main remains unmodified.**
@@ -82,4 +84,32 @@ source identities, create leakage-free plant relative-suitability
 predictions using only outcountry training presences, and then execute
 the exactly frozen M0/M1/M3/N1 model on the discovery source. An
 independent new period/source is still required for a confirmatory claim.
+
+## 5. Latest source transport, source-disjoint plant qualification, and shadow contrasts (2026-11-19)
+
+**All statements below are empirically recorded and remain separate from the original v1 ecological effect.**
+
+| Stage | Fixed denominator and result | Claim ceiling / evidence |
+|---|---|---|
+| DOI-record source QC | 85,912 bat + 367,988 plant original GBIF rows; 84/754 strict initial species×country input candidates | `doi_country_resource_compact.json`, original DOIs; no true absences |
+| Source-only 25km documented plant co-records | 82/84 of original bat×country folds have >=1 documented partner plant in same 25km recorded cell | `same_cell_source_support.json`; co-observation is **not feeding** |
+| Original 106-plant exploratory v2 | 83/84 published partner citation and focal-N1 structural inputs; 79/84 when 26-bat target-group background is also required | `v2_106plant_reference_input_gate.json`, `bat_targetgroup_background_gate.json`; no SDM effect |
+| Original 106 source/raster practical training | 15/17 countries fit all 106 after original WorldClim nodata; 51/84 source/raster/bat candidate fold intersections | `full106_raster_trainability_gate.json`; prefit quantity only |
+| Original 106×17 botanical **GBIF source-rank** transfer | 647/1,802 plant×country heldout scores; extra abiotic AUC beyond local other-botanical-record intensity **+0.02539 country-equal**; record-intensity covariate strongly predictive | `plant_106x17_source_effort_transfer_compact.json`; **not real fruit abundance** |
+| **Whole-GBIF datasetKey embargo** | Removing **every dataset touching withheld country** from all outcountry botanical training reduces 1,802 trainable pairs to **1,233**, and 677 source-test-eligible to **497**; only **35/106 plants** remain trainable across *all* original 17 countries | `plant_106x17_global_source_embargo_compact.json`, [PR #260](https://github.com/zuizui0223/esdm/pull/260); dataset ID disjointness is not independent field effort |
+| Same heldout CO **three botanical source-disjoint model refits** | Combined reported-source rank AUC, old→source-disjoint (same CO test rows): *Cecropia obtusifolia* 0.7318→0.7420, *Ficus insipida* 0.7667→0.7727, *Piper aduncum* 0.8393→0.7729 | `CO_three_plant_disjoint_source_AUC.json`, [PR #263](https://github.com/zuizui0223/esdm/pull/263); post-hoc observational robustness, not actual availability |
+| Fixed source35 frugivory input | Of all original **84**, **66** retain >=3 published partners / >=2 independent outcountry author references and focal-N1 2-edge swapping; **63** also have bat target-background data, across 14 bat species / 13 countries | `source35_bat_literature_N1_input_gate.json`, [PR #264](https://github.com/zuizui0223/esdm/pull/264) |
+| **Source35 + original climate raster nodata jointly applied** | **592/595** fixed plant×country training sets have >=20 valid focal and target-background source cells; 14/17 countries retain all 35; strict intersection with original 84 bat folds leaves **36/84 across 11 bat species / 10 countries** | `joint35_source_raster_trainability_compact.json`, [PR #268](https://github.com/zuizui0223/esdm/pull/268); **not yet 35 fitted ecological plant SDMs** |
+| Separate, weaker **S0/S1/S3/SN1 climate-only shadow** | 49/51 available 106-plant bat source-rank fits; mean S3−S1 **−0.00569 AUC**, mean S3−rewired SN1 **−0.00800 AUC**. El Salvador exclusion post-hoc yields S3−S1 mean −0.00061 across 47. | `shadow_climate_only_51fold.json`, [PR #266](https://github.com/zuizui0223/esdm/pull/266). **No overall source-linked identity advantage** in this *shadow* source-recording proxy; not the v1 ecological M3 or direct mechanism test |
+
+### Corrections and nonpromotable claims
+
+1. **Superseded early climate stop:** corrected original WorldClim BIO1/BIO12 and independently SHA-checked elevation geoheaders are verified in `abiotic_terrain_forest_source_preflight.json`; the earlier failed Actions conclusion arose from an incorrect corrected-vs-original receipt path even though original raster verification succeeded. ESA WorldCover **one-tile only** accessibility verified; 17-country forest fractions not derived. The 1970–2000 climate baseline is not contemporaneous fruiting.
+2. The observed **+0.0254** botanical source-rank abiotic increment does **not** demonstrate independent species occurrence or fruit abundance. The full-source datasetKey-embargo audit reduces previously assumed plant training coverage substantially, and source-key disjointness alone does not guarantee different institutions, observers, events or effort.
+3. The 106-plant **shadow S3** result does not support a consistent partner-identity benefit, but it is not a true absence of ecological fruit-resource dependence either. It lacks independent plant abundance, measured sampling effort and complete forest, and shares previously opened GBIF source structure with the earlier botanical analyses. Do **not** promote its nominal individual-fold SN1 tests as discoveries or retune same records to chase positive shadow results.
+4. **Original ecological primary** M3−M1 and M3−N1 bat heldout performance remain `null / NOT ESTIMATED`; no actual complete, independent 255-plant resource-suitability models, measured feeding events or direct 3D resource mechanism are available. Parent PR #244 remains draft; **main is unchanged**.
+
+### Next primary action (one goal)
+
+Construct externally sourced or separately calibrated **botanical availability / survey-detection** and vegetation/forest predictors, then generate one consistent source-blocked **35-plant** cross-fitted 25km raster score set for the **36 original prefit source+climate eligible bat×country folds**, with the 84 original denominator and explicit failures preserved. Compare M1/M3/N1 only on identical training/test bat source rows and plant score rasters, with source provenance/folds frozen. At this stage even such a fit would be an **exploratory observational test**, not independent proof of food availability or causal interaction. For a confirmatory universal claim a genuinely independent botanical and bat observation source/period is necessary.
 
