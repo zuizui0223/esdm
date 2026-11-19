@@ -1,0 +1,1 @@
+User-directed source-only original WorldClim BIO1/BIO12 plus independent elevation pin and fixed ESA one-tile accessibility; original biological outcomes are never accessed. Preserve explicit source failures. Do not call GBIF POST or fit any species model.
