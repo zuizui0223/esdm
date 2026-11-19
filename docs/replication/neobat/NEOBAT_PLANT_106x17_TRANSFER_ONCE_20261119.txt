@@ -1,0 +1,1 @@
+Full 106 species x 17 heldout country original botanical GBIF source portability diagnostic, with same-datasetKey positive/background, fixed 3 sentinel CO exact AUC replay, source intensity-only vs climatology added-value AUC, country-equal cluster summary and all original 1802 fold STOPs preserved. No bat M1/M3 ecology, no raw coordinates, no source dataset IDs in output.
