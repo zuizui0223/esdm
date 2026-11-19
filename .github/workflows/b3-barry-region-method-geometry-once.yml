@@ -1,0 +1,48 @@
+name: B3 Barry sample unit region method geometry once
+on:
+  pull_request:
+    types: [opened]
+    paths:
+      - 'docs/replication/B3_BARRY_REGION_METHOD_GEOMETRY_FROZEN_DESIGN.md'
+      - 'scripts/barry_region_method_geometry.py'
+      - 'tests/test_barry_region_method_geometry.py'
+      - '.github/workflows/b3-barry-region-method-geometry-once.yml'
+permissions:
+  contents: read
+jobs:
+  metadata_only_support:
+    if: github.event.action == 'opened' && github.event.pull_request.head.ref == 'analysis/b3-barry-region-method-geometry-20261119' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Initialize truthful response-blind transport stop
+        run: |
+          mkdir -p source/b3 build/b3
+          printf '%s\n' '{"schema_version":1,"status":"TRANSPORT_OR_SOURCE_STOP","biological_response_fields_accessed":false,"original_E5_qualified_count_unchanged":0}' > build/b3/B3_BARRY_REGION_METHOD_GEOMETRY_RESULT.json
+      - name: Synthetic metadata and join tests
+        run: |
+          python -m pip install 'pytest>=8'
+          python -m pytest -q tests/test_barry_region_method_geometry.py
+      - name: Fetch only original pinned camera and dog survey CSVs
+        run: |
+          set -euo pipefail
+          curl --fail --location --connect-timeout 20 --max-time 240 --silent --show-error 'https://ndownloader.figshare.com/files/31117351' --output source/b3/CamStations_Ecosphere.csv
+          curl --fail --location --connect-timeout 20 --max-time 240 --silent --show-error 'https://ndownloader.figshare.com/files/31117348' --output source/b3/DogTracks_Ecosphere.csv
+      - name: Read predeclared non-response metadata fields only and summarize aggregate geometry
+        run: |
+          python -m scripts.barry_region_method_geometry \
+            --camera source/b3/CamStations_Ecosphere.csv \
+            --dog source/b3/DogTracks_Ecosphere.csv \
+            --out build/b3/B3_BARRY_REGION_METHOD_GEOMETRY_RESULT.json
+      - name: Publish only aggregate study geometry, no fisher values or coordinates
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: b3-barry-geometry-${{ github.run_id }}
+          path: build/b3/B3_BARRY_REGION_METHOD_GEOMETRY_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
