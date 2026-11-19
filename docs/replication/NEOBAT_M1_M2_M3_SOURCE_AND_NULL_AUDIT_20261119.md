@@ -92,6 +92,19 @@ leave-country-out influence; all qualification stops count toward the
 denominator. This is an exposure-structure diagnostic, **not** a
 positive M2/M3 result.
 
+## N1 input-support check (not an executed network null)
+
+The archived full-DOI gate's *known-precision* status within the
+frozen 84 eligible pairs was recounted without reading occurrence rows:
+eligible partner species have min/median/max **3/9/56**,
+and eligible nonpartner plant-pool species **3/45/97**. Every fold
+has ≥3 nonpartner plant candidates; 80/84 have ≥6. The number of
+independent outcountry NeoBat source references is **2/6/35**
+(min/median/max). These are plant *availability quantities* at
+country level. They do not prove that the whole publication-embargoed
+bat–plant graph admits focal-specific degree-preserving swaps, or
+that any of those plants overlap a bat at the same cell.
+
 ## Reproducible source-free checks
 
 ```bash
