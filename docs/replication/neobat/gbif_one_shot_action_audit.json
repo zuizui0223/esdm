@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-19T07:05:57.567319+00:00",
+  "target_marker_sha": "37c1c92ef37225c8898ed8f63a4333263f424695",
+  "target_workflow_name": "neobat-gbif-doi-download-once.yml",
+  "target_branch": "design/neobat-trophic-sdm-phase1-20261119",
+  "mode": "READ_ONLY_GITHUB_RUN_METADATA",
+  "GBIF_POST_retried": false,
+  "no_credentials_fetched": true,
+  "target_runs_found": 1,
+  "run_findings": [
+    {
+      "run_id": 44474434524,
+      "run_attempt": 1,
+      "event": "push",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-19T06:44:56Z",
+      "updated_at": "2026-11-19T06:44:56Z",
+      "jobs": [],
+      "artifacts": []
+    }
+  ],
+  "status": "RUN_FOUND"
+}
