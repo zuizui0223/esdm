@@ -1,0 +1,847 @@
+{
+  "schema_version": 1,
+  "status": "EXPLORATORY_V3_SOURCE35_DISJOINT_RASTER_TRAINABILITY_ONLY",
+  "created_utc": "2026-11-19T14:47:18.676415+00:00",
+  "frozen_design": "docs/replication/NEOBAT_V3_SOURCE35_DATASET_DISJOINT_RASTER_TRAINABILITY_FROZEN_20261119.md",
+  "original_bat_country_denominator": 84,
+  "original_35plant_country_denominator": 595,
+  "original_fixed_source35_plant_names_SHA256": "5f6ee54473b074b2b5329b1ddd9cc966e739f4f12b93db75154ce59a9f7b92ee",
+  "source_plant_DOI": "10.15468/dl.xwc5zf",
+  "source_archive_sha256": "4275ed6b9847fa9fb81a9e353ec1b9de151592f7c369b19f6145129059726c8b",
+  "raster_archive_signatures": {
+    "climate_zip_sha256": "00513224583665ec0f2f955a4ec252730c4deb2004cce9e793492a3f26df4dcf",
+    "elevation_zip_sha256": "6a9f4e9a37f289d594ed1567b63be344a4dacf247f0b69756e81df031087e3bd",
+    "sample_resolution": "WorldClim v2.1 10arcmin",
+    "climate_baseline": "1970-2000",
+    "elevation_is_not_ruggedness": true
+  },
+  "source_dataset_keys_used_in_memory_only": true,
+  "all_previous_source_disjoint_global35_folds_required": true,
+  "no_bat_or_plant_model_fitted": true,
+  "M3_minus_M1_bat_auc": null,
+  "M3_minus_N1_bat_auc": null,
+  "summary": {
+    "fixed_35_plant_17_country_pairs": 595,
+    "source_disjoint35_post_raster_training_qualified_pairs": 512,
+    "source_disjoint35_post_raster_train_and_test_qualified_pairs": 238,
+    "fixed35_plants_raster_trainable_in_all17_holdouts": 2,
+    "countries_with_all35_source_disjoint_post_raster_trainable": 0,
+    "original84_bat_country_folds": 84,
+    "prior_fixed35_bat_background_literature_N1_qualified_folds": 63,
+    "new_source_disjoint35_raster_and_bat_source_qualified_folds": 0,
+    "source_only_not_actual_M3_M1_result": true
+  },
+  "per_country": [
+    {
+      "holdout_country": "AR",
+      "original_fixed_source_disjoint_plant_species": 35,
+      "post_raster_trainable_source_disjoint_plants": 34,
+      "post_raster_train_and_test_source_quantity_qualified_plants": 8,
+      "complete_35_plant_predictor_trainability_source": false,
+      "plant_training_shortfall_count": 1
+    },
+    {
+      "holdout_country": "BR",
+      "original_fixed_source_disjoint_plant_species": 35,
+      "post_raster_trainable_source_disjoint_plants": 33,
+      "post_raster_train_and_test_source_quantity_qualified_plants": 22,
+      "complete_35_plant_predictor_trainability_source": false,
+      "plant_training_shortfall_count": 2
+    },
+    {
+      "holdout_country": "BZ",
+      "original_fixed_source_disjoint_plant_species": 35,
+      "post_raster_trainable_source_disjoint_plants": 31,
+      "post_raster_train_and_test_source_quantity_qualified_plants": 8,
+      "complete_35_plant_predictor_trainability_source": false,
+      "plant_training_shortfall_count": 4
+    },
+    {
+      "holdout_country": "CO",
+      "original_fixed_source_disjoint_plant_species": 35,
+      "post_raster_trainable_source_disjoint_plants": 34,
+      "post_raster_train_and_test_source_quantity_qualified_plants": 34,
+      "complete_35_plant_predictor_trainability_source": false,
+      "plant_training_shortfall_count": 1
+    },
+    {
+      "holdout_country": "CR",
+      "original_fixed_source_disjoint_plant_species": 35,
+      "post_raster_trainable_source_disjoint_plants": 31,
+      "post_raster_train_and_test_source_quantity_qualified_plants": 24,
+      "complete_35_plant_predictor_trainability_source": false,
+      "plant_training_shortfall_count": 4
+    },
+    {
+      "holdout_country": "DO",
+      "original_fixed_source_disjoint_plant_species": 35,
+      "post_raster_trainable_source_disjoint_plants": 31,
+      "post_raster_train_and_test_source_quantity_qualified_plants": 15,
+      "complete_35_plant_predictor_trainability_source": false,
+      "plant_training_shortfall_count": 4
+    },
+    {
+      "holdout_country": "EC",
+      "original_fixed_source_disjoint_plant_species": 35,
+      "post_raster_trainable_source_disjoint_plants": 30,
+      "post_raster_train_and_test_source_quantity_qualified_plants": 22,
+      "complete_35_plant_predictor_trainability_source": false,
+      "plant_training_shortfall_count": 5
+    },
+    {
+      "holdout_country": "GF",
+      "original_fixed_source_disjoint_plant_species": 35,
+      "post_raster_trainable_source_disjoint_plants": 33,
+      "post_raster_train_and_test_source_quantity_qualified_plants": 11,
+      "complete_35_plant_predictor_trainability_source": false,
+      "plant_training_shortfall_count": 2
+    },
+    {
+      "holdout_country": "GT",
+      "original_fixed_source_disjoint_plant_species": 35,
+      "post_raster_trainable_source_disjoint_plants": 29,
+      "post_raster_train_and_test_source_quantity_qualified_plants": 13,
+      "complete_35_plant_predictor_trainability_source": false,
+      "plant_training_shortfall_count": 6
+    },
+    {
+      "holdout_country": "HN",
+      "original_fixed_source_disjoint_plant_species": 35,
+      "post_raster_trainable_source_disjoint_plants": 31,
+      "post_raster_train_and_test_source_quantity_qualified_plants": 11,
+      "complete_35_plant_predictor_trainability_source": false,
+      "plant_training_shortfall_count": 4
+    },
+    {
+      "holdout_country": "JM",
+      "original_fixed_source_disjoint_plant_species": 35,
+      "post_raster_trainable_source_disjoint_plants": 34,
+      "post_raster_train_and_test_source_quantity_qualified_plants": 4,
+      "complete_35_plant_predictor_trainability_source": false,
+      "plant_training_shortfall_count": 1
+    },
+    {
+      "holdout_country": "MX",
+      "original_fixed_source_disjoint_plant_species": 35,
+      "post_raster_trainable_source_disjoint_plants": 3,
+      "post_raster_train_and_test_source_quantity_qualified_plants": 2,
+      "complete_35_plant_predictor_trainability_source": false,
+      "plant_training_shortfall_count": 32
+    },
+    {
+      "holdout_country": "NI",
+      "original_fixed_source_disjoint_plant_species": 35,
+      "post_raster_trainable_source_disjoint_plants": 31,
+      "post_raster_train_and_test_source_quantity_qualified_plants": 8,
+      "complete_35_plant_predictor_trainability_source": false,
+      "plant_training_shortfall_count": 4
+    },
+    {
+      "holdout_country": "PA",
+      "original_fixed_source_disjoint_plant_species": 35,
+      "post_raster_trainable_source_disjoint_plants": 31,
+      "post_raster_train_and_test_source_quantity_qualified_plants": 21,
+      "complete_35_plant_predictor_trainability_source": false,
+      "plant_training_shortfall_count": 4
+    },
+    {
+      "holdout_country": "PE",
+      "original_fixed_source_disjoint_plant_species": 35,
+      "post_raster_trainable_source_disjoint_plants": 33,
+      "post_raster_train_and_test_source_quantity_qualified_plants": 13,
+      "complete_35_plant_predictor_trainability_source": false,
+      "plant_training_shortfall_count": 2
+    },
+    {
+      "holdout_country": "PR",
+      "original_fixed_source_disjoint_plant_species": 35,
+      "post_raster_trainable_source_disjoint_plants": 34,
+      "post_raster_train_and_test_source_quantity_qualified_plants": 10,
+      "complete_35_plant_predictor_trainability_source": false,
+      "plant_training_shortfall_count": 1
+    },
+    {
+      "holdout_country": "SV",
+      "original_fixed_source_disjoint_plant_species": 35,
+      "post_raster_trainable_source_disjoint_plants": 29,
+      "post_raster_train_and_test_source_quantity_qualified_plants": 12,
+      "complete_35_plant_predictor_trainability_source": false,
+      "plant_training_shortfall_count": 6
+    }
+  ],
+  "original_84_bat_country_folds": [
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "BZ",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "CO",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "CR",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "DO",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": false,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "GT",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "HN",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "JM",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": false,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "MX",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "PA",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "PR",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": false,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "SV",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "AR",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": false,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "BR",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "BZ",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "CO",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "CR",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "EC",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "GF",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "GT",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "HN",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "MX",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "NI",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "PA",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "PE",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "SV",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus obscurus",
+      "holdout_country": "CO",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": false,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus phaeotis",
+      "holdout_country": "CO",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus phaeotis",
+      "holdout_country": "CR",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus phaeotis",
+      "holdout_country": "MX",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus phaeotis",
+      "holdout_country": "PA",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus planirostris",
+      "holdout_country": "BR",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus planirostris",
+      "holdout_country": "CO",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus planirostris",
+      "holdout_country": "GF",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus planirostris",
+      "holdout_country": "PE",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus toltecus",
+      "holdout_country": "GT",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus toltecus",
+      "holdout_country": "HN",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus toltecus",
+      "holdout_country": "MX",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus watsoni",
+      "holdout_country": "CR",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus watsoni",
+      "holdout_country": "MX",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia brevicauda",
+      "holdout_country": "CO",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": false,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia brevicauda",
+      "holdout_country": "EC",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": false,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia brevicauda",
+      "holdout_country": "GF",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": false,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia brevicauda",
+      "holdout_country": "PA",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": false,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia brevicauda",
+      "holdout_country": "PE",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": false,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia castanea",
+      "holdout_country": "CO",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia castanea",
+      "holdout_country": "CR",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia castanea",
+      "holdout_country": "EC",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia castanea",
+      "holdout_country": "PA",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia castanea",
+      "holdout_country": "PE",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": false,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "holdout_country": "BR",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "holdout_country": "CO",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "holdout_country": "CR",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "holdout_country": "EC",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "holdout_country": "GF",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "holdout_country": "MX",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "holdout_country": "NI",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "holdout_country": "PA",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "holdout_country": "PE",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Chiroderma villosum",
+      "holdout_country": "CO",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Chiroderma villosum",
+      "holdout_country": "EC",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Chiroderma villosum",
+      "holdout_country": "MX",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Platyrrhinus helleri",
+      "holdout_country": "CO",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Platyrrhinus helleri",
+      "holdout_country": "CR",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Platyrrhinus helleri",
+      "holdout_country": "MX",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Platyrrhinus helleri",
+      "holdout_country": "PA",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": false,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Rhinophylla pumilio",
+      "holdout_country": "CO",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": false,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Rhinophylla pumilio",
+      "holdout_country": "GF",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": false,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Sturnira lilium",
+      "holdout_country": "CO",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Sturnira lilium",
+      "holdout_country": "MX",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Sturnira parvidens",
+      "holdout_country": "CO",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Sturnira parvidens",
+      "holdout_country": "CR",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Sturnira parvidens",
+      "holdout_country": "HN",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Sturnira parvidens",
+      "holdout_country": "MX",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Sturnira tildae",
+      "holdout_country": "CO",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": false,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Uroderma bilobatum",
+      "holdout_country": "BR",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": false,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Uroderma bilobatum",
+      "holdout_country": "CO",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": false,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Uroderma bilobatum",
+      "holdout_country": "CR",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": false,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Uroderma bilobatum",
+      "holdout_country": "EC",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": false,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Uroderma bilobatum",
+      "holdout_country": "GF",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": false,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Uroderma bilobatum",
+      "holdout_country": "MX",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": false,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Uroderma convexum",
+      "holdout_country": "CO",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Uroderma convexum",
+      "holdout_country": "CR",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Uroderma convexum",
+      "holdout_country": "MX",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Vampyressa thyone",
+      "holdout_country": "CO",
+      "pre_raster_35plant_literature_N1_bat_source_qualified": true,
+      "all_fixed35_source_disjoint_plant_models_have_20plus_raster_cells": false,
+      "new35_and_bat_source_and_raster_input_qualified": false,
+      "real_bat_M3_minus_M1_auc": null
+    }
+  ],
+  "raw_plant_GBIF_rows_or_cells_or_source_datasetIDs_saved": false
+}
