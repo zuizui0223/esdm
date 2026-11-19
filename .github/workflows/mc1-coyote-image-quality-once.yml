@@ -1,0 +1,58 @@
+name: MC1 coyote withheld-site visible mange image-quality test (one-shot)
+
+on:
+  pull_request:
+    types: [opened]
+    paths:
+      - 'docs/replication/MC1_COYOTE_QUALITY_FROZEN_DESIGN.md'
+      - 'scripts/mc1_coyote_image_quality.py'
+      - 'tests/test_mc1_coyote_image_quality.py'
+      - '.github/workflows/mc1-coyote-image-quality-once.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  single_source_camera_image_label_prediction:
+    # Exact original PR opening only; retire after first real source-backed attempt.
+    if: github.event.action == 'opened' && github.event.pull_request.head.ref == 'analysis/mc1-coyote-quality-heldout-20261119' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Make truthful terminal sentinel before source access
+        run: |
+          mkdir -p source/mc1 build/mc1
+          printf '%s\n' '{"schema_version":1,"status":"MC1_TRANSPORT_OR_SOURCE_STOP","biological_prediction_evaluated":false,"original_E5_qualified_count_unchanged":0}' > build/mc1/MC1_COYOTE_IMAGE_RESULT.json
+      - name: Test source-free synthetic maths, splits and observational firewalls
+        run: |
+          python -m pip install 'pytest>=8' 'scikit-learn>=1.4,<1.10'
+          python -m pytest -q tests/test_mc1_coyote_image_quality.py
+      - name: Fetch immutable original public camera-positive annotation CSV once
+        run: |
+          set -euo pipefail
+          curl --fail --location --connect-timeout 30 --max-time 180 --silent --show-error \
+            'https://raw.githubusercontent.com/mfidino/coyote-mange/a068e2aba265551e3b29b1c3ec8c4b1f34eafcdb/data/coydata_merged_sites.csv' \
+            --output source/mc1/coydata_merged_sites.csv
+          test "$(stat -c %s source/mc1/coydata_merged_sites.csv)" = '414219'
+          python - <<'PY'
+          from pathlib import Path
+          from scripts.mc1_coyote_image_quality import check_source
+          print('original SHA256:',check_source(Path('source/mc1/coydata_merged_sites.csv').read_bytes()))
+          PY
+      - name: Evaluate fixed site-heldout image-label prediction once
+        run: |
+          python -m scripts.mc1_coyote_image_quality \
+            --source source/mc1/coydata_merged_sites.csv \
+            --out build/mc1/MC1_COYOTE_IMAGE_RESULT.json
+      - name: Preserve aggregate original result or terminal stop
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mc1-coyote-quality-${{ github.run_id }}
+          path: build/mc1/MC1_COYOTE_IMAGE_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
