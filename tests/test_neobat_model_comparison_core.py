@@ -1,4 +1,4 @@
-"""Synthetic only: M0/M1/M3/N1 rank, outcountry links and firewall tests."""
+"""Synthetic only: M0/M1/M2/M3/N1 rank, links and leakage/firewall tests."""
 from __future__ import annotations
 import importlib.util
 import unittest
@@ -67,13 +67,19 @@ class TestPredictiveCore(unittest.TestCase):
         self.assertEqual(result["heldout_events"],6)
         self.assertEqual(result["rewire_draws"],9)
         self.assertEqual(result["trained_fruit_partner_names"],3)
+        self.assertIn("M2",result["presence_rank_auc"])
         self.assertIn("M3",result["presence_rank_auc"])
         self.assertTrue(all(0<=v<=1 for v in result["presence_rank_auc"].values()))
         # Known-truth gate: generic B is deliberately uninformative;
         # only the actual outcountry documented fruit partners add signal.
         self.assertAlmostEqual(result["presence_rank_auc"]["M0"],0.5,places=6)
         self.assertAlmostEqual(result["presence_rank_auc"]["M1"],0.5,places=6)
+        self.assertGreaterEqual(result["presence_rank_auc"]["M2"],0.95)
         self.assertGreaterEqual(result["presence_rank_auc"]["M3"],0.95)
+        self.assertGreater(result["secondary_M2_minus_M0"],0.4)
+        self.assertAlmostEqual(result["secondary_M3_minus_M2"],0.0,places=6)
+        self.assertGreaterEqual(result["N1_distinct_focal_partner_sets"],2)
+        self.assertLessEqual(result["N1_draws_with_unchanged_focal_partners"],9)
         self.assertGreater(result["heldout_M3_minus_M1"],0.4)
         self.assertTrue(result["background_is_not_true_absence"])
         self.assertFalse(result["causal_interaction_established"])
@@ -130,6 +136,24 @@ class TestPredictiveCore(unittest.TestCase):
         manifest["synthetic"]=False
         with self.assertRaisesRegex(m.QualificationStop,"MISSING_OR_CHANGED_GBIF_DOI"):
             m.compare_fold(rows,plants,links,manifest,BAT,"BR",null_draws=1)
+
+    @unittest.skipUnless(HAS_NUMPY,"numpy only for model fit")
+    def test_null_must_change_focal_partners_not_merely_other_bats(self):
+        rows,plants,links,manifest=toy()
+        links=[{"bat":BAT,"plant":plant,"ref_id":f"R{i}",
+                "source_country":"MX"} for i,plant in enumerate(PLANTS)]
+        # The focal bat already connects to every plant, so its partner
+        # identities cannot vary although nonfocal species can rewire.
+        links += [
+            {"bat":OTHER,"plant":PLANTS[0],"ref_id":"O0","source_country":"MX"},
+            {"bat":OTHER,"plant":PLANTS[3],"ref_id":"O3","source_country":"MX"},
+            {"bat":"Testus tertius","plant":PLANTS[1],"ref_id":"T1","source_country":"MX"},
+            {"bat":"Testus tertius","plant":PLANTS[4],"ref_id":"T4","source_country":"MX"},
+        ]
+        self.assertTrue(m._is_rewirable(m._network_edges(links)))
+        with self.assertRaisesRegex(m.QualificationStop,
+                                    "NULL_FOCAL_LINK_IDENTITIES_INVARIANT"):
+            m.compare_fold(rows,plants,links,manifest,BAT,"BR",null_draws=9)
 
     def test_rewire_preserves_both_degree_sequences(self):
         rows,plants,links,manifest=toy()
