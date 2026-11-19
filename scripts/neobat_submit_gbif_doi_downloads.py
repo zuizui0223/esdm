@@ -168,7 +168,13 @@ def main():
             receipt["download_keys"][group]=key
             receipt["request_sha256"][group]=predigest
             receipt["DOI_downloads_requested"].append(group)
-            receipt["download_metadata"][group]=read_status(key)
+            try:
+                receipt["download_metadata"][group]=read_status(key)
+            except RuntimeError as exc:
+                # An accepted download key is durable even if metadata GET
+                # transiently fails; do not let that cause an accidental
+                # duplicate POST on the next retry.
+                receipt["download_metadata"][group]={"status":"METADATA_FETCH_PENDING","error_code":str(exc)[:100]}
             save(args.out,receipt)
             print("GBIF_SUBMISSION_ACCEPTED",group,key,flush=True)
         receipt["status"]="BOTH_DOWNLOADS_REQUESTED"
