@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-19",
+  "intent": "D1_TECHNICAL_RESTART_AFTER_SKIPPED_NO_SOURCE",
+  "original_authorization_commit": "8819e83759a5009264ad95b2353849da720bb0fb",
+  "original_run_id": 44448320111,
+  "original_run_conclusion": "skipped",
+  "original_animal_or_EDD_rows_read": 0,
+  "original_source_downloaded": false,
+  "scientific_design_freeze_commit": "27872ed37cb86fb8ed860652bf6d0900e3ff4cab",
+  "source_commit": "7a1d0f05d6a8042615083a0c8397a92afff75484",
+  "rationale": "GitHub push payload guard on head_commit.added suppressed the original job; source preflight never started; one technical restart only",
+  "no_second_run_after_actual_source_opening": true
+}

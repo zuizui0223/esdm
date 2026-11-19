@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-19",
+  "intent": "ONE_SOURCE_OPENING_AUTHORIZE_D1_COUNTRY_EDD",
+  "design_freeze_commit": "27872ed37cb86fb8ed860652bf6d0900e3ff4cab",
+  "source_commit": "7a1d0f05d6a8042615083a0c8397a92afff75484",
+  "source_git_blob_sha1": "64201f384e740031b4f3e9bbc116e3b2223d19dd",
+  "source_data": "authors' 2025 effective detection distance summary only",
+  "authorizes_event_row_open": false,
+  "authorizes_animal_images": false,
+  "authorizes_e5_model_fit": false,
+  "expected_trigger": "single git push adding this marker under the fixed branch",
+  "no_rerun_after_source_read": true
+}

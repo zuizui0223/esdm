@@ -1,0 +1,8 @@
+{
+  "error": "SCHEMA_STOP: source zone ID blank or duplicated",
+  "frozen_design": "docs/replication/D1_CROSSCOUNTRY_CAMERA_DETECTION_ZONE_FROZEN_DESIGN.md",
+  "model_fitted": false,
+  "schema_version": 1,
+  "source_response_rows_exported": false,
+  "status": "SCHEMA_STOP"
+}
