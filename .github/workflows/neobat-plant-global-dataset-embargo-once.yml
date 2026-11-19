@@ -1,0 +1,76 @@
+name: NeoBat original botanical 106x17 whole-dataset country embargo feasibility once
+
+on:
+  push:
+    branches:
+      - analysis/neobat-crosscountry-dataset-embargo-20261119
+    paths:
+      - docs/replication/neobat/NEOBAT_PLANT_GLOBAL_DATASET_EMBARGO_ONCE_20261119.txt
+
+permissions:
+  contents: write
+
+concurrency:
+  group: neobat-plant-global-dataset-embargo-once-20261119
+  cancel-in-progress: false
+
+jobs:
+  original_106x17_source_embargo:
+    if: github.event.head_commit.message == 'dispatch frozen NeoBat botanical global datasetKey embargo once' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: analysis/neobat-crosscountry-dataset-embargo-20261119
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install only required original 25km equal-area projection dependency
+        run: python -m pip install 'pyproj==3.7.2'
+      - name: Prove source freeze, fixed 106x17 and synthetic correctness
+        run: |
+          test -f docs/replication/NEOBAT_BOTANICAL_GLOBAL_DATASETKEY_EMBARGO_FROZEN_20261119.md
+          test -f docs/replication/neobat/plant_dataset_matched_106x17.json
+          test -f docs/replication/neobat/plant_106x17_source_effort_transfer_compact.json
+          python -m py_compile scripts/neobat_plant_global_dataset_embargo_gate.py
+          python -m unittest discover -s tests -p 'test_neobat_plant_global_dataset_embargo_gate.py' -v
+      - name: Replay source original ZIP SHA and 1802 prior country source counts, then globally embargo heldout datasetKeys
+        run: |
+          mkdir -p build/neobat
+          set +e
+          python -m scripts.neobat_plant_global_dataset_embargo_gate \
+            --out build/neobat/plant_106x17_global_source_embargo.json \
+            --compact build/neobat/plant_106x17_global_source_embargo_compact.json
+          status=$?
+          set -e
+          echo "$status" > build/neobat/plant_106x17_global_source_embargo_exit_code.txt
+          echo "NEOBAT_FULL_SOURCE_DATASET_EMBARGO_EXIT=$status"
+      - name: Preserve only 1802 aggregate and stop codes (no original keys or cell positions)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-106x17-botanical-all-dataset-source-embargo-aggregate
+          path: |
+            build/neobat/plant_106x17_global_source_embargo.json
+            build/neobat/plant_106x17_global_source_embargo_compact.json
+            build/neobat/plant_106x17_global_source_embargo_exit_code.txt
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Commit only source-country aggregate and STOP receipts on research branch
+        if: always()
+        run: |
+          set -euo pipefail
+          test -f build/neobat/plant_106x17_global_source_embargo.json
+          cp build/neobat/plant_106x17_global_source_embargo* docs/replication/neobat/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/plant_106x17_global_source_embargo*
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: replay 1802 plant country source cells and globally embargo shared GBIF dataset IDs"
+            git pull --rebase origin analysis/neobat-crosscountry-dataset-embargo-20261119
+            git push origin HEAD:analysis/neobat-crosscountry-dataset-embargo-20261119
+          fi
+      - name: Fail closed if original source ID/1802 prior counts drift or gate fails
+        run: |
+          test "$(cat build/neobat/plant_106x17_global_source_embargo_exit_code.txt)" = "0"
