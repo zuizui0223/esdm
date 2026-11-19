@@ -60,7 +60,8 @@ def prepare(draft,bat,plant,username,email):
         requested_keys={str(x) for x in key_pred.get("values",[])}
         if requested_keys!=actual_keys or len(key_pred["values"])!=expected_n:
             raise RuntimeError("TAXON_KEY_MISMATCH:"+group)
-        if len(cc_pred.get("values",[]))!=COUNTRIES:
+        codes=cc_pred.get("values",[])
+        if len(codes)!=COUNTRIES or len(set(codes))!=COUNTRIES:
             raise RuntimeError("COUNTRY_DENOMINATOR_MISMATCH:"+group)
         expected={
             ("equals","HAS_COORDINATE"):"true",
