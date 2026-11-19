@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "created": "2026-11-19",
+  "status": "REQUEST_DRAFTS_STATIC_PASS_UNSUBMITTED",
+  "source_draft_blob_sha": "8719955456e238f30efb652edaadf1ae2347daa1",
+  "source_bat_preflight_blob_sha": "200837896033fdb06276486480d30b0042418432",
+  "source_plant_preflight_blob_sha": "7c810fea62fd6e0e4bbe215faccad6900e858055",
+  "bat_concepts": 26,
+  "plant_concepts": 255,
+  "bat_audited_aliases": 1,
+  "ambiguous_plants_excluded": 6,
+  "taxonomy_assumption": "GBIF species/match numeric keys, no checklistKey in drafts; GBIF DOWNLOAD defaults to legacy GBIF Backbone. Validate namespace and re-read GBIF documentation before authenticated submission.",
+  "assays": [
+    {
+      "group": "bat",
+      "status": "STATIC_STRUCTURE_PASS",
+      "expected_taxon_concepts": 26,
+      "predicate_taxon_values": 26,
+      "unique_country_codes": 29,
+      "year_start": "2000",
+      "year_end": "2025",
+      "unchecked_API_server_validation": true
+    },
+    {
+      "group": "plant",
+      "status": "STATIC_STRUCTURE_PASS",
+      "expected_taxon_concepts": 255,
+      "predicate_taxon_values": 255,
+      "unique_country_codes": 29,
+      "year_start": "2000",
+      "year_end": "2025",
+      "unchecked_API_server_validation": true
+    }
+  ],
+  "validated_by_GBIF_API": false,
+  "authenticated": false,
+  "download_request_submitted": false,
+  "download_DOI": null,
+  "ecological_prediction_improvement": null
+}
