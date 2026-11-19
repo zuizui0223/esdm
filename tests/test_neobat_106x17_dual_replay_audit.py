@@ -20,6 +20,8 @@ def two():
         "original_plant_GBIF_DOI":"10.15468/dl.xwc5zf",
         "original_plant_ZIP_SHA256":"example-same-archive",
         "frozen_106_species_universe_sha256":audit.V2_SHA,
+        "WorldClim_climate_ZIP_SHA256":"fixed-climate-sha",
+        "WorldClim_elevation_ZIP_SHA256":"fixed-elevation-sha",
         "previous_3sentinel_CO_AUCs_exactly_replayed":True,
         "summary":{
             "source_matched_plant_country_rank_AUC_measured":647,
@@ -32,6 +34,8 @@ def two():
         "GBIF_plant_original_DOI":"10.15468/dl.xwc5zf",
         "GBIF_plant_original_zip_sha256":"example-same-archive",
         "frozen_106_plant_universe_sha256":audit.V2_SHA,
+        "raster_source":{"climate_zip_sha256":"fixed-climate-sha",
+                         "elevation_zip_sha256":"fixed-elevation-sha"},
         "original_3_sentinel_CO_model_AUC_and_cells_exactly_replayed":True,
         "summary":{
             "source_and_model_fit_eligible":647,
@@ -108,6 +112,12 @@ class TestExactReplay(unittest.TestCase):
         a,b=two()
         b["all_1802_fold_rows"][1]["heldout_positive_recorded_cells"]+=1
         with self.assertRaisesRegex(RuntimeError,"CROSS_IMPLEMENTATION_DISCREPANCY"):
+            audit.compare(a,b)
+
+    def test_raster_source_change_fails(self):
+        a,b=two()
+        b["raster_source"]["elevation_zip_sha256"]="different"
+        with self.assertRaisesRegex(RuntimeError,"ORIGINAL_WORLDCLIM_CLIMATE_OR_ELEVATION_HASH_DIFFERENCE"):
             audit.compare(a,b)
 
     def test_source_origin_change_fails(self):
