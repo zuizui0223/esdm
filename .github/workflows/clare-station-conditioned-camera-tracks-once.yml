@@ -11,7 +11,7 @@ permissions:
   contents: read
 jobs:
   one_shot_original_dryad_response:
-    if: github.event.action == 'opened' && github.event.pull_request.head.ref == 'analysis/clare-paired-method-station-null-20261119' && github.run_attempt == 1
+    if: false # TERMINAL original run 44477943475 HTTP 401 before any biological response; no re-exposure
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
