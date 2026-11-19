@@ -42,6 +42,13 @@ def compare(a,b):
        a.get("original_plant_ZIP_SHA256")!=b.get("GBIF_plant_original_zip_sha256") or \
        a.get("frozen_106_species_universe_sha256")!=b.get("frozen_106_plant_universe_sha256"):
         raise RuntimeError("SOURCE_DOI_HASH_OR_UNIVERSE_NOT_IDENTICAL")
+    climate_a=a.get("WorldClim_climate_ZIP_SHA256")
+    elev_a=a.get("WorldClim_elevation_ZIP_SHA256")
+    raster_b=b.get("raster_source") or {}
+    if (not climate_a or not elev_a or
+        climate_a!=raster_b.get("climate_zip_sha256") or
+        elev_a!=raster_b.get("elevation_zip_sha256")):
+        raise RuntimeError("ORIGINAL_WORLDCLIM_CLIMATE_OR_ELEVATION_HASH_DIFFERENCE")
     if a.get("frozen_106_species_universe_sha256")!=V2_SHA or \
        not a.get("previous_3sentinel_CO_AUCs_exactly_replayed") or \
        not b.get("original_3_sentinel_CO_model_AUC_and_cells_exactly_replayed"):
