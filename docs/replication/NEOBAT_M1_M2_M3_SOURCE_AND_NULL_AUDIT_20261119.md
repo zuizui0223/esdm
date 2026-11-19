@@ -105,6 +105,18 @@ country level. They do not prove that the whole publication-embargoed
 bat–plant graph admits focal-specific degree-preserving swaps, or
 that any of those plants overlap a bat at the same cell.
 
+## CI verification of the new synthetic discrimination gate
+
+Source-free [Actions #44523318964](https://github.com/zuizui0223/esdm/actions/runs/44523318964)
+completed successfully (nine model-core tests + one source-path regression).
+The stronger [Actions #44524237292](https://github.com/zuizui0223/esdm/actions/runs/44524237292)
+also completed successfully: **ten model-core synthetic tests plus one
+source-path regression (11/11)**. The newly added deterministic 12-plant,
+4-bat, 240-event noisy known-truth fixture verifies that the actual
+focal partners can outperform the degree-preserving N1 rewire when
+their specific identities carry signal. This is a test of implementation
+sensitivity, not an estimate of any real ecological effect.
+
 ## Reproducible source-free checks
 
 ```bash
