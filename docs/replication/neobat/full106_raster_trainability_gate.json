@@ -1,0 +1,1039 @@
+{
+  "schema_version": 1,
+  "status": "FIXED106_PLANT_TRAINING_AFTER_RASTER_PREFIT_GATE",
+  "created_utc": "2026-11-19T14:20:50.737681+00:00",
+  "frozen_design": "docs/replication/NEOBAT_FULL106_RASTER_TRAINABILITY_FROZEN_20261119.md",
+  "original_106x17_plant_country_pairs": 1802,
+  "all_84_original_bat_country_source_candidates_retained": true,
+  "plant_universe_SHA256": "41c9fc0128df6d0f3753edf4b82f6b5b36c6975c8d7c644bae4e4fd3e5bdaac6",
+  "original_17_holdout_countries": 17,
+  "countries_with_all_106_plant_model_training_ready": 15,
+  "countries_with_some_untrainable_plant_models": 2,
+  "source_input_79_bat_country_candidates_before_raster_gate": 79,
+  "full_fixed_106_plant_training_and_bat_source_qualified_pairs": 51,
+  "stopped_bat_source_candidate_pairs_out_of_84": 33,
+  "per_country": [
+    {
+      "country": "AR",
+      "frozen_original_plant_species": 106,
+      "trainable_after_source_and_raster_nodata": 106,
+      "untrainable": 0,
+      "all_106_trainable": true,
+      "untrainable_plant_names": [],
+      "train_positive_cells_lt20": 0,
+      "train_background_cells_lt20": 0
+    },
+    {
+      "country": "BR",
+      "frozen_original_plant_species": 106,
+      "trainable_after_source_and_raster_nodata": 106,
+      "untrainable": 0,
+      "all_106_trainable": true,
+      "untrainable_plant_names": [],
+      "train_positive_cells_lt20": 0,
+      "train_background_cells_lt20": 0
+    },
+    {
+      "country": "BZ",
+      "frozen_original_plant_species": 106,
+      "trainable_after_source_and_raster_nodata": 106,
+      "untrainable": 0,
+      "all_106_trainable": true,
+      "untrainable_plant_names": [],
+      "train_positive_cells_lt20": 0,
+      "train_background_cells_lt20": 0
+    },
+    {
+      "country": "CO",
+      "frozen_original_plant_species": 106,
+      "trainable_after_source_and_raster_nodata": 103,
+      "untrainable": 3,
+      "all_106_trainable": false,
+      "untrainable_plant_names": [
+        "Cecropia ficifolia",
+        "Solanum asperolanatum",
+        "Stenocereus griseus"
+      ],
+      "train_positive_cells_lt20": 3,
+      "train_background_cells_lt20": 0
+    },
+    {
+      "country": "CR",
+      "frozen_original_plant_species": 106,
+      "trainable_after_source_and_raster_nodata": 106,
+      "untrainable": 0,
+      "all_106_trainable": true,
+      "untrainable_plant_names": [],
+      "train_positive_cells_lt20": 0,
+      "train_background_cells_lt20": 0
+    },
+    {
+      "country": "DO",
+      "frozen_original_plant_species": 106,
+      "trainable_after_source_and_raster_nodata": 106,
+      "untrainable": 0,
+      "all_106_trainable": true,
+      "untrainable_plant_names": [],
+      "train_positive_cells_lt20": 0,
+      "train_background_cells_lt20": 0
+    },
+    {
+      "country": "EC",
+      "frozen_original_plant_species": 106,
+      "trainable_after_source_and_raster_nodata": 106,
+      "untrainable": 0,
+      "all_106_trainable": true,
+      "untrainable_plant_names": [],
+      "train_positive_cells_lt20": 0,
+      "train_background_cells_lt20": 0
+    },
+    {
+      "country": "GF",
+      "frozen_original_plant_species": 106,
+      "trainable_after_source_and_raster_nodata": 106,
+      "untrainable": 0,
+      "all_106_trainable": true,
+      "untrainable_plant_names": [],
+      "train_positive_cells_lt20": 0,
+      "train_background_cells_lt20": 0
+    },
+    {
+      "country": "GT",
+      "frozen_original_plant_species": 106,
+      "trainable_after_source_and_raster_nodata": 106,
+      "untrainable": 0,
+      "all_106_trainable": true,
+      "untrainable_plant_names": [],
+      "train_positive_cells_lt20": 0,
+      "train_background_cells_lt20": 0
+    },
+    {
+      "country": "HN",
+      "frozen_original_plant_species": 106,
+      "trainable_after_source_and_raster_nodata": 106,
+      "untrainable": 0,
+      "all_106_trainable": true,
+      "untrainable_plant_names": [],
+      "train_positive_cells_lt20": 0,
+      "train_background_cells_lt20": 0
+    },
+    {
+      "country": "JM",
+      "frozen_original_plant_species": 106,
+      "trainable_after_source_and_raster_nodata": 106,
+      "untrainable": 0,
+      "all_106_trainable": true,
+      "untrainable_plant_names": [],
+      "train_positive_cells_lt20": 0,
+      "train_background_cells_lt20": 0
+    },
+    {
+      "country": "MX",
+      "frozen_original_plant_species": 106,
+      "trainable_after_source_and_raster_nodata": 104,
+      "untrainable": 2,
+      "all_106_trainable": false,
+      "untrainable_plant_names": [
+        "Ficus crocata",
+        "Sideroxylon foetidissimum"
+      ],
+      "train_positive_cells_lt20": 2,
+      "train_background_cells_lt20": 0
+    },
+    {
+      "country": "NI",
+      "frozen_original_plant_species": 106,
+      "trainable_after_source_and_raster_nodata": 106,
+      "untrainable": 0,
+      "all_106_trainable": true,
+      "untrainable_plant_names": [],
+      "train_positive_cells_lt20": 0,
+      "train_background_cells_lt20": 0
+    },
+    {
+      "country": "PA",
+      "frozen_original_plant_species": 106,
+      "trainable_after_source_and_raster_nodata": 106,
+      "untrainable": 0,
+      "all_106_trainable": true,
+      "untrainable_plant_names": [],
+      "train_positive_cells_lt20": 0,
+      "train_background_cells_lt20": 0
+    },
+    {
+      "country": "PE",
+      "frozen_original_plant_species": 106,
+      "trainable_after_source_and_raster_nodata": 106,
+      "untrainable": 0,
+      "all_106_trainable": true,
+      "untrainable_plant_names": [],
+      "train_positive_cells_lt20": 0,
+      "train_background_cells_lt20": 0
+    },
+    {
+      "country": "PR",
+      "frozen_original_plant_species": 106,
+      "trainable_after_source_and_raster_nodata": 106,
+      "untrainable": 0,
+      "all_106_trainable": true,
+      "untrainable_plant_names": [],
+      "train_positive_cells_lt20": 0,
+      "train_background_cells_lt20": 0
+    },
+    {
+      "country": "SV",
+      "frozen_original_plant_species": 106,
+      "trainable_after_source_and_raster_nodata": 106,
+      "untrainable": 0,
+      "all_106_trainable": true,
+      "untrainable_plant_names": [],
+      "train_positive_cells_lt20": 0,
+      "train_background_cells_lt20": 0
+    }
+  ],
+  "all_original_84_bat_folds": [
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "BZ",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "CO",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": false,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "CR",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "DO",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": false,
+      "joint_source_qualified_pre_raster": false,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "GT",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "HN",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "JM",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": false,
+      "joint_source_qualified_pre_raster": false,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "MX",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": false,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "PA",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "PR",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": false,
+      "joint_source_qualified_pre_raster": false,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "SV",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "AR",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": false,
+      "joint_source_qualified_pre_raster": false,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "BR",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "BZ",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "CO",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": false,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "CR",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "EC",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "GF",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "GT",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "HN",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "MX",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": false,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "NI",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "PA",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "PE",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "SV",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus obscurus",
+      "holdout_country": "CO",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": false,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus phaeotis",
+      "holdout_country": "CO",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": false,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus phaeotis",
+      "holdout_country": "CR",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus phaeotis",
+      "holdout_country": "MX",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": false,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus phaeotis",
+      "holdout_country": "PA",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus planirostris",
+      "holdout_country": "BR",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus planirostris",
+      "holdout_country": "CO",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": false,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus planirostris",
+      "holdout_country": "GF",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus planirostris",
+      "holdout_country": "PE",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus toltecus",
+      "holdout_country": "GT",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus toltecus",
+      "holdout_country": "HN",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus toltecus",
+      "holdout_country": "MX",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": false,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus watsoni",
+      "holdout_country": "CR",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Artibeus watsoni",
+      "holdout_country": "MX",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": false,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia brevicauda",
+      "holdout_country": "CO",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": false,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia brevicauda",
+      "holdout_country": "EC",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia brevicauda",
+      "holdout_country": "GF",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia brevicauda",
+      "holdout_country": "PA",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia brevicauda",
+      "holdout_country": "PE",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia castanea",
+      "holdout_country": "CO",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": false,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia castanea",
+      "holdout_country": "CR",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia castanea",
+      "holdout_country": "EC",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia castanea",
+      "holdout_country": "PA",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia castanea",
+      "holdout_country": "PE",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "holdout_country": "BR",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "holdout_country": "CO",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": false,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "holdout_country": "CR",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "holdout_country": "EC",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "holdout_country": "GF",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "holdout_country": "MX",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": false,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "holdout_country": "NI",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "holdout_country": "PA",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "holdout_country": "PE",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Chiroderma villosum",
+      "holdout_country": "CO",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": false,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Chiroderma villosum",
+      "holdout_country": "EC",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Chiroderma villosum",
+      "holdout_country": "MX",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": false,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Platyrrhinus helleri",
+      "holdout_country": "CO",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": false,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Platyrrhinus helleri",
+      "holdout_country": "CR",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Platyrrhinus helleri",
+      "holdout_country": "MX",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": false,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Platyrrhinus helleri",
+      "holdout_country": "PA",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Rhinophylla pumilio",
+      "holdout_country": "CO",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": false,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Rhinophylla pumilio",
+      "holdout_country": "GF",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Sturnira lilium",
+      "holdout_country": "CO",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": false,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Sturnira lilium",
+      "holdout_country": "MX",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": false,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Sturnira parvidens",
+      "holdout_country": "CO",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": false,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Sturnira parvidens",
+      "holdout_country": "CR",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Sturnira parvidens",
+      "holdout_country": "HN",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Sturnira parvidens",
+      "holdout_country": "MX",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": false,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Sturnira tildae",
+      "holdout_country": "CO",
+      "literature_partner_106_source_qualified": false,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": false,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": false,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Uroderma bilobatum",
+      "holdout_country": "BR",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Uroderma bilobatum",
+      "holdout_country": "CO",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": false,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Uroderma bilobatum",
+      "holdout_country": "CR",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Uroderma bilobatum",
+      "holdout_country": "EC",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Uroderma bilobatum",
+      "holdout_country": "GF",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Uroderma bilobatum",
+      "holdout_country": "MX",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": false,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Uroderma convexum",
+      "holdout_country": "CO",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": false,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Uroderma convexum",
+      "holdout_country": "CR",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": true,
+      "full_v2_source_and_plant_training_ready": true,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Uroderma convexum",
+      "holdout_country": "MX",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": false,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    },
+    {
+      "bat": "Vampyressa thyone",
+      "holdout_country": "CO",
+      "literature_partner_106_source_qualified": true,
+      "bat_targetgroup_background_source_qualified": true,
+      "joint_source_qualified_pre_raster": true,
+      "all_106_plant_crossfits_trainable_after_raster_nodata": false,
+      "full_v2_source_and_plant_training_ready": false,
+      "real_ecological_bat_M3_minus_M1_auc": null
+    }
+  ],
+  "no_models_fitted_or_test_scores_inspected_in_this_gate": true,
+  "not_true_plant_absences_or_resource_abundance": true,
+  "no_M3_minus_M1_or_N1_ecological_effect": true
+}
