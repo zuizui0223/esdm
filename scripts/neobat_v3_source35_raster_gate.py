@@ -245,8 +245,10 @@ def execute():
 def main():
     p=argparse.ArgumentParser()
     p.add_argument("--out",default="build/neobat/v3_source35_raster_trainability.json")
-    args=p.parse_args();path=pathlib.Path(args.out)
+    p.add_argument("--compact",default="build/neobat/v3_source35_raster_trainability_compact.json")
+    args=p.parse_args();path=pathlib.Path(args.out);compact=pathlib.Path(args.compact)
     path.parent.mkdir(parents=True,exist_ok=True)
+    compact.parent.mkdir(parents=True,exist_ok=True)
     try:result=execute()
     except Exception as exc:
         result={"schema_version":1,"status":"V3_SOURCE35_DISJOINT_RASTER_TRAINABILITY_STOP",
@@ -254,6 +256,8 @@ def main():
                 "error_code":str(exc)[:220],
                 "M3_minus_M1_bat_auc":None}
     path.write_text(json.dumps(result,indent=2,ensure_ascii=False)+"\n")
+    trimmed={k:v for k,v in result.items() if k!="source_disjoint35_plant_country_folds"}
+    compact.write_text(json.dumps(trimmed,indent=2,ensure_ascii=False)+"\n")
     print("NEOBAT_GLOBAL_SOURCE35_RASTER_GATE",result["status"],flush=True)
     if "summary" in result:
         print("SOURCE35_RASTER_SUMMARY",json.dumps(result["summary"],sort_keys=True),flush=True)
