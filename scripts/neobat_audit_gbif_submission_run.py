@@ -27,12 +27,16 @@ def api_get(path,token):
         return json.loads(f.read().decode("utf-8"))
 
 def audit(getter):
-    path=("/actions/workflows/"+WORKFLOW+"/runs?"
-          +"event=push&branch="+quote(BRANCH,safe="")+"&per_page=100")
+    # The repository-level endpoint resolves an exact head SHA even when
+    # the named workflow file exists only on a non-default branch.
+    path=("/actions/runs?head_sha="+quote(MARKER_SHA,safe="")
+          +"&event=push&per_page=100")
     payload=getter(path)
     runs=payload.get("workflow_runs",[])
     target=[r for r in runs if r.get("head_sha")==MARKER_SHA and
-            r.get("event")=="push"]
+            r.get("event")=="push" and
+            (r.get("name")== "NeoBat DOI-backed GBIF bat and plant occurrence downloads (single authorization)"
+             or r.get("path","").endswith("/"+WORKFLOW))]
     result={
         "schema_version":1,
         "created_utc":datetime.now(timezone.utc).isoformat(),
