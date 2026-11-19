@@ -6,7 +6,9 @@ from urllib.request import Request, urlopen
 
 SOURCE_URL="https://geodata.ucdavis.edu/climate/worldclim/2_1/base/wc2.1_10m_bio.zip"
 ARCHIVE_SHA256="00513224583665ec0f2f955a4ec252730c4deb2004cce9e793492a3f26df4dcf"
-BIO12_SHA256="1e823e951ace0186c6eadd7368b4d0385f8c51cc952282c0f2d640bf7790fea5"
+# Corrected 2026-11-19 against independently SHA-pinned official ZIP; see
+# NEOBAT_WORLDCLIM_BIO12_HASH_CORRECTION_20261119.md.
+BIO12_SHA256="1e823e951ace0186c6eadd7368b4d0385c8f51cc952282c0f2d640bf7790fea5"
 RASTERS={"BIO1":"wc2.1_10m_bio_1.tif","BIO12":"wc2.1_10m_bio_12.tif"}
 MAX_SOURCE_BYTES=250_000_000
 
