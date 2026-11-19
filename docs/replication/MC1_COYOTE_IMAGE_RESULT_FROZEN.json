@@ -1,0 +1,7 @@
+{
+  "biological_prediction_evaluated": false,
+  "original_E5_qualified_count_unchanged": 0,
+  "reason": "RESPONSE_SCHEMA_STOP: invalid calendar year",
+  "schema_version": 1,
+  "status": "MC1_TERMINAL_SOURCE_OR_SCHEMA_STOP"
+}
