@@ -19,7 +19,7 @@ from urllib.request import Request, urlopen
 import zipfile
 
 from scripts.neobat_gbif_archive_header_preflight import verified_source, safe_archive
-from scripts.neobat_spatial_cell_pilot import spatial_grid, label_precision
+from scripts.neobat_spatial_cell_pilot import spatial_grid, label_precision, LATAM
 
 GROUPS=("bat","plant")
 EXPECTED_KEY_COUNTS={"bat":26,"plant":255}
@@ -118,7 +118,7 @@ def quality_counts_for_archive(path, *, group, source, accepted, expected_count)
                 if yr not in ALLOWED_YEAR:
                     overall["year_outside_or_missing"]+=1
                     continue
-                if len(cc)!=2 or not cc.isupper():
+                if cc not in LATAM:
                     overall["country_malformed"]+=1
                     continue
                 try:
