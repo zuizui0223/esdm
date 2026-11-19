@@ -15,7 +15,7 @@ permissions:
 jobs:
   single_source_camera_image_label_prediction:
     # Exact original PR opening only; retire after first real source-backed attempt.
-    if: github.event.action == 'opened' && github.event.pull_request.head.ref == 'analysis/mc1-coyote-quality-heldout-20261119' && github.run_attempt == 1
+    if: false # TERMINAL run 44525869485 original MC1 source consumed; year schema stop
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
