@@ -68,6 +68,30 @@ ecological predictive gain: not estimated**. No source-only result
 is merged into a manuscript as feeding mechanism, social information,
 individual specialization or causal evidence.
 
+## Strict-fold clustering: independent units are fewer than pairs
+
+Recounted the already-frozen complete roster
+`NEOBAT_STRICT_84_COUNTRY_FOLD_ROSTER_FROZEN_20261119.json`
+without changing membership or opening any new biological outcome:
+
+- 84 bat×country folds come from **19 bats × 17 distinct countries**;
+  16 of the 19 bat species have two or more eligible countries.
+- Columbia (CO) has 17, Mexico (MX) 12, and Costa Rica (CR) 10:
+  the three countries contribute **39/84 = 46.43%** of candidate folds.
+- The inverse-concentration effective country count,
+  `(sum_c n_c)^2 / sum_c n_c^2`, is approximately **9.59**,
+  even before correcting dependence across bats or source datasets.
+- Removing those three countries leaves **45 folds across 13 bat
+  species and 14 countries** as a *sensitivity calculation*, not a
+  newly selected primary test set.
+
+Hence do not treat 84 pairs as independent replicates or claim a
+universal effect from a row-wise P value. Predeclared ecological
+summaries should cluster across withheld countries and inspect
+leave-country-out influence; all qualification stops count toward the
+denominator. This is an exposure-structure diagnostic, **not** a
+positive M2/M3 result.
+
 ## Reproducible source-free checks
 
 ```bash
