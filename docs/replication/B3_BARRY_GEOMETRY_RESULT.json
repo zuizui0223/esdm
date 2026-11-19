@@ -1,0 +1,57 @@
+{
+  "G4_independent_camera_passage_reference_established": false,
+  "biological_response_fields_accessed": false,
+  "camera_distinct_season_labels_count": 3,
+  "camera_hardware_ids_mapped_to_gt1_unit": 0,
+  "camera_rows": 1240,
+  "camera_rows_missing_unit_or_region": 0,
+  "camera_rows_with_declared_min_max_date": 1234,
+  "camera_rows_with_declared_operating_days": 1240,
+  "camera_sample_unit_strings_in_multiple_ecoregions": 6,
+  "date": "2026-11-19",
+  "dog_event_time_available_in_published_header": false,
+  "dog_rows_missing_unit_or_region": 0,
+  "dog_sample_unit_strings_in_multiple_ecoregions": 14,
+  "dog_segment_rows": 5037,
+  "ecoregion_labels_total": 5,
+  "ecoregions_with_both_ge10_and_ge3_shared": 0,
+  "ecoregions_with_both_ge10_units": 4,
+  "ecoregions_with_both_methods": 4,
+  "original_E5_qualified_count_unchanged": 0,
+  "per_ecoregion_sampling_only": [
+    {
+      "camera_sample_units": 36,
+      "dog_sample_units": 70,
+      "ecoregion_code": "1",
+      "shared_sample_unit_keys": 0
+    },
+    {
+      "camera_sample_units": 3,
+      "dog_sample_units": 0,
+      "ecoregion_code": "2",
+      "shared_sample_unit_keys": 0
+    },
+    {
+      "camera_sample_units": 110,
+      "dog_sample_units": 144,
+      "ecoregion_code": "3",
+      "shared_sample_unit_keys": 0
+    },
+    {
+      "camera_sample_units": 134,
+      "dog_sample_units": 96,
+      "ecoregion_code": "4",
+      "shared_sample_unit_keys": 0
+    },
+    {
+      "camera_sample_units": 28,
+      "dog_sample_units": 17,
+      "ecoregion_code": "5",
+      "shared_sample_unit_keys": 0
+    }
+  ],
+  "schema_version": 1,
+  "scope": "Barry Oregon camera+detection-dog published metadata only",
+  "shared_ecoregion_sample_unit_keys_total": 0,
+  "status": "METADATA_GEOMETRY_EVALUATED_NOT_ECOLOGICAL_EFFECT"
+}
