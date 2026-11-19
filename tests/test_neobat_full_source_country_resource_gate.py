@@ -45,7 +45,8 @@ class TestFullCountryResource(unittest.TestCase):
         x=next(x for x in got["folds"] if x["country"]=="BR")
         self.assertTrue(x["known_precision"]["input_candidate"])
         self.assertEqual(x["known_precision"]["linked_plant_species_meeting_5_20"],3)
-        self.assertEqual(x["known_precision"]["independent_outcountry_NeoBat_refs"],2)
+        # R1, R2, and R4 remain; only R0 is embargoed by the heldout BR source site.
+        self.assertEqual(x["known_precision"]["independent_outcountry_NeoBat_refs"],3)
         self.assertEqual(x["known_precision"]["plant_pool_species_meeting_5_20"],4)
         self.assertEqual(x["known_precision"]["nonpartner_pool_species_meeting_5_20"],1)
         self.assertNotIn(PLANTS[3],x["known_precision"]["eligible_partner_names"])
