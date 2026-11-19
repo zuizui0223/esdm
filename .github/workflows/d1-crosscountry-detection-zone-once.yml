@@ -1,0 +1,51 @@
+name: D1 independent detector EDD country transfer (one-shot)
+
+on:
+  push:
+    branches:
+      - analysis/d1-crosscountry-detection-zone-transfer-20261119
+    paths:
+      - 'docs/replication/D1_COUNTRY_TRANSFER_AUTHORIZATION.json'
+
+permissions:
+  contents: read
+
+jobs:
+  single_published_edd_response:
+    # Fail closed for ANY later ordinary source/code/docs push or job rerun.
+    # Source may open only on the first ADDITION of this unique authorization file.
+    if: github.run_attempt == 1 && contains(github.event.head_commit.added, 'docs/replication/D1_COUNTRY_TRANSFER_AUTHORIZATION.json') && github.event.head_commit.message == 'Authorize D1 one-shot cross-country EDD source opening (design 27872ed)'
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Initialize truthful no-source sentinel before any network request
+        run: |
+          mkdir -p build/d1 source/d1
+          printf '%s\n' '{"schema_version":1,"status":"SOURCE_STOP","note":"Default sentinel; source was not processed or an earlier step stopped.","source_response_rows_exported":false}' > build/d1/D1_COUNTRY_EDD_RESULT.json
+      - name: Run source-independent correctness tests
+        run: |
+          python -m pip install 'pytest>=8'
+          python -m pytest -q tests/test_d1_crosscountry_detection_zone.py
+      - name: Download exactly one pinned public EDD summary (not images or animal passes)
+        run: |
+          set -euo pipefail
+          curl --fail --location --connect-timeout 25 --max-time 180 --silent --show-error \
+            'https://raw.githubusercontent.com/jnwiegers/predict_detection_zones/7a1d0f05d6a8042615083a0c8397a92afff75484/LOOCV_data%202025.csv' \
+            --output source/d1/authors_original_EDD_summary.csv
+      - name: Check author Git blob digest then evaluate frozen country holdouts once
+        run: |
+          python -m scripts.d1_crosscountry_detection_zone \
+            --input source/d1/authors_original_EDD_summary.csv \
+            --out build/d1/D1_COUNTRY_EDD_RESULT.json
+      - name: Publish aggregate-only result or truthful stop, never raw records
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: d1-country-edd-${{ github.run_id }}
+          path: build/d1/D1_COUNTRY_EDD_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
