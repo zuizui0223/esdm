@@ -21,7 +21,6 @@ from scripts import neobat_plant_country_crossfit_pilot as plant
 from scripts import neobat_plant_within_dataset_source_gate as psource
 from scripts import neobat_bat_targetgroup_background_gate as bsource
 from scripts import neobat_model_comparison_core as core
-from scripts import neobat_plant_106x17_intensity_diagnostic as intensity
 from scripts.neobat_gbif_archive_header_preflight import verified_source,safe_archive
 from scripts.neobat_gbif_full_source_qc import name_map
 from scripts.neobat_same_cell_source_support import (
