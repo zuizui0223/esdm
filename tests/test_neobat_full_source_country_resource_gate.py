@@ -60,7 +60,7 @@ class TestFullCountryResource(unittest.TestCase):
         self.assertEqual(len(got["folds"]),len(gate.COUNTRIES))
         self.assertEqual(got["bats_with_two_or_more_known_precision_candidate_countries"],0)
         x=next(x for x in got["folds"] if x["country"]=="MX")
-        self.assertEqual(x["known_precision"]["status"],"BAT_CELLS_BELOW_GATE")
+        self.assertEqual(x["known_precision"]["status"],"BAT_COUNTRY_CELLS_INSUFFICIENT")
         s=gate.compact(got)
         self.assertEqual(s["denominators"]["bat_country"],29)
         self.assertTrue(s["cooccurrence_and_M3_effect_not_evaluated"])
