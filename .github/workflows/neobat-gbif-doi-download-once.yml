@@ -5,7 +5,7 @@ on:
     branches:
       - design/neobat-trophic-sdm-phase1-20261119
     paths:
-      - docs/replication/neobat/GBIF_DOI_SUBMIT_ONCE_20261119.txt
+      - docs/replication/neobat/GBIF_DOI_SUBMIT_CORRECTED_ONCE_20261119.txt
 
 permissions:
   contents: write
@@ -16,8 +16,9 @@ concurrency:
 
 jobs:
   request_authenticated_gbif_downloads:
-    # One authorized marker only; no reruns, no workflow dispatch, no scheduled resubmission.
-    if: github.event.head_commit.message == 'dispatch: NeoBat first DOI-bearing GBIF bat and plant downloads' && github.run_attempt == 1
+    # Original commit 37c1c92 pre-job YAML parse error; zero jobs and zero GBIF POST.
+    # Quote full if expression; corrected marker creates the only actual submission attempt.
+    if: "${{ github.event.head_commit.message == 'dispatch NeoBat corrected first valid GBIF DOI bat and plant downloads' && github.run_attempt == 1 }}"
     runs-on: ubuntu-latest
     timeout-minutes: 12
     env:
