@@ -16,7 +16,8 @@ concurrency:
 jobs:
   bat_plant_spatial_cell_pilot:
     # Reviewer-visible, metadata-only source/predictor feasibility; do not score bats or plants.
-    if: github.event.pull_request.number == 244 && github.run_attempt == 1
+    # Retired: 2026-11-19 full GBIF SEARCH paging exceeded 29-minute cap. Use bounded country sample and DOI download.
+    if: false
     runs-on: ubuntu-latest
     timeout-minutes: 29
     steps:
