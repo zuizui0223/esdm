@@ -5,7 +5,7 @@ on:
     branches:
       - design/neobat-trophic-sdm-phase1-20261119
     paths:
-      - docs/replication/neobat/NEOBAT_FULL_COUNTRY_RESOURCE_ONCE.txt
+      - docs/replication/neobat/NEOBAT_FULL_COUNTRY_RESOURCE_CORRECTED_ONCE.txt
 
 permissions:
   contents: write
@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   prefit_full_country_source_gate:
-    if: "${{ github.event.head_commit.message == 'dispatch NeoBat full DOI country source-resource input gate once' && github.run_attempt == 1 }}"
+    if: "${{ github.event.head_commit.message == 'dispatch NeoBat corrected DOI country resource input gate once' && github.run_attempt == 1 }}"
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
