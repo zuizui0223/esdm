@@ -1,0 +1,72 @@
+name: NeoBat original 84 bat-fold fixed35 source-fruitlink and focal N1 gate once
+
+on:
+  push:
+    branches:
+      - analysis/neobat-fixed35-source-disjoint-fruitlinks-20261119
+    paths:
+      - docs/replication/neobat/NEOBAT_SOURCE35_AUTHOR_LINKS_ONCE_20261119.txt
+
+permissions:
+  contents: write
+
+concurrency:
+  group: neobat-source35-bat-partner-once-20261119
+  cancel-in-progress: false
+
+jobs:
+  author_original_fruitlink_source_gate:
+    if: github.event.head_commit.message == 'dispatch NeoBat fixed35 source-disjoint original fruitlink and focal N1 gate once' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: analysis/neobat-fixed35-source-disjoint-fruitlinks-20261119
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify source freeze and synthetic full1802 input integrity
+        run: |
+          test -f docs/replication/NEOBAT_35_GLOBALLY_SOURCE_DISJOINT_PARTNER_GATE_FROZEN_20261119.md
+          test -f docs/replication/neobat/plant_106x17_global_source_embargo.json
+          test -f docs/replication/neobat/full106_raster_trainability_gate.json
+          python -m py_compile scripts/neobat_source35_bat_partner_gate.py
+          python -m unittest discover -s tests -p 'test_neobat_source35_bat_partner_gate.py' -v
+      - name: Compute all84 original author NeoBat source links using fixed global source35 only
+        run: |
+          mkdir -p build/neobat
+          set +e
+          python -m scripts.neobat_source35_bat_partner_gate \
+            --out build/neobat/source35_bat_literature_N1_input_gate.json
+          status=$?
+          set -e
+          echo "$status" > build/neobat/source35_bat_literature_N1_input_gate_exit_code.txt
+          echo "NEOBAT_SOURCE35_INPUT_EXIT=$status"
+      - name: Preserve only 35 species names and all84 aggregate source gate counts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-author-84-bat-fold-source35-original-fruitlink-source-only
+          path: |
+            build/neobat/source35_bat_literature_N1_input_gate.json
+            build/neobat/source35_bat_literature_N1_input_gate_exit_code.txt
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Commit only source-only result and STOP receipt to research branch
+        if: always()
+        run: |
+          set -euo pipefail
+          test -f build/neobat/source35_bat_literature_N1_input_gate.json
+          cp build/neobat/source35_bat_literature_N1_input_gate* docs/replication/neobat/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/source35_bat_literature_N1_input_gate*
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: 35 source-disjoint plant species, original 84 bat literature partner and focal N1 inputs"
+            git pull --rebase origin analysis/neobat-fixed35-source-disjoint-fruitlinks-20261119
+            git push origin HEAD:analysis/neobat-fixed35-source-disjoint-fruitlinks-20261119
+          fi
+      - name: Do not promote any missing original author source to ecological evidence
+        run: |
+          test "$(cat build/neobat/source35_bat_literature_N1_input_gate_exit_code.txt)" = "0"
