@@ -1,0 +1,1 @@
+User-directed original plant DOI source matching 106 fixed plant taxa x 17 original countries within the same GBIF datasetKey, preserving all 1802 pairs and explicit stops. The design and synthetic tests are frozen; source-only no plant SDM or bat predictions, raw GBIF coordinates excluded from receipts.
