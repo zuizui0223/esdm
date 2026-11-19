@@ -1,0 +1,91 @@
+name: NeoBat cross-country link transfer replication (exploratory source-only)
+
+on:
+  push:
+    branches:
+      - design/neobat-trophic-sdm-phase1-20261119
+    paths:
+      - .github/workflows/neobat-link-transfer-replicate.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: neobat-link-transfer-replicate-20261119
+  cancel-in-progress: false
+
+jobs:
+  replicate_source_only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Synthetic degree-preserving swaps test
+        run: node scripts/neobat_crosscountry_link_transfer.mjs --self-test
+      - name: Retrieve exact author-original source CSVs
+        run: |
+          set -euo pipefail
+          mkdir -p source/neobat build/neobat
+          base="https://raw.githubusercontent.com/gflorezm/NeoBat_Interactions/d25292d19be32a85a21c60384a3f2d818e8081de/Data"
+          curl --fail --silent --show-error --location --max-time 90 --retry 2 --output source/neobat/records.csv "$base/NeoBat_Interactions_Records.csv"
+          curl --fail --silent --show-error --location --max-time 90 --retry 2 --output source/neobat/sites.csv "$base/NeoBat_Interactions_Sites.csv"
+          test "$(git hash-object source/neobat/records.csv)" = "71f179a152a262d7a98d7bb4e633cf136bc39f98"
+          test "$(git hash-object source/neobat/sites.csv)" = "f9672a8b5542b8f4ecd3434ca798756f865df541"
+      - name: Source-only cross-country null 999 repetitions
+        run: |
+          set -euo pipefail
+          node scripts/neobat_crosscountry_link_transfer.mjs source/neobat/records.csv source/neobat/sites.csv build/neobat/crosscountry_reproduction_result.json
+      - name: Compare independently reproduced result against first-run exploratory receipt
+        run: |
+          python - <<'PY'
+          import json, math, pathlib
+          original=json.loads(pathlib.Path("docs/replication/NEOBAT_CROSSCOUNTRY_LINK_TRANSFER_RESULT_20261119.json").read_text())
+          reproduced=json.loads(pathlib.Path("build/neobat/crosscountry_reproduction_result.json").read_text())
+          expected=[
+            (reproduced['species_candidates'],original['species_candidates']),
+            (reproduced['countries_eligible'],original['countries_test_eligible']),
+            (reproduced['n_test_edges'],original['n_heldout_test_edges']),
+            (reproduced['primary']['observed'],original['primary']['observed_country_mean_recurrence']),
+            (reproduced['primary']['null_mean'],original['primary']['null_country_mean_recurrence']),
+            (reproduced['primary']['p_upper_monte_carlo'],original['primary']['monte_carlo_upper_tail_p']),
+            (reproduced['two_reference_sensitivity']['observed'],original['train_2reference_sensitivity']['observed_country_mean_recurrence']),
+            (reproduced['two_reference_sensitivity']['null_mean'],original['train_2reference_sensitivity']['null_country_mean_recurrence'])
+          ]
+          failures=[(a,b) for a,b in expected if not math.isclose(a,b,rel_tol=0,abs_tol=1e-12)]
+          report={
+            'status':'REPRODUCED_EXPLORATORY_SOURCE_ONLY' if not failures else 'REPRODUCTION_MISMATCH',
+            'original_commit_source':original['source_commit'],
+            'source_hashes_checked':True,
+            'comparisons':len(expected),
+            'mismatches':failures,
+            'interpretation_ceiling':'source-internal descriptive recurrence; no independent interaction response or SDM fit'
+          }
+          pathlib.Path('build/neobat/crosscountry_reproduction_verdict.json').write_text(json.dumps(report,indent=2)+'\n')
+          print(json.dumps(report,indent=2))
+          if failures: raise SystemExit(2)
+          PY
+      - name: Upload full reproducibility record or honest stop
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-country-link-source-replication
+          path: build/neobat/*.json
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Commit checked aggregates on isolated design branch
+        if: success()
+        run: |
+          set -euo pipefail
+          mkdir -p docs/replication/neobat
+          cp build/neobat/crosscountry_reproduction_*.json docs/replication/neobat/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: independently reproduce NeoBat country-heldout link null"
+            git pull --rebase origin "$GITHUB_REF_NAME"
+            git push origin "HEAD:$GITHUB_REF_NAME"
+          fi
