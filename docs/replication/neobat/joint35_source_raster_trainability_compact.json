@@ -1,0 +1,169 @@
+{
+  "schema_version": 1,
+  "status": "EXPLORATORY_FIXED35_JOINT_DISJOINT_DATASET_AND_RASTER_TRAINABILITY",
+  "created_utc": "2026-11-19T14:37:50.755183+00:00",
+  "frozen_design": "docs/replication/NEOBAT_35_SOURCE_DISJOINT_RASTER_JOINT_GATE_FROZEN_20261119.md",
+  "global35_original_species_SHA256": "5f6ee54473b074b2b5329b1ddd9cc966e739f4f12b93db75154ce59a9f7b92ee",
+  "all_original_global35_names_unchanged": true,
+  "original_595_plant_country_pairs_accounted": true,
+  "original_84_bat_folds_accounted": true,
+  "source_data_set_ids_and_cell_identifiers_used_only_in_memory": true,
+  "no_plant_or_bat_sdm_fitted": true,
+  "M3_minus_M1_bat_auc": null,
+  "M3_minus_N1_bat_auc": null,
+  "summary": {
+    "original_fixed35_plant_country_pairs": 595,
+    "joint_source_disjoint_and_raster_valid_trainable_pairs": 592,
+    "joint_source_disjoint_and_raster_valid_stopped_pairs": 3,
+    "countries_with_all35_joint_source_raster_trainable": 14,
+    "original_source_only_35_partner_and_N1_and_bat_background_folds": 63,
+    "joint_source_raster_plus_bat_literature_N1_input_folds": 36,
+    "joint_bat_species_represented": 11,
+    "joint_bat_countries_represented": 10,
+    "no_fitted_plant_suitability_maps_or_ecological_bat_AUC": true
+  },
+  "per_country": [
+    {
+      "holdout_country": "AR",
+      "original_fixed_global35_plants": 35,
+      "joint_source_disjoint_raster_trainable_plants": 35,
+      "joint_source_disjoint_raster_untrainable_plants": 0,
+      "all35_joint_source_and_raster_training_input_qualified": true,
+      "source_country_original_dataset_keys_embargoed": 52
+    },
+    {
+      "holdout_country": "BR",
+      "original_fixed_global35_plants": 35,
+      "joint_source_disjoint_raster_trainable_plants": 35,
+      "joint_source_disjoint_raster_untrainable_plants": 0,
+      "all35_joint_source_and_raster_training_input_qualified": true,
+      "source_country_original_dataset_keys_embargoed": 259
+    },
+    {
+      "holdout_country": "BZ",
+      "original_fixed_global35_plants": 35,
+      "joint_source_disjoint_raster_trainable_plants": 35,
+      "joint_source_disjoint_raster_untrainable_plants": 0,
+      "all35_joint_source_and_raster_training_input_qualified": true,
+      "source_country_original_dataset_keys_embargoed": 24
+    },
+    {
+      "holdout_country": "CO",
+      "original_fixed_global35_plants": 35,
+      "joint_source_disjoint_raster_trainable_plants": 34,
+      "joint_source_disjoint_raster_untrainable_plants": 1,
+      "all35_joint_source_and_raster_training_input_qualified": false,
+      "source_country_original_dataset_keys_embargoed": 706
+    },
+    {
+      "holdout_country": "CR",
+      "original_fixed_global35_plants": 35,
+      "joint_source_disjoint_raster_trainable_plants": 35,
+      "joint_source_disjoint_raster_untrainable_plants": 0,
+      "all35_joint_source_and_raster_training_input_qualified": true,
+      "source_country_original_dataset_keys_embargoed": 56
+    },
+    {
+      "holdout_country": "DO",
+      "original_fixed_global35_plants": 35,
+      "joint_source_disjoint_raster_trainable_plants": 35,
+      "joint_source_disjoint_raster_untrainable_plants": 0,
+      "all35_joint_source_and_raster_training_input_qualified": true,
+      "source_country_original_dataset_keys_embargoed": 25
+    },
+    {
+      "holdout_country": "EC",
+      "original_fixed_global35_plants": 35,
+      "joint_source_disjoint_raster_trainable_plants": 34,
+      "joint_source_disjoint_raster_untrainable_plants": 1,
+      "all35_joint_source_and_raster_training_input_qualified": false,
+      "source_country_original_dataset_keys_embargoed": 61
+    },
+    {
+      "holdout_country": "GF",
+      "original_fixed_global35_plants": 35,
+      "joint_source_disjoint_raster_trainable_plants": 35,
+      "joint_source_disjoint_raster_untrainable_plants": 0,
+      "all35_joint_source_and_raster_training_input_qualified": true,
+      "source_country_original_dataset_keys_embargoed": 57
+    },
+    {
+      "holdout_country": "GT",
+      "original_fixed_global35_plants": 35,
+      "joint_source_disjoint_raster_trainable_plants": 35,
+      "joint_source_disjoint_raster_untrainable_plants": 0,
+      "all35_joint_source_and_raster_training_input_qualified": true,
+      "source_country_original_dataset_keys_embargoed": 24
+    },
+    {
+      "holdout_country": "HN",
+      "original_fixed_global35_plants": 35,
+      "joint_source_disjoint_raster_trainable_plants": 35,
+      "joint_source_disjoint_raster_untrainable_plants": 0,
+      "all35_joint_source_and_raster_training_input_qualified": true,
+      "source_country_original_dataset_keys_embargoed": 19
+    },
+    {
+      "holdout_country": "JM",
+      "original_fixed_global35_plants": 35,
+      "joint_source_disjoint_raster_trainable_plants": 35,
+      "joint_source_disjoint_raster_untrainable_plants": 0,
+      "all35_joint_source_and_raster_training_input_qualified": true,
+      "source_country_original_dataset_keys_embargoed": 16
+    },
+    {
+      "holdout_country": "MX",
+      "original_fixed_global35_plants": 35,
+      "joint_source_disjoint_raster_trainable_plants": 34,
+      "joint_source_disjoint_raster_untrainable_plants": 1,
+      "all35_joint_source_and_raster_training_input_qualified": false,
+      "source_country_original_dataset_keys_embargoed": 169
+    },
+    {
+      "holdout_country": "NI",
+      "original_fixed_global35_plants": 35,
+      "joint_source_disjoint_raster_trainable_plants": 35,
+      "joint_source_disjoint_raster_untrainable_plants": 0,
+      "all35_joint_source_and_raster_training_input_qualified": true,
+      "source_country_original_dataset_keys_embargoed": 19
+    },
+    {
+      "holdout_country": "PA",
+      "original_fixed_global35_plants": 35,
+      "joint_source_disjoint_raster_trainable_plants": 35,
+      "joint_source_disjoint_raster_untrainable_plants": 0,
+      "all35_joint_source_and_raster_training_input_qualified": true,
+      "source_country_original_dataset_keys_embargoed": 35
+    },
+    {
+      "holdout_country": "PE",
+      "original_fixed_global35_plants": 35,
+      "joint_source_disjoint_raster_trainable_plants": 35,
+      "joint_source_disjoint_raster_untrainable_plants": 0,
+      "all35_joint_source_and_raster_training_input_qualified": true,
+      "source_country_original_dataset_keys_embargoed": 52
+    },
+    {
+      "holdout_country": "PR",
+      "original_fixed_global35_plants": 35,
+      "joint_source_disjoint_raster_trainable_plants": 35,
+      "joint_source_disjoint_raster_untrainable_plants": 0,
+      "all35_joint_source_and_raster_training_input_qualified": true,
+      "source_country_original_dataset_keys_embargoed": 31
+    },
+    {
+      "holdout_country": "SV",
+      "original_fixed_global35_plants": 35,
+      "joint_source_disjoint_raster_trainable_plants": 35,
+      "joint_source_disjoint_raster_untrainable_plants": 0,
+      "all35_joint_source_and_raster_training_input_qualified": true,
+      "source_country_original_dataset_keys_embargoed": 20
+    }
+  ],
+  "original_plant_DOI": "10.15468/dl.xwc5zf",
+  "original_plant_ZIP_SHA256": "4275ed6b9847fa9fb81a9e353ec1b9de151592f7c369b19f6145129059726c8b",
+  "original_climate_ZIP_SHA256": "00513224583665ec0f2f955a4ec252730c4deb2004cce9e793492a3f26df4dcf",
+  "original_elevation_ZIP_SHA256": "6a9f4e9a37f289d594ed1567b63be344a4dacf247f0b69756e81df031087e3bd",
+  "prior_CO_fixed_three_training_counts_replayed_exactly": true,
+  "raw_source_dataset_keys_or_coordinates_or_pixels_persisted": false
+}
