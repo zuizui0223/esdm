@@ -1,0 +1,79 @@
+name: NeoBat full DOI precision-conditioned country resource input feasibility
+
+on:
+  push:
+    branches:
+      - design/neobat-trophic-sdm-phase1-20261119
+    paths:
+      - docs/replication/neobat/GBIF_FULL_RESOURCE_COUNTRY_INPUT_ONCE.txt
+
+permissions:
+  contents: write
+
+concurrency:
+  group: neobat-full-DOI-resource-country-once-20261119
+  cancel-in-progress: false
+
+jobs:
+  build_precision_conditioned_country_resource_source_gate:
+    if: github.event.head_commit.message == 'dispatch NeoBat full DOI precision source resource input gate once' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: design/neobat-trophic-sdm-phase1-20261119
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Require original complete DOI QC before source-network linking
+        run: |
+          set -euo pipefail
+          test "$(git hash-object docs/replication/neobat/gbif_full_source_qc_exit_code.txt)" = "573541ac9702dd3969c9bc859d2b91ec1f7e6e56"
+          python - <<'PY'
+          import json
+          p=json.load(open('docs/replication/neobat/gbif_full_source_qc.json'))
+          assert p['status']=='BOTH_COMPLETE_GBIF_SOURCE_QC_VERIFIED'
+          assert len(p['groups']['bat']['species_summary'])==26
+          assert len(p['groups']['plant']['species_summary'])==255
+          PY
+      - name: Synthetic reference-exclusion, full-cohort and no-outcome tests
+        run: |
+          python -m py_compile scripts/neobat_full_doi_resource_country_gate.py
+          python -m unittest discover -s tests -p 'test_neobat_full_doi_resource_country_gate.py' -v
+      - name: Rebuild source-country bat and fruit-plant input suitability gate
+        run: |
+          mkdir -p docs/replication/neobat
+          set +e
+          python -m scripts.neobat_full_doi_resource_country_gate \
+            --out docs/replication/neobat/gbif_precision_resource_country_gate.json
+          rc=$?
+          set -e
+          echo "$rc" > docs/replication/neobat/gbif_precision_resource_country_gate_exit_code.txt
+          echo "FULL_DOI_RESOURCE_COUNTRY_INPUT_EXIT=$rc"
+      - name: Upload aggregate source-country gate or explicit stop
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-full-DOI-precision-resource-country-input
+          path: |
+            docs/replication/neobat/gbif_precision_resource_country_gate.json
+            docs/replication/neobat/gbif_precision_resource_country_gate_exit_code.txt
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Commit only safe source-country aggregate
+        if: always()
+        run: |
+          set -euo pipefail
+          test -f docs/replication/neobat/gbif_precision_resource_country_gate.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/gbif_precision_resource_country_gate.json docs/replication/neobat/gbif_precision_resource_country_gate_exit_code.txt
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: full GBIF DOI bat and plant country source-input feasibility by uncertainty tier"
+            git pull --rebase origin design/neobat-trophic-sdm-phase1-20261119
+            git push origin HEAD:design/neobat-trophic-sdm-phase1-20261119
+          fi
+      - name: Do not claim success on terminal stop
+        run: |
+          test "$(cat docs/replication/neobat/gbif_precision_resource_country_gate_exit_code.txt)" = "0"
