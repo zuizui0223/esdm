@@ -1,0 +1,68 @@
+name: NeoBat known-truth synthetic M0/M1/M3/N1 model core gate
+
+on:
+  push:
+    branches:
+      - design/neobat-trophic-sdm-phase1-20261119
+    paths:
+      - .github/workflows/neobat-model-core-synthetic.yml
+
+permissions:
+  contents: write
+
+jobs:
+  synthetic_model_core_without_biological_data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: design/neobat-trophic-sdm-phase1-20261119
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install only pinned matrix dependency for this pure synthetic lane
+        run: |
+          python -m pip install 'numpy==2.2.6'
+      - name: Run all response-free core model and leakage tests
+        run: |
+          python -m py_compile scripts/neobat_model_comparison_core.py
+          python -m unittest discover -s tests -p 'test_neobat_model_comparison_core.py' -v
+      - name: Record one deterministic known-truth-only result
+        run: |
+          python - <<'PY'
+          import json, pathlib, runpy
+          import scripts.neobat_model_comparison_core as c
+          toy=runpy.run_path('tests/test_neobat_model_comparison_core.py')['toy']
+          rows,plants,links,manifest=toy()
+          result=c.compare_fold(rows,plants,links,manifest,'Testus frugivorus','BR',null_draws=19)
+          assert result['status']=='SYNTHETIC_ONLY'
+          assert result['rewire_draws']==19
+          assert result['GBIF_bat_DOI'] is None
+          assert result['causal_interaction_established'] is False
+          p=pathlib.Path('docs/replication/neobat/model_core_synthetic_result.json')
+          p.parent.mkdir(parents=True,exist_ok=True)
+          p.write_text(json.dumps(result,indent=2)+'\n')
+          print('MODEL_CORE_KNOWN_TRUTH_ONLY',result['status'],'M3-M1',result['heldout_M3_minus_M1'])
+          PY
+      - name: Preserve receipt but never confuse with a field-data result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-model-core-known-truth-synthetic
+          path: docs/replication/neobat/model_core_synthetic_result.json
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Save synthetic-only status on unmerged research branch
+        if: success()
+        run: |
+          set -euo pipefail
+          test -f docs/replication/neobat/model_core_synthetic_result.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/model_core_synthetic_result.json
+          if ! git diff --cached --quiet; then
+            git commit -m "test: known-truth M0 M1 M3 and N1 prediction core, not an ecological effect"
+            git pull --rebase origin design/neobat-trophic-sdm-phase1-20261119
+            git push origin HEAD:design/neobat-trophic-sdm-phase1-20261119
+          fi
