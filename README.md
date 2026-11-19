@@ -20,6 +20,24 @@ The repository name is historical/convenient. The project does **not** claim `ES
 
 ## Current scientific status
 
+### Barry camera and dog source linkage preflight (2026-11-19)
+
+The separate, response-blind Barry/Clare [B1 API screen](docs/replication/B1_BARRY_CLARE_PUBLIC_MANIFEST_OUTCOME.md)
+verified original Figshare/Dryad publisher metadata, with **zero biological rows**.
+Barry's official [Figshare archive](https://doi.org/10.6084/m9.figshare.16821361.v1)
+contains original camera-station, detector-dog and western Oregon grid CSVs.
+The follow-on [B2 exact-source CSV header audit](docs/replication/B2_BARRY_HEADER_OUTCOME.md)
+verified **all 3 file MD5s and sizes** and read only headers, not wildlife
+responses. Both camera and dog headers have a sample-unit key and
+ecoregion/province fields, making a spatial-geometry comparison *plausible*.
+Dog segments do **not** expose visit dates or durations in the source header,
+and shared unit values or overlap have not yet been checked. Thus this is
+**not** E5 G3/G4 qualification, a detector miss reference, a new field fit
+or a transferability result. Original E5 still **0/17 qualified**.
+All previously frozen empirical results are unchanged.
+
+
+
 ### D1 independently published camera detection-zone transfer (2026-11-19)
 
 A pre-response frozen detector-geometry transport attempt used Wiegers et al.'s

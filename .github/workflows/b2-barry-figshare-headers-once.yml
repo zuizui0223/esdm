@@ -1,0 +1,50 @@
+name: B2 Barry camera and dog original CSV headers once
+on:
+  pull_request:
+    types: [opened]
+    paths:
+      - 'docs/replication/B2_BARRY_FIGSHARE_HEADER_ONLY_FREEZE.md'
+      - 'scripts/barry_figshare_response_blind_headers.py'
+      - 'tests/test_barry_figshare_response_blind_headers.py'
+      - '.github/workflows/b2-barry-figshare-headers-once.yml'
+permissions:
+  contents: read
+jobs:
+  one_shot_header_only:
+    if: false # B2 original source consumed in successful run 44474758435; never read again
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Initialize source/transport stop before download
+        run: |
+          mkdir -p build/b2 source/b2
+          printf '%s\n' '{"schema_version":1,"status":"TRANSPORT_OR_SOURCE_STOP","animal_response_rows_parsed":0,"not_E5_qualified":true}' > build/b2/B2_BARRY_HEADER_RESULT.json
+      - name: Synthetic CSV and source-hash tests
+        run: |
+          python -m pip install 'pytest>=8'
+          python -m pytest -q tests/test_barry_figshare_response_blind_headers.py
+      - name: Download only three immutable original CSVs without retries
+        run: |
+          set -euo pipefail
+          curl --fail --location --connect-timeout 20 --max-time 240 --silent --show-error 'https://ndownloader.figshare.com/files/31117351' --output source/b2/CamStations_Ecosphere.csv
+          curl --fail --location --connect-timeout 20 --max-time 240 --silent --show-error 'https://ndownloader.figshare.com/files/31117348' --output source/b2/DogTracks_Ecosphere.csv
+          curl --fail --location --connect-timeout 20 --max-time 240 --silent --show-error 'https://ndownloader.figshare.com/files/31117429' --output source/b2/WestOR_grid_Ecosphere.csv
+      - name: Verify exact source bytes and parse CSV headers only
+        run: |
+          python -m scripts.barry_figshare_response_blind_headers \
+            --camera source/b2/CamStations_Ecosphere.csv \
+            --dog source/b2/DogTracks_Ecosphere.csv \
+            --grid source/b2/WestOR_grid_Ecosphere.csv \
+            --out build/b2/B2_BARRY_HEADER_RESULT.json
+      - name: Publish SHA256 and header names only, never animal rows
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: b2-barry-headers-${{ github.run_id }}
+          path: build/b2/B2_BARRY_HEADER_RESULT.json
+          if-no-files-found: error
+          retention-days: 90
