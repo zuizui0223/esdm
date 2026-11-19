@@ -1,4 +1,5 @@
 name: NeoBat check accepted GBIF download keys for DOI (read-only)
+# Explicitly retrigger by workflow-file edit: bot-produced receipts do not cascade push workflows.
 
 on:
   push:
@@ -6,6 +7,7 @@ on:
       - design/neobat-trophic-sdm-phase1-20261119
     paths:
       - docs/replication/neobat/gbif_download_submission.json
+      - .github/workflows/neobat-gbif-doi-status-poll.yml
 
 permissions:
   contents: write
