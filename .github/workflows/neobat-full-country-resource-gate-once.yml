@@ -1,0 +1,74 @@
+name: NeoBat complete DOI-source country resource input gate
+
+on:
+  push:
+    branches:
+      - design/neobat-trophic-sdm-phase1-20261119
+    paths:
+      - docs/replication/neobat/NEOBAT_FULL_COUNTRY_RESOURCE_ONCE.txt
+
+permissions:
+  contents: write
+
+concurrency:
+  group: neobat-doi-full-country-resource-once-20261119
+  cancel-in-progress: false
+
+jobs:
+  prefit_full_country_source_gate:
+    if: "${{ github.event.head_commit.message == 'dispatch NeoBat full DOI country source-resource input gate once' && github.run_attempt == 1 }}"
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: design/neobat-trophic-sdm-phase1-20261119
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify exact source QC identities and run synthetic tests
+        run: |
+          set -euo pipefail
+          test "$(git hash-object docs/replication/neobat/gbif_full_source_qc.json)" = "8faaf3fb0e5e840b7c28a05f51e16ec53d6fc855"
+          test "$(git hash-object docs/replication/neobat/gbif_full_source_qc_summary.json)" = "c848edea26bf070de22d3fb59e1bc76c072cc02c"
+          python -m py_compile scripts/neobat_full_source_country_resource_gate.py
+          python -m unittest discover -s tests -p 'test_neobat_full_source_country_resource_gate.py' -v
+      - name: Calculate full bat-country resource source gate
+        run: |
+          mkdir -p build/neobat
+          set +e
+          python -m scripts.neobat_full_source_country_resource_gate \
+            --out build/neobat/doi_country_resource_input.json \
+            --compact build/neobat/doi_country_resource_compact.json
+          code=$?
+          set -e
+          echo "$code" > build/neobat/doi_country_resource_exit_code.txt
+          echo "SOURCE_COUNTRY_INPUT_EXIT=$code"
+      - name: Archive raw-free results and stops
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-26x29-doi-source-resource-gate
+          path: build/neobat/
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Save aggregate source-only results on research branch
+        if: always()
+        run: |
+          set -euo pipefail
+          test -f build/neobat/doi_country_resource_input.json
+          mkdir -p docs/replication/neobat
+          cp build/neobat/doi_country_resource_input.json docs/replication/neobat/
+          cp build/neobat/doi_country_resource_compact.json docs/replication/neobat/
+          cp build/neobat/doi_country_resource_exit_code.txt docs/replication/neobat/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/doi_country_resource_input.json docs/replication/neobat/doi_country_resource_compact.json docs/replication/neobat/doi_country_resource_exit_code.txt
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: DOI full source country resource observability, no SDM effect"
+            git pull --rebase origin design/neobat-trophic-sdm-phase1-20261119
+            git push origin HEAD:design/neobat-trophic-sdm-phase1-20261119
+          fi
+      - name: Confirm all integrity and science gates executed
+        run: |
+          test "$(cat build/neobat/doi_country_resource_exit_code.txt)" = "0"
