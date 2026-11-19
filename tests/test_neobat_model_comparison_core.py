@@ -14,6 +14,7 @@ OTHER="Testus omnivorus"
 
 def toy():
     manifest={"synthetic":True,
+              "site_reference_embargo_by_holdout":{"BR":[]},
               "outer_holdout_regions":["BR"],
               "plant_universe":list(PLANTS)}
     rows=[]
@@ -100,9 +101,29 @@ class TestPredictiveCore(unittest.TestCase):
     def test_outcountry_publication_reference_exclusion(self):
         rows,plants,links,manifest=toy()
         links.append({"bat":OTHER,"plant":PLANTS[4],"ref_id":"R0","source_country":"BR"})
-        filtered,banned=m._training_links(links,"BR",set(PLANTS))
+        filtered,banned=m._training_links(links,"BR",set(PLANTS),["R0"])
         self.assertIn("R0",banned)
         self.assertNotIn("R0",{x["ref_id"] for x in filtered})
+
+    def test_holdout_entire_site_reference_embargo_is_required(self):
+        rows,plants,links,manifest=toy()
+        # A source reference from heldout BR may be absent from the fruit
+        # link table but present in the COMPLETE NeoBat Sites table.
+        links.append({"bat":BAT,"plant":PLANTS[0],
+                      "ref_id":"SHARED_HIDDEN_SITE","source_country":"MX"})
+        manifest["site_reference_embargo_by_holdout"]["BR"]=["SHARED_HIDDEN_SITE"]
+        filtered,banned=m._training_links(links,"BR",set(PLANTS),
+                                            manifest["site_reference_embargo_by_holdout"]["BR"])
+        self.assertIn("SHARED_HIDDEN_SITE",banned)
+        self.assertNotIn("SHARED_HIDDEN_SITE",{r["ref_id"] for r in filtered})
+        with self.assertRaisesRegex(m.QualificationStop,"NO_ORIGINAL_SITE_REFERENCE_EMBARGO"):
+            bad=deepcopy(manifest)
+            bad.pop("site_reference_embargo_by_holdout")
+            m.compare_fold(rows,plants,links,bad,BAT,"BR",null_draws=1)
+        missing=[{"bat":OTHER,"plant":PLANTS[4],
+                  "ref_id":"VISIBLE_BR","source_country":"BR"}]+links
+        with self.assertRaisesRegex(m.QualificationStop,"INCOMPLETE_SITE_REFERENCE_EMBARGO"):
+            m._training_links(missing,"BR",set(PLANTS),["SHARED_HIDDEN_SITE"])
 
     def test_real_model_requires_citable_255_rasters(self):
         rows,plants,links,manifest=toy()
