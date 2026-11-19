@@ -27,7 +27,7 @@ No claim of bitwise identity with the inaccessible Wiley ZIP / Zenodo archive. S
 
 ## 3. Candidate bat taxa (network-only, before GBIF eligibility)
 
-Source-only filter: species-level-looking bat and plant names, >=3 distinct fruit partner strings, >=2 independent `RefCode`, >=2 distinct countries with source sites. **31 candidate bats** meet these *network-only* conditions; no bat occurrence cross-check was performed.
+Source-only filter: species-level-looking bat and plant names, >=3 distinct fruit partner strings, >=2 independent `RefCode`, >=2 distinct countries with source sites. **31 candidate bats** meet the broad *fruit-use* conditions, but **26 candidates** meet the same network criteria **and** have all included records classified as `TrophicGuild=Frugivore` in this CSV. The 26 are the phase-1 primary-frugivore candidate roster; the other 5 remain sensitivity-only fruit consumers. No bat occurrence or accepted-name cross-check was performed.
 
 | Candidate | Fruit rows | Distinct linked plant strings | Independent references | Countries | Precise source sites |
 |---|---:|---:|---:|---:|---:|
@@ -46,7 +46,7 @@ This is **not a ranked post-hoc species selection**: all candidate taxa satisfyi
 - **Sites**: `SiteCode, RefCode, Country, Latitude, Longitude, Precision, YearStart, YearEnd, SamplingEffort, SamplingMethod, Ecoregion`; plus study and environmental metadata.
 - **References**: `RefCode, Author, Year, Reference`.
 
-Link `Records.SiteCode -> Sites.SiteCode`; `Records.RefCode -> References.RefCode`; also verify `Records.RefCode` agrees with the joined site `RefCode` rather than assuming it. Do not convert `Precision=Not precise` into a 25-km resolved point without uncertainty checks. Treat study/station/reference as correlated observational units.
+Link `Records.SiteCode -> Sites.SiteCode`; `Records.RefCode -> References.RefCode`; also verify `Records.RefCode` agrees with the joined site `RefCode` rather than assuming it. **Checked: 0 conflicting source RefCode joins among 1,931 fruit rows**. Do not convert `Precision=Not precise` into a 25-km resolved point without uncertainty checks. Treat study/station/reference as correlated observational units.
 
 ## 5. Current terminal stage
 
@@ -57,3 +57,7 @@ Link `Records.SiteCode -> Sites.SiteCode`; `Records.RefCode -> References.RefCod
 **Predictive ecological support: NOT EVALUATED.**
 
 Next executable gate: DOI-bearing bat and plant GBIF downloads with pinned snapshots, independent footprint and accepted-name crosswalk, coordinate quality and region/fold denominator *before* inspecting held-out performance. No promotion of esdm E4/E5 claims.
+
+## 6. Reproducible next gate (2026-11-19)
+
+The work branch contains `scripts/neobat_gbif_metadata_preflight.py`, `tests/test_neobat_gbif_metadata_preflight.py` and `.github/workflows/neobat-readonly-preflight.yml`. The isolated workflow is configured to verify immutable author-source Git blob SHA, issue read-only GBIF species-name and occurrence **count/facet requests**, and save aggregate receipts under `docs/replication/neobat/` if network/Actions permissions permit. It must never be interpreted as a DOI-bearing occurrence download, 25-km spatial-cell denominator, or performance result. The existence of this workflow does **not** imply that it has run successfully.
