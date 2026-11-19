@@ -1,13 +1,10 @@
 name: NeoBat 14-taxon bat+plant coordinate grid feasibility pilot
 
 on:
-  push:
-    branches:
-      - design/neobat-trophic-sdm-phase1-20261119
+  pull_request:
+    types: [synchronize]
     paths:
       - .github/workflows/neobat-spatial-cell-pilot.yml
-      - scripts/neobat_spatial_cell_pilot.py
-      - tests/test_neobat_spatial_cell_pilot.py
 
 permissions:
   contents: write
@@ -18,6 +15,7 @@ concurrency:
 
 jobs:
   bat_plant_spatial_cell_pilot:
+    if: github.event.pull_request.number == 244 && github.run_attempt == 1
     runs-on: ubuntu-latest
     timeout-minutes: 29
     steps:
