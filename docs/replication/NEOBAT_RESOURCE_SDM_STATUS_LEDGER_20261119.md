@@ -38,3 +38,11 @@
 - **D. Claim limit:** If and only if M3 improves heldout relative presence rank over M1 and source-matched nulls, support **predictive resource-link information**. Do not infer causal consumption, exact fruit resources or 3D niche mechanism from that improvement.
 
 **Repository policy:** `main` must not be changed or this pilot described as a confirmed trophic SDM paper before the DOI-backed independent forecast and observation-bias checks pass.
+
+## GBIF DOI request readiness — credential preflight (2026-11-19)
+
+- Structural request check: **PASS** for the pinned 26 numeric bat taxon keys and 255 strict-match plant taxon keys, year 2000–2025, geospatial predicate, and 29-country list. This is static validation only, **not** GBIF API acceptance; see `docs/replication/neobat/gbif_bulk_request_static_preflight.json`.
+- Isolated `esdm` Actions credential-presence check: **AUTH_CONFIG_INCOMPLETE**; all three names `GBIF_USERNAME` (or repository variable), `GBIF_PASSWORD`, and `GBIF_EMAIL` were absent in this repository's evaluated workflow environment. See `docs/replication/neobat/gbif_auth_presence.json`.
+- No credential values were printed, transmitted or stored by this check, no authentication attempt was made, and no GBIF request or DOI exists for NeoBat. Other repositories' secrets are not automatically accessible in `esdm`.
+- **Next user-only action:** configure the GBIF credentials as GitHub Actions secrets (or the username as a repo variable) for `zuizui0223/esdm`. Do not place credentials in this chat, source files, PR comments or public build logs.
+- Resume only after the prerequisite is met; then independently verify the GBIF taxonomy namespace, API request acceptance, user download quota, archive checksum, DOI and data provenance before opening unobserved country bat responses.
