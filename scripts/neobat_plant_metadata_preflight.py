@@ -64,7 +64,7 @@ def summarize(links,plant_rows):
               'links_with_two_country_plant_count_screen':sum(bb==b and p in allowed for bb,p in links)}
              for b in bats]
     status_counts=dict(Counter(r['status'] for r in plant_rows))
-    missing=sum(r['status']=='REMOTE_STOP' for r in plant_rows)
+    missing=sum(r['status'] in ('REMOTE_STOP','NOT_QUERIED_API_CIRCUIT_STOP') for r in plant_rows)
     return {'status':'GBIF_PLANT_METADATA_INCOMPLETE' if missing else 'GBIF_PLANT_METADATA_ONLY',
             'created_utc':datetime.now(timezone.utc).isoformat(),
             'bat_network_candidates':len(bats),'distinct_original_plant_name_strings':len(by),
@@ -92,12 +92,18 @@ def main():
         names=sorted({p for b,p in links})
         print('Plant name strings:',len(names),'bat-plant links:',len(links),flush=True)
         results=[]
+        consecutive_remote_stops=0
         for i,name in enumerate(names,1):
             try:
                 r=plant_lookup(name)
             except Exception as exc:
                 r={'plant':name,'status':'REMOTE_STOP','error':str(exc)[:220]}
             results.append(r)
+            consecutive_remote_stops=(consecutive_remote_stops+1) if r['status']=='REMOTE_STOP' else 0
+            if consecutive_remote_stops>=5:
+                results.extend({'plant':p,'status':'NOT_QUERIED_API_CIRCUIT_STOP'} for p in names[i:])
+                print('API_CIRCUIT_STOP after 5 consecutive errors; remaining named but not queried',flush=True)
+                break
             if i%20==0 or i==len(names):
                 counts=Counter(x['status'] for x in results)
                 print(f'PLANT {i}/{len(names)} status={dict(counts)}',flush=True)
