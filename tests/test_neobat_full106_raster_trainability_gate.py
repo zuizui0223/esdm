@@ -64,6 +64,7 @@ class TestFull106Trainability(unittest.TestCase):
     def test_original_79_bat_source_candidates_unchanged(self):
         a,b,c,d=fixture()
         d["folds"][80]["v2_106_plant_input_qualified"]=True
+        c["folds"][80]["quantity_qualified"]=True
         with self.assertRaisesRegex(ValueError,"PREVIOUS_79_BAT_FOLDS_INTERSECTION_DRIFT"):
             g.analyse(a,b,c,d)
 
