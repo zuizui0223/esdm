@@ -1,4 +1,5 @@
 name: NeoBat country-linked resource input preflight (source only)
+# One source-only proof-of-input run; no GBIF occurrence API calls or spatial model fitting.
 
 on:
   push:
