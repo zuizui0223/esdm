@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-19T13:08:59.485031+00:00",
+  "design": "docs/replication/NEOBAT_ABIOTIC_TERRAIN_FOREST_SOURCE_PREFLIGHT_FROZEN_20261119.md",
+  "status": "CLIMATE_AND_ELEVATION_SOURCE_GEOHEADERS_VERIFIED_FOREST_PILOT_DIAGNOSTIC",
+  "rasterio_version": "1.4.3",
+  "GBIF_bat_or_plant_occurrence_rows_opened": 0,
+  "plant_models_fitted": 0,
+  "M3_minus_M1_auc": null,
+  "M3_minus_N1_auc": null,
+  "worldclim_period": "1970-2000",
+  "ESA_worldcover_year": 2021,
+  "GBIF_occurrence_period": "2000-2025",
+  "not_annual_contemporaneous_resources": true,
+  "climate": {
+    "status": "PINNED_BIO1_BIO12_GEOHEADER_VERIFIED",
+    "source_url": "https://geodata.ucdavis.edu/climate/worldclim/2_1/base/wc2.1_10m_bio.zip",
+    "original_zip_sha256": "00513224583665ec0f2f955a4ec252730c4deb2004cce9e793492a3f26df4dcf",
+    "original_zip_size_bytes": 49869449,
+    "variables": {
+      "BIO1": {
+        "member": "wc2.1_10m_bio_1.tif",
+        "sha256": "f61633ffac9d44ed220442b3f7171a06f931726668bfbe9d07d53700b257d8cf",
+        "width": 2160,
+        "height": 1080,
+        "band_count": 1,
+        "crs": "EPSG:4326",
+        "transform": [
+          0.16666666666666666,
+          0.0,
+          -180.0,
+          0.0,
+          -0.16666666666666666,
+          90.0
+        ],
+        "nodata": -3.3999999521443642e+38,
+        "data_type": "float32",
+        "band_scale": 1.0,
+        "band_offset": 0.0,
+        "units": null,
+        "bounds": [
+          -180.0,
+          -90.0,
+          180.0,
+          90.0
+        ],
+        "band_tags": {
+          "STATISTICS_MAXIMUM": "30.987640380859",
+          "STATISTICS_MEAN": "nan",
+          "STATISTICS_MINIMUM": "-54.724353790283",
+          "STATISTICS_STDDEV": "nan"
+        }
+      },
+      "BIO12": {
+        "member": "wc2.1_10m_bio_12.tif",
+        "sha256": "1e823e951ace0186c6eadd7368b4d0385c8f51cc952282c0f2d640bf7790fea5",
+        "width": 2160,
+        "height": 1080,
+        "band_count": 1,
+        "crs": "EPSG:4326",
+        "transform": [
+          0.16666666666666666,
+          0.0,
+          -180.0,
+          0.0,
+          -0.16666666666666666,
+          90.0
+        ],
+        "nodata": -3.3999999521443642e+38,
+        "data_type": "float32",
+        "band_scale": 1.0,
+        "band_offset": 0.0,
+        "units": null,
+        "bounds": [
+          -180.0,
+          -90.0,
+          180.0,
+          90.0
+        ],
+        "band_tags": {
+          "STATISTICS_MAXIMUM": "11191",
+          "STATISTICS_MEAN": "nan",
+          "STATISTICS_MINIMUM": "0",
+          "STATISTICS_STDDEV": "nan"
+        }
+      }
+    }
+  },
+  "terrain": {
+    "status": "ELEVATION_TWO_IDENTICAL_ORIGINAL_DOWNLOADS_GEOHEADER_VERIFIED",
+    "source_url": "https://geodata.ucdavis.edu/climate/worldclim/2_1/base/wc2.1_10m_elev.zip",
+    "download_count": 2,
+    "source_zip_sha256": "6a9f4e9a37f289d594ed1567b63be344a4dacf247f0b69756e81df031087e3bd",
+    "source_zip_size_bytes": 1332437,
+    "source_tiff_sha256": "b89becfdece8b61f4c28ea779e4a979d6729672dd99e870c8732026d5a9823aa",
+    "source_member": "wc2.1_10m_elev.tif",
+    "metadata": {
+      "width": 2160,
+      "height": 1080,
+      "crs": "EPSG:4326",
+      "band_count": 1,
+      "transform": [
+        0.16666666666666666,
+        0.0,
+        -180.0,
+        0.0,
+        -0.16666666666666666,
+        90.0
+      ],
+      "nodata": -32768.0,
+      "dtype": "int16",
+      "units": null,
+      "bounds": [
+        -180.0,
+        -90.0,
+        180.0,
+        90.0
+      ]
+    },
+    "topographic_ruggedness_not_measured": true
+  },
+  "forest_tile_probe": {
+    "status": "ONE_ESA_WORLDCOVER_TILE_TIFF_RANGE_ACCESS_VERIFIED",
+    "product": "ESA WorldCover 2021 v200 10m class 10 tree cover",
+    "tile_url": "https://esa-worldcover.s3.eu-central-1.amazonaws.com/v200/2021/map/ESA_WorldCover_10m_2021_v200_N03W075_Map.tif",
+    "tile_id": "N03W075",
+    "full_17_country_forest_coverage_verified": false,
+    "forest_cell_fraction_estimated": false,
+    "http_head_status": 200,
+    "content_length": "96344211",
+    "etag": "\"a94e50f1ba76f1cf796f166027a1d2ca-12\"",
+    "http_range_status": 206,
+    "content_range": "bytes 0-16383/96344211"
+  }
+}
