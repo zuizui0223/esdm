@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-19T11:44:39.271443+00:00",
+  "status": "WORLDCLIM_SOURCE_STOP",
+  "url": "https://geodata.ucdavis.edu/climate/worldclim/2_1/base/wc2.1_10m_bio.zip",
+  "expected_archive_sha256": "00513224583665ec0f2f955a4ec252730c4deb2004cce9e793492a3f26df4dcf",
+  "worldclim_reference_period": "1970-2000",
+  "GBIF_bat_or_plant_rows_opened": 0,
+  "SDM_fits": 0,
+  "actual_source_sha256": "00513224583665ec0f2f955a4ec252730c4deb2004cce9e793492a3f26df4dcf",
+  "archive_size_bytes": 49869449,
+  "error_type": "RuntimeError",
+  "error_code": "WORLDCLIM_FROZEN_BIO12_MISMATCH"
+}
