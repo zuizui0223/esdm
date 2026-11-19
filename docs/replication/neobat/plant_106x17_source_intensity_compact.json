@@ -1,0 +1,904 @@
+{
+  "schema_version": 1,
+  "status": "EXPLORATORY_106x17_SOURCE_MATCHED_INTENSITY_DIAGNOSTIC_COMPLETE",
+  "created_utc": "2026-11-19T14:08:06.074745+00:00",
+  "design": "docs/replication/NEOBAT_106x17_SOURCE_INTENSITY_FULL_DIAGNOSTIC_FROZEN_20261119.md",
+  "GBIF_plant_original_DOI": "10.15468/dl.xwc5zf",
+  "GBIF_plant_original_zip_sha256": "4275ed6b9847fa9fb81a9e353ec1b9de151592f7c369b19f6145129059726c8b",
+  "frozen_106_plant_universe_sha256": "41c9fc0128df6d0f3753edf4b82f6b5b36c6975c8d7c644bae4e4fd3e5bdaac6",
+  "source_18_hundred_pairs_replayed": true,
+  "raster_source": {
+    "climate_zip_sha256": "00513224583665ec0f2f955a4ec252730c4deb2004cce9e793492a3f26df4dcf",
+    "elevation_zip_sha256": "6a9f4e9a37f289d594ed1567b63be344a4dacf247f0b69756e81df031087e3bd",
+    "sample_resolution": "WorldClim v2.1 10arcmin",
+    "climate_baseline": "1970-2000",
+    "elevation_is_not_ruggedness": true
+  },
+  "unique_raster_cell_source_centers_sampled_in_memory_only": 6066,
+  "original_3_sentinel_CO_model_AUC_and_cells_exactly_replayed": true,
+  "not_independent_holdout_and_not_deployable_suitability": true,
+  "source_derived_intensity_computed_from_test_country_records": true,
+  "original_locations_datasetIDs_and_percell_predictions_written": false,
+  "bat_M3_minus_M1_auc": null,
+  "bat_M3_minus_N1_auc": null,
+  "summary": {
+    "all_predeclared_species_country_pairs": 1802,
+    "source_and_model_fit_eligible": 647,
+    "source_or_raster_stopped": 1155,
+    "all_species": 106,
+    "all_holdout_countries": 17,
+    "countries_with_any_successful_fit": 17,
+    "fraction_with_positive_added_abiotic_delta": 0.6692426584234931,
+    "fraction_intensity_only_auc_gt_abiotic_only": 0.8222565687789799,
+    "pair_weighted_mean_added_abiotic_delta": 0.029723539953091314,
+    "equal_country_mean_added_abiotic_delta": 0.025391309167408036,
+    "countries_with_mean_delta_gt_0": 15,
+    "countries_with_mean_delta_lt_0": 2,
+    "exact_intensity_conditional_auc_coverage_median": 0.04508856682769726,
+    "conditional_auc_is_not_full_test_distribution": true,
+    "equal_country_averages_not_independent_new_regions": true,
+    "per_country": [
+      {
+        "country": "AR",
+        "original_plants": 106,
+        "fitted": 20,
+        "source_or_raster_stops": 86,
+        "mean_delta_abiotic_beyond_intensity": -0.00978484926209168,
+        "mean_auc_source_intensity_only": 0.756262747848708,
+        "mean_auc_abiotic_only": 0.6009637956459224
+      },
+      {
+        "country": "BR",
+        "original_plants": 106,
+        "fitted": 63,
+        "source_or_raster_stops": 43,
+        "mean_delta_abiotic_beyond_intensity": 0.03646055690192288,
+        "mean_auc_source_intensity_only": 0.8003753200436743,
+        "mean_auc_abiotic_only": 0.6171734671868281
+      },
+      {
+        "country": "BZ",
+        "original_plants": 106,
+        "fitted": 18,
+        "source_or_raster_stops": 88,
+        "mean_delta_abiotic_beyond_intensity": 0.016448736406877093,
+        "mean_auc_source_intensity_only": 0.7109178175215736,
+        "mean_auc_abiotic_only": 0.5859632011364573
+      },
+      {
+        "country": "CO",
+        "original_plants": 106,
+        "fitted": 87,
+        "source_or_raster_stops": 19,
+        "mean_delta_abiotic_beyond_intensity": 0.028536131837944716,
+        "mean_auc_source_intensity_only": 0.7747244122168752,
+        "mean_auc_abiotic_only": 0.5994737449199521
+      },
+      {
+        "country": "CR",
+        "original_plants": 106,
+        "fitted": 59,
+        "source_or_raster_stops": 47,
+        "mean_delta_abiotic_beyond_intensity": 0.042767341167182754,
+        "mean_auc_source_intensity_only": 0.7606770774839284,
+        "mean_auc_abiotic_only": 0.630780435245817
+      },
+      {
+        "country": "DO",
+        "original_plants": 106,
+        "fitted": 38,
+        "source_or_raster_stops": 68,
+        "mean_delta_abiotic_beyond_intensity": 0.026622842816306197,
+        "mean_auc_source_intensity_only": 0.7698103639830728,
+        "mean_auc_abiotic_only": 0.601133377283482
+      },
+      {
+        "country": "EC",
+        "original_plants": 106,
+        "fitted": 55,
+        "source_or_raster_stops": 51,
+        "mean_delta_abiotic_beyond_intensity": 0.052663819482289174,
+        "mean_auc_source_intensity_only": 0.7132534878356377,
+        "mean_auc_abiotic_only": 0.6313232789657984
+      },
+      {
+        "country": "GF",
+        "original_plants": 106,
+        "fitted": 27,
+        "source_or_raster_stops": 79,
+        "mean_delta_abiotic_beyond_intensity": -0.0030271155582001796,
+        "mean_auc_source_intensity_only": 0.7979851604101412,
+        "mean_auc_abiotic_only": 0.5421611590373845
+      },
+      {
+        "country": "GT",
+        "original_plants": 106,
+        "fitted": 25,
+        "source_or_raster_stops": 81,
+        "mean_delta_abiotic_beyond_intensity": 0.04562507343603036,
+        "mean_auc_source_intensity_only": 0.7152386595792266,
+        "mean_auc_abiotic_only": 0.6201076622835242
+      },
+      {
+        "country": "HN",
+        "original_plants": 106,
+        "fitted": 23,
+        "source_or_raster_stops": 83,
+        "mean_delta_abiotic_beyond_intensity": 0.024175978158389184,
+        "mean_auc_source_intensity_only": 0.7886647477570743,
+        "mean_auc_abiotic_only": 0.5828548370910448
+      },
+      {
+        "country": "JM",
+        "original_plants": 106,
+        "fitted": 13,
+        "source_or_raster_stops": 93,
+        "mean_delta_abiotic_beyond_intensity": 0.009210659481557295,
+        "mean_auc_source_intensity_only": 0.7773053340509878,
+        "mean_auc_abiotic_only": 0.5619395670747183
+      },
+      {
+        "country": "MX",
+        "original_plants": 106,
+        "fitted": 70,
+        "source_or_raster_stops": 36,
+        "mean_delta_abiotic_beyond_intensity": 0.023288379551189876,
+        "mean_auc_source_intensity_only": 0.7873779787130954,
+        "mean_auc_abiotic_only": 0.6548815625137014
+      },
+      {
+        "country": "NI",
+        "original_plants": 106,
+        "fitted": 11,
+        "source_or_raster_stops": 95,
+        "mean_delta_abiotic_beyond_intensity": 0.007244165450515417,
+        "mean_auc_source_intensity_only": 0.79730800943215,
+        "mean_auc_abiotic_only": 0.5020396983631716
+      },
+      {
+        "country": "PA",
+        "original_plants": 106,
+        "fitted": 51,
+        "source_or_raster_stops": 55,
+        "mean_delta_abiotic_beyond_intensity": 0.014563906770664539,
+        "mean_auc_source_intensity_only": 0.8193731961373467,
+        "mean_auc_abiotic_only": 0.5981322933515344
+      },
+      {
+        "country": "PE",
+        "original_plants": 106,
+        "fitted": 32,
+        "source_or_raster_stops": 74,
+        "mean_delta_abiotic_beyond_intensity": 0.08939418993289497,
+        "mean_auc_source_intensity_only": 0.7388059075168272,
+        "mean_auc_abiotic_only": 0.6712434770430046
+      },
+      {
+        "country": "PR",
+        "original_plants": 106,
+        "fitted": 32,
+        "source_or_raster_stops": 74,
+        "mean_delta_abiotic_beyond_intensity": 0.02667529952686202,
+        "mean_auc_source_intensity_only": 0.7718354995698745,
+        "mean_auc_abiotic_only": 0.612246412441725
+      },
+      {
+        "country": "SV",
+        "original_plants": 106,
+        "fitted": 23,
+        "source_or_raster_stops": 83,
+        "mean_delta_abiotic_beyond_intensity": 0.0007871397456020289,
+        "mean_auc_source_intensity_only": 0.7311094138554634,
+        "mean_auc_abiotic_only": 0.5291922044762157
+      }
+    ],
+    "per_species": [
+      {
+        "plant": "Acacia collinsii",
+        "original_countries": 17,
+        "fitted": 3,
+        "mean_delta_abiotic_beyond_intensity": 0.06580658420705339
+      },
+      {
+        "plant": "Acnistus arborescens",
+        "original_countries": 17,
+        "fitted": 6,
+        "mean_delta_abiotic_beyond_intensity": 0.0707149253327496
+      },
+      {
+        "plant": "Aechmea tillandsioides",
+        "original_countries": 17,
+        "fitted": 7,
+        "mean_delta_abiotic_beyond_intensity": 0.10628161794691882
+      },
+      {
+        "plant": "Anacardium excelsum",
+        "original_countries": 17,
+        "fitted": 3,
+        "mean_delta_abiotic_beyond_intensity": -0.008699412609664928
+      },
+      {
+        "plant": "Andira inermis",
+        "original_countries": 17,
+        "fitted": 5,
+        "mean_delta_abiotic_beyond_intensity": 0.06447098058320715
+      },
+      {
+        "plant": "Annona muricata",
+        "original_countries": 17,
+        "fitted": 11,
+        "mean_delta_abiotic_beyond_intensity": -0.005710810268914276
+      },
+      {
+        "plant": "Annona squamosa",
+        "original_countries": 17,
+        "fitted": 9,
+        "mean_delta_abiotic_beyond_intensity": 0.05194265189517474
+      },
+      {
+        "plant": "Brosimum alicastrum",
+        "original_countries": 17,
+        "fitted": 6,
+        "mean_delta_abiotic_beyond_intensity": 0.0464855007682655
+      },
+      {
+        "plant": "Byrsonima spicata",
+        "original_countries": 17,
+        "fitted": 3,
+        "mean_delta_abiotic_beyond_intensity": 0.028361303032355695
+      },
+      {
+        "plant": "Calophyllum brasiliense",
+        "original_countries": 17,
+        "fitted": 5,
+        "mean_delta_abiotic_beyond_intensity": 0.02079824473211438
+      },
+      {
+        "plant": "Capsicum annuum",
+        "original_countries": 17,
+        "fitted": 11,
+        "mean_delta_abiotic_beyond_intensity": -0.002735554126153167
+      },
+      {
+        "plant": "Carica papaya",
+        "original_countries": 17,
+        "fitted": 16,
+        "mean_delta_abiotic_beyond_intensity": 0.007325966467344611
+      },
+      {
+        "plant": "Carludovica palmata",
+        "original_countries": 17,
+        "fitted": 7,
+        "mean_delta_abiotic_beyond_intensity": 0.05882932965439992
+      },
+      {
+        "plant": "Cecropia angustifolia",
+        "original_countries": 17,
+        "fitted": 3,
+        "mean_delta_abiotic_beyond_intensity": 0.01556124626790134
+      },
+      {
+        "plant": "Cecropia ficifolia",
+        "original_countries": 17,
+        "fitted": 1,
+        "mean_delta_abiotic_beyond_intensity": 0.11996268656716425
+      },
+      {
+        "plant": "Cecropia insignis",
+        "original_countries": 17,
+        "fitted": 4,
+        "mean_delta_abiotic_beyond_intensity": 0.0042491250374955825
+      },
+      {
+        "plant": "Cecropia membranacea",
+        "original_countries": 17,
+        "fitted": 4,
+        "mean_delta_abiotic_beyond_intensity": 0.2850355286130307
+      },
+      {
+        "plant": "Cecropia obtusifolia",
+        "original_countries": 17,
+        "fitted": 8,
+        "mean_delta_abiotic_beyond_intensity": 0.008794563879644099
+      },
+      {
+        "plant": "Cecropia pachystachya",
+        "original_countries": 17,
+        "fitted": 2,
+        "mean_delta_abiotic_beyond_intensity": -0.13300259351253768
+      },
+      {
+        "plant": "Cecropia peltata",
+        "original_countries": 17,
+        "fitted": 9,
+        "mean_delta_abiotic_beyond_intensity": -0.004134761798059124
+      },
+      {
+        "plant": "Cecropia schreberiana",
+        "original_countries": 17,
+        "fitted": 2,
+        "mean_delta_abiotic_beyond_intensity": 0.012302875695732851
+      },
+      {
+        "plant": "Cecropia sciadophylla",
+        "original_countries": 17,
+        "fitted": 5,
+        "mean_delta_abiotic_beyond_intensity": 0.16283024324581624
+      },
+      {
+        "plant": "Celtis iguanaea",
+        "original_countries": 17,
+        "fitted": 3,
+        "mean_delta_abiotic_beyond_intensity": 0.020659809874830664
+      },
+      {
+        "plant": "Cereus hexagonus",
+        "original_countries": 17,
+        "fitted": 2,
+        "mean_delta_abiotic_beyond_intensity": 0.142613849658904
+      },
+      {
+        "plant": "Chrysobalanus icaco",
+        "original_countries": 17,
+        "fitted": 12,
+        "mean_delta_abiotic_beyond_intensity": 0.09603787594288038
+      },
+      {
+        "plant": "Chrysophyllum cainito",
+        "original_countries": 17,
+        "fitted": 8,
+        "mean_delta_abiotic_beyond_intensity": -0.012572769655940258
+      },
+      {
+        "plant": "Chrysophyllum oliviforme",
+        "original_countries": 17,
+        "fitted": 2,
+        "mean_delta_abiotic_beyond_intensity": 0.03030303030303033
+      },
+      {
+        "plant": "Clarisia biflora",
+        "original_countries": 17,
+        "fitted": 3,
+        "mean_delta_abiotic_beyond_intensity": -0.026626032409614402
+      },
+      {
+        "plant": "Clidemia octona",
+        "original_countries": 17,
+        "fitted": 4,
+        "mean_delta_abiotic_beyond_intensity": -0.0021677081715046065
+      },
+      {
+        "plant": "Coccoloba uvifera",
+        "original_countries": 17,
+        "fitted": 11,
+        "mean_delta_abiotic_beyond_intensity": 0.11685629752215577
+      },
+      {
+        "plant": "Cordia collococca",
+        "original_countries": 17,
+        "fitted": 2,
+        "mean_delta_abiotic_beyond_intensity": 0.1632121953026599
+      },
+      {
+        "plant": "Cyathula prostrata",
+        "original_countries": 17,
+        "fitted": 4,
+        "mean_delta_abiotic_beyond_intensity": 0.021851985652913047
+      },
+      {
+        "plant": "Eriobotrya japonica",
+        "original_countries": 17,
+        "fitted": 11,
+        "mean_delta_abiotic_beyond_intensity": 0.12637466228988148
+      },
+      {
+        "plant": "Eugenia uniflora",
+        "original_countries": 17,
+        "fitted": 11,
+        "mean_delta_abiotic_beyond_intensity": -0.0120089774527977
+      },
+      {
+        "plant": "Ficus aurea",
+        "original_countries": 17,
+        "fitted": 2,
+        "mean_delta_abiotic_beyond_intensity": -0.018073517132267902
+      },
+      {
+        "plant": "Ficus benjamina",
+        "original_countries": 17,
+        "fitted": 6,
+        "mean_delta_abiotic_beyond_intensity": 0.02619624202893524
+      },
+      {
+        "plant": "Ficus citrifolia",
+        "original_countries": 17,
+        "fitted": 5,
+        "mean_delta_abiotic_beyond_intensity": -0.022580819625690318
+      },
+      {
+        "plant": "Ficus crocata",
+        "original_countries": 17,
+        "fitted": 1,
+        "mean_delta_abiotic_beyond_intensity": 0.023544973544973535
+      },
+      {
+        "plant": "Ficus insipida",
+        "original_countries": 17,
+        "fitted": 7,
+        "mean_delta_abiotic_beyond_intensity": -0.008173871669924606
+      },
+      {
+        "plant": "Ficus luschnathiana",
+        "original_countries": 17,
+        "fitted": 2,
+        "mean_delta_abiotic_beyond_intensity": -0.045583437239313684
+      },
+      {
+        "plant": "Ficus maxima",
+        "original_countries": 17,
+        "fitted": 4,
+        "mean_delta_abiotic_beyond_intensity": -0.009617164376762938
+      },
+      {
+        "plant": "Ficus microcarpa",
+        "original_countries": 17,
+        "fitted": 3,
+        "mean_delta_abiotic_beyond_intensity": 0.012106293073876525
+      },
+      {
+        "plant": "Ficus nymphaeifolia",
+        "original_countries": 17,
+        "fitted": 4,
+        "mean_delta_abiotic_beyond_intensity": 0.035549394267970075
+      },
+      {
+        "plant": "Ficus obtusifolia",
+        "original_countries": 17,
+        "fitted": 7,
+        "mean_delta_abiotic_beyond_intensity": 0.0005425074777929735
+      },
+      {
+        "plant": "Ficus pertusa",
+        "original_countries": 17,
+        "fitted": 7,
+        "mean_delta_abiotic_beyond_intensity": -0.02668585034694431
+      },
+      {
+        "plant": "Ficus tonduzii",
+        "original_countries": 17,
+        "fitted": 3,
+        "mean_delta_abiotic_beyond_intensity": -0.007741736758706079
+      },
+      {
+        "plant": "Hylocereus lemairei",
+        "original_countries": 17,
+        "fitted": 3,
+        "mean_delta_abiotic_beyond_intensity": 0.015900018290657274
+      },
+      {
+        "plant": "Licania arborea",
+        "original_countries": 17,
+        "fitted": 3,
+        "mean_delta_abiotic_beyond_intensity": 0.20518866436306185
+      },
+      {
+        "plant": "Maclura tinctoria",
+        "original_countries": 17,
+        "fitted": 6,
+        "mean_delta_abiotic_beyond_intensity": 0.05403549041924888
+      },
+      {
+        "plant": "Malpighia glabra",
+        "original_countries": 17,
+        "fitted": 5,
+        "mean_delta_abiotic_beyond_intensity": -0.02835179292238832
+      },
+      {
+        "plant": "Mammea americana",
+        "original_countries": 17,
+        "fitted": 4,
+        "mean_delta_abiotic_beyond_intensity": -0.049529160515695086
+      },
+      {
+        "plant": "Mangifera indica",
+        "original_countries": 17,
+        "fitted": 16,
+        "mean_delta_abiotic_beyond_intensity": 0.007457001341057319
+      },
+      {
+        "plant": "Manilkara zapota",
+        "original_countries": 17,
+        "fitted": 10,
+        "mean_delta_abiotic_beyond_intensity": 0.0301835939808884
+      },
+      {
+        "plant": "Melicoccus bijugatus",
+        "original_countries": 17,
+        "fitted": 6,
+        "mean_delta_abiotic_beyond_intensity": 0.03272737917392273
+      },
+      {
+        "plant": "Muntingia calabura",
+        "original_countries": 17,
+        "fitted": 13,
+        "mean_delta_abiotic_beyond_intensity": 0.028852031769832667
+      },
+      {
+        "plant": "Musa paradisiaca",
+        "original_countries": 17,
+        "fitted": 17,
+        "mean_delta_abiotic_beyond_intensity": -0.0027672570214930005
+      },
+      {
+        "plant": "Passiflora quadrangularis",
+        "original_countries": 17,
+        "fitted": 6,
+        "mean_delta_abiotic_beyond_intensity": -0.0307289356812754
+      },
+      {
+        "plant": "Persea americana",
+        "original_countries": 17,
+        "fitted": 14,
+        "mean_delta_abiotic_beyond_intensity": 0.026793764264885445
+      },
+      {
+        "plant": "Physalis angulata",
+        "original_countries": 17,
+        "fitted": 10,
+        "mean_delta_abiotic_beyond_intensity": 0.013490948101245159
+      },
+      {
+        "plant": "Phytolacca rivinoides",
+        "original_countries": 17,
+        "fitted": 12,
+        "mean_delta_abiotic_beyond_intensity": 0.0462556013637364
+      },
+      {
+        "plant": "Piper aduncum",
+        "original_countries": 17,
+        "fitted": 11,
+        "mean_delta_abiotic_beyond_intensity": -0.013019409667125902
+      },
+      {
+        "plant": "Piper amalago",
+        "original_countries": 17,
+        "fitted": 7,
+        "mean_delta_abiotic_beyond_intensity": 0.0019721980401252726
+      },
+      {
+        "plant": "Piper arboreum",
+        "original_countries": 17,
+        "fitted": 4,
+        "mean_delta_abiotic_beyond_intensity": 0.02453109013864388
+      },
+      {
+        "plant": "Piper auritum",
+        "original_countries": 17,
+        "fitted": 8,
+        "mean_delta_abiotic_beyond_intensity": 0.0031588380371362496
+      },
+      {
+        "plant": "Piper hispidum",
+        "original_countries": 17,
+        "fitted": 5,
+        "mean_delta_abiotic_beyond_intensity": 0.021876705567422494
+      },
+      {
+        "plant": "Piper jacquemontianum",
+        "original_countries": 17,
+        "fitted": 2,
+        "mean_delta_abiotic_beyond_intensity": 0.06458413062890667
+      },
+      {
+        "plant": "Piper marginatum",
+        "original_countries": 17,
+        "fitted": 10,
+        "mean_delta_abiotic_beyond_intensity": -0.012304551417938769
+      },
+      {
+        "plant": "Piper obliquum",
+        "original_countries": 17,
+        "fitted": 3,
+        "mean_delta_abiotic_beyond_intensity": 0.050663172119155754
+      },
+      {
+        "plant": "Piper peltatum",
+        "original_countries": 17,
+        "fitted": 10,
+        "mean_delta_abiotic_beyond_intensity": 0.03909609225053371
+      },
+      {
+        "plant": "Piper tuberculatum",
+        "original_countries": 17,
+        "fitted": 4,
+        "mean_delta_abiotic_beyond_intensity": 0.023339930867039588
+      },
+      {
+        "plant": "Piper umbellatum",
+        "original_countries": 17,
+        "fitted": 12,
+        "mean_delta_abiotic_beyond_intensity": 0.028189396888748785
+      },
+      {
+        "plant": "Plinia cauliflora",
+        "original_countries": 17,
+        "fitted": 4,
+        "mean_delta_abiotic_beyond_intensity": -0.04056035788557019
+      },
+      {
+        "plant": "Poulsenia armata",
+        "original_countries": 17,
+        "fitted": 3,
+        "mean_delta_abiotic_beyond_intensity": 0.016812009674088135
+      },
+      {
+        "plant": "Pouteria sapota",
+        "original_countries": 17,
+        "fitted": 6,
+        "mean_delta_abiotic_beyond_intensity": -0.003991385201510304
+      },
+      {
+        "plant": "Prunus persica",
+        "original_countries": 17,
+        "fitted": 7,
+        "mean_delta_abiotic_beyond_intensity": 0.23810089550491537
+      },
+      {
+        "plant": "Psidium guajava",
+        "original_countries": 17,
+        "fitted": 15,
+        "mean_delta_abiotic_beyond_intensity": 0.009458723121637092
+      },
+      {
+        "plant": "Psidium guineense",
+        "original_countries": 17,
+        "fitted": 7,
+        "mean_delta_abiotic_beyond_intensity": -0.0006663380656035667
+      },
+      {
+        "plant": "Roystonea oleracea",
+        "original_countries": 17,
+        "fitted": 1,
+        "mean_delta_abiotic_beyond_intensity": -0.02437810945273644
+      },
+      {
+        "plant": "Sapindus saponaria",
+        "original_countries": 17,
+        "fitted": 7,
+        "mean_delta_abiotic_beyond_intensity": 0.044258048758116196
+      },
+      {
+        "plant": "Sideroxylon foetidissimum",
+        "original_countries": 17,
+        "fitted": 2,
+        "mean_delta_abiotic_beyond_intensity": 0.13214285714285717
+      },
+      {
+        "plant": "Socratea exorrhiza",
+        "original_countries": 17,
+        "fitted": 7,
+        "mean_delta_abiotic_beyond_intensity": 0.11873484383090806
+      },
+      {
+        "plant": "Solanum americanum",
+        "original_countries": 17,
+        "fitted": 13,
+        "mean_delta_abiotic_beyond_intensity": 0.022012244480073037
+      },
+      {
+        "plant": "Solanum aphyodendron",
+        "original_countries": 17,
+        "fitted": 2,
+        "mean_delta_abiotic_beyond_intensity": 0.04905599661971638
+      },
+      {
+        "plant": "Solanum asperolanatum",
+        "original_countries": 17,
+        "fitted": 2,
+        "mean_delta_abiotic_beyond_intensity": 0.32493422467856964
+      },
+      {
+        "plant": "Solanum erianthum",
+        "original_countries": 17,
+        "fitted": 1,
+        "mean_delta_abiotic_beyond_intensity": -0.1421435582298468
+      },
+      {
+        "plant": "Solanum hirtum",
+        "original_countries": 17,
+        "fitted": 2,
+        "mean_delta_abiotic_beyond_intensity": -0.05611736687500579
+      },
+      {
+        "plant": "Solanum jamaicense",
+        "original_countries": 17,
+        "fitted": 4,
+        "mean_delta_abiotic_beyond_intensity": 0.016301438518887323
+      },
+      {
+        "plant": "Solanum quitoense",
+        "original_countries": 17,
+        "fitted": 9,
+        "mean_delta_abiotic_beyond_intensity": 0.10367428640818303
+      },
+      {
+        "plant": "Solanum subinerme",
+        "original_countries": 17,
+        "fitted": 4,
+        "mean_delta_abiotic_beyond_intensity": -0.06630163648201981
+      },
+      {
+        "plant": "Solanum torvum",
+        "original_countries": 17,
+        "fitted": 11,
+        "mean_delta_abiotic_beyond_intensity": -0.0068845590836988935
+      },
+      {
+        "plant": "Solanum umbellatum",
+        "original_countries": 17,
+        "fitted": 4,
+        "mean_delta_abiotic_beyond_intensity": 0.01314734983127383
+      },
+      {
+        "plant": "Spondias dulcis",
+        "original_countries": 17,
+        "fitted": 2,
+        "mean_delta_abiotic_beyond_intensity": -0.009871085539087665
+      },
+      {
+        "plant": "Spondias mombin",
+        "original_countries": 17,
+        "fitted": 8,
+        "mean_delta_abiotic_beyond_intensity": 0.037892910194563714
+      },
+      {
+        "plant": "Stenocereus griseus",
+        "original_countries": 17,
+        "fitted": 0,
+        "mean_delta_abiotic_beyond_intensity": null
+      },
+      {
+        "plant": "Syagrus romanzoffiana",
+        "original_countries": 17,
+        "fitted": 3,
+        "mean_delta_abiotic_beyond_intensity": -0.030309286979527655
+      },
+      {
+        "plant": "Syzygium cumini",
+        "original_countries": 17,
+        "fitted": 7,
+        "mean_delta_abiotic_beyond_intensity": 0.02374289530007886
+      },
+      {
+        "plant": "Syzygium jambos",
+        "original_countries": 17,
+        "fitted": 9,
+        "mean_delta_abiotic_beyond_intensity": 0.007533937867054129
+      },
+      {
+        "plant": "Syzygium malaccense",
+        "original_countries": 17,
+        "fitted": 12,
+        "mean_delta_abiotic_beyond_intensity": 0.011808177603014067
+      },
+      {
+        "plant": "Terminalia catappa",
+        "original_countries": 17,
+        "fitted": 15,
+        "mean_delta_abiotic_beyond_intensity": 0.03177323822933023
+      },
+      {
+        "plant": "Thoracocarpus bissectus",
+        "original_countries": 17,
+        "fitted": 3,
+        "mean_delta_abiotic_beyond_intensity": 0.07054700386135608
+      },
+      {
+        "plant": "Turpinia occidentalis",
+        "original_countries": 17,
+        "fitted": 5,
+        "mean_delta_abiotic_beyond_intensity": 0.05793744945096735
+      },
+      {
+        "plant": "Vassobia breviflora",
+        "original_countries": 17,
+        "fitted": 2,
+        "mean_delta_abiotic_beyond_intensity": -0.20170482329832537
+      },
+      {
+        "plant": "Vismia baccifera",
+        "original_countries": 17,
+        "fitted": 5,
+        "mean_delta_abiotic_beyond_intensity": 0.03302751250286355
+      },
+      {
+        "plant": "Vismia guianensis",
+        "original_countries": 17,
+        "fitted": 3,
+        "mean_delta_abiotic_beyond_intensity": 0.03464938064141435
+      },
+      {
+        "plant": "Vismia macrophylla",
+        "original_countries": 17,
+        "fitted": 3,
+        "mean_delta_abiotic_beyond_intensity": 0.03963732814452022
+      },
+      {
+        "plant": "Vitis vinifera",
+        "original_countries": 17,
+        "fitted": 4,
+        "mean_delta_abiotic_beyond_intensity": 0.1237661866007278
+      }
+    ],
+    "leave_one_country_out_mean_deltas": [
+      {
+        "country_removed": "AR",
+        "equal_other_country_mean_delta": 0.02758981906925177
+      },
+      {
+        "country_removed": "BR",
+        "equal_other_country_mean_delta": 0.02469948118400086
+      },
+      {
+        "country_removed": "BZ",
+        "equal_other_country_mean_delta": 0.02595021996494122
+      },
+      {
+        "country_removed": "CO",
+        "equal_other_country_mean_delta": 0.025194757750499494
+      },
+      {
+        "country_removed": "CR",
+        "equal_other_country_mean_delta": 0.024305307167422116
+      },
+      {
+        "country_removed": "DO",
+        "equal_other_country_mean_delta": 0.025314338314351904
+      },
+      {
+        "country_removed": "EC",
+        "equal_other_country_mean_delta": 0.023686777272727968
+      },
+      {
+        "country_removed": "GF",
+        "equal_other_country_mean_delta": 0.02716746071275855
+      },
+      {
+        "country_removed": "GT",
+        "equal_other_country_mean_delta": 0.024126698900619144
+      },
+      {
+        "country_removed": "HN",
+        "equal_other_country_mean_delta": 0.025467267355471716
+      },
+      {
+        "country_removed": "JM",
+        "equal_other_country_mean_delta": 0.02640259977277371
+      },
+      {
+        "country_removed": "MX",
+        "equal_other_country_mean_delta": 0.02552274226842167
+      },
+      {
+        "country_removed": "NI",
+        "equal_other_country_mean_delta": 0.026525505649713826
+      },
+      {
+        "country_removed": "PA",
+        "equal_other_country_mean_delta": 0.026068021817204506
+      },
+      {
+        "country_removed": "PE",
+        "equal_other_country_mean_delta": 0.021391129119565103
+      },
+      {
+        "country_removed": "PR",
+        "equal_other_country_mean_delta": 0.025311059769942162
+      },
+      {
+        "country_removed": "SV",
+        "equal_other_country_mean_delta": 0.026929069756270914
+      }
+    ]
+  }
+}
