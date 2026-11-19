@@ -1,4 +1,5 @@
 name: NeoBat known-truth synthetic M0/M1/M3/N1 model core gate
+# Corrected known-truth: environmental features are balanced between presences and target background.
 
 on:
   push:
@@ -40,6 +41,9 @@ jobs:
           assert result['rewire_draws']==19
           assert result['GBIF_bat_DOI'] is None
           assert result['causal_interaction_established'] is False
+          assert result['presence_rank_auc']['M0'] == 0.5
+          assert result['presence_rank_auc']['M1'] == 0.5
+          assert result['heldout_M3_minus_M1'] >= 0.4
           p=pathlib.Path('docs/replication/neobat/model_core_synthetic_result.json')
           p.parent.mkdir(parents=True,exist_ok=True)
           p.write_text(json.dumps(result,indent=2)+'\n')
