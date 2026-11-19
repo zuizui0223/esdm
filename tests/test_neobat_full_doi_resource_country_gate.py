@@ -36,10 +36,10 @@ def full_source():
 
 def sites():
     return [
-        {"Country":"BR","SiteCode":"A","RefCode":"H"},
-        {"Country":"CR","SiteCode":"B","RefCode":"R1"},
-        {"Country":"MX","SiteCode":"C","RefCode":"R2"},
-        {"Country":"CO","SiteCode":"D","RefCode":"R3"}
+        {"Country":"Brazil","SiteCode":"A","RefCode":"H"},
+        {"Country":"Costa Rica","SiteCode":"B","RefCode":"R1"},
+        {"Country":"Mexico","SiteCode":"C","RefCode":"R2"},
+        {"Country":"Colombia","SiteCode":"D","RefCode":"R3"}
     ]
 
 def records():
@@ -68,7 +68,7 @@ class TestFullDOIResourceGate(unittest.TestCase):
         self.assertFalse(result["species_country_cell_cooccurrence_tested"])
 
     def test_ref_with_heldout_country_site_excluded_even_if_link_is_elsewhere(self):
-        s=sites()+[{"Country":"BR","SiteCode":"E","RefCode":"R1"}]
+        s=sites()+[{"Country":"Brazil","SiteCode":"E","RefCode":"R1"}]
         with patch.object(g.neobat,"audit",side_effect=mocked_audit):
             result=g.build(full_source(),records(),s,[{"RefCode":"R1"}])
         br=result["modes"]["strict"]["all_26_bats"][0]["country_records"][0]
