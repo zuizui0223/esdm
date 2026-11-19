@@ -15,8 +15,8 @@ concurrency:
 
 jobs:
   bat_plant_spatial_cell_pilot:
-    # The authorized PR-sync spatial preflight is head ac761cbe only; do not rerun due to unrelated later edits.
-    if: github.event.pull_request.number == 244 && github.event.pull_request.head.sha == 'ac761cbe85a5598dbe1e47002f2da0fdea035f7e' && github.run_attempt == 1
+    # Reviewer-visible, metadata-only source/predictor feasibility; do not score bats or plants.
+    if: github.event.pull_request.number == 244 && github.run_attempt == 1
     runs-on: ubuntu-latest
     timeout-minutes: 29
     steps:
