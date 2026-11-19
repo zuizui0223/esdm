@@ -1,0 +1,44 @@
+name: NeoBat full fixed-106 plant raster-eligible source training coverage
+
+on:
+  push:
+    branches:
+      - analysis/neobat-full106-raster-trainability-gate-20261119
+    paths:
+      - .github/workflows/neobat-full106-raster-trainability.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+jobs:
+  aggregate_original_plant_source_trainability:
+    if: github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: analysis/neobat-full106-raster-trainability-gate-20261119
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run source-free synthetic 106 species across all countries tests
+        run: |
+          test -f docs/replication/NEOBAT_FULL106_RASTER_TRAINABILITY_FROZEN_20261119.md
+          python -m py_compile scripts/neobat_full106_raster_trainability_gate.py
+          python -m unittest discover -s tests -p 'test_neobat_full106_raster_trainability_gate.py' -v
+      - name: Qualify all 1802 plant source training counts after original raster no-data
+        run: |
+          python -m scripts.neobat_full106_raster_trainability_gate \
+            --out docs/replication/neobat/full106_raster_trainability_gate.json
+      - name: Commit aggregate-only input readiness, preserve original stopped species
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/full106_raster_trainability_gate.json
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: full fixed106 per-country training viability after original source raster nodata"
+            git pull --rebase origin analysis/neobat-full106-raster-trainability-gate-20261119
+            git push origin HEAD:analysis/neobat-full106-raster-trainability-gate-20261119
+          fi
