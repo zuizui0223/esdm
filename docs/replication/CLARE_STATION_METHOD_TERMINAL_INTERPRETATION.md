@@ -1,0 +1,14 @@
+# Clare 2017 camera × snow tracks: terminal original-source transport refusal
+
+**2026-11-19. Not an ecological null; no biological result calculated.** Original source-backed [Actions run 44477943475](https://github.com/zuizui0223/esdm/actions/runs/44477943475) is the only authorized response-opening attempt under [the frozen analysis design](CLARE_TWO_METHOD_WITHIN_STATION_NULL_FROZEN_DESIGN.md). The source DOI and version were verified from the official Dryad public dataset API: `doi:10.5061/dryad.4mt00`, `versionNumber=1`. The prescribed dataset-version ZIP `https://datadryad.org/api/v2/datasets/doi%3A10.5061%2Fdryad.4mt00/download` returned **HTTP 401**. The fetch step failed with curl exit code 22, **before** `MartenOccupancyEncounters.csv` or any animal/station response was opened.
+
+The synthetic support/analysis tests succeeded **15/15** during the same original run. The pre-initialized truthful terminal receipt was uploaded unchanged:
+- [Original Actions artifact 14507227341](https://github.com/zuizui0223/esdm/actions/runs/44477943475/artifacts/14507227341).
+- Original artifact ZIP SHA256 `1bba415669108f989ff8b482d9a2973beb32ce12c1567ee5bacea270b5f8df57`, length 298 bytes.
+- Original inner JSON SHA256 `66b2f0d7a95bc17a7965ede5de1710bfaeeb06ef189c0301df90f4890d0aa6cb`, length 135 bytes. It is archived **byte-for-byte**, including its trailing newline, at [CLARE_STATION_METHOD_FROZEN_RESULT.json](CLARE_STATION_METHOD_FROZEN_RESULT.json).
+
+Original JSON: `{"schema_version":1,"status":"TRANSPORT_OR_SOURCE_STOP","original_E5_qualified_count_unchanged":0,"biological_effect_evaluated":false}`. **No** empirical camera/track counts, `Delta`, bootstrap uncertainty or positive/negative direction exists. This is an access restriction for the specific endpoint/time, not proof the published dataset has no public files, and not a negative ecological result.
+
+**No response-informed rescue:** The [pre-response frozen design](CLARE_TWO_METHOD_WITHIN_STATION_NULL_FROZEN_DESIGN.md) explicitly forbade changing source URL/using mirrors or reruns after a transport/source stop. Therefore no attempt to retrieve single files through another Dryad API, GitHub mirror or personal credentials is authorized under this frozen study. The one-shot workflow has been permanently retired with `if:false`. Future original-source tests require a *genuinely different* question/dataset with an independently frozen contract; do not relabel a same-outcome retrieval as new independent biological replication.
+
+This does **not** change prior Safari14 recorded sorting, C1 negative heldout incremental environmental signal, C2/C3/D1 technical stops, original v0.4-R5b/E4/E7 inference, or standard E5 **0/17 G4-qualified** status. Any future independent camera/track analysis must distinguish method co-detections from an externally verified true animal-passage denominator.
