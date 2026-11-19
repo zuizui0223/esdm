@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "status": "EXTERNAL_BCI_DRYAD_METADATA_SOURCE_STOP",
+  "error_type": "RuntimeError",
+  "error_code": "DRYAD_FILE_ID_NOT_PUBLIC_INT",
+  "original_Dryad_dataset_DOI": "doi:10.5061/dryad.1g1jwsvc3",
+  "biological_plant_rows_or_plot_coordinates_read": false,
+  "real_M3_minus_M1_bat_auc": null
+}
