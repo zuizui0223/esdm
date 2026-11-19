@@ -11,7 +11,7 @@ permissions:
   contents: read
 jobs:
   metadata_only_support:
-    if: github.event.action == 'opened' && github.event.pull_request.head.ref == 'analysis/b3-barry-region-method-geometry-20261119' && github.run_attempt == 1
+    if: false # B3 source metadata opened once in run 44476110681; permanently retired
     runs-on: ubuntu-latest
     timeout-minutes: 18
     steps:
