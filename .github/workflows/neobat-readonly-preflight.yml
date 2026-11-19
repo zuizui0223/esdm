@@ -58,5 +58,6 @@ jobs:
           git add docs/replication/neobat
           if ! git diff --cached --quiet; then
             git commit -m "evidence: store NeoBat source/GBIF count-only receipts"
+            git pull --rebase origin "$GITHUB_REF_NAME"
             git push origin "HEAD:$GITHUB_REF_NAME"
           fi
