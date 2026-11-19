@@ -9,6 +9,7 @@ from collections import Counter, defaultdict
 import json
 import math
 import time
+from functools import lru_cache
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.error import HTTPError
@@ -91,12 +92,16 @@ def label_precision(v):
         return "missing"
 
 
+@lru_cache(maxsize=1)
+def equal_area_transformer():
+    from pyproj import Transformer  # optional runtime dependency for the spatial workflow
+    return Transformer.from_crs("EPSG:4326", "EPSG:6933", always_xy=True)
+
+
 def spatial_grid(lon,lat):
     if not (math.isfinite(lon) and math.isfinite(lat) and -180<=lon<=180 and -90<=lat<=90):
         return None
-    from pyproj import Transformer  # optional runtime dependency for the spatial workflow
-    transformer=Transformer.from_crs("EPSG:4326", "EPSG:6933", always_xy=True)
-    x,y=transformer.transform(lon,lat)
+    x,y=equal_area_transformer().transform(lon,lat)
     if not (math.isfinite(x) and math.isfinite(y)):
         return None
     return ((math.floor(x/25000),math.floor(y/25000)),
