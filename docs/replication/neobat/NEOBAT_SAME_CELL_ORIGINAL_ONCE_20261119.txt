@@ -1,0 +1,1 @@
+Frozen DOI 25km source support v1. User-authorized one-shot discovery audit. The frozen design and source-free regression are already committed; do not resubmit GBIF download requests, alter the 84-fold roster, or export any coordinate.
