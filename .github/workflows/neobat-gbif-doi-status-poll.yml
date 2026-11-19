@@ -1,0 +1,58 @@
+name: NeoBat check accepted GBIF download keys for DOI (read-only)
+
+on:
+  push:
+    branches:
+      - design/neobat-trophic-sdm-phase1-20261119
+    paths:
+      - docs/replication/neobat/gbif_download_submission.json
+
+permissions:
+  contents: write
+
+jobs:
+  poll_previously_accepted_downloads:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test no POST and no false DOI promotion
+        run: |
+          python -m py_compile scripts/neobat_poll_gbif_doi_downloads.py
+          python -m unittest discover -s tests -p 'test_neobat_poll_gbif_doi_downloads.py' -v
+      - name: Query GBIF public status for the accepted keys, never POST
+        run: |
+          set +e
+          python -m scripts.neobat_poll_gbif_doi_downloads \
+            --input docs/replication/neobat/gbif_download_submission.json \
+            --out docs/replication/neobat/gbif_download_doi_poll.json
+          rc=$?
+          set -e
+          echo "$rc" > docs/replication/neobat/gbif_download_doi_poll_exit_code.txt
+          echo "NEOBAT_GBIF_DOI_POLL_EXIT=$rc"
+      - name: Preserve public-source statuses, no credentials
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-gbif-public-doi-poll
+          path: |
+            docs/replication/neobat/gbif_download_doi_poll.json
+            docs/replication/neobat/gbif_download_doi_poll_exit_code.txt
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Commit status receipt in research branch
+        if: always()
+        run: |
+          set -euo pipefail
+          test -f docs/replication/neobat/gbif_download_doi_poll.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/gbif_download_doi_poll.json docs/replication/neobat/gbif_download_doi_poll_exit_code.txt
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: poll previously accepted NeoBat GBIF DOI states without resubmitting"
+            git pull --rebase origin design/neobat-trophic-sdm-phase1-20261119
+            git push origin HEAD:design/neobat-trophic-sdm-phase1-20261119
+          fi
