@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "status": "EXPLORATORY_ORIGINAL_106x17_PLANT_SOURCE_EFFORT_TRANSFER_COMPLETE",
+  "created_utc": "2026-11-19T14:00:34.573949+00:00",
+  "frozen_design": "docs/replication/NEOBAT_106x17_PLANT_SOURCE_EFFORT_TRANSFER_FROZEN_20261119.md",
+  "original_plant_GBIF_DOI": "10.15468/dl.xwc5zf",
+  "original_plant_ZIP_SHA256": "4275ed6b9847fa9fb81a9e353ec1b9de151592f7c369b19f6145129059726c8b",
+  "WorldClim_climate_ZIP_SHA256": "00513224583665ec0f2f955a4ec252730c4deb2004cce9e793492a3f26df4dcf",
+  "WorldClim_elevation_ZIP_SHA256": "6a9f4e9a37f289d594ed1567b63be344a4dacf247f0b69756e81df031087e3bd",
+  "frozen_106_species_universe_sha256": "41c9fc0128df6d0f3753edf4b82f6b5b36c6975c8d7c644bae4e4fd3e5bdaac6",
+  "original_1802_species_country_pairs_unmodified": true,
+  "previous_3sentinel_CO_AUCs_exactly_replayed": true,
+  "discovery_source_previously_opened_not_confirmatory": true,
+  "same_dataset_source_matching_not_detection_effort": true,
+  "rank_AUC_is_target_group_source_recording_not_plant_occupancy": true,
+  "no_bat_M1_M3_N1_ecological_fit": true,
+  "M3_minus_M1_bat_auc": null,
+  "M3_minus_N1_bat_auc": null,
+  "no_raw_coords_pixels_per_cell_scores_or_GBIF_datasetIDs_saved": true,
+  "summary": {
+    "fixed_full_cohort_pair_denominator": 1802,
+    "source_matched_plant_country_rank_AUC_measured": 647,
+    "source_or_nodata_quantity_STOP_pairs": 1155,
+    "eligible_original_plant_species": 105,
+    "eligible_original_holdout_countries": 17,
+    "per_plantcountry_equal_delta_AUC_mean": 0.029723539953091314,
+    "per_country_equal_delta_AUC_mean": 0.02539130916740804,
+    "per_species_equal_delta_AUC_mean": 0.03008669377109421,
+    "country_cluster_bootstrap_2000_percentile_interval": [
+      0.015343917180763913,
+      0.037333213008680796
+    ],
+    "leave_one_country_out_country_equal_mean_range": [
+      0.021391129119565106,
+      0.02758981906925177
+    ],
+    "proportion_eligible_folds_abiotic_addition_positive": 0.6692426584234931,
+    "proportion_eligible_folds_abiotic_addition_gt_0p02": 0.45131375579598143,
+    "proportion_eligible_folds_abiotic_addition_lt_minus0p02": 0.15301391035548687,
+    "country_cluster_interval_is_exploratory_same_source_not_independent_studies": true,
+    "per_country": [
+      {
+        "country": "AR",
+        "original_fixed_plants": 106,
+        "heldout_scored_plants": 20,
+        "country_equal_plant_delta_AUC_mean": -0.00978484926209168
+      },
+      {
+        "country": "BR",
+        "original_fixed_plants": 106,
+        "heldout_scored_plants": 63,
+        "country_equal_plant_delta_AUC_mean": 0.03646055690192288
+      },
+      {
+        "country": "BZ",
+        "original_fixed_plants": 106,
+        "heldout_scored_plants": 18,
+        "country_equal_plant_delta_AUC_mean": 0.016448736406877093
+      },
+      {
+        "country": "CO",
+        "original_fixed_plants": 106,
+        "heldout_scored_plants": 87,
+        "country_equal_plant_delta_AUC_mean": 0.028536131837944716
+      },
+      {
+        "country": "CR",
+        "original_fixed_plants": 106,
+        "heldout_scored_plants": 59,
+        "country_equal_plant_delta_AUC_mean": 0.042767341167182754
+      },
+      {
+        "country": "DO",
+        "original_fixed_plants": 106,
+        "heldout_scored_plants": 38,
+        "country_equal_plant_delta_AUC_mean": 0.026622842816306197
+      },
+      {
+        "country": "EC",
+        "original_fixed_plants": 106,
+        "heldout_scored_plants": 55,
+        "country_equal_plant_delta_AUC_mean": 0.052663819482289174
+      },
+      {
+        "country": "GF",
+        "original_fixed_plants": 106,
+        "heldout_scored_plants": 27,
+        "country_equal_plant_delta_AUC_mean": -0.0030271155582001796
+      },
+      {
+        "country": "GT",
+        "original_fixed_plants": 106,
+        "heldout_scored_plants": 25,
+        "country_equal_plant_delta_AUC_mean": 0.04562507343603036
+      },
+      {
+        "country": "HN",
+        "original_fixed_plants": 106,
+        "heldout_scored_plants": 23,
+        "country_equal_plant_delta_AUC_mean": 0.024175978158389184
+      },
+      {
+        "country": "JM",
+        "original_fixed_plants": 106,
+        "heldout_scored_plants": 13,
+        "country_equal_plant_delta_AUC_mean": 0.009210659481557295
+      },
+      {
+        "country": "MX",
+        "original_fixed_plants": 106,
+        "heldout_scored_plants": 70,
+        "country_equal_plant_delta_AUC_mean": 0.023288379551189876
+      },
+      {
+        "country": "NI",
+        "original_fixed_plants": 106,
+        "heldout_scored_plants": 11,
+        "country_equal_plant_delta_AUC_mean": 0.007244165450515417
+      },
+      {
+        "country": "PA",
+        "original_fixed_plants": 106,
+        "heldout_scored_plants": 51,
+        "country_equal_plant_delta_AUC_mean": 0.014563906770664539
+      },
+      {
+        "country": "PE",
+        "original_fixed_plants": 106,
+        "heldout_scored_plants": 32,
+        "country_equal_plant_delta_AUC_mean": 0.08939418993289497
+      },
+      {
+        "country": "PR",
+        "original_fixed_plants": 106,
+        "heldout_scored_plants": 32,
+        "country_equal_plant_delta_AUC_mean": 0.02667529952686202
+      },
+      {
+        "country": "SV",
+        "original_fixed_plants": 106,
+        "heldout_scored_plants": 23,
+        "country_equal_plant_delta_AUC_mean": 0.0007871397456020289
+      }
+    ],
+    "original_3sentinel_Colombia_source_matched_model_replays": 3
+  }
+}
