@@ -1,0 +1,5 @@
+{
+  "status": "SOURCE_STOP",
+  "error": "'utf-8' codec can't decode byte 0xa0 in position 32665: invalid start byte",
+  "ecological_result": null
+}
