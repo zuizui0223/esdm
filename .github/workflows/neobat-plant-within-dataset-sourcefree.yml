@@ -1,0 +1,25 @@
+name: NeoBat within datasetKey 106x17 source-free tests
+on:
+  push:
+    branches:
+      - analysis/neobat-plant-within-dataset-source-gate-20261119
+    paths:
+      - scripts/neobat_plant_within_dataset_source_gate.py
+      - tests/test_neobat_plant_within_dataset_source_gate.py
+      - .github/workflows/neobat-plant-within-dataset-sourcefree.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  sourcefree:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile and verify exact-source and 1802-pair denominator rules
+        run: |
+          python -m py_compile scripts/neobat_plant_within_dataset_source_gate.py
+          python -m unittest discover -s tests -p 'test_neobat_plant_within_dataset_source_gate.py' -v
