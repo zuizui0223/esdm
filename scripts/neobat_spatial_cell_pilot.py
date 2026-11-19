@@ -15,7 +15,6 @@ from urllib.error import HTTPError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
-from pyproj import Transformer
 
 BATS = (
     "Carollia perspicillata", "Artibeus lituratus",
@@ -35,7 +34,6 @@ PARAMS = {
     "hasCoordinate":"true", "hasGeospatialIssue":"false", "year":"2000,2025",
     "occurrenceStatus":"PRESENT", "limit":300
 }
-TRANS = Transformer.from_crs("EPSG:4326", "EPSG:6933", always_xy=True)
 
 
 def gbif_get(params: dict) -> dict:
@@ -96,7 +94,9 @@ def label_precision(v):
 def spatial_grid(lon,lat):
     if not (math.isfinite(lon) and math.isfinite(lat) and -180<=lon<=180 and -90<=lat<=90):
         return None
-    x,y=TRANS.transform(lon,lat)
+    from pyproj import Transformer  # optional runtime dependency for the spatial workflow
+    transformer=Transformer.from_crs("EPSG:4326", "EPSG:6933", always_xy=True)
+    x,y=transformer.transform(lon,lat)
     if not (math.isfinite(x) and math.isfinite(y)):
         return None
     return ((math.floor(x/25000),math.floor(y/25000)),
