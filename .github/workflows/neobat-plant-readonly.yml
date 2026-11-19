@@ -1,0 +1,61 @@
+name: NeoBat fruit-partner GBIF count-only preflight
+
+on:
+  push:
+    branches:
+      - design/neobat-trophic-sdm-phase1-20261119
+    paths:
+      - .github/workflows/neobat-plant-readonly.yml
+
+permissions:
+  contents: write
+
+jobs:
+  plant_metadata:
+    if: github.ref == 'refs/heads/design/neobat-trophic-sdm-phase1-20261119'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    concurrency:
+      group: neobat-plant-metadata-20261119
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Synthetic-only source and API observability unit tests
+        run: |
+          python -m py_compile scripts/neobat_gbif_metadata_preflight.py scripts/neobat_plant_metadata_preflight.py
+          python -m unittest discover -s tests -p 'test_neobat_plant_metadata_preflight.py' -v
+      - name: Query all primary-candidate plant names with read-only GBIF metadata API
+        run: |
+          mkdir -p build/neobat
+          set +e
+          python scripts/neobat_plant_metadata_preflight.py --out build/neobat/plant_search_preflight.json
+          status=$?
+          set -e
+          echo "$status" > build/neobat/plant_search_exit_code.txt
+          echo "Plant metadata terminal code: $status"
+      - name: Archive metadata or explicit terminal stop
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-plant-gbif-metadata
+          path: build/neobat/
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Save aggregate plant preflight to isolated design branch
+        if: success()
+        run: |
+          set -euo pipefail
+          mkdir -p docs/replication/neobat
+          cp build/neobat/plant_search_preflight.json docs/replication/neobat/
+          cp build/neobat/plant_search_exit_code.txt docs/replication/neobat/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: NeoBat all-plant GBIF metadata feasibility receipt"
+            git pull --rebase origin "$GITHUB_REF_NAME"
+            git push origin "HEAD:$GITHUB_REF_NAME"
+          fi
