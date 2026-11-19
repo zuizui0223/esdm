@@ -41,10 +41,13 @@ def conditional_auc(labels,scores,effort_n,*,binned):
     from scripts.neobat_model_comparison_core import rank_auc
     grouped=defaultdict(list)
     for lab,score,n in zip(labels,scores,effort_n):
+        # sklearn supplies numpy.int64 labels: export only native Python
+        # numeric scalars so source-derived pair counts can be JSON-encoded.
+        lab,score,n=int(lab),float(score),int(n)
         if lab not in (0,1) or not math.isfinite(score) or n<1:
             raise ValueError("CONDITIONAL_NONFINITE_OR_INVALID_TARGETGROUP")
         grouped[bin_group(n) if binned else n].append((lab,score))
-    np=sum(labels); nb=len(labels)-np
+    np=sum(int(y) for y in labels); nb=len(labels)-np
     if np<1 or nb<1:raise ValueError("CONDITIONAL_BOTH_CLASSES_REQUIRED")
     totpairs=np*nb
     available=0; numerator=0.0
