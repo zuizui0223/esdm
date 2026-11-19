@@ -258,6 +258,8 @@ def evaluate(plant_cells,rasters,countries,holdouts,names,source_ref):
                 result=known_truth_score(tr,te)
                 row.update(result)
                 row["status"]=STATUS_FITTED
+            if row["status"]==STATUS_FITTED and not gate["source_matched_heldout_scoring_quantity_qualified"]:
+                raise RuntimeError("FITTED_FOLD_OUTSIDE_FROZEN_677_SOURCE_GATE")
             if holdout=="CO" and plant in co_lookup:
                 # The prior 3-sentinel case is a frozen external
                 # implementation regression, not a new heldout dataset.
