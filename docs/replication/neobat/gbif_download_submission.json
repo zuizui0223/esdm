@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "status": "BOTH_DOWNLOADS_REQUESTED",
+  "created_utc": "2026-11-19T07:11:57.805074+00:00",
+  "source": "GBIF occurrence/download/request",
+  "taxonomy_namespace": "legacy GBIF Backbone (default for species/match and download)",
+  "DOI_downloads_requested": [
+    "bat",
+    "plant"
+  ],
+  "download_keys": {
+    "bat": "0001156-261118162104854",
+    "plant": "0001157-261118162104854"
+  },
+  "request_sha256": {
+    "bat": "d388e03be2bf421d4962216b8d298ecb6628d73b5653685e4a19265fbb551063",
+    "plant": "3945556f2144ed1f0e3e460c9401abc75a3b5c65004f78aa4178cd9bca6efb14"
+  },
+  "download_metadata": {
+    "bat": {
+      "key": "0001156-261118162104854",
+      "status": "PREPARING",
+      "doi": null,
+      "downloadLink": "https://api.gbif.org/v1/occurrence/download/request/0001156-261118162104854.zip",
+      "created": "2026-11-19T07:11:59.405+00:00",
+      "modified": "2026-11-19T07:11:59.405+00:00",
+      "totalRecords": 85912,
+      "size": 0,
+      "numberDatasets": 0
+    },
+    "plant": {
+      "key": "0001157-261118162104854",
+      "status": "PREPARING",
+      "doi": null,
+      "downloadLink": "https://api.gbif.org/v1/occurrence/download/request/0001157-261118162104854.zip",
+      "created": "2026-11-19T07:12:01.474+00:00",
+      "modified": "2026-11-19T07:12:01.474+00:00",
+      "totalRecords": 367988,
+      "size": 0,
+      "numberDatasets": 0
+    }
+  },
+  "credentials_or_email_saved": false,
+  "ecological_result": null,
+  "frozen_source_sha256": {
+    "request_template": "fff2defc0464cbee7763d4035fe78077936b53133fb006fbe6c1ed79dfd2c366",
+    "bat_name": "668799cc4b09df382ae76ecd4c2c89863e2502d73921097438fb7d11c0de6033",
+    "plant_name": "d7727e543f188e92acfd0140e5c5f52a3db8eef73325536a8cec2ec513955a01"
+  }
+}
