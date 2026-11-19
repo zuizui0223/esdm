@@ -1,4 +1,5 @@
 name: NeoBat GBIF credential-presence gate (no external request)
+# Rechecked after user confirmed credential configuration; existence flags only.
 
 on:
   push:
