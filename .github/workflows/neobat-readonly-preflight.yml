@@ -6,6 +6,8 @@ on:
       - design/neobat-trophic-sdm-phase1-20261119
     paths:
       - .github/workflows/neobat-readonly-preflight.yml
+      - scripts/neobat_gbif_metadata_preflight.py
+      - tests/test_neobat_gbif_metadata_preflight.py
 
 permissions:
   contents: write
