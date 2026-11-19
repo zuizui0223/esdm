@@ -31,7 +31,7 @@ jobs:
         run: |
           mkdir -p build/neobat
           set +e
-          python scripts/neobat_plant_metadata_preflight.py --out build/neobat/plant_search_preflight.json
+          python -m scripts.neobat_plant_metadata_preflight --out build/neobat/plant_search_preflight.json
           status=$?
           set -e
           echo "$status" > build/neobat/plant_search_exit_code.txt
