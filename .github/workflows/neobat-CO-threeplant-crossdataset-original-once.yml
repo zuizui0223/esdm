@@ -1,0 +1,75 @@
+name: NeoBat original Colombia three-plant source-disjoint paired transfer once
+
+on:
+  push:
+    branches:
+      - analysis/neobat-CO-threeplant-crosssource-transfer-20261119
+    paths:
+      - docs/replication/neobat/NEOBAT_CO_3PLANT_CROSS_DATASET_TRANSFER_ONCE_20261119.txt
+
+permissions:
+  contents: write
+
+concurrency:
+  group: neobat-CO-threeplant-crossdataset-original-once-20261119
+  cancel-in-progress: false
+
+jobs:
+  original_fixed_CO_three_plant_source_refit:
+    if: github.event.head_commit.message == 'dispatch frozen NeoBat CO three plant whole-dataset embargo refit once' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: analysis/neobat-CO-threeplant-crosssource-transfer-20261119
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned original rasters, equal-area grid and regression
+        run: |
+          python -m pip install 'numpy==2.2.6' 'scikit-learn==1.7.2' 'rasterio==1.4.3' 'pyproj==3.7.2'
+      - name: Verify pre-outcome freeze, source-free test, and original source gate
+        run: |
+          test -f docs/replication/NEOBAT_CO_3PLANT_CROSS_DATASET_TRANSFER_FROZEN_20261119.md
+          test -f docs/replication/neobat/plant_106x17_global_source_embargo_compact.json
+          test -f docs/replication/neobat/plant_CO_source_datasetmatched_pilot.json
+          python -m py_compile scripts/neobat_CO_threeplant_crossdataset_transfer.py
+          python -m unittest discover -s tests -p 'test_neobat_CO_threeplant_crossdataset_transfer.py' -v
+      - name: Reverify DOI and WorldClim archives, replay original test AUC, then refit source-disjoint three plants
+        run: |
+          mkdir -p build/neobat
+          set +e
+          python -m scripts.neobat_CO_threeplant_crossdataset_transfer \
+            --out build/neobat/CO_three_plant_disjoint_source_AUC.json
+          result=$?
+          set -e
+          echo "$result" > build/neobat/CO_three_plant_disjoint_source_AUC_exit_code.txt
+          echo "NEOBAT_CO_DISJOINT_SOURCE_ORIGINAL_EXIT=$result"
+      - name: Preserve aggregate-only source-disjoint paired AUC or STOP
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-original-colombia-3plant-crossdataset-refit-aggregate
+          path: |
+            build/neobat/CO_three_plant_disjoint_source_AUC.json
+            build/neobat/CO_three_plant_disjoint_source_AUC_exit_code.txt
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Commit only aggregated original paired test AUCs and explicit stops
+        if: always()
+        run: |
+          set -euo pipefail
+          test -f build/neobat/CO_three_plant_disjoint_source_AUC.json
+          cp build/neobat/CO_three_plant_disjoint_source_AUC* docs/replication/neobat/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/CO_three_plant_disjoint_source_AUC*
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: 3 original CO plant models refit without source datasets touching heldout country"
+            git pull --rebase origin analysis/neobat-CO-threeplant-crosssource-transfer-20261119
+            git push origin HEAD:analysis/neobat-CO-threeplant-crosssource-transfer-20261119
+          fi
+      - name: Do not promote incomplete source/model AUC as result
+        run: |
+          test "$(cat build/neobat/CO_three_plant_disjoint_source_AUC_exit_code.txt)" = "0"
