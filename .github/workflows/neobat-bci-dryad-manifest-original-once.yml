@@ -1,0 +1,71 @@
+name: NeoBat independent BCI Dryad 2026 original version and file-list API metadata once
+
+on:
+  push:
+    branches:
+      - analysis/neobat-bci-independent-tree-plot-dryad-meta-20261119
+    paths:
+      - docs/replication/neobat/NEOBAT_BCI_DRYAD_METADATA_ONCE_20261119.txt
+
+permissions:
+  contents: write
+
+concurrency:
+  group: neobat-independent-bci-dryad-metadata-once-20261119
+  cancel-in-progress: false
+
+jobs:
+  original_bci_publisher_metadata:
+    if: github.event.head_commit.message == 'dispatch frozen original NeoBat BCI Dryad 2026 publisher file metadata once' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: analysis/neobat-bci-independent-tree-plot-dryad-meta-20261119
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check frozen external source and offline API integrity tests
+        run: |
+          test -f docs/replication/NEOBAT_BCI_DRYAD_EXTERNAL_PLOT_API_MANIFEST_FROZEN_20261119.md
+          python -m py_compile scripts/neobat_BCI_dryad_original_file_manifest.py
+          python -m unittest discover -s tests -p 'test_neobat_BCI_dryad_original_file_manifest.py' -v
+      - name: Read publisher Dryad DOI and current version FILE METADATA ONLY
+        run: |
+          mkdir -p build/neobat
+          set +e
+          python -m scripts.neobat_BCI_dryad_original_file_manifest \
+            --out build/neobat/bci_dryad_2026_file_metadata.json
+          rc=$?
+          set -e
+          echo "$rc" > build/neobat/bci_dryad_2026_file_metadata_exit_code.txt
+          echo "NEOBAT_BCI_DRYAD_PUBLISHER_META_EXIT=$rc"
+      - name: Archive only public file inventory and explicit technical stop
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-external-bci-dryad-2026-version-file-metadata-only
+          path: |
+            build/neobat/bci_dryad_2026_file_metadata.json
+            build/neobat/bci_dryad_2026_file_metadata_exit_code.txt
+          retention-days: 90
+          if-no-files-found: warn
+      - name: Commit public metadata or source STOP to research branch only
+        if: always()
+        run: |
+          set -euo pipefail
+          test -f build/neobat/bci_dryad_2026_file_metadata.json
+          cp build/neobat/bci_dryad_2026_file_metadata.json docs/replication/neobat/
+          cp build/neobat/bci_dryad_2026_file_metadata_exit_code.txt docs/replication/neobat/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/bci_dryad_2026_file_metadata*
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: original external BCI tree plot Dryad DOI version and public file metadata only"
+            git pull --rebase origin analysis/neobat-bci-independent-tree-plot-dryad-meta-20261119
+            git push origin HEAD:analysis/neobat-bci-independent-tree-plot-dryad-meta-20261119
+          fi
+      - name: Do not promote incomplete publisher source/metadata as original tree observations
+        run: |
+          test "$(cat build/neobat/bci_dryad_2026_file_metadata_exit_code.txt)" = "0"

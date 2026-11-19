@@ -1,0 +1,28 @@
+name: NeoBat independent BCI 2026 Dryad public file-manifest source-free tests
+
+on:
+  push:
+    branches:
+      - analysis/neobat-bci-independent-tree-plot-dryad-meta-20261119
+    paths:
+      - scripts/neobat_BCI_dryad_original_file_manifest.py
+      - tests/test_neobat_BCI_dryad_original_file_manifest.py
+      - .github/workflows/neobat-bci-dryad-manifest-sourcefree.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source_only_correctness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Offline tests of original DOI/version/file HAL schema and no-GET-to-file firewall
+        run: |
+          python -m py_compile scripts/neobat_BCI_dryad_original_file_manifest.py
+          python -m unittest discover -s tests -p 'test_neobat_BCI_dryad_original_file_manifest.py' -v

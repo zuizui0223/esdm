@@ -1,0 +1,1 @@
+Original independent BCI 2026 tree-plot Dryad DOI publisher metadata only; frozen before public API response; retrieve dataset/version/file names/sizes/hashes but no species/plot/individual observations or file contents, no GBIF bat outcomes or M3/M1 model. Exact public API host/path, one dataset, max 10 pages, fail-closed source errors.
