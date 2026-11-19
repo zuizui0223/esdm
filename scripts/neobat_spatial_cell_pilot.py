@@ -216,6 +216,9 @@ def main():
         for idx,d in enumerate(taxa,1):
             result=audit_species(d)
             results.append(result)
+            dest.write_text(json.dumps({'schema_version':1,'status':'PARTIAL_TAXON_RECEIPTS_ONLY',
+                'candidate_total':len(BATS)+len(PLANTS),'count_complete':sum(x['status']=='CELL_COUNTS_ONLY' for x in results),
+                'DOI_bearing_download':False,'ecological_result':None,'taxa':results},indent=2)+'\n')
             print(f"{idx}/{len(taxa)} {d['group']} {d['name']}: "+
                 f"{result['status']} rows={result['records_processed']} "+
                 f"25km_cells={result['distinct_25km_cells']}",flush=True)
