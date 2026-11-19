@@ -1,0 +1,67 @@
+name: NeoBat WorldClim inner ZIP hash forensic (no response data)
+on:
+  push:
+    branches:
+      - design/neobat-trophic-sdm-phase1-20261119
+    paths:
+      - docs/replication/neobat/WORLDCLIM_MEMBER_FORENSIC_ONCE.txt
+
+permissions:
+  contents: write
+
+concurrency:
+  group: neobat-worldclim-member-hash-diagnostic-20261119
+  cancel-in-progress: false
+
+jobs:
+  inspect_archive_member_hash_only:
+    if: "${{ github.event.head_commit.message == 'dispatch NeoBat response-free WorldClim member hash forensic once' && github.run_attempt == 1 }}"
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: design/neobat-trophic-sdm-phase1-20261119
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test pure archive/member mismatch logic
+        run: |
+          python -m py_compile scripts/neobat_worldclim_member_hash_forensic.py
+          python -m unittest discover -s tests -p 'test_neobat_worldclim_member_hash_forensic.py' -v
+      - name: Source-only original WorldClim archive and member hashes
+        run: |
+          mkdir -p build/neobat
+          set +e
+          python -m scripts.neobat_worldclim_member_hash_forensic \
+            --out build/neobat/worldclim_member_hash_diagnostic.json
+          rc=$?
+          set -e
+          echo "$rc" > build/neobat/worldclim_member_hash_diagnostic_exit_code.txt
+      - name: Retain diagnostic or explicit source stop
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-worldclim-frozen-archive-hash-forensic
+          path: build/neobat/worldclim_member_hash_*
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Save only source hashes (no raster or response arrays)
+        if: always()
+        run: |
+          set -euo pipefail
+          test -f build/neobat/worldclim_member_hash_diagnostic.json
+          mkdir -p docs/replication/neobat
+          cp build/neobat/worldclim_member_hash_diagnostic.json docs/replication/neobat/
+          cp build/neobat/worldclim_member_hash_diagnostic_exit_code.txt docs/replication/neobat/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/worldclim_member_hash_diagnostic*
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: distinguish WorldClim fixed ZIP SHA from internal BIO12 member SHA"
+            git pull --rebase origin design/neobat-trophic-sdm-phase1-20261119
+            git push origin HEAD:design/neobat-trophic-sdm-phase1-20261119
+          fi
+      - name: Qualification must not be inferred from the diagnostic
+        run: |
+          test "$(cat build/neobat/worldclim_member_hash_diagnostic_exit_code.txt)" = "0"
