@@ -1,0 +1,7 @@
+Authorized GBIF DOI ZIP header-only verification for two already completed downloads
+Bat download key 0001156-261118162104854 DOI 10.15468/dl.nxu727
+Plant download key 0001157-261118162104854 DOI 10.15468/dl.xwc5zf
+GBIF public status BOTH_DOIS_VERIFIED_BY_PUBLIC_GBIF_METADATA
+Pinned doi poll receipt ec0688ccc26256fe1d40b8a2d96c6b9894e83da3
+Script reads only archive structure + first header; no ecological response rows or performance
+No new GBIF download request or credentials; one-shot source verification
