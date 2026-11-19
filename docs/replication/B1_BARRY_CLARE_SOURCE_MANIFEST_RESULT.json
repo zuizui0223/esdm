@@ -1,0 +1,94 @@
+{
+  "animal_response_opened": false,
+  "contract": "B1_RESPONSE_BLIND_PUBLIC_MANIFEST_ONLY",
+  "date": "2026-11-19",
+  "dryad": {
+    "manifest": {
+      "doi": "10.5061/dryad.4mt00",
+      "file_count": null,
+      "files": [],
+      "metadata_keys": [
+        "_links",
+        "abstract",
+        "authors",
+        "changedFields",
+        "curationStatus",
+        "id",
+        "identifier",
+        "keywords",
+        "lastModificationDate",
+        "license",
+        "locations",
+        "metrics",
+        "publicationDate",
+        "relatedPublicationISSN",
+        "relatedWorks",
+        "sharingLink",
+        "storageSize",
+        "title",
+        "usageNotes",
+        "versionChanges",
+        "versionNumber",
+        "versionStatus",
+        "visibility"
+      ],
+      "status": "DATASET_METADATA_PRESENT_FILES_NOT_ENUMERATED",
+      "version": "1"
+    },
+    "metadata_bytes": 9617,
+    "metadata_sha256": "e56bba46e447203d11a610f347a6cccf73b5f25ec14e3d999045f9fc96e4b8b0",
+    "original_data_files_downloaded": 0,
+    "public_metadata_url": "https://datadryad.org/api/v2/datasets/doi%3A10.5061%2Fdryad.4mt00",
+    "response_rows_opened": 0,
+    "source": "Clare_dryad",
+    "status": "DATASET_METADATA_PRESENT_FILES_NOT_ENUMERATED"
+  },
+  "figshare": {
+    "manifest": {
+      "doi": "10.6084/m9.figshare.16821361.v1",
+      "file_count": 5,
+      "files": [
+        {
+          "checksum_md5": "30ecbfc7245c728f78fd1d32314487d3",
+          "file_id": 31104355,
+          "name": "ReDiff_script.R",
+          "size_bytes": 4800
+        },
+        {
+          "checksum_md5": "5524337fe8bf3f000e51376f89ffe74c",
+          "file_id": 31104358,
+          "name": "Occupancy_script.R",
+          "size_bytes": 5998
+        },
+        {
+          "checksum_md5": "f3ae1ac01ad3b0b48d909a3f86845552",
+          "file_id": 31117348,
+          "name": "DogTracks_Ecosphere.csv",
+          "size_bytes": 951580
+        },
+        {
+          "checksum_md5": "0c9963ee9a52fdf6d05c15ed1d13193c",
+          "file_id": 31117351,
+          "name": "CamStations_Ecosphere.csv",
+          "size_bytes": 211555
+        },
+        {
+          "checksum_md5": "ca5b3a850474ce09cf2a75d8c667e898",
+          "file_id": 31117429,
+          "name": "WestOR_grid_Ecosphere.csv",
+          "size_bytes": 1105856
+        }
+      ],
+      "status": "PUBLIC_MANIFEST_PRESENT"
+    },
+    "metadata_bytes": 4099,
+    "metadata_sha256": "d760dd6c9df4b1e5f3e6d32c5a71241688f753d65665e2a7b351a0454c59ebdf",
+    "original_data_files_downloaded": 0,
+    "public_metadata_url": "https://api.figshare.com/v2/articles/16821361",
+    "response_rows_opened": 0,
+    "source": "Barry_figshare",
+    "status": "PUBLIC_MANIFEST_PRESENT"
+  },
+  "original_E5_qualified_count_unchanged": 0,
+  "schema_version": 1
+}
