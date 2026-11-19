@@ -1,0 +1,152 @@
+{
+  "animal_response_rows_parsed": 0,
+  "contract": "B2_BARRY_HEADER_ONLY_PRE_RESPONSE",
+  "not_E5_qualified": true,
+  "schema_version": 1,
+  "source_article_id": 16821361,
+  "sources": {
+    "camera": {
+      "data_rows_parsed": 0,
+      "file_id": 31117351,
+      "header_names": [
+        "Sample Unit",
+        "season",
+        "Camera #",
+        "X",
+        "Y",
+        "max_date",
+        "min_date",
+        "deployment",
+        "days_inop",
+        "operating_days",
+        "pepe",
+        "caminop",
+        "bait",
+        "lure_type",
+        "trail_type",
+        "EcoProvence_number",
+        "EcoProvence_name",
+        "HardwoodBA_30m",
+        "Age_30m",
+        "Canopy_30m",
+        "wild_low",
+        "wild_mod",
+        "wild_high"
+      ],
+      "md5": "0c9963ee9a52fdf6d05c15ed1d13193c",
+      "name": "CamStations_Ecosphere.csv",
+      "number_of_columns": 23,
+      "schema_keyword_matches": {
+        "ecoregion": [
+          "EcoProvence_number",
+          "EcoProvence_name"
+        ],
+        "effort_or_time": [
+          "season",
+          "max_date",
+          "min_date",
+          "days_inop",
+          "operating_days"
+        ],
+        "method_or_detector": [
+          "Camera #",
+          "caminop"
+        ],
+        "observation_or_presence": [],
+        "station_or_unit": [
+          "Sample Unit",
+          "Camera #",
+          "caminop"
+        ]
+      },
+      "size_bytes": 211555,
+      "source_sha256": "b9d781fe0f34f2209a4ff17b8a6a5917ac94571bd5f31e79ee6915aa65cd24e8"
+    },
+    "dog": {
+      "data_rows_parsed": 0,
+      "file_id": 31117348,
+      "header_names": [
+        "SampleUnit",
+        "No_Segs",
+        "East",
+        "North",
+        "SegmentID",
+        "X_Seg",
+        "Y_Seg",
+        "Fisher",
+        "Ecoregion",
+        "EcoProvence_number",
+        "wild_low",
+        "wild_mod",
+        "wild_high",
+        "GridID_track",
+        "age_sd_500",
+        "Canopy_500mA",
+        "SDCanopy",
+        "Age_500mA",
+        "CanGr60_Prop",
+        "AgeGr80_Prop",
+        "Handler_Do"
+      ],
+      "md5": "f3ae1ac01ad3b0b48d909a3f86845552",
+      "name": "DogTracks_Ecosphere.csv",
+      "number_of_columns": 21,
+      "schema_keyword_matches": {
+        "ecoregion": [
+          "Ecoregion",
+          "EcoProvence_number"
+        ],
+        "effort_or_time": [],
+        "method_or_detector": [],
+        "observation_or_presence": [
+          "SegmentID",
+          "Fisher"
+        ],
+        "station_or_unit": [
+          "SampleUnit",
+          "SegmentID",
+          "GridID_track"
+        ]
+      },
+      "size_bytes": 951580,
+      "source_sha256": "5e4d03c59eaffccb637719e58a2fcf21f5b2583469153c2e2f766bc6e73c6df1"
+    },
+    "grid": {
+      "data_rows_parsed": 0,
+      "file_id": 31117429,
+      "header_names": [
+        "GRID_ID",
+        "x",
+        "Y",
+        "Age_3kmA_sq",
+        "Open_3kmP",
+        "Roaddensity_3kmA",
+        "SD_CanopyCover_3kmA",
+        "HardwoodBA_3kmP",
+        "Age_3kmA",
+        "CanopyGR_60_3kmP",
+        "EcoProvence_number",
+        "EcoProvence_Name"
+      ],
+      "md5": "ca5b3a850474ce09cf2a75d8c667e898",
+      "name": "WestOR_grid_Ecosphere.csv",
+      "number_of_columns": 12,
+      "schema_keyword_matches": {
+        "ecoregion": [
+          "EcoProvence_number",
+          "EcoProvence_Name"
+        ],
+        "effort_or_time": [],
+        "method_or_detector": [],
+        "observation_or_presence": [],
+        "station_or_unit": [
+          "GRID_ID"
+        ]
+      },
+      "size_bytes": 1105856,
+      "source_sha256": "a32ea5061f76226cd5e0fb23440bfd2ab2369701714cabdb3e8a7144ea1119ad"
+    }
+  },
+  "status": "HEADER_SCREEN_COMPLETE_NOT_BIOLOGY",
+  "substantive_G3_or_G4_pass": false
+}
