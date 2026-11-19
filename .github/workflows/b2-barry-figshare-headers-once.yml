@@ -11,7 +11,7 @@ permissions:
   contents: read
 jobs:
   one_shot_header_only:
-    if: github.event.action == 'opened' && github.event.pull_request.head.ref == 'analysis/b2-barry-figshare-csv-headers-20261119' && github.run_attempt == 1
+    if: false # B2 original source consumed in successful run 44474758435; never read again
     runs-on: ubuntu-latest
     timeout-minutes: 18
     steps:
