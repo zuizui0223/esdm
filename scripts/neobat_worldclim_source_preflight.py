@@ -23,11 +23,10 @@ def checksum_download(url,target,limit=MAX_SOURCE_BYTES):
     return h.hexdigest(),total
 
 def inspect_source(path):
-    import rasterio
-    from rasterio.io import MemoryFile
     raw=path.read_bytes()
     archive_hash=hashlib.sha256(raw).hexdigest()
     if archive_hash!=ARCHIVE_SHA256:raise RuntimeError("WORLDCLIM_ARCHIVE_SHA_MISMATCH")
+    from rasterio.io import MemoryFile  # rasterio required only after original hash qualifies
     with zipfile.ZipFile(io.BytesIO(raw)) as z:
         out={}
         for var,member in RASTERS.items():
