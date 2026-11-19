@@ -1,6 +1,6 @@
 # NeoBat resource-linked SDM — evidence and decision ledger (2026-11-19)
 
-**Current status:** DOI-backed source acquisition + original ZIP verification + complete raw-source quality screening are **complete**. Full-DOI precision-conditioned bat × country fruit-link qualification is in progress. **No M1-vs-M3 ecological effect has been fitted or claimed.**
+**Current status:** DOI-backed source acquisition + original ZIP verification + complete raw-source quality screening are **complete**. Full-DOI country resource-input qualification is complete: 84/754 strict bat×country pairs (16 bats with at least 2 countries), with an independently required 20 outcountry recorded cells per linked plant. **No M1-vs-M3 ecological effect has been fitted or claimed.**
 
 **Repository:** `zuizui0223/esdm`, research branch `design/neobat-trophic-sdm-phase1-20261119`, draft PR #244. **main remains unmodified.**
 
@@ -38,3 +38,48 @@
 5. Distinguish discovery/exploratory holdouts made from this now-open dataset from **genuinely independent external confirmation**. No model choice may be revised using a sealed validation response.
 
 **Publication/promotional gate:** A positive result from the NeoBat source-network recurrence and data QC is not a positive 2D trophic SDM result. Do not merge this as one or upgrade an existing `batter`, `sdmr` or `esdm` confirmation claim.
+
+## 4. Latest input qualification & model-source firewall (2026-11-19)
+
+The DOI-backed **complete 26 bats × 29 countries = 754** source-input
+matrix was executed successfully. With all records including missing
+coordinate-uncertainty, 162 potential input pairs remain. With reported
+coordinate uncertainty ≤12.5 km, at least 5 recorded bat cells inside
+the candidate country and 20 outside, **and the same 5-inside / 20-outside
+criterion for each source-linked fruit plant**, plus ≥3 distinct partner
+plants and ≥2 training NeoBat source references, **84 pairs remain**.
+Sixteen bat species have at least two such countries.
+
+The earlier source-only program with no *plant outcountry 20-cell* gate
+had 86 strict pairs and 18 bat species with two or more; two additional
+pairs are no longer admissible: *Artibeus obscurus* × Brazil and
+*Vampyressa thyone* × Costa Rica. This is a **prespecified input
+feasibility refinement, not an outcome-based choice**.
+
+- Full result: `docs/replication/neobat/doi_country_resource_input.json`.
+- Small status: `docs/replication/neobat/doi_country_resource_compact.json`.
+- Frozen all-species decision roster:
+  `docs/replication/neobat/NEOBAT_STRICT_84_COUNTRY_FOLD_ROSTER_FROZEN_20261119.json`.
+- Original-study embargo:
+  `docs/replication/neobat/NEOBAT_FULL_SITE_REFERENCE_EMBARGO_FROZEN_20261119.json`
+  (all 200 NeoBat sites, 169 reference codes; 29 GBIF countries plus
+  explicit US source). **M3 and N1 now require this exact source-sites
+  reference embargo, even for publications absent from the fruit-only
+  link table.**
+
+A synthetic M0/M1/M3/N1 benchmark passed its software gate, but its
+M3–M1 apparent gain did **not** exceed the degree-preserving N1 null;
+that synthetic fixture is **not biological support**.
+
+The climate raster source preflight remains blocked on frozen
+WorldClim BIO12 member-byte SHA disagreement (the containing ZIP matches
+its pinned SHA). Do not silently replace the expected raster digest or
+start an ecological fit until source identity is diagnosed and the
+abiotic/effort/reference predictors are fixed.
+
+**Next main task:** qualify physical climate/forest/terrain raster
+source identities, create leakage-free plant relative-suitability
+predictions using only outcountry training presences, and then execute
+the exactly frozen M0/M1/M3/N1 model on the discovery source. An
+independent new period/source is still required for a confirmatory claim.
+
