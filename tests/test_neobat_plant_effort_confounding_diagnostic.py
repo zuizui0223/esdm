@@ -26,6 +26,15 @@ class TestPlantEffortConditional(unittest.TestCase):
         self.assertEqual(r["comparable_positive_background_pairs"],0)
         self.assertEqual(r["comparable_pair_fraction"],0)
 
+    def test_numpy_labels_can_be_serialized_as_JSON_source_receipt(self):
+        import json
+        import numpy as np
+        y=np.array([1,0,1,0],dtype=np.int64)
+        s=np.array([0.9,0.1,0.8,0.2],dtype=np.float64)
+        n=np.array([1,1,2,2],dtype=np.int64)
+        result=m.conditional_auc(y,s,n,binned=False)
+        self.assertIn('"comparable_positive_background_pairs": 2',json.dumps(result))
+
     def test_frozen_bins(self):
         self.assertEqual([m.bin_group(x) for x in (1,2,3,4,7,8,100)],
                          [0,1,1,2,2,3,3])
