@@ -47,6 +47,11 @@ def country_keys_from_rows(rows,expected_n):
     rows_year_country=0
     blank_keys=0
     country_counts=defaultdict(int)
+    allowed_countries=set(read(
+        D/"NEOBAT_FULL_SITE_REFERENCE_EMBARGO_FROZEN_20261119.json"
+    )["GBIF_29_country_universe"])
+    if len(allowed_countries)!=29:
+        raise RuntimeError("FROZEN_29_COUNTRY_SOURCE_ROSTER_DRIFT")
     for row in rows:
         rows_total+=1
         try:
@@ -54,9 +59,7 @@ def country_keys_from_rows(rows,expected_n):
         except (ValueError,TypeError):
             continue
         country=str(row.get("countryCode") or "").strip()
-        if year not in ALLOWED_YEAR or country not in previous.read(
-            D/"NEOBAT_FULL_SITE_REFERENCE_EMBARGO_FROZEN_20261119.json"
-        )["GBIF_29_country_universe"]:
+        if year not in ALLOWED_YEAR or country not in allowed_countries:
             continue
         rows_year_country+=1
         key=str(row.get("datasetKey") or "").strip()
