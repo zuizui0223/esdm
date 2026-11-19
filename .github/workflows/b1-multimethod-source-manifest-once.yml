@@ -11,7 +11,7 @@ permissions:
   contents: read
 jobs:
   response_blind_public_manifests:
-    if: github.event.action == 'opened' && github.event.pull_request.head.ref == 'analysis/b1-barry-clare-public-manifest-20261119' && github.run_attempt == 1
+    if: false # B1 metadata already opened in run 44473610678; permanently retired
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
