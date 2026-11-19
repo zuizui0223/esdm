@@ -1,0 +1,1 @@
+Original 3 fixed sentinel plant Colombia-heldout pseudo-background model with same GBIF datasetKey source matching. This is post-hoc exploratory, not independently confirmed source effort or bat M1/M3. The frozen source and synthetic source-free regression must pass. No raw coordinates, occurrence rows or AUC-based species substitution.
