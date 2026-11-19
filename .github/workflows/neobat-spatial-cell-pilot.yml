@@ -6,6 +6,8 @@ on:
       - design/neobat-trophic-sdm-phase1-20261119
     paths:
       - .github/workflows/neobat-spatial-cell-pilot.yml
+      - scripts/neobat_spatial_cell_pilot.py
+      - tests/test_neobat_spatial_cell_pilot.py
 
 permissions:
   contents: write
