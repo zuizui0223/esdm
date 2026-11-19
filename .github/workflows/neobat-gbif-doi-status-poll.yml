@@ -1,5 +1,6 @@
 name: NeoBat check accepted GBIF download keys for DOI (read-only)
 # Explicitly retrigger by workflow-file edit: bot-produced receipts do not cascade push workflows.
+# Second public GET-only status check after accepted bat+plant GBIF keys; no POST.
 
 on:
   push:
