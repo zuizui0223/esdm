@@ -1,0 +1,76 @@
+name: NeoBat original fixed35 joint source-disjoint plus raster trainability once
+
+on:
+  push:
+    branches:
+      - analysis/neobat-35-source-raster-joint-gate-20261119
+    paths:
+      - docs/replication/neobat/NEOBAT_FIXED35_JOINT_SOURCE_RASTER_ONCE_20261119.txt
+
+permissions:
+  contents: write
+
+concurrency:
+  group: neobat-source35-joint-raster-original-20261119
+  cancel-in-progress: false
+
+jobs:
+  original_joint_source_raster_595:
+    if: github.event.head_commit.message == 'dispatch frozen NeoBat fixed35 source-disjoint WorldClim joint gate once' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 36
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: analysis/neobat-35-source-raster-joint-gate-20261119
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned source-only projection and raster dependencies
+        run: python -m pip install 'numpy==2.2.6' 'rasterio==1.4.3' 'pyproj==3.7.2'
+      - name: Ensure frozen design before source reopening and source-free contract
+        run: |
+          test -f docs/replication/NEOBAT_35_SOURCE_DISJOINT_RASTER_JOINT_GATE_FROZEN_20261119.md
+          test -f docs/replication/neobat/source35_bat_literature_N1_input_gate.json
+          test -f docs/replication/neobat/CO_three_plant_disjoint_source_AUC.json
+          python -m py_compile scripts/neobat_joint35_source_raster_gate.py
+          python -m unittest discover -s tests -p 'test_neobat_joint35_source_raster_gate.py' -v
+      - name: Stream original source ZIPs and count all 595 jointly source/raster valid training folds
+        run: |
+          mkdir -p build/neobat
+          set +e
+          python -m scripts.neobat_joint35_source_raster_gate \
+            --out build/neobat/joint35_source_raster_trainability.json \
+            --compact build/neobat/joint35_source_raster_trainability_compact.json
+          code=$?
+          set -e
+          echo "$code" > build/neobat/joint35_source_raster_trainability_exit_code.txt
+          echo "NEOBAT_SOURCE35_JOINT_SOURCE_RASTER_EXIT=$code"
+      - name: Archive only species-country aggregate source/raster count receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-source35-17country-joint-original-raster-source-aggregate
+          path: |
+            build/neobat/joint35_source_raster_trainability.json
+            build/neobat/joint35_source_raster_trainability_compact.json
+            build/neobat/joint35_source_raster_trainability_exit_code.txt
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Commit only aggregate 595 source/raster training gates and all84 original bat folds
+        if: always()
+        run: |
+          set -euo pipefail
+          test -f build/neobat/joint35_source_raster_trainability.json
+          cp build/neobat/joint35_source_raster_trainability* docs/replication/neobat/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/joint35_source_raster_trainability*
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: joint 35plant full source dataset embargo and pinned climate raster training input audit"
+            git pull --rebase origin analysis/neobat-35-source-raster-joint-gate-20261119
+            git push origin HEAD:analysis/neobat-35-source-raster-joint-gate-20261119
+          fi
+      - name: Stop if any source ZIP, prior CO sentinel count or original cohort verification fails
+        run: |
+          test "$(cat build/neobat/joint35_source_raster_trainability_exit_code.txt)" = "0"
