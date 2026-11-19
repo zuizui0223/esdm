@@ -1,0 +1,38 @@
+name: NeoBat fixed 255-plant outcountry trainability from existing DOI QC
+on:
+  push:
+    branches:
+      - analysis/neobat-25km-colocation-gate-20261119
+    paths:
+      - .github/workflows/neobat-plant-crossfit-trainability.yml
+      - scripts/neobat_plant_crossfit_source_trainability.py
+permissions:
+  contents: write
+jobs:
+  fixed_full_cohort_training_source_gate:
+    if: github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: analysis/neobat-25km-colocation-gate-20261119
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compute archived full DOI QC outside-country plant trainability only
+        run: |
+          python -m py_compile scripts/neobat_plant_crossfit_source_trainability.py
+          python -m scripts.neobat_plant_crossfit_source_trainability \
+            --out docs/replication/neobat/plant_crossfit_source_trainability.json
+      - name: Commit source-only trainability counts
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/plant_crossfit_source_trainability.json
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: frozen 255 plant species country-excluded trainability not fitted"
+            git pull --rebase origin analysis/neobat-25km-colocation-gate-20261119
+            git push origin HEAD:analysis/neobat-25km-colocation-gate-20261119
+          fi
