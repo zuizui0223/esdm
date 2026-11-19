@@ -1,51 +1,40 @@
-# NeoBat resource-mediated 2D SDM — current evidence & gate ledger (2026-11-19)
+# NeoBat resource-mediated SDM — evidence, qualification gates and next experiment (2026-11-19)
 
-Branch: `design/neobat-trophic-sdm-phase1-20261119` (isolated from main).
-This is a **prefit study**. No comparison of resource-dependent vs.
-non-resource bat distribution has been completed.
+**Branch:** `design/neobat-trophic-sdm-phase1-20261119`. **PR:** #244 (DRAFT); `main` untouched.
 
-| Gate | Result | Evidence |
+**Status: SOURCE AND SPATIAL-INPUT FEASIBILITY ESTABLISHED IN A BOUNDED PILOT; NO 2D/3D TROPHIC SDM EFFECT FITTED.**
+
+## Confirmed source and prefit findings
+
+| Gate | Correct result | Evidence |
 |---|---|---|
-| Author original NeoBat CSV and key integrity | PASS: 2571 total interactions, 1931 fruit-use, zero fruit SiteCode/RefCode mismatches | `docs/replication/NEOBAT_PHASE1_SOURCE_PREFLIGHT_20261119.md` |
-| Primary guild and source-network cohort | PASS: 26 Frugivore candidate bats of 31 broadly fruit-consuming bat taxa | `docs/replication/neobat/source_preflight.json` |
-| Bat GBIF name and country-count metadata | PASS: 26/26 after 1 independently documented Carollia name alias; **not a DOI download** | `docs/replication/neobat/gbif_search_preflight.json`; `docs/replication/NEOBAT_CAROLLIA_NAME_CROSSWALK_20261119.md` |
-| Plant GBIF public search count metadata | PASS: 255/261 exact species-name matches; 218 have >=5 georeferenced indexed records in each of 2+ countries | `docs/replication/neobat/plant_search_preflight.json` |
-| Source fruit links after plant metadata gate | 691/709 linked to exactly matched plant names; 625/709 (88.2%) linked to plant with >=5 coordinate records in 2+ countries | same plant receipt |
-| Source network link geography diagnostic | Exploratory six qualifying countries, 338 observed positive link edges; country-equal recurrence 46.94% vs degree-preserving null 40.55%, excess +6.39 pp, Monte Carlo p=0.001 | `docs/replication/neobat/crosscountry_reproduction_result.json`, verdict PASS 8/8 |
-| Source-country-withheld network-input gate | 7/26 have >=4 source-country folds with >=3 screened partners / >=2 independent refs left | `docs/replication/NEOBAT_COUNTRY_HELDOUT_NETWORK_INPUT_GATE_20261119.md` |
-| Actual 25/50-km GBIF grid cells, 4 bats + 10 source-top plants | RUN REQUESTED via `.github/workflows/neobat-spatial-cell-pilot.yml`; **not yet certified** in this ledger | `docs/replication/NEOBAT_SPATIAL_CELL_PILOT_DESIGN_20261119.md` |
-| Authenticated full GBIF DOI-bearing bat/plant downloads | **NOT DONE**; request templates built but taxonomy checklist namespace and authentication must be validated | `docs/replication/neobat/gbif_bulk_download_request_drafts.json` |
-| Spatial buffer and independent test folds | NOT DONE | phase1 design |
-| Plant cross-fitted relative suitability, GBIF taxon/effort source bias | NOT DONE | phase1 design |
-| M0-M3/N1-N2 region-heldout bat prediction | NOT DONE | phase1 design |
-| 3D resource×individual movement or foraging mechanism | NOT DONE; nonmatching telemetry taxa excluded from direct fit | `docs/replication/NEOBAT_BATTER_3D_BRIDGE_SCOPE_20261119.md` |
+| Original NeoBat provenance | 2,571 total bat–plant interactions; 1,931 Frugivory, 640 Nectarivory; 200 sites, 169 references; fruit source SiteCode–RefCode conflict 0 | `docs/replication/neobat/source_preflight.json` |
+| Main frugivore candidates | 26 bats (of 31 broad frugivory-user candidates); original author source pinned to commit `d25292d19be32a85a21c60384a3f2d818e8081de` | `NEOBAT_PHASE1_SOURCE_PREFLIGHT_20261119.md` |
+| GBIF public search name/count screen — bats | 26/26 bat name concepts; 1 independently evidenced *Carollia brevicauda/brevicaudum* alias | `docs/replication/neobat/gbif_search_preflight.json` |
+| GBIF public search name/count screen — plants | 255/261 strict accepted species matches; 218/261 have ≥5 indexed georeferenced records in ≥2 countries | `docs/replication/neobat/plant_search_preflight.json` |
+| Network data coverage | 709 distinct primary candidate bat × plant links; 691/709 to strict-match plant names, 625/709 to plants passing the two-country indexed count screen | `NEOBAT_LINK_INDEPENDENCE_AUDIT_20261119.md`; plant preflight |
+| Study-country-out network input | 7/26 bats retain ≥4 source-country folds with ≥3 partner plant names and ≥2 independent literature references | `NEOBAT_COUNTRY_HELDOUT_NETWORK_INPUT_GATE_20261119.md` |
+| Country-heldout **literature link recurrence**, not SDM | 6/12 countries qualified, 338 positive test edges; 46.94% observed vs 40.55% degree-preserving null, +6.39 percentage points, Monte Carlo p=0.001; a separate script matched 8/8 numerical checks | `docs/replication/neobat/crosscountry_reproduction_result.json` and `crosscountry_reproduction_verdict.json` |
+| All-page GBIF occurrence SEARCH pilot | **Retired technical failure**: 29 minutes and cancelled before completing first taxon or saving a spatial record. Synthetic geometry tests 6/6 PASS | `.github/workflows/neobat-spatial-cell-pilot.yml` now guarded with `if:false` |
+| **Bounded** actual GBIF spatial sample | 14 fixed taxa (4 bats and 10 source-top plants); **55/55** single country pages completed; at least 5 distinct 25-km cells in 4 sampled countries for **4/4 bats** and **7/10 plants**. This is a *first-page lower bound*, NOT full occupancy or a spatially independent test denominator | `docs/replication/neobat/spatial_country_lb.json`; `NEOBAT_SPATIAL_CELL_LOWERBOUND_DESIGN_20261119.md` |
+| Known ≤12.5-km reported coordinate uncertainty | 4-country sufficient lower bound for only **1/4 bats** (*Artibeus jamaicensis*) and **2/10 plants** (*Cecropia obtusifolia*, *Piper aduncum*). Even these records' error envelopes may span cell boundaries | same bounded spatial receipt |
+| **Bat country + resource-link same-country input** | Of 16 bat × sampled-country pairs, **9/16** have ≥5 sampled bat cells, ≥3 named fruit plants each with ≥5 sampled cells **in that country**, and ≥2 outcountry NeoBat references for the compatible links. All 4 bats have ≥2 potentially admissible country pairs. First source-data calculation reproduced by a separate Python/Actions run | `docs/replication/neobat/country_resource_gate.json`; `country_resource_gate_discovery.json` |
+| DOI-bearing bat/plant GBIF occurrence downloads | **NOT DONE**. Request draft for 26 bat numeric taxon keys + 255 exact plant keys exists, but no authenticated dispatch or fixed full occurrence CSVs | `docs/replication/neobat/gbif_bulk_download_request_drafts.json` |
+| Full plant SDMs, heldout bat SDMs, M3–M1 and rewired null | **NOT DONE**. No evidence for a trophic-model predictive gain | `NEOBAT_TROPHIC_SDM_PHASE1_DESIGN_20261119.md` |
 
-## Scientific claim boundary
+## Interpretation ceiling
 
-The original NeoBat literature preserves some bat-plant *link identity*
-across country subsets beyond the local network-degree null. The published
-fruit-link data are unevenly sampled, source-internal, and partly based
-on old observations. The link diagnostic cannot establish current
-consumption or causal effects on bats. GBIF source counts are **not**
-independent 25-km occupied cells, and cannot be turned into calibrated
-occurrence probabilities or environmental effect coefficients.
+1. **Positive source-internal evidence**: documented bat–plant fruit-use links contain geographically portable partner identity information above a local degree-preserving null, conditional on source sampling biases. Reproduction of the computation is **not independent ecological replication**.
+2. **Positive observability feasibility**: bounded indexed GBIF samples contain multiple records in distinct equal-area cells, and nine 4-bat × country combinations have multiple externally documented potential fruit partners with records in the same *country*.
+3. **Not demonstrated**: true plant fruit abundance, fruiting season, shared 25-km bat–plant cells, detection-calibrated occupancy, direct feeding behavior, competition, resource causality, M3-vs-M1 heldout improvement, or transfer of 2D patterns to `batter` vertical niche strategies.
+4. The 55-country-page sample used default GBIF search ordering, and thus is not random; countries were selected from *earlier count-only metadata*. Cells are minimum observed occupancy **records**, not demonstrated independent biological occupancy.
+5. The sampled bat geographic summaries have already been opened for feasibility. They must be considered **discovery information** and cannot later masquerade as never-opened holdout responses.
 
-Proposed eventual test: M3 observed-link resource-alignment + generic
-plant pool vs M1 generic plant pool only, evaluated on **unopened
-country/region buffered bat occurrences** with plants cross-fitted on
-the same outer folds and matched source-independent null rewires.
+## Next actual experiment: DOI-backed and independently evaluated M3
 
-## Next action without outcome-dependent threshold changes
+- **A. Independent GBIF occurrence source acquisition:** validate legacy numeric GBIF Backbone `TAXON_KEY` namespace, freeze 2000–2025, coordinate and geographic predicates, authenticate with GBIF, submit and capture **download key + DOI** and immutable archive fingerprint. Respect GBIF's active-job capacity limits. Do not use unbounded synchronous SEARCH paging again.
+- **B. Input denominators:** accepted taxon crosswalk, 25-/50-km known-coordinate-accuracy cells, deduplicate survey events and dataset sources, fit plant relative suitability on only outcountry training areas, with explicit target-group sampling bias.
+- **C. Freeze outer heldout study/country regions before inspecting prediction**, reserve a truly independent bat response, and compare M0 abiotic, M1 generic plant pool, M3 generic pool + documented weighted partner suitability against degree-preserving N1 and matched nonpartner N2.
+- **D. Claim limit:** If and only if M3 improves heldout relative presence rank over M1 and source-matched nulls, support **predictive resource-link information**. Do not infer causal consumption, exact fruit resources or 3D niche mechanism from that improvement.
 
-1. Read the exact authored `docs/replication/neobat/spatial_cell_pilot.json`
-   when/if produced and inspect status before claiming spatial feasibility.
-2. If 14-taxon pilot meets predeclared source and known-accuracy gates,
-   expand to all eligible 26 bats / 255 exact-match plants by authenticated
-   DOI-bearing download; do **not** equate current public search with a DOI.
-3. Keep 6 ambiguous plant names out of main analysis until separately
-   evidenced accepted-name crosswalks; report the lost-link denominator.
-4. Freeze source/effort/spatial folds and model selection on discovery
-   only, then conduct M3-vs-M1 and degree-rewire challenge in independent
-   heldout geography. Valid final outcome may be null or inconclusive.
-
-Do not merge to main as a positive trophic SDM paper result.
+**Repository policy:** `main` must not be changed or this pilot described as a confirmed trophic SDM paper before the DOI-backed independent forecast and observation-bias checks pass.
