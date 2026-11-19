@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "status": "SAMPLED_CELL_LOWER_BOUND_COMPLETE",
-  "created_utc": "2026-11-19T05:02:25.246742+00:00",
+  "created_utc": "2026-11-19T05:06:19.064938+00:00",
   "method": "first GBIF SEARCH page, up to 4 highest-count countries per original taxon",
   "source_bat_name_count": 4,
   "source_plant_name_count": 10,
