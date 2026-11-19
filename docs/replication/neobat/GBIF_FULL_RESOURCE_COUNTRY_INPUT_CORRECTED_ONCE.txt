@@ -1,0 +1,6 @@
+NeoBat source-only precision resource input gate: corrected one-shot authorization.
+First attempt 44513038295 failed in source-independent unit tests before full GBIF output was opened.
+Root cause: synthetic fixture used ISO-2 country labels, whereas original NeoBat site CSV uses full names.
+The Python production model contract and source filters were not changed.
+Corrected synthetic fixture full names and separately verified source input denominator.
+No GBIF requests, no raw records saved, no model fit or ecological result on this workflow.
