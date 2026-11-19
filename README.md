@@ -20,6 +20,30 @@ The repository name is historical/convenient. The project does **not** claim `ES
 
 ## Current scientific status
 
+### D1 independently published camera detection-zone transfer (2026-11-19)
+
+A pre-response frozen detector-geometry transport attempt used Wiegers et al.'s
+[public multi-study effective detection distance summaries](https://doi.org/10.5061/dryad.gtht76j0c).
+The plan was leave-one-**country**-out validation of camera-brand/trait/protocol
+prediction beyond global and camera-brand-only baselines. The original
+source git blob and byte length were verified before parsing, but the exact
+frozen unique zone-identifier rule was not satisfied:
+**`SCHEMA_STOP: source zone ID blank or duplicated`**.
+No country holdout, detector-distance prediction, model gain or numerical
+ecological effect was computed. This **does not establish errors in the
+original published analysis**: the D1 parser's assumed row grain may
+differ from the authors' legitimate source structure. The one-shot source
+opening [run 44448539715](https://github.com/zuizui0223/esdm/actions/runs/44448539715)
+is terminal and [archived byte-for-byte](docs/replication/D1_CROSSCOUNTRY_CAMERA_DETECTION_ZONE_FROZEN_RESULT.json)
+with an [honest interpretation](docs/replication/D1_CROSSCOUNTRY_CAMERA_DETECTION_ZONE_TERMINAL.md).
+The source was not reopened, the job is retired, and the original
+E5 standard **remains 0/17 qualified**. Effective detection *zones* from
+camera-positive events are not independent denominators of missed animal
+passages and do not identify absolute detector registration `p`.
+Existing E4/E5/E7, Safari14, C1, C2, C3, M2 findings remain unchanged.
+
+
+
 The most recent **main ecological-model empirical fit** is the terminal **E4 MICA
 exact-sparse programme**. Subsequently, the independent **E5 activity-versus-detection
 evidence programme** tested whether camera observation can be separated from animal
