@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "status": "READ_ONLY_INDEPENDENT_BOTANICAL_SOURCE_HEAD_AUDIT",
+  "created_utc": "2026-11-19T14:43:57.851137+00:00",
+  "frozen_registry": "docs/replication/NEOBAT_INDEPENDENT_BOTANICAL_SOURCE_REGISTRY_FROZEN_20261119.md",
+  "HEAD_requests_only": true,
+  "biological_records_read": 0,
+  "GBIF_response_or_fruit_species_table_opened": false,
+  "independent_plot_species_overlap_estimated": false,
+  "actual_raster_or_plant_model_fitted": false,
+  "original_M3_minus_M1_auc": null,
+  "source_probes": [
+    {
+      "name": "sPlotOpen_full_zip",
+      "url": "https://idata.idiv.de/ddm/Data/DownloadZip/3474?version=5047",
+      "request_method": "HEAD",
+      "biological_response_bytes_read": 0,
+      "full_dataset_downloaded": false,
+      "status": "HEAD_TRANSPORT_OR_TLS_STOP",
+      "error_type": "TimeoutError",
+      "error_code": "The read operation timed out"
+    },
+    {
+      "name": "BIEN_4_2_plot_portal",
+      "url": "https://bien.nceas.ucsb.edu/bien/biendata/",
+      "request_method": "HEAD",
+      "biological_response_bytes_read": 0,
+      "full_dataset_downloaded": false,
+      "status": "HEAD_HTTP_RESPONSE_ONLY",
+      "http_status": 200,
+      "final_url": "https://bien.nceas.ucsb.edu/bien/biendata/",
+      "content_type": "text/html; charset=UTF-8",
+      "content_length": null,
+      "last_modified": null,
+      "etag": null
+    },
+    {
+      "name": "Dryad_BCI_2026_dataset_meta",
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.1g1jwsvc3",
+      "request_method": "HEAD",
+      "biological_response_bytes_read": 0,
+      "full_dataset_downloaded": false,
+      "status": "HEAD_HTTP_RESPONSE_ONLY",
+      "http_status": 200,
+      "final_url": "https://datadryad.org/dataset/doi:10.5061/dryad.1g1jwsvc3",
+      "content_type": "text/html; charset=utf-8",
+      "content_length": null,
+      "last_modified": null,
+      "etag": "W/\"1727eea690db5abf746c0d5c019ea1e2\""
+    },
+    {
+      "name": "Smithsonian_BCI_seed_rain_2016_CSV",
+      "url": "https://repository.si.edu/bitstreams/d2239f03-acd7-4c54-9224-ad20ce1a0fad/download",
+      "request_method": "HEAD",
+      "biological_response_bytes_read": 0,
+      "full_dataset_downloaded": false,
+      "status": "HEAD_HTTP_STOP",
+      "http_status": 403,
+      "error_type": "HTTPError"
+    }
+  ]
+}

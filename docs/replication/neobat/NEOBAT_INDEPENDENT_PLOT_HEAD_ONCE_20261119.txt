@@ -1,0 +1,1 @@
+Original independently surveyed vegetation plot and BCI seed-rain source HEAD-only access metadata test, no GETs or biological rows; fixed 4 data source URLs registered before probe, status failures preserved. No new ecological M3-M1 or 255 plant v1 fit.

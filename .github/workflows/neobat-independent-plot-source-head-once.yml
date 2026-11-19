@@ -1,0 +1,40 @@
+name: NeoBat independent botanical plot and seed-source HEAD-only preflight
+on:
+  push:
+    branches:
+      - research/neobat-independent-plot-resource-sources-20261119
+    paths:
+      - docs/replication/neobat/NEOBAT_INDEPENDENT_PLOT_HEAD_ONCE_20261119.txt
+permissions:
+  contents: write
+jobs:
+  source_metadata_only:
+    if: github.event.head_commit.message == 'dispatch frozen NeoBat independent botanical source HEAD audit once' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/neobat-independent-plot-resource-sources-20261119
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Read fixed source registry and synthetic no-GET tests
+        run: |
+          test -f docs/replication/NEOBAT_INDEPENDENT_BOTANICAL_SOURCE_REGISTRY_FROZEN_20261119.md
+          python -m py_compile scripts/neobat_independent_plot_source_head_audit.py
+          python -m unittest discover -s tests -p 'test_neobat_independent_plot_source_head_audit.py' -v
+      - name: Probe original external DOI and source portals using HEAD only
+        run: |
+          python -m scripts.neobat_independent_plot_source_head_audit --out docs/replication/neobat/independent_plot_source_head_audit.json
+      - name: Commit metadata-only responses, including failure status
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/independent_plot_source_head_audit.json
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: independent plant plot and seed-trap sources HEAD-only metadata access audit"
+            git pull --rebase origin research/neobat-independent-plot-resource-sources-20261119
+            git push origin HEAD:research/neobat-independent-plot-resource-sources-20261119
+          fi
