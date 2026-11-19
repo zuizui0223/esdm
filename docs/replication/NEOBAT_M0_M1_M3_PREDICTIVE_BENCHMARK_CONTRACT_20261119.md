@@ -52,6 +52,23 @@ at the held-out bat presence ranks.
    The software refuses to claim any source-backed effect if these
    are absent. DOI format alone is necessary, not sufficient.
 
+## Full original-site reference embargo (mandatory input)
+
+The model-input manifest MUST include `site_reference_embargo_by_holdout`
+for every evaluated heldout region. This is computed from **all 200
+original NeoBat study sites** in the author data, not from the
+fruit-only partner table. A publication with one site in the withheld
+country is excluded globally, including partner records observed
+elsewhere. Frozen source file:
+`docs/replication/neobat/NEOBAT_FULL_SITE_REFERENCE_EMBARGO_FROZEN_20261119.json`
+(author commit `d25292d19be32a85a21c60384a3f2d818e8081de`,
+sites Git blob `f9672a8b5542b8f4ecd3434ca798756f865df541`).
+
+The M3/N1 model core rejects a missing embargo, malformed references,
+or an observed heldout-source link not represented in the embargo.
+This guard does not itself prove independent survey events in
+the GBIF bat response or plant training data.
+
 ## Evaluation and interpretation
 
 - Pairwise held-out presence-vs-target-background rank probability
