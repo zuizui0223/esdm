@@ -1,0 +1,60 @@
+name: Clare station-conditioned paired camera snow-track null once
+on:
+  pull_request:
+    types: [opened]
+    paths:
+      - 'docs/replication/CLARE_TWO_METHOD_WITHIN_STATION_NULL_FROZEN_DESIGN.md'
+      - 'scripts/clare_station_conditioned_camera_tracks.py'
+      - 'tests/test_clare_station_conditioned_camera_tracks.py'
+      - '.github/workflows/clare-station-conditioned-camera-tracks-once.yml'
+permissions:
+  contents: read
+jobs:
+  one_shot_original_dryad_response:
+    if: false # TERMINAL original run 44477943475 HTTP 401 before any biological response; no re-exposure
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Initialize truthful source/transport stop before any request
+        run: |
+          mkdir -p source/clare build/clare
+          printf '%s\n' '{"schema_version":1,"status":"TRANSPORT_OR_SOURCE_STOP","original_E5_qualified_count_unchanged":0,"biological_effect_evaluated":false}' > build/clare/CLARE_STATION_METHOD_RESULT.json
+      - name: Test exact station margins and source-parser on synthetic histories
+        run: |
+          python -m pip install 'pytest>=8'
+          python -m pytest -q tests/test_clare_station_conditioned_camera_tracks.py
+      - name: Verify official Dryad DOI and immutable source version before opening outcome
+        run: |
+          set -euo pipefail
+          curl --fail --location --connect-timeout 20 --max-time 150 --silent --show-error \
+            'https://datadryad.org/api/v2/datasets/doi%3A10.5061%2Fdryad.4mt00' \
+            --output source/clare/metadata.json
+          python - <<'PY'
+          import json
+          o=json.load(open('source/clare/metadata.json'))
+          if o.get('identifier') != 'doi:10.5061/dryad.4mt00' or str(o.get('versionNumber'))!='1':
+            raise ValueError('DRYAD_ORIGINAL_DOI_OR_VERSION_STOP')
+          PY
+      - name: Fetch exactly one published Dryad v1 ZIP without retries
+        run: |
+          set -euo pipefail
+          curl --fail --location --connect-timeout 20 --max-time 180 --silent --show-error \
+            'https://datadryad.org/api/v2/datasets/doi%3A10.5061%2Fdryad.4mt00/download' \
+            --output source/clare/dryad_original_v1.zip
+      - name: Evaluate frozen paired-method null once with original mammal data
+        run: |
+          python -m scripts.clare_station_conditioned_camera_tracks \
+            --zip source/clare/dryad_original_v1.zip \
+            --out build/clare/CLARE_STATION_METHOD_RESULT.json
+      - name: Publish aggregate-only biological result or honest technical stop
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: clare-two-method-station-null-${{ github.run_id }}
+          path: build/clare/CLARE_STATION_METHOD_RESULT.json
+          if-no-files-found: error
+          retention-days: 90

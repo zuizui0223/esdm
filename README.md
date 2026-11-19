@@ -20,6 +20,23 @@ The repository name is historical/convenient. The project does **not** claim `ES
 
 ## Current scientific status
 
+### Clare camera–snow-track source stop (2026-11-19)
+
+The independent [Clare et al. 2017 Dryad](https://doi.org/10.5061/dryad.4mt00)
+single-region paired-method test was frozen before animal values. Its original
+[Actions run 44477943475](https://github.com/zuizui0223/esdm/actions/runs/44477943475)
+passed **15 synthetic tests** and verified the DOI/version via the official API,
+but the explicitly selected version-1 ZIP endpoint returned **HTTP 401 before
+opening a biological row**. The original 135-byte
+[terminal source receipt](docs/replication/CLARE_STATION_METHOD_FROZEN_RESULT.json)
+is archived unchanged with a [scientific interpretation](docs/replication/CLARE_STATION_METHOD_TERMINAL_INTERPRETATION.md)
+and regression guards. No camera/track association, uncertainty or
+ecological positive/negative exists; the one-shot workflow is retired and
+source switching is prohibited under the frozen design. The original E5
+remains **0/17 qualified**, and all earlier biological outcomes are unchanged.
+
+
+
 ### Barry camera and dog source linkage preflight (2026-11-19)
 
 The separate, response-blind Barry/Clare [B1 API screen](docs/replication/B1_BARRY_CLARE_PUBLIC_MANIFEST_OUTCOME.md)
