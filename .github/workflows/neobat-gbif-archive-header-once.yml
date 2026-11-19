@@ -1,0 +1,68 @@
+name: NeoBat verify GBIF DOI ZIP archives and original TSV headers (source only)
+on:
+  push:
+    branches:
+      - design/neobat-trophic-sdm-phase1-20261119
+    paths:
+      - docs/replication/neobat/GBIF_ARCHIVE_SOURCE_INSPECT_ONCE.txt
+
+permissions:
+  contents: write
+
+concurrency:
+  group: neobat-gbif-first-doi-archives
+  cancel-in-progress: false
+
+jobs:
+  verify_raw_archive_source_without_opening_species_rows:
+    if: github.event.head_commit.message == 'dispatch NeoBat first GBIF DOI archive header check' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 36
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify source-only DOI and ZIP handling, no response values opened
+        run: |
+          python -m py_compile scripts/neobat_gbif_archive_header_preflight.py
+          python -m unittest discover -s tests -p 'test_neobat_gbif_archive_header_preflight.py' -v
+      - name: Download only GBIF-origin DOI ZIP files and audit header, no ecological fit
+        run: |
+          mkdir -p build/neobat
+          set +e
+          python -m scripts.neobat_gbif_archive_header_preflight \
+            --submission docs/replication/neobat/gbif_download_submission.json \
+            --poll docs/replication/neobat/gbif_download_doi_poll.json \
+            --out build/neobat/gbif_archive_header_preflight.json \
+            --archive-dir build/neobat/original_downloads
+          rc=$?
+          set -e
+          echo "$rc" > build/neobat/gbif_archive_header_preflight_exit_code.txt
+          echo "GBIF_SOURCE_ARCHIVE_HEADER_GATE_EXIT=$rc"
+      - name: Preserve metadata-only archive checks
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-gbif-archive-source-only-header-audit
+          path: |
+            build/neobat/gbif_archive_header_preflight.json
+            build/neobat/gbif_archive_header_preflight_exit_code.txt
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Write only DOI/checksum/schema status, never raw species records
+        if: always()
+        run: |
+          set -euo pipefail
+          test -f build/neobat/gbif_archive_header_preflight.json
+          mkdir -p docs/replication/neobat
+          cp build/neobat/gbif_archive_header_preflight.json docs/replication/neobat/
+          cp build/neobat/gbif_archive_header_preflight_exit_code.txt docs/replication/neobat/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/gbif_archive_header_preflight*
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: pin GBIF source DOI archives SHA256 and no-response headers"
+            git pull --rebase origin design/neobat-trophic-sdm-phase1-20261119
+            git push origin HEAD:design/neobat-trophic-sdm-phase1-20261119
+          fi
