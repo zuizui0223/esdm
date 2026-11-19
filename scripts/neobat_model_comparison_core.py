@@ -52,12 +52,27 @@ def _numeric(v,field):
 def _bool(v):
     return v is True or str(v).lower()=="true"
 
-def _training_links(links,holdout,plant_universe):
-    banned={r["ref_id"] for r in links if r["source_country"]==holdout}
-    rows=[r for r in links if r.get("source_country")!=holdout
-          and r["ref_id"] not in banned and r["plant"] in plant_universe]
+def _training_links(links,holdout,plant_universe,site_reference_embargo):
+    """Embargo all original NeoBat site references from heldout country.
+
+    The embargo MUST come from the complete original sites table, not just
+    retained frugivory links: an omitted plant or guild can still share a
+    publication with an included plant from another country.
+    """
+    if not isinstance(site_reference_embargo,(list,tuple,set)):
+        raise QualificationStop("MISSING_FULL_SITE_REFERENCE_EMBARGO")
+    if any(not isinstance(v,str) or not v.strip() for v in site_reference_embargo):
+        raise QualificationStop("INVALID_FULL_SITE_REFERENCE_EMBARGO")
+    banned=set(site_reference_embargo)
+    if len(banned)!=len(site_reference_embargo):
+        raise QualificationStop("DUPLICATE_SITE_REFERENCE_EMBARGO")
     if any(not r.get("ref_id") or not r.get("bat") for r in links):
         raise QualificationStop("MISSING_SOURCE_LINK_REFERENCE")
+    linked_in_holdout={r["ref_id"] for r in links if r["source_country"]==holdout}
+    if not linked_in_holdout.issubset(banned):
+        raise QualificationStop("INCOMPLETE_SITE_REFERENCE_EMBARGO")
+    rows=[r for r in links if r.get("source_country")!=holdout
+          and r["ref_id"] not in banned and r["plant"] in plant_universe]
     return rows,banned
 
 def _network_edges(links):
@@ -96,6 +111,9 @@ def _validate_manifest(manifest,plant_universe,holdout):
         raise QualificationStop("HOLDOUT_NOT_PREDECLARED")
     if len(set(plant_universe))!=len(plant_universe) or len(plant_universe)<3:
         raise QualificationStop("INVALID_FIXED_PLANT_UNIVERSE")
+    embargoes=manifest.get("site_reference_embargo_by_holdout")
+    if not isinstance(embargoes,dict) or holdout not in embargoes:
+        raise QualificationStop("NO_ORIGINAL_SITE_REFERENCE_EMBARGO_BY_HOLDOUT")
     synthetic=_bool(manifest.get("synthetic",False))
     if not synthetic:
         if manifest.get("bat_GBIF_DOI")!=EXPECTED_BAT_DOI or manifest.get("plant_GBIF_DOI")!=EXPECTED_PLANT_DOI:
@@ -205,7 +223,8 @@ def compare_fold(records,plants,links,manifest,bat,holdout,*,null_draws=199,seed
     if min(sum(tr),len(tr)-sum(tr))<min_train or min(sum(te),len(te)-sum(te))<min_test:
         raise QualificationStop("TRAIN_OR_HELDOUT_CLASS_DENOMINATOR_STOP")
     predictors=_plant_scores(focal,plants,set(universe),holdout)
-    train_links,banned=_training_links(links,holdout,set(universe))
+    train_links,banned=_training_links(links,holdout,set(universe),
+                                           manifest["site_reference_embargo_by_holdout"][holdout])
     partners=sorted({r["plant"] for r in train_links if r["bat"]==bat})
     unique_refs={r["ref_id"] for r in train_links if r["bat"]==bat}
     if len(partners)<3 or len(unique_refs)<2:
