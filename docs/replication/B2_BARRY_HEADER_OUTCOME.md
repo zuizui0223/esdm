@@ -1,0 +1,17 @@
+# Barry B2: public original CSV header result — technical source match, not biological model result
+
+**2026-11-19, one GitHub Actions [run 44474758435](https://github.com/zuizui0223/esdm/actions/runs/44474758435), [artifact 14505388677](https://github.com/zuizui0223/esdm/actions/runs/44474758435/artifacts/14505388677).** Exact MD5 and sizes of all three Figshare-pinned original CSVs matched. The result is the exact **3,745-byte** [B2_BARRY_HEADER_RESULT.json](B2_BARRY_HEADER_RESULT.json) from that original artifact (SHA256 `6499f3871a87d5c90141eafe4d99ba7b72585a7ecfc45d50a69f3ffd116847cc`). Artifact ZIP SHA256 `d7a1218bc69b049e086d6e7f393203dc7edfad29e4443c8bc04c890c4a6bb8c7`. The three source SHA256s are in the original JSON.
+
+## Exact header fields established
+
+**Camera stations (23 columns):** `Sample Unit`, `season`, `Camera #`, `X`, `Y`, `max_date`, `min_date`, `deployment`, `days_inop`, `operating_days`, `pepe`, `caminop`, `bait`, `lure_type`, `trail_type`, `EcoProvence_number`, `EcoProvence_name`, `HardwoodBA_30m`, `Age_30m`, `Canopy_30m`, `wild_low`, `wild_mod`, `wild_high`.
+
+**Detector-dog segments (21 columns):** `SampleUnit`, `No_Segs`, `East`, `North`, `SegmentID`, `X_Seg`, `Y_Seg`, `Fisher`, `Ecoregion`, `EcoProvence_number`, `wild_low`, `wild_mod`, `wild_high`, `GridID_track`, `age_sd_500`, `Canopy_500mA`, `SDCanopy`, `Age_500mA`, `CanGr60_Prop`, `AgeGr80_Prop`, `Handler_Do`.
+
+**Grid (12 columns):** `GRID_ID`, `x`, `Y`, `Age_3kmA_sq`, `Open_3kmP`, `Roaddensity_3kmA`, `SD_CanopyCover_3kmA`, `HardwoodBA_3kmP`, `Age_3kmA`, `CanopyGR_60_3kmP`, `EcoProvence_number`, `EcoProvence_Name`.
+
+The column names in the camera and dog tables both expose a probable **sample-unit** and **ecoregion** key. It is now plausible to test geographic×observation-method *coverage*, but **not yet established** that units really link correctly, have any within-unit camera/dog overlap, represent physical sites rather than reused hardware, or retain complete exposure intervals. The original source contains spatial coordinates, but no coordinate values were parsed or exported; any future report must avoid releasing sensitive fisher sites. The camera file has `season`, `min_date`, `max_date`, `operating_days`; the dog segment table **has no explicit date/time or duration field in the published header**, so independent month/day/night exposure for dog events cannot be inferred from the CSV without additional source documentation. `pepe` and `caminop` are **undefined by headers alone**. `Fisher` in dog records suggests an observed outcome and must not be read before freezing a follow-on analysis.
+
+**No wildlife response rows were parsed in B2**. Original biological values (camera `pepe`/`caminop`, dog `Fisher`, locations, scat detections) were not inspected. Hashing source bytes is not an ecological response analysis. No ecological effect or transfer score was computed. A second, narrowly defined *source-code only* inspection of author script could help interpret the response and sample-unit grain; a biological model must be frozen before any actual CSV outcome values are opened.
+
+**E5 decision unchanged: 0/17 qualified.** Two methods spanning region labels are not independent camera-passage calibration. Clare remains available as one-region multi-method observation data, but Barry's now-authenticated raw camera/dog tables should be evaluated before switching to Clare.
