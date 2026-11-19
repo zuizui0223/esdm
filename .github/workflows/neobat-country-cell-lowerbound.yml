@@ -15,7 +15,8 @@ concurrency:
 
 jobs:
   bounded_source_cell_screen:
-    if: github.event.pull_request.number == 244 && github.run_attempt == 1
+    # Retired after successful bounded 55/55 country-page result and committed source receipt.
+    if: false
     runs-on: ubuntu-latest
     timeout-minutes: 18
     steps:
