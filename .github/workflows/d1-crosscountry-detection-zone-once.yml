@@ -5,7 +5,7 @@ on:
     branches:
       - analysis/d1-crosscountry-detection-zone-transfer-20261119
     paths:
-      - 'docs/replication/D1_COUNTRY_TRANSFER_AUTHORIZATION.json'
+      - 'docs/replication/D1_COUNTRY_TRANSFER_TECHNICAL_RESTART.json'
 
 permissions:
   contents: read
@@ -13,8 +13,8 @@ permissions:
 jobs:
   single_published_edd_response:
     # Fail closed for ANY later ordinary source/code/docs push or job rerun.
-    # Source may open only on the first ADDITION of this unique authorization file.
-    if: github.run_attempt == 1 && contains(github.event.head_commit.added, 'docs/replication/D1_COUNTRY_TRANSFER_AUTHORIZATION.json') && github.event.head_commit.message == 'Authorize D1 one-shot cross-country EDD source opening (design 27872ed)'
+    # Source may open only on the single uniquely named technical-restart marker push.
+    if: github.event_name == 'push' && github.run_attempt == 1 && github.event.head_commit.message == 'D1 technical restart after skipped original (zero source rows read)'
     runs-on: ubuntu-latest
     timeout-minutes: 18
     steps:
