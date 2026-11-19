@@ -155,6 +155,67 @@ class TestPredictiveCore(unittest.TestCase):
                                     "NULL_FOCAL_LINK_IDENTITIES_INVARIANT"):
             m.compare_fold(rows,plants,links,manifest,BAT,"BR",null_draws=9)
 
+    @unittest.skipUnless(HAS_NUMPY,"numpy only for model fit")
+    def test_known_truth_partner_identity_beats_rewired_null_when_identifiable(self):
+        """A distinct, intentionally noisy synthetic case, not biological evidence.
+
+        The three true plants carry a shared source-known signal. Nine
+        independent nonpartners have spatially varying but irrelevant scores.
+        Rewiring across four degree-matched bat species should degrade
+        heldout prediction; a toy with complementary plants could not
+        prove that the implementation distinguishes true partners from N1.
+        """
+        import numpy as np
+        universe=tuple(f"Testplant{i:02d}" for i in range(12))
+        rng=np.random.default_rng(20261119)
+        manifest={"synthetic":True,
+                  "site_reference_embargo_by_holdout":{"BR":[]},
+                  "outer_holdout_regions":["BR"],
+                  "plant_universe":list(universe)}
+        rows=[]
+        preds=[]
+        for i in range(240):
+            heldout=i>=160
+            case=(i%2==0)
+            sign=1 if case else -1
+            cell=f"noise_cell_{i}"
+            pair=i//2
+            rows.append({
+                "bat":BAT,"region":"BR" if heldout else "MX",
+                "cell_id":cell,"source_event_id":f"noise_event_{i}",
+                "source_dataset_key":f"noise_dataset_{i//12}",
+                "role":"presence" if case else "target_background",
+                # Observational covariates are matched within each
+                # presence/background pair; they cannot encode the label.
+                "temperature":15+(pair%5),
+                "precipitation":60+(pair%7),
+                "forest":0.3+(pair%4)*0.1,
+                "topography":pair%3,
+                "effort":0.3+(pair%4)*0.1
+            })
+            vals=np.clip(np.concatenate([
+                0.5+0.17*sign+rng.normal(0,0.13,3),
+                0.5+rng.normal(0,0.22,9)]),0.01,0.99)
+            for j,plant in enumerate(universe):
+                preds.append({"holdout_region":"BR","cell_id":cell,
+                              "plant":plant,
+                              "relative_suitability":float(vals[j]),
+                              "excluded_from_plant_training":True})
+        links=[]
+        for k in range(4):
+            bat=BAT if k==0 else f"Testus nonfocal{k}"
+            for j in range(3):
+                links.append({"bat":bat,"plant":universe[k*3+j],
+                              "ref_id":f"noise_ref_{k}_{j}",
+                              "source_country":"MX"})
+        result=m.compare_fold(rows,preds,links,manifest,BAT,"BR",
+                              null_draws=39,seed=20261119)
+        self.assertGreater(result["presence_rank_auc"]["M3"],0.95)
+        self.assertGreater(result["heldout_M3_minus_M1"],0.10)
+        self.assertGreater(result["M3_minus_rewired_N1_mean"],0.08)
+        self.assertGreater(result["N1_distinct_focal_partner_sets"],10)
+        self.assertFalse(result["causal_interaction_established"])
+
     def test_rewire_preserves_both_degree_sequences(self):
         rows,plants,links,manifest=toy()
         edges=m._network_edges(links)
