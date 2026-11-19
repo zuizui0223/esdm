@@ -1,0 +1,1 @@
+One-shot exploratory source reporting process audit using previously verified GBIF plant DOI and WorldClim originals. Frozen full 106 × 17 denominator, identical source-matched datasetKey background and three Colombia sentinel replay. Never export source coordinates, per-cell predictors or source dataset IDs. No bat model M1/M3/N1 fit.
