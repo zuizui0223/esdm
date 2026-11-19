@@ -26,21 +26,21 @@ def api_get(path,token):
     with urlopen(req,timeout=30) as f:
         return json.loads(f.read().decode("utf-8"))
 
-def audit(getter):
+def audit(getter, marker_sha=MARKER_SHA):
     # The repository-level endpoint resolves an exact head SHA even when
     # the named workflow file exists only on a non-default branch.
-    path=("/actions/runs?head_sha="+quote(MARKER_SHA,safe="")
+    path=("/actions/runs?head_sha="+quote(marker_sha,safe="")
           +"&event=push&per_page=100")
     payload=getter(path)
     runs=payload.get("workflow_runs",[])
-    target=[r for r in runs if r.get("head_sha")==MARKER_SHA and
+    target=[r for r in runs if r.get("head_sha")==marker_sha and
             r.get("event")=="push" and
             (r.get("name")== "NeoBat DOI-backed GBIF bat and plant occurrence downloads (single authorization)"
              or r.get("path","").endswith("/"+WORKFLOW))]
     result={
         "schema_version":1,
         "created_utc":datetime.now(timezone.utc).isoformat(),
-        "target_marker_sha":MARKER_SHA,
+        "target_marker_sha":marker_sha,
         "target_workflow_name":WORKFLOW,
         "target_branch":BRANCH,
         "mode":"READ_ONLY_GITHUB_RUN_METADATA",
@@ -82,13 +82,14 @@ def audit(getter):
 def main():
     pa=argparse.ArgumentParser()
     pa.add_argument("--out",default="docs/replication/neobat/gbif_one_shot_action_audit.json")
+    pa.add_argument("--marker-sha",default=MARKER_SHA)
     args=pa.parse_args()
     dest=pathlib.Path(args.out)
     dest.parent.mkdir(parents=True,exist_ok=True)
     token=os.environ.get("GITHUB_TOKEN","")
     try:
         if not token: raise RuntimeError("GITHUB_TOKEN_MISSING")
-        x=audit(lambda path: api_get(path,token))
+        x=audit(lambda path: api_get(path,token),marker_sha=args.marker_sha)
     except Exception as exc:
         x={"schema_version":1,"status":"ACTION_AUDIT_API_STOP",
            "error_type":type(exc).__name__,
