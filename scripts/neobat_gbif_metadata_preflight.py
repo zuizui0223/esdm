@@ -88,14 +88,24 @@ def gbif_screen(rows):
             m=json.loads(get('https://api.gbif.org/v1/species/match?'+urlencode({'name':name,'strict':'true'})))
             result['match']={k:m.get(k) for k in ('matchType','rank','status','confidence','scientificName','usageKey','acceptedUsageKey')}
             key=m.get('acceptedUsageKey') or m.get('usageKey')
-            if m.get('rank')!='SPECIES' or m.get('matchType')!='EXACT' or m.get('confidence',0)<90 or not key:
+            # Audited nomenclatural exception, not a general fuzzy-match relaxation.
+            # MDD uses C. brevicauda; GBIF Catalogue of Life uses C. brevicaudum.
+            audited_alias=(name=='Carollia brevicauda'
+                and str(key)=='2433177'
+                and m.get('scientificName','').startswith('Carollia brevicaudum ')
+                and m.get('rank')=='SPECIES' and m.get('status')=='ACCEPTED'
+                and m.get('matchType')=='FUZZY' and m.get('confidence',0)>=90)
+            if m.get('rank')!='SPECIES' or not key or not (
+                    (m.get('matchType')=='EXACT' and m.get('confidence',0)>=90)
+                    or audited_alias):
                 result['status']='TAXON_AMBIGUOUS';continue
             q=urlencode({'taxonKey':key,'hasCoordinate':'true','hasGeospatialIssue':'false',
                          'year':'2000,2025','occurrenceStatus':'PRESENT','limit':0,'facet':'country','facetLimit':200})
             x=json.loads(get('https://api.gbif.org/v1/occurrence/search?'+q))
             fac=next((f.get('counts',[]) for f in x.get('facets',[]) if f.get('field','').upper()=='COUNTRY'),[])
             regional={p['name']:p['count'] for p in fac if p['name'] in LATAM}
-            result.update(status='GBIF_COUNTS_ONLY',world_records=x.get('count'),
+            result.update(status=('GBIF_COUNTS_AUDITED_ALIAS' if audited_alias else 'GBIF_COUNTS_ONLY'),
+                world_records=x.get('count'),
                 regional_records_upper_bound=sum(regional.values()),
                 regional_country_counts=regional,
                 countries_with_5plus_records=sum(v>=5 for v in regional.values()),
@@ -109,7 +119,8 @@ def gbif_screen(rows):
             time.sleep(0.2)
     return {'status':'GBIF_SEARCH_METADATA_ONLY','updated_utc':datetime.now(timezone.utc).isoformat(),
             'evaluated_candidates':len(screened),
-            'search_count_pass':sum(r['status']=='GBIF_COUNTS_ONLY' for r in screened),
+            'search_count_pass':sum(r['status'] in ('GBIF_COUNTS_ONLY','GBIF_COUNTS_AUDITED_ALIAS') for r in screened),
+            'audited_taxonomic_alias_count':sum(r['status']=='GBIF_COUNTS_AUDITED_ALIAS' for r in screened),
             'taxon_ambiguous':sum(r['status']=='TAXON_AMBIGUOUS' for r in screened),
             'remote_stop':sum(r['status']=='REMOTE_STOP' for r in screened),
             'GBIF_download_DOI':None,'spatial_cell_eligibility_tested':False,
