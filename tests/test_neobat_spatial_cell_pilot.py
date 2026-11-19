@@ -1,10 +1,13 @@
 """Source-independent schema and bounds tests for the prefit 25/50 km pilot."""
 from __future__ import annotations
 import unittest
+import importlib.util
 from unittest.mock import patch
 
 from scripts import neobat_spatial_cell_pilot as pilot
 
+
+PYPROJ_AVAILABLE = importlib.util.find_spec('pyproj') is not None
 
 class TestSpatialPilot(unittest.TestCase):
     def test_predeclared_14_taxon_roster(self):
@@ -19,6 +22,7 @@ class TestSpatialPilot(unittest.TestCase):
         self.assertEqual(pilot.label_precision(12500),'known_le_12_5km')
         self.assertEqual(pilot.label_precision(12501),'known_gt_12_5km')
 
+    @unittest.skipUnless(PYPROJ_AVAILABLE, 'optional pyproj needed for coordinate transforms')
     def test_cell_projection_and_invalid_coordinate(self):
         x=pilot.spatial_grid(-47.5,-15.5)
         self.assertEqual(len(x),2)
@@ -38,6 +42,7 @@ class TestSpatialPilot(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError,'TAXON_NOT_ADMITTED_STOP'):
             pilot.choose_taxa(bat,plant)
 
+    @unittest.skipUnless(PYPROJ_AVAILABLE, 'optional pyproj needed for coordinate transforms')
     def test_one_page_aggregates_no_raw_coordinates_or_doi(self):
         d={'group':'plant','name':'Ficus insipida','taxonKey':123}
         fake={'count':3,'results':[
