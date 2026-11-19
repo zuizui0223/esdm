@@ -1,0 +1,28 @@
+name: NeoBat v3 fixed35 source-disjoint 595 post-raster source-free regression
+
+on:
+  push:
+    branches:
+      - analysis/neobat-v3-source35-raster-trainability-20261119
+    paths:
+      - scripts/neobat_v3_source35_raster_gate.py
+      - tests/test_neobat_v3_source35_raster_gate.py
+      - .github/workflows/neobat-v3-source35-raster-sourcefree.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sourcefree_raster_contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Freeze exact 35x17 and preserve 84 bat source denominator
+        run: |
+          python -m py_compile scripts/neobat_v3_source35_raster_gate.py
+          python -m unittest discover -s tests -p 'test_neobat_v3_source35_raster_gate.py' -v
