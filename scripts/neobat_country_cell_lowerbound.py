@@ -136,7 +136,7 @@ def audit_country(d, country, source_count):
         result.update(status="COUNTRY_PAGE_STOP", error=str(exc)[:220])
     return result
 
-def run(batmeta, plantmeta, *, countries_fn=audit_country, budget_seconds=BUDGET_SECONDS):
+def run(batmeta, plantmeta, *, countries_fn=audit_country, budget_seconds=BUDGET_SECONDS, progress=None):
     selected=base.choose_taxa(batmeta,plantmeta)
     b={r["bat"]:r for r in batmeta["records"]}
     p={r["plant"]:r for r in plantmeta["plants"]}
@@ -177,6 +177,15 @@ def run(batmeta, plantmeta, *, countries_fn=audit_country, budget_seconds=BUDGET
                 z.get("cells25_with_reported_uncertainty_le_12500m",0)>=5 for z in ready)>=4,
             "country_results":ordered
         })
+        print(f"GBIF_SAMPLE {len(species)}/{len(selected)} "
+              f"{d['group']} {d['name']}: {species[-1]['status']} "
+              f"pages={len(ordered)}", flush=True)
+        if progress:
+            progress(species, len(selected))
+        if any("GBIF_RATE_LIMIT_STOP" in z.get("error","") for z in ordered):
+            species.extend({**v,"status":"NOT_QUERIED_API_RATE_LIMIT",
+                            "country_results":[]} for v in planned[i+1:])
+            break
     all_pages=[c for s in species for c in s.get("country_results",[])]
     n_attempts=len(all_pages)
     errors=sum(c["status"]!="SAMPLED_LOWER_BOUND" for c in all_pages)
@@ -215,8 +224,16 @@ def main():
         plant=Path(args.plant_metadata).read_bytes()
         inputs={"bat_sha256":hashlib.sha256(bat).hexdigest(),
                 "plant_sha256":hashlib.sha256(plant).hexdigest()}
+        # Every completed taxon is checkpointed before trying the next one.
+        # Prevent loss of all data if a job is cancelled by the platform.
+        def checkpoint(species, total):
+            partial={"schema_version":1,"status":"PARTIAL_TAXON_RECEIPTS_ONLY",
+                     "target_species_count":total,"taxa_completed":len(species),
+                     "GBIF_DOWNLOAD_DOI":None,"ecological_predictive_effect":None,
+                     "taxa":species,"input_source_hashes":inputs}
+            dest.write_text(json.dumps(partial,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
         # Open no occurrence responses if metadata source is malformed.
-        d=run(json.loads(bat),json.loads(plant))
+        d=run(json.loads(bat),json.loads(plant),progress=checkpoint)
     except Exception as exc:
         d={"schema_version":1,"status":"SOURCE_OR_IMPLEMENTATION_STOP",
            "error":str(exc)[:240],"ecological_predictive_effect":None}
