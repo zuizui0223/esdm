@@ -45,18 +45,18 @@ jobs:
         with:
           name: neobat-worldclim-bio1-bio12-corrected-source-only
           path: |
-            docs/replication/neobat/worldclim_bio1_bio12_source_preflight.json
-            docs/replication/neobat/worldclim_bio1_bio12_source_preflight_exit_code.txt
-          if-no-files-found: warn
+            docs/replication/neobat/worldclim_bio1_bio12_corrected_source_preflight.json
+            docs/replication/neobat/worldclim_bio1_bio12_corrected_source_preflight_exit_code.txt
+          if-no-files-found: error
           retention-days: 90
       - name: Commit only raster hashes and header metadata on research branch
         if: always()
         run: |
           set -euo pipefail
-          test -f docs/replication/neobat/worldclim_bio1_bio12_source_preflight.json
+          test -f docs/replication/neobat/worldclim_bio1_bio12_corrected_source_preflight.json
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/replication/neobat/worldclim_bio1_bio12_source_preflight*
+          git add docs/replication/neobat/worldclim_bio1_bio12_corrected_source_preflight*
           if ! git diff --cached --quiet; then
             git commit -m "evidence: verify pinned WorldClim BIO1 BIO12 georaster sources, no bat response"
             git pull --rebase origin design/neobat-trophic-sdm-phase1-20261119
@@ -64,4 +64,4 @@ jobs:
           fi
       - name: Do not promote source failures
         run: |
-          test "$(cat docs/replication/neobat/worldclim_bio1_bio12_source_preflight_exit_code.txt)" = "0"
+          test "$(cat docs/replication/neobat/worldclim_bio1_bio12_corrected_source_preflight_exit_code.txt)" = "0"
