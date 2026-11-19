@@ -1,0 +1,78 @@
+name: NeoBat DOI-full GBIF occurrence source quality and recorded-cell audit
+
+on:
+  push:
+    branches:
+      - design/neobat-trophic-sdm-phase1-20261119
+    paths:
+      - docs/replication/neobat/GBIF_FULL_SOURCE_QC_ONCE_20261119.txt
+
+permissions:
+  contents: write
+
+concurrency:
+  group: neobat-GBIF-full-source-qc-once-20261119
+  cancel-in-progress: false
+
+jobs:
+  full_DOI_qualified_source_qc:
+    # One full source-QC run, no ecological predictor fitting and no GBIF POST.
+    if: github.event.head_commit.message == 'dispatch NeoBat pinned DOI source quality and cell audit once' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 28
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: design/neobat-trophic-sdm-phase1-20261119
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Freeze public DOI and checksum receipt identity
+        run: |
+          set -euo pipefail
+          test "$(git hash-object docs/replication/neobat/gbif_archive_header_preflight.json)" = "d213a8941815f9ccc8f1d99343cacb233f9732dd"
+          test "$(git hash-object docs/replication/neobat/gbif_download_doi_poll.json)" = "ec0688ccc26256fe1d40b8a2d96c6b9894e83da3"
+      - name: Verify pure QC on synthetic original-shaped data
+        run: |
+          python -m pip install 'pyproj==3.7.2'
+          python -m py_compile scripts/neobat_gbif_full_source_qc.py
+          python -m unittest discover -s tests -p 'test_neobat_gbif_full_source_qc.py' -v
+      - name: Stream source-verified 26 bat and 255 plant GBIF originals
+        run: |
+          set -euo pipefail
+          mkdir -p build/neobat
+          set +e
+          python -m scripts.neobat_gbif_full_source_qc --out build/neobat/gbif_full_source_qc.json
+          rc=$?
+          set -e
+          echo "$rc" > build/neobat/gbif_full_source_qc_exit_code.txt
+          echo "NEOBAT_GBIF_FULL_SOURCE_QC_EXIT=$rc (0 complete, 3 explicit source stop)"
+      - name: Preserve aggregate-only file and meaningful stops
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-gbif-full-verified-source-qc
+          path: |
+            build/neobat/gbif_full_source_qc.json
+            build/neobat/gbif_full_source_qc_exit_code.txt
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Publish aggregate QC with no occurrence coordinates or GBIF raw rows
+        if: always()
+        run: |
+          set -euo pipefail
+          test -f build/neobat/gbif_full_source_qc.json
+          mkdir -p docs/replication/neobat
+          cp build/neobat/gbif_full_source_qc.json docs/replication/neobat/
+          cp build/neobat/gbif_full_source_qc_exit_code.txt docs/replication/neobat/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/gbif_full_source_qc.json docs/replication/neobat/gbif_full_source_qc_exit_code.txt
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: pin DOI original GBIF rows, precision and country-cell source QC"
+            git pull --rebase origin design/neobat-trophic-sdm-phase1-20261119
+            git push origin HEAD:design/neobat-trophic-sdm-phase1-20261119
+          fi
+      - name: Never describe incomplete preflight as complete
+        run: |
+          test "$(cat build/neobat/gbif_full_source_qc_exit_code.txt)" = "0"
