@@ -1,0 +1,64 @@
+name: NeoBat v2 globally trainable 106-plant source reference and N1 gate
+
+on:
+  push:
+    branches:
+      - analysis/neobat-v2-106plant-link-qualification-20261119
+    paths:
+      - .github/workflows/neobat-v2-106plant-source-gate.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  v2_fixed_106_source_only:
+    if: github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: analysis/neobat-v2-106plant-link-qualification-20261119
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Freeze design and source-only synthetic regression
+        run: |
+          test -f docs/replication/NEOBAT_V2_106PLANT_EXPLORATORY_SOURCE_GATE_FROZEN_20261119.md
+          python -m py_compile scripts/neobat_v2_106plant_reference_gate.py
+          python -m unittest discover -s tests -p 'test_neobat_v2_106plant_reference_gate.py' -v
+      - name: Read previously verified DOI aggregate plant-training cells and original author references
+        run: |
+          set +e
+          python -m scripts.neobat_v2_106plant_reference_gate --out docs/replication/neobat/v2_106plant_reference_input_gate.json
+          result=$?
+          set -e
+          echo "$result" > docs/replication/neobat/v2_106plant_reference_input_gate_exit_code.txt
+          echo "NEOBAT_V2_SOURCE_GATE_EXIT=$result"
+      - name: Preserve result and STOP without biological responses
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-v2-106plant-84fold-source-only
+          path: |
+            docs/replication/neobat/v2_106plant_reference_input_gate.json
+            docs/replication/neobat/v2_106plant_reference_input_gate_exit_code.txt
+          retention-days: 90
+          if-no-files-found: warn
+      - name: Commit author-reference counts and frozen candidate names only
+        if: always()
+        run: |
+          set -euo pipefail
+          test -f docs/replication/neobat/v2_106plant_reference_input_gate.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/v2_106plant_reference_input_gate*
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: fixed-106 source partners and N1 focal-swappability for all 84 folds"
+            git pull --rebase origin analysis/neobat-v2-106plant-link-qualification-20261119
+            git push origin HEAD:analysis/neobat-v2-106plant-link-qualification-20261119
+          fi
+      - name: Reject missing or drifted original source
+        run: |
+          test "$(cat docs/replication/neobat/v2_106plant_reference_input_gate_exit_code.txt)" = "0"
