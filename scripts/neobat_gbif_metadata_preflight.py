@@ -26,9 +26,17 @@ def read_source(name):
     raw=get(url)
     blob=hashlib.sha1(f'blob {len(raw)}\0'.encode()+raw).hexdigest()
     if blob!=sha: raise RuntimeError(f'IMMUTABLE_SOURCE_MISMATCH_{name}')
-    parsed=list(csv.DictReader(io.StringIO(raw.decode('utf-8-sig'))))
+    # Some author-source CSV bytes are not UTF-8. Decode without replacement; latin-1
+    # is a reversible byte-to-codepoint representation for ASCII table fields.
+    try:
+        decoded=raw.decode('utf-8-sig')
+        encoding='utf-8-sig'
+    except UnicodeDecodeError:
+        decoded=raw.decode('latin-1')
+        encoding='latin-1-lossless-fallback'
+    parsed=list(csv.DictReader(io.StringIO(decoded)))
     if not parsed: raise RuntimeError(f'EMPTY_SOURCE_{name}')
-    return parsed, {'url':url,'git_blob_sha':blob,'sha256':hashlib.sha256(raw).hexdigest(),'rows':len(parsed)}
+    return parsed, {'url':url,'git_blob_sha':blob,'sha256':hashlib.sha256(raw).hexdigest(),'rows':len(parsed),'decode':encoding}
 
 
 def binomial(s): return bool(re.fullmatch(r'[A-Z][A-Za-z-]+ [a-z-]+',s or ''))
