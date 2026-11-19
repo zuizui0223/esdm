@@ -26,7 +26,7 @@ def api_get(path,token):
     with urlopen(req,timeout=30) as f:
         return json.loads(f.read().decode("utf-8"))
 
-def audit(getter, marker_sha=MARKER_SHA):
+def audit(getter, marker_sha=MARKER_SHA, workflow_file=WORKFLOW, workflow_name="NeoBat DOI-backed GBIF bat and plant occurrence downloads (single authorization)"):
     # The repository-level endpoint resolves an exact head SHA even when
     # the named workflow file exists only on a non-default branch.
     path=("/actions/runs?head_sha="+quote(marker_sha,safe="")
@@ -35,13 +35,13 @@ def audit(getter, marker_sha=MARKER_SHA):
     runs=payload.get("workflow_runs",[])
     target=[r for r in runs if r.get("head_sha")==marker_sha and
             r.get("event")=="push" and
-            (r.get("name")== "NeoBat DOI-backed GBIF bat and plant occurrence downloads (single authorization)"
-             or r.get("path","").endswith("/"+WORKFLOW))]
+            (r.get("name")==workflow_name
+             or r.get("path","").endswith("/"+workflow_file))]
     result={
         "schema_version":1,
         "created_utc":datetime.now(timezone.utc).isoformat(),
         "target_marker_sha":marker_sha,
-        "target_workflow_name":WORKFLOW,
+        "target_workflow_name":workflow_file,
         "target_branch":BRANCH,
         "mode":"READ_ONLY_GITHUB_RUN_METADATA",
         "GBIF_POST_retried":False,
@@ -83,13 +83,16 @@ def main():
     pa=argparse.ArgumentParser()
     pa.add_argument("--out",default="docs/replication/neobat/gbif_one_shot_action_audit.json")
     pa.add_argument("--marker-sha",default=MARKER_SHA)
+    pa.add_argument("--workflow-file",default=WORKFLOW)
+    pa.add_argument("--workflow-name",default="NeoBat DOI-backed GBIF bat and plant occurrence downloads (single authorization)")
     args=pa.parse_args()
     dest=pathlib.Path(args.out)
     dest.parent.mkdir(parents=True,exist_ok=True)
     token=os.environ.get("GITHUB_TOKEN","")
     try:
         if not token: raise RuntimeError("GITHUB_TOKEN_MISSING")
-        x=audit(lambda path: api_get(path,token),marker_sha=args.marker_sha)
+        x=audit(lambda path: api_get(path,token),marker_sha=args.marker_sha,
+                workflow_file=args.workflow_file,workflow_name=args.workflow_name)
     except Exception as exc:
         x={"schema_version":1,"status":"ACTION_AUDIT_API_STOP",
            "error_type":type(exc).__name__,
