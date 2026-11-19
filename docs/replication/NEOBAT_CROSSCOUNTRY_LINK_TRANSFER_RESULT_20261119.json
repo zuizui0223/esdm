@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "stage": "EXPLORATORY_SOURCE_ONLY",
+  "source_repository": "gflorezm/NeoBat_Interactions",
+  "source_commit": "d25292d19be32a85a21c60384a3f2d818e8081de",
+  "source_records_blob_sha": "71f179a152a262d7a98d7bb4e633cf136bc39f98",
+  "source_sites_blob_sha": "f9672a8b5542b8f4ecd3434ca798756f865df541",
+  "design": "docs/replication/NEOBAT_CROSSCOUNTRY_LINK_TRANSFER_DESIGN_20261119.md",
+  "analysis_engine": "V8 JavaScript deterministic source-only run; independently re-run reproducible repository script before scientific promotion",
+  "confirmed_independent_validation": false,
+  "species_candidates": 26,
+  "countries_with_source_records": 12,
+  "countries_test_eligible": 6,
+  "country_names": [
+    "Brazil",
+    "Costa Rica",
+    "French Guiana",
+    "Mexico",
+    "Panama",
+    "Peru"
+  ],
+  "n_heldout_test_edges": 338,
+  "country_test_reference_sum": 58,
+  "randomization": {
+    "type": "within-heldout-country bipartite bat-and-plant degree preserving 2-edge swaps",
+    "replicates": 999,
+    "seed": 20261119,
+    "attempted_swaps_between_draws_per_country": "20 * n_test_edges",
+    "burn_in": "100 * n_test_edges",
+    "accepted_swaps_total": 1369793,
+    "test": "upper-tail country-equal mean overlap"
+  },
+  "primary": {
+    "observed_country_mean_recurrence": 0.46940684626568485,
+    "null_country_mean_recurrence": 0.4055437546476631,
+    "difference": 0.06386309161802173,
+    "monte_carlo_upper_tail_p": 0.001,
+    "null_quantile_025": 0.3766858347216711,
+    "null_quantile_500": 0.4055707091056857,
+    "null_quantile_975": 0.4345736400063256
+  },
+  "train_2reference_sensitivity": {
+    "observed_country_mean_recurrence": 0.2406945246636143,
+    "null_country_mean_recurrence": 0.18407127508458393,
+    "difference": 0.056623249579030366,
+    "monte_carlo_upper_tail_p": 0.001
+  },
+  "country_audit": [
+    {
+      "country": "Argentina",
+      "test_edges": 0,
+      "test_refs": 0,
+      "eligible": false
+    },
+    {
+      "country": "Bolivia",
+      "test_edges": 3,
+      "test_refs": 1,
+      "eligible": false
+    },
+    {
+      "country": "Brazil",
+      "test_edges": 65,
+      "test_refs": 19,
+      "eligible": true,
+      "observed_overlap": 0.5384615384615384
+    },
+    {
+      "country": "Colombia",
+      "test_edges": 0,
+      "test_refs": 0,
+      "eligible": false
+    },
+    {
+      "country": "Costa Rica",
+      "test_edges": 86,
+      "test_refs": 15,
+      "eligible": true,
+      "observed_overlap": 0.46511627906976744
+    },
+    {
+      "country": "Cuba",
+      "test_edges": 2,
+      "test_refs": 2,
+      "eligible": false
+    },
+    {
+      "country": "French Guiana",
+      "test_edges": 18,
+      "test_refs": 5,
+      "eligible": true,
+      "observed_overlap": 0.5
+    },
+    {
+      "country": "Mexico",
+      "test_edges": 31,
+      "test_refs": 7,
+      "eligible": true,
+      "observed_overlap": 0.7096774193548387
+    },
+    {
+      "country": "Panama",
+      "test_edges": 113,
+      "test_refs": 9,
+      "eligible": true,
+      "observed_overlap": 0.2831858407079646
+    },
+    {
+      "country": "Peru",
+      "test_edges": 25,
+      "test_refs": 3,
+      "eligible": true,
+      "observed_overlap": 0.32
+    },
+    {
+      "country": "Trinidad and Tobago",
+      "test_edges": 34,
+      "test_refs": 1,
+      "eligible": false
+    },
+    {
+      "country": "Venezuela",
+      "test_edges": 1,
+      "test_refs": 1,
+      "eligible": false
+    }
+  ],
+  "claim_ceiling": "published fruit-bat link identities transfer between country-held-out source subsets beyond local graph degree, conditional on historical sampling; no absence, causal trophic effect, GBIF spatial presence prediction or height inference",
+  "cautions": [
+    "same source universe used for candidate selection and train/test",
+    "country/study coverage heterogeneous",
+    "degree-preserving MCMC null only",
+    "some nominally distinct references may share field surveys",
+    "not out-of-source independent evidence",
+    "not plant suitability and no calibrated occupancy"
+  ],
+  "ecological_sdm_performance": null,
+  "DOI_bearing_occurrence_download": null
+}
