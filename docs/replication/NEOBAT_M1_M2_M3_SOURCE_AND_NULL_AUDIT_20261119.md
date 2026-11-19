@@ -76,7 +76,7 @@ without changing membership or opening any new biological outcome:
 
 - 84 bat×country folds come from **19 bats × 17 distinct countries**;
   16 of the 19 bat species have two or more eligible countries.
-- Columbia (CO) has 17, Mexico (MX) 12, and Costa Rica (CR) 10:
+- Colombia (CO) has 17, Mexico (MX) 12, and Costa Rica (CR) 10:
   the three countries contribute **39/84 = 46.43%** of candidate folds.
 - The inverse-concentration effective country count,
   `(sum_c n_c)^2 / sum_c n_c^2`, is approximately **9.59**,
