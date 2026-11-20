@@ -17,6 +17,7 @@ inference = ["numpyro>=0.21,<0.22; python_version >= '3.11'"]
 dev = [
   "pytest>=8",
   "ijson>=3.2,<4",
+  "scikit-learn>=1.4,<1.10",  # MC1 source-free logistic evaluation tests
   "numpyro>=0.21,<0.22; python_version >= '3.11'",
 ]
 
