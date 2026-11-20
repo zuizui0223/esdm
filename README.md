@@ -20,6 +20,25 @@ The repository name is historical/convenient. The project does **not** claim `ES
 
 ## Current scientific status
 
+### MC1 camera image-quality site transfer (2026-11-19)
+
+The separate Murray et al. (2021) Chicago coyote camera-positive image
+data were authenticated at their exact published authors' Git commit and
+414,219-byte CSV, before a frozen test of adding image blur, photo colour
+and visible-body proportion to season/year for **previously unseen sites**.
+[Original Actions run 44525869485](https://github.com/zuizui0223/esdm/actions/runs/44525869485)
+passed **20 synthetic tests** and verified the source bytes, then ended at
+`RESPONSE_SCHEMA_STOP: invalid calendar year` under the frozen parser.
+This is a **technical input-grammar stop**; it does *not* prove that the
+published source's year values are scientifically wrong. No validation
+sites, Brier or log-loss gain, mange-sign effect or ecological direction
+were computed. The original [byte-identical stop receipt](docs/replication/MC1_COYOTE_IMAGE_RESULT_FROZEN.json)
+and [scientific interpretation](docs/replication/MC1_COYOTE_IMAGE_TERMINAL_INTERPRETATION.md)
+are archived; the source-reading workflow is disabled and will not be
+rerun with relaxed parsing. Camera-positive images are *not* independent
+denominators of missed animal passages, and the original standard E5
+remains **0/17 qualified**.
+
 ### Clare camera–snow-track source stop (2026-11-19)
 
 The independent [Clare et al. 2017 Dryad](https://doi.org/10.5061/dryad.4mt00)
