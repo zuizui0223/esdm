@@ -68,3 +68,25 @@ def test_manifest_drift_fails_closed():
     changed = dict(MANIFEST, plant_taxa=MANIFEST["plant_taxa"][:-1])
     with pytest.raises(ValueError):
         audit_plot_csv(changed, HEADER)
+
+
+def test_source_aliases_do_not_create_independent_origin_datasets():
+    species = MANIFEST["plant_taxa"][0]
+    rows = HEADER + (
+        f"A,independent_vegetation_plot,BR,P1,{species},dataset1\\n"
+        f"B,independent_vegetation_plot,BR,P2,{species},dataset1\\n"
+    )
+    result = audit_plot_csv(MANIFEST, rows)
+    br = next(x for x in result["countries"] if x["country"] == "BR")
+    assert br["distinct_origin_sources"] == 1
+    assert result["countries_with_two_origin_sources"] == []
+
+
+def test_one_source_alias_cannot_map_to_two_primary_datasets():
+    species = MANIFEST["plant_taxa"][0]
+    rows = HEADER + (
+        f"A,independent_vegetation_plot,BR,P1,{species},dataset1\\n"
+        f"A,independent_vegetation_plot,BR,P2,{species},dataset2\\n"
+    )
+    with pytest.raises(ValueError, match="conflicting origin datasets"):
+        audit_plot_csv(MANIFEST, rows)
