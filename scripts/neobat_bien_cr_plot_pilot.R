@@ -48,6 +48,11 @@ if (inherits(d, "error")) {
     status$taxon_column_used <- taxon_col
     status$external_plot_species_exact_matches <- length(matched)
     status$matched_species_names <- matched
+    status$unique_dataset_labels <- length(unique(as.character(d$dataset)))
+    status$unique_datasource_ids <- length(unique(as.character(d$datasource_id)))
+    status$matched_dataset_labels <- if ("dataset" %in% names(d)) length(unique(as.character(d$dataset[d[[taxon_col]] %in% matched]))) else NULL
+    status$matched_datasource_ids <- if ("datasource_id" %in% names(d)) length(unique(as.character(d$datasource_id[d[[taxon_col]] %in% matched]))) else NULL
+    status$matched_plot_name_count <- if (all(c("dataset", "plot_name") %in% names(d))) nrow(unique(d[d[[taxon_col]] %in% matched, c("dataset", "plot_name"), drop = FALSE])) else NULL
     status$status <- "EXPLORATORY_PLOT_COUNTRY_EXACT_TAXON_COVERAGE_ONLY"
   }
 }
