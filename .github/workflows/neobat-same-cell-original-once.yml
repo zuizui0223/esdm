@@ -1,0 +1,76 @@
+name: NeoBat pinned DOI original 25km same-cell support (single discovery execution)
+
+on:
+  push:
+    branches:
+      - analysis/neobat-25km-colocation-gate-20261119
+    paths:
+      - docs/replication/neobat/NEOBAT_SAME_CELL_ORIGINAL_ONCE_20261119.txt
+
+permissions:
+  contents: write
+
+concurrency:
+  group: neobat-source-same-cell-original-20261119
+  cancel-in-progress: false
+
+jobs:
+  run_original_doi_source_same_cell:
+    if: github.event.head_commit.message == 'dispatch frozen NeoBat same-cell original DOI audit once' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 38
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: analysis/neobat-25km-colocation-gate-20261119
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install exact source-grid projection dependency only
+        run: python -m pip install 'pyproj==3.7.2'
+      - name: Prove frozen design committed BEFORE original same-cell response
+        run: |
+          test -f docs/replication/NEOBAT_SAME_CELL_INPUT_SUPPORT_FROZEN_DESIGN_20261119.md
+          test -f docs/replication/neobat/NEOBAT_STRICT_84_COUNTRY_FOLD_ROSTER_FROZEN_20261119.json
+          test -f docs/replication/neobat/NEOBAT_FULL_SITE_REFERENCE_EMBARGO_FROZEN_20261119.json
+          python -m py_compile scripts/neobat_same_cell_source_support.py
+          python -m unittest discover -s tests -p 'test_neobat_same_cell_source_support.py' -v
+      - name: Stream two ORIGINAL GBIF DOI sources and report only fixed fold aggregate cell support
+        run: |
+          mkdir -p build/neobat
+          set +e
+          python -m scripts.neobat_same_cell_source_support \
+            --out build/neobat/same_cell_source_support.json
+          status=$?
+          set -e
+          echo "$status" > build/neobat/same_cell_source_support_exit_code.txt
+          echo "NEOBAT_SOURCE_SAME_CELL_EXIT=$status"
+      - name: Archive only final aggregate and explicit source stops
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-doi-source-same-cell-aggregate-only
+          path: |
+            build/neobat/same_cell_source_support.json
+            build/neobat/same_cell_source_support_exit_code.txt
+          retention-days: 90
+          if-no-files-found: warn
+      - name: Commit source-support aggregate or explicit STOP only (no raw GBIF rows)
+        if: always()
+        run: |
+          set -euo pipefail
+          test -f build/neobat/same_cell_source_support.json
+          mkdir -p docs/replication/neobat
+          cp build/neobat/same_cell_source_support.json docs/replication/neobat/
+          cp build/neobat/same_cell_source_support_exit_code.txt docs/replication/neobat/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/same_cell_source_support.json docs/replication/neobat/same_cell_source_support_exit_code.txt
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: source-authenticated GBIF 25km bat-plant overlap input support only"
+            git pull --rebase origin analysis/neobat-25km-colocation-gate-20261119
+            git push origin HEAD:analysis/neobat-25km-colocation-gate-20261119
+          fi
+      - name: Fail closed on original data, QC, or frozen roster errors
+        run: |
+          test "$(cat build/neobat/same_cell_source_support_exit_code.txt)" = "0"

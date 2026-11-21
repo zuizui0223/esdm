@@ -1,0 +1,28 @@
+name: NeoBat v3 35 global source-disjoint fruit partner source-free correctness
+
+on:
+  push:
+    branches:
+      - analysis/neobat-source35-partner-retention-20261119
+    paths:
+      - scripts/neobat_v3_source35_partner_gate.py
+      - tests/test_neobat_v3_source35_partner_gate.py
+      - .github/workflows/neobat-v3-source35-sourcefree.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  invariant:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify original 1802 botanical source rows, exact intersection and focal N1 source-free tests
+        run: |
+          python -m py_compile scripts/neobat_v3_source35_partner_gate.py
+          python -m unittest discover -s tests -p 'test_neobat_v3_source35_partner_gate.py' -v

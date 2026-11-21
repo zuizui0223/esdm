@@ -1,0 +1,8 @@
+One-shot corrected NeoBat GBIF DOI download submission authorization
+Original marker: 37c1c92ef37225c8898ed8f63a4333263f424695
+Original run: 44474434524 -- conclusion failure, jobs 0, artifacts 0, no GBIF POST
+Original failure: YAML job if scalar contained unquoted ': ' mapping token
+Corrected workflow: .github/workflows/neobat-gbif-doi-download-once.yml
+This is the first eligible actual GBIF POST attempt; no duplicate submission
+Targets: frozen 26 bat and 255 plant GBIF legacy Backbone taxon keys
+No secrets, passwords, or email addresses in this marker

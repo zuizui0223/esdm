@@ -1,0 +1,78 @@
+name: NeoBat original DOI 51-fold climate-only SHADOW S0 S1 S3 SN1 once
+on:
+  push:
+    branches:
+      - analysis/neobat-shadow-resource-sdm-51fold-20261119
+    paths:
+      - docs/replication/neobat/NEOBAT_SHADOW_51FOLD_ORIGINAL_ONCE_20261119.txt
+
+permissions:
+  contents: write
+concurrency:
+  group: neobat-shadow-51fold-source-geography-20261119
+  cancel-in-progress: false
+
+jobs:
+  fixed_weak_source_geography:
+    if: github.event.head_commit.message == 'dispatch frozen NeoBat weak shadow S0 S1 S3 SN1 51fold original once' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    env:
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: analysis/neobat-shadow-resource-sdm-51fold-20261119
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned original source, projection and model numerical dependencies
+        run: python -m pip install 'numpy==2.2.6' 'scikit-learn==1.7.2' 'rasterio==1.4.3' 'pyproj==3.7.2'
+      - name: Ensure prespecified weaker model and null contract, run artificial source tests
+        run: |
+          test -f docs/replication/NEOBAT_SHADOW_CLIMATE_ONLY_51FOLD_FROZEN_20261119.md
+          test -f docs/replication/neobat/full106_raster_trainability_gate.json
+          python -m py_compile scripts/neobat_shadow_source_geography_51fold.py
+          python -m unittest discover -s tests -p 'test_neobat_shadow_source_geography_51fold.py' -v
+      - name: Fit all original DOI weak shadow bat-source geography models and 99 negative controls
+        run: |
+          mkdir -p build/neobat
+          set +e
+          python -m scripts.neobat_shadow_source_geography_51fold \
+            --out build/neobat/shadow_climate_only_51fold.json
+          code=$?
+          set -e
+          echo "$code" > build/neobat/shadow_climate_only_51fold_exit_code.txt
+          echo "NEOBAT_SHADOW_SOURCE_GEOGRAPHY_EXIT=$code"
+      - name: Archive only species-country summary and explicit STOP
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-weak-shadow-51fold-S0-S1-S3-SN1-original-aggregate
+          path: |
+            build/neobat/shadow_climate_only_51fold.json
+            build/neobat/shadow_climate_only_51fold_exit_code.txt
+          retention-days: 90
+          if-no-files-found: warn
+      - name: Commit aggregate-only shadow source geometry, no cell scores or coordinates
+        if: always()
+        run: |
+          set -euo pipefail
+          test -f build/neobat/shadow_climate_only_51fold.json
+          cp build/neobat/shadow_climate_only_51fold.json docs/replication/neobat/
+          cp build/neobat/shadow_climate_only_51fold_exit_code.txt docs/replication/neobat/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/shadow_climate_only_51fold*
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: exploratory climate-only weak shadow 51fold source geography S0 S1 S3 SN1 with 99 null draws"
+            git pull --rebase origin analysis/neobat-shadow-resource-sdm-51fold-20261119
+            git push origin HEAD:analysis/neobat-shadow-resource-sdm-51fold-20261119
+          fi
+      - name: Stop if any source identity mismatch, incomplete fixed cohort or synthetic code failure
+        run: |
+          test "$(cat build/neobat/shadow_climate_only_51fold_exit_code.txt)" = "0"

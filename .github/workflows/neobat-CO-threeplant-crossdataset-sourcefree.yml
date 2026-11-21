@@ -1,0 +1,28 @@
+name: NeoBat Colombia three-plant global dataset-disjoint source-free tests
+
+on:
+  push:
+    branches:
+      - analysis/neobat-CO-threeplant-crosssource-transfer-20261119
+    paths:
+      - scripts/neobat_CO_threeplant_crossdataset_transfer.py
+      - tests/test_neobat_CO_threeplant_crossdataset_transfer.py
+      - .github/workflows/neobat-CO-threeplant-crossdataset-sourcefree.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  no_source_leak:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile and verify original source embargo, 25km borders, and unbanned effort
+        run: |
+          python -m py_compile scripts/neobat_CO_threeplant_crossdataset_transfer.py
+          python -m unittest discover -s tests -p 'test_neobat_CO_threeplant_crossdataset_transfer.py' -v

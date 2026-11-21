@@ -1,0 +1,1 @@
+Corrected one-shot source record replay: model/data/holdout/bins frozen identical to failed original, only native Python numeric serialization and a source-free json.dumps test changed. Preserve failed run #44534280720; never reinterpret as ecology.

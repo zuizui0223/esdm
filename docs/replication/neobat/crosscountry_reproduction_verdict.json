@@ -1,0 +1,8 @@
+{
+  "status": "REPRODUCED_EXPLORATORY_SOURCE_ONLY",
+  "original_commit_source": "d25292d19be32a85a21c60384a3f2d818e8081de",
+  "source_hashes_checked": true,
+  "comparisons": 8,
+  "mismatches": [],
+  "interpretation_ceiling": "source-internal descriptive recurrence; no independent interaction response or SDM fit"
+}

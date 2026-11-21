@@ -1,0 +1,78 @@
+name: NeoBat two-implementation 1802-fold original source AUC replay (aggregate only)
+on:
+  push:
+    branches:
+      - analysis/neobat-106x17-dual-replay-audit-20261119
+    paths:
+      - docs/replication/neobat/NEOBAT_DUAL_106x17_AGGREGATE_REPLAY_ONCE_20261119.txt
+
+permissions:
+  contents: write
+
+jobs:
+  exact_1802_fold_aggregate_parity:
+    if: github.event.head_commit.message == 'dispatch pinned NeoBat 106x17 two-implementation aggregate replay once' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: analysis/neobat-106x17-dual-replay-audit-20261119
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify frozen comparison and synthetic 1802-row drift STOPs
+        run: |
+          test -f docs/replication/NEOBAT_106x17_DUAL_SOURCE_MODEL_REPLAY_FROZEN_20261119.md
+          python -m py_compile scripts/neobat_106x17_dual_replay_audit.py
+          python -m unittest discover -s tests -p 'test_neobat_106x17_dual_replay_audit.py' -v
+      - name: Pin exact original and secondary aggregate model JSON blob SHAs
+        run: |
+          set -euo pipefail
+          mkdir -p build/neobat
+          cp docs/replication/neobat/plant_106x17_source_effort_transfer.json build/neobat/implementation_A.json
+          test "$(git hash-object build/neobat/implementation_A.json)" = "3389fda966cb3c7566ff5d249396fed725f16a05"
+          git fetch --no-tags --depth=1 origin analysis/neobat-106x17-source-intensity-diagnostic-20261119
+          test "$(git rev-parse FETCH_HEAD)" = "e940be5799bb98c59f708cb6da454f11d1f24b30"
+          git show FETCH_HEAD:docs/replication/neobat/plant_106x17_source_intensity_diagnostic.json > build/neobat/implementation_B.json
+          test "$(git hash-object build/neobat/implementation_B.json)" = "7a84042d25f4809e5169da6881242b33170be7d0"
+      - name: Exact compare all 647 fitted AUCs and 1155 fixed STOPs, no original GBIF rows
+        run: |
+          set +e
+          python -m scripts.neobat_106x17_dual_replay_audit \
+            --a build/neobat/implementation_A.json \
+            --b build/neobat/implementation_B.json \
+            --out build/neobat/two_implementation_replay.json
+          rc=$?
+          set -e
+          echo "$rc" > build/neobat/two_implementation_replay_exit_code.txt
+          echo "NEOBAT_DUAL_REPLAY_EXIT=$rc"
+      - name: Archive comparison summary only (no full inputs or per-cell original data)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-full-1802-fold-two-implementation-replay-summary
+          path: |
+            build/neobat/two_implementation_replay.json
+            build/neobat/two_implementation_replay_exit_code.txt
+          retention-days: 90
+          if-no-files-found: warn
+      - name: Commit only fixed numerical parity or precise STOP
+        if: always()
+        run: |
+          set -euo pipefail
+          test -f build/neobat/two_implementation_replay.json
+          cp build/neobat/two_implementation_replay.json docs/replication/neobat/
+          cp build/neobat/two_implementation_replay_exit_code.txt docs/replication/neobat/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/two_implementation_replay*
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: exact 1802-fold parity between two pre-existing botanical source rank implementations"
+            git pull --rebase origin analysis/neobat-106x17-dual-replay-audit-20261119
+            git push origin HEAD:analysis/neobat-106x17-dual-replay-audit-20261119
+          fi
+      - name: Never promote a differing replay
+        run: |
+          test "$(cat build/neobat/two_implementation_replay_exit_code.txt)" = "0"

@@ -1,0 +1,8 @@
+NeoBat GBIF authenticated occurrence download: first and only authorized submission marker
+Scope: 26 original frugivore bat taxon keys and 255 strict-match fruit plant taxon keys
+Years: 2000–2025; fixed 29 countries; HAS_COORDINATE=true; HAS_GEOSPATIAL_ISSUE=false
+Taxonomy: legacy GBIF Backbone, matching frozen /species/match taxon keys
+Workflow: .github/workflows/neobat-gbif-doi-download-once.yml
+Submission protection: exact marker commit message, one run attempt only
+Requested by project user after confirming GitHub Actions secrets were added
+This marker carries no credentials or personal contact information.

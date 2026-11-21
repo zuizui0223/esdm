@@ -1,0 +1,1940 @@
+{
+  "schema_version": 1,
+  "status": "DRAFT_NOT_DISPATCHED",
+  "source": "GBIF public name/occurrence count metadata (not raw occurrence data)",
+  "source_responses": {
+    "bat_created": "2026-11-19T03:41:30.066833+00:00",
+    "plant_created": "2026-11-19T03:34:20.938622+00:00"
+  },
+  "GBIF_occurrence_download_DOIs": [],
+  "needs_GBIF_authentication": true,
+  "needs_taxonomy_catalog_check": true,
+  "taxon_reference": "numeric species-match keys from public GBIF API; checklistKey omission defaults legacy GBIF Backbone according to API docs; DO NOT dispatch as published CoL request without crosswalk",
+  "not_analyzed": {
+    "26_bat_candidates": 26,
+    "255_exact_plant_names": 255,
+    "ambiguous_plants": [
+      "Dyssochroma viridiflora",
+      "Ficus paraensis",
+      "Solanum granuloso-leprosum",
+      "Solanum ochraceo-ferrugineum",
+      "Solanum rudepannum",
+      "Trema micrantha"
+    ]
+  },
+  "filters": {
+    "year_first": 2000,
+    "year_last": 2025,
+    "country_codes": [
+      "AR",
+      "BO",
+      "BR",
+      "BZ",
+      "CL",
+      "CO",
+      "CR",
+      "CU",
+      "CW",
+      "DO",
+      "EC",
+      "GF",
+      "GT",
+      "GY",
+      "HN",
+      "HT",
+      "JM",
+      "MX",
+      "NI",
+      "PA",
+      "PE",
+      "PR",
+      "PY",
+      "SR",
+      "SV",
+      "TT",
+      "UY",
+      "VE",
+      "BS"
+    ],
+    "hasCoordinate": true,
+    "hasGeospatialIssue": false,
+    "occurrenceStatus": "PRESENT"
+  },
+  "taxa": {
+    "bat": [
+      {
+        "source_name": "Carollia perspicillata",
+        "api_name": "Carollia perspicillata (Linnaeus, 1758)",
+        "key": "2433176",
+        "crosswalk_status": "GBIF_COUNTS_ONLY"
+      },
+      {
+        "source_name": "Artibeus lituratus",
+        "api_name": "Artibeus lituratus (Olfers, 1818)",
+        "key": "2433270",
+        "crosswalk_status": "GBIF_COUNTS_ONLY"
+      },
+      {
+        "source_name": "Artibeus jamaicensis",
+        "api_name": "Artibeus jamaicensis Leach, 1821",
+        "key": "2433272",
+        "crosswalk_status": "GBIF_COUNTS_ONLY"
+      },
+      {
+        "source_name": "Sturnira lilium",
+        "api_name": "Sturnira lilium (E.Geoffroy, 1810)",
+        "key": "2433327",
+        "crosswalk_status": "GBIF_COUNTS_ONLY"
+      },
+      {
+        "source_name": "Artibeus planirostris",
+        "api_name": "Artibeus planirostris (Spix, 1823)",
+        "key": "2433271",
+        "crosswalk_status": "GBIF_COUNTS_ONLY"
+      },
+      {
+        "source_name": "Sturnira giannae",
+        "api_name": "Sturnira giannae Velazco & Patterson, 2019",
+        "key": "10787745",
+        "crosswalk_status": "GBIF_COUNTS_ONLY"
+      },
+      {
+        "source_name": "Carollia brevicauda",
+        "api_name": "Carollia brevicaudum (Schinz, 1821)",
+        "key": "2433177",
+        "crosswalk_status": "GBIF_COUNTS_AUDITED_ALIAS"
+      },
+      {
+        "source_name": "Artibeus phaeotis",
+        "api_name": "Artibeus phaeotis (Miller, 1902)",
+        "key": "2433264",
+        "crosswalk_status": "GBIF_COUNTS_ONLY"
+      },
+      {
+        "source_name": "Sturnira parvidens",
+        "api_name": "Sturnira parvidens Goldman, 1917",
+        "key": "7769716",
+        "crosswalk_status": "GBIF_COUNTS_ONLY"
+      },
+      {
+        "source_name": "Carollia castanea",
+        "api_name": "Carollia castanea H.Allen, 1890",
+        "key": "2433178",
+        "crosswalk_status": "GBIF_COUNTS_ONLY"
+      },
+      {
+        "source_name": "Chiroderma villosum",
+        "api_name": "Chiroderma villosum Peters, 1860",
+        "key": "2433165",
+        "crosswalk_status": "GBIF_COUNTS_ONLY"
+      },
+      {
+        "source_name": "Sturnira tildae",
+        "api_name": "Sturnira tildae de la Torre, 1959",
+        "key": "2433334",
+        "crosswalk_status": "GBIF_COUNTS_ONLY"
+      },
+      {
+        "source_name": "Artibeus obscurus",
+        "api_name": "Artibeus obscurus (Schinz, 1821)",
+        "key": "2433259",
+        "crosswalk_status": "GBIF_COUNTS_ONLY"
+      },
+      {
+        "source_name": "Platyrrhinus helleri",
+        "api_name": "Platyrrhinus helleri (Peters, 1866)",
+        "key": "5218762",
+        "crosswalk_status": "GBIF_COUNTS_ONLY"
+      },
+      {
+        "source_name": "Vampyressa thyone",
+        "api_name": "Vampyressa thyone Thomas, 1909",
+        "key": "4265374",
+        "crosswalk_status": "GBIF_COUNTS_ONLY"
+      },
+      {
+        "source_name": "Rhinophylla pumilio",
+        "api_name": "Rhinophylla pumilio Peters, 1865",
+        "key": "5218759",
+        "crosswalk_status": "GBIF_COUNTS_ONLY"
+      },
+      {
+        "source_name": "Uroderma bilobatum",
+        "api_name": "Uroderma bilobatum Peters, 1866",
+        "key": "2433156",
+        "crosswalk_status": "GBIF_COUNTS_ONLY"
+      },
+      {
+        "source_name": "Platyrrhinus lineatus",
+        "api_name": "Platyrrhinus lineatus (E.Geoffroy, 1810)",
+        "key": "5218765",
+        "crosswalk_status": "GBIF_COUNTS_ONLY"
+      },
+      {
+        "source_name": "Uroderma convexum",
+        "api_name": "Uroderma convexum Lyon, 1902",
+        "key": "7394938",
+        "crosswalk_status": "GBIF_COUNTS_ONLY"
+      },
+      {
+        "source_name": "Vampyriscus nymphaea",
+        "api_name": "Vampyriscus nymphaea (Thomas, 1909)",
+        "key": "7923589",
+        "crosswalk_status": "GBIF_COUNTS_ONLY"
+      },
+      {
+        "source_name": "Artibeus toltecus",
+        "api_name": "Artibeus toltecus (Saussure, 1860)",
+        "key": "2433260",
+        "crosswalk_status": "GBIF_COUNTS_ONLY"
+      },
+      {
+        "source_name": "Artibeus watsoni",
+        "api_name": "Artibeus watsoni Thomas, 1901",
+        "key": "4265337",
+        "crosswalk_status": "GBIF_COUNTS_ONLY"
+      },
+      {
+        "source_name": "Artibeus concolor",
+        "api_name": "Artibeus concolor Peters, 1865",
+        "key": "2433274",
+        "crosswalk_status": "GBIF_COUNTS_ONLY"
+      },
+      {
+        "source_name": "Sturnira ludovici",
+        "api_name": "Sturnira ludovici Anthony, 1924",
+        "key": "2433332",
+        "crosswalk_status": "GBIF_COUNTS_ONLY"
+      },
+      {
+        "source_name": "Artibeus gnomus",
+        "api_name": "Artibeus gnomus Handley, 1987",
+        "key": "4265331",
+        "crosswalk_status": "GBIF_COUNTS_ONLY"
+      },
+      {
+        "source_name": "Artibeus cinereus",
+        "api_name": "Artibeus cinereus (Gervais, 1856)",
+        "key": "2433267",
+        "crosswalk_status": "GBIF_COUNTS_ONLY"
+      }
+    ],
+    "plant": [
+      {
+        "source_name": "Acacia collinsii",
+        "api_name": "Acacia collinsii Saff.",
+        "key": "3795578"
+      },
+      {
+        "source_name": "Acnistus arborescens",
+        "api_name": "Acnistus arborescens (L.) Schltdl.",
+        "key": "10209961"
+      },
+      {
+        "source_name": "Aechmea tillandsioides",
+        "api_name": "Aechmea tillandsioides (Mart. ex Schult. & Schult.f.) Baker",
+        "key": "2698327"
+      },
+      {
+        "source_name": "Anacardium excelsum",
+        "api_name": "Anacardium excelsum (Bertero & Balb.) Skeels",
+        "key": "5544303"
+      },
+      {
+        "source_name": "Andira inermis",
+        "api_name": "Andira inermis (W.Wright) DC.",
+        "key": "2952214"
+      },
+      {
+        "source_name": "Annona muricata",
+        "api_name": "Annona muricata L.",
+        "key": "5407273"
+      },
+      {
+        "source_name": "Annona squamosa",
+        "api_name": "Annona squamosa L.",
+        "key": "5407099"
+      },
+      {
+        "source_name": "Asplundia vagans",
+        "api_name": "Asplundia vagans Harling",
+        "key": "2860939"
+      },
+      {
+        "source_name": "Brosimum alicastrum",
+        "api_name": "Brosimum alicastrum Sw.",
+        "key": "2984660"
+      },
+      {
+        "source_name": "Brosimum lactescens",
+        "api_name": "Brosimum lactescens (Moore) C.C.Berg",
+        "key": "3763127"
+      },
+      {
+        "source_name": "Burmeistera cyclostigmata",
+        "api_name": "Burmeistera cyclostigmata Donn.Sm.",
+        "key": "3161658"
+      },
+      {
+        "source_name": "Byrsonima spicata",
+        "api_name": "Byrsonima spicata (Cav.) DC.",
+        "key": "3191348"
+      },
+      {
+        "source_name": "Calophyllum brasiliense",
+        "api_name": "Calophyllum brasiliense Cambess.",
+        "key": "5421069"
+      },
+      {
+        "source_name": "Calophyllum longifolium",
+        "api_name": "Calophyllum longifolium Willd.",
+        "key": "8223607"
+      },
+      {
+        "source_name": "Capsicum annuum",
+        "api_name": "Capsicum annuum L.",
+        "key": "2932944"
+      },
+      {
+        "source_name": "Carica papaya",
+        "api_name": "Carica papaya L.",
+        "key": "2874484"
+      },
+      {
+        "source_name": "Carludovica palmata",
+        "api_name": "Carludovica palmata Ruiz & Pav.",
+        "key": "2860922"
+      },
+      {
+        "source_name": "Cecropia angustifolia",
+        "api_name": "Cecropia angustifolia Trécul",
+        "key": "4013465"
+      },
+      {
+        "source_name": "Cecropia concolor",
+        "api_name": "Cecropia concolor Willd.",
+        "key": "7316398"
+      },
+      {
+        "source_name": "Cecropia distachya",
+        "api_name": "Cecropia distachya Huber",
+        "key": "4013607"
+      },
+      {
+        "source_name": "Cecropia ficifolia",
+        "api_name": "Cecropia ficifolia Warb.",
+        "key": "8173870"
+      },
+      {
+        "source_name": "Cecropia glaziovii",
+        "api_name": "Cecropia glaziovii Snethl.",
+        "key": "7512929"
+      },
+      {
+        "source_name": "Cecropia hololeuca",
+        "api_name": "Cecropia hololeuca Miq.",
+        "key": "4013377"
+      },
+      {
+        "source_name": "Cecropia insignis",
+        "api_name": "Cecropia insignis Liebm.",
+        "key": "4013292"
+      },
+      {
+        "source_name": "Cecropia membranacea",
+        "api_name": "Cecropia membranacea Trécul",
+        "key": "4013609"
+      },
+      {
+        "source_name": "Cecropia obtusa",
+        "api_name": "Cecropia obtusa Trécul",
+        "key": "4013449"
+      },
+      {
+        "source_name": "Cecropia obtusifolia",
+        "api_name": "Cecropia obtusifolia Bertol.",
+        "key": "2984473"
+      },
+      {
+        "source_name": "Cecropia pachystachya",
+        "api_name": "Cecropia pachystachya Trécul",
+        "key": "4013385"
+      },
+      {
+        "source_name": "Cecropia palmata",
+        "api_name": "Cecropia palmata Willd.",
+        "key": "4013360"
+      },
+      {
+        "source_name": "Cecropia peltata",
+        "api_name": "Cecropia peltata L.",
+        "key": "2984476"
+      },
+      {
+        "source_name": "Cecropia schreberiana",
+        "api_name": "Cecropia schreberiana Miq.",
+        "key": "2984475"
+      },
+      {
+        "source_name": "Cecropia sciadophylla",
+        "api_name": "Cecropia sciadophylla Mart.",
+        "key": "7316424"
+      },
+      {
+        "source_name": "Celtis iguanaea",
+        "api_name": "Celtis iguanaea (Jacq.) Sarg.",
+        "key": "2984498"
+      },
+      {
+        "source_name": "Cereus hexagonus",
+        "api_name": "Cereus hexagonus (L.) Mill.",
+        "key": "5383999"
+      },
+      {
+        "source_name": "Chrysobalanus icaco",
+        "api_name": "Chrysobalanus icaco L.",
+        "key": "2985082"
+      },
+      {
+        "source_name": "Chrysophyllum cainito",
+        "api_name": "Chrysophyllum cainito L.",
+        "key": "2885828"
+      },
+      {
+        "source_name": "Chrysophyllum gonocarpum",
+        "api_name": "Chrysophyllum gonocarpum (Mart. & Eichler) Engl.",
+        "key": "2885694"
+      },
+      {
+        "source_name": "Chrysophyllum oliviforme",
+        "api_name": "Chrysophyllum oliviforme L.",
+        "key": "2885793"
+      },
+      {
+        "source_name": "Clarisia biflora",
+        "api_name": "Clarisia biflora Ruiz & Pav.",
+        "key": "7262852"
+      },
+      {
+        "source_name": "Clidemia octona",
+        "api_name": "Clidemia octona (Bonpl.) L.O.Williams",
+        "key": "10699427"
+      },
+      {
+        "source_name": "Clusia flavida",
+        "api_name": "Clusia flavida (Benth.) Pipoly",
+        "key": "5556500"
+      },
+      {
+        "source_name": "Coccoloba uvifera",
+        "api_name": "Coccoloba uvifera (L.) L.",
+        "key": "2888831"
+      },
+      {
+        "source_name": "Conostegia icosandra",
+        "api_name": "Conostegia icosandra (Sw. ex Wikstr.) Urb.",
+        "key": "5938753"
+      },
+      {
+        "source_name": "Conostegia volcanalis",
+        "api_name": "Conostegia volcanalis Standl. & Steyerm.",
+        "key": "10688408"
+      },
+      {
+        "source_name": "Copaifera langsdorffii",
+        "api_name": "Copaifera langsdorffii Desf.",
+        "key": "2978171"
+      },
+      {
+        "source_name": "Cordia bicolor",
+        "api_name": "Cordia bicolor A.DC. ex A.DC.",
+        "key": "5660135"
+      },
+      {
+        "source_name": "Cordia collococca",
+        "api_name": "Cordia collococca L.",
+        "key": "5341261"
+      },
+      {
+        "source_name": "Couma utilis",
+        "api_name": "Couma utilis (Mart.) Müll.Arg.",
+        "key": "3614842"
+      },
+      {
+        "source_name": "Coussapoa villosa",
+        "api_name": "Coussapoa villosa Poepp. & Endl.",
+        "key": "7316428"
+      },
+      {
+        "source_name": "Cyathula prostrata",
+        "api_name": "Cyathula prostrata (L.) Blume",
+        "key": "5384314"
+      },
+      {
+        "source_name": "Cynometra retusa",
+        "api_name": "Cynometra retusa Britton & Rose",
+        "key": "2966937"
+      },
+      {
+        "source_name": "Diospyros discolor",
+        "api_name": "Diospyros discolor Willd.",
+        "key": "3032974"
+      },
+      {
+        "source_name": "Diospyros nigra",
+        "api_name": "Diospyros nigra (J.F.Gmel.) Perr.",
+        "key": "8115692"
+      },
+      {
+        "source_name": "Dipteryx odorata",
+        "api_name": "Dipteryx odorata (Aubl.) Forsyth f.",
+        "key": "10779983"
+      },
+      {
+        "source_name": "Dipteryx oleifera",
+        "api_name": "Dipteryx oleifera Benth.",
+        "key": "2947126"
+      },
+      {
+        "source_name": "Drymonia rubra",
+        "api_name": "Drymonia rubra C.V.Morton",
+        "key": "5590525"
+      },
+      {
+        "source_name": "Emmotum nitens",
+        "api_name": "Emmotum nitens (Benth.) Miers",
+        "key": "7314425"
+      },
+      {
+        "source_name": "Epiphyllum hookeri",
+        "api_name": "Epiphyllum hookeri Haw.",
+        "key": "6379095"
+      },
+      {
+        "source_name": "Eriobotrya japonica",
+        "api_name": "Eriobotrya japonica (Thunb.) Lindl.",
+        "key": "10786206"
+      },
+      {
+        "source_name": "Eugenia acapulcensis",
+        "api_name": "Eugenia acapulcensis Steud.",
+        "key": "5417775"
+      },
+      {
+        "source_name": "Eugenia uniflora",
+        "api_name": "Eugenia uniflora L.",
+        "key": "5416458"
+      },
+      {
+        "source_name": "Evodianthus funifer",
+        "api_name": "Evodianthus funifer (Poit.) Lindm.",
+        "key": "2861089"
+      },
+      {
+        "source_name": "Ficus aurea",
+        "api_name": "Ficus aurea Nutt.",
+        "key": "5361923"
+      },
+      {
+        "source_name": "Ficus benjamina",
+        "api_name": "Ficus benjamina L.",
+        "key": "5361932"
+      },
+      {
+        "source_name": "Ficus cahuitensis",
+        "api_name": "Ficus cahuitensis C.C.Berg",
+        "key": "5571061"
+      },
+      {
+        "source_name": "Ficus citrifolia",
+        "api_name": "Ficus citrifolia Mill.",
+        "key": "5361938"
+      },
+      {
+        "source_name": "Ficus costaricana",
+        "api_name": "Ficus costaricana (Liebm.) Miq.",
+        "key": "5569991"
+      },
+      {
+        "source_name": "Ficus cotinifolia",
+        "api_name": "Ficus cotinifolia Kunth",
+        "key": "7262403"
+      },
+      {
+        "source_name": "Ficus crassinervia",
+        "api_name": "Ficus crassinervia Desf. ex Willd.",
+        "key": "5361897"
+      },
+      {
+        "source_name": "Ficus crocata",
+        "api_name": "Ficus crocata (Miq.) Mart. ex Miq.",
+        "key": "5569828"
+      },
+      {
+        "source_name": "Ficus cyclophylla",
+        "api_name": "Ficus cyclophylla (Miq.) Miq.",
+        "key": "5569667"
+      },
+      {
+        "source_name": "Ficus enormis",
+        "api_name": "Ficus enormis (Mart. ex Miq.) Mart.",
+        "key": "8213893"
+      },
+      {
+        "source_name": "Ficus eximia",
+        "api_name": "Ficus eximia Schott",
+        "key": "7262758"
+      },
+      {
+        "source_name": "Ficus hartwegii",
+        "api_name": "Ficus hartwegii (Miq.) Miq.",
+        "key": "5570703"
+      },
+      {
+        "source_name": "Ficus insipida",
+        "api_name": "Ficus insipida Willd.",
+        "key": "6358534"
+      },
+      {
+        "source_name": "Ficus luschnathiana",
+        "api_name": "Ficus luschnathiana (Miq.) Miq.",
+        "key": "5571838"
+      },
+      {
+        "source_name": "Ficus matiziana",
+        "api_name": "Ficus matiziana Dugand",
+        "key": "5571399"
+      },
+      {
+        "source_name": "Ficus maxima",
+        "api_name": "Ficus maxima Mill.",
+        "key": "5571386"
+      },
+      {
+        "source_name": "Ficus microcarpa",
+        "api_name": "Ficus microcarpa L.fil.",
+        "key": "7467639"
+      },
+      {
+        "source_name": "Ficus nymphaeifolia",
+        "api_name": "Ficus nymphaeifolia Mill.",
+        "key": "5570630"
+      },
+      {
+        "source_name": "Ficus obtusifolia",
+        "api_name": "Ficus obtusifolia Kunth",
+        "key": "5361910"
+      },
+      {
+        "source_name": "Ficus pertusa",
+        "api_name": "Ficus pertusa L.fil.",
+        "key": "7944396"
+      },
+      {
+        "source_name": "Ficus popenoei",
+        "api_name": "Ficus popenoei Standl.",
+        "key": "7262862"
+      },
+      {
+        "source_name": "Ficus tonduzii",
+        "api_name": "Ficus tonduzii Standl.",
+        "key": "5572425"
+      },
+      {
+        "source_name": "Ficus trigonata",
+        "api_name": "Ficus trigonata L.",
+        "key": "5361896"
+      },
+      {
+        "source_name": "Ficus yoponensis",
+        "api_name": "Ficus yoponensis Desv.",
+        "key": "5571280"
+      },
+      {
+        "source_name": "Flacourtia indica",
+        "api_name": "Flacourtia indica (Burm.fil.) Merr.",
+        "key": "5331162"
+      },
+      {
+        "source_name": "Gurania acuminata",
+        "api_name": "Gurania acuminata Cogn.",
+        "key": "3624188"
+      },
+      {
+        "source_name": "Gustavia superba",
+        "api_name": "Gustavia superba (Kunth) O.Berg",
+        "key": "5383848"
+      },
+      {
+        "source_name": "Hernandia didymantha",
+        "api_name": "Hernandia didymantha Donn.Sm.",
+        "key": "3685430"
+      },
+      {
+        "source_name": "Hylocereus lemairei",
+        "api_name": "Hylocereus lemairei (Hook.) Britton & Rose",
+        "key": "9953409"
+      },
+      {
+        "source_name": "Inga uruguensis",
+        "api_name": "Inga uruguensis Hook. & Arn.",
+        "key": "5357569"
+      },
+      {
+        "source_name": "Karwinskia calderonii",
+        "api_name": "Karwinskia calderonii Standl.",
+        "key": "4928533"
+      },
+      {
+        "source_name": "Licania arborea",
+        "api_name": "Licania arborea Seem.",
+        "key": "10248926"
+      },
+      {
+        "source_name": "Lycianthes multiflora",
+        "api_name": "Lycianthes multiflora Bitter",
+        "key": "7299547"
+      },
+      {
+        "source_name": "Maclura tinctoria",
+        "api_name": "Maclura tinctoria (L.) D.Don ex Steud.",
+        "key": "2984583"
+      },
+      {
+        "source_name": "Malpighia glabra",
+        "api_name": "Malpighia glabra L.",
+        "key": "5421429"
+      },
+      {
+        "source_name": "Mammea americana",
+        "api_name": "Mammea americana L.",
+        "key": "3189421"
+      },
+      {
+        "source_name": "Mangifera indica",
+        "api_name": "Mangifera indica L.",
+        "key": "3190638"
+      },
+      {
+        "source_name": "Manilkara bidentata",
+        "api_name": "Manilkara bidentata (A.DC.) A.Chev.",
+        "key": "2885366"
+      },
+      {
+        "source_name": "Manilkara zapota",
+        "api_name": "Manilkara zapota (L.) P.Royen",
+        "key": "2885158"
+      },
+      {
+        "source_name": "Markea panamensis",
+        "api_name": "Markea panamensis Standl.",
+        "key": "3803090"
+      },
+      {
+        "source_name": "Melicoccus bijugatus",
+        "api_name": "Melicoccus bijugatus Jacq.",
+        "key": "3189990"
+      },
+      {
+        "source_name": "Merinthopodium neuranthum",
+        "api_name": "Merinthopodium neuranthum Donn.Sm.",
+        "key": "3800920"
+      },
+      {
+        "source_name": "Mimusops elengi",
+        "api_name": "Mimusops elengi L.",
+        "key": "2883768"
+      },
+      {
+        "source_name": "Muntingia calabura",
+        "api_name": "Muntingia calabura L.",
+        "key": "3152036"
+      },
+      {
+        "source_name": "Musa paradisiaca",
+        "api_name": "Musa × paradisiaca L.",
+        "key": "2762752"
+      },
+      {
+        "source_name": "Myrcia paivae",
+        "api_name": "Myrcia paivae O.Berg",
+        "key": "3174143"
+      },
+      {
+        "source_name": "Nectandra ambigens",
+        "api_name": "Nectandra ambigens (S.F.Blake) C.K.Allen",
+        "key": "9560994"
+      },
+      {
+        "source_name": "Neobuxbaumia tetetzo",
+        "api_name": "Neobuxbaumia tetetzo (F.A.C.Weber ex J.M.Coult.) Backeb.",
+        "key": "8365573"
+      },
+      {
+        "source_name": "Oenocarpus distichus",
+        "api_name": "Oenocarpus distichus Mart.",
+        "key": "2735459"
+      },
+      {
+        "source_name": "Passiflora amethystina",
+        "api_name": "Passiflora amethystina J.C.Mikan",
+        "key": "3588184"
+      },
+      {
+        "source_name": "Passiflora punctata",
+        "api_name": "Passiflora punctata L.",
+        "key": "3588119"
+      },
+      {
+        "source_name": "Passiflora quadrangularis",
+        "api_name": "Passiflora quadrangularis L.",
+        "key": "2874183"
+      },
+      {
+        "source_name": "Persea americana",
+        "api_name": "Persea americana Mill.",
+        "key": "3034046"
+      },
+      {
+        "source_name": "Philodendron appendiculatum",
+        "api_name": "Philodendron appendiculatum Nadruz & Mayo",
+        "key": "2871313"
+      },
+      {
+        "source_name": "Philodendron cuneatum",
+        "api_name": "Philodendron cuneatum Engl.",
+        "key": "2871042"
+      },
+      {
+        "source_name": "Physalis angulata",
+        "api_name": "Physalis angulata L.",
+        "key": "5341792"
+      },
+      {
+        "source_name": "Phytolacca rivinoides",
+        "api_name": "Phytolacca rivinoides Kunth & Bouché",
+        "key": "3084014"
+      },
+      {
+        "source_name": "Pimenta racemosa",
+        "api_name": "Pimenta racemosa (Mill.) J.W.Moore",
+        "key": "3186096"
+      },
+      {
+        "source_name": "Piper aduncum",
+        "api_name": "Piper aduncum L.",
+        "key": "3086337"
+      },
+      {
+        "source_name": "Piper aequale",
+        "api_name": "Piper aequale Vahl",
+        "key": "3086344"
+      },
+      {
+        "source_name": "Piper amalago",
+        "api_name": "Piper amalago L.",
+        "key": "3086333"
+      },
+      {
+        "source_name": "Piper arboreum",
+        "api_name": "Piper arboreum Aubl.",
+        "key": "7304860"
+      },
+      {
+        "source_name": "Piper augustum",
+        "api_name": "Piper augustum Rudge",
+        "key": "7305990"
+      },
+      {
+        "source_name": "Piper auritum",
+        "api_name": "Piper auritum Kunth",
+        "key": "3086352"
+      },
+      {
+        "source_name": "Piper bartlingianum",
+        "api_name": "Piper bartlingianum (Miq.) C.DC.",
+        "key": "7305782"
+      },
+      {
+        "source_name": "Piper bisasperatum",
+        "api_name": "Piper bisasperatum Trel.",
+        "key": "4188881"
+      },
+      {
+        "source_name": "Piper carrilloanum",
+        "api_name": "Piper carrilloanum C.DC.",
+        "key": "4185525"
+      },
+      {
+        "source_name": "Piper cenocladum",
+        "api_name": "Piper cenocladum C.DC.",
+        "key": "4184865"
+      },
+      {
+        "source_name": "Piper colonense",
+        "api_name": "Piper colonense C.DC.",
+        "key": "4190837"
+      },
+      {
+        "source_name": "Piper cordulatum",
+        "api_name": "Piper cordulatum C.DC.",
+        "key": "10911201"
+      },
+      {
+        "source_name": "Piper crassinervium",
+        "api_name": "Piper crassinervium Kunth",
+        "key": "7305747"
+      },
+      {
+        "source_name": "Piper cyrtopodon",
+        "api_name": "Piper cyrtopodon (Miq.) C.DC.",
+        "key": "8407083"
+      },
+      {
+        "source_name": "Piper darienense",
+        "api_name": "Piper darienense C.DC.",
+        "key": "7305503"
+      },
+      {
+        "source_name": "Piper dilatatum",
+        "api_name": "Piper dilatatum Rich.",
+        "key": "3086349"
+      },
+      {
+        "source_name": "Piper divaricatum",
+        "api_name": "Piper divaricatum G.Mey.",
+        "key": "4186310"
+      },
+      {
+        "source_name": "Piper dotanum",
+        "api_name": "Piper dotanum Trel.",
+        "key": "4186051"
+      },
+      {
+        "source_name": "Piper epigynium",
+        "api_name": "Piper epigynium C.DC.",
+        "key": "4184649"
+      },
+      {
+        "source_name": "Piper gaudichaudianum",
+        "api_name": "Piper gaudichaudianum (Kunth) Kunth ex Steud.",
+        "key": "7450032"
+      },
+      {
+        "source_name": "Piper gibbosum",
+        "api_name": "Piper gibbosum C.DC. ex T.Durand & Pittier",
+        "key": "4189264"
+      },
+      {
+        "source_name": "Piper glabratum",
+        "api_name": "Piper glabratum Kunth",
+        "key": "4189094"
+      },
+      {
+        "source_name": "Piper glabrescens",
+        "api_name": "Piper glabrescens (Miq.) C.DC.",
+        "key": "3086334"
+      },
+      {
+        "source_name": "Piper grande",
+        "api_name": "Piper grande Vahl",
+        "key": "8107355"
+      },
+      {
+        "source_name": "Piper hispidum",
+        "api_name": "Piper hispidum Sw.",
+        "key": "3086355"
+      },
+      {
+        "source_name": "Piper hostmannianum",
+        "api_name": "Piper hostmannianum (Miq.) C.DC.",
+        "key": "7305149"
+      },
+      {
+        "source_name": "Piper jacquemontianum",
+        "api_name": "Piper jacquemontianum (Kunth) Kunth ex Steud.",
+        "key": "11043125"
+      },
+      {
+        "source_name": "Piper lanceifolium",
+        "api_name": "Piper lanceifolium Kunth",
+        "key": "4190447"
+      },
+      {
+        "source_name": "Piper lapathifolium",
+        "api_name": "Piper lapathifolium (Kunth) Steud.",
+        "key": "4190195"
+      },
+      {
+        "source_name": "Piper marginatum",
+        "api_name": "Piper marginatum Jacq.",
+        "key": "3086325"
+      },
+      {
+        "source_name": "Piper mollicomum",
+        "api_name": "Piper mollicomum Kunth",
+        "key": "8142068"
+      },
+      {
+        "source_name": "Piper multiplinervium",
+        "api_name": "Piper multiplinervium C.DC.",
+        "key": "4191505"
+      },
+      {
+        "source_name": "Piper nigrum",
+        "api_name": "Piper nigrum L.",
+        "key": "3086357"
+      },
+      {
+        "source_name": "Piper obliquum",
+        "api_name": "Piper obliquum Ruiz & Pav.",
+        "key": "7143828"
+      },
+      {
+        "source_name": "Piper peltatum",
+        "api_name": "Piper peltatum L.",
+        "key": "3086365"
+      },
+      {
+        "source_name": "Piper phytolaccifolium",
+        "api_name": "Piper phytolaccifolium Opiz",
+        "key": "7304820"
+      },
+      {
+        "source_name": "Piper pseudofuligineum",
+        "api_name": "Piper pseudofuligineum C.DC.",
+        "key": "4189200"
+      },
+      {
+        "source_name": "Piper reticulatum",
+        "api_name": "Piper reticulatum L.",
+        "key": "3086330"
+      },
+      {
+        "source_name": "Piper sancti-felicis",
+        "api_name": "Piper sancti-felicis Trel.",
+        "key": "4183945"
+      },
+      {
+        "source_name": "Piper sanctum",
+        "api_name": "Piper sanctum Miq., 1845",
+        "key": "4183934"
+      },
+      {
+        "source_name": "Piper trigonum",
+        "api_name": "Piper trigonum C.DC.",
+        "key": "4190593"
+      },
+      {
+        "source_name": "Piper tuberculatum",
+        "api_name": "Piper tuberculatum Jacq.",
+        "key": "3086328"
+      },
+      {
+        "source_name": "Piper tucumanum",
+        "api_name": "Piper tucumanum C.DC.",
+        "key": "4190141"
+      },
+      {
+        "source_name": "Piper umbellatum",
+        "api_name": "Piper umbellatum L.",
+        "key": "3086364"
+      },
+      {
+        "source_name": "Plinia cauliflora",
+        "api_name": "Plinia cauliflora (DC.) Kausel",
+        "key": "5415571"
+      },
+      {
+        "source_name": "Poraqueiba sericea",
+        "api_name": "Poraqueiba sericea Tul.",
+        "key": "3597450"
+      },
+      {
+        "source_name": "Poulsenia armata",
+        "api_name": "Poulsenia armata (Miq.) Standl.",
+        "key": "5570848"
+      },
+      {
+        "source_name": "Pouteria campechiana",
+        "api_name": "Pouteria campechiana (Kunth) Baehni",
+        "key": "2884309"
+      },
+      {
+        "source_name": "Pouteria multiflora",
+        "api_name": "Pouteria multiflora (A.DC.) Eyma",
+        "key": "2884744"
+      },
+      {
+        "source_name": "Pouteria sapota",
+        "api_name": "Pouteria sapota (Jacq.) H.E.Moore & Stearn",
+        "key": "2884162"
+      },
+      {
+        "source_name": "Protium araguense",
+        "api_name": "Protium araguense Cuatrec.",
+        "key": "3992420"
+      },
+      {
+        "source_name": "Prunus persica",
+        "api_name": "Prunus persica (L.) Stokes",
+        "key": "8149923"
+      },
+      {
+        "source_name": "Pseudanamomis umbellulifera",
+        "api_name": "Pseudanamomis umbellulifera (Kunth) Kausel",
+        "key": "3186783"
+      },
+      {
+        "source_name": "Pseudolmedia glabrata",
+        "api_name": "Pseudolmedia glabrata (Liebm.) C.C.Berg",
+        "key": "3764285"
+      },
+      {
+        "source_name": "Psidium guajava",
+        "api_name": "Psidium guajava L.",
+        "key": "5420380"
+      },
+      {
+        "source_name": "Psidium guineense",
+        "api_name": "Psidium guineense Sw.",
+        "key": "5420509"
+      },
+      {
+        "source_name": "Putranjiva roxburghii",
+        "api_name": "Putranjiva roxburghii Wall.",
+        "key": "3076079"
+      },
+      {
+        "source_name": "Quararibea asterolepis",
+        "api_name": "Quararibea asterolepis Pittier",
+        "key": "4073498"
+      },
+      {
+        "source_name": "Quararibea funebris",
+        "api_name": "Quararibea funebris (La Llave) Vischer",
+        "key": "7296133"
+      },
+      {
+        "source_name": "Roystonea oleracea",
+        "api_name": "Roystonea oleracea (Jacq.) O.F.Cook",
+        "key": "2733738"
+      },
+      {
+        "source_name": "Rubus brasiliensis",
+        "api_name": "Rubus brasiliensis Mart.",
+        "key": "2991264"
+      },
+      {
+        "source_name": "Sacoglottis guianensis",
+        "api_name": "Sacoglottis guianensis Benth.",
+        "key": "7320147"
+      },
+      {
+        "source_name": "Sapindus saponaria",
+        "api_name": "Sapindus saponaria L.",
+        "key": "8017915"
+      },
+      {
+        "source_name": "Saurauia montana",
+        "api_name": "Saurauia montana Seem.",
+        "key": "3645038"
+      },
+      {
+        "source_name": "Schlegelia paraensis",
+        "api_name": "Schlegelia paraensis Ducke",
+        "key": "7614643"
+      },
+      {
+        "source_name": "Schultesianthus venosus",
+        "api_name": "Schultesianthus venosus (Standl. & C.V.Morton) S.Knapp",
+        "key": "3797844"
+      },
+      {
+        "source_name": "Senna fruticosa",
+        "api_name": "Senna fruticosa (Mill.) H.S.Irwin & Barneby",
+        "key": "2957323"
+      },
+      {
+        "source_name": "Senna undulata",
+        "api_name": "Senna undulata (Benth.) H.S.Irwin & Barneby",
+        "key": "2957590"
+      },
+      {
+        "source_name": "Sideroxylon capiri",
+        "api_name": "Sideroxylon capiri (A.DC.) Pittier",
+        "key": "2887255"
+      },
+      {
+        "source_name": "Sideroxylon foetidissimum",
+        "api_name": "Sideroxylon foetidissimum Jacq.",
+        "key": "2887138"
+      },
+      {
+        "source_name": "Socratea exorrhiza",
+        "api_name": "Socratea exorrhiza (Mart.) H.Wendl.",
+        "key": "2732453"
+      },
+      {
+        "source_name": "Solanum aligerum",
+        "api_name": "Solanum aligerum Schltdl.",
+        "key": "2931417"
+      },
+      {
+        "source_name": "Solanum americanum",
+        "api_name": "Solanum americanum Mill.",
+        "key": "2930222"
+      },
+      {
+        "source_name": "Solanum aphyodendron",
+        "api_name": "Solanum aphyodendron S.Knapp",
+        "key": "2929958"
+      },
+      {
+        "source_name": "Solanum arboreum",
+        "api_name": "Solanum arboreum Humb. & Bonpl. ex Dunal",
+        "key": "2931033"
+      },
+      {
+        "source_name": "Solanum argenteum",
+        "api_name": "Solanum argenteum Dunal ex Poir.",
+        "key": "8080790"
+      },
+      {
+        "source_name": "Solanum asperolanatum",
+        "api_name": "Solanum asperolanatum Ruiz & Pav.",
+        "key": "2931631"
+      },
+      {
+        "source_name": "Solanum asperum",
+        "api_name": "Solanum asperum A.Rich.",
+        "key": "2930051"
+      },
+      {
+        "source_name": "Solanum caavurana",
+        "api_name": "Solanum caavurana Vell.",
+        "key": "2929091"
+      },
+      {
+        "source_name": "Solanum cinnamomeum",
+        "api_name": "Solanum cinnamomeum Sendtn.",
+        "key": "2931429"
+      },
+      {
+        "source_name": "Solanum erianthum",
+        "api_name": "Solanum erianthum D.Don",
+        "key": "2931461"
+      },
+      {
+        "source_name": "Solanum grandiflorum",
+        "api_name": "Solanum grandiflorum Ruiz & Pav.",
+        "key": "2929153"
+      },
+      {
+        "source_name": "Solanum hayesii",
+        "api_name": "Solanum hayesii Fernald",
+        "key": "2932218"
+      },
+      {
+        "source_name": "Solanum hazenii",
+        "api_name": "Solanum hazenii Britton",
+        "key": "2932177"
+      },
+      {
+        "source_name": "Solanum hirtum",
+        "api_name": "Solanum hirtum Vahl",
+        "key": "2929212"
+      },
+      {
+        "source_name": "Solanum jamaicense",
+        "api_name": "Solanum jamaicense Mill.",
+        "key": "2931492"
+      },
+      {
+        "source_name": "Solanum lanceolatum",
+        "api_name": "Solanum lanceolatum Cav.",
+        "key": "2929230"
+      },
+      {
+        "source_name": "Solanum leucocarpon",
+        "api_name": "Solanum leucocarpon Dunal",
+        "key": "2930406"
+      },
+      {
+        "source_name": "Solanum megalochiton",
+        "api_name": "Solanum megalochiton Mart.",
+        "key": "2932021"
+      },
+      {
+        "source_name": "Solanum nigricans",
+        "api_name": "Solanum nigricans M.Martens & Galeotti",
+        "key": "2930197"
+      },
+      {
+        "source_name": "Solanum nudum",
+        "api_name": "Solanum nudum Humb. & Bonpl. ex Dunal",
+        "key": "2931480"
+      },
+      {
+        "source_name": "Solanum paniculatum",
+        "api_name": "Solanum paniculatum L.",
+        "key": "2932547"
+      },
+      {
+        "source_name": "Solanum paranense",
+        "api_name": "Solanum paranense Dusén",
+        "key": "2932075"
+      },
+      {
+        "source_name": "Solanum pseudoquina",
+        "api_name": "Solanum pseudoquina A.St.-Hil.",
+        "key": "2930597"
+      },
+      {
+        "source_name": "Solanum quitoense",
+        "api_name": "Solanum quitoense Lam.",
+        "key": "6403105"
+      },
+      {
+        "source_name": "Solanum riparium",
+        "api_name": "Solanum riparium Pers.",
+        "key": "2932018"
+      },
+      {
+        "source_name": "Solanum rovirosanum",
+        "api_name": "Solanum rovirosanum Donn.Sm.",
+        "key": "2930678"
+      },
+      {
+        "source_name": "Solanum rufescens",
+        "api_name": "Solanum rufescens Sendtn.",
+        "key": "2930087"
+      },
+      {
+        "source_name": "Solanum rugosum",
+        "api_name": "Solanum rugosum Dunal",
+        "key": "2929481"
+      },
+      {
+        "source_name": "Solanum salviaefolium",
+        "api_name": "Solanum salviaefolium Dunal",
+        "key": "8163864"
+      },
+      {
+        "source_name": "Solanum sanctae-catharinae",
+        "api_name": "Solanum sanctae-catharinae Dunal",
+        "key": "8298351"
+      },
+      {
+        "source_name": "Solanum scuticum",
+        "api_name": "Solanum scuticum M.Nee",
+        "key": "2932130"
+      },
+      {
+        "source_name": "Solanum subinerme",
+        "api_name": "Solanum subinerme Jacq.",
+        "key": "2932599"
+      },
+      {
+        "source_name": "Solanum subsylvestre",
+        "api_name": "Solanum subsylvestre L.B.Sm. & Downs",
+        "key": "2932219"
+      },
+      {
+        "source_name": "Solanum swartzianum",
+        "api_name": "Solanum swartzianum Roem. & Schult.",
+        "key": "2931255"
+      },
+      {
+        "source_name": "Solanum symmetricum",
+        "api_name": "Solanum symmetricum Rusby",
+        "key": "2930903"
+      },
+      {
+        "source_name": "Solanum tenuispinum",
+        "api_name": "Solanum tenuispinum Rusby",
+        "key": "2932424"
+      },
+      {
+        "source_name": "Solanum torvum",
+        "api_name": "Solanum torvum Sw.",
+        "key": "2932389"
+      },
+      {
+        "source_name": "Solanum trichoneuron",
+        "api_name": "Solanum trichoneuron Lillo",
+        "key": "2930586"
+      },
+      {
+        "source_name": "Solanum umbellatum",
+        "api_name": "Solanum umbellatum Mill.",
+        "key": "2929008"
+      },
+      {
+        "source_name": "Solanum variabile",
+        "api_name": "Solanum variabile Mart.",
+        "key": "2930207"
+      },
+      {
+        "source_name": "Solanum wrightii",
+        "api_name": "Solanum wrightii Benth.",
+        "key": "2931500"
+      },
+      {
+        "source_name": "Souroubea guianensis",
+        "api_name": "Souroubea guianensis Aubl.",
+        "key": "7275879"
+      },
+      {
+        "source_name": "Spondias dulcis",
+        "api_name": "Spondias dulcis Parkinson",
+        "key": "3190595"
+      },
+      {
+        "source_name": "Spondias mombin",
+        "api_name": "Spondias mombin Jacq.",
+        "key": "8185571"
+      },
+      {
+        "source_name": "Spondias radlkoferi",
+        "api_name": "Spondias radlkoferi Donn.Sm.",
+        "key": "3660942"
+      },
+      {
+        "source_name": "Stenocereus griseus",
+        "api_name": "Stenocereus griseus (Haw.) Buxb.",
+        "key": "7284733"
+      },
+      {
+        "source_name": "Syagrus romanzoffiana",
+        "api_name": "Syagrus romanzoffiana (Cham.) Glassman",
+        "key": "5293897"
+      },
+      {
+        "source_name": "Syzygium cumini",
+        "api_name": "Syzygium cumini (L.) Skeels",
+        "key": "3183840"
+      },
+      {
+        "source_name": "Syzygium jambos",
+        "api_name": "Syzygium jambos (L.) Alston",
+        "key": "3183534"
+      },
+      {
+        "source_name": "Syzygium malaccense",
+        "api_name": "Syzygium malaccense (L.) Merr. & L.M.Perry",
+        "key": "3184509"
+      },
+      {
+        "source_name": "Terminalia catappa",
+        "api_name": "Terminalia catappa L.",
+        "key": "3189394"
+      },
+      {
+        "source_name": "Thoracocarpus bissectus",
+        "api_name": "Thoracocarpus bissectus (Vell.) Harling",
+        "key": "2861305"
+      },
+      {
+        "source_name": "Turpinia occidentalis",
+        "api_name": "Turpinia occidentalis (Sw.) G.Don",
+        "key": "5421358"
+      },
+      {
+        "source_name": "Vassobia breviflora",
+        "api_name": "Vassobia breviflora (Sendtn.) Hunz.",
+        "key": "3801366"
+      },
+      {
+        "source_name": "Vismia baccifera",
+        "api_name": "Vismia baccifera (L.) Triana & Planch.",
+        "key": "8113584"
+      },
+      {
+        "source_name": "Vismia cayennensis",
+        "api_name": "Vismia cayennensis (Jacq.) Pers.",
+        "key": "3189576"
+      },
+      {
+        "source_name": "Vismia glabra",
+        "api_name": "Vismia glabra Ruiz & Pav.",
+        "key": "7330288"
+      },
+      {
+        "source_name": "Vismia guianensis",
+        "api_name": "Vismia guianensis (Aubl.) DC.",
+        "key": "7330275"
+      },
+      {
+        "source_name": "Vismia latifolia",
+        "api_name": "Vismia latifolia (Aubl.) Choisy",
+        "key": "7330259"
+      },
+      {
+        "source_name": "Vismia lauriformis",
+        "api_name": "Vismia lauriformis (Lam.) Choisy",
+        "key": "3713883"
+      },
+      {
+        "source_name": "Vismia macrophylla",
+        "api_name": "Vismia macrophylla Kunth",
+        "key": "7798391"
+      },
+      {
+        "source_name": "Vismia magnoliifolia",
+        "api_name": "Vismia magnoliifolia Cham. & Schltdl.",
+        "key": "3713795"
+      },
+      {
+        "source_name": "Vismia sessilifolia",
+        "api_name": "Vismia sessilifolia (Aubl.) Choisy",
+        "key": "7482997"
+      },
+      {
+        "source_name": "Vitis vinifera",
+        "api_name": "Vitis vinifera L.",
+        "key": "5372392"
+      }
+    ]
+  },
+  "download_request_templates": {
+    "bat": {
+      "sendNotification": false,
+      "format": "SIMPLE_CSV",
+      "predicate": {
+        "type": "and",
+        "predicates": [
+          {
+            "type": "in",
+            "key": "TAXON_KEY",
+            "values": [
+              "2433156",
+              "2433165",
+              "2433176",
+              "2433177",
+              "2433178",
+              "2433259",
+              "2433260",
+              "2433264",
+              "2433267",
+              "2433270",
+              "2433271",
+              "2433272",
+              "2433274",
+              "2433327",
+              "2433332",
+              "2433334",
+              "4265331",
+              "4265337",
+              "4265374",
+              "5218759",
+              "5218762",
+              "5218765",
+              "7394938",
+              "7769716",
+              "7923589",
+              "10787745"
+            ]
+          },
+          {
+            "type": "equals",
+            "key": "HAS_COORDINATE",
+            "value": "true"
+          },
+          {
+            "type": "equals",
+            "key": "HAS_GEOSPATIAL_ISSUE",
+            "value": "false"
+          },
+          {
+            "type": "equals",
+            "key": "OCCURRENCE_STATUS",
+            "value": "PRESENT"
+          },
+          {
+            "type": "greaterThanOrEquals",
+            "key": "YEAR",
+            "value": "2000"
+          },
+          {
+            "type": "lessThanOrEquals",
+            "key": "YEAR",
+            "value": "2025"
+          },
+          {
+            "type": "in",
+            "key": "COUNTRY",
+            "values": [
+              "AR",
+              "BO",
+              "BR",
+              "BZ",
+              "CL",
+              "CO",
+              "CR",
+              "CU",
+              "CW",
+              "DO",
+              "EC",
+              "GF",
+              "GT",
+              "GY",
+              "HN",
+              "HT",
+              "JM",
+              "MX",
+              "NI",
+              "PA",
+              "PE",
+              "PR",
+              "PY",
+              "SR",
+              "SV",
+              "TT",
+              "UY",
+              "VE",
+              "BS"
+            ]
+          }
+        ]
+      }
+    },
+    "plant": {
+      "sendNotification": false,
+      "format": "SIMPLE_CSV",
+      "predicate": {
+        "type": "and",
+        "predicates": [
+          {
+            "type": "in",
+            "key": "TAXON_KEY",
+            "values": [
+              "2698327",
+              "2732453",
+              "2733738",
+              "2735459",
+              "2762752",
+              "2860922",
+              "2860939",
+              "2861089",
+              "2861305",
+              "2871042",
+              "2871313",
+              "2874183",
+              "2874484",
+              "2883768",
+              "2884162",
+              "2884309",
+              "2884744",
+              "2885158",
+              "2885366",
+              "2885694",
+              "2885793",
+              "2885828",
+              "2887138",
+              "2887255",
+              "2888831",
+              "2929008",
+              "2929091",
+              "2929153",
+              "2929212",
+              "2929230",
+              "2929481",
+              "2929958",
+              "2930051",
+              "2930087",
+              "2930197",
+              "2930207",
+              "2930222",
+              "2930406",
+              "2930586",
+              "2930597",
+              "2930678",
+              "2930903",
+              "2931033",
+              "2931255",
+              "2931417",
+              "2931429",
+              "2931461",
+              "2931480",
+              "2931492",
+              "2931500",
+              "2931631",
+              "2932018",
+              "2932021",
+              "2932075",
+              "2932130",
+              "2932177",
+              "2932218",
+              "2932219",
+              "2932389",
+              "2932424",
+              "2932547",
+              "2932599",
+              "2932944",
+              "2947126",
+              "2952214",
+              "2957323",
+              "2957590",
+              "2966937",
+              "2978171",
+              "2984473",
+              "2984475",
+              "2984476",
+              "2984498",
+              "2984583",
+              "2984660",
+              "2985082",
+              "2991264",
+              "3032974",
+              "3034046",
+              "3076079",
+              "3084014",
+              "3086325",
+              "3086328",
+              "3086330",
+              "3086333",
+              "3086334",
+              "3086337",
+              "3086344",
+              "3086349",
+              "3086352",
+              "3086355",
+              "3086357",
+              "3086364",
+              "3086365",
+              "3152036",
+              "3161658",
+              "3174143",
+              "3183534",
+              "3183840",
+              "3184509",
+              "3186096",
+              "3186783",
+              "3189394",
+              "3189421",
+              "3189576",
+              "3189990",
+              "3190595",
+              "3190638",
+              "3191348",
+              "3588119",
+              "3588184",
+              "3597450",
+              "3614842",
+              "3624188",
+              "3645038",
+              "3660942",
+              "3685430",
+              "3713795",
+              "3713883",
+              "3763127",
+              "3764285",
+              "3795578",
+              "3797844",
+              "3800920",
+              "3801366",
+              "3803090",
+              "3992420",
+              "4013292",
+              "4013360",
+              "4013377",
+              "4013385",
+              "4013449",
+              "4013465",
+              "4013607",
+              "4013609",
+              "4073498",
+              "4183934",
+              "4183945",
+              "4184649",
+              "4184865",
+              "4185525",
+              "4186051",
+              "4186310",
+              "4188881",
+              "4189094",
+              "4189200",
+              "4189264",
+              "4190141",
+              "4190195",
+              "4190447",
+              "4190593",
+              "4190837",
+              "4191505",
+              "4928533",
+              "5293897",
+              "5331162",
+              "5341261",
+              "5341792",
+              "5357569",
+              "5361896",
+              "5361897",
+              "5361910",
+              "5361923",
+              "5361932",
+              "5361938",
+              "5372392",
+              "5383848",
+              "5383999",
+              "5384314",
+              "5407099",
+              "5407273",
+              "5415571",
+              "5416458",
+              "5417775",
+              "5420380",
+              "5420509",
+              "5421069",
+              "5421358",
+              "5421429",
+              "5544303",
+              "5556500",
+              "5569667",
+              "5569828",
+              "5569991",
+              "5570630",
+              "5570703",
+              "5570848",
+              "5571061",
+              "5571280",
+              "5571386",
+              "5571399",
+              "5571838",
+              "5572425",
+              "5590525",
+              "5660135",
+              "5938753",
+              "6358534",
+              "6379095",
+              "6403105",
+              "7143828",
+              "7262403",
+              "7262758",
+              "7262852",
+              "7262862",
+              "7275879",
+              "7284733",
+              "7296133",
+              "7299547",
+              "7304820",
+              "7304860",
+              "7305149",
+              "7305503",
+              "7305747",
+              "7305782",
+              "7305990",
+              "7314425",
+              "7316398",
+              "7316424",
+              "7316428",
+              "7320147",
+              "7330259",
+              "7330275",
+              "7330288",
+              "7450032",
+              "7467639",
+              "7482997",
+              "7512929",
+              "7614643",
+              "7798391",
+              "7944396",
+              "8017915",
+              "8080790",
+              "8107355",
+              "8113584",
+              "8115692",
+              "8142068",
+              "8149923",
+              "8163864",
+              "8173870",
+              "8185571",
+              "8213893",
+              "8223607",
+              "8298351",
+              "8365573",
+              "8407083",
+              "9560994",
+              "9953409",
+              "10209961",
+              "10248926",
+              "10688408",
+              "10699427",
+              "10779983",
+              "10786206",
+              "10911201",
+              "11043125"
+            ]
+          },
+          {
+            "type": "equals",
+            "key": "HAS_COORDINATE",
+            "value": "true"
+          },
+          {
+            "type": "equals",
+            "key": "HAS_GEOSPATIAL_ISSUE",
+            "value": "false"
+          },
+          {
+            "type": "equals",
+            "key": "OCCURRENCE_STATUS",
+            "value": "PRESENT"
+          },
+          {
+            "type": "greaterThanOrEquals",
+            "key": "YEAR",
+            "value": "2000"
+          },
+          {
+            "type": "lessThanOrEquals",
+            "key": "YEAR",
+            "value": "2025"
+          },
+          {
+            "type": "in",
+            "key": "COUNTRY",
+            "values": [
+              "AR",
+              "BO",
+              "BR",
+              "BZ",
+              "CL",
+              "CO",
+              "CR",
+              "CU",
+              "CW",
+              "DO",
+              "EC",
+              "GF",
+              "GT",
+              "GY",
+              "HN",
+              "HT",
+              "JM",
+              "MX",
+              "NI",
+              "PA",
+              "PE",
+              "PR",
+              "PY",
+              "SR",
+              "SV",
+              "TT",
+              "UY",
+              "VE",
+              "BS"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "notes": [
+    "Auth and DOI submission deliberately not attempted in this branch.",
+    "checklistKey must be frozen and validated against taxon-key namespace before request.",
+    "No sampling-bias correction, detection calibration, spatial independence or model fit established.",
+    "All occurrence records must be deduplicated by event/dataset and inspected before use; a GBIF presence is not an occupancy probability.",
+    "GBIF download request endpoint: https://api.gbif.org/v1/occurrence/download/request"
+  ]
+}

@@ -1,0 +1,25 @@
+name: NeoBat 3-plant Colombia same-dataset source matched synthetic test
+on:
+  push:
+    branches:
+      - analysis/neobat-plant-source-matched-colombia-pilot-20261119
+    paths:
+      - scripts/neobat_plant_source_matched_co_pilot.py
+      - tests/test_neobat_plant_source_matched_co_pilot.py
+      - .github/workflows/neobat-plant-source-matched-co-sourcefree.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  sourcefree:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify source-matched co-recording, source absence and heldout border
+        run: |
+          python -m py_compile scripts/neobat_plant_source_matched_co_pilot.py
+          python -m unittest discover -s tests -p 'test_neobat_plant_source_matched_co_pilot.py' -v

@@ -1,0 +1,31 @@
+{
+  "status": "INNER_MEMBER_HASH_DIAGNOSTIC_ONLY",
+  "archive_sha256": "00513224583665ec0f2f955a4ec252730c4deb2004cce9e793492a3f26df4dcf",
+  "archive_sha_matches_fixed_reference": true,
+  "source_url": "https://geodata.ucdavis.edu/climate/worldclim/2_1/base/wc2.1_10m_bio.zip",
+  "no_ecological_responses_opened": true,
+  "no_raster_values_extracted": true,
+  "no_SDM_fit": true,
+  "not_a_replacement_preflight": true,
+  "members": {
+    "BIO1": {
+      "member_name": "wc2.1_10m_bio_1.tif",
+      "observed_sha256": "f61633ffac9d44ed220442b3f7171a06f931726668bfbe9d07d53700b257d8cf",
+      "uncompressed_bytes": 3790814,
+      "previously_pinned_sha256": null,
+      "matches_previous_pin": null,
+      "source_version": "WorldClim v2.1, 10 arc-minute, 1970-2000"
+    },
+    "BIO12": {
+      "member_name": "wc2.1_10m_bio_12.tif",
+      "observed_sha256": "1e823e951ace0186c6eadd7368b4d0385c8f51cc952282c0f2d640bf7790fea5",
+      "uncompressed_bytes": 1963655,
+      "previously_pinned_sha256": "1e823e951ace0186c6eadd7368b4d0385f8c51cc952282c0f2d640bf7790fea5",
+      "matches_previous_pin": false,
+      "source_version": "WorldClim v2.1, 10 arc-minute, 1970-2000"
+    }
+  },
+  "downloaded_archive_sha256": "00513224583665ec0f2f955a4ec252730c4deb2004cce9e793492a3f26df4dcf",
+  "downloaded_archive_bytes": 49869449,
+  "checked_utc": "2026-11-19T11:59:01.663878+00:00"
+}

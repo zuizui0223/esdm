@@ -1,0 +1,214 @@
+{
+  "schema_version": 1,
+  "status": "DOI_PLANT_106x17_WITHIN_DATASETKEY_SOURCE_MATCH_FEASIBILITY",
+  "created_utc": "2026-11-19T13:43:15.140100+00:00",
+  "frozen_design": "docs/replication/NEOBAT_PLANT_WITHIN_DATASETKEY_SOURCE_GATE_FROZEN_20261119.md",
+  "original_plant_DOI": "10.15468/dl.xwc5zf",
+  "original_plant_archive_sha256": "4275ed6b9847fa9fb81a9e353ec1b9de151592f7c369b19f6145129059726c8b",
+  "source_country_and_species_counts_reproduced": true,
+  "original_fixed_106_plant_universe_sha256": "41c9fc0128df6d0f3753edf4b82f6b5b36c6975c8d7c644bae4e4fd3e5bdaac6",
+  "new_GBIF_download_POSTs": 0,
+  "same_GBIF_dataset_is_not_event_independence": true,
+  "no_plant_or_bat_SDM_fitted": true,
+  "M3_minus_M1_bat_auc": null,
+  "M3_minus_N1_bat_auc": null,
+  "no_original_coords_or_datasetIDs_committed": true,
+  "summary": {
+    "original_fixed_plant_species": 106,
+    "original_fixed_holdout_countries": 17,
+    "original_plant_country_pairs": 1802,
+    "source_matched_trainable_plant_country_pairs": 1802,
+    "source_matched_train_and_test_scoring_pairs": 677,
+    "source_matched_trainable_plants_all_17_countries": 106,
+    "countries_with_full_106_source_matched_trainability": 17,
+    "min_trainable_per_country": 106,
+    "max_trainable_per_country": 106,
+    "all_1802_in_denominator": true,
+    "none_are_plant_true_absences_or_bat_models": true
+  },
+  "per_country": [
+    {
+      "holdout_country": "AR",
+      "original_plant_cohort": 106,
+      "source_matched_trainable_plants": 106,
+      "source_matched_train_and_heldout_scoring_plants": 21,
+      "source_matched_test_quantity_only_plants": 21,
+      "complete_fixed106_source_matched_training": true
+    },
+    {
+      "holdout_country": "BR",
+      "original_plant_cohort": 106,
+      "source_matched_trainable_plants": 106,
+      "source_matched_train_and_heldout_scoring_plants": 65,
+      "source_matched_test_quantity_only_plants": 65,
+      "complete_fixed106_source_matched_training": true
+    },
+    {
+      "holdout_country": "BZ",
+      "original_plant_cohort": 106,
+      "source_matched_trainable_plants": 106,
+      "source_matched_train_and_heldout_scoring_plants": 18,
+      "source_matched_test_quantity_only_plants": 18,
+      "complete_fixed106_source_matched_training": true
+    },
+    {
+      "holdout_country": "CO",
+      "original_plant_cohort": 106,
+      "source_matched_trainable_plants": 106,
+      "source_matched_train_and_heldout_scoring_plants": 90,
+      "source_matched_test_quantity_only_plants": 90,
+      "complete_fixed106_source_matched_training": true
+    },
+    {
+      "holdout_country": "CR",
+      "original_plant_cohort": 106,
+      "source_matched_trainable_plants": 106,
+      "source_matched_train_and_heldout_scoring_plants": 59,
+      "source_matched_test_quantity_only_plants": 59,
+      "complete_fixed106_source_matched_training": true
+    },
+    {
+      "holdout_country": "DO",
+      "original_plant_cohort": 106,
+      "source_matched_trainable_plants": 106,
+      "source_matched_train_and_heldout_scoring_plants": 39,
+      "source_matched_test_quantity_only_plants": 39,
+      "complete_fixed106_source_matched_training": true
+    },
+    {
+      "holdout_country": "EC",
+      "original_plant_cohort": 106,
+      "source_matched_trainable_plants": 106,
+      "source_matched_train_and_heldout_scoring_plants": 55,
+      "source_matched_test_quantity_only_plants": 55,
+      "complete_fixed106_source_matched_training": true
+    },
+    {
+      "holdout_country": "GF",
+      "original_plant_cohort": 106,
+      "source_matched_trainable_plants": 106,
+      "source_matched_train_and_heldout_scoring_plants": 28,
+      "source_matched_test_quantity_only_plants": 28,
+      "complete_fixed106_source_matched_training": true
+    },
+    {
+      "holdout_country": "GT",
+      "original_plant_cohort": 106,
+      "source_matched_trainable_plants": 106,
+      "source_matched_train_and_heldout_scoring_plants": 26,
+      "source_matched_test_quantity_only_plants": 26,
+      "complete_fixed106_source_matched_training": true
+    },
+    {
+      "holdout_country": "HN",
+      "original_plant_cohort": 106,
+      "source_matched_trainable_plants": 106,
+      "source_matched_train_and_heldout_scoring_plants": 26,
+      "source_matched_test_quantity_only_plants": 26,
+      "complete_fixed106_source_matched_training": true
+    },
+    {
+      "holdout_country": "JM",
+      "original_plant_cohort": 106,
+      "source_matched_trainable_plants": 106,
+      "source_matched_train_and_heldout_scoring_plants": 15,
+      "source_matched_test_quantity_only_plants": 15,
+      "complete_fixed106_source_matched_training": true
+    },
+    {
+      "holdout_country": "MX",
+      "original_plant_cohort": 106,
+      "source_matched_trainable_plants": 106,
+      "source_matched_train_and_heldout_scoring_plants": 73,
+      "source_matched_test_quantity_only_plants": 73,
+      "complete_fixed106_source_matched_training": true
+    },
+    {
+      "holdout_country": "NI",
+      "original_plant_cohort": 106,
+      "source_matched_trainable_plants": 106,
+      "source_matched_train_and_heldout_scoring_plants": 14,
+      "source_matched_test_quantity_only_plants": 14,
+      "complete_fixed106_source_matched_training": true
+    },
+    {
+      "holdout_country": "PA",
+      "original_plant_cohort": 106,
+      "source_matched_trainable_plants": 106,
+      "source_matched_train_and_heldout_scoring_plants": 51,
+      "source_matched_test_quantity_only_plants": 51,
+      "complete_fixed106_source_matched_training": true
+    },
+    {
+      "holdout_country": "PE",
+      "original_plant_cohort": 106,
+      "source_matched_trainable_plants": 106,
+      "source_matched_train_and_heldout_scoring_plants": 33,
+      "source_matched_test_quantity_only_plants": 33,
+      "complete_fixed106_source_matched_training": true
+    },
+    {
+      "holdout_country": "PR",
+      "original_plant_cohort": 106,
+      "source_matched_trainable_plants": 106,
+      "source_matched_train_and_heldout_scoring_plants": 40,
+      "source_matched_test_quantity_only_plants": 40,
+      "complete_fixed106_source_matched_training": true
+    },
+    {
+      "holdout_country": "SV",
+      "original_plant_cohort": 106,
+      "source_matched_trainable_plants": 106,
+      "source_matched_train_and_heldout_scoring_plants": 24,
+      "source_matched_test_quantity_only_plants": 24,
+      "complete_fixed106_source_matched_training": true
+    }
+  ],
+  "Colombia_original_three_sentinels": [
+    {
+      "plant": "Cecropia obtusifolia",
+      "holdout_country": "CO",
+      "train_focal_source_matched_recorded_cells": 256,
+      "train_source_matched_otherplant_bg_cells": 2041,
+      "test_focal_source_matched_recorded_cells": 24,
+      "test_source_matched_otherplant_bg_cells": 531,
+      "test_eligible_GBIF_dataset_keys": 8,
+      "train_eligible_dataset_country_contexts": 26,
+      "source_matched_training_quantity_qualified": true,
+      "source_matched_heldout_scoring_quantity_qualified": true,
+      "holdout_test_quantity_only_qualified": true,
+      "pseudo_background_is_not_true_absence": true,
+      "datasetKey_is_not_field_event_matching": true
+    },
+    {
+      "plant": "Ficus insipida",
+      "holdout_country": "CO",
+      "train_focal_source_matched_recorded_cells": 244,
+      "train_source_matched_otherplant_bg_cells": 3166,
+      "test_focal_source_matched_recorded_cells": 79,
+      "test_source_matched_otherplant_bg_cells": 511,
+      "test_eligible_GBIF_dataset_keys": 26,
+      "train_eligible_dataset_country_contexts": 47,
+      "source_matched_training_quantity_qualified": true,
+      "source_matched_heldout_scoring_quantity_qualified": true,
+      "holdout_test_quantity_only_qualified": true,
+      "pseudo_background_is_not_true_absence": true,
+      "datasetKey_is_not_field_event_matching": true
+    },
+    {
+      "plant": "Piper aduncum",
+      "holdout_country": "CO",
+      "train_focal_source_matched_recorded_cells": 319,
+      "train_source_matched_otherplant_bg_cells": 4468,
+      "test_focal_source_matched_recorded_cells": 63,
+      "test_source_matched_otherplant_bg_cells": 527,
+      "test_eligible_GBIF_dataset_keys": 28,
+      "train_eligible_dataset_country_contexts": 62,
+      "source_matched_training_quantity_qualified": true,
+      "source_matched_heldout_scoring_quantity_qualified": true,
+      "holdout_test_quantity_only_qualified": true,
+      "pseudo_background_is_not_true_absence": true,
+      "datasetKey_is_not_field_event_matching": true
+    }
+  ]
+}

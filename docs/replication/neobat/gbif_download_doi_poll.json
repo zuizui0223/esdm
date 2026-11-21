@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "status": "BOTH_DOIS_VERIFIED_BY_PUBLIC_GBIF_METADATA",
+  "checked_at_utc": "2026-11-19T11:00:12.248936+00:00",
+  "submitted_source_status": "BOTH_DOWNLOADS_REQUESTED",
+  "source_submission_created_at": "2026-11-19T07:11:57.805074+00:00",
+  "no_new_download_requests": true,
+  "ecological_result": null,
+  "downloads": {
+    "bat": {
+      "status": "SUCCEEDED",
+      "download_key": "0001156-261118162104854",
+      "doi": "10.15468/dl.nxu727",
+      "GBIF_total_records": 85912,
+      "GBIF_number_datasets": 529,
+      "GBIF_size_bytes": 6802436,
+      "metadata_modified": "2026-11-19T07:45:42.945+00:00",
+      "download_link": "https://api.gbif.org/v1/occurrence/download/request/0001156-261118162104854.zip",
+      "eligible_for_next_full_source_verification": true
+    },
+    "plant": {
+      "status": "SUCCEEDED",
+      "download_key": "0001157-261118162104854",
+      "doi": "10.15468/dl.xwc5zf",
+      "GBIF_total_records": 367988,
+      "GBIF_number_datasets": 1202,
+      "GBIF_size_bytes": 39741309,
+      "metadata_modified": "2026-11-19T07:43:42.950+00:00",
+      "download_link": "https://api.gbif.org/v1/occurrence/download/request/0001157-261118162104854.zip",
+      "eligible_for_next_full_source_verification": true
+    }
+  }
+}

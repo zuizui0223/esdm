@@ -1,0 +1,1 @@
+User-directed one-shot 85,912 bat record GBIF DOI original target-group pseudo-background audit; source hash and full QC must match, no new download request, no coordinates or bat rows saved. The frozen criteria and synthetic regression already passed.

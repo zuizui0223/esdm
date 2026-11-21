@@ -1,0 +1,71 @@
+name: NeoBat country-stratified 25/50km cell lower-bound audit (bounded)
+
+on:
+  pull_request:
+    types: [synchronize]
+    paths:
+      - '.github/workflows/neobat-country-cell-lowerbound.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: neobat-country-cell-lowerbound-20261119
+  cancel-in-progress: false
+
+jobs:
+  bounded_source_cell_screen:
+    # Retired after successful bounded 55/55 country-page result and committed source receipt.
+    if: false
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: design/neobat-trophic-sdm-phase1-20261119
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check pinned source-only GBIF name/facet metadata
+        run: |
+          set -euo pipefail
+          test "$(git hash-object docs/replication/neobat/gbif_search_preflight.json)" = "200837896033fdb06276486480d30b0042418432"
+          test "$(git hash-object docs/replication/neobat/plant_search_preflight.json)" = "7c810fea62fd6e0e4bbe215faccad6900e858055"
+      - name: Install optional projection and test response-independent lower-bound calculations
+        run: |
+          python -m pip install 'pyproj==3.7.2'
+          python -m py_compile scripts/neobat_country_cell_lowerbound.py
+          python -m unittest discover -s tests -p 'test_neobat_country_cell_lowerbound.py' -v
+      - name: Query at most 56 GBIF SEARCH country-pages (no full paging or DOI claims)
+        run: |
+          set -euo pipefail
+          mkdir -p build/neobat
+          set +e
+          python -m scripts.neobat_country_cell_lowerbound --out build/neobat/spatial_country_lb.json
+          status=$?
+          set -e
+          echo "$status" > build/neobat/spatial_country_lb_exit_code.txt
+          echo "Bounded GBIF sample terminal status $status (0=completed, 3=explicit stop)"
+      - name: Preserve aggregate-only full or partial source receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-country-cell-lowerbound
+          path: build/neobat/
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Save checked lower-bound receipt to PR branch (not main)
+        if: success()
+        run: |
+          set -euo pipefail
+          mkdir -p docs/replication/neobat
+          cp build/neobat/spatial_country_lb.json docs/replication/neobat/
+          cp build/neobat/spatial_country_lb_exit_code.txt docs/replication/neobat/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: bounded GBIF country-stratified sampled cell lower bounds"
+            git pull --rebase origin design/neobat-trophic-sdm-phase1-20261119
+            git push origin HEAD:design/neobat-trophic-sdm-phase1-20261119
+          fi

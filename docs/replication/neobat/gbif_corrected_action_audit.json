@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-19T07:13:34.778669+00:00",
+  "target_marker_sha": "5cbeb0c2a8a4dc9ada9c7da6e0e7e19241831944",
+  "target_workflow_name": "neobat-gbif-doi-download-once.yml",
+  "target_branch": "design/neobat-trophic-sdm-phase1-20261119",
+  "mode": "READ_ONLY_GITHUB_RUN_METADATA",
+  "GBIF_POST_retried": false,
+  "no_credentials_fetched": true,
+  "target_runs_found": 1,
+  "run_findings": [
+    {
+      "run_id": 44477446891,
+      "run_attempt": 1,
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-19T07:09:32Z",
+      "updated_at": "2026-11-19T07:12:08Z",
+      "jobs": [
+        {
+          "name": "request_authenticated_gbif_downloads",
+          "status": "completed",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Validate source-only input and secret-safe request code",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Submit exactly one bat and one plant download to GBIF",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Retain accepted keys and status, never credentials",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Preserve immutable response receipt in the unmerged research branch",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Do not treat incomplete requests as scientific success",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 14506569168,
+          "name": "neobat-first-gbif-doi-download-requests",
+          "size_in_bytes": 1105,
+          "expired": false
+        }
+      ]
+    }
+  ],
+  "status": "RUN_FOUND"
+}

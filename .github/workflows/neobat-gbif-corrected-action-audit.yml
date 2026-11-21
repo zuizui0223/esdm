@@ -1,0 +1,60 @@
+name: NeoBat inspect corrected GBIF DOI submission run (read-only)
+on:
+  push:
+    branches:
+      - design/neobat-trophic-sdm-phase1-20261119
+    paths:
+      - .github/workflows/neobat-gbif-corrected-action-audit.yml
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  inspect_corrected_exact_marker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check read-only inspector code and synthetic tests
+        run: |
+          python -m py_compile scripts/neobat_audit_gbif_submission_run.py
+          python -m unittest discover -s tests -p 'test_neobat_audit_gbif_submission_run.py' -v
+      - name: Inspect corrected GBIF submission by exact trigger SHA (NO POST)
+        run: |
+          set +e
+          python -m scripts.neobat_audit_gbif_submission_run \
+            --marker-sha 5cbeb0c2a8a4dc9ada9c7da6e0e7e19241831944 \
+            --out docs/replication/neobat/gbif_corrected_action_audit.json
+          code=$?
+          set -e
+          echo "$code" > docs/replication/neobat/gbif_corrected_action_audit_exit_code.txt
+          echo "CORRECTED_GBIF_ACTION_AUDIT_EXIT=$code"
+      - name: Upload metadata without passwords
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-corrected-gbif-action-status
+          path: |
+            docs/replication/neobat/gbif_corrected_action_audit.json
+            docs/replication/neobat/gbif_corrected_action_audit_exit_code.txt
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Commit audit receipt to unmerged research branch
+        if: always()
+        run: |
+          set -euo pipefail
+          test -f docs/replication/neobat/gbif_corrected_action_audit.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/gbif_corrected_action_audit.json docs/replication/neobat/gbif_corrected_action_audit_exit_code.txt
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: report corrected NeoBat GBIF submission run status without resubmission"
+            git pull --rebase origin design/neobat-trophic-sdm-phase1-20261119
+            git push origin HEAD:design/neobat-trophic-sdm-phase1-20261119
+          fi

@@ -1,0 +1,60 @@
+name: NeoBat inspect first GET-only DOI polling workflow
+on:
+  push:
+    branches:
+      - design/neobat-trophic-sdm-phase1-20261119
+    paths:
+      - .github/workflows/neobat-gbif-poll-run-audit.yml
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  inspect_exact_poll_run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check exact-run inspector before reading GitHub metadata
+        run: |
+          python -m py_compile scripts/neobat_audit_gbif_submission_run.py
+          python -m unittest discover -s tests -p 'test_neobat_audit_gbif_submission_run.py' -v
+      - name: Read DOI polling run status only, no new GBIF request
+        run: |
+          set +e
+          python -m scripts.neobat_audit_gbif_submission_run \
+            --marker-sha 06537ff648d34035f5d5efac77977335594a6c2c \
+            --workflow-file neobat-gbif-doi-status-poll.yml \
+            --workflow-name "NeoBat check accepted GBIF download keys for DOI (read-only)" \
+            --out docs/replication/neobat/gbif_poll_workflow_audit.json
+          rc=$?
+          set -e
+          echo "$rc" > docs/replication/neobat/gbif_poll_workflow_audit_exit_code.txt
+      - name: Upload status-only audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-gbif-poll-workflow-status
+          path: |
+            docs/replication/neobat/gbif_poll_workflow_audit.json
+            docs/replication/neobat/gbif_poll_workflow_audit_exit_code.txt
+          retention-days: 90
+      - name: Persist safe workflow metadata on research branch
+        if: always()
+        run: |
+          set -euo pipefail
+          test -f docs/replication/neobat/gbif_poll_workflow_audit.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/gbif_poll_workflow_audit*.json docs/replication/neobat/gbif_poll_workflow_audit_exit_code.txt
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: record exact GET-only GBIF poll run and failure step"
+            git pull --rebase origin design/neobat-trophic-sdm-phase1-20261119
+            git push origin HEAD:design/neobat-trophic-sdm-phase1-20261119
+          fi

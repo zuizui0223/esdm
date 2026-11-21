@@ -1,0 +1,60 @@
+name: NeoBat inspect completed full-source GBIF QC aggregate
+
+on:
+  push:
+    branches:
+      - design/neobat-trophic-sdm-phase1-20261119
+    paths:
+      - .github/workflows/neobat-gbif-full-qc-compact-summary.yml
+
+permissions:
+  contents: write
+
+jobs:
+  inspect_complete_source_qc:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: design/neobat-trophic-sdm-phase1-20261119
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Unit tests before reading full-source QC aggregate
+        run: |
+          python -m py_compile scripts/neobat_summarize_full_source_qc.py
+          python -m unittest discover -s tests -p 'test_neobat_summarize_full_source_qc.py' -v
+      - name: Verify full-source QC complete and write small status receipt
+        run: |
+          set +e
+          python -m scripts.neobat_summarize_full_source_qc \
+            --source docs/replication/neobat/gbif_full_source_qc.json \
+            --out docs/replication/neobat/gbif_full_source_qc_summary.json
+          rc=$?
+          set -e
+          printf '%s\n' "$rc" > docs/replication/neobat/gbif_full_source_qc_summary_exit_code.txt
+          echo "COMPACT_SOURCE_QC_EXIT=$rc"
+      - name: Upload inspectable summary without sensitive occurrences
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-full-gbif-source-qc-compact-summary
+          path: |
+            docs/replication/neobat/gbif_full_source_qc_summary.json
+            docs/replication/neobat/gbif_full_source_qc_summary_exit_code.txt
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Commit only summary and stop to the research branch
+        if: always()
+        run: |
+          set -euo pipefail
+          test -f docs/replication/neobat/gbif_full_source_qc_summary.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/gbif_full_source_qc_summary.json docs/replication/neobat/gbif_full_source_qc_summary_exit_code.txt
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: compact DOI GBIF full source QC with fixed 26/255 denominators"
+            git pull --rebase origin design/neobat-trophic-sdm-phase1-20261119
+            git push origin HEAD:design/neobat-trophic-sdm-phase1-20261119
+          fi

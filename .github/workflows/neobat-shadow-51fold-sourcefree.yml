@@ -1,0 +1,32 @@
+name: NeoBat shadow source-geography S0 S1 S3 SN1 synthetic validation
+on:
+  push:
+    branches:
+      - analysis/neobat-shadow-resource-sdm-51fold-20261119
+    paths:
+      - scripts/neobat_shadow_source_geography_51fold.py
+      - tests/test_neobat_shadow_source_geography_51fold.py
+      - .github/workflows/neobat-shadow-51fold-sourcefree.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  shadow_source_free_regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install exact numerical dependency versions
+        run: python -m pip install 'numpy==2.2.6' 'scikit-learn==1.7.2'
+      - name: Compile weak shadow and synthetic source leakage, climate-only partner identity tests
+        run: |
+          test -f docs/replication/NEOBAT_SHADOW_CLIMATE_ONLY_51FOLD_FROZEN_20261119.md
+          python -m py_compile scripts/neobat_shadow_source_geography_51fold.py
+          python -m unittest discover -s tests -p 'test_neobat_shadow_source_geography_51fold.py' -v

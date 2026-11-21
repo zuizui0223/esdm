@@ -1,0 +1,7 @@
+# NeoBat synthetic model-core repair note (2026-11-19)
+
+The initial source-free model test at `docs/replication/neobat/model_core_synthetic_result.json` produced M0=M1=M3 heldout rank AUC 1.0, hence M3−M1=0.0. **That test cannot demonstrate incremental resource-link recovery**. The synthetic observer-effort covariate had been defined as a function of the parity-based test label. The baseline could perfectly predict the class, independently of any plant signal.
+
+Corrective implementation in `tests/test_neobat_model_comparison_core.py` now pairs each synthetic presence with target-group background having the exact same abiotic covariates and observation-effort value. The plant universe is six synthetic plants: three factual-link partners and three nonpartners with complementary values, making generic plant suitability B(x) constant while source-linked R_s(x) carries the intended known-truth signal. Predeclared test conditions: M0 rank AUC 0.5, M1 rank AUC 0.5, M3 rank AUC at least 0.95, hence M3−M1 at least +0.40; N1 preserves both bipartite degrees. This is **only a synthetic software qualification** and must not be interpreted as a biological effect.
+
+The first synthetic receipt is superseded for method qualification. Until the corrected run is verified, the M0/M1/M3/N1 model core status is **CORRECTED_KNOWN_TRUTH_PENDING_VERIFICATION**. A successful corrected test will establish that a specified synthetic signal is recoverable and that leakage guards execute, not that bats track food plants or that real SDM predictions improve.

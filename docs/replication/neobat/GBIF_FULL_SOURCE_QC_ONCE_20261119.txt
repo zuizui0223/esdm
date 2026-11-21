@@ -1,0 +1,8 @@
+Authorized full source QC (not an SDM fit), frozen 2026-11-19.
+Already succeeded GBIF bat 10.15468/dl.nxu727 (85,912 source records).
+Already succeeded GBIF plant 10.15468/dl.xwc5zf (367,988 source records).
+Original ZIP SHA256 pinned in docs/replication/neobat/gbif_archive_header_preflight.json.
+Do not POST any new GBIF download. Stream both ZIPs in ephemeral runner.
+Report aggregate source-quality, species-country 25/50km recorded cells only.
+Do not commit raw coordinates, occurrence/event identifiers, full species rows or original ZIP bytes.
+Scientific ceiling: this is discovery source audit, no M3-vs-M1 result.

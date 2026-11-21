@@ -1,0 +1,698 @@
+{
+  "schema_version": 1,
+  "status": "COMPLETE_SOURCE_QC_SUMMARY_NOT_MODEL",
+  "created_utc": "2026-11-19T11:10:05.454166+00:00",
+  "full_qc_read_from_same_pinned_archives": true,
+  "GBIF_DOIs_minted": true,
+  "source_exploratory_data_already_opened": true,
+  "independent_holdout_unopened": false,
+  "source_coordinate_grids_aggregated_only": true,
+  "ecological_M3_minus_M1": null,
+  "groups": {
+    "bat": {
+      "status": "FULL_GBIF_RECORD_SOURCE_QC_ONLY",
+      "doi": "10.15468/dl.nxu727",
+      "archive_sha256": "fc94ff92a127ec22655733a0b0cdaf12b5b24794fcc0129532e8a1e49fe856f0",
+      "archive_rows": 85912,
+      "valid_country_year_coordinate_rows": 85912,
+      "valid_record_fraction": 1.0,
+      "quality_flags": {
+        "precision_known_gt_12_5km": 440,
+        "precision_known_le_12_5km": 18351,
+        "precision_missing": 67121,
+        "rows": 85912,
+        "source_event_id_missing": 45,
+        "valid_source_rows": 85912
+      },
+      "species_in_complete_name_cohort": 26,
+      "species_with_at_least_1_recorded_cell": 26,
+      "country_species_rows": 297,
+      "sum_species_country_25km_recorded_cells": 10261,
+      "sum_species_country_25km_known_precision_cells": 3263,
+      "species_with_2plus_country_candidate_folds_indexed": 26,
+      "species_with_2plus_country_candidate_folds_known_precision": 19,
+      "candidate_country_folds_not_independent_validation": true,
+      "countries": {
+        "AR": {
+          "species_with_5plus_indexed_cells": 4,
+          "species_with_5plus_known_precision_cells": 1,
+          "sum_species_country_indexed_25km_cells": 35,
+          "sum_species_country_known_precision_25km_cells": 11
+        },
+        "BO": {
+          "species_with_5plus_indexed_cells": 5,
+          "species_with_5plus_known_precision_cells": 0,
+          "sum_species_country_indexed_25km_cells": 55,
+          "sum_species_country_known_precision_25km_cells": 20
+        },
+        "BR": {
+          "species_with_5plus_indexed_cells": 17,
+          "species_with_5plus_known_precision_cells": 8,
+          "sum_species_country_indexed_25km_cells": 3555,
+          "sum_species_country_known_precision_25km_cells": 334
+        },
+        "BS": {
+          "species_with_5plus_indexed_cells": 0,
+          "species_with_5plus_known_precision_cells": 0,
+          "sum_species_country_indexed_25km_cells": 3,
+          "sum_species_country_known_precision_25km_cells": 0
+        },
+        "BZ": {
+          "species_with_5plus_indexed_cells": 2,
+          "species_with_5plus_known_precision_cells": 2,
+          "sum_species_country_indexed_25km_cells": 43,
+          "sum_species_country_known_precision_25km_cells": 28
+        },
+        "CO": {
+          "species_with_5plus_indexed_cells": 26,
+          "species_with_5plus_known_precision_cells": 20,
+          "sum_species_country_indexed_25km_cells": 2973,
+          "sum_species_country_known_precision_25km_cells": 942
+        },
+        "CR": {
+          "species_with_5plus_indexed_cells": 13,
+          "species_with_5plus_known_precision_cells": 13,
+          "sum_species_country_indexed_25km_cells": 259,
+          "sum_species_country_known_precision_25km_cells": 204
+        },
+        "CU": {
+          "species_with_5plus_indexed_cells": 1,
+          "species_with_5plus_known_precision_cells": 1,
+          "sum_species_country_indexed_25km_cells": 21,
+          "sum_species_country_known_precision_25km_cells": 17
+        },
+        "CW": {
+          "species_with_5plus_indexed_cells": 0,
+          "species_with_5plus_known_precision_cells": 0,
+          "sum_species_country_indexed_25km_cells": 1,
+          "sum_species_country_known_precision_25km_cells": 0
+        },
+        "DO": {
+          "species_with_5plus_indexed_cells": 1,
+          "species_with_5plus_known_precision_cells": 1,
+          "sum_species_country_indexed_25km_cells": 28,
+          "sum_species_country_known_precision_25km_cells": 15
+        },
+        "EC": {
+          "species_with_5plus_indexed_cells": 15,
+          "species_with_5plus_known_precision_cells": 7,
+          "sum_species_country_indexed_25km_cells": 376,
+          "sum_species_country_known_precision_25km_cells": 79
+        },
+        "GF": {
+          "species_with_5plus_indexed_cells": 14,
+          "species_with_5plus_known_precision_cells": 14,
+          "sum_species_country_indexed_25km_cells": 257,
+          "sum_species_country_known_precision_25km_cells": 223
+        },
+        "GT": {
+          "species_with_5plus_indexed_cells": 12,
+          "species_with_5plus_known_precision_cells": 4,
+          "sum_species_country_indexed_25km_cells": 175,
+          "sum_species_country_known_precision_25km_cells": 56
+        },
+        "GY": {
+          "species_with_5plus_indexed_cells": 13,
+          "species_with_5plus_known_precision_cells": 0,
+          "sum_species_country_indexed_25km_cells": 180,
+          "sum_species_country_known_precision_25km_cells": 2
+        },
+        "HN": {
+          "species_with_5plus_indexed_cells": 5,
+          "species_with_5plus_known_precision_cells": 5,
+          "sum_species_country_indexed_25km_cells": 117,
+          "sum_species_country_known_precision_25km_cells": 109
+        },
+        "HT": {
+          "species_with_5plus_indexed_cells": 0,
+          "species_with_5plus_known_precision_cells": 0,
+          "sum_species_country_indexed_25km_cells": 1,
+          "sum_species_country_known_precision_25km_cells": 1
+        },
+        "JM": {
+          "species_with_5plus_indexed_cells": 1,
+          "species_with_5plus_known_precision_cells": 1,
+          "sum_species_country_indexed_25km_cells": 12,
+          "sum_species_country_known_precision_25km_cells": 5
+        },
+        "MX": {
+          "species_with_5plus_indexed_cells": 14,
+          "species_with_5plus_known_precision_cells": 12,
+          "sum_species_country_indexed_25km_cells": 1182,
+          "sum_species_country_known_precision_25km_cells": 745
+        },
+        "NI": {
+          "species_with_5plus_indexed_cells": 12,
+          "species_with_5plus_known_precision_cells": 6,
+          "sum_species_country_indexed_25km_cells": 181,
+          "sum_species_country_known_precision_25km_cells": 80
+        },
+        "PA": {
+          "species_with_5plus_indexed_cells": 13,
+          "species_with_5plus_known_precision_cells": 13,
+          "sum_species_country_indexed_25km_cells": 213,
+          "sum_species_country_known_precision_25km_cells": 161
+        },
+        "PE": {
+          "species_with_5plus_indexed_cells": 15,
+          "species_with_5plus_known_precision_cells": 10,
+          "sum_species_country_indexed_25km_cells": 281,
+          "sum_species_country_known_precision_25km_cells": 156
+        },
+        "PR": {
+          "species_with_5plus_indexed_cells": 1,
+          "species_with_5plus_known_precision_cells": 1,
+          "sum_species_country_indexed_25km_cells": 14,
+          "sum_species_country_known_precision_25km_cells": 10
+        },
+        "PY": {
+          "species_with_5plus_indexed_cells": 0,
+          "species_with_5plus_known_precision_cells": 0,
+          "sum_species_country_indexed_25km_cells": 15,
+          "sum_species_country_known_precision_25km_cells": 12
+        },
+        "SR": {
+          "species_with_5plus_indexed_cells": 14,
+          "species_with_5plus_known_precision_cells": 0,
+          "sum_species_country_indexed_25km_cells": 216,
+          "sum_species_country_known_precision_25km_cells": 13
+        },
+        "SV": {
+          "species_with_5plus_indexed_cells": 2,
+          "species_with_5plus_known_precision_cells": 2,
+          "sum_species_country_indexed_25km_cells": 22,
+          "sum_species_country_known_precision_25km_cells": 18
+        },
+        "TT": {
+          "species_with_5plus_indexed_cells": 4,
+          "species_with_5plus_known_precision_cells": 0,
+          "sum_species_country_indexed_25km_cells": 38,
+          "sum_species_country_known_precision_25km_cells": 17
+        },
+        "UY": {
+          "species_with_5plus_indexed_cells": 0,
+          "species_with_5plus_known_precision_cells": 0,
+          "sum_species_country_indexed_25km_cells": 3,
+          "sum_species_country_known_precision_25km_cells": 1
+        },
+        "VE": {
+          "species_with_5plus_indexed_cells": 0,
+          "species_with_5plus_known_precision_cells": 0,
+          "sum_species_country_indexed_25km_cells": 5,
+          "sum_species_country_known_precision_25km_cells": 4
+        }
+      },
+      "per_species": [
+        {
+          "taxon": "Artibeus cinereus",
+          "indexed_records": 1026,
+          "country_cells_25km": 214,
+          "known_precision_country_cells_25km": 12,
+          "countries_with_ge5_indexed_cells": 4,
+          "countries_with_ge5_known_precision_cells": 2,
+          "countries_with_ge5_heldout_and20_outside_indexed_cells": 4,
+          "countries_with_ge5_heldout_and20_outside_known_precision_cells": 0
+        },
+        {
+          "taxon": "Artibeus concolor",
+          "indexed_records": 240,
+          "country_cells_25km": 108,
+          "known_precision_country_cells_25km": 20,
+          "countries_with_ge5_indexed_cells": 5,
+          "countries_with_ge5_known_precision_cells": 1,
+          "countries_with_ge5_heldout_and20_outside_indexed_cells": 5,
+          "countries_with_ge5_heldout_and20_outside_known_precision_cells": 0
+        },
+        {
+          "taxon": "Artibeus gnomus",
+          "indexed_records": 434,
+          "country_cells_25km": 140,
+          "known_precision_country_cells_25km": 24,
+          "countries_with_ge5_indexed_cells": 7,
+          "countries_with_ge5_known_precision_cells": 2,
+          "countries_with_ge5_heldout_and20_outside_indexed_cells": 7,
+          "countries_with_ge5_heldout_and20_outside_known_precision_cells": 0
+        },
+        {
+          "taxon": "Artibeus jamaicensis",
+          "indexed_records": 6583,
+          "country_cells_25km": 759,
+          "known_precision_country_cells_25km": 452,
+          "countries_with_ge5_indexed_cells": 16,
+          "countries_with_ge5_known_precision_cells": 13,
+          "countries_with_ge5_heldout_and20_outside_indexed_cells": 16,
+          "countries_with_ge5_heldout_and20_outside_known_precision_cells": 13
+        },
+        {
+          "taxon": "Artibeus lituratus",
+          "indexed_records": 13738,
+          "country_cells_25km": 1454,
+          "known_precision_country_cells_25km": 591,
+          "countries_with_ge5_indexed_cells": 18,
+          "countries_with_ge5_known_precision_cells": 14,
+          "countries_with_ge5_heldout_and20_outside_indexed_cells": 18,
+          "countries_with_ge5_heldout_and20_outside_known_precision_cells": 14
+        },
+        {
+          "taxon": "Artibeus obscurus",
+          "indexed_records": 3132,
+          "country_cells_25km": 531,
+          "known_precision_country_cells_25km": 104,
+          "countries_with_ge5_indexed_cells": 8,
+          "countries_with_ge5_known_precision_cells": 5,
+          "countries_with_ge5_heldout_and20_outside_indexed_cells": 8,
+          "countries_with_ge5_heldout_and20_outside_known_precision_cells": 5
+        },
+        {
+          "taxon": "Artibeus phaeotis",
+          "indexed_records": 1528,
+          "country_cells_25km": 301,
+          "known_precision_country_cells_25km": 151,
+          "countries_with_ge5_indexed_cells": 6,
+          "countries_with_ge5_known_precision_cells": 4,
+          "countries_with_ge5_heldout_and20_outside_indexed_cells": 6,
+          "countries_with_ge5_heldout_and20_outside_known_precision_cells": 4
+        },
+        {
+          "taxon": "Artibeus planirostris",
+          "indexed_records": 6215,
+          "country_cells_25km": 743,
+          "known_precision_country_cells_25km": 166,
+          "countries_with_ge5_indexed_cells": 9,
+          "countries_with_ge5_known_precision_cells": 4,
+          "countries_with_ge5_heldout_and20_outside_indexed_cells": 9,
+          "countries_with_ge5_heldout_and20_outside_known_precision_cells": 4
+        },
+        {
+          "taxon": "Artibeus toltecus",
+          "indexed_records": 851,
+          "country_cells_25km": 144,
+          "known_precision_country_cells_25km": 77,
+          "countries_with_ge5_indexed_cells": 6,
+          "countries_with_ge5_known_precision_cells": 4,
+          "countries_with_ge5_heldout_and20_outside_indexed_cells": 6,
+          "countries_with_ge5_heldout_and20_outside_known_precision_cells": 4
+        },
+        {
+          "taxon": "Artibeus watsoni",
+          "indexed_records": 497,
+          "country_cells_25km": 77,
+          "known_precision_country_cells_25km": 36,
+          "countries_with_ge5_indexed_cells": 6,
+          "countries_with_ge5_known_precision_cells": 3,
+          "countries_with_ge5_heldout_and20_outside_indexed_cells": 6,
+          "countries_with_ge5_heldout_and20_outside_known_precision_cells": 3
+        },
+        {
+          "taxon": "Carollia brevicauda",
+          "indexed_records": 7604,
+          "country_cells_25km": 566,
+          "known_precision_country_cells_25km": 149,
+          "countries_with_ge5_indexed_cells": 9,
+          "countries_with_ge5_known_precision_cells": 5,
+          "countries_with_ge5_heldout_and20_outside_indexed_cells": 9,
+          "countries_with_ge5_heldout_and20_outside_known_precision_cells": 5
+        },
+        {
+          "taxon": "Carollia castanea",
+          "indexed_records": 2389,
+          "country_cells_25km": 316,
+          "known_precision_country_cells_25km": 109,
+          "countries_with_ge5_indexed_cells": 7,
+          "countries_with_ge5_known_precision_cells": 5,
+          "countries_with_ge5_heldout_and20_outside_indexed_cells": 7,
+          "countries_with_ge5_heldout_and20_outside_known_precision_cells": 5
+        },
+        {
+          "taxon": "Carollia perspicillata",
+          "indexed_records": 22692,
+          "country_cells_25km": 1348,
+          "known_precision_country_cells_25km": 331,
+          "countries_with_ge5_indexed_cells": 14,
+          "countries_with_ge5_known_precision_cells": 9,
+          "countries_with_ge5_heldout_and20_outside_indexed_cells": 14,
+          "countries_with_ge5_heldout_and20_outside_known_precision_cells": 9
+        },
+        {
+          "taxon": "Chiroderma villosum",
+          "indexed_records": 369,
+          "country_cells_25km": 200,
+          "known_precision_country_cells_25km": 60,
+          "countries_with_ge5_indexed_cells": 10,
+          "countries_with_ge5_known_precision_cells": 6,
+          "countries_with_ge5_heldout_and20_outside_indexed_cells": 10,
+          "countries_with_ge5_heldout_and20_outside_known_precision_cells": 6
+        },
+        {
+          "taxon": "Platyrrhinus helleri",
+          "indexed_records": 1625,
+          "country_cells_25km": 357,
+          "known_precision_country_cells_25km": 119,
+          "countries_with_ge5_indexed_cells": 12,
+          "countries_with_ge5_known_precision_cells": 7,
+          "countries_with_ge5_heldout_and20_outside_indexed_cells": 12,
+          "countries_with_ge5_heldout_and20_outside_known_precision_cells": 7
+        },
+        {
+          "taxon": "Platyrrhinus lineatus",
+          "indexed_records": 1786,
+          "country_cells_25km": 399,
+          "known_precision_country_cells_25km": 82,
+          "countries_with_ge5_indexed_cells": 3,
+          "countries_with_ge5_known_precision_cells": 1,
+          "countries_with_ge5_heldout_and20_outside_indexed_cells": 3,
+          "countries_with_ge5_heldout_and20_outside_known_precision_cells": 0
+        },
+        {
+          "taxon": "Rhinophylla pumilio",
+          "indexed_records": 1986,
+          "country_cells_25km": 292,
+          "known_precision_country_cells_25km": 58,
+          "countries_with_ge5_indexed_cells": 7,
+          "countries_with_ge5_known_precision_cells": 3,
+          "countries_with_ge5_heldout_and20_outside_indexed_cells": 7,
+          "countries_with_ge5_heldout_and20_outside_known_precision_cells": 3
+        },
+        {
+          "taxon": "Sturnira giannae",
+          "indexed_records": 354,
+          "country_cells_25km": 73,
+          "known_precision_country_cells_25km": 17,
+          "countries_with_ge5_indexed_cells": 3,
+          "countries_with_ge5_known_precision_cells": 2,
+          "countries_with_ge5_heldout_and20_outside_indexed_cells": 3,
+          "countries_with_ge5_heldout_and20_outside_known_precision_cells": 0
+        },
+        {
+          "taxon": "Sturnira lilium",
+          "indexed_records": 4955,
+          "country_cells_25km": 721,
+          "known_precision_country_cells_25km": 112,
+          "countries_with_ge5_indexed_cells": 9,
+          "countries_with_ge5_known_precision_cells": 4,
+          "countries_with_ge5_heldout_and20_outside_indexed_cells": 9,
+          "countries_with_ge5_heldout_and20_outside_known_precision_cells": 4
+        },
+        {
+          "taxon": "Sturnira ludovici",
+          "indexed_records": 893,
+          "country_cells_25km": 140,
+          "known_precision_country_cells_25km": 51,
+          "countries_with_ge5_indexed_cells": 4,
+          "countries_with_ge5_known_precision_cells": 2,
+          "countries_with_ge5_heldout_and20_outside_indexed_cells": 4,
+          "countries_with_ge5_heldout_and20_outside_known_precision_cells": 1
+        },
+        {
+          "taxon": "Sturnira parvidens",
+          "indexed_records": 2354,
+          "country_cells_25km": 329,
+          "known_precision_country_cells_25km": 162,
+          "countries_with_ge5_indexed_cells": 7,
+          "countries_with_ge5_known_precision_cells": 4,
+          "countries_with_ge5_heldout_and20_outside_indexed_cells": 7,
+          "countries_with_ge5_heldout_and20_outside_known_precision_cells": 4
+        },
+        {
+          "taxon": "Sturnira tildae",
+          "indexed_records": 947,
+          "country_cells_25km": 203,
+          "known_precision_country_cells_25km": 38,
+          "countries_with_ge5_indexed_cells": 6,
+          "countries_with_ge5_known_precision_cells": 2,
+          "countries_with_ge5_heldout_and20_outside_indexed_cells": 6,
+          "countries_with_ge5_heldout_and20_outside_known_precision_cells": 2
+        },
+        {
+          "taxon": "Uroderma bilobatum",
+          "indexed_records": 2194,
+          "country_cells_25km": 497,
+          "known_precision_country_cells_25km": 198,
+          "countries_with_ge5_indexed_cells": 13,
+          "countries_with_ge5_known_precision_cells": 9,
+          "countries_with_ge5_heldout_and20_outside_indexed_cells": 13,
+          "countries_with_ge5_heldout_and20_outside_known_precision_cells": 9
+        },
+        {
+          "taxon": "Uroderma convexum",
+          "indexed_records": 572,
+          "country_cells_25km": 106,
+          "known_precision_country_cells_25km": 56,
+          "countries_with_ge5_indexed_cells": 5,
+          "countries_with_ge5_known_precision_cells": 4,
+          "countries_with_ge5_heldout_and20_outside_indexed_cells": 5,
+          "countries_with_ge5_heldout_and20_outside_known_precision_cells": 4
+        },
+        {
+          "taxon": "Vampyressa thyone",
+          "indexed_records": 771,
+          "country_cells_25km": 202,
+          "known_precision_country_cells_25km": 70,
+          "countries_with_ge5_indexed_cells": 7,
+          "countries_with_ge5_known_precision_cells": 4,
+          "countries_with_ge5_heldout_and20_outside_indexed_cells": 7,
+          "countries_with_ge5_heldout_and20_outside_known_precision_cells": 4
+        },
+        {
+          "taxon": "Vampyriscus nymphaea",
+          "indexed_records": 177,
+          "country_cells_25km": 41,
+          "known_precision_country_cells_25km": 18,
+          "countries_with_ge5_indexed_cells": 3,
+          "countries_with_ge5_known_precision_cells": 2,
+          "countries_with_ge5_heldout_and20_outside_indexed_cells": 3,
+          "countries_with_ge5_heldout_and20_outside_known_precision_cells": 0
+        }
+      ],
+      "plant_species_eligibility_histogram": null,
+      "all_source_candidate_names_retained": true
+    },
+    "plant": {
+      "status": "FULL_GBIF_RECORD_SOURCE_QC_ONLY",
+      "doi": "10.15468/dl.xwc5zf",
+      "archive_sha256": "4275ed6b9847fa9fb81a9e353ec1b9de151592f7c369b19f6145129059726c8b",
+      "archive_rows": 367988,
+      "valid_country_year_coordinate_rows": 367988,
+      "valid_record_fraction": 1.0,
+      "quality_flags": {
+        "precision_known_gt_12_5km": 2892,
+        "precision_known_le_12_5km": 89718,
+        "precision_missing": 275378,
+        "rows": 367988,
+        "source_event_id_missing": 801,
+        "valid_source_rows": 367988
+      },
+      "species_in_complete_name_cohort": 255,
+      "species_with_at_least_1_recorded_cell": 251,
+      "country_species_rows": 2667,
+      "sum_species_country_25km_recorded_cells": 66406,
+      "sum_species_country_25km_known_precision_cells": 28502,
+      "species_with_2plus_country_candidate_folds_indexed": 183,
+      "species_with_2plus_country_candidate_folds_known_precision": 116,
+      "candidate_country_folds_not_independent_validation": true,
+      "countries": {
+        "AR": {
+          "species_with_5plus_indexed_cells": 31,
+          "species_with_5plus_known_precision_cells": 24,
+          "sum_species_country_indexed_25km_cells": 1153,
+          "sum_species_country_known_precision_25km_cells": 717
+        },
+        "BO": {
+          "species_with_5plus_indexed_cells": 75,
+          "species_with_5plus_known_precision_cells": 17,
+          "sum_species_country_indexed_25km_cells": 1490,
+          "sum_species_country_known_precision_25km_cells": 252
+        },
+        "BR": {
+          "species_with_5plus_indexed_cells": 159,
+          "species_with_5plus_known_precision_cells": 86,
+          "sum_species_country_indexed_25km_cells": 23982,
+          "sum_species_country_known_precision_25km_cells": 5950
+        },
+        "BS": {
+          "species_with_5plus_indexed_cells": 14,
+          "species_with_5plus_known_precision_cells": 11,
+          "sum_species_country_indexed_25km_cells": 242,
+          "sum_species_country_known_precision_25km_cells": 195
+        },
+        "BZ": {
+          "species_with_5plus_indexed_cells": 40,
+          "species_with_5plus_known_precision_cells": 18,
+          "sum_species_country_indexed_25km_cells": 478,
+          "sum_species_country_known_precision_25km_cells": 263
+        },
+        "CL": {
+          "species_with_5plus_indexed_cells": 5,
+          "species_with_5plus_known_precision_cells": 4,
+          "sum_species_country_indexed_25km_cells": 79,
+          "sum_species_country_known_precision_25km_cells": 59
+        },
+        "CO": {
+          "species_with_5plus_indexed_cells": 154,
+          "species_with_5plus_known_precision_cells": 120,
+          "sum_species_country_indexed_25km_cells": 10032,
+          "sum_species_country_known_precision_25km_cells": 3999
+        },
+        "CR": {
+          "species_with_5plus_indexed_cells": 136,
+          "species_with_5plus_known_precision_cells": 68,
+          "sum_species_country_indexed_25km_cells": 3028,
+          "sum_species_country_known_precision_25km_cells": 1456
+        },
+        "CU": {
+          "species_with_5plus_indexed_cells": 29,
+          "species_with_5plus_known_precision_cells": 10,
+          "sum_species_country_indexed_25km_cells": 531,
+          "sum_species_country_known_precision_25km_cells": 197
+        },
+        "CW": {
+          "species_with_5plus_indexed_cells": 0,
+          "species_with_5plus_known_precision_cells": 0,
+          "sum_species_country_indexed_25km_cells": 48,
+          "sum_species_country_known_precision_25km_cells": 43
+        },
+        "DO": {
+          "species_with_5plus_indexed_cells": 50,
+          "species_with_5plus_known_precision_cells": 39,
+          "sum_species_country_indexed_25km_cells": 893,
+          "sum_species_country_known_precision_25km_cells": 646
+        },
+        "EC": {
+          "species_with_5plus_indexed_cells": 99,
+          "species_with_5plus_known_precision_cells": 62,
+          "sum_species_country_indexed_25km_cells": 2736,
+          "sum_species_country_known_precision_25km_cells": 1530
+        },
+        "GF": {
+          "species_with_5plus_indexed_cells": 56,
+          "species_with_5plus_known_precision_cells": 44,
+          "sum_species_country_indexed_25km_cells": 953,
+          "sum_species_country_known_precision_25km_cells": 598
+        },
+        "GT": {
+          "species_with_5plus_indexed_cells": 52,
+          "species_with_5plus_known_precision_cells": 28,
+          "sum_species_country_indexed_25km_cells": 780,
+          "sum_species_country_known_precision_25km_cells": 401
+        },
+        "GY": {
+          "species_with_5plus_indexed_cells": 11,
+          "species_with_5plus_known_precision_cells": 5,
+          "sum_species_country_indexed_25km_cells": 179,
+          "sum_species_country_known_precision_25km_cells": 60
+        },
+        "HN": {
+          "species_with_5plus_indexed_cells": 36,
+          "species_with_5plus_known_precision_cells": 27,
+          "sum_species_country_indexed_25km_cells": 588,
+          "sum_species_country_known_precision_25km_cells": 435
+        },
+        "HT": {
+          "species_with_5plus_indexed_cells": 19,
+          "species_with_5plus_known_precision_cells": 15,
+          "sum_species_country_indexed_25km_cells": 272,
+          "sum_species_country_known_precision_25km_cells": 217
+        },
+        "JM": {
+          "species_with_5plus_indexed_cells": 17,
+          "species_with_5plus_known_precision_cells": 15,
+          "sum_species_country_indexed_25km_cells": 278,
+          "sum_species_country_known_precision_25km_cells": 191
+        },
+        "MX": {
+          "species_with_5plus_indexed_cells": 112,
+          "species_with_5plus_known_precision_cells": 105,
+          "sum_species_country_indexed_25km_cells": 9820,
+          "sum_species_country_known_precision_25km_cells": 7399
+        },
+        "NI": {
+          "species_with_5plus_indexed_cells": 98,
+          "species_with_5plus_known_precision_cells": 14,
+          "sum_species_country_indexed_25km_cells": 1387,
+          "sum_species_country_known_precision_25km_cells": 207
+        },
+        "PA": {
+          "species_with_5plus_indexed_cells": 76,
+          "species_with_5plus_known_precision_cells": 52,
+          "sum_species_country_indexed_25km_cells": 1444,
+          "sum_species_country_known_precision_25km_cells": 994
+        },
+        "PE": {
+          "species_with_5plus_indexed_cells": 89,
+          "species_with_5plus_known_precision_cells": 36,
+          "sum_species_country_indexed_25km_cells": 2394,
+          "sum_species_country_known_precision_25km_cells": 824
+        },
+        "PR": {
+          "species_with_5plus_indexed_cells": 54,
+          "species_with_5plus_known_precision_cells": 52,
+          "sum_species_country_indexed_25km_cells": 926,
+          "sum_species_country_known_precision_25km_cells": 755
+        },
+        "PY": {
+          "species_with_5plus_indexed_cells": 22,
+          "species_with_5plus_known_precision_cells": 11,
+          "sum_species_country_indexed_25km_cells": 296,
+          "sum_species_country_known_precision_25km_cells": 142
+        },
+        "SR": {
+          "species_with_5plus_indexed_cells": 22,
+          "species_with_5plus_known_precision_cells": 4,
+          "sum_species_country_indexed_25km_cells": 288,
+          "sum_species_country_known_precision_25km_cells": 69
+        },
+        "SV": {
+          "species_with_5plus_indexed_cells": 62,
+          "species_with_5plus_known_precision_cells": 24,
+          "sum_species_country_indexed_25km_cells": 771,
+          "sum_species_country_known_precision_25km_cells": 320
+        },
+        "TT": {
+          "species_with_5plus_indexed_cells": 22,
+          "species_with_5plus_known_precision_cells": 16,
+          "sum_species_country_indexed_25km_cells": 259,
+          "sum_species_country_known_precision_25km_cells": 193
+        },
+        "UY": {
+          "species_with_5plus_indexed_cells": 11,
+          "species_with_5plus_known_precision_cells": 9,
+          "sum_species_country_indexed_25km_cells": 232,
+          "sum_species_country_known_precision_25km_cells": 185
+        },
+        "VE": {
+          "species_with_5plus_indexed_cells": 63,
+          "species_with_5plus_known_precision_cells": 14,
+          "sum_species_country_indexed_25km_cells": 847,
+          "sum_species_country_known_precision_25km_cells": 205
+        }
+      },
+      "per_species": [],
+      "plant_species_eligibility_histogram": {
+        "0": 128,
+        "1": 11,
+        "10": 3,
+        "11": 4,
+        "12": 2,
+        "13": 2,
+        "14": 6,
+        "15": 1,
+        "16": 2,
+        "17": 1,
+        "18": 2,
+        "2": 18,
+        "20": 1,
+        "22": 1,
+        "24": 2,
+        "25": 1,
+        "3": 21,
+        "4": 14,
+        "5": 9,
+        "6": 8,
+        "7": 7,
+        "8": 5,
+        "9": 6
+      },
+      "all_source_candidate_names_retained": true
+    }
+  }
+}

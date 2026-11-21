@@ -1,0 +1,8 @@
+Corrected one-shot source-only DOI country-fruit-resource input gate 2026-11-19
+Previous marker: 05e3c54b73668be5e40147955b68f31212ebb351
+Previous run: 44516670430 (failure at synthetic test prior to source gate)
+Correction: mock has 3 independent refs R1/R2/R4 after Brazilian holdout embargo; previous test expected 2.
+Same frozen biological sample, same 5/20 km-cell and 3 partner / 2 reference gates.
+Bat DOI 10.15468/dl.nxu727, plant DOI 10.15468/dl.xwc5zf
+Input GBIF complete-source QC blob 8faaf3fb0e5e840b7c28a05f51e16ec53d6fc855.
+No new GBIF download request, no raw occurrences, no fit, no ecological response opened.

@@ -1,0 +1,6 @@
+One-shot WorldClim v2.1 10 arc-minute official BIO1/BIO12 raster source preflight.
+Reuses already frozen esdm E2 WorldClim archive identity, not an ecological bat response.
+Source archive SHA256 00513224583665ec0f2f955a4ec252730c4deb2004cce9e793492a3f26df4dcf.
+Source URL https://geodata.ucdavis.edu/climate/worldclim/2_1/base/wc2.1_10m_bio.zip
+Read source SHA, only BIO1/BIO12 GeoTIFF headers, not occurrence rows.
+No climate model or SDM fitted. This marker authorizes only one source check.

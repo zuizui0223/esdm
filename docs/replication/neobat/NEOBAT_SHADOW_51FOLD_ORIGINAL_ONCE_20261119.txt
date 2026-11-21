@@ -1,0 +1,1 @@
+Frozen exploratory WEAK shadow source-geography 51 source bat-country folds. User-directed original GBIF bat+plant and WorldClim byte-verified sources only. 99 focal-network null draws, 84-fold accounting. Does not estimate original ecological M3-M1 or save raw coordinates, source record IDs, percell scores or rasters.
