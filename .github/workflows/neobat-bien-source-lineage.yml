@@ -1,0 +1,52 @@
+name: NeoBat BIEN CR PA original source lineage
+on:
+  push:
+    branches:
+      - analysis/neobat-bien-cr-pa-source-lineage-20261121
+    paths:
+      - 'scripts/neobat_bien_cr_pa_source_lineage.R'
+      - 'docs/replication/NEOBAT_INDEPENDENT_PLOT_CROSSWALK_INPUT_20261121.json'
+      - '.github/workflows/neobat-bien-source-lineage.yml'
+  workflow_dispatch:
+jobs:
+  lineage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 28
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        include:
+          - code: CR
+            country: Costa Rica
+          - code: PA
+            country: Panama
+    steps:
+      - uses: actions/checkout@v4
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - name: Install geospatial libraries required by BIEN
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libudunits2-dev libgdal-dev libgeos-dev libproj-dev libsqlite3-dev libnetcdf-dev
+      - name: Install BIEN and jsonlite
+        run: Rscript -e 'install.packages(c("BIEN", "jsonlite"), repos="https://cloud.r-project.org"); stopifnot(requireNamespace("BIEN", quietly=TRUE))'
+      - name: Retrieve source labels for fixed country and taxon roster
+        timeout-minutes: 10
+        env:
+          COUNTRY_CODE: ${{ matrix.code }}
+          COUNTRY_NAME: ${{ matrix.country }}
+        run: |
+          mkdir -p build/neobat
+          Rscript scripts/neobat_bien_cr_pa_source_lineage.R \
+            docs/replication/NEOBAT_INDEPENDENT_PLOT_CROSSWALK_INPUT_20261121.json \
+            "$COUNTRY_CODE" "$COUNTRY_NAME" "build/neobat/source_registry_${COUNTRY_CODE}.json"
+      - name: Upload metadata-only source lineage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bien-source-lineage-${{ matrix.code }}
+          path: build/neobat/source_registry_${{ matrix.code }}.json
+          if-no-files-found: warn
+          retention-days: 14

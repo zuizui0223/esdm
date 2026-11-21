@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "status": "EXPLORATORY_SOURCE_LABEL_REGISTRY_ONLY",
+  "source": "BIEN_plot_country",
+  "country": "Costa Rica",
+  "country_code": "CR",
+  "BIEN_database_version": ["4.2.8", "19535"],
+  "source_query": {
+    "all_metadata": true,
+    "natives_only": true,
+    "cultivated": false
+  },
+  "original_fixed_plant_denominator": 106,
+  "matched_plant_species": 17,
+  "matched_plant_row_count": 557,
+  "matched_primary_dataset_registry": [
+    {
+      "datasource_label": "SALVIAS",
+      "dataset_label": "Brad Boyle Forest Transects",
+      "datasource_id": "27",
+      "provenance_label_complete": true,
+      "matched_record_rows": 29,
+      "matched_taxa": 4,
+      "distinct_nested_plot_labels": 8
+    },
+    {
+      "datasource_label": "SALVIAS",
+      "dataset_label": "Gentry Transect Dataset",
+      "datasource_id": "40",
+      "provenance_label_complete": true,
+      "matched_record_rows": 17,
+      "matched_taxa": 10,
+      "distinct_nested_plot_labels": 3
+    },
+    {
+      "datasource_label": "SALVIAS",
+      "dataset_label": "La Selva Secondary Forest Plots",
+      "datasource_id": "37",
+      "provenance_label_complete": true,
+      "matched_record_rows": 78,
+      "matched_taxa": 11,
+      "distinct_nested_plot_labels": 14
+    },
+    {
+      "datasource_label": "TEAM",
+      "dataset_label": "Volcán Barva",
+      "datasource_id": "18",
+      "provenance_label_complete": true,
+      "matched_record_rows": 433,
+      "matched_taxa": 7,
+      "distinct_nested_plot_labels": 6
+    }
+  ],
+  "original_primary_source_independence_verified": false,
+  "disjoint_from_GBIF_plant_dataset_keys_verified": false,
+  "absent_species_inferred": false,
+  "fruit_resource_estimated": false,
+  "bat_model_fitted": false,
+  "total_plot_taxon_record_rows": 21949,
+  "metadata_column_names": ["country", "plot_name", "subplot", "elevation_m", "plot_area_ha", "sampling_protocol", "recorded_by", "scrubbed_species_binomial", "individual_count", "latitude", "longitude", "date_collected", "datasource", "dataset", "dataowner", "custodial_institution_codes", "collection_code", "datasource_id", "coord_uncertainty_m", "methodology_reference", "methodology_description", "growth_forms_included_all", "growth_forms_included_trees", "growth_forms_included_shrubs", "growth_forms_included_lianas", "growth_forms_included_herbs", "growth_forms_included_epiphytes", "growth_forms_included_notes", "taxa_included_all", "taxa_included_seed_plants", "taxa_included_ferns_lycophytes", "taxa_included_bryophytes", "taxa_included_exclusions"],
+  "registry_group_count": 4,
+  "source_label_or_id_missing_rows": 0
+}
