@@ -1,0 +1,1623 @@
+{
+  "schema_version": 1,
+  "status": "EXPLORATORY_EXACT_MATCH_RECORD_SUPPORT_NOT_BIOLOGICAL_ABSENCE",
+  "original_fixed_taxon_sha256": "41c9fc0128df6d0f3753edf4b82f6b5b36c6975c8d7c644bae4e4fd3e5bdaac6",
+  "source_receipt_cr_artifact_sha256": "12281ac7cbf88e8cdebdb6adf01f8fff29c267da7b457c9a0d9c66bec046c5b4",
+  "source_receipt_pa_artifact_sha256": "4e2bc126ec10575763345ce1761089dd0e5b89971a85f6c4f29734a8a9dacdf7",
+  "scope": "native-only,cultivated-excluded BIEN 4.2.8 19535",
+  "total_frozen_taxa": 106,
+  "source_countries": [
+    "CR",
+    "PA"
+  ],
+  "taxa_observed_in_either": 24,
+  "taxa_observed_in_both": 15,
+  "taxa_only_cr": 2,
+  "taxa_only_pa": 7,
+  "taxa_at_least_five_labeled_plots_in_both": [
+    "Calophyllum brasiliense",
+    "Cecropia insignis",
+    "Cecropia obtusifolia",
+    "Socratea exorrhiza",
+    "Turpinia occidentalis"
+  ],
+  "record_count_cr": 557,
+  "record_count_pa": 974,
+  "matched_country_scoped_plot_label_count_sum": 66,
+  "survey_absence_established": false,
+  "source_disjointness_from_GBIF_verified": false,
+  "fruit_yield_estimated": false,
+  "bat_model_scored": false,
+  "per_taxon": [
+    {
+      "taxon": "Acacia collinsii",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Acnistus arborescens",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Aechmea tillandsioides",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Anacardium excelsum",
+      "CR": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 1,
+        "observed_plot_labels": 1,
+        "observed_dataset_labels": 1
+      },
+      "PA": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 48,
+        "observed_plot_labels": 20,
+        "observed_dataset_labels": 3
+      }
+    },
+    {
+      "taxon": "Andira inermis",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Annona muricata",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Annona squamosa",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Brosimum alicastrum",
+      "CR": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 10,
+        "observed_plot_labels": 4,
+        "observed_dataset_labels": 2
+      },
+      "PA": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 46,
+        "observed_plot_labels": 20,
+        "observed_dataset_labels": 3
+      }
+    },
+    {
+      "taxon": "Byrsonima spicata",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Calophyllum brasiliense",
+      "CR": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 58,
+        "observed_plot_labels": 14,
+        "observed_dataset_labels": 4
+      },
+      "PA": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 8,
+        "observed_plot_labels": 5,
+        "observed_dataset_labels": 1
+      }
+    },
+    {
+      "taxon": "Capsicum annuum",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Carica papaya",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Carludovica palmata",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Cecropia angustifolia",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Cecropia ficifolia",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Cecropia insignis",
+      "CR": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 41,
+        "observed_plot_labels": 5,
+        "observed_dataset_labels": 3
+      },
+      "PA": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 62,
+        "observed_plot_labels": 19,
+        "observed_dataset_labels": 2
+      }
+    },
+    {
+      "taxon": "Cecropia membranacea",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Cecropia obtusifolia",
+      "CR": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 24,
+        "observed_plot_labels": 6,
+        "observed_dataset_labels": 2
+      },
+      "PA": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 32,
+        "observed_plot_labels": 13,
+        "observed_dataset_labels": 2
+      }
+    },
+    {
+      "taxon": "Cecropia pachystachya",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Cecropia peltata",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Cecropia schreberiana",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Cecropia sciadophylla",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Celtis iguanaea",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Cereus hexagonus",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Chrysobalanus icaco",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Chrysophyllum cainito",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 10,
+        "observed_plot_labels": 6,
+        "observed_dataset_labels": 2
+      }
+    },
+    {
+      "taxon": "Chrysophyllum oliviforme",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Clarisia biflora",
+      "CR": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 23,
+        "observed_plot_labels": 4,
+        "observed_dataset_labels": 2
+      },
+      "PA": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 6,
+        "observed_plot_labels": 2,
+        "observed_dataset_labels": 1
+      }
+    },
+    {
+      "taxon": "Clidemia octona",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Coccoloba uvifera",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Cordia collococca",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Cyathula prostrata",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Eriobotrya japonica",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Eugenia uniflora",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Ficus aurea",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Ficus benjamina",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Ficus citrifolia",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 6,
+        "observed_plot_labels": 1,
+        "observed_dataset_labels": 1
+      }
+    },
+    {
+      "taxon": "Ficus crocata",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Ficus insipida",
+      "CR": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 1,
+        "observed_plot_labels": 1,
+        "observed_dataset_labels": 1
+      },
+      "PA": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 12,
+        "observed_plot_labels": 7,
+        "observed_dataset_labels": 2
+      }
+    },
+    {
+      "taxon": "Ficus luschnathiana",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Ficus maxima",
+      "CR": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 2,
+        "observed_plot_labels": 2,
+        "observed_dataset_labels": 1
+      },
+      "PA": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 16,
+        "observed_plot_labels": 6,
+        "observed_dataset_labels": 2
+      }
+    },
+    {
+      "taxon": "Ficus microcarpa",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Ficus nymphaeifolia",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 3,
+        "observed_plot_labels": 1,
+        "observed_dataset_labels": 1
+      }
+    },
+    {
+      "taxon": "Ficus obtusifolia",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 6,
+        "observed_plot_labels": 2,
+        "observed_dataset_labels": 2
+      }
+    },
+    {
+      "taxon": "Ficus pertusa",
+      "CR": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 3,
+        "observed_plot_labels": 3,
+        "observed_dataset_labels": 2
+      },
+      "PA": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 3,
+        "observed_plot_labels": 2,
+        "observed_dataset_labels": 1
+      }
+    },
+    {
+      "taxon": "Ficus tonduzii",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 16,
+        "observed_plot_labels": 6,
+        "observed_dataset_labels": 2
+      }
+    },
+    {
+      "taxon": "Hylocereus lemairei",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Licania arborea",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Maclura tinctoria",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Malpighia glabra",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Mammea americana",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Mangifera indica",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Manilkara zapota",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 1,
+        "observed_plot_labels": 1,
+        "observed_dataset_labels": 1
+      }
+    },
+    {
+      "taxon": "Melicoccus bijugatus",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Muntingia calabura",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Musa paradisiaca",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Passiflora quadrangularis",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Persea americana",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Physalis angulata",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Phytolacca rivinoides",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Piper aduncum",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Piper amalago",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Piper arboreum",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 9,
+        "observed_plot_labels": 7,
+        "observed_dataset_labels": 1
+      }
+    },
+    {
+      "taxon": "Piper auritum",
+      "CR": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 1,
+        "observed_plot_labels": 1,
+        "observed_dataset_labels": 1
+      },
+      "PA": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 4,
+        "observed_plot_labels": 3,
+        "observed_dataset_labels": 1
+      }
+    },
+    {
+      "taxon": "Piper hispidum",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Piper jacquemontianum",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Piper marginatum",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Piper obliquum",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Piper peltatum",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Piper tuberculatum",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Piper umbellatum",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Plinia cauliflora",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Poulsenia armata",
+      "CR": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 4,
+        "observed_plot_labels": 1,
+        "observed_dataset_labels": 1
+      },
+      "PA": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 231,
+        "observed_plot_labels": 26,
+        "observed_dataset_labels": 3
+      }
+    },
+    {
+      "taxon": "Pouteria sapota",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Prunus persica",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Psidium guajava",
+      "CR": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 1,
+        "observed_plot_labels": 1,
+        "observed_dataset_labels": 1
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Psidium guineense",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Roystonea oleracea",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Sapindus saponaria",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Sideroxylon foetidissimum",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Socratea exorrhiza",
+      "CR": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 149,
+        "observed_plot_labels": 14,
+        "observed_dataset_labels": 4
+      },
+      "PA": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 405,
+        "observed_plot_labels": 8,
+        "observed_dataset_labels": 3
+      }
+    },
+    {
+      "taxon": "Solanum americanum",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Solanum aphyodendron",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Solanum asperolanatum",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Solanum erianthum",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Solanum hirtum",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Solanum jamaicense",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Solanum quitoense",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Solanum subinerme",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Solanum torvum",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Solanum umbellatum",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Spondias dulcis",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Spondias mombin",
+      "CR": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 1,
+        "observed_plot_labels": 1,
+        "observed_dataset_labels": 1
+      },
+      "PA": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 23,
+        "observed_plot_labels": 11,
+        "observed_dataset_labels": 2
+      }
+    },
+    {
+      "taxon": "Stenocereus griseus",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Syagrus romanzoffiana",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Syzygium cumini",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Syzygium jambos",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Syzygium malaccense",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Terminalia catappa",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Thoracocarpus bissectus",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Turpinia occidentalis",
+      "CR": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 196,
+        "observed_plot_labels": 6,
+        "observed_dataset_labels": 3
+      },
+      "PA": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 21,
+        "observed_plot_labels": 9,
+        "observed_dataset_labels": 1
+      }
+    },
+    {
+      "taxon": "Vassobia breviflora",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Vismia baccifera",
+      "CR": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 39,
+        "observed_plot_labels": 3,
+        "observed_dataset_labels": 2
+      },
+      "PA": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 6,
+        "observed_plot_labels": 4,
+        "observed_dataset_labels": 1
+      }
+    },
+    {
+      "taxon": "Vismia guianensis",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Vismia macrophylla",
+      "CR": {
+        "source_status": "EXACT_POSITIVE_PLOT_RECORD",
+        "record_rows": 3,
+        "observed_plot_labels": 2,
+        "observed_dataset_labels": 1
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    },
+    {
+      "taxon": "Vitis vinifera",
+      "CR": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      },
+      "PA": {
+        "source_status": "NO_MATCH_UNKNOWN",
+        "record_rows": 0,
+        "observed_plot_labels": 0,
+        "observed_dataset_labels": 0
+      }
+    }
+  ]
+}
