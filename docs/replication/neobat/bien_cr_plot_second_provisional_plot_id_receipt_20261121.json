@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "status": "EXPLORATORY_PRELIMINARY_PLOT_IDENTIFIER_SUPPORT_ONLY",
+  "country": "CR",
+  "query": "BIEN_plot_country(Costa Rica, all.metadata=TRUE, cultivated=FALSE, natives.only=TRUE)",
+  "bien_source_version": [
+    "4.2.8",
+    "19535"
+  ],
+  "source_workflow_run_id": 44889629208,
+  "source_head_sha": "f8e955cdfcdb9cdb68be77f88962cfac21c1146c",
+  "source_artifact_id": 14701887060,
+  "source_artifact_sha256": "0eb26a61ddc33b6e7aa6cb95ec3ed10bb3b2e4c7d77cc6bbdd32b1907db292ee",
+  "total_plot_taxon_rows": 21949,
+  "exact_matched_frozen106_taxa": 17,
+  "all_country_unique_dataset_labels": 4,
+  "all_country_unique_datasource_id_values": 4,
+  "matched_dataset_labels": 4,
+  "matched_datasource_ids": 4,
+  "matched_distinct_dataset_plus_plot_name_pairs": 31,
+  "plot_identity_needs_datasource_dataset_plot_composite": true,
+  "source_label_counts_do_not_establish_independence": true,
+  "missing_taxa_are_not_absences": true,
+  "fruit_availability_estimated": false,
+  "bat_scores_estimated": false
+}
