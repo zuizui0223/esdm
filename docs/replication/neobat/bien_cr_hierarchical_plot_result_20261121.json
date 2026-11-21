@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "source": "BIEN_plot_country",
+  "country_code": "CR",
+  "country": "Costa Rica",
+  "bien_database_version": [
+    "4.2.8",
+    "19535"
+  ],
+  "query": {
+    "all_metadata": true,
+    "natives_only": true,
+    "cultivated": false
+  },
+  "denominator_frozen_taxa": 106,
+  "source_runs": {
+    "run_id": 44890842765,
+    "head_sha": "02cd647eb5d68909ecf045539d309d04a0438ac1",
+    "artifact_id": 14702716371,
+    "artifact_sha256": "12281ac7cbf88e8cdebdb6adf01f8fff29c267da7b457c9a0d9c66bec046c5b4"
+  },
+  "total_source_rows": 21949,
+  "matched_taxa": 17,
+  "matched_record_rows": 557,
+  "matched_complete_hierarchical_plot_identifiers": 31,
+  "matched_complete_hierarchical_dataset_identifiers": 4,
+  "matched_distinct_datasource_labels": 2,
+  "matched_distinct_source_id_values": 4,
+  "matched_rows_with_sampling_protocol": 124,
+  "matched_rows_with_collection_date": 433,
+  "matched_rows_with_positive_plot_area": 557,
+  "matched_rows_with_positive_individual_count": 124,
+  "per_matched_taxon": [
+    {
+      "taxon": "Anacardium excelsum",
+      "record_rows": 1,
+      "hierarchical_plot_identifiers": 1,
+      "hierarchical_datasets": 1,
+      "datasource_labels": 1
+    },
+    {
+      "taxon": "Brosimum alicastrum",
+      "record_rows": 10,
+      "hierarchical_plot_identifiers": 4,
+      "hierarchical_datasets": 2,
+      "datasource_labels": 1
+    },
+    {
+      "taxon": "Calophyllum brasiliense",
+      "record_rows": 58,
+      "hierarchical_plot_identifiers": 14,
+      "hierarchical_datasets": 4,
+      "datasource_labels": 2
+    },
+    {
+      "taxon": "Cecropia insignis",
+      "record_rows": 41,
+      "hierarchical_plot_identifiers": 5,
+      "hierarchical_datasets": 3,
+      "datasource_labels": 2
+    },
+    {
+      "taxon": "Cecropia obtusifolia",
+      "record_rows": 24,
+      "hierarchical_plot_identifiers": 6,
+      "hierarchical_datasets": 2,
+      "datasource_labels": 2
+    },
+    {
+      "taxon": "Clarisia biflora",
+      "record_rows": 23,
+      "hierarchical_plot_identifiers": 4,
+      "hierarchical_datasets": 2,
+      "datasource_labels": 2
+    },
+    {
+      "taxon": "Ficus insipida",
+      "record_rows": 1,
+      "hierarchical_plot_identifiers": 1,
+      "hierarchical_datasets": 1,
+      "datasource_labels": 1
+    },
+    {
+      "taxon": "Ficus maxima",
+      "record_rows": 2,
+      "hierarchical_plot_identifiers": 2,
+      "hierarchical_datasets": 1,
+      "datasource_labels": 1
+    },
+    {
+      "taxon": "Ficus pertusa",
+      "record_rows": 3,
+      "hierarchical_plot_identifiers": 3,
+      "hierarchical_datasets": 2,
+      "datasource_labels": 1
+    },
+    {
+      "taxon": "Piper auritum",
+      "record_rows": 1,
+      "hierarchical_plot_identifiers": 1,
+      "hierarchical_datasets": 1,
+      "datasource_labels": 1
+    },
+    {
+      "taxon": "Poulsenia armata",
+      "record_rows": 4,
+      "hierarchical_plot_identifiers": 1,
+      "hierarchical_datasets": 1,
+      "datasource_labels": 1
+    },
+    {
+      "taxon": "Psidium guajava",
+      "record_rows": 1,
+      "hierarchical_plot_identifiers": 1,
+      "hierarchical_datasets": 1,
+      "datasource_labels": 1
+    },
+    {
+      "taxon": "Socratea exorrhiza",
+      "record_rows": 149,
+      "hierarchical_plot_identifiers": 14,
+      "hierarchical_datasets": 4,
+      "datasource_labels": 2
+    },
+    {
+      "taxon": "Spondias mombin",
+      "record_rows": 1,
+      "hierarchical_plot_identifiers": 1,
+      "hierarchical_datasets": 1,
+      "datasource_labels": 1
+    },
+    {
+      "taxon": "Turpinia occidentalis",
+      "record_rows": 196,
+      "hierarchical_plot_identifiers": 6,
+      "hierarchical_datasets": 3,
+      "datasource_labels": 2
+    },
+    {
+      "taxon": "Vismia baccifera",
+      "record_rows": 39,
+      "hierarchical_plot_identifiers": 3,
+      "hierarchical_datasets": 2,
+      "datasource_labels": 2
+    },
+    {
+      "taxon": "Vismia macrophylla",
+      "record_rows": 3,
+      "hierarchical_plot_identifiers": 2,
+      "hierarchical_datasets": 1,
+      "datasource_labels": 1
+    }
+  ],
+  "independence_from_gbif_verified": false,
+  "counts_are_identity_labels_not_verified_spatial_independence": true,
+  "nonmatched_taxa_absent": false,
+  "fruit_biomass_estimated": false,
+  "bat_prediction_scored": false
+}
