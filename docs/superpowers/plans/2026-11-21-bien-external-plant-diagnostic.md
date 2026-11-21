@@ -50,25 +50,27 @@ Files: `scripts/neobat_bien_frozen_plant_adapter.py`,
 Files: `scripts/neobat_bien_external_plant_diagnostic.py`,
 `tests/test_neobat_bien_external_plant_diagnostic.py`.
 
-- [ ] Write failing tests for each specified grouping/leakage/missingness
+- [x] Write failing tests for each specified grouping/leakage/missingness
   invariant, frame-only AUC, ties and aggregate-output privacy.
-- [ ] Implement `prepare_records(rows,project)` and
+- [x] Implement `prepare_records(rows,project)` and
   `evaluate_country(country,taxa,records,predictions,training_cells)`; return
   aggregates only. Connect the frozen adapter through the specified CLI.
-- [ ] Run tests and inspect expected counts/AUCs, not implementation internals.
+- [x] Run tests and inspect expected counts/AUCs, not implementation internals.
 
 ## Task 3: Acquisition and actual execution
 
 Files: `scripts/neobat_bien_external_acquire.R`,
 `.github/workflows/neobat-bien-external-plant-diagnostic.yml`.
 
-- [ ] Acquire both full country tables with the official filters; verify schema
+- [x] Acquire both full country tables with the official filters; verify schema
   and roster; separately write safe citations and acquisition counts.
-- [ ] Run dependencies/tests, SHA-check original ZIP, checkout original commit,
+- [x] Run dependencies/tests, SHA-check original ZIP, checkout original commit,
   acquire, score, and upload only two explicit public JSON output paths.
-- [ ] Inspect successful receipt content, model counts, coverage and every mode.
-- [ ] Preserve actual results and interpretation in the repository, independently
-  review the whole change, pass CI on the exact final head, and merge.
+- [x] Inspect successful receipt content, model counts, coverage and every mode.
+- [x] Preserve actual results and interpretation in the repository and obtain
+  independent code and actual-receipt review (run 44915110088 completed).
+- Integration closure is recorded by the PR checks and merge event: require CI
+  on the exact final preservation head before merging.
 
 The user's continuing instruction authorizes this execution. No additional
 plan-selection or approval stop is introduced.

@@ -53,7 +53,8 @@ observations also reached GBIF through another route.
 - [PA receipt](neobat/bien_pa_source_registry_20261121.json)
 - Original successful [run 44901574425](https://github.com/zuizui0223/esdm/actions/runs/44901574425),
   executed head `51dc8bd914a6dcac02cb5b7e733b9e42e9fc5920`.
-- BIEN database version/build: `4.2.8` / `19535`. Both queries used
+- BIEN database version: `4.2.8`; release date `2023-06-27`, represented as
+  numeric R Date `19535` in these original receipts. Both queries used
   `all.metadata=TRUE`, `natives.only=TRUE`, and `cultivated=FALSE`.
 - The two JSON files above preserve the artifact member bytes without adding
   or changing fields. Both successful receipt statuses were inspected; the
@@ -129,12 +130,15 @@ That connection must not be replaced by an unsupported equivalence between
 Gentry plot data and Tropicos specimen data.
 
 No direct mapping from the six BIEN IDs to GBIF datasetKeys or shared
-observation identifiers was verified. A local, read-only attempt to access
-the published BIEN datasource registry failed at DNS resolution before
-connecting. The [official RBIEN citation helper](https://github.com/bmaitner/RBIEN/blob/master/R/BIEN.R) documents lookup by
-`datasource_id` and `proximate_provider_datasource_id`; those source-row
-citations/URLs, followed where necessary by original observation identifiers,
-are the remaining concrete evidence needed for source-equivalence assessment.
+observation identifiers was verified. The initial local datasource query failed
+at DNS resolution. A subsequent successful Actions query retrieved all six
+source rows and their three proximate providers; its result is documented in
+[the actual external plant diagnostic](NEOBAT_BIEN_EXTERNAL_PLANT_RESULT_20261121.md).
+All six specific source citations and DOIs are missing; only Gentry has a
+specific source URL. General proximate-provider citations do not resolve the
+original observation identity. Source-equivalence assessment still needs
+identifying links to the original survey records. The untouched original
+receipts above remain preserved.
 
 For all six observed BIEN source datasets, the present independence assessment
 therefore remains **UNVERIFIED**, rather than overlapped or disjoint. Absence,
