@@ -29,6 +29,7 @@ def audit_plot_csv(manifest: dict, text: str) -> dict:
     if len(reader.fieldnames) != len(set(reader.fieldnames)):
         raise ValueError("duplicate header")
     seen = set()
+    source_to_dataset = {}
     matched = defaultdict(lambda: defaultdict(lambda: {"plots": set(), "sources": set()}))
     rows = 0
     in_scope = 0
@@ -43,6 +44,9 @@ def audit_plot_csv(manifest: dict, text: str) -> dict:
         if row["country"] not in countries or row["taxon"] not in taxa:
             rejected["outside_frozen_country_or_taxon"] += 1
             continue
+        previous = source_to_dataset.setdefault(row["source_id"], row["origin_dataset_id"])
+        if previous != row["origin_dataset_id"]:
+            raise ValueError("source_id maps to conflicting origin datasets")
         key = (row["origin_dataset_id"], row["plot_id"], row["taxon"])
         if key in seen:
             rejected["duplicate_plot_taxon"] += 1
@@ -51,7 +55,7 @@ def audit_plot_csv(manifest: dict, text: str) -> dict:
         in_scope += 1
         entry = matched[row["country"]][row["taxon"]]
         entry["plots"].add((row["origin_dataset_id"], row["plot_id"]))
-        entry["sources"].add((row["source_id"], row["origin_dataset_id"]))
+        entry["sources"].add(row["origin_dataset_id"])
     summary = []
     for country in countries:
         species = matched[country]
@@ -73,6 +77,7 @@ def audit_plot_csv(manifest: dict, text: str) -> dict:
         "countries": summary, "fixed_countries_denominator": 10,
         "fixed_plant_taxa_denominator": 106,
         "countries_with_two_origin_sources": eligible_countries,
+        "source_independence_not_proven_by_distinct_ids": True,
         "plot_absences_inferred": False, "fruit_biomass_estimated": False,
         "bat_prediction_fitted": False, "M3_minus_M1_auc": None,
         "independent_field_source_qualification_verified_by_script": False,
