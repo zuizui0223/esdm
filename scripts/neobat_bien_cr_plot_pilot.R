@@ -24,7 +24,6 @@ save_receipt <- function() {
   dir.create(dirname(args[[2]]), recursive = TRUE, showWarnings = FALSE)
   write_json(status, args[[2]], pretty = TRUE, auto_unbox = TRUE, null = "null")
 }
-on.exit(save_receipt(), add = TRUE)
 d <- tryCatch(
   BIEN_plot_country(country = "Costa Rica", all.metadata = TRUE,
                     cultivated = FALSE, natives.only = TRUE),
@@ -52,3 +51,5 @@ if (inherits(d, "error")) {
     status$status <- "EXPLORATORY_PLOT_COUNTRY_EXACT_TAXON_COVERAGE_ONLY"
   }
 }
+
+save_receipt()
