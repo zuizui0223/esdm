@@ -1,0 +1,319 @@
+{
+  "schema_version": 1,
+  "status": "POSTHOC_DESCRIPTIVE_REAUDIT_COMPLETE",
+  "frozen_panel": "docs/replication/neobat/bien_fixed10_summary_20261122.json",
+  "taxa": 106,
+  "countries": [
+    "BR",
+    "CR",
+    "EC",
+    "GF",
+    "GT",
+    "HN",
+    "NI",
+    "PA",
+    "PE",
+    "SV"
+  ],
+  "taxon_country_denominator_per_mode": 1060,
+  "modes": {
+    "primary_2000_2025": {
+      "all_contrasts": 14,
+      "one_positive_one_background": 11,
+      "cell_support_lenses": [
+        {
+          "minimum_cells_in_each_class": 1,
+          "contrasts": 14,
+          "distinct_taxa": 12,
+          "countries": 3,
+          "country_frames": 4,
+          "source_dataset_ids": 4,
+          "contrast_auc_median": 1,
+          "contrast_auc_mean": 0.6607142857142857,
+          "directions": {
+            "below_half": 5,
+            "at_half": 0,
+            "above_half": 9
+          }
+        },
+        {
+          "minimum_cells_in_each_class": 2,
+          "contrasts": 2,
+          "distinct_taxa": 2,
+          "countries": 1,
+          "country_frames": 1,
+          "source_dataset_ids": 1,
+          "contrast_auc_median": 0.625,
+          "contrast_auc_mean": 0.625,
+          "directions": {
+            "below_half": 1,
+            "at_half": 0,
+            "above_half": 1
+          }
+        },
+        {
+          "minimum_cells_in_each_class": 3,
+          "contrasts": 0,
+          "distinct_taxa": 0,
+          "countries": 0,
+          "country_frames": 0,
+          "source_dataset_ids": 0,
+          "contrast_auc_median": null,
+          "contrast_auc_mean": null,
+          "directions": {
+            "below_half": 0,
+            "at_half": 0,
+            "above_half": 0
+          }
+        },
+        {
+          "minimum_cells_in_each_class": 5,
+          "contrasts": 0,
+          "distinct_taxa": 0,
+          "countries": 0,
+          "country_frames": 0,
+          "source_dataset_ids": 0,
+          "contrast_auc_median": null,
+          "contrast_auc_mean": null,
+          "directions": {
+            "below_half": 0,
+            "at_half": 0,
+            "above_half": 0
+          }
+        }
+      ],
+      "by_source_dataset": {
+        "18: Volcán Barva": {
+          "contrasts": 6,
+          "countries": 1,
+          "three_cells_each_class": 0,
+          "contrast_auc_median": 1
+        },
+        "19: Manaus": {
+          "contrasts": 3,
+          "countries": 1,
+          "three_cells_each_class": 0,
+          "contrast_auc_median": 0.375
+        },
+        "32: Caxiuanã": {
+          "contrasts": 1,
+          "countries": 1,
+          "three_cells_each_class": 0,
+          "contrast_auc_median": 1
+        },
+        "66: Barro Colorado Nature Monument - Soberania National Park": {
+          "contrasts": 4,
+          "countries": 1,
+          "three_cells_each_class": 0,
+          "contrast_auc_median": 0
+        }
+      }
+    },
+    "known_precision_2000_2025": {
+      "all_contrasts": 0,
+      "one_positive_one_background": 0,
+      "cell_support_lenses": [
+        {
+          "minimum_cells_in_each_class": 1,
+          "contrasts": 0,
+          "distinct_taxa": 0,
+          "countries": 0,
+          "country_frames": 0,
+          "source_dataset_ids": 0,
+          "contrast_auc_median": null,
+          "contrast_auc_mean": null,
+          "directions": {
+            "below_half": 0,
+            "at_half": 0,
+            "above_half": 0
+          }
+        },
+        {
+          "minimum_cells_in_each_class": 2,
+          "contrasts": 0,
+          "distinct_taxa": 0,
+          "countries": 0,
+          "country_frames": 0,
+          "source_dataset_ids": 0,
+          "contrast_auc_median": null,
+          "contrast_auc_mean": null,
+          "directions": {
+            "below_half": 0,
+            "at_half": 0,
+            "above_half": 0
+          }
+        },
+        {
+          "minimum_cells_in_each_class": 3,
+          "contrasts": 0,
+          "distinct_taxa": 0,
+          "countries": 0,
+          "country_frames": 0,
+          "source_dataset_ids": 0,
+          "contrast_auc_median": null,
+          "contrast_auc_mean": null,
+          "directions": {
+            "below_half": 0,
+            "at_half": 0,
+            "above_half": 0
+          }
+        },
+        {
+          "minimum_cells_in_each_class": 5,
+          "contrasts": 0,
+          "distinct_taxa": 0,
+          "countries": 0,
+          "country_frames": 0,
+          "source_dataset_ids": 0,
+          "contrast_auc_median": null,
+          "contrast_auc_mean": null,
+          "directions": {
+            "below_half": 0,
+            "at_half": 0,
+            "above_half": 0
+          }
+        }
+      ],
+      "by_source_dataset": {}
+    },
+    "historical_undated_descriptive": {
+      "all_contrasts": 133,
+      "one_positive_one_background": 31,
+      "cell_support_lenses": [
+        {
+          "minimum_cells_in_each_class": 1,
+          "contrasts": 133,
+          "distinct_taxa": 40,
+          "countries": 6,
+          "country_frames": 17,
+          "source_dataset_ids": 10,
+          "contrast_auc_median": 0.625,
+          "contrast_auc_mean": 0.575687510293297,
+          "directions": {
+            "below_half": 52,
+            "at_half": 9,
+            "above_half": 72
+          }
+        },
+        {
+          "minimum_cells_in_each_class": 2,
+          "contrasts": 41,
+          "distinct_taxa": 21,
+          "countries": 3,
+          "country_frames": 6,
+          "source_dataset_ids": 4,
+          "contrast_auc_median": 0.48148148148148145,
+          "contrast_auc_mean": 0.4776408201277944,
+          "directions": {
+            "below_half": 21,
+            "at_half": 2,
+            "above_half": 18
+          }
+        },
+        {
+          "minimum_cells_in_each_class": 3,
+          "contrasts": 26,
+          "distinct_taxa": 16,
+          "countries": 3,
+          "country_frames": 5,
+          "source_dataset_ids": 3,
+          "contrast_auc_median": 0.46770833333333334,
+          "contrast_auc_mean": 0.4688418893198305,
+          "directions": {
+            "below_half": 15,
+            "at_half": 0,
+            "above_half": 11
+          }
+        },
+        {
+          "minimum_cells_in_each_class": 5,
+          "contrasts": 5,
+          "distinct_taxa": 5,
+          "countries": 2,
+          "country_frames": 2,
+          "source_dataset_ids": 1,
+          "contrast_auc_median": 0.6333333333333333,
+          "contrast_auc_mean": 0.6124444444444445,
+          "directions": {
+            "below_half": 2,
+            "at_half": 0,
+            "above_half": 3
+          }
+        }
+      ],
+      "by_source_dataset": {
+        "18: Volcán Barva": {
+          "contrasts": 6,
+          "countries": 1,
+          "three_cells_each_class": 0,
+          "contrast_auc_median": 1
+        },
+        "19: Manaus": {
+          "contrasts": 3,
+          "countries": 1,
+          "three_cells_each_class": 0,
+          "contrast_auc_median": 0.375
+        },
+        "27: Brad Boyle Forest Transects": {
+          "contrasts": 12,
+          "countries": 2,
+          "three_cells_each_class": 0,
+          "contrast_auc_median": 1
+        },
+        "32: Caxiuanã": {
+          "contrasts": 1,
+          "countries": 1,
+          "three_cells_each_class": 0,
+          "contrast_auc_median": 1
+        },
+        "37: La Selva Secondary Forest Plots": {
+          "contrasts": 5,
+          "countries": 1,
+          "three_cells_each_class": 0,
+          "contrast_auc_median": 1
+        },
+        "40: Gentry Transect Dataset": {
+          "contrasts": 56,
+          "countries": 5,
+          "three_cells_each_class": 15,
+          "contrast_auc_median": 0.6282894736842105
+        },
+        "4: RAINFOR - 1 ha Peru": {
+          "contrasts": 15,
+          "countries": 1,
+          "three_cells_each_class": 3,
+          "contrast_auc_median": 0.375
+        },
+        "50: RAINFOR - 0.1 ha Madre de Dios, Peru": {
+          "contrasts": 17,
+          "countries": 1,
+          "three_cells_each_class": 8,
+          "contrast_auc_median": 0.5
+        },
+        "59: CTFS Panama Plots": {
+          "contrasts": 14,
+          "countries": 1,
+          "three_cells_each_class": 0,
+          "contrast_auc_median": 0.75
+        },
+        "66: Barro Colorado Nature Monument - Soberania National Park": {
+          "contrasts": 4,
+          "countries": 1,
+          "three_cells_each_class": 0,
+          "contrast_auc_median": 0
+        }
+      }
+    }
+  },
+  "interpretation": {
+    "posthoc_reporting_lenses_not_selection_thresholds": true,
+    "auc_median_is_over_frame_contrasts_not_taxon_means": true,
+    "geographic_frames_are_not_independent_replicates": true,
+    "datasource_labels_do_not_prove_source_independence": true,
+    "repeated_cells_can_cross_taxa_and_frames": true,
+    "source_independence_from_GBIF_verified": false,
+    "bat_predictions_or_trophic_M3_estimated": false,
+    "new_models_fitted_or_original_scores_modified": false,
+    "confidence_intervals_pvalues_or_pooled_auc_computed": false
+  }
+}
