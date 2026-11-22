@@ -19,7 +19,7 @@ permissions:
 
 concurrency:
   group: neobat-bien-fixed10-external-20261122
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   external_plant_diagnostic:

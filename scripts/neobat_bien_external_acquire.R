@@ -67,8 +67,8 @@ distinct_present <- function(x) length(unique(as.character(x)[present(x)]))
 clean_species_labels <- function(x) {
   # Match Python's existing " ".join(str(value).split()) behavior for labels.
   # All normalization is derived; the original private table is unchanged.
-  whitespace <- "[\\x09-\\x0D\\x1C-\\x1F\\x20\\x{0085}\\x{00A0}\\x{1680}\\x{2000}-\\x{200A}\\x{2028}\\x{2029}\\x{202F}\\x{205F}\\x{3000}]+"
-  value <- as.character(x)
+  whitespace <- "(*UTF)[\\x09-\\x0D\\x1C-\\x1F\\x20\\x{0085}\\x{00A0}\\x{1680}\\x{2000}-\\x{200A}\\x{2028}\\x{2029}\\x{202F}\\x{205F}\\x{3000}]+"
+  value <- enc2utf8(as.character(x))
   value[is.na(value)] <- ""
   value <- trimws(gsub(whitespace, " ", value, perl=TRUE), whitespace=" ")
   value[tolower(value) %in% c("na", "n/a", "null", "nan")] <- ""
