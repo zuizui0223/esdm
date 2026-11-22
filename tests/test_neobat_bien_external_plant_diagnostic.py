@@ -1,6 +1,9 @@
 """Behavioral checks for survey-frame ranking and public-only output."""
 import json
 import math
+from pathlib import Path
+import sys
+from types import SimpleNamespace
 
 import pytest
 
@@ -186,3 +189,173 @@ def test_missing_source_metadata_and_name_stay_explicit_in_full_frame():
     assert result["coverage"]["records_missing_species_name"] == 1
     contrast = estimable_frames(result)[0]
     assert contrast["positive_cells"] == contrast["background_cells"] == 1
+
+
+@pytest.mark.parametrize("country", ["BR", "EC", "GF", "GT", "HN", "NI", "PE", "SV"])
+def test_prelisted_new_country_uses_the_same_ranking(country):
+    records = prepare_records([row("Focal", 1), row("Other", 2)],
+                              lambda x, y: (int(x), int(y)))
+    result = evaluate_country(country, ("Focal",), records,
+                              {(1, 1): {"Focal": .8}, (2, 1): {"Focal": .2}},
+                              {"Focal": set()})
+    assert result["country"] == country
+    for value in result["taxon_results"][0]["modes"].values():
+        assert value["status"] == "EVALUABLE_EXPLORATORY"
+        assert value["method_metadata_present"]["mean_frame_auc"] == 1
+
+
+def test_country_outside_prelisted_ten_is_not_evaluated():
+    with pytest.raises(ValueError):
+        evaluate_country("MX", ("Focal",), (), {}, {"Focal": set()})
+
+
+@pytest.fixture
+def run_cli(tmp_path, monkeypatch):
+    """Exercise CLI accounting without original archives, rasters or BIEN calls."""
+    from scripts import neobat_bien_external_plant_diagnostic as diagnostic
+    from scripts import neobat_bien_frozen_plant_adapter as adapter
+    root = Path(diagnostic.__file__).resolve().parents[1]
+    manifest = json.loads((root / "docs/replication/NEOBAT_INDEPENDENT_PLOT_CROSSWALK_INPUT_20261121.json").read_text())
+    taxa = tuple(manifest["plant_taxa"])
+    instances = []
+
+    class Component:
+        def __init__(self, frozen_root, archive_path, raster_dir, countries=("CR", "PA")):
+            self.taxa = taxa
+            self.countries = tuple(countries)
+            instances.append(self)
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            return False
+
+        def predict(self, country, cells):
+            assert country in self.countries
+            return {cell: {taxon: .8 if cell[0] == 1 else .2 for taxon in taxa}
+                    for cell in cells}, frozenset()
+
+        def training_cells(self, country, taxon):
+            assert country in self.countries
+            return frozenset()
+
+        def provenance(self):
+            return {"countries": list(self.countries), "pinned_package_versions_match": True,
+                    "expected_fit_count": 106 * len(self.countries),
+                    "completed_fit_count": 106 * len(self.countries)}
+
+    class Transformer:
+        @staticmethod
+        def from_crs(*args, **kwargs):
+            return SimpleNamespace(transform=lambda lon, lat: (lon * 25000, lat * 25000))
+
+    monkeypatch.setattr(adapter, "FixedPlantComponent", Component)
+    monkeypatch.setitem(sys.modules, "pyproj", SimpleNamespace(Transformer=Transformer))
+
+    def invoke(countries=None, rows=None, receipt_countries=None, extra_args=()):
+        scope = ("CR", "PA") if countries is None else tuple(countries)
+        if rows is None:
+            rows = {country: [row(taxa[0], 1), row("Other plant", 2)] for country in scope}
+        receipt_scope = scope if receipt_countries is None else tuple(receipt_countries)
+        receipt = {"status": "BIEN_EXTERNAL_ACQUISITION_COMPLETE",
+                   "fixed106_taxa_sha256": diagnostic.FIXED106_SHA256,
+                   "countries": {
+                       country: {"total_rows": len(rows.get(country, [])),
+                                 "matched_taxa": len({r["scrubbed_species_binomial"]
+                                                      for r in rows.get(country, [])}.intersection(taxa))}
+                       for country in receipt_scope}}
+        private_path, receipt_path, output_path = (tmp_path / name for name in
+                                                   ("private.json", "receipt.json", "output.json"))
+        private_path.write_text(json.dumps({"countries": rows}))
+        receipt_path.write_text(json.dumps(receipt))
+        argv = [diagnostic.__file__, "--private-records", str(private_path),
+                "--acquisition-receipt", str(receipt_path), "--frozen-root", str(tmp_path),
+                "--plant-archive", str(tmp_path / "unused.zip"), "--raster-dir", str(tmp_path),
+                "--output", str(output_path), *extra_args]
+        if countries is not None:
+            argv.extend(["--countries", ",".join(countries)])
+        monkeypatch.setattr(sys, "argv", argv)
+        diagnostic.main()
+        return json.loads(output_path.read_text()), output_path.read_bytes()
+
+    return invoke, instances, taxa
+
+
+def test_cli_default_preserves_cr_pa_status_denominator_and_protocol(run_cli):
+    invoke, instances, taxa = run_cli
+    result, _ = invoke()
+    assert instances[0].countries == ("CR", "PA")
+    assert set(result["countries"]) == {"CR", "PA"}
+    assert result["status"] == "EXPLORATORY_BIEN_CR_PA_FIXED106_PLANT_DIAGNOSTIC_COMPLETE"
+    assert result["taxon_country_results_per_mode"] == 212
+    assert result["comparison_frozen_commit"] == "32aa43987b5ac4e2ce4c279504ddcc9732bd0b0c"
+    assert result["comparison_specification"].endswith("NEOBAT_BIEN_EXTERNAL_PLANT_DIAGNOSTIC_FROZEN_20261121.md")
+    assert all(len(country["taxon_results"]) == len(taxa) == 106
+               for country in result["countries"].values())
+
+
+@pytest.mark.parametrize("countries", [
+    ("BR", "GF", "PE"),
+    ("BR", "EC", "GF", "GT", "HN", "NI", "PE", "SV"),
+    ("BR", "CR", "EC", "GF", "GT", "HN", "NI", "PA", "PE", "SV"),
+])
+def test_cli_accounts_for_every_taxon_in_every_requested_country(run_cli, countries):
+    invoke, instances, taxa = run_cli
+    result, _ = invoke(countries)
+    assert instances[0].countries == countries
+    assert set(result["countries"]) == set(countries)
+    assert result["status"] == "EXPLORATORY_BIEN_FIXED106_PLANT_DIAGNOSTIC_COMPLETE"
+    assert result["taxon_country_results_per_mode"] == 106 * len(countries)
+    for country in result["countries"].values():
+        assert tuple(r["taxon"] for r in country["taxon_results"]) == taxa
+        for value in country["coverage"]["modes"].values():
+            assert value["taxon_status_counts"] == {"EVALUABLE_EXPLORATORY": 1, "NO_MATCH_UNKNOWN": 105}
+
+
+def test_successfully_empty_country_keeps_all_106_unknown_in_each_mode(run_cli):
+    invoke, _, taxa = run_cli
+    result, _ = invoke(("BR",), rows={"BR": []})
+    country = result["countries"]["BR"]
+    assert result["taxon_country_results_per_mode"] == 106
+    assert country["coverage"]["total_records"] == 0
+    assert country["frames"] == []
+    assert tuple(r["taxon"] for r in country["taxon_results"]) == taxa
+    for taxon in country["taxon_results"]:
+        for value in taxon["modes"].values():
+            assert value["status"] == "NO_MATCH_UNKNOWN"
+            assert value["method_metadata_present"]["mean_frame_auc"] is None
+            assert value["method_metadata_missing"]["mean_frame_auc"] is None
+    for value in country["coverage"]["modes"].values():
+        assert value["taxon_status_counts"] == {"NO_MATCH_UNKNOWN": 106}
+
+
+@pytest.mark.parametrize("receipt_countries", [("CR",), ("CR", "PA", "BR")])
+def test_cli_rejects_acquisition_country_set_drift_before_fitting(run_cli, receipt_countries):
+    invoke, instances, _ = run_cli
+    with pytest.raises(RuntimeError, match="BIEN_ACQUISITION_RECEIPT_INVALID"):
+        invoke(receipt_countries=receipt_countries)
+    assert not instances
+
+
+def test_cli_rejects_unlisted_country_before_fitting(run_cli):
+    invoke, instances, _ = run_cli
+    with pytest.raises((ValueError, SystemExit)):
+        invoke(("MX",))
+    assert not instances
+
+
+def test_cli_records_selected_protocol_and_compact_output(run_cli, tmp_path):
+    invoke, _, _ = run_cli
+    specification = tmp_path / "precommitted.md"
+    specification.write_text("Frozen comparison specification\n")
+    commit = "32d949b8b63c2adfa4918fda22e842a05cd58e72"
+    result, written = invoke(("BR",), extra_args=(
+        "--comparison-specification", str(specification), "--comparison-commit", commit,
+        "--compact-json",
+    ))
+    assert result["comparison_frozen_commit"] == commit
+    assert result["comparison_specification"] == str(specification)
+    import hashlib
+    assert result["comparison_specification_sha256"] == hashlib.sha256(specification.read_bytes()).hexdigest()
+    assert b"\n  " not in written

@@ -1,0 +1,2821 @@
+{
+  "schema_version": 1,
+  "status": "EXPLORATORY_BIEN_PRELISTED_FIXED10_DIAGNOSTIC_COMPLETE",
+  "fixed106_taxa_sha256": "41c9fc0128df6d0f3753edf4b82f6b5b36c6975c8d7c644bae4e4fd3e5bdaac6",
+  "country_order": [
+    "BR",
+    "CR",
+    "EC",
+    "GF",
+    "GT",
+    "HN",
+    "NI",
+    "PA",
+    "PE",
+    "SV"
+  ],
+  "plant_taxa": [
+    "Acacia collinsii",
+    "Acnistus arborescens",
+    "Aechmea tillandsioides",
+    "Anacardium excelsum",
+    "Andira inermis",
+    "Annona muricata",
+    "Annona squamosa",
+    "Brosimum alicastrum",
+    "Byrsonima spicata",
+    "Calophyllum brasiliense",
+    "Capsicum annuum",
+    "Carica papaya",
+    "Carludovica palmata",
+    "Cecropia angustifolia",
+    "Cecropia ficifolia",
+    "Cecropia insignis",
+    "Cecropia membranacea",
+    "Cecropia obtusifolia",
+    "Cecropia pachystachya",
+    "Cecropia peltata",
+    "Cecropia schreberiana",
+    "Cecropia sciadophylla",
+    "Celtis iguanaea",
+    "Cereus hexagonus",
+    "Chrysobalanus icaco",
+    "Chrysophyllum cainito",
+    "Chrysophyllum oliviforme",
+    "Clarisia biflora",
+    "Clidemia octona",
+    "Coccoloba uvifera",
+    "Cordia collococca",
+    "Cyathula prostrata",
+    "Eriobotrya japonica",
+    "Eugenia uniflora",
+    "Ficus aurea",
+    "Ficus benjamina",
+    "Ficus citrifolia",
+    "Ficus crocata",
+    "Ficus insipida",
+    "Ficus luschnathiana",
+    "Ficus maxima",
+    "Ficus microcarpa",
+    "Ficus nymphaeifolia",
+    "Ficus obtusifolia",
+    "Ficus pertusa",
+    "Ficus tonduzii",
+    "Hylocereus lemairei",
+    "Licania arborea",
+    "Maclura tinctoria",
+    "Malpighia glabra",
+    "Mammea americana",
+    "Mangifera indica",
+    "Manilkara zapota",
+    "Melicoccus bijugatus",
+    "Muntingia calabura",
+    "Musa paradisiaca",
+    "Passiflora quadrangularis",
+    "Persea americana",
+    "Physalis angulata",
+    "Phytolacca rivinoides",
+    "Piper aduncum",
+    "Piper amalago",
+    "Piper arboreum",
+    "Piper auritum",
+    "Piper hispidum",
+    "Piper jacquemontianum",
+    "Piper marginatum",
+    "Piper obliquum",
+    "Piper peltatum",
+    "Piper tuberculatum",
+    "Piper umbellatum",
+    "Plinia cauliflora",
+    "Poulsenia armata",
+    "Pouteria sapota",
+    "Prunus persica",
+    "Psidium guajava",
+    "Psidium guineense",
+    "Roystonea oleracea",
+    "Sapindus saponaria",
+    "Sideroxylon foetidissimum",
+    "Socratea exorrhiza",
+    "Solanum americanum",
+    "Solanum aphyodendron",
+    "Solanum asperolanatum",
+    "Solanum erianthum",
+    "Solanum hirtum",
+    "Solanum jamaicense",
+    "Solanum quitoense",
+    "Solanum subinerme",
+    "Solanum torvum",
+    "Solanum umbellatum",
+    "Spondias dulcis",
+    "Spondias mombin",
+    "Stenocereus griseus",
+    "Syagrus romanzoffiana",
+    "Syzygium cumini",
+    "Syzygium jambos",
+    "Syzygium malaccense",
+    "Terminalia catappa",
+    "Thoracocarpus bissectus",
+    "Turpinia occidentalis",
+    "Vassobia breviflora",
+    "Vismia baccifera",
+    "Vismia guianensis",
+    "Vismia macrophylla",
+    "Vitis vinifera"
+  ],
+  "new_countries": [
+    "BR",
+    "EC",
+    "GF",
+    "GT",
+    "HN",
+    "NI",
+    "PE",
+    "SV"
+  ],
+  "previously_opened_countries": [
+    "CR",
+    "PA"
+  ],
+  "taxon_country_results_per_mode": 1060,
+  "new_fits_validated": 848,
+  "previous_fits_reused": 212,
+  "all_original_training_count_records_validated": 1060,
+  "mode_status_totals": {
+    "primary_2000_2025": {
+      "EVALUABLE_EXPLORATORY": 14,
+      "NO_ELIGIBLE_POSITIVE_CELLS": 62,
+      "NO_WITHIN_FRAME_COMPARISON": 24,
+      "NO_MATCH_UNKNOWN": 960
+    },
+    "known_precision_2000_2025": {
+      "EVALUABLE_EXPLORATORY": 0,
+      "NO_ELIGIBLE_POSITIVE_CELLS": 100,
+      "NO_WITHIN_FRAME_COMPARISON": 0,
+      "NO_MATCH_UNKNOWN": 960
+    },
+    "historical_undated_descriptive": {
+      "EVALUABLE_EXPLORATORY": 85,
+      "NO_ELIGIBLE_POSITIVE_CELLS": 0,
+      "NO_WITHIN_FRAME_COMPARISON": 15,
+      "NO_MATCH_UNKNOWN": 960
+    }
+  },
+  "countries": {
+    "BR": {
+      "country": "BR",
+      "total_records": 55715,
+      "matched_taxa": 7,
+      "matched_records": 142,
+      "survey_frames": 4,
+      "records_invalid_coordinates": 5319,
+      "records_unknown_year": 887,
+      "records_before_2000": 0,
+      "records_unknown_precision": 55715,
+      "modes": {
+        "primary_2000_2025": {
+          "eligible_records_before_taxon_training_exclusion": 49540,
+          "sampled_cells_before_taxon_training_exclusion": 8,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 4,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 3,
+            "NO_WITHIN_FRAME_COMPARISON": 0,
+            "NO_MATCH_UNKNOWN": 99
+          },
+          "estimable_taxon_frame_contrasts": 4,
+          "all_contrast_support": {
+            "contrasts": 4,
+            "one_positive_one_background_contrasts": 1,
+            "positive_cells_min": 1,
+            "positive_cells_max": 2,
+            "background_cells_min": 1,
+            "background_cells_max": 5,
+            "cell_count_distribution": [
+              {
+                "positive_cells": 1,
+                "background_cells": 1,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 1,
+                "background_cells": 5,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 2,
+                "background_cells": 4,
+                "contrasts": 2
+              }
+            ]
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 4,
+              "median": 0.625,
+              "q1": 0.28125,
+              "q3": 0.90625
+            },
+            "contrast_support": {
+              "contrasts": 4,
+              "one_positive_one_background_contrasts": 1,
+              "positive_cells_min": 1,
+              "positive_cells_max": 2,
+              "background_cells_min": 1,
+              "background_cells_max": 5,
+              "cell_count_distribution": [
+                {
+                  "positive_cells": 1,
+                  "background_cells": 1,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 1,
+                  "background_cells": 5,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 2,
+                  "background_cells": 4,
+                  "contrasts": 2
+                }
+              ]
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        },
+        "known_precision_2000_2025": {
+          "eligible_records_before_taxon_training_exclusion": 0,
+          "sampled_cells_before_taxon_training_exclusion": 0,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 0,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 7,
+            "NO_WITHIN_FRAME_COMPARISON": 0,
+            "NO_MATCH_UNKNOWN": 99
+          },
+          "estimable_taxon_frame_contrasts": 0,
+          "all_contrast_support": {
+            "contrasts": 0,
+            "one_positive_one_background_contrasts": 0,
+            "positive_cells_min": null,
+            "positive_cells_max": null,
+            "background_cells_min": null,
+            "background_cells_max": null,
+            "cell_count_distribution": []
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        },
+        "historical_undated_descriptive": {
+          "eligible_records_before_taxon_training_exclusion": 50396,
+          "sampled_cells_before_taxon_training_exclusion": 16,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 6,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 0,
+            "NO_WITHIN_FRAME_COMPARISON": 1,
+            "NO_MATCH_UNKNOWN": 99
+          },
+          "estimable_taxon_frame_contrasts": 6,
+          "all_contrast_support": {
+            "contrasts": 6,
+            "one_positive_one_background_contrasts": 1,
+            "positive_cells_min": 1,
+            "positive_cells_max": 3,
+            "background_cells_min": 1,
+            "background_cells_max": 7,
+            "cell_count_distribution": [
+              {
+                "positive_cells": 1,
+                "background_cells": 1,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 1,
+                "background_cells": 5,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 1,
+                "background_cells": 7,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 2,
+                "background_cells": 4,
+                "contrasts": 2
+              },
+              {
+                "positive_cells": 3,
+                "background_cells": 5,
+                "contrasts": 1
+              }
+            ]
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 6,
+              "median": 0.5541666666666667,
+              "q1": 0.09375,
+              "q3": 0.8395833333333333
+            },
+            "contrast_support": {
+              "contrasts": 6,
+              "one_positive_one_background_contrasts": 1,
+              "positive_cells_min": 1,
+              "positive_cells_max": 3,
+              "background_cells_min": 1,
+              "background_cells_max": 7,
+              "cell_count_distribution": [
+                {
+                  "positive_cells": 1,
+                  "background_cells": 1,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 1,
+                  "background_cells": 5,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 1,
+                  "background_cells": 7,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 2,
+                  "background_cells": 4,
+                  "contrasts": 2
+                },
+                {
+                  "positive_cells": 3,
+                  "background_cells": 5,
+                  "contrasts": 1
+                }
+              ]
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        }
+      },
+      "evidence_stage": "NEW_PRELISTED_COUNTRY",
+      "execution_commit": "749debe212cbb576ad12ec298073f9ec0883dfdd",
+      "source_metadata": {
+        "database_version": [
+          {
+            "db_version": "4.2.8",
+            "db_release_date": "2023-06-27"
+          }
+        ],
+        "BIEN_R_package_version": "1.2.8",
+        "observed_dataset_ids": [
+          "19",
+          "32",
+          "40"
+        ],
+        "observed_dataset_count": 3,
+        "datasets_with_returned_citation": 0,
+        "datasets_with_returned_DOI": 0,
+        "datasets_with_returned_URL": 1,
+        "source_independence": "UNVERIFIED"
+      },
+      "input_files": {
+        "diagnostic_file": "bien_fixed10_BR_diagnostic_20261122.json",
+        "diagnostic_sha256": "973d373090562b51e456c32028dc58d00a7600b46ecddfb0b0d7bd889d9f7dc6",
+        "acquisition_file": "bien_fixed10_BR_acquisition_20261122.json",
+        "acquisition_sha256": "355dd792d59db0ffe0ad834d76395f81ad097674647edb02be2cc6b990302d00"
+      }
+    },
+    "CR": {
+      "country": "CR",
+      "total_records": 21949,
+      "matched_taxa": 17,
+      "matched_records": 557,
+      "survey_frames": 4,
+      "records_invalid_coordinates": 623,
+      "records_unknown_year": 6432,
+      "records_before_2000": 0,
+      "records_unknown_precision": 21949,
+      "modes": {
+        "primary_2000_2025": {
+          "eligible_records_before_taxon_training_exclusion": 14973,
+          "sampled_cells_before_taxon_training_exclusion": 2,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 6,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 10,
+            "NO_WITHIN_FRAME_COMPARISON": 1,
+            "NO_MATCH_UNKNOWN": 89
+          },
+          "estimable_taxon_frame_contrasts": 6,
+          "all_contrast_support": {
+            "contrasts": 6,
+            "one_positive_one_background_contrasts": 6,
+            "positive_cells_min": 1,
+            "positive_cells_max": 1,
+            "background_cells_min": 1,
+            "background_cells_max": 1,
+            "cell_count_distribution": [
+              {
+                "positive_cells": 1,
+                "background_cells": 1,
+                "contrasts": 6
+              }
+            ]
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 6,
+              "median": 1.0,
+              "q1": 1.0,
+              "q3": 1.0
+            },
+            "contrast_support": {
+              "contrasts": 6,
+              "one_positive_one_background_contrasts": 6,
+              "positive_cells_min": 1,
+              "positive_cells_max": 1,
+              "background_cells_min": 1,
+              "background_cells_max": 1,
+              "cell_count_distribution": [
+                {
+                  "positive_cells": 1,
+                  "background_cells": 1,
+                  "contrasts": 6
+                }
+              ]
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        },
+        "known_precision_2000_2025": {
+          "eligible_records_before_taxon_training_exclusion": 0,
+          "sampled_cells_before_taxon_training_exclusion": 0,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 0,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 17,
+            "NO_WITHIN_FRAME_COMPARISON": 0,
+            "NO_MATCH_UNKNOWN": 89
+          },
+          "estimable_taxon_frame_contrasts": 0,
+          "all_contrast_support": {
+            "contrasts": 0,
+            "one_positive_one_background_contrasts": 0,
+            "positive_cells_min": null,
+            "positive_cells_max": null,
+            "background_cells_min": null,
+            "background_cells_max": null,
+            "cell_count_distribution": []
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        },
+        "historical_undated_descriptive": {
+          "eligible_records_before_taxon_training_exclusion": 21326,
+          "sampled_cells_before_taxon_training_exclusion": 6,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 14,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 0,
+            "NO_WITHIN_FRAME_COMPARISON": 3,
+            "NO_MATCH_UNKNOWN": 89
+          },
+          "estimable_taxon_frame_contrasts": 25,
+          "all_contrast_support": {
+            "contrasts": 25,
+            "one_positive_one_background_contrasts": 15,
+            "positive_cells_min": 1,
+            "positive_cells_max": 2,
+            "background_cells_min": 1,
+            "background_cells_max": 3,
+            "cell_count_distribution": [
+              {
+                "positive_cells": 1,
+                "background_cells": 1,
+                "contrasts": 15
+              },
+              {
+                "positive_cells": 1,
+                "background_cells": 2,
+                "contrasts": 2
+              },
+              {
+                "positive_cells": 1,
+                "background_cells": 3,
+                "contrasts": 7
+              },
+              {
+                "positive_cells": 2,
+                "background_cells": 1,
+                "contrasts": 1
+              }
+            ]
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 14,
+              "median": 0.6666666666666666,
+              "q1": 0.375,
+              "q3": 1.0
+            },
+            "contrast_support": {
+              "contrasts": 25,
+              "one_positive_one_background_contrasts": 15,
+              "positive_cells_min": 1,
+              "positive_cells_max": 2,
+              "background_cells_min": 1,
+              "background_cells_max": 3,
+              "cell_count_distribution": [
+                {
+                  "positive_cells": 1,
+                  "background_cells": 1,
+                  "contrasts": 15
+                },
+                {
+                  "positive_cells": 1,
+                  "background_cells": 2,
+                  "contrasts": 2
+                },
+                {
+                  "positive_cells": 1,
+                  "background_cells": 3,
+                  "contrasts": 7
+                },
+                {
+                  "positive_cells": 2,
+                  "background_cells": 1,
+                  "contrasts": 1
+                }
+              ]
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        }
+      },
+      "evidence_stage": "PREVIOUSLY_OPENED_CR_PA",
+      "execution_commit": "51a5d9cdd23730b5d19f7f69615c0a1efed99ea0",
+      "source_metadata": {
+        "database_version": [
+          {
+            "db_version": "4.2.8",
+            "db_release_date": "2023-06-27"
+          }
+        ],
+        "BIEN_R_package_version": "1.2.8",
+        "observed_dataset_ids": [
+          "18",
+          "27",
+          "37",
+          "40"
+        ],
+        "observed_dataset_count": 4,
+        "datasets_with_returned_citation": 0,
+        "datasets_with_returned_DOI": 0,
+        "datasets_with_returned_URL": 1,
+        "source_independence": "UNVERIFIED"
+      },
+      "input_files": {
+        "diagnostic_file": "bien_external_plant_diagnostic_20261121.json",
+        "diagnostic_sha256": "fa8342ab203152b8ec347653961612142b19a9e44ca20864904b540e7ed1f788",
+        "acquisition_file": "bien_external_acquisition_receipt_20261121.json",
+        "acquisition_sha256": "1a1635c23f3100d9794a55eb3f56bf96b5f5285cfffe5e97db114acee9053863"
+      }
+    },
+    "EC": {
+      "country": "EC",
+      "total_records": 3126,
+      "matched_taxa": 21,
+      "matched_records": 105,
+      "survey_frames": 5,
+      "records_invalid_coordinates": 137,
+      "records_unknown_year": 3126,
+      "records_before_2000": 0,
+      "records_unknown_precision": 3126,
+      "modes": {
+        "primary_2000_2025": {
+          "eligible_records_before_taxon_training_exclusion": 0,
+          "sampled_cells_before_taxon_training_exclusion": 0,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 0,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 21,
+            "NO_WITHIN_FRAME_COMPARISON": 0,
+            "NO_MATCH_UNKNOWN": 85
+          },
+          "estimable_taxon_frame_contrasts": 0,
+          "all_contrast_support": {
+            "contrasts": 0,
+            "one_positive_one_background_contrasts": 0,
+            "positive_cells_min": null,
+            "positive_cells_max": null,
+            "background_cells_min": null,
+            "background_cells_max": null,
+            "cell_count_distribution": []
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        },
+        "known_precision_2000_2025": {
+          "eligible_records_before_taxon_training_exclusion": 0,
+          "sampled_cells_before_taxon_training_exclusion": 0,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 0,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 21,
+            "NO_WITHIN_FRAME_COMPARISON": 0,
+            "NO_MATCH_UNKNOWN": 85
+          },
+          "estimable_taxon_frame_contrasts": 0,
+          "all_contrast_support": {
+            "contrasts": 0,
+            "one_positive_one_background_contrasts": 0,
+            "positive_cells_min": null,
+            "positive_cells_max": null,
+            "background_cells_min": null,
+            "background_cells_max": null,
+            "cell_count_distribution": []
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        },
+        "historical_undated_descriptive": {
+          "eligible_records_before_taxon_training_exclusion": 2989,
+          "sampled_cells_before_taxon_training_exclusion": 17,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 21,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 0,
+            "NO_WITHIN_FRAME_COMPARISON": 0,
+            "NO_MATCH_UNKNOWN": 85
+          },
+          "estimable_taxon_frame_contrasts": 27,
+          "all_contrast_support": {
+            "contrasts": 27,
+            "one_positive_one_background_contrasts": 0,
+            "positive_cells_min": 1,
+            "positive_cells_max": 5,
+            "background_cells_min": 1,
+            "background_cells_max": 10,
+            "cell_count_distribution": [
+              {
+                "positive_cells": 1,
+                "background_cells": 2,
+                "contrasts": 7
+              },
+              {
+                "positive_cells": 1,
+                "background_cells": 10,
+                "contrasts": 13
+              },
+              {
+                "positive_cells": 2,
+                "background_cells": 1,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 2,
+                "background_cells": 8,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 3,
+                "background_cells": 8,
+                "contrasts": 2
+              },
+              {
+                "positive_cells": 4,
+                "background_cells": 6,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 4,
+                "background_cells": 7,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 5,
+                "background_cells": 5,
+                "contrasts": 1
+              }
+            ]
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 21,
+              "median": 0.75,
+              "q1": 0.4,
+              "q3": 0.8125
+            },
+            "contrast_support": {
+              "contrasts": 27,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": 1,
+              "positive_cells_max": 5,
+              "background_cells_min": 1,
+              "background_cells_max": 10,
+              "cell_count_distribution": [
+                {
+                  "positive_cells": 1,
+                  "background_cells": 2,
+                  "contrasts": 7
+                },
+                {
+                  "positive_cells": 1,
+                  "background_cells": 10,
+                  "contrasts": 13
+                },
+                {
+                  "positive_cells": 2,
+                  "background_cells": 1,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 2,
+                  "background_cells": 8,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 3,
+                  "background_cells": 8,
+                  "contrasts": 2
+                },
+                {
+                  "positive_cells": 4,
+                  "background_cells": 6,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 4,
+                  "background_cells": 7,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 5,
+                  "background_cells": 5,
+                  "contrasts": 1
+                }
+              ]
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        }
+      },
+      "evidence_stage": "NEW_PRELISTED_COUNTRY",
+      "execution_commit": "749debe212cbb576ad12ec298073f9ec0883dfdd",
+      "source_metadata": {
+        "database_version": [
+          {
+            "db_version": "4.2.8",
+            "db_release_date": "2023-06-27"
+          }
+        ],
+        "BIEN_R_package_version": "1.2.8",
+        "observed_dataset_ids": [
+          "27",
+          "40"
+        ],
+        "observed_dataset_count": 2,
+        "datasets_with_returned_citation": 0,
+        "datasets_with_returned_DOI": 0,
+        "datasets_with_returned_URL": 1,
+        "source_independence": "UNVERIFIED"
+      },
+      "input_files": {
+        "diagnostic_file": "bien_fixed10_EC_diagnostic_20261122.json",
+        "diagnostic_sha256": "22108dfc0a8583cb1abbc22056c8d26754e97755624fb4276eba40884c78f372",
+        "acquisition_file": "bien_fixed10_EC_acquisition_20261122.json",
+        "acquisition_sha256": "6728a0ad70f3b00904197d27c63c3e6de7116d2ef9e1aa5d65741996105d38ae"
+      }
+    },
+    "GF": {
+      "country": "GF",
+      "total_records": 105,
+      "matched_taxa": 1,
+      "matched_records": 1,
+      "survey_frames": 1,
+      "records_invalid_coordinates": 8,
+      "records_unknown_year": 105,
+      "records_before_2000": 0,
+      "records_unknown_precision": 105,
+      "modes": {
+        "primary_2000_2025": {
+          "eligible_records_before_taxon_training_exclusion": 0,
+          "sampled_cells_before_taxon_training_exclusion": 0,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 0,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 1,
+            "NO_WITHIN_FRAME_COMPARISON": 0,
+            "NO_MATCH_UNKNOWN": 105
+          },
+          "estimable_taxon_frame_contrasts": 0,
+          "all_contrast_support": {
+            "contrasts": 0,
+            "one_positive_one_background_contrasts": 0,
+            "positive_cells_min": null,
+            "positive_cells_max": null,
+            "background_cells_min": null,
+            "background_cells_max": null,
+            "cell_count_distribution": []
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        },
+        "known_precision_2000_2025": {
+          "eligible_records_before_taxon_training_exclusion": 0,
+          "sampled_cells_before_taxon_training_exclusion": 0,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 0,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 1,
+            "NO_WITHIN_FRAME_COMPARISON": 0,
+            "NO_MATCH_UNKNOWN": 105
+          },
+          "estimable_taxon_frame_contrasts": 0,
+          "all_contrast_support": {
+            "contrasts": 0,
+            "one_positive_one_background_contrasts": 0,
+            "positive_cells_min": null,
+            "positive_cells_max": null,
+            "background_cells_min": null,
+            "background_cells_max": null,
+            "cell_count_distribution": []
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        },
+        "historical_undated_descriptive": {
+          "eligible_records_before_taxon_training_exclusion": 97,
+          "sampled_cells_before_taxon_training_exclusion": 1,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 0,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 0,
+            "NO_WITHIN_FRAME_COMPARISON": 1,
+            "NO_MATCH_UNKNOWN": 105
+          },
+          "estimable_taxon_frame_contrasts": 0,
+          "all_contrast_support": {
+            "contrasts": 0,
+            "one_positive_one_background_contrasts": 0,
+            "positive_cells_min": null,
+            "positive_cells_max": null,
+            "background_cells_min": null,
+            "background_cells_max": null,
+            "cell_count_distribution": []
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        }
+      },
+      "evidence_stage": "NEW_PRELISTED_COUNTRY",
+      "execution_commit": "749debe212cbb576ad12ec298073f9ec0883dfdd",
+      "source_metadata": {
+        "database_version": [
+          {
+            "db_version": "4.2.8",
+            "db_release_date": "2023-06-27"
+          }
+        ],
+        "BIEN_R_package_version": "1.2.8",
+        "observed_dataset_ids": [
+          "40"
+        ],
+        "observed_dataset_count": 1,
+        "datasets_with_returned_citation": 0,
+        "datasets_with_returned_DOI": 0,
+        "datasets_with_returned_URL": 1,
+        "source_independence": "UNVERIFIED"
+      },
+      "input_files": {
+        "diagnostic_file": "bien_fixed10_GF_diagnostic_20261122.json",
+        "diagnostic_sha256": "009856bc9f6ec80a06bfcc95e1b636b93d7572b9bd02e785de19029d1a8624ba",
+        "acquisition_file": "bien_fixed10_GF_acquisition_20261122.json",
+        "acquisition_sha256": "896502f1d11343c424dc546560f0b527fff203011a3af1d1732e21e7b34d00de"
+      }
+    },
+    "GT": {
+      "country": "GT",
+      "total_records": 0,
+      "matched_taxa": 0,
+      "matched_records": 0,
+      "survey_frames": 0,
+      "records_invalid_coordinates": 0,
+      "records_unknown_year": 0,
+      "records_before_2000": 0,
+      "records_unknown_precision": 0,
+      "modes": {
+        "primary_2000_2025": {
+          "eligible_records_before_taxon_training_exclusion": 0,
+          "sampled_cells_before_taxon_training_exclusion": 0,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 0,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 0,
+            "NO_WITHIN_FRAME_COMPARISON": 0,
+            "NO_MATCH_UNKNOWN": 106
+          },
+          "estimable_taxon_frame_contrasts": 0,
+          "all_contrast_support": {
+            "contrasts": 0,
+            "one_positive_one_background_contrasts": 0,
+            "positive_cells_min": null,
+            "positive_cells_max": null,
+            "background_cells_min": null,
+            "background_cells_max": null,
+            "cell_count_distribution": []
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        },
+        "known_precision_2000_2025": {
+          "eligible_records_before_taxon_training_exclusion": 0,
+          "sampled_cells_before_taxon_training_exclusion": 0,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 0,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 0,
+            "NO_WITHIN_FRAME_COMPARISON": 0,
+            "NO_MATCH_UNKNOWN": 106
+          },
+          "estimable_taxon_frame_contrasts": 0,
+          "all_contrast_support": {
+            "contrasts": 0,
+            "one_positive_one_background_contrasts": 0,
+            "positive_cells_min": null,
+            "positive_cells_max": null,
+            "background_cells_min": null,
+            "background_cells_max": null,
+            "cell_count_distribution": []
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        },
+        "historical_undated_descriptive": {
+          "eligible_records_before_taxon_training_exclusion": 0,
+          "sampled_cells_before_taxon_training_exclusion": 0,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 0,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 0,
+            "NO_WITHIN_FRAME_COMPARISON": 0,
+            "NO_MATCH_UNKNOWN": 106
+          },
+          "estimable_taxon_frame_contrasts": 0,
+          "all_contrast_support": {
+            "contrasts": 0,
+            "one_positive_one_background_contrasts": 0,
+            "positive_cells_min": null,
+            "positive_cells_max": null,
+            "background_cells_min": null,
+            "background_cells_max": null,
+            "cell_count_distribution": []
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        }
+      },
+      "evidence_stage": "NEW_PRELISTED_COUNTRY",
+      "execution_commit": "749debe212cbb576ad12ec298073f9ec0883dfdd",
+      "source_metadata": {
+        "database_version": [
+          {
+            "db_version": "4.2.8",
+            "db_release_date": "2023-06-27"
+          }
+        ],
+        "BIEN_R_package_version": "1.2.8",
+        "observed_dataset_ids": [],
+        "observed_dataset_count": 0,
+        "datasets_with_returned_citation": 0,
+        "datasets_with_returned_DOI": 0,
+        "datasets_with_returned_URL": 0,
+        "source_independence": "UNVERIFIED"
+      },
+      "input_files": {
+        "diagnostic_file": "bien_fixed10_GT_diagnostic_20261122.json",
+        "diagnostic_sha256": "714d84673ce36abe041e63f8feb9c255ab1e9ace1b979a6341bc759f0bbd6ccc",
+        "acquisition_file": "bien_fixed10_GT_acquisition_20261122.json",
+        "acquisition_sha256": "b4600c1b2ce8028dde2df93cee5f8616a19ebd062abf7b5c63cd504ebb7fb17e"
+      }
+    },
+    "HN": {
+      "country": "HN",
+      "total_records": 0,
+      "matched_taxa": 0,
+      "matched_records": 0,
+      "survey_frames": 0,
+      "records_invalid_coordinates": 0,
+      "records_unknown_year": 0,
+      "records_before_2000": 0,
+      "records_unknown_precision": 0,
+      "modes": {
+        "primary_2000_2025": {
+          "eligible_records_before_taxon_training_exclusion": 0,
+          "sampled_cells_before_taxon_training_exclusion": 0,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 0,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 0,
+            "NO_WITHIN_FRAME_COMPARISON": 0,
+            "NO_MATCH_UNKNOWN": 106
+          },
+          "estimable_taxon_frame_contrasts": 0,
+          "all_contrast_support": {
+            "contrasts": 0,
+            "one_positive_one_background_contrasts": 0,
+            "positive_cells_min": null,
+            "positive_cells_max": null,
+            "background_cells_min": null,
+            "background_cells_max": null,
+            "cell_count_distribution": []
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        },
+        "known_precision_2000_2025": {
+          "eligible_records_before_taxon_training_exclusion": 0,
+          "sampled_cells_before_taxon_training_exclusion": 0,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 0,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 0,
+            "NO_WITHIN_FRAME_COMPARISON": 0,
+            "NO_MATCH_UNKNOWN": 106
+          },
+          "estimable_taxon_frame_contrasts": 0,
+          "all_contrast_support": {
+            "contrasts": 0,
+            "one_positive_one_background_contrasts": 0,
+            "positive_cells_min": null,
+            "positive_cells_max": null,
+            "background_cells_min": null,
+            "background_cells_max": null,
+            "cell_count_distribution": []
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        },
+        "historical_undated_descriptive": {
+          "eligible_records_before_taxon_training_exclusion": 0,
+          "sampled_cells_before_taxon_training_exclusion": 0,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 0,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 0,
+            "NO_WITHIN_FRAME_COMPARISON": 0,
+            "NO_MATCH_UNKNOWN": 106
+          },
+          "estimable_taxon_frame_contrasts": 0,
+          "all_contrast_support": {
+            "contrasts": 0,
+            "one_positive_one_background_contrasts": 0,
+            "positive_cells_min": null,
+            "positive_cells_max": null,
+            "background_cells_min": null,
+            "background_cells_max": null,
+            "cell_count_distribution": []
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        }
+      },
+      "evidence_stage": "NEW_PRELISTED_COUNTRY",
+      "execution_commit": "749debe212cbb576ad12ec298073f9ec0883dfdd",
+      "source_metadata": {
+        "database_version": [
+          {
+            "db_version": "4.2.8",
+            "db_release_date": "2023-06-27"
+          }
+        ],
+        "BIEN_R_package_version": "1.2.8",
+        "observed_dataset_ids": [],
+        "observed_dataset_count": 0,
+        "datasets_with_returned_citation": 0,
+        "datasets_with_returned_DOI": 0,
+        "datasets_with_returned_URL": 0,
+        "source_independence": "UNVERIFIED"
+      },
+      "input_files": {
+        "diagnostic_file": "bien_fixed10_HN_diagnostic_20261122.json",
+        "diagnostic_sha256": "7067789a661afe38b62d4403548e700c64c9d8f14ea02701012930843965c4de",
+        "acquisition_file": "bien_fixed10_HN_acquisition_20261122.json",
+        "acquisition_sha256": "634eac2d63ac3aae76cb4217e4dcdf92bcb0641534439f4ef0391ceaa8d5432f"
+      }
+    },
+    "NI": {
+      "country": "NI",
+      "total_records": 87,
+      "matched_taxa": 4,
+      "matched_records": 5,
+      "survey_frames": 1,
+      "records_invalid_coordinates": 2,
+      "records_unknown_year": 87,
+      "records_before_2000": 0,
+      "records_unknown_precision": 87,
+      "modes": {
+        "primary_2000_2025": {
+          "eligible_records_before_taxon_training_exclusion": 0,
+          "sampled_cells_before_taxon_training_exclusion": 0,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 0,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 4,
+            "NO_WITHIN_FRAME_COMPARISON": 0,
+            "NO_MATCH_UNKNOWN": 102
+          },
+          "estimable_taxon_frame_contrasts": 0,
+          "all_contrast_support": {
+            "contrasts": 0,
+            "one_positive_one_background_contrasts": 0,
+            "positive_cells_min": null,
+            "positive_cells_max": null,
+            "background_cells_min": null,
+            "background_cells_max": null,
+            "cell_count_distribution": []
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        },
+        "known_precision_2000_2025": {
+          "eligible_records_before_taxon_training_exclusion": 0,
+          "sampled_cells_before_taxon_training_exclusion": 0,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 0,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 4,
+            "NO_WITHIN_FRAME_COMPARISON": 0,
+            "NO_MATCH_UNKNOWN": 102
+          },
+          "estimable_taxon_frame_contrasts": 0,
+          "all_contrast_support": {
+            "contrasts": 0,
+            "one_positive_one_background_contrasts": 0,
+            "positive_cells_min": null,
+            "positive_cells_max": null,
+            "background_cells_min": null,
+            "background_cells_max": null,
+            "cell_count_distribution": []
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        },
+        "historical_undated_descriptive": {
+          "eligible_records_before_taxon_training_exclusion": 85,
+          "sampled_cells_before_taxon_training_exclusion": 2,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 4,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 0,
+            "NO_WITHIN_FRAME_COMPARISON": 0,
+            "NO_MATCH_UNKNOWN": 102
+          },
+          "estimable_taxon_frame_contrasts": 4,
+          "all_contrast_support": {
+            "contrasts": 4,
+            "one_positive_one_background_contrasts": 4,
+            "positive_cells_min": 1,
+            "positive_cells_max": 1,
+            "background_cells_min": 1,
+            "background_cells_max": 1,
+            "cell_count_distribution": [
+              {
+                "positive_cells": 1,
+                "background_cells": 1,
+                "contrasts": 4
+              }
+            ]
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 4,
+              "median": 1.0,
+              "q1": 0.75,
+              "q3": 1.0
+            },
+            "contrast_support": {
+              "contrasts": 4,
+              "one_positive_one_background_contrasts": 4,
+              "positive_cells_min": 1,
+              "positive_cells_max": 1,
+              "background_cells_min": 1,
+              "background_cells_max": 1,
+              "cell_count_distribution": [
+                {
+                  "positive_cells": 1,
+                  "background_cells": 1,
+                  "contrasts": 4
+                }
+              ]
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        }
+      },
+      "evidence_stage": "NEW_PRELISTED_COUNTRY",
+      "execution_commit": "749debe212cbb576ad12ec298073f9ec0883dfdd",
+      "source_metadata": {
+        "database_version": [
+          {
+            "db_version": "4.2.8",
+            "db_release_date": "2023-06-27"
+          }
+        ],
+        "BIEN_R_package_version": "1.2.8",
+        "observed_dataset_ids": [
+          "40"
+        ],
+        "observed_dataset_count": 1,
+        "datasets_with_returned_citation": 0,
+        "datasets_with_returned_DOI": 0,
+        "datasets_with_returned_URL": 1,
+        "source_independence": "UNVERIFIED"
+      },
+      "input_files": {
+        "diagnostic_file": "bien_fixed10_NI_diagnostic_20261122.json",
+        "diagnostic_sha256": "f463b2f58c6e33df4bed527d3086b2290dd95c7fd335f6f7d1c83294be7aa27f",
+        "acquisition_file": "bien_fixed10_NI_acquisition_20261122.json",
+        "acquisition_sha256": "b8826fa639a3deea7d969fb38fea235130d185a5a871406a8a0692b30f7dfa87"
+      }
+    },
+    "PA": {
+      "country": "PA",
+      "total_records": 8390,
+      "matched_taxa": 22,
+      "matched_records": 974,
+      "survey_frames": 6,
+      "records_invalid_coordinates": 298,
+      "records_unknown_year": 309,
+      "records_before_2000": 3322,
+      "records_unknown_precision": 8390,
+      "modes": {
+        "primary_2000_2025": {
+          "eligible_records_before_taxon_training_exclusion": 4613,
+          "sampled_cells_before_taxon_training_exclusion": 3,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 4,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 10,
+            "NO_WITHIN_FRAME_COMPARISON": 8,
+            "NO_MATCH_UNKNOWN": 84
+          },
+          "estimable_taxon_frame_contrasts": 4,
+          "all_contrast_support": {
+            "contrasts": 4,
+            "one_positive_one_background_contrasts": 4,
+            "positive_cells_min": 1,
+            "positive_cells_max": 1,
+            "background_cells_min": 1,
+            "background_cells_max": 1,
+            "cell_count_distribution": [
+              {
+                "positive_cells": 1,
+                "background_cells": 1,
+                "contrasts": 4
+              }
+            ]
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 4,
+              "median": 0.0,
+              "q1": 0.0,
+              "q3": 0.25
+            },
+            "contrast_support": {
+              "contrasts": 4,
+              "one_positive_one_background_contrasts": 4,
+              "positive_cells_min": 1,
+              "positive_cells_max": 1,
+              "background_cells_min": 1,
+              "background_cells_max": 1,
+              "cell_count_distribution": [
+                {
+                  "positive_cells": 1,
+                  "background_cells": 1,
+                  "contrasts": 4
+                }
+              ]
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        },
+        "known_precision_2000_2025": {
+          "eligible_records_before_taxon_training_exclusion": 0,
+          "sampled_cells_before_taxon_training_exclusion": 0,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 0,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 22,
+            "NO_WITHIN_FRAME_COMPARISON": 0,
+            "NO_MATCH_UNKNOWN": 84
+          },
+          "estimable_taxon_frame_contrasts": 0,
+          "all_contrast_support": {
+            "contrasts": 0,
+            "one_positive_one_background_contrasts": 0,
+            "positive_cells_min": null,
+            "positive_cells_max": null,
+            "background_cells_min": null,
+            "background_cells_max": null,
+            "cell_count_distribution": []
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        },
+        "historical_undated_descriptive": {
+          "eligible_records_before_taxon_training_exclusion": 8092,
+          "sampled_cells_before_taxon_training_exclusion": 6,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 14,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 0,
+            "NO_WITHIN_FRAME_COMPARISON": 8,
+            "NO_MATCH_UNKNOWN": 84
+          },
+          "estimable_taxon_frame_contrasts": 18,
+          "all_contrast_support": {
+            "contrasts": 18,
+            "one_positive_one_background_contrasts": 11,
+            "positive_cells_min": 1,
+            "positive_cells_max": 2,
+            "background_cells_min": 1,
+            "background_cells_max": 2,
+            "cell_count_distribution": [
+              {
+                "positive_cells": 1,
+                "background_cells": 1,
+                "contrasts": 11
+              },
+              {
+                "positive_cells": 1,
+                "background_cells": 2,
+                "contrasts": 4
+              },
+              {
+                "positive_cells": 2,
+                "background_cells": 1,
+                "contrasts": 3
+              }
+            ]
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 14,
+              "median": 0.5,
+              "q1": 0.0625,
+              "q3": 1.0
+            },
+            "contrast_support": {
+              "contrasts": 18,
+              "one_positive_one_background_contrasts": 11,
+              "positive_cells_min": 1,
+              "positive_cells_max": 2,
+              "background_cells_min": 1,
+              "background_cells_max": 2,
+              "cell_count_distribution": [
+                {
+                  "positive_cells": 1,
+                  "background_cells": 1,
+                  "contrasts": 11
+                },
+                {
+                  "positive_cells": 1,
+                  "background_cells": 2,
+                  "contrasts": 4
+                },
+                {
+                  "positive_cells": 2,
+                  "background_cells": 1,
+                  "contrasts": 3
+                }
+              ]
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        }
+      },
+      "evidence_stage": "PREVIOUSLY_OPENED_CR_PA",
+      "execution_commit": "51a5d9cdd23730b5d19f7f69615c0a1efed99ea0",
+      "source_metadata": {
+        "database_version": [
+          {
+            "db_version": "4.2.8",
+            "db_release_date": "2023-06-27"
+          }
+        ],
+        "BIEN_R_package_version": "1.2.8",
+        "observed_dataset_ids": [
+          "40",
+          "59",
+          "66"
+        ],
+        "observed_dataset_count": 3,
+        "datasets_with_returned_citation": 0,
+        "datasets_with_returned_DOI": 0,
+        "datasets_with_returned_URL": 1,
+        "source_independence": "UNVERIFIED"
+      },
+      "input_files": {
+        "diagnostic_file": "bien_external_plant_diagnostic_20261121.json",
+        "diagnostic_sha256": "fa8342ab203152b8ec347653961612142b19a9e44ca20864904b540e7ed1f788",
+        "acquisition_file": "bien_external_acquisition_receipt_20261121.json",
+        "acquisition_sha256": "1a1635c23f3100d9794a55eb3f56bf96b5f5285cfffe5e97db114acee9053863"
+      }
+    },
+    "PE": {
+      "country": "PE",
+      "total_records": 36708,
+      "matched_taxa": 28,
+      "matched_records": 1027,
+      "survey_frames": 15,
+      "records_invalid_coordinates": 1419,
+      "records_unknown_year": 33926,
+      "records_before_2000": 0,
+      "records_unknown_precision": 36708,
+      "modes": {
+        "primary_2000_2025": {
+          "eligible_records_before_taxon_training_exclusion": 2654,
+          "sampled_cells_before_taxon_training_exclusion": 2,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 0,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 13,
+            "NO_WITHIN_FRAME_COMPARISON": 15,
+            "NO_MATCH_UNKNOWN": 78
+          },
+          "estimable_taxon_frame_contrasts": 0,
+          "all_contrast_support": {
+            "contrasts": 0,
+            "one_positive_one_background_contrasts": 0,
+            "positive_cells_min": null,
+            "positive_cells_max": null,
+            "background_cells_min": null,
+            "background_cells_max": null,
+            "cell_count_distribution": []
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        },
+        "known_precision_2000_2025": {
+          "eligible_records_before_taxon_training_exclusion": 0,
+          "sampled_cells_before_taxon_training_exclusion": 0,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 0,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 28,
+            "NO_WITHIN_FRAME_COMPARISON": 0,
+            "NO_MATCH_UNKNOWN": 78
+          },
+          "estimable_taxon_frame_contrasts": 0,
+          "all_contrast_support": {
+            "contrasts": 0,
+            "one_positive_one_background_contrasts": 0,
+            "positive_cells_min": null,
+            "positive_cells_max": null,
+            "background_cells_min": null,
+            "background_cells_max": null,
+            "cell_count_distribution": []
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        },
+        "historical_undated_descriptive": {
+          "eligible_records_before_taxon_training_exclusion": 35289,
+          "sampled_cells_before_taxon_training_exclusion": 34,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 26,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 0,
+            "NO_WITHIN_FRAME_COMPARISON": 2,
+            "NO_MATCH_UNKNOWN": 78
+          },
+          "estimable_taxon_frame_contrasts": 53,
+          "all_contrast_support": {
+            "contrasts": 53,
+            "one_positive_one_background_contrasts": 0,
+            "positive_cells_min": 1,
+            "positive_cells_max": 11,
+            "background_cells_min": 1,
+            "background_cells_max": 20,
+            "cell_count_distribution": [
+              {
+                "positive_cells": 1,
+                "background_cells": 4,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 1,
+                "background_cells": 5,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 1,
+                "background_cells": 6,
+                "contrasts": 3
+              },
+              {
+                "positive_cells": 1,
+                "background_cells": 8,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 1,
+                "background_cells": 9,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 1,
+                "background_cells": 10,
+                "contrasts": 4
+              },
+              {
+                "positive_cells": 1,
+                "background_cells": 17,
+                "contrasts": 2
+              },
+              {
+                "positive_cells": 1,
+                "background_cells": 19,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 1,
+                "background_cells": 20,
+                "contrasts": 4
+              },
+              {
+                "positive_cells": 2,
+                "background_cells": 3,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 2,
+                "background_cells": 4,
+                "contrasts": 2
+              },
+              {
+                "positive_cells": 2,
+                "background_cells": 5,
+                "contrasts": 2
+              },
+              {
+                "positive_cells": 2,
+                "background_cells": 9,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 2,
+                "background_cells": 16,
+                "contrasts": 3
+              },
+              {
+                "positive_cells": 2,
+                "background_cells": 18,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 2,
+                "background_cells": 19,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 3,
+                "background_cells": 3,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 3,
+                "background_cells": 9,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 3,
+                "background_cells": 17,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 3,
+                "background_cells": 18,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 4,
+                "background_cells": 1,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 4,
+                "background_cells": 2,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 4,
+                "background_cells": 3,
+                "contrasts": 2
+              },
+              {
+                "positive_cells": 4,
+                "background_cells": 7,
+                "contrasts": 2
+              },
+              {
+                "positive_cells": 4,
+                "background_cells": 15,
+                "contrasts": 2
+              },
+              {
+                "positive_cells": 4,
+                "background_cells": 16,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 5,
+                "background_cells": 15,
+                "contrasts": 2
+              },
+              {
+                "positive_cells": 6,
+                "background_cells": 4,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 6,
+                "background_cells": 15,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 7,
+                "background_cells": 4,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 8,
+                "background_cells": 3,
+                "contrasts": 2
+              },
+              {
+                "positive_cells": 9,
+                "background_cells": 1,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 9,
+                "background_cells": 3,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 9,
+                "background_cells": 10,
+                "contrasts": 1
+              },
+              {
+                "positive_cells": 11,
+                "background_cells": 1,
+                "contrasts": 1
+              }
+            ]
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 26,
+              "median": 0.5195611577964518,
+              "q1": 0.3585069444444445,
+              "q3": 0.725
+            },
+            "contrast_support": {
+              "contrasts": 53,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": 1,
+              "positive_cells_max": 11,
+              "background_cells_min": 1,
+              "background_cells_max": 20,
+              "cell_count_distribution": [
+                {
+                  "positive_cells": 1,
+                  "background_cells": 4,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 1,
+                  "background_cells": 5,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 1,
+                  "background_cells": 6,
+                  "contrasts": 3
+                },
+                {
+                  "positive_cells": 1,
+                  "background_cells": 8,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 1,
+                  "background_cells": 9,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 1,
+                  "background_cells": 10,
+                  "contrasts": 4
+                },
+                {
+                  "positive_cells": 1,
+                  "background_cells": 17,
+                  "contrasts": 2
+                },
+                {
+                  "positive_cells": 1,
+                  "background_cells": 19,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 1,
+                  "background_cells": 20,
+                  "contrasts": 4
+                },
+                {
+                  "positive_cells": 2,
+                  "background_cells": 3,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 2,
+                  "background_cells": 4,
+                  "contrasts": 2
+                },
+                {
+                  "positive_cells": 2,
+                  "background_cells": 5,
+                  "contrasts": 2
+                },
+                {
+                  "positive_cells": 2,
+                  "background_cells": 9,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 2,
+                  "background_cells": 16,
+                  "contrasts": 3
+                },
+                {
+                  "positive_cells": 2,
+                  "background_cells": 18,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 2,
+                  "background_cells": 19,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 3,
+                  "background_cells": 3,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 3,
+                  "background_cells": 9,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 3,
+                  "background_cells": 17,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 3,
+                  "background_cells": 18,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 4,
+                  "background_cells": 1,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 4,
+                  "background_cells": 2,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 4,
+                  "background_cells": 3,
+                  "contrasts": 2
+                },
+                {
+                  "positive_cells": 4,
+                  "background_cells": 7,
+                  "contrasts": 2
+                },
+                {
+                  "positive_cells": 4,
+                  "background_cells": 15,
+                  "contrasts": 2
+                },
+                {
+                  "positive_cells": 4,
+                  "background_cells": 16,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 5,
+                  "background_cells": 15,
+                  "contrasts": 2
+                },
+                {
+                  "positive_cells": 6,
+                  "background_cells": 4,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 6,
+                  "background_cells": 15,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 7,
+                  "background_cells": 4,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 8,
+                  "background_cells": 3,
+                  "contrasts": 2
+                },
+                {
+                  "positive_cells": 9,
+                  "background_cells": 1,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 9,
+                  "background_cells": 3,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 9,
+                  "background_cells": 10,
+                  "contrasts": 1
+                },
+                {
+                  "positive_cells": 11,
+                  "background_cells": 1,
+                  "contrasts": 1
+                }
+              ]
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        }
+      },
+      "evidence_stage": "NEW_PRELISTED_COUNTRY",
+      "execution_commit": "749debe212cbb576ad12ec298073f9ec0883dfdd",
+      "source_metadata": {
+        "database_version": [
+          {
+            "db_version": "4.2.8",
+            "db_release_date": "2023-06-27"
+          }
+        ],
+        "BIEN_R_package_version": "1.2.8",
+        "observed_dataset_ids": [
+          "24",
+          "4",
+          "40",
+          "50",
+          "6"
+        ],
+        "observed_dataset_count": 5,
+        "datasets_with_returned_citation": 0,
+        "datasets_with_returned_DOI": 0,
+        "datasets_with_returned_URL": 1,
+        "source_independence": "UNVERIFIED"
+      },
+      "input_files": {
+        "diagnostic_file": "bien_fixed10_PE_diagnostic_20261122.json",
+        "diagnostic_sha256": "80b3938cea8ac8c5479cf037ebc6f1140a09673b6dbf620da052cbbd7a2a2d5d",
+        "acquisition_file": "bien_fixed10_PE_acquisition_20261122.json",
+        "acquisition_sha256": "5c83b96a2e0dd6f1803e3ee174b90f346d4c033d1e9f33f38c0d97cd3f05b034"
+      }
+    },
+    "SV": {
+      "country": "SV",
+      "total_records": 0,
+      "matched_taxa": 0,
+      "matched_records": 0,
+      "survey_frames": 0,
+      "records_invalid_coordinates": 0,
+      "records_unknown_year": 0,
+      "records_before_2000": 0,
+      "records_unknown_precision": 0,
+      "modes": {
+        "primary_2000_2025": {
+          "eligible_records_before_taxon_training_exclusion": 0,
+          "sampled_cells_before_taxon_training_exclusion": 0,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 0,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 0,
+            "NO_WITHIN_FRAME_COMPARISON": 0,
+            "NO_MATCH_UNKNOWN": 106
+          },
+          "estimable_taxon_frame_contrasts": 0,
+          "all_contrast_support": {
+            "contrasts": 0,
+            "one_positive_one_background_contrasts": 0,
+            "positive_cells_min": null,
+            "positive_cells_max": null,
+            "background_cells_min": null,
+            "background_cells_max": null,
+            "cell_count_distribution": []
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        },
+        "known_precision_2000_2025": {
+          "eligible_records_before_taxon_training_exclusion": 0,
+          "sampled_cells_before_taxon_training_exclusion": 0,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 0,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 0,
+            "NO_WITHIN_FRAME_COMPARISON": 0,
+            "NO_MATCH_UNKNOWN": 106
+          },
+          "estimable_taxon_frame_contrasts": 0,
+          "all_contrast_support": {
+            "contrasts": 0,
+            "one_positive_one_background_contrasts": 0,
+            "positive_cells_min": null,
+            "positive_cells_max": null,
+            "background_cells_min": null,
+            "background_cells_max": null,
+            "cell_count_distribution": []
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        },
+        "historical_undated_descriptive": {
+          "eligible_records_before_taxon_training_exclusion": 0,
+          "sampled_cells_before_taxon_training_exclusion": 0,
+          "taxon_status_counts": {
+            "EVALUABLE_EXPLORATORY": 0,
+            "NO_ELIGIBLE_POSITIVE_CELLS": 0,
+            "NO_WITHIN_FRAME_COMPARISON": 0,
+            "NO_MATCH_UNKNOWN": 106
+          },
+          "estimable_taxon_frame_contrasts": 0,
+          "all_contrast_support": {
+            "contrasts": 0,
+            "one_positive_one_background_contrasts": 0,
+            "positive_cells_min": null,
+            "positive_cells_max": null,
+            "background_cells_min": null,
+            "background_cells_max": null,
+            "cell_count_distribution": []
+          },
+          "method_metadata_present": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          },
+          "method_metadata_missing": {
+            "taxon_mean_auc": {
+              "n": 0,
+              "median": null,
+              "q1": null,
+              "q3": null
+            },
+            "contrast_support": {
+              "contrasts": 0,
+              "one_positive_one_background_contrasts": 0,
+              "positive_cells_min": null,
+              "positive_cells_max": null,
+              "background_cells_min": null,
+              "background_cells_max": null,
+              "cell_count_distribution": []
+            }
+          }
+        }
+      },
+      "evidence_stage": "NEW_PRELISTED_COUNTRY",
+      "execution_commit": "749debe212cbb576ad12ec298073f9ec0883dfdd",
+      "source_metadata": {
+        "database_version": [
+          {
+            "db_version": "4.2.8",
+            "db_release_date": "2023-06-27"
+          }
+        ],
+        "BIEN_R_package_version": "1.2.8",
+        "observed_dataset_ids": [],
+        "observed_dataset_count": 0,
+        "datasets_with_returned_citation": 0,
+        "datasets_with_returned_DOI": 0,
+        "datasets_with_returned_URL": 0,
+        "source_independence": "UNVERIFIED"
+      },
+      "input_files": {
+        "diagnostic_file": "bien_fixed10_SV_diagnostic_20261122.json",
+        "diagnostic_sha256": "4837251aa230cbc698ffc1cc71409784e39b51030e219749e4908bea352c05ce",
+        "acquisition_file": "bien_fixed10_SV_acquisition_20261122.json",
+        "acquisition_sha256": "839f700ca36c2a5a1a0ebffbf016b1bb1ad2aefde4b655300ba8087fdc9a6f2b"
+      }
+    }
+  },
+  "interpretation": {
+    "scope": "unchanged exploratory within-source-frame plant climate ranking across prelisted countries",
+    "quantiles": "linear interpolation at (n-1)*p of per-taxon equal-frame means, separately by method metadata class",
+    "country_taxa_with_no_metric_remain_in_status_denominator": true,
+    "pooled_overall_auc_computed": false,
+    "source_independence_established": false,
+    "independent_geographic_replicates_assumed": false,
+    "ecological_M3_estimated": false,
+    "bat_improvement_estimated": false,
+    "background_means_absence": false,
+    "unknown_coordinate_precision_is_verified_precision": false
+  },
+  "comparison_frozen_commit": "32d949b8b63c2adfa4918fda22e842a05cd58e72",
+  "summarized_at_utc": "2026-11-22T01:52:19.385065+00:00",
+  "summary_script_sha256": "01a61c54c275df4f4bce9391c7ae83e75d29f0ecd90d3376c94892ffa6b98628",
+  "original_training_receipt": {
+    "commit": "d65817fcb3c39060ed544261c291d76a198299c6",
+    "path": "docs/replication/neobat/plant_106x17_source_effort_transfer.json",
+    "git_blob_sha": "3389fda966cb3c7566ff5d249396fed725f16a05",
+    "sha256": "0ddbcf39a4df1c23a31a038ff9613e55cf18573951c110b7dc68887900e1a353"
+  },
+  "raw_locations_or_individual_predictions_written": false
+}

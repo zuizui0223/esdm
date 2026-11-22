@@ -1,0 +1,170 @@
+name: NeoBat BIEN eight unopened fixed-ten country diagnostics
+
+'on':
+  push:
+    branches:
+      - analysis/neobat-bien-fixed10-external-20261122
+    paths:
+      - scripts/neobat_bien_external_acquire.R
+      - scripts/neobat_bien_external_plant_diagnostic.py
+      - scripts/neobat_bien_frozen_plant_adapter.py
+      - tests/test_neobat_bien_external_acquire.R
+      - tests/test_neobat_bien_external_plant_diagnostic.py
+      - tests/test_neobat_bien_frozen_plant_adapter.py
+      - .github/workflows/neobat-bien-fixed10-external-20261122.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: neobat-bien-fixed10-external-20261122
+  cancel-in-progress: true
+
+jobs:
+  external_plant_diagnostic:
+    if: github.ref == 'refs/heads/analysis/neobat-bien-fixed10-external-20261122'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        country: [BR, EC, GF, GT, HN, NI, PE, SV]
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+      NUMEXPR_NUM_THREADS: '1'
+      PYTHONUNBUFFERED: '1'
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONPATH: ${{ github.workspace }}
+    steps:
+      - name: Check out the predeclared country extension
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Check out immutable original plant helpers and receipts
+        uses: actions/checkout@v4
+        with:
+          ref: d65817fcb3c39060ed544261c291d76a198299c6
+          path: frozen
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install the dependency-light test runner
+        run: python -m pip install 'pytest>=8,<10'
+
+      - name: Verify the committed scope and focused Python tests
+        run: |
+          set -euo pipefail
+          test -f docs/replication/NEOBAT_BIEN_FIXED10_EXTERNAL_EXTENSION_FROZEN_20261122.md
+          test -f docs/replication/NEOBAT_INDEPENDENT_PLOT_CROSSWALK_INPUT_20261121.json
+          test "$(git -C frozen rev-parse HEAD)" = d65817fcb3c39060ed544261c291d76a198299c6
+          python -m pytest -q tests/test_neobat_bien_external_plant_diagnostic.py tests/test_neobat_bien_frozen_plant_adapter.py
+
+      - name: Install original model dependencies
+        run: python -m pip install 'numpy==2.2.6' 'scikit-learn==1.7.2' 'rasterio==1.4.3' 'pyproj==3.7.2'
+
+      - name: Set up R with public binary package repository
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: release
+          use-public-rspm: true
+
+      - name: Install BIEN dependencies from the configured binary repository
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::BIEN
+            any::jsonlite
+            any::digest
+          dependencies: 'NA'
+          cache-version: 'neobat-bien-external-1'
+          install-pandoc: false
+          install-quarto: false
+
+      - name: Test acquisition boundaries and serialization before querying BIEN
+        run: Rscript tests/test_neobat_bien_external_acquire.R
+
+      - name: Create a private temporary directory for this country
+        run: |
+          set -euo pipefail
+          NEOBAT_PRIVATE_DIR="$(mktemp -d "$RUNNER_TEMP/neobat-bien-fixed10.XXXXXX")"
+          chmod 700 "$NEOBAT_PRIVATE_DIR"
+          printf 'NEOBAT_PRIVATE_DIR=%s\n' "$NEOBAT_PRIVATE_DIR" >> "$GITHUB_ENV"
+          mkdir -p build/neobat
+
+      - name: Download and verify the original DOI plant archive
+        timeout-minutes: 6
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 2 --output "$NEOBAT_PRIVATE_DIR/plant_original.zip" \
+            'https://api.gbif.org/v1/occurrence/download/request/0001157-261118162104854.zip'
+          python - <<'PY'
+          import hashlib, os, pathlib
+          path = pathlib.Path(os.environ['NEOBAT_PRIVATE_DIR']) / 'plant_original.zip'
+          digest = hashlib.sha256()
+          with path.open('rb') as stream:
+              for chunk in iter(lambda: stream.read(1024 * 1024), b''):
+                  digest.update(chunk)
+          expected = '4275ed6b9847fa9fb81a9e353ec1b9de151592f7c369b19f6145129059726c8b'
+          if digest.hexdigest() != expected:
+              raise SystemExit('ORIGINAL_PLANT_ZIP_SHA_DRIFT')
+          print('Original plant archive SHA-256 verified')
+          PY
+
+      - name: Retrieve the complete native plot table privately
+        timeout-minutes: 20
+        run: |
+          Rscript scripts/neobat_bien_external_acquire.R \
+            --countries '${{ matrix.country }}' \
+            --private-output "$NEOBAT_PRIVATE_DIR/bien_records.json" \
+            --receipt-output build/neobat/bien_fixed10_${{ matrix.country }}_acquisition_20261122.json \
+            --manifest docs/replication/NEOBAT_INDEPENDENT_PLOT_CROSSWALK_INPUT_20261121.json
+
+      - name: Replay frozen plant models and score the predeclared country diagnostic
+        timeout-minutes: 15
+        run: |
+          python scripts/neobat_bien_external_plant_diagnostic.py \
+            --countries '${{ matrix.country }}' \
+            --comparison-specification docs/replication/NEOBAT_BIEN_FIXED10_EXTERNAL_EXTENSION_FROZEN_20261122.md \
+            --comparison-commit 32d949b8b63c2adfa4918fda22e842a05cd58e72 \
+            --compact-json \
+            --private-records "$NEOBAT_PRIVATE_DIR/bien_records.json" \
+            --acquisition-receipt build/neobat/bien_fixed10_${{ matrix.country }}_acquisition_20261122.json \
+            --frozen-root frozen \
+            --plant-archive "$NEOBAT_PRIVATE_DIR/plant_original.zip" \
+            --raster-dir "$NEOBAT_PRIVATE_DIR/rasters" \
+            --output build/neobat/bien_fixed10_${{ matrix.country }}_diagnostic_20261122.json
+
+      - name: Upload the two explicitly named public JSON files for this country
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-bien-fixed10-${{ matrix.country }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            build/neobat/bien_fixed10_${{ matrix.country }}_acquisition_20261122.json
+            build/neobat/bien_fixed10_${{ matrix.country }}_diagnostic_20261122.json
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Remove temporary raw tables and original source files
+        if: always()
+        run: |
+          python - <<'PY'
+          import os, pathlib, shutil
+          value = os.environ.get('NEOBAT_PRIVATE_DIR')
+          if value:
+              private = pathlib.Path(value).resolve()
+              runner = pathlib.Path(os.environ['RUNNER_TEMP']).resolve()
+              if private.parent != runner or not private.name.startswith('neobat-bien-fixed10.'):
+                  raise SystemExit('UNEXPECTED_PRIVATE_DIRECTORY_REFUSING_CLEANUP')
+              if private.exists():
+                  shutil.rmtree(private)
+          PY
