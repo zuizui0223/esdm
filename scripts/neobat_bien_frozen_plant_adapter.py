@@ -1,9 +1,11 @@
-"""Replay the existing CR/PA climate-only plant component, without bat outcomes.
+"""Replay the existing climate-only plant component, without bat outcomes.
 
 Use as ``with FixedPlantComponent(frozen_root, plant_zip, raster_dir) as model``.
 ``predict(country, cells)`` returns ``(scores_by_cell, invalid_environment_cells)``.
 ``training_cells(country, taxon)`` exposes exact fit-cell membership in memory,
 so the caller can exclude overlapping evaluation cells without altering a fit.
+The default countries remain CR/PA; ``countries=`` may request any nonempty
+subset of the ten countries in the existing shadow-fitted manifest.
 
 This is the 106-plant weak-shadow component, not ecological M3. Source plots,
 cell identifiers, coefficients and individual predictions are never serialized
@@ -28,6 +30,7 @@ FROZEN_COMMIT = "d65817fcb3c39060ed544261c291d76a198299c6"
 PLANT_ARCHIVE_SHA256 = "4275ed6b9847fa9fb81a9e353ec1b9de151592f7c369b19f6145129059726c8b"
 FIXED106_SHA256 = "41c9fc0128df6d0f3753edf4b82f6b5b36c6975c8d7c644bae4e4fd3e5bdaac6"
 COUNTRIES = ("CR", "PA")
+ALLOWED_COUNTRIES = ("BR", "CR", "EC", "GF", "GT", "HN", "NI", "PA", "PE", "SV")
 ORIGINAL_PACKAGES = {
     "numpy": "2.2.6", "scikit-learn": "1.7.2",
     "rasterio": "1.4.3", "pyproj": "3.7.2",
@@ -55,6 +58,34 @@ def _sha256(path):
     return digest.hexdigest()
 
 
+def validate_countries(countries):
+    """Preserve a requested order within the prelisted ten-country universe."""
+    if isinstance(countries, (str, bytes)):
+        raise ValueError("COUNTRIES_MUST_BE_A_SEQUENCE_OF_FIXED_COUNTRY_CODES")
+    try:
+        countries = tuple(countries)
+    except TypeError as exc:
+        raise ValueError("COUNTRIES_MUST_BE_A_SEQUENCE_OF_FIXED_COUNTRY_CODES") from exc
+    if (not countries or any(country not in ALLOWED_COUNTRIES for country in countries)
+            or len(countries) != len(set(countries))):
+        raise ValueError("COUNTRIES_MUST_BE_A_NONEMPTY_UNIQUE_SUBSET_OF_FIXED_SHADOW10")
+    return countries
+
+
+def _requested_original_counts(rows, taxa, countries):
+    """Require exactly one frozen training-count receipt per requested pair."""
+    expected = set(taxa)
+    if len(taxa) != 106 or len(expected) != 106:
+        raise RuntimeError("ORIGINAL_REQUESTED_PLANT_COUNTRY_RECEIPT_CHANGED")
+    counts = {}
+    for country in countries:
+        selected = [row for row in rows if row["holdout_country"] == country]
+        if len(selected) != 106 or {row["plant"] for row in selected} != expected:
+            raise RuntimeError("ORIGINAL_REQUESTED_PLANT_COUNTRY_RECEIPT_CHANGED")
+        counts.update({(row["plant"], country): row for row in selected})
+    return counts
+
+
 @contextmanager
 def _working_directory(path):
     previous = pathlib.Path.cwd()
@@ -77,14 +108,15 @@ def _training_rows_with_cells(source_rows, country_cells, country, taxon):
 
 
 class FixedPlantComponent:
-    """One context loads sources and fits all 106 plants for both CR and PA.
+    """One context fits all 106 plants for every requested fixed country.
 
     Fitting finishes before this object accepts any external evaluation cells.
     The wrapper reuses the original scaler, classifier and fit-selection code.
     It neither changes source membership nor supplies BIEN labels to training.
     """
 
-    def __init__(self, frozen_root, archive_path, raster_dir):
+    def __init__(self, frozen_root, archive_path, raster_dir, countries=COUNTRIES):
+        self.countries = validate_countries(countries)
         self.frozen_root = pathlib.Path(frozen_root).resolve()
         self.archive_path = pathlib.Path(archive_path).resolve()
         self.raster_dir = pathlib.Path(raster_dir).resolve()
@@ -172,8 +204,9 @@ class FixedPlantComponent:
             with _working_directory(self.frozen_root):
                 names, holdouts = self._psource.fixed_names_and_countries()
             self.taxa = tuple(names)
-            if len(self.taxa) != 106 or not set(COUNTRIES).issubset(holdouts):
-                raise RuntimeError("ORIGINAL_CR_PA_106_SCOPE_CHANGED")
+            if (len(self.taxa) != 106 or len(set(self.taxa)) != 106
+                    or not set(self.countries).issubset(holdouts)):
+                raise RuntimeError("ORIGINAL_REQUESTED_FIXED106_SCOPE_CHANGED")
             header = _read(d / "gbif_archive_header_preflight.json")
             accepted = self._names.name_map(
                 _read(d / "gbif_search_preflight.json"),
@@ -194,6 +227,9 @@ class FixedPlantComponent:
                 raise RuntimeError("ORIGINAL_PLANT_COUNTRY_DENOMINATOR_CHANGED")
             if old["status"] != "EXPLORATORY_ORIGINAL_106x17_PLANT_SOURCE_EFFORT_TRANSFER_COMPLETE":
                 raise RuntimeError("ORIGINAL_PLANT_TRAINING_RECEIPT_STATUS_CHANGED")
+            original_counts = _requested_original_counts(
+                old["plant_country_source_rank_results"], self.taxa, self.countries,
+            )
             self.raster_dir.mkdir(parents=True, exist_ok=True)
             members, raster_metadata = self._plant.verify_raster_sources(self.raster_dir)
             self._rasters = self._plant.open_source_rasters(self._stack, members)
@@ -201,8 +237,8 @@ class FixedPlantComponent:
              self._transformer, self._environment) = self._shadow.prepare_source_plant_rows(
                 cells, self.taxa, countries, self._rasters,
             )
-            # Fit all 212 original specifications before external plot scores.
-            for country in COUNTRIES:
+            # Fit all requested original specifications before external plot scores.
+            for country in self.countries:
                 for taxon in self.taxa:
                     previous = original_counts[taxon, country]
                     rows, npos, nbg = self._shadow.plant_fit_rows(
@@ -232,8 +268,8 @@ class FixedPlantComponent:
                 "plant_GBIF_DOI": "10.15468/dl.xwc5zf",
                 "plant_archive_sha256": archive_sha,
                 "fixed106_taxa_sha256": FIXED106_SHA256,
-                "countries": list(COUNTRIES), "plant_taxon_count": 106,
-                "expected_fit_count": 212, "completed_fit_count": len(self._models),
+                "countries": list(self.countries), "plant_taxon_count": 106,
+                "expected_fit_count": 106 * len(self.countries), "completed_fit_count": len(self._models),
                 "features": ["BIO1", "BIO12", "ELEV"],
                 "grid": "EPSG:6933_25000m_cell_centroid",
                 "raster_sources": raster_metadata,
@@ -264,8 +300,8 @@ class FixedPlantComponent:
     def _require_country(self, country):
         if not self._entered:
             raise RuntimeError("FROZEN_PLANT_COMPONENT_CONTEXT_NOT_OPEN")
-        if country not in COUNTRIES:
-            raise ValueError("ONLY_FIXED_CR_AND_PA_EXTERNAL_DIAGNOSTIC_ALLOWED")
+        if country not in self.countries:
+            raise ValueError("COUNTRY_NOT_IN_REQUESTED_FIXED_SHADOW10_SCOPE")
 
     def training_cells(self, country, taxon):
         """Exact original training-cell union, in memory; do not serialize."""
@@ -317,7 +353,7 @@ class FixedPlantComponent:
         return result, frozenset(invalid)
 
     def provenance(self):
-        """JSON-safe aggregate fit provenance, including all 212 training counts."""
+        """JSON-safe provenance, including all requested original training counts."""
         return copy.deepcopy({**self._metadata, "training_fits": self._fit_records})
 
     def close(self):

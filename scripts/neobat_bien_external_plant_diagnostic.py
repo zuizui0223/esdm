@@ -1,4 +1,4 @@
-"""Aggregate-only BIEN diagnostic for the frozen CR/PA climate-only plants.
+"""Aggregate-only BIEN diagnostic for the frozen climate-only plants.
 
 The pure grouping/metric functions intentionally need no numerical libraries.
 Raw records, cell identifiers and individual scores remain private in memory.
@@ -21,6 +21,7 @@ import sys
 
 
 COUNTRIES = ("CR", "PA")
+ALLOWED_COUNTRIES = ("BR", "CR", "EC", "GF", "GT", "HN", "NI", "PA", "PE", "SV")
 MODES = ("primary_2000_2025", "known_precision_2000_2025", "historical_undated_descriptive")
 FIXED106_SHA256 = "41c9fc0128df6d0f3753edf4b82f6b5b36c6975c8d7c644bae4e4fd3e5bdaac6"
 COMPARISON_COMMIT = "32aa43987b5ac4e2ce4c279504ddcc9732bd0b0c"
@@ -179,7 +180,7 @@ def evaluate_country(country, taxa, records, predictions, training_cells):
     raster invalidity. Missing taxon predictions are an integrity error.
     """
     taxa = tuple(taxa)
-    if country not in COUNTRIES or len(taxa) != len(set(taxa)):
+    if country not in ALLOWED_COUNTRIES or len(taxa) != len(set(taxa)):
         raise ValueError("invalid country or duplicate taxa")
     if any(taxon not in training_cells for taxon in taxa):
         raise ValueError("missing taxon training membership")
@@ -297,21 +298,32 @@ def main():
     parser.add_argument("--plant-archive", required=True)
     parser.add_argument("--raster-dir", required=True)
     parser.add_argument("--output", required=True)
+    parser.add_argument("--countries", default=",".join(COUNTRIES),
+                        help="Comma-separated subset of the fixed ten countries; default CR,PA")
+    parser.add_argument("--comparison-specification", default=SPEC_PATH)
+    parser.add_argument("--comparison-commit", default=COMPARISON_COMMIT)
+    parser.add_argument("--compact-json", action="store_true")
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
     sys.path.insert(0, str(root))
-    from scripts.neobat_bien_frozen_plant_adapter import FixedPlantComponent
+    from scripts.neobat_bien_frozen_plant_adapter import FixedPlantComponent, validate_countries
+    countries = validate_countries(country.strip() for country in args.countries.split(","))
     from pyproj import Transformer
     manifest = _read(root / "docs/replication/NEOBAT_INDEPENDENT_PLOT_CROSSWALK_INPUT_20261121.json")
     taxa = tuple(manifest["plant_taxa"])
     if (len(taxa) != 106 or len(set(taxa)) != 106 or
-            manifest["source_fixed106_sha256"] != FIXED106_SHA256):
+            manifest["source_fixed106_sha256"] != FIXED106_SHA256 or
+            tuple(manifest["shadow_fitted_countries"]) != ALLOWED_COUNTRIES):
         raise RuntimeError("FIXED_106_MANIFEST_DRIFT")
     receipt = _read(args.acquisition_receipt)
     private = _read(args.private_records)
-    if (receipt.get("status") != "BIEN_EXTERNAL_ACQUISITION_COMPLETE" or
+    if (not isinstance(receipt, dict) or not isinstance(private, dict) or
+            receipt.get("status") != "BIEN_EXTERNAL_ACQUISITION_COMPLETE" or
             receipt.get("fixed106_taxa_sha256") != FIXED106_SHA256 or
-            set(private["countries"]) != set(COUNTRIES)):
+            not isinstance(receipt.get("countries"), dict) or
+            not isinstance(private.get("countries"), dict) or
+            set(receipt["countries"]) != set(countries) or
+            set(private["countries"]) != set(countries)):
         raise RuntimeError("BIEN_ACQUISITION_RECEIPT_INVALID")
     transformer = Transformer.from_crs("EPSG:4326", "EPSG:6933", always_xy=True)
 
@@ -320,10 +332,11 @@ def main():
         return math.floor(x / 25000), math.floor(y / 25000)
 
     results = {}
-    with FixedPlantComponent(args.frozen_root, args.plant_archive, args.raster_dir) as component:
+    with FixedPlantComponent(args.frozen_root, args.plant_archive, args.raster_dir,
+                             countries=countries) as component:
         if tuple(component.taxa) != taxa:
             raise RuntimeError("FROZEN_ADAPTER_TAXA_ORDER_MISMATCH")
-        for country in COUNTRIES:
+        for country in countries:
             rows = private["countries"][country]
             expected = receipt["countries"][country]
             if len(rows) != expected["total_rows"]:
@@ -343,12 +356,14 @@ def main():
         raise RuntimeError("FROZEN_NUMERICAL_PACKAGE_VERSION_MISMATCH")
     output = {
         "schema_version": 1,
-        "status": "EXPLORATORY_BIEN_CR_PA_FIXED106_PLANT_DIAGNOSTIC_COMPLETE",
+        "status": ("EXPLORATORY_BIEN_CR_PA_FIXED106_PLANT_DIAGNOSTIC_COMPLETE"
+                   if set(countries) == set(COUNTRIES)
+                   else "EXPLORATORY_BIEN_FIXED106_PLANT_DIAGNOSTIC_COMPLETE"),
         "completed_at_utc": datetime.now(timezone.utc).isoformat(),
         "execution_commit": os.environ.get("GITHUB_SHA"),
-        "comparison_frozen_commit": COMPARISON_COMMIT,
-        "comparison_specification": SPEC_PATH,
-        "comparison_specification_sha256": _file_sha(root / SPEC_PATH),
+        "comparison_frozen_commit": args.comparison_commit,
+        "comparison_specification": args.comparison_specification,
+        "comparison_specification_sha256": _file_sha(root / args.comparison_specification),
         "script_sha256": _file_sha(__file__),
         "acquisition_receipt_sha256": _file_sha(args.acquisition_receipt),
         "private_input_sha256": _file_sha(args.private_records),
@@ -371,13 +386,16 @@ def main():
                     "individual_predictions_written": False, "raw_tables_written_to_public_output": False},
         "countries": results,
     }
-    if output["taxon_country_results_per_mode"] != 212:
-        raise RuntimeError("FIXED_212_RESULT_DENOMINATOR_CHANGED")
+    if output["taxon_country_results_per_mode"] != 106 * len(countries):
+        raise RuntimeError("FIXED_REQUESTED_COUNTRY_RESULT_DENOMINATOR_CHANGED")
     path = Path(args.output)
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(output, indent=2, ensure_ascii=False, allow_nan=False) + "\n", encoding="utf-8")
-    print(json.dumps({"status": output["status"], "taxon_country_results_per_mode": 212,
-                      "countries": {c: results[c]["coverage"] for c in COUNTRIES}}, ensure_ascii=False))
+    path.write_text(json.dumps(output, indent=None if args.compact_json else 2,
+                               separators=(",", ":") if args.compact_json else None,
+                               ensure_ascii=False, allow_nan=False) + "\n", encoding="utf-8")
+    print(json.dumps({"status": output["status"],
+                      "taxon_country_results_per_mode": output["taxon_country_results_per_mode"],
+                      "countries": {c: results[c]["coverage"] for c in countries}}, ensure_ascii=False))
 
 
 if __name__ == "__main__":

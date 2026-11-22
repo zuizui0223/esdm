@@ -5,8 +5,48 @@ import subprocess
 import sys
 import unittest
 
+import pytest
+
+from scripts import neobat_bien_frozen_plant_adapter as adapter
+
 
 ADAPTER = pathlib.Path(__file__).resolve().parents[1] / "scripts" / "neobat_bien_frozen_plant_adapter.py"
+
+
+def test_default_scope_remains_cr_pa_and_requested_scope_is_preserved(tmp_path):
+    default = adapter.FixedPlantComponent(tmp_path, tmp_path / "plants.zip", tmp_path)
+    assert default.countries == ("CR", "PA")
+    expanded = adapter.FixedPlantComponent(
+        tmp_path, tmp_path / "plants.zip", tmp_path,
+        countries=("BR", "EC", "GF", "GT", "HN", "NI", "PE", "SV"),
+    )
+    assert expanded.countries == ("BR", "EC", "GF", "GT", "HN", "NI", "PE", "SV")
+    # Country validation must not require opening archives or model libraries.
+    assert not (tmp_path / "plants.zip").exists()
+
+
+@pytest.mark.parametrize("countries", [("MX",), ("BR", "CR", "MX"), (),
+                                       ("BR", "BR"), ("br",), "BR"])
+def test_invalid_country_request_is_rejected_before_original_inputs_open(tmp_path, countries):
+    with pytest.raises(ValueError, match="COUNTR"):
+        adapter.FixedPlantComponent(tmp_path, tmp_path / "missing.zip", tmp_path,
+                                    countries=countries)
+
+
+def test_each_requested_country_requires_one_original_receipt_for_every_taxon():
+    taxa = tuple(f"Plant {i}" for i in range(106))
+    rows = [{"holdout_country": country, "plant": taxon}
+            for country in ("BR", "GF") for taxon in taxa]
+    counts = adapter._requested_original_counts(rows, taxa, ("BR", "GF"))
+    assert len(counts) == 212
+    # Having 106 rows is insufficient if one plant is duplicated and another lost.
+    duplicated = [*rows[:-1], rows[-2]]
+    with pytest.raises(RuntimeError, match="ORIGINAL_REQUESTED_PLANT_COUNTRY_RECEIPT"):
+        adapter._requested_original_counts(duplicated, taxa, ("BR", "GF"))
+    with pytest.raises(RuntimeError, match="ORIGINAL_REQUESTED_PLANT_COUNTRY_RECEIPT"):
+        adapter._requested_original_counts(rows[:-1], taxa, ("BR", "GF"))
+    with pytest.raises(RuntimeError, match="ORIGINAL_REQUESTED_PLANT_COUNTRY_RECEIPT"):
+        adapter._requested_original_counts(rows, taxa, ("BR", "PE"))
 
 
 class TrainingCellSelectionTest(unittest.TestCase):
