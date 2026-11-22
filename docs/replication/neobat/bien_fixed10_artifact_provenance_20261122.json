@@ -1,0 +1,230 @@
+{
+  "schema_version": 1,
+  "status": "ALL_EIGHT_PUBLIC_COUNTRY_ARTIFACTS_PRESERVED",
+  "comparison_frozen_commit": "32d949b8b63c2adfa4918fda22e842a05cd58e72",
+  "original_model_code_commit": "d65817fcb3c39060ed544261c291d76a198299c6",
+  "new_execution": {
+    "workflow_run_id": 44969865714,
+    "run_attempt": 1,
+    "url": "https://github.com/zuizui0223/esdm/actions/runs/44969865714",
+    "execution_commit": "749debe212cbb576ad12ec298073f9ec0883dfdd",
+    "status": "completed",
+    "conclusion": "success",
+    "country_order": [
+      "BR",
+      "EC",
+      "GF",
+      "GT",
+      "HN",
+      "NI",
+      "PE",
+      "SV"
+    ],
+    "fitted_taxon_country_pairs": 848
+  },
+  "countries": {
+    "BR": {
+      "job_id": 137047087355,
+      "conclusion": "success",
+      "artifact_id": 14734120024,
+      "artifact_name": "neobat-bien-fixed10-BR-44969865714-1",
+      "artifact_created_at_utc": "2026-11-22T01:22:56Z",
+      "artifact_zip_sha256": "dc627e66e70a0e03d018e2ce9a2c5e1b315d02d77ab6dd2c0da9b0a5a76998ed",
+      "exact_artifact_member_bytes_preserved": true,
+      "files": [
+        {
+          "path": "docs/replication/neobat/bien_fixed10_20261122/bien_fixed10_BR_acquisition_20261122.json",
+          "bytes": 11499,
+          "sha256": "355dd792d59db0ffe0ad834d76395f81ad097674647edb02be2cc6b990302d00",
+          "git_blob_sha": "29f23461a460c9fe14a11e1d4f0c9a6ca1be795a"
+        },
+        {
+          "path": "docs/replication/neobat/bien_fixed10_20261122/bien_fixed10_BR_diagnostic_20261122.json",
+          "bytes": 196122,
+          "sha256": "973d373090562b51e456c32028dc58d00a7600b46ecddfb0b0d7bd889d9f7dc6",
+          "git_blob_sha": "b2db19b20c5beb6344f8220ea62308df2cc65cca"
+        }
+      ]
+    },
+    "EC": {
+      "job_id": 137047087454,
+      "conclusion": "success",
+      "artifact_id": 14732628652,
+      "artifact_name": "neobat-bien-fixed10-EC-44969865714-1",
+      "artifact_created_at_utc": "2026-11-22T01:10:24Z",
+      "artifact_zip_sha256": "0995c47783cb52bc3ec58b6ba4459be1e52eb8e994509fb4ca267289136918e2",
+      "exact_artifact_member_bytes_preserved": true,
+      "files": [
+        {
+          "path": "docs/replication/neobat/bien_fixed10_20261122/bien_fixed10_EC_acquisition_20261122.json",
+          "bytes": 10831,
+          "sha256": "6728a0ad70f3b00904197d27c63c3e6de7116d2ef9e1aa5d65741996105d38ae",
+          "git_blob_sha": "887f92dc4497c2207569c037c57ee88034fce21f"
+        },
+        {
+          "path": "docs/replication/neobat/bien_fixed10_20261122/bien_fixed10_EC_diagnostic_20261122.json",
+          "bytes": 229892,
+          "sha256": "22108dfc0a8583cb1abbc22056c8d26754e97755624fb4276eba40884c78f372",
+          "git_blob_sha": "8a2b3508bc6cb05881bece807838f59c3499663c"
+        }
+      ]
+    },
+    "GF": {
+      "job_id": 137047087397,
+      "conclusion": "success",
+      "artifact_id": 14733174759,
+      "artifact_name": "neobat-bien-fixed10-GF-44969865714-1",
+      "artifact_created_at_utc": "2026-11-22T01:23:07Z",
+      "artifact_zip_sha256": "a311d945144a63aad24acef7efd8c515e5b13b61b0beb67a7ed80618dd082423",
+      "exact_artifact_member_bytes_preserved": true,
+      "files": [
+        {
+          "path": "docs/replication/neobat/bien_fixed10_20261122/bien_fixed10_GF_acquisition_20261122.json",
+          "bytes": 10038,
+          "sha256": "896502f1d11343c424dc546560f0b527fff203011a3af1d1732e21e7b34d00de",
+          "git_blob_sha": "f7cf304474158dc55402a90562c8e27361663ff7"
+        },
+        {
+          "path": "docs/replication/neobat/bien_fixed10_20261122/bien_fixed10_GF_diagnostic_20261122.json",
+          "bytes": 181813,
+          "sha256": "009856bc9f6ec80a06bfcc95e1b636b93d7572b9bd02e785de19029d1a8624ba",
+          "git_blob_sha": "5df013a29229f78edb5ab1197cbefb67e71c2245"
+        }
+      ]
+    },
+    "GT": {
+      "job_id": 137047087420,
+      "conclusion": "success",
+      "artifact_id": 14733563134,
+      "artifact_name": "neobat-bien-fixed10-GT-44969865714-1",
+      "artifact_created_at_utc": "2026-11-22T01:25:27Z",
+      "artifact_zip_sha256": "42beb53bbd57a882ce4991232a0aecc8c98c6820b59f9254c2bc1d1e849eda08",
+      "exact_artifact_member_bytes_preserved": true,
+      "files": [
+        {
+          "path": "docs/replication/neobat/bien_fixed10_20261122/bien_fixed10_GT_acquisition_20261122.json",
+          "bytes": 9006,
+          "sha256": "b4600c1b2ce8028dde2df93cee5f8616a19ebd062abf7b5c63cd504ebb7fb17e",
+          "git_blob_sha": "4d903d10697edb8aee3e5be9b5f129b369ca61b3"
+        },
+        {
+          "path": "docs/replication/neobat/bien_fixed10_20261122/bien_fixed10_GT_diagnostic_20261122.json",
+          "bytes": 178347,
+          "sha256": "714d84673ce36abe041e63f8feb9c255ab1e9ace1b979a6341bc759f0bbd6ccc",
+          "git_blob_sha": "c9cb0c0cb0bf437817eff857fb195250c327a21b"
+        }
+      ]
+    },
+    "HN": {
+      "job_id": 137047087345,
+      "conclusion": "success",
+      "artifact_id": 14734445817,
+      "artifact_name": "neobat-bien-fixed10-HN-44969865714-1",
+      "artifact_created_at_utc": "2026-11-22T01:35:14Z",
+      "artifact_zip_sha256": "d5f02415f3a74876f178d916cba0d3d36754257c583b7e05d43c3ebd00797ba6",
+      "exact_artifact_member_bytes_preserved": true,
+      "files": [
+        {
+          "path": "docs/replication/neobat/bien_fixed10_20261122/bien_fixed10_HN_acquisition_20261122.json",
+          "bytes": 9005,
+          "sha256": "634eac2d63ac3aae76cb4217e4dcdf92bcb0641534439f4ef0391ceaa8d5432f",
+          "git_blob_sha": "76634c0066416c2ba6a908a89426534dcaeb959b"
+        },
+        {
+          "path": "docs/replication/neobat/bien_fixed10_20261122/bien_fixed10_HN_diagnostic_20261122.json",
+          "bytes": 178347,
+          "sha256": "7067789a661afe38b62d4403548e700c64c9d8f14ea02701012930843965c4de",
+          "git_blob_sha": "06fb6cd704ec13d14edb1f686670c4bc6daba0b8"
+        }
+      ]
+    },
+    "NI": {
+      "job_id": 137047087219,
+      "conclusion": "success",
+      "artifact_id": 14733299547,
+      "artifact_name": "neobat-bien-fixed10-NI-44969865714-1",
+      "artifact_created_at_utc": "2026-11-22T01:27:43Z",
+      "artifact_zip_sha256": "32973c091be352c0b4424caae990282ca063e3e768b20bcae10c72c2aa817c95",
+      "exact_artifact_member_bytes_preserved": true,
+      "files": [
+        {
+          "path": "docs/replication/neobat/bien_fixed10_20261122/bien_fixed10_NI_acquisition_20261122.json",
+          "bytes": 10081,
+          "sha256": "b8826fa639a3deea7d969fb38fea235130d185a5a871406a8a0692b30f7dfa87",
+          "git_blob_sha": "ac6f0656bfe73b9ab676e702c4fa1645b32d912c"
+        },
+        {
+          "path": "docs/replication/neobat/bien_fixed10_20261122/bien_fixed10_NI_diagnostic_20261122.json",
+          "bytes": 185966,
+          "sha256": "f463b2f58c6e33df4bed527d3086b2290dd95c7fd335f6f7d1c83294be7aa27f",
+          "git_blob_sha": "28cac20fa025afea446e41344ea498bf4fcb0130"
+        }
+      ]
+    },
+    "PE": {
+      "job_id": 137047087376,
+      "conclusion": "success",
+      "artifact_id": 14733149885,
+      "artifact_name": "neobat-bien-fixed10-PE-44969865714-1",
+      "artifact_created_at_utc": "2026-11-22T01:36:14Z",
+      "artifact_zip_sha256": "3bdeb17fc377472c9d1ca11b91f162b78f3f72f6f7120c73f9e6d531e91b193d",
+      "exact_artifact_member_bytes_preserved": true,
+      "files": [
+        {
+          "path": "docs/replication/neobat/bien_fixed10_20261122/bien_fixed10_PE_acquisition_20261122.json",
+          "bytes": 12745,
+          "sha256": "5c83b96a2e0dd6f1803e3ee174b90f346d4c033d1e9f33f38c0d97cd3f05b034",
+          "git_blob_sha": "8153da574a147186fe9569d01bf88be40da3f3db"
+        },
+        {
+          "path": "docs/replication/neobat/bien_fixed10_20261122/bien_fixed10_PE_diagnostic_20261122.json",
+          "bytes": 322051,
+          "sha256": "80b3938cea8ac8c5479cf037ebc6f1140a09673b6dbf620da052cbbd7a2a2d5d",
+          "git_blob_sha": "ac0c8f3a8d6d3dc8fd62fd38fbd5c48bebccb4a3"
+        }
+      ]
+    },
+    "SV": {
+      "job_id": 137047087372,
+      "conclusion": "success",
+      "artifact_id": 14735055293,
+      "artifact_name": "neobat-bien-fixed10-SV-44969865714-1",
+      "artifact_created_at_utc": "2026-11-22T01:51:08Z",
+      "artifact_zip_sha256": "4482562e9e3f89fecca4eaa91557d7ab169bf51e79fec370573550142df2b9d8",
+      "exact_artifact_member_bytes_preserved": true,
+      "files": [
+        {
+          "path": "docs/replication/neobat/bien_fixed10_20261122/bien_fixed10_SV_acquisition_20261122.json",
+          "bytes": 9008,
+          "sha256": "839f700ca36c2a5a1a0ebffbf016b1bb1ad2aefde4b655300ba8087fdc9a6f2b",
+          "git_blob_sha": "7476819c1829e3984c38463f1f326e2959a327bd"
+        },
+        {
+          "path": "docs/replication/neobat/bien_fixed10_20261122/bien_fixed10_SV_diagnostic_20261122.json",
+          "bytes": 178347,
+          "sha256": "4837251aa230cbc698ffc1cc71409784e39b51030e219749e4908bea352c05ce",
+          "git_blob_sha": "9e877fc2a6f92f816acd03311c9ecf84d4447723"
+        }
+      ]
+    }
+  },
+  "prior_CR_PA_reuse": {
+    "workflow_run_id": 44915110088,
+    "execution_commit": "51a5d9cdd23730b5d19f7f69615c0a1efed99ea0",
+    "fitted_taxon_country_pairs": 212,
+    "files": {
+      "bien_external_acquisition_receipt_20261121.json": {
+        "path": "docs/replication/neobat/bien_external_acquisition_receipt_20261121.json",
+        "sha256": "1a1635c23f3100d9794a55eb3f56bf96b5f5285cfffe5e97db114acee9053863",
+        "bytes_unchanged": true
+      },
+      "bien_external_plant_diagnostic_20261121.json": {
+        "path": "docs/replication/neobat/bien_external_plant_diagnostic_20261121.json",
+        "sha256": "fa8342ab203152b8ec347653961612142b19a9e44ca20864904b540e7ed1f788",
+        "bytes_unchanged": true
+      }
+    }
+  },
+  "combined_taxon_country_results_per_mode": 1060,
+  "raw_tables_coordinates_plot_or_cell_ids_individual_predictions_coefficients_published": false
+}
