@@ -1,0 +1,55 @@
+name: NeoBat Yasuní original field seed portfolio once
+on:
+  push:
+    branches: [analysis/neobat-yasuni-seed-portfolio-20261124]
+    paths:
+      - '.github/workflows/neobat-yasuni-original-seed.yml'
+      - 'scripts/neobat_yasuni_seed_portfolio.py'
+      - 'tests/test_neobat_yasuni_seed_portfolio.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  original-yasuni:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify original source, missingness and explicit field-network limits
+        run: |
+          python -m pip install pytest
+          python -m pytest -q tests/test_neobat_yasuni_seed_portfolio.py \
+             tests/test_neobat_cc1_seed_portfolio.py \
+             tests/test_neobat_cc1_size_matched_control.py
+      - name: Open immutable Yasuní field seed counts and taxonomy crosswalk
+        timeout-minutes: 11
+        run: |
+          mkdir -p build/neobat
+          python -m scripts.neobat_yasuni_seed_portfolio \
+            --manifest docs/replication/NEOBAT_INDEPENDENT_PLOT_CROSSWALK_INPUT_20261121.json \
+            --prior-cc1 docs/replication/neobat/cc1_original_seed_portfolio_result_20261124.json \
+            --out build/neobat/yasuni_seed_portfolio_original_result_20261124.json
+      - name: Commit aggregate result only on research branch, with no raw site records
+        if: success()
+        run: |
+          set -euo pipefail
+          cp build/neobat/yasuni_seed_portfolio_original_result_20261124.json \
+             docs/replication/neobat/yasuni_seed_portfolio_original_result_20261124.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/replication/neobat/yasuni_seed_portfolio_original_result_20261124.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'data: preserve field-sourced Yasuní temporal portfolio and matched controls'
+            git push origin HEAD:analysis/neobat-yasuni-seed-portfolio-20261124
+          fi
+      - name: Upload result or source STOP; never archive original 14MB data
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-yasuni-original-seed-portfolio
+          path: build/neobat/yasuni_seed_portfolio_original_result_20261124.json
+          if-no-files-found: warn
+          retention-days: 28
