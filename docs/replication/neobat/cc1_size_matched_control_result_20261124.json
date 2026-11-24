@@ -1,0 +1,421 @@
+{
+  "schema_version": 1,
+  "status": "CC1_POSTHOC_SIZE_MATCHED_CONTROL_COMPLETE",
+  "source": {
+    "original_cc1_github_blob_sha": "dc95badb04365449e9ad5a13e8a37c5a9fc552e9",
+    "original_neobat_github_blob_sha": "71f179a152a262d7a98d7bb4e633cf136bc39f98",
+    "frozen_primary_result": "docs/replication/neobat/cc1_original_seed_portfolio_result_20261124.json"
+  },
+  "sampling": {
+    "matched_frozen_106_plants": 11,
+    "sample_dates": 196,
+    "candidate_bats": 26,
+    "evaluable_candidate_labels": 11,
+    "distinct_candidate_plant_sets": 8,
+    "same_size_source_universe": 11
+  },
+  "baseline_sizes": [
+    {
+      "plant_count": 3,
+      "all_combinations": 165,
+      "baseline_CV_median": 2.493064937976375,
+      "baseline_CV_min": 1.0926700658889834,
+      "baseline_CV_max": 5.008869729332466
+    },
+    {
+      "plant_count": 4,
+      "all_combinations": 330,
+      "baseline_CV_median": 2.375646642037074,
+      "baseline_CV_min": 1.0937412661617534,
+      "baseline_CV_max": 3.9929680611299436
+    },
+    {
+      "plant_count": 5,
+      "all_combinations": 462,
+      "baseline_CV_median": 2.2083698196397434,
+      "baseline_CV_min": 1.0833352870308086,
+      "baseline_CV_max": 3.332216053522436
+    },
+    {
+      "plant_count": 6,
+      "all_combinations": 462,
+      "baseline_CV_median": 2.0783183925706363,
+      "baseline_CV_min": 1.1279647506950707,
+      "baseline_CV_max": 2.8371023916742817
+    },
+    {
+      "plant_count": 9,
+      "all_combinations": 55,
+      "baseline_CV_median": 1.8330327939057125,
+      "baseline_CV_min": 1.380393708117949,
+      "baseline_CV_max": 1.9886734954309278
+    }
+  ],
+  "source_duplicate_partner_set_groups": [
+    {
+      "plants": [
+        "ficus citrifolia",
+        "ficus insipida",
+        "ficus pertusa"
+      ],
+      "bat_labels": [
+        "Artibeus phaeotis",
+        "Chiroderma villosum",
+        "Platyrrhinus helleri"
+      ]
+    },
+    {
+      "plants": [
+        "ficus citrifolia",
+        "ficus insipida",
+        "ficus maxima",
+        "ficus pertusa"
+      ],
+      "bat_labels": [
+        "Uroderma convexum",
+        "Vampyriscus nymphaea"
+      ]
+    }
+  ],
+  "all_candidate_bat_results": [
+    {
+      "bat": "Carollia perspicillata",
+      "plants": [
+        "brosimum alicastrum",
+        "ficus insipida",
+        "ficus maxima",
+        "sapindus saponaria",
+        "spondias mombin"
+      ],
+      "plant_count": 5,
+      "observed_portfolio_CV": 2.0425810059553817,
+      "complete_same_size_combination_count": 462,
+      "baseline_CV_median": 2.2083698196397434,
+      "observed_divided_by_baseline_median": 0.9249270605810909,
+      "baseline_CV_minimum": 1.0833352870308086,
+      "baseline_CV_maximum": 3.332216053522436,
+      "fraction_combinations_with_CV_less_or_equal": 0.38095238095238093,
+      "rank_ties_including_self": 1,
+      "direction": "MORE_STABLE_THAN_SIZE_MATCHED_MEDIAN"
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "plants": [
+        "calophyllum brasiliense",
+        "ficus citrifolia",
+        "ficus insipida",
+        "ficus maxima",
+        "ficus pertusa",
+        "spondias mombin"
+      ],
+      "plant_count": 6,
+      "observed_portfolio_CV": 1.8094124162457628,
+      "complete_same_size_combination_count": 462,
+      "baseline_CV_median": 2.0783183925706363,
+      "observed_divided_by_baseline_median": 0.8706136762845714,
+      "baseline_CV_minimum": 1.1279647506950707,
+      "baseline_CV_maximum": 2.8371023916742817,
+      "fraction_combinations_with_CV_less_or_equal": 0.2748917748917749,
+      "rank_ties_including_self": 1,
+      "direction": "MORE_STABLE_THAN_SIZE_MATCHED_MEDIAN"
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "plants": [
+        "brosimum alicastrum",
+        "calophyllum brasiliense",
+        "clarisia biflora",
+        "ficus citrifolia",
+        "ficus insipida",
+        "ficus maxima",
+        "ficus pertusa",
+        "spondias mombin",
+        "turpinia occidentalis"
+      ],
+      "plant_count": 9,
+      "observed_portfolio_CV": 1.8330327939057125,
+      "complete_same_size_combination_count": 55,
+      "baseline_CV_median": 1.8330327939057125,
+      "observed_divided_by_baseline_median": 1.0,
+      "baseline_CV_minimum": 1.380393708117949,
+      "baseline_CV_maximum": 1.9886734954309278,
+      "fraction_combinations_with_CV_less_or_equal": 0.509090909090909,
+      "rank_ties_including_self": 1,
+      "direction": "EQUAL_TO_SIZE_MATCHED_MEDIAN"
+    },
+    {
+      "bat": "Sturnira lilium",
+      "status": "INELIGIBLE_UNCHANGED",
+      "plants": [
+        "celtis iguanaea"
+      ],
+      "observed_portfolio_CV": null,
+      "fraction_combinations_with_CV_less_or_equal": null
+    },
+    {
+      "bat": "Artibeus planirostris",
+      "plants": [
+        "ficus citrifolia",
+        "ficus maxima",
+        "sapindus saponaria",
+        "spondias mombin"
+      ],
+      "plant_count": 4,
+      "observed_portfolio_CV": 1.8833374775547411,
+      "complete_same_size_combination_count": 330,
+      "baseline_CV_median": 2.375646642037074,
+      "observed_divided_by_baseline_median": 0.7927683537732756,
+      "baseline_CV_minimum": 1.0937412661617534,
+      "baseline_CV_maximum": 3.9929680611299436,
+      "fraction_combinations_with_CV_less_or_equal": 0.20303030303030303,
+      "rank_ties_including_self": 1,
+      "direction": "MORE_STABLE_THAN_SIZE_MATCHED_MEDIAN"
+    },
+    {
+      "bat": "Sturnira giannae",
+      "status": "INELIGIBLE_UNCHANGED",
+      "plants": [],
+      "observed_portfolio_CV": null,
+      "fraction_combinations_with_CV_less_or_equal": null
+    },
+    {
+      "bat": "Carollia brevicauda",
+      "status": "INELIGIBLE_UNCHANGED",
+      "plants": [
+        "ficus insipida",
+        "spondias mombin"
+      ],
+      "observed_portfolio_CV": null,
+      "fraction_combinations_with_CV_less_or_equal": null
+    },
+    {
+      "bat": "Artibeus phaeotis",
+      "plants": [
+        "ficus citrifolia",
+        "ficus insipida",
+        "ficus pertusa"
+      ],
+      "plant_count": 3,
+      "observed_portfolio_CV": 3.0207315590296715,
+      "complete_same_size_combination_count": 165,
+      "baseline_CV_median": 2.493064937976375,
+      "observed_divided_by_baseline_median": 1.211653781261552,
+      "baseline_CV_minimum": 1.0926700658889834,
+      "baseline_CV_maximum": 5.008869729332466,
+      "fraction_combinations_with_CV_less_or_equal": 0.6545454545454545,
+      "rank_ties_including_self": 1,
+      "direction": "LESS_STABLE_THAN_SIZE_MATCHED_MEDIAN"
+    },
+    {
+      "bat": "Sturnira parvidens",
+      "status": "INELIGIBLE_UNCHANGED",
+      "plants": [],
+      "observed_portfolio_CV": null,
+      "fraction_combinations_with_CV_less_or_equal": null
+    },
+    {
+      "bat": "Carollia castanea",
+      "plants": [
+        "brosimum alicastrum",
+        "ficus insipida",
+        "spondias mombin"
+      ],
+      "plant_count": 3,
+      "observed_portfolio_CV": 2.153212708399158,
+      "complete_same_size_combination_count": 165,
+      "baseline_CV_median": 2.493064937976375,
+      "observed_divided_by_baseline_median": 0.8636809557583863,
+      "baseline_CV_minimum": 1.0926700658889834,
+      "baseline_CV_maximum": 5.008869729332466,
+      "fraction_combinations_with_CV_less_or_equal": 0.24242424242424243,
+      "rank_ties_including_self": 1,
+      "direction": "MORE_STABLE_THAN_SIZE_MATCHED_MEDIAN"
+    },
+    {
+      "bat": "Chiroderma villosum",
+      "plants": [
+        "ficus citrifolia",
+        "ficus insipida",
+        "ficus pertusa"
+      ],
+      "plant_count": 3,
+      "observed_portfolio_CV": 3.0207315590296715,
+      "complete_same_size_combination_count": 165,
+      "baseline_CV_median": 2.493064937976375,
+      "observed_divided_by_baseline_median": 1.211653781261552,
+      "baseline_CV_minimum": 1.0926700658889834,
+      "baseline_CV_maximum": 5.008869729332466,
+      "fraction_combinations_with_CV_less_or_equal": 0.6545454545454545,
+      "rank_ties_including_self": 1,
+      "direction": "LESS_STABLE_THAN_SIZE_MATCHED_MEDIAN"
+    },
+    {
+      "bat": "Sturnira tildae",
+      "status": "INELIGIBLE_UNCHANGED",
+      "plants": [],
+      "observed_portfolio_CV": null,
+      "fraction_combinations_with_CV_less_or_equal": null
+    },
+    {
+      "bat": "Artibeus obscurus",
+      "status": "INELIGIBLE_UNCHANGED",
+      "plants": [],
+      "observed_portfolio_CV": null,
+      "fraction_combinations_with_CV_less_or_equal": null
+    },
+    {
+      "bat": "Platyrrhinus helleri",
+      "plants": [
+        "ficus citrifolia",
+        "ficus insipida",
+        "ficus pertusa"
+      ],
+      "plant_count": 3,
+      "observed_portfolio_CV": 3.0207315590296715,
+      "complete_same_size_combination_count": 165,
+      "baseline_CV_median": 2.493064937976375,
+      "observed_divided_by_baseline_median": 1.211653781261552,
+      "baseline_CV_minimum": 1.0926700658889834,
+      "baseline_CV_maximum": 5.008869729332466,
+      "fraction_combinations_with_CV_less_or_equal": 0.6545454545454545,
+      "rank_ties_including_self": 1,
+      "direction": "LESS_STABLE_THAN_SIZE_MATCHED_MEDIAN"
+    },
+    {
+      "bat": "Vampyressa thyone",
+      "status": "INELIGIBLE_UNCHANGED",
+      "plants": [
+        "ficus citrifolia",
+        "ficus pertusa"
+      ],
+      "observed_portfolio_CV": null,
+      "fraction_combinations_with_CV_less_or_equal": null
+    },
+    {
+      "bat": "Rhinophylla pumilio",
+      "status": "INELIGIBLE_UNCHANGED",
+      "plants": [],
+      "observed_portfolio_CV": null,
+      "fraction_combinations_with_CV_less_or_equal": null
+    },
+    {
+      "bat": "Uroderma bilobatum",
+      "status": "INELIGIBLE_UNCHANGED",
+      "plants": [
+        "ficus maxima"
+      ],
+      "observed_portfolio_CV": null,
+      "fraction_combinations_with_CV_less_or_equal": null
+    },
+    {
+      "bat": "Platyrrhinus lineatus",
+      "status": "INELIGIBLE_UNCHANGED",
+      "plants": [],
+      "observed_portfolio_CV": null,
+      "fraction_combinations_with_CV_less_or_equal": null
+    },
+    {
+      "bat": "Uroderma convexum",
+      "plants": [
+        "ficus citrifolia",
+        "ficus insipida",
+        "ficus maxima",
+        "ficus pertusa"
+      ],
+      "plant_count": 4,
+      "observed_portfolio_CV": 2.440077248990407,
+      "complete_same_size_combination_count": 330,
+      "baseline_CV_median": 2.375646642037074,
+      "observed_divided_by_baseline_median": 1.0271212922886903,
+      "baseline_CV_minimum": 1.0937412661617534,
+      "baseline_CV_maximum": 3.9929680611299436,
+      "fraction_combinations_with_CV_less_or_equal": 0.5242424242424243,
+      "rank_ties_including_self": 1,
+      "direction": "LESS_STABLE_THAN_SIZE_MATCHED_MEDIAN"
+    },
+    {
+      "bat": "Vampyriscus nymphaea",
+      "plants": [
+        "ficus citrifolia",
+        "ficus insipida",
+        "ficus maxima",
+        "ficus pertusa"
+      ],
+      "plant_count": 4,
+      "observed_portfolio_CV": 2.440077248990407,
+      "complete_same_size_combination_count": 330,
+      "baseline_CV_median": 2.375646642037074,
+      "observed_divided_by_baseline_median": 1.0271212922886903,
+      "baseline_CV_minimum": 1.0937412661617534,
+      "baseline_CV_maximum": 3.9929680611299436,
+      "fraction_combinations_with_CV_less_or_equal": 0.5242424242424243,
+      "rank_ties_including_self": 1,
+      "direction": "LESS_STABLE_THAN_SIZE_MATCHED_MEDIAN"
+    },
+    {
+      "bat": "Artibeus toltecus",
+      "status": "INELIGIBLE_UNCHANGED",
+      "plants": [
+        "brosimum alicastrum"
+      ],
+      "observed_portfolio_CV": null,
+      "fraction_combinations_with_CV_less_or_equal": null
+    },
+    {
+      "bat": "Artibeus watsoni",
+      "plants": [
+        "brosimum alicastrum",
+        "ficus citrifolia",
+        "ficus insipida",
+        "ficus pertusa"
+      ],
+      "plant_count": 4,
+      "observed_portfolio_CV": 2.300480511902765,
+      "complete_same_size_combination_count": 330,
+      "baseline_CV_median": 2.375646642037074,
+      "observed_divided_by_baseline_median": 0.9683597178114607,
+      "baseline_CV_minimum": 1.0937412661617534,
+      "baseline_CV_maximum": 3.9929680611299436,
+      "fraction_combinations_with_CV_less_or_equal": 0.45454545454545453,
+      "rank_ties_including_self": 1,
+      "direction": "MORE_STABLE_THAN_SIZE_MATCHED_MEDIAN"
+    },
+    {
+      "bat": "Artibeus concolor",
+      "status": "INELIGIBLE_UNCHANGED",
+      "plants": [],
+      "observed_portfolio_CV": null,
+      "fraction_combinations_with_CV_less_or_equal": null
+    },
+    {
+      "bat": "Sturnira ludovici",
+      "status": "INELIGIBLE_UNCHANGED",
+      "plants": [],
+      "observed_portfolio_CV": null,
+      "fraction_combinations_with_CV_less_or_equal": null
+    },
+    {
+      "bat": "Artibeus gnomus",
+      "status": "INELIGIBLE_UNCHANGED",
+      "plants": [],
+      "observed_portfolio_CV": null,
+      "fraction_combinations_with_CV_less_or_equal": null
+    },
+    {
+      "bat": "Artibeus cinereus",
+      "status": "INELIGIBLE_UNCHANGED",
+      "plants": [],
+      "observed_portfolio_CV": null,
+      "fraction_combinations_with_CV_less_or_equal": null
+    }
+  ],
+  "limits": {
+    "posthoc_exploratory_only": true,
+    "inclusive_rank_is_not_p_value": true,
+    "source_bat_plant_links_not_locally_verified": true,
+    "plant_portfolios_share_species_and_seasonal_cycles": true,
+    "seed_trap_counts_are_not_ripe_fruit_food_supply": true,
+    "no_bat_activity_or_M3_prediction_evaluated": true,
+    "no_independence_across_candidate_bats": true
+  }
+}

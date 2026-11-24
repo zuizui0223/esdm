@@ -1,0 +1,414 @@
+{
+  "schema_version": 1,
+  "status": "CC1_ORIGINAL_PUBLISHED_SEED_TIME_SERIES_DIAGNOSTIC",
+  "source": {
+    "site": "Cocha Cashu, Peru",
+    "paper_doi": "10.1002/ecy.4022",
+    "source_github_commit": "521b118b75af4d1bb2b7feadb28b077a09301eab",
+    "source_file": "treephenecology_2023/DryadData/CC1_ALL_FINAL.csv",
+    "source_blob_sha": "dc95badb04365449e9ad5a13e8a37c5a9fc552e9",
+    "link_source_github_commit": "d25292d19be32a85a21c60384a3f2d818e8081de",
+    "link_file_sha256": "723198f850aa4ee7346122e71a3dd3eadaca176a65bfb87dc2a90f55f2acf10b",
+    "link_file_blob_sha": "71f179a152a262d7a98d7bb4e633cf136bc39f98",
+    "original_106_roster_sha256": "41c9fc0128df6d0f3753edf4b82f6b5b36c6975c8d7c644bae4e4fd3e5bdaac6"
+  },
+  "sampling": {
+    "observation_events": 196,
+    "earliest": "2002-09-09",
+    "latest": "2011-01-21",
+    "published_species_columns": 654,
+    "fixed106_exact_matched_species": 11,
+    "fixed106_matched_names": [
+      "brosimum alicastrum",
+      "calophyllum brasiliense",
+      "celtis iguanaea",
+      "clarisia biflora",
+      "ficus citrifolia",
+      "ficus insipida",
+      "ficus maxima",
+      "ficus pertusa",
+      "sapindus saponaria",
+      "spondias mombin",
+      "turpinia occidentalis"
+    ],
+    "matched_numeric_cells": 2156,
+    "matched_positive_cells": 324,
+    "matched_zero_cells": 1832,
+    "matched_missing_cells": 0,
+    "original_neo_fruit_records_to_fixed106": 576
+  },
+  "portfolios": {
+    "candidate_bat_denominator": 26,
+    "evaluable": 11,
+    "more_synchronous": 10,
+    "more_compensatory": 1,
+    "per_candidate_bat": [
+      {
+        "bat": "Carollia perspicillata",
+        "source_linked_CC1_plants": 5,
+        "plant_names": [
+          "brosimum alicastrum",
+          "ficus insipida",
+          "ficus maxima",
+          "sapindus saponaria",
+          "spondias mombin"
+        ],
+        "shared_dates": 196,
+        "eligible": true,
+        "observed_CV": 2.0425810059553817,
+        "shift_null_median_CV": 1.880440759083146,
+        "CV_ratio": 1.086224597126522,
+        "status": "MORE_SYNCHRONOUS_THAN_SHIFT_MEDIAN"
+      },
+      {
+        "bat": "Artibeus lituratus",
+        "source_linked_CC1_plants": 6,
+        "plant_names": [
+          "calophyllum brasiliense",
+          "ficus citrifolia",
+          "ficus insipida",
+          "ficus maxima",
+          "ficus pertusa",
+          "spondias mombin"
+        ],
+        "shared_dates": 196,
+        "eligible": true,
+        "observed_CV": 1.8094124162457628,
+        "shift_null_median_CV": 1.5997681543884954,
+        "CV_ratio": 1.1310466527803855,
+        "status": "MORE_SYNCHRONOUS_THAN_SHIFT_MEDIAN"
+      },
+      {
+        "bat": "Artibeus jamaicensis",
+        "source_linked_CC1_plants": 9,
+        "plant_names": [
+          "brosimum alicastrum",
+          "calophyllum brasiliense",
+          "clarisia biflora",
+          "ficus citrifolia",
+          "ficus insipida",
+          "ficus maxima",
+          "ficus pertusa",
+          "spondias mombin",
+          "turpinia occidentalis"
+        ],
+        "shared_dates": 196,
+        "eligible": true,
+        "observed_CV": 1.8330327939057125,
+        "shift_null_median_CV": 1.6008906441736477,
+        "CV_ratio": 1.1450081244318175,
+        "status": "MORE_SYNCHRONOUS_THAN_SHIFT_MEDIAN"
+      },
+      {
+        "bat": "Sturnira lilium",
+        "source_linked_CC1_plants": 1,
+        "plant_names": [
+          "celtis iguanaea"
+        ],
+        "shared_dates": 196,
+        "eligible": false,
+        "observed_CV": null,
+        "shift_null_median_CV": null,
+        "CV_ratio": null,
+        "status": "INSUFFICIENT_PLANTS_OR_SHARED_DATES"
+      },
+      {
+        "bat": "Artibeus planirostris",
+        "source_linked_CC1_plants": 4,
+        "plant_names": [
+          "ficus citrifolia",
+          "ficus maxima",
+          "sapindus saponaria",
+          "spondias mombin"
+        ],
+        "shared_dates": 196,
+        "eligible": true,
+        "observed_CV": 1.8833374775547411,
+        "shift_null_median_CV": 1.8513008051127575,
+        "CV_ratio": 1.017304952470991,
+        "status": "MORE_SYNCHRONOUS_THAN_SHIFT_MEDIAN"
+      },
+      {
+        "bat": "Sturnira giannae",
+        "source_linked_CC1_plants": 0,
+        "plant_names": [],
+        "shared_dates": 0,
+        "eligible": false,
+        "observed_CV": null,
+        "shift_null_median_CV": null,
+        "CV_ratio": null,
+        "status": "INSUFFICIENT_PLANTS_OR_SHARED_DATES"
+      },
+      {
+        "bat": "Carollia brevicauda",
+        "source_linked_CC1_plants": 2,
+        "plant_names": [
+          "ficus insipida",
+          "spondias mombin"
+        ],
+        "shared_dates": 196,
+        "eligible": false,
+        "observed_CV": null,
+        "shift_null_median_CV": null,
+        "CV_ratio": null,
+        "status": "INSUFFICIENT_PLANTS_OR_SHARED_DATES"
+      },
+      {
+        "bat": "Artibeus phaeotis",
+        "source_linked_CC1_plants": 3,
+        "plant_names": [
+          "ficus citrifolia",
+          "ficus insipida",
+          "ficus pertusa"
+        ],
+        "shared_dates": 196,
+        "eligible": true,
+        "observed_CV": 3.0207315590296715,
+        "shift_null_median_CV": 2.837283626869391,
+        "CV_ratio": 1.0646561839722362,
+        "status": "MORE_SYNCHRONOUS_THAN_SHIFT_MEDIAN"
+      },
+      {
+        "bat": "Sturnira parvidens",
+        "source_linked_CC1_plants": 0,
+        "plant_names": [],
+        "shared_dates": 0,
+        "eligible": false,
+        "observed_CV": null,
+        "shift_null_median_CV": null,
+        "CV_ratio": null,
+        "status": "INSUFFICIENT_PLANTS_OR_SHARED_DATES"
+      },
+      {
+        "bat": "Carollia castanea",
+        "source_linked_CC1_plants": 3,
+        "plant_names": [
+          "brosimum alicastrum",
+          "ficus insipida",
+          "spondias mombin"
+        ],
+        "shared_dates": 196,
+        "eligible": true,
+        "observed_CV": 2.153212708399158,
+        "shift_null_median_CV": 2.1772806077807987,
+        "CV_ratio": 0.9889458899805422,
+        "status": "MORE_COMPENSATORY_THAN_SHIFT_MEDIAN"
+      },
+      {
+        "bat": "Chiroderma villosum",
+        "source_linked_CC1_plants": 3,
+        "plant_names": [
+          "ficus citrifolia",
+          "ficus insipida",
+          "ficus pertusa"
+        ],
+        "shared_dates": 196,
+        "eligible": true,
+        "observed_CV": 3.0207315590296715,
+        "shift_null_median_CV": 2.837283626869391,
+        "CV_ratio": 1.0646561839722362,
+        "status": "MORE_SYNCHRONOUS_THAN_SHIFT_MEDIAN"
+      },
+      {
+        "bat": "Sturnira tildae",
+        "source_linked_CC1_plants": 0,
+        "plant_names": [],
+        "shared_dates": 0,
+        "eligible": false,
+        "observed_CV": null,
+        "shift_null_median_CV": null,
+        "CV_ratio": null,
+        "status": "INSUFFICIENT_PLANTS_OR_SHARED_DATES"
+      },
+      {
+        "bat": "Artibeus obscurus",
+        "source_linked_CC1_plants": 0,
+        "plant_names": [],
+        "shared_dates": 0,
+        "eligible": false,
+        "observed_CV": null,
+        "shift_null_median_CV": null,
+        "CV_ratio": null,
+        "status": "INSUFFICIENT_PLANTS_OR_SHARED_DATES"
+      },
+      {
+        "bat": "Platyrrhinus helleri",
+        "source_linked_CC1_plants": 3,
+        "plant_names": [
+          "ficus citrifolia",
+          "ficus insipida",
+          "ficus pertusa"
+        ],
+        "shared_dates": 196,
+        "eligible": true,
+        "observed_CV": 3.0207315590296715,
+        "shift_null_median_CV": 2.837283626869391,
+        "CV_ratio": 1.0646561839722362,
+        "status": "MORE_SYNCHRONOUS_THAN_SHIFT_MEDIAN"
+      },
+      {
+        "bat": "Vampyressa thyone",
+        "source_linked_CC1_plants": 2,
+        "plant_names": [
+          "ficus citrifolia",
+          "ficus pertusa"
+        ],
+        "shared_dates": 196,
+        "eligible": false,
+        "observed_CV": null,
+        "shift_null_median_CV": null,
+        "CV_ratio": null,
+        "status": "INSUFFICIENT_PLANTS_OR_SHARED_DATES"
+      },
+      {
+        "bat": "Rhinophylla pumilio",
+        "source_linked_CC1_plants": 0,
+        "plant_names": [],
+        "shared_dates": 0,
+        "eligible": false,
+        "observed_CV": null,
+        "shift_null_median_CV": null,
+        "CV_ratio": null,
+        "status": "INSUFFICIENT_PLANTS_OR_SHARED_DATES"
+      },
+      {
+        "bat": "Uroderma bilobatum",
+        "source_linked_CC1_plants": 1,
+        "plant_names": [
+          "ficus maxima"
+        ],
+        "shared_dates": 196,
+        "eligible": false,
+        "observed_CV": null,
+        "shift_null_median_CV": null,
+        "CV_ratio": null,
+        "status": "INSUFFICIENT_PLANTS_OR_SHARED_DATES"
+      },
+      {
+        "bat": "Platyrrhinus lineatus",
+        "source_linked_CC1_plants": 0,
+        "plant_names": [],
+        "shared_dates": 0,
+        "eligible": false,
+        "observed_CV": null,
+        "shift_null_median_CV": null,
+        "CV_ratio": null,
+        "status": "INSUFFICIENT_PLANTS_OR_SHARED_DATES"
+      },
+      {
+        "bat": "Uroderma convexum",
+        "source_linked_CC1_plants": 4,
+        "plant_names": [
+          "ficus citrifolia",
+          "ficus insipida",
+          "ficus maxima",
+          "ficus pertusa"
+        ],
+        "shared_dates": 196,
+        "eligible": true,
+        "observed_CV": 2.440077248990407,
+        "shift_null_median_CV": 2.2164768316253385,
+        "CV_ratio": 1.1008810081723719,
+        "status": "MORE_SYNCHRONOUS_THAN_SHIFT_MEDIAN"
+      },
+      {
+        "bat": "Vampyriscus nymphaea",
+        "source_linked_CC1_plants": 4,
+        "plant_names": [
+          "ficus citrifolia",
+          "ficus insipida",
+          "ficus maxima",
+          "ficus pertusa"
+        ],
+        "shared_dates": 196,
+        "eligible": true,
+        "observed_CV": 2.440077248990407,
+        "shift_null_median_CV": 2.2164768316253385,
+        "CV_ratio": 1.1008810081723719,
+        "status": "MORE_SYNCHRONOUS_THAN_SHIFT_MEDIAN"
+      },
+      {
+        "bat": "Artibeus toltecus",
+        "source_linked_CC1_plants": 1,
+        "plant_names": [
+          "brosimum alicastrum"
+        ],
+        "shared_dates": 196,
+        "eligible": false,
+        "observed_CV": null,
+        "shift_null_median_CV": null,
+        "CV_ratio": null,
+        "status": "INSUFFICIENT_PLANTS_OR_SHARED_DATES"
+      },
+      {
+        "bat": "Artibeus watsoni",
+        "source_linked_CC1_plants": 4,
+        "plant_names": [
+          "brosimum alicastrum",
+          "ficus citrifolia",
+          "ficus insipida",
+          "ficus pertusa"
+        ],
+        "shared_dates": 196,
+        "eligible": true,
+        "observed_CV": 2.300480511902765,
+        "shift_null_median_CV": 2.2052348326450852,
+        "CV_ratio": 1.0431907195767611,
+        "status": "MORE_SYNCHRONOUS_THAN_SHIFT_MEDIAN"
+      },
+      {
+        "bat": "Artibeus concolor",
+        "source_linked_CC1_plants": 0,
+        "plant_names": [],
+        "shared_dates": 0,
+        "eligible": false,
+        "observed_CV": null,
+        "shift_null_median_CV": null,
+        "CV_ratio": null,
+        "status": "INSUFFICIENT_PLANTS_OR_SHARED_DATES"
+      },
+      {
+        "bat": "Sturnira ludovici",
+        "source_linked_CC1_plants": 0,
+        "plant_names": [],
+        "shared_dates": 0,
+        "eligible": false,
+        "observed_CV": null,
+        "shift_null_median_CV": null,
+        "CV_ratio": null,
+        "status": "INSUFFICIENT_PLANTS_OR_SHARED_DATES"
+      },
+      {
+        "bat": "Artibeus gnomus",
+        "source_linked_CC1_plants": 0,
+        "plant_names": [],
+        "shared_dates": 0,
+        "eligible": false,
+        "observed_CV": null,
+        "shift_null_median_CV": null,
+        "CV_ratio": null,
+        "status": "INSUFFICIENT_PLANTS_OR_SHARED_DATES"
+      },
+      {
+        "bat": "Artibeus cinereus",
+        "source_linked_CC1_plants": 0,
+        "plant_names": [],
+        "shared_dates": 0,
+        "eligible": false,
+        "observed_CV": null,
+        "shift_null_median_CV": null,
+        "CV_ratio": null,
+        "status": "INSUFFICIENT_PLANTS_OR_SHARED_DATES"
+      }
+    ]
+  },
+  "limits": {
+    "single_peru_site_only": true,
+    "global_neo_links_are_not_locally_verified_CC1_bat_diet": true,
+    "seed_counts_are_not_edible_ripe_fruit_mass": true,
+    "shared_species_make_bat_profiles_dependent": true,
+    "circular_shift_null_does_not_control_shared_seasonality": true,
+    "not_m3_or_bat_predictive_performance": true,
+    "not_formal_p_value_test": true
+  }
+}
