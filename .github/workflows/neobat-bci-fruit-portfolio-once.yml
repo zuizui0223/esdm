@@ -1,0 +1,36 @@
+name: NeoBat BCI original annual seed output one-shot
+on:
+  push:
+    branches: [analysis/neobat-bci-fruit-portfolio-20261124]
+    paths: ['.github/workflows/neobat-bci-fruit-portfolio-once.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  original-seed-portfolio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate source and portfolio implementation
+        run: |
+          python -m pip install pytest
+          python -m pytest -q tests/test_neobat_bci_fruit_portfolio.py
+      - name: Fetch Dryad original 201-species fruit drop CSV and frozen NeoBat links
+        timeout-minutes: 10
+        run: |
+          mkdir -p build/neobat
+          python -m scripts.neobat_bci_fruit_portfolio \
+            --manifest docs/replication/NEOBAT_INDEPENDENT_PLOT_CROSSWALK_INPUT_20261121.json \
+            --output build/neobat/bci_fruit_portfolio_receipt.json
+      - name: Archive summary only; keep original records ephemeral
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-bci-fruit-portfolio-source-and-result
+          path: build/neobat/bci_fruit_portfolio_receipt.json
+          if-no-files-found: warn
+          retention-days: 21
