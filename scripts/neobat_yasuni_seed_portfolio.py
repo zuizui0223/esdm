@@ -88,13 +88,13 @@ def parse_yasuni(yas_bytes, code_to_name):
                 "YASUNI_INVALID_OR_OUT_OF_SCOPE_TIME")
         code = (row["variable"] or "").strip()
         require(code, "YASUNI_EMPTY_SOURCE_TAXON_CODE")
-        all_times.add(raw_time)
+        all_times.add(value_t)
         all_codes.add(code)
         if code not in code_to_name:
             continue
         matched_codes.add(code)
         name = code_to_name[code]
-        key = (name, raw_time)
+        key = (name, value_t)
         require(key not in observed, "YASUNI_DUPLICATE_MATCHED_CODE_TIMEPOINT")
         raw_value = row["value"]
         if raw_value is None or raw_value.strip() in ("", "NA", "NaN", "NULL"):
@@ -110,7 +110,7 @@ def parse_yasuni(yas_bytes, code_to_name):
     matched = sorted(code_to_name[code] for code in matched_codes)
     series = {}
     # Missing rows are missing, NEVER zero: unlike a wide observed-zero entry.
-    for time in sorted(all_times, key=lambda t: float(t)):
+    for time in sorted(all_times):
         series[time] = {name: observed.get((name, time)) for name in matched}
     return {"rows": series, "matched": matched, "source_records": rows,
             "timepoints": len(all_times), "source_taxon_codes": len(all_codes),
@@ -121,7 +121,7 @@ def parse_yasuni(yas_bytes, code_to_name):
             "matched_omitted_code_timepoints":
                 len(all_times) * len(matched) - len(observed),
             "time_range_fractional_study_years": [
-                min(float(x) for x in all_times), max(float(x) for x in all_times)]}
+                min(all_times), max(all_times)]}
 
 
 def control_for_candidate_sets(pool, result, sample):
