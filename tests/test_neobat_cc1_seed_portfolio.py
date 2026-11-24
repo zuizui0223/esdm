@@ -15,7 +15,7 @@ def test_author_original_candidate_scope_is_26():
 
 def test_exact_binomial_and_measured_zeros_not_missing():
     csv_bytes = (
-        b'",Group.1,ficus_insipida,ficus_sp.,piper_arboreum,Day_Length,Day_Year,Day_Year_Y\n'
+        b'"",Group.1,ficus_insipida,ficus_sp.,piper_arboreum,Day_Length,Day_Year,Day_Year_Y\n'
         b'1,2002-01-01,0,100,3,0,1,0\n'
         b'2,2002-01-15,4,0,0,0,15,0\n'
     )
@@ -29,7 +29,7 @@ def test_exact_binomial_and_measured_zeros_not_missing():
 
 def test_duplicate_date_is_refused():
     raw = (
-        b'",Group.1,ficus_insipida,Day_Length,Day_Year,Day_Year_Y\n'
+        b'"",Group.1,ficus_insipida,Day_Length,Day_Year,Day_Year_Y\n'
         b'1,2002-01-01,0,0,0,0\n'
         b'2,2002-01-01,1,0,0,0\n'
     )
@@ -39,7 +39,7 @@ def test_duplicate_date_is_refused():
 
 def test_unknown_count_is_missing_not_zero():
     raw = (
-        b'",Group.1,ficus_insipida,Day_Length,Day_Year,Day_Year_Y\n'
+        b'"",Group.1,ficus_insipida,Day_Length,Day_Year,Day_Year_Y\n'
         b'1,2002-01-01,NA,0,0,0\n'
         b'2,2002-01-15,0,0,0,0\n'
     )
