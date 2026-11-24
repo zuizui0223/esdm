@@ -40,9 +40,17 @@ def require(value, msg):
         raise ValueError(msg)
 
 
+def decode_author_csv(content):
+    """Preserve immutable raw bytes; Latin-1 fallback for source annotations."""
+    try:
+        return content.decode("utf-8-sig")
+    except UnicodeDecodeError:
+        return content.decode("latin-1")
+
+
 def link_names_to_author_codes(taxon_bytes, fixed_106):
     require(git_blob_sha(taxon_bytes) == TAXON_BLOB, "AUTHOR_TAXON_GIT_BLOB_MISMATCH")
-    reader = csv.DictReader(io.StringIO(taxon_bytes.decode("utf-8-sig")))
+    reader = csv.DictReader(io.StringIO(decode_author_csv(taxon_bytes)))
     need = {"CODIGO", "Taxon.NombreActual"}
     require(reader.fieldnames is not None and need <= set(reader.fieldnames),
             "TAXON_BRIDGE_REQUIRED_COLUMNS_MISSING")
@@ -68,7 +76,7 @@ def parse_yasuni(yas_bytes, code_to_name):
     """Stream long source table; preserve source numeric zeros versus missing."""
     require(git_blob_sha(yas_bytes) == YAS_BLOB, "YASUNI_SOURCE_GIT_BLOB_MISMATCH")
     require(len(yas_bytes) == YAS_BYTES, "YASUNI_SOURCE_BYTE_SIZE_CHANGED")
-    reader = csv.DictReader(io.StringIO(yas_bytes.decode("utf-8-sig")))
+    reader = csv.DictReader(io.StringIO(decode_author_csv(yas_bytes)))
     require(reader.fieldnames is not None and
             {"Day_Year_Y", "variable", "value"} <= set(reader.fieldnames),
             "YASUNI_LONG_SOURCE_REQUIRED_COLUMNS_MISSING")
