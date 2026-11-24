@@ -110,3 +110,13 @@ def test_incomplete_baseline_does_not_promote_rank():
     assert out["baseline_by_size"][0]["complete_baseline"] is False
     assert out["all_candidate_bats"][0]["same_size_CV_ratio"] is None
     assert out["all_candidate_bats"][0]["status"] == "INCOMPLETE_BASELINE_DO_NOT_INFER"
+
+
+def test_original_latin1_author_annotations_not_replace_bytes(monkeypatch):
+    # 0xA1 is a valid original Latin-1 byte but not UTF-8; preserve the blob.
+    raw = (b'CODIGO,Taxon.NombreActual,Notes\n'
+           b'CECRFI,Cecropia ficifolia,\xa1\n')
+    monkeypatch.setattr(y, "TAXON_BLOB", y.git_blob_sha(raw))
+    out = y.link_names_to_author_codes(raw, {"cecropia ficifolia"})
+    assert out == {"CECRFI": "cecropia ficifolia"}
+    assert y.decode_author_csv(raw).endswith("\xa1\n")
