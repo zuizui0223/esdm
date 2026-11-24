@@ -4,6 +4,8 @@ on:
     branches: [analysis/neobat-cc1-seed-portfolio-20261124]
     paths:
       - '.github/workflows/neobat-cc1-original-seed-portfolio.yml'
+      - 'scripts/neobat_cc1_seed_portfolio.py'
+      - 'tests/test_neobat_cc1_seed_portfolio.py'
   workflow_dispatch:
 permissions:
   contents: read
