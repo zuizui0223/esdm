@@ -1,0 +1,663 @@
+{
+  "schema_version": 1,
+  "status": "TWO_SITE_POSTHOC_DESCRIPTIVE_RECONCILIATION_NOT_BAT_VALIDATION",
+  "frozen_106_taxon_roster_sha256": "41c9fc0128df6d0f3753edf4b82f6b5b36c6975c8d7c644bae4e4fd3e5bdaac6",
+  "original_bat_candidate_denominator": 26,
+  "site_evidence": {
+    "CC1": {
+      "source_receipt": "docs/replication/neobat/cc1_original_seed_portfolio_result_20261124.json",
+      "source_receipt_git_blob": "b10b3d0bc0cff60b1c51d8e2612f5e715a02d890",
+      "control_receipt_git_blob": "aa5ea5c2b5eb99916a01ffc4be3a0c82f2929070",
+      "rows": 196,
+      "matched_taxa": 11,
+      "evaluable_bat_labels": 11,
+      "distinct_source_plant_sets": 8
+    },
+    "YASUNI": {
+      "source_receipt": "docs/replication/neobat/yasuni_seed_portfolio_original_result_20261124.json",
+      "source_receipt_git_blob": "2f6520607ee6566a9a50aa80032805e9e8d2261c",
+      "rows": 283,
+      "matched_taxa": 10,
+      "evaluable_bat_labels": 6,
+      "distinct_source_plant_sets": 6
+    }
+  },
+  "both_sites_evaluable_count": 4,
+  "both_sites_evaluable_candidate_names": [
+    "Carollia perspicillata",
+    "Artibeus lituratus",
+    "Artibeus jamaicensis",
+    "Artibeus planirostris"
+  ],
+  "both_site_identical_source_plant_sets": 0,
+  "shared_exact_plant_taxa": [
+    "celtis iguanaea",
+    "spondias mombin",
+    "turpinia occidentalis"
+  ],
+  "all_candidate_bats": [
+    {
+      "bat": "Carollia perspicillata",
+      "CC1": {
+        "eligible": true,
+        "source_linked_plants": 5,
+        "plant_names": [
+          "brosimum alicastrum",
+          "ficus insipida",
+          "ficus maxima",
+          "sapindus saponaria",
+          "spondias mombin"
+        ],
+        "observed_cv_over_shift_null": 1.086224597126522,
+        "size_matched_cv_over_median": 0.9249270605810909,
+        "size_matched_inclusive_rank_fraction": 0.38095238095238093
+      },
+      "YASUNI": {
+        "eligible": true,
+        "source_linked_plants": 7,
+        "plant_names": [
+          "cecropia ficifolia",
+          "cecropia membranacea",
+          "cecropia sciadophylla",
+          "licania arborea",
+          "spondias mombin",
+          "vismia baccifera",
+          "vismia macrophylla"
+        ],
+        "observed_cv_over_shift_null": 1.022804002507447,
+        "size_matched_cv_over_median": 1.0004329144750526,
+        "size_matched_inclusive_rank_fraction": 0.5083333333333333
+      }
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "CC1": {
+        "eligible": true,
+        "source_linked_plants": 6,
+        "plant_names": [
+          "calophyllum brasiliense",
+          "ficus citrifolia",
+          "ficus insipida",
+          "ficus maxima",
+          "ficus pertusa",
+          "spondias mombin"
+        ],
+        "observed_cv_over_shift_null": 1.1310466527803855,
+        "size_matched_cv_over_median": 0.8706136762845714,
+        "size_matched_inclusive_rank_fraction": 0.2748917748917749
+      },
+      "YASUNI": {
+        "eligible": true,
+        "source_linked_plants": 5,
+        "plant_names": [
+          "cecropia ficifolia",
+          "cecropia membranacea",
+          "spondias mombin",
+          "vismia baccifera",
+          "vismia macrophylla"
+        ],
+        "observed_cv_over_shift_null": 1.047811566191646,
+        "size_matched_cv_over_median": 0.8415636629771196,
+        "size_matched_inclusive_rank_fraction": 0.30952380952380953
+      }
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "CC1": {
+        "eligible": true,
+        "source_linked_plants": 9,
+        "plant_names": [
+          "brosimum alicastrum",
+          "calophyllum brasiliense",
+          "clarisia biflora",
+          "ficus citrifolia",
+          "ficus insipida",
+          "ficus maxima",
+          "ficus pertusa",
+          "spondias mombin",
+          "turpinia occidentalis"
+        ],
+        "observed_cv_over_shift_null": 1.1450081244318175,
+        "size_matched_cv_over_median": 1,
+        "size_matched_inclusive_rank_fraction": 0.509090909090909
+      },
+      "YASUNI": {
+        "eligible": true,
+        "source_linked_plants": 3,
+        "plant_names": [
+          "spondias mombin",
+          "turpinia occidentalis",
+          "vismia baccifera"
+        ],
+        "observed_cv_over_shift_null": 1.1651794910249702,
+        "size_matched_cv_over_median": 0.8207948464399059,
+        "size_matched_inclusive_rank_fraction": 0.35833333333333334
+      }
+    },
+    {
+      "bat": "Sturnira lilium",
+      "CC1": {
+        "eligible": false,
+        "source_linked_plants": 1,
+        "plant_names": [
+          "celtis iguanaea"
+        ],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      },
+      "YASUNI": {
+        "eligible": false,
+        "source_linked_plants": 1,
+        "plant_names": [
+          "celtis iguanaea"
+        ],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      }
+    },
+    {
+      "bat": "Artibeus planirostris",
+      "CC1": {
+        "eligible": true,
+        "source_linked_plants": 4,
+        "plant_names": [
+          "ficus citrifolia",
+          "ficus maxima",
+          "sapindus saponaria",
+          "spondias mombin"
+        ],
+        "observed_cv_over_shift_null": 1.017304952470991,
+        "size_matched_cv_over_median": 0.7927683537732756,
+        "size_matched_inclusive_rank_fraction": 0.20303030303030303
+      },
+      "YASUNI": {
+        "eligible": true,
+        "source_linked_plants": 5,
+        "plant_names": [
+          "cecropia ficifolia",
+          "cecropia sciadophylla",
+          "socratea exorrhiza",
+          "spondias mombin",
+          "vismia macrophylla"
+        ],
+        "observed_cv_over_shift_null": 0.985758719768736,
+        "size_matched_cv_over_median": 0.8121409402975672,
+        "size_matched_inclusive_rank_fraction": 0.25
+      }
+    },
+    {
+      "bat": "Sturnira giannae",
+      "CC1": {
+        "eligible": false,
+        "source_linked_plants": 0,
+        "plant_names": [],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      },
+      "YASUNI": {
+        "eligible": false,
+        "source_linked_plants": 2,
+        "plant_names": [
+          "cecropia ficifolia",
+          "vismia macrophylla"
+        ],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      }
+    },
+    {
+      "bat": "Carollia brevicauda",
+      "CC1": {
+        "eligible": false,
+        "source_linked_plants": 2,
+        "plant_names": [
+          "ficus insipida",
+          "spondias mombin"
+        ],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      },
+      "YASUNI": {
+        "eligible": true,
+        "source_linked_plants": 4,
+        "plant_names": [
+          "cecropia ficifolia",
+          "cecropia membranacea",
+          "spondias mombin",
+          "vismia macrophylla"
+        ],
+        "observed_cv_over_shift_null": 0.997518216975402,
+        "size_matched_cv_over_median": 0.913784804269965,
+        "size_matched_inclusive_rank_fraction": 0.38571428571428573
+      }
+    },
+    {
+      "bat": "Artibeus phaeotis",
+      "CC1": {
+        "eligible": true,
+        "source_linked_plants": 3,
+        "plant_names": [
+          "ficus citrifolia",
+          "ficus insipida",
+          "ficus pertusa"
+        ],
+        "observed_cv_over_shift_null": 1.0646561839722362,
+        "size_matched_cv_over_median": 1.211653781261552,
+        "size_matched_inclusive_rank_fraction": 0.6545454545454545
+      },
+      "YASUNI": {
+        "eligible": false,
+        "source_linked_plants": 0,
+        "plant_names": [],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      }
+    },
+    {
+      "bat": "Sturnira parvidens",
+      "CC1": {
+        "eligible": false,
+        "source_linked_plants": 0,
+        "plant_names": [],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      },
+      "YASUNI": {
+        "eligible": false,
+        "source_linked_plants": 0,
+        "plant_names": [],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      }
+    },
+    {
+      "bat": "Carollia castanea",
+      "CC1": {
+        "eligible": true,
+        "source_linked_plants": 3,
+        "plant_names": [
+          "brosimum alicastrum",
+          "ficus insipida",
+          "spondias mombin"
+        ],
+        "observed_cv_over_shift_null": 0.9889458899805422,
+        "size_matched_cv_over_median": 0.8636809557583863,
+        "size_matched_inclusive_rank_fraction": 0.24242424242424243
+      },
+      "YASUNI": {
+        "eligible": false,
+        "source_linked_plants": 2,
+        "plant_names": [
+          "spondias mombin",
+          "vismia baccifera"
+        ],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      }
+    },
+    {
+      "bat": "Chiroderma villosum",
+      "CC1": {
+        "eligible": true,
+        "source_linked_plants": 3,
+        "plant_names": [
+          "ficus citrifolia",
+          "ficus insipida",
+          "ficus pertusa"
+        ],
+        "observed_cv_over_shift_null": 1.0646561839722362,
+        "size_matched_cv_over_median": 1.211653781261552,
+        "size_matched_inclusive_rank_fraction": 0.6545454545454545
+      },
+      "YASUNI": {
+        "eligible": false,
+        "source_linked_plants": 0,
+        "plant_names": [],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      }
+    },
+    {
+      "bat": "Sturnira tildae",
+      "CC1": {
+        "eligible": false,
+        "source_linked_plants": 0,
+        "plant_names": [],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      },
+      "YASUNI": {
+        "eligible": false,
+        "source_linked_plants": 0,
+        "plant_names": [],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      }
+    },
+    {
+      "bat": "Artibeus obscurus",
+      "CC1": {
+        "eligible": false,
+        "source_linked_plants": 0,
+        "plant_names": [],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      },
+      "YASUNI": {
+        "eligible": false,
+        "source_linked_plants": 2,
+        "plant_names": [
+          "cecropia ficifolia",
+          "cecropia membranacea"
+        ],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      }
+    },
+    {
+      "bat": "Platyrrhinus helleri",
+      "CC1": {
+        "eligible": true,
+        "source_linked_plants": 3,
+        "plant_names": [
+          "ficus citrifolia",
+          "ficus insipida",
+          "ficus pertusa"
+        ],
+        "observed_cv_over_shift_null": 1.0646561839722362,
+        "size_matched_cv_over_median": 1.211653781261552,
+        "size_matched_inclusive_rank_fraction": 0.6545454545454545
+      },
+      "YASUNI": {
+        "eligible": false,
+        "source_linked_plants": 0,
+        "plant_names": [],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      }
+    },
+    {
+      "bat": "Vampyressa thyone",
+      "CC1": {
+        "eligible": false,
+        "source_linked_plants": 2,
+        "plant_names": [
+          "ficus citrifolia",
+          "ficus pertusa"
+        ],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      },
+      "YASUNI": {
+        "eligible": false,
+        "source_linked_plants": 0,
+        "plant_names": [],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      }
+    },
+    {
+      "bat": "Rhinophylla pumilio",
+      "CC1": {
+        "eligible": false,
+        "source_linked_plants": 0,
+        "plant_names": [],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      },
+      "YASUNI": {
+        "eligible": true,
+        "source_linked_plants": 3,
+        "plant_names": [
+          "cecropia ficifolia",
+          "cecropia sciadophylla",
+          "vismia macrophylla"
+        ],
+        "observed_cv_over_shift_null": 1.042110989255232,
+        "size_matched_cv_over_median": 0.9687127909302392,
+        "size_matched_inclusive_rank_fraction": 0.475
+      }
+    },
+    {
+      "bat": "Uroderma bilobatum",
+      "CC1": {
+        "eligible": false,
+        "source_linked_plants": 1,
+        "plant_names": [
+          "ficus maxima"
+        ],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      },
+      "YASUNI": {
+        "eligible": false,
+        "source_linked_plants": 2,
+        "plant_names": [
+          "cecropia ficifolia",
+          "vismia macrophylla"
+        ],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      }
+    },
+    {
+      "bat": "Platyrrhinus lineatus",
+      "CC1": {
+        "eligible": false,
+        "source_linked_plants": 0,
+        "plant_names": [],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      },
+      "YASUNI": {
+        "eligible": false,
+        "source_linked_plants": 0,
+        "plant_names": [],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      }
+    },
+    {
+      "bat": "Uroderma convexum",
+      "CC1": {
+        "eligible": true,
+        "source_linked_plants": 4,
+        "plant_names": [
+          "ficus citrifolia",
+          "ficus insipida",
+          "ficus maxima",
+          "ficus pertusa"
+        ],
+        "observed_cv_over_shift_null": 1.1008810081723719,
+        "size_matched_cv_over_median": 1.0271212922886903,
+        "size_matched_inclusive_rank_fraction": 0.5242424242424243
+      },
+      "YASUNI": {
+        "eligible": false,
+        "source_linked_plants": 0,
+        "plant_names": [],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      }
+    },
+    {
+      "bat": "Vampyriscus nymphaea",
+      "CC1": {
+        "eligible": true,
+        "source_linked_plants": 4,
+        "plant_names": [
+          "ficus citrifolia",
+          "ficus insipida",
+          "ficus maxima",
+          "ficus pertusa"
+        ],
+        "observed_cv_over_shift_null": 1.1008810081723719,
+        "size_matched_cv_over_median": 1.0271212922886903,
+        "size_matched_inclusive_rank_fraction": 0.5242424242424243
+      },
+      "YASUNI": {
+        "eligible": false,
+        "source_linked_plants": 0,
+        "plant_names": [],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      }
+    },
+    {
+      "bat": "Artibeus toltecus",
+      "CC1": {
+        "eligible": false,
+        "source_linked_plants": 1,
+        "plant_names": [
+          "brosimum alicastrum"
+        ],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      },
+      "YASUNI": {
+        "eligible": false,
+        "source_linked_plants": 0,
+        "plant_names": [],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      }
+    },
+    {
+      "bat": "Artibeus watsoni",
+      "CC1": {
+        "eligible": true,
+        "source_linked_plants": 4,
+        "plant_names": [
+          "brosimum alicastrum",
+          "ficus citrifolia",
+          "ficus insipida",
+          "ficus pertusa"
+        ],
+        "observed_cv_over_shift_null": 1.0431907195767611,
+        "size_matched_cv_over_median": 0.9683597178114607,
+        "size_matched_inclusive_rank_fraction": 0.45454545454545453
+      },
+      "YASUNI": {
+        "eligible": false,
+        "source_linked_plants": 0,
+        "plant_names": [],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      }
+    },
+    {
+      "bat": "Artibeus concolor",
+      "CC1": {
+        "eligible": false,
+        "source_linked_plants": 0,
+        "plant_names": [],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      },
+      "YASUNI": {
+        "eligible": false,
+        "source_linked_plants": 0,
+        "plant_names": [],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      }
+    },
+    {
+      "bat": "Sturnira ludovici",
+      "CC1": {
+        "eligible": false,
+        "source_linked_plants": 0,
+        "plant_names": [],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      },
+      "YASUNI": {
+        "eligible": false,
+        "source_linked_plants": 0,
+        "plant_names": [],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      }
+    },
+    {
+      "bat": "Artibeus gnomus",
+      "CC1": {
+        "eligible": false,
+        "source_linked_plants": 0,
+        "plant_names": [],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      },
+      "YASUNI": {
+        "eligible": false,
+        "source_linked_plants": 2,
+        "plant_names": [
+          "cecropia ficifolia",
+          "vismia macrophylla"
+        ],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      }
+    },
+    {
+      "bat": "Artibeus cinereus",
+      "CC1": {
+        "eligible": false,
+        "source_linked_plants": 0,
+        "plant_names": [],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      },
+      "YASUNI": {
+        "eligible": false,
+        "source_linked_plants": 0,
+        "plant_names": [],
+        "observed_cv_over_shift_null": null,
+        "size_matched_cv_over_median": null,
+        "size_matched_inclusive_rank_fraction": null
+      }
+    }
+  ],
+  "limits": {
+    "two_sites_same_original_paper_not_independent_studies": true,
+    "source_network_not_locally_verified_in_either_site": true,
+    "bat_plant_sets_differ_even_for_shared_candidate_labels": true,
+    "seed_fall_not_ripe_fruit_or_bat_intake": true,
+    "predictive_bat_M3_M1_N1_not_estimated": true,
+    "descriptive_same_size_fraction_not_a_p_value": true
+  }
+}
