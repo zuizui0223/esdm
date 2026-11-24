@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "source": "doi:10.5061/dryad.4mw6m909j",
+  "created_utc": "2026-11-24T11:05:36.128461+00:00",
+  "status": "BCI_PUBLIC_SOURCE_OR_SCHEMA_STOP",
+  "bat_model_fitted": false,
+  "error_type": "HTTPError",
+  "error_code": "HTTP Error 401: Unauthorized"
+}
