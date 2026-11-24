@@ -1,0 +1,470 @@
+{
+  "schema_version": 1,
+  "status": "PREFIT_DOI_COUNTRY_RESOURCE_COMPACT",
+  "created_utc": "2026-11-19T11:55:56.774179+00:00",
+  "denominators": {
+    "bats": 26,
+    "plants": 255,
+    "countries": 29,
+    "bat_country": 754
+  },
+  "gates": {
+    "bat_cells_in_country": 5,
+    "bat_cells_outside": 20,
+    "plant_cells_in_country": 5,
+    "plant_cells_outside": 20,
+    "linked_plants": 3,
+    "independent_refs": 2
+  },
+  "source_rows": 1084,
+  "candidate_pairs_indexed": 162,
+  "candidate_pairs_known_precision": 84,
+  "bats_with_two_or_more_indexed_candidate_countries": 22,
+  "bats_with_two_or_more_known_precision_candidate_countries": 16,
+  "DOIs": {
+    "bat": "10.15468/dl.nxu727",
+    "plant": "10.15468/dl.xwc5zf"
+  },
+  "cooccurrence_and_M3_effect_not_evaluated": true,
+  "by_bat": [
+    {
+      "bat": "Artibeus cinereus",
+      "indexed_country_candidates": 0,
+      "known_precision_country_candidates": 0,
+      "known_precision_country_codes": []
+    },
+    {
+      "bat": "Artibeus concolor",
+      "indexed_country_candidates": 1,
+      "known_precision_country_candidates": 0,
+      "known_precision_country_codes": []
+    },
+    {
+      "bat": "Artibeus gnomus",
+      "indexed_country_candidates": 1,
+      "known_precision_country_candidates": 0,
+      "known_precision_country_codes": []
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "indexed_country_candidates": 16,
+      "known_precision_country_candidates": 11,
+      "known_precision_country_codes": [
+        "BZ",
+        "CO",
+        "CR",
+        "DO",
+        "GT",
+        "HN",
+        "JM",
+        "MX",
+        "PA",
+        "PR",
+        "SV"
+      ]
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "indexed_country_candidates": 18,
+      "known_precision_country_candidates": 14,
+      "known_precision_country_codes": [
+        "AR",
+        "BR",
+        "BZ",
+        "CO",
+        "CR",
+        "EC",
+        "GF",
+        "GT",
+        "HN",
+        "MX",
+        "NI",
+        "PA",
+        "PE",
+        "SV"
+      ]
+    },
+    {
+      "bat": "Artibeus obscurus",
+      "indexed_country_candidates": 4,
+      "known_precision_country_candidates": 1,
+      "known_precision_country_codes": [
+        "CO"
+      ]
+    },
+    {
+      "bat": "Artibeus phaeotis",
+      "indexed_country_candidates": 6,
+      "known_precision_country_candidates": 4,
+      "known_precision_country_codes": [
+        "CO",
+        "CR",
+        "MX",
+        "PA"
+      ]
+    },
+    {
+      "bat": "Artibeus planirostris",
+      "indexed_country_candidates": 9,
+      "known_precision_country_candidates": 4,
+      "known_precision_country_codes": [
+        "BR",
+        "CO",
+        "GF",
+        "PE"
+      ]
+    },
+    {
+      "bat": "Artibeus toltecus",
+      "indexed_country_candidates": 5,
+      "known_precision_country_candidates": 3,
+      "known_precision_country_codes": [
+        "GT",
+        "HN",
+        "MX"
+      ]
+    },
+    {
+      "bat": "Artibeus watsoni",
+      "indexed_country_candidates": 5,
+      "known_precision_country_candidates": 2,
+      "known_precision_country_codes": [
+        "CR",
+        "MX"
+      ]
+    },
+    {
+      "bat": "Carollia brevicauda",
+      "indexed_country_candidates": 8,
+      "known_precision_country_candidates": 5,
+      "known_precision_country_codes": [
+        "CO",
+        "EC",
+        "GF",
+        "PA",
+        "PE"
+      ]
+    },
+    {
+      "bat": "Carollia castanea",
+      "indexed_country_candidates": 7,
+      "known_precision_country_candidates": 5,
+      "known_precision_country_codes": [
+        "CO",
+        "CR",
+        "EC",
+        "PA",
+        "PE"
+      ]
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "indexed_country_candidates": 14,
+      "known_precision_country_candidates": 9,
+      "known_precision_country_codes": [
+        "BR",
+        "CO",
+        "CR",
+        "EC",
+        "GF",
+        "MX",
+        "NI",
+        "PA",
+        "PE"
+      ]
+    },
+    {
+      "bat": "Chiroderma villosum",
+      "indexed_country_candidates": 7,
+      "known_precision_country_candidates": 3,
+      "known_precision_country_codes": [
+        "CO",
+        "EC",
+        "MX"
+      ]
+    },
+    {
+      "bat": "Platyrrhinus helleri",
+      "indexed_country_candidates": 10,
+      "known_precision_country_candidates": 4,
+      "known_precision_country_codes": [
+        "CO",
+        "CR",
+        "MX",
+        "PA"
+      ]
+    },
+    {
+      "bat": "Platyrrhinus lineatus",
+      "indexed_country_candidates": 1,
+      "known_precision_country_candidates": 0,
+      "known_precision_country_codes": []
+    },
+    {
+      "bat": "Rhinophylla pumilio",
+      "indexed_country_candidates": 6,
+      "known_precision_country_candidates": 2,
+      "known_precision_country_codes": [
+        "CO",
+        "GF"
+      ]
+    },
+    {
+      "bat": "Sturnira giannae",
+      "indexed_country_candidates": 3,
+      "known_precision_country_candidates": 0,
+      "known_precision_country_codes": []
+    },
+    {
+      "bat": "Sturnira lilium",
+      "indexed_country_candidates": 8,
+      "known_precision_country_candidates": 2,
+      "known_precision_country_codes": [
+        "CO",
+        "MX"
+      ]
+    },
+    {
+      "bat": "Sturnira ludovici",
+      "indexed_country_candidates": 4,
+      "known_precision_country_candidates": 0,
+      "known_precision_country_codes": []
+    },
+    {
+      "bat": "Sturnira parvidens",
+      "indexed_country_candidates": 5,
+      "known_precision_country_candidates": 4,
+      "known_precision_country_codes": [
+        "CO",
+        "CR",
+        "HN",
+        "MX"
+      ]
+    },
+    {
+      "bat": "Sturnira tildae",
+      "indexed_country_candidates": 4,
+      "known_precision_country_candidates": 1,
+      "known_precision_country_codes": [
+        "CO"
+      ]
+    },
+    {
+      "bat": "Uroderma bilobatum",
+      "indexed_country_candidates": 9,
+      "known_precision_country_candidates": 6,
+      "known_precision_country_codes": [
+        "BR",
+        "CO",
+        "CR",
+        "EC",
+        "GF",
+        "MX"
+      ]
+    },
+    {
+      "bat": "Uroderma convexum",
+      "indexed_country_candidates": 4,
+      "known_precision_country_candidates": 3,
+      "known_precision_country_codes": [
+        "CO",
+        "CR",
+        "MX"
+      ]
+    },
+    {
+      "bat": "Vampyressa thyone",
+      "indexed_country_candidates": 5,
+      "known_precision_country_candidates": 1,
+      "known_precision_country_codes": [
+        "CO"
+      ]
+    },
+    {
+      "bat": "Vampyriscus nymphaea",
+      "indexed_country_candidates": 2,
+      "known_precision_country_candidates": 0,
+      "known_precision_country_codes": []
+    }
+  ],
+  "by_country": [
+    {
+      "country": "AR",
+      "indexed_candidate_bats": 3,
+      "known_precision_candidate_bats": 1,
+      "known_precision_bats_with_5_inside_20_outside": 1
+    },
+    {
+      "country": "BO",
+      "indexed_candidate_bats": 5,
+      "known_precision_candidate_bats": 0,
+      "known_precision_bats_with_5_inside_20_outside": 0
+    },
+    {
+      "country": "BR",
+      "indexed_candidate_bats": 14,
+      "known_precision_candidate_bats": 4,
+      "known_precision_bats_with_5_inside_20_outside": 6
+    },
+    {
+      "country": "BS",
+      "indexed_candidate_bats": 0,
+      "known_precision_candidate_bats": 0,
+      "known_precision_bats_with_5_inside_20_outside": 0
+    },
+    {
+      "country": "BZ",
+      "indexed_candidate_bats": 2,
+      "known_precision_candidate_bats": 2,
+      "known_precision_bats_with_5_inside_20_outside": 2
+    },
+    {
+      "country": "CL",
+      "indexed_candidate_bats": 0,
+      "known_precision_candidate_bats": 0,
+      "known_precision_bats_with_5_inside_20_outside": 0
+    },
+    {
+      "country": "CO",
+      "indexed_candidate_bats": 23,
+      "known_precision_candidate_bats": 17,
+      "known_precision_bats_with_5_inside_20_outside": 17
+    },
+    {
+      "country": "CR",
+      "indexed_candidate_bats": 12,
+      "known_precision_candidate_bats": 10,
+      "known_precision_bats_with_5_inside_20_outside": 12
+    },
+    {
+      "country": "CU",
+      "indexed_candidate_bats": 1,
+      "known_precision_candidate_bats": 0,
+      "known_precision_bats_with_5_inside_20_outside": 1
+    },
+    {
+      "country": "CW",
+      "indexed_candidate_bats": 0,
+      "known_precision_candidate_bats": 0,
+      "known_precision_bats_with_5_inside_20_outside": 0
+    },
+    {
+      "country": "DO",
+      "indexed_candidate_bats": 1,
+      "known_precision_candidate_bats": 1,
+      "known_precision_bats_with_5_inside_20_outside": 1
+    },
+    {
+      "country": "EC",
+      "indexed_candidate_bats": 14,
+      "known_precision_candidate_bats": 6,
+      "known_precision_bats_with_5_inside_20_outside": 7
+    },
+    {
+      "country": "GF",
+      "indexed_candidate_bats": 8,
+      "known_precision_candidate_bats": 6,
+      "known_precision_bats_with_5_inside_20_outside": 11
+    },
+    {
+      "country": "GT",
+      "indexed_candidate_bats": 11,
+      "known_precision_candidate_bats": 3,
+      "known_precision_bats_with_5_inside_20_outside": 4
+    },
+    {
+      "country": "GY",
+      "indexed_candidate_bats": 3,
+      "known_precision_candidate_bats": 0,
+      "known_precision_bats_with_5_inside_20_outside": 0
+    },
+    {
+      "country": "HN",
+      "indexed_candidate_bats": 5,
+      "known_precision_candidate_bats": 4,
+      "known_precision_bats_with_5_inside_20_outside": 5
+    },
+    {
+      "country": "HT",
+      "indexed_candidate_bats": 0,
+      "known_precision_candidate_bats": 0,
+      "known_precision_bats_with_5_inside_20_outside": 0
+    },
+    {
+      "country": "JM",
+      "indexed_candidate_bats": 1,
+      "known_precision_candidate_bats": 1,
+      "known_precision_bats_with_5_inside_20_outside": 1
+    },
+    {
+      "country": "MX",
+      "indexed_candidate_bats": 14,
+      "known_precision_candidate_bats": 12,
+      "known_precision_bats_with_5_inside_20_outside": 12
+    },
+    {
+      "country": "NI",
+      "indexed_candidate_bats": 12,
+      "known_precision_candidate_bats": 2,
+      "known_precision_bats_with_5_inside_20_outside": 6
+    },
+    {
+      "country": "PA",
+      "indexed_candidate_bats": 8,
+      "known_precision_candidate_bats": 7,
+      "known_precision_bats_with_5_inside_20_outside": 12
+    },
+    {
+      "country": "PE",
+      "indexed_candidate_bats": 12,
+      "known_precision_candidate_bats": 5,
+      "known_precision_bats_with_5_inside_20_outside": 9
+    },
+    {
+      "country": "PR",
+      "indexed_candidate_bats": 1,
+      "known_precision_candidate_bats": 1,
+      "known_precision_bats_with_5_inside_20_outside": 1
+    },
+    {
+      "country": "PY",
+      "indexed_candidate_bats": 0,
+      "known_precision_candidate_bats": 0,
+      "known_precision_bats_with_5_inside_20_outside": 0
+    },
+    {
+      "country": "SR",
+      "indexed_candidate_bats": 7,
+      "known_precision_candidate_bats": 0,
+      "known_precision_bats_with_5_inside_20_outside": 0
+    },
+    {
+      "country": "SV",
+      "indexed_candidate_bats": 2,
+      "known_precision_candidate_bats": 2,
+      "known_precision_bats_with_5_inside_20_outside": 2
+    },
+    {
+      "country": "TT",
+      "indexed_candidate_bats": 3,
+      "known_precision_candidate_bats": 0,
+      "known_precision_bats_with_5_inside_20_outside": 0
+    },
+    {
+      "country": "UY",
+      "indexed_candidate_bats": 0,
+      "known_precision_candidate_bats": 0,
+      "known_precision_bats_with_5_inside_20_outside": 0
+    },
+    {
+      "country": "VE",
+      "indexed_candidate_bats": 0,
+      "known_precision_candidate_bats": 0,
+      "known_precision_bats_with_5_inside_20_outside": 0
+    }
+  ],
+  "source_sha256": {
+    "records": "723198f850aa4ee7346122e71a3dd3eadaca176a65bfb87dc2a90f55f2acf10b",
+    "sites": "44fc3fc26a1aea37107cd2af3c97031e558890ba4366740c40ab7575e10ebfe2"
+  }
+}

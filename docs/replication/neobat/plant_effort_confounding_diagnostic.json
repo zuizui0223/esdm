@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "status": "EXPLORATORY_POSTHOC_PLANT_EFFORT_DIAGNOSTIC_COMPLETE",
+  "created_utc": "2026-11-19T13:35:03.938134+00:00",
+  "frozen_design": "docs/replication/NEOBAT_PLANT_GBIF_EFFORT_DIAGNOSTIC_FROZEN_20261119.md",
+  "previous_result": "docs/replication/neobat/plant_colombia_crossfit_pilot.json",
+  "source_DOI": "10.15468/dl.xwc5zf",
+  "source_archive_sha256": "4275ed6b9847fa9fb81a9e353ec1b9de151592f7c369b19f6145129059726c8b",
+  "worldclim_source_sha256": "00513224583665ec0f2f955a4ec252730c4deb2004cce9e793492a3f26df4dcf",
+  "elevation_source_sha256": "6a9f4e9a37f289d594ed1567b63be344a4dacf247f0b69756e81df031087e3bd",
+  "frozen_sentinels": [
+    "Cecropia obtusifolia",
+    "Ficus insipida",
+    "Piper aduncum"
+  ],
+  "all_old_pilot_results_exactly_replayed": true,
+  "results_are_posthoc_and_exploratory": true,
+  "study_effort_independently_measured": false,
+  "no_bat_model_M1_M3_N1_fitted": true,
+  "M3_minus_M1_bat_auc": null,
+  "raw_coords_or_plant_records_saved": false,
+  "plants": [
+    {
+      "plant": "Cecropia obtusifolia",
+      "holdout_country": "CO",
+      "train_positive_cells": 249,
+      "test_positive_cells": 21,
+      "test_pseudo_background_cells": 623,
+      "all_old_cell_counts_and_AUC_replayed_exactly": true,
+      "diagnostics": {
+        "AUC_abiotic_only": 0.5255675303829397,
+        "AUC_effort_only": 0.7300313383780479,
+        "AUC_abiotic_plus_otherplant_effort": 0.7361461438507988,
+        "increment_AUC_environment_beyond_effort_only": 0.006114805472750895,
+        "conditional_same_exact_effort_abiotic_only": {
+          "auc": 0.6312997347480106,
+          "comparable_positive_background_pairs": 754,
+          "all_possible_positive_background_pairs": 13083,
+          "comparable_pair_fraction": 0.05763204158067722,
+          "source_effort_strata_with_both_classes": 15
+        },
+        "conditional_same_exact_effort_abiotic_plus_effort": {
+          "auc": 0.6087533156498673,
+          "comparable_positive_background_pairs": 754,
+          "all_possible_positive_background_pairs": 13083,
+          "comparable_pair_fraction": 0.05763204158067722,
+          "source_effort_strata_with_both_classes": 15
+        },
+        "conditional_fixed_bins_abiotic_only": {
+          "auc": 0.531960663798402,
+          "comparable_positive_background_pairs": 3254,
+          "all_possible_positive_background_pairs": 13083,
+          "comparable_pair_fraction": 0.24871971260414277,
+          "source_effort_strata_with_both_classes": 4
+        },
+        "conditional_fixed_bins_abiotic_plus_effort": {
+          "auc": 0.5998770743700061,
+          "comparable_positive_background_pairs": 3254,
+          "all_possible_positive_background_pairs": 13083,
+          "comparable_pair_fraction": 0.24871971260414277,
+          "source_effort_strata_with_both_classes": 4
+        },
+        "source_effort_proxy_is_not_independently_measured": true
+      }
+    },
+    {
+      "plant": "Ficus insipida",
+      "holdout_country": "CO",
+      "train_positive_cells": 235,
+      "test_positive_cells": 79,
+      "test_pseudo_background_cells": 566,
+      "all_old_cell_counts_and_AUC_replayed_exactly": true,
+      "diagnostics": {
+        "AUC_abiotic_only": 0.4985910453101937,
+        "AUC_effort_only": 0.797445990070224,
+        "AUC_abiotic_plus_otherplant_effort": 0.7832893500916939,
+        "increment_AUC_environment_beyond_effort_only": -0.014156639978530117,
+        "conditional_same_exact_effort_abiotic_only": {
+          "auc": 0.5293542074363993,
+          "comparable_positive_background_pairs": 2044,
+          "all_possible_positive_background_pairs": 44714,
+          "comparable_pair_fraction": 0.04571275215816076,
+          "source_effort_strata_with_both_classes": 24
+        },
+        "conditional_same_exact_effort_abiotic_plus_effort": {
+          "auc": 0.5337573385518591,
+          "comparable_positive_background_pairs": 2044,
+          "all_possible_positive_background_pairs": 44714,
+          "comparable_pair_fraction": 0.04571275215816076,
+          "source_effort_strata_with_both_classes": 24
+        },
+        "conditional_fixed_bins_abiotic_only": {
+          "auc": 0.49830339321357286,
+          "comparable_positive_background_pairs": 10020,
+          "all_possible_positive_background_pairs": 44714,
+          "comparable_pair_fraction": 0.2240908887596726,
+          "source_effort_strata_with_both_classes": 4
+        },
+        "conditional_fixed_bins_abiotic_plus_effort": {
+          "auc": 0.6293413173652694,
+          "comparable_positive_background_pairs": 10020,
+          "all_possible_positive_background_pairs": 44714,
+          "comparable_pair_fraction": 0.2240908887596726,
+          "source_effort_strata_with_both_classes": 4
+        },
+        "source_effort_proxy_is_not_independently_measured": true
+      }
+    },
+    {
+      "plant": "Piper aduncum",
+      "holdout_country": "CO",
+      "train_positive_cells": 304,
+      "test_positive_cells": 61,
+      "test_pseudo_background_cells": 583,
+      "all_old_cell_counts_and_AUC_replayed_exactly": true,
+      "diagnostics": {
+        "AUC_abiotic_only": 0.5046818322413744,
+        "AUC_effort_only": 0.8487191744228553,
+        "AUC_abiotic_plus_otherplant_effort": 0.8468914321064027,
+        "increment_AUC_environment_beyond_effort_only": -0.001827742316452552,
+        "conditional_same_exact_effort_abiotic_only": {
+          "auc": 0.5544747081712063,
+          "comparable_positive_background_pairs": 1028,
+          "all_possible_positive_background_pairs": 35563,
+          "comparable_pair_fraction": 0.02890644771251019,
+          "source_effort_strata_with_both_classes": 26
+        },
+        "conditional_same_exact_effort_abiotic_plus_effort": {
+          "auc": 0.6060311284046692,
+          "comparable_positive_background_pairs": 1028,
+          "all_possible_positive_background_pairs": 35563,
+          "comparable_pair_fraction": 0.02890644771251019,
+          "source_effort_strata_with_both_classes": 26
+        },
+        "conditional_fixed_bins_abiotic_only": {
+          "auc": 0.5021410579345088,
+          "comparable_positive_background_pairs": 7940,
+          "all_possible_positive_background_pairs": 35563,
+          "comparable_pair_fraction": 0.22326575373281218,
+          "source_effort_strata_with_both_classes": 3
+        },
+        "conditional_fixed_bins_abiotic_plus_effort": {
+          "auc": 0.6778337531486146,
+          "comparable_positive_background_pairs": 7940,
+          "all_possible_positive_background_pairs": 35563,
+          "comparable_pair_fraction": 0.22326575373281218,
+          "source_effort_strata_with_both_classes": 3
+        },
+        "source_effort_proxy_is_not_independently_measured": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+One-shot original GBIF botanical source ID overlap and stringent 106x17 cross-country all-dataset embargo test. Original DOI, hash and 1802 baseline replay required. Freeze design already committed and source-free CI passed. Do not fit M0/M1/M3/N1 or save raw coordinates or datasetKey IDs.

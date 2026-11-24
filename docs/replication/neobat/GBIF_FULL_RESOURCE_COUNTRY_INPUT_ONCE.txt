@@ -1,0 +1,7 @@
+One-shot exploratory source feasibility from two completed DOI-backed full GBIF QC sources.
+Original GBIF bats 10.15468/dl.nxu727, plants 10.15468/dl.xwc5zf.
+Full source QC exit 0 and both 26/255 species original-cohort denominators.
+Hold out entire NeoBat literature references touching the evaluation country.
+Compare ≥5 25-km recorded cells for bat and ≥3 linked plants; ≥20 bat country-cells outside.
+Repeat with known reported uncertainty ≤12.5km versus all indexed coordinates.
+No new GBIF download, no raw coordinates or occurrences committed, no ecological SDM fit.

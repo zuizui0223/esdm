@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "status": "FULL_1802_FOLD_TWO_IMPLEMENTATION_AGGREGATE_REPLAY_MATCH",
+  "created_utc": "2026-11-19T14:13:53.098964+00:00",
+  "design": "docs/replication/NEOBAT_106x17_DUAL_SOURCE_MODEL_REPLAY_FROZEN_20261119.md",
+  "implementation_A_commit": "4cf7c601473f70daa9f9ff5cbf7b30c3c0abb41a",
+  "implementation_B_commit": "e940be5799bb98c59f708cb6da454f11d1f24b30",
+  "implementation_A_blob_sha1": "3389fda966cb3c7566ff5d249396fed725f16a05",
+  "implementation_B_blob_sha1": "7a84042d25f4809e5169da6881242b33170be7d0",
+  "original_fixed_plant_country_pairs": 1802,
+  "same_source_rank_fitted_pairs": 647,
+  "both_source_or_quantity_STOP_pairs": 1155,
+  "status_pair_mismatches": 0,
+  "source_denominator_pair_mismatches": 0,
+  "auc_or_conditional_pair_mismatches": 0,
+  "max_absolute_numeric_difference": 0.0,
+  "numeric_score_fields_differing_more_than_1e_minus12": 0,
+  "equal_country_mean_abiotic_added_AUC": 0.02539130916740804,
+  "same_original_GBIF_and_worldclim_and_utility_code_not_external_replication": true,
+  "no_bat_M3_minus_M1_or_N1_effect_estimated": true,
+  "no_raw_source_rows_or_coordinates_opened_or_exported": true
+}

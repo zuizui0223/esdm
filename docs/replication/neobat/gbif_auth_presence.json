@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "status": "AUTH_ENV_PRESENT_NOT_VERIFIED",
+  "required_fields": [
+    "GBIF_USERNAME_or_variable",
+    "GBIF_PASSWORD",
+    "GBIF_EMAIL"
+  ],
+  "missing_field_names": [],
+  "credential_values_seen_or_saved": false,
+  "GBIF_authentication_attempted": false,
+  "download_requested": false,
+  "GBIF_download_DOI": null
+}

@@ -1,0 +1,1 @@
+Pinned two completed original-source aggregate outputs, exact 1,802 original plant×country comparison, deterministic synthetic mismatch guards. No raw source re-download and no new bat ecological models. Preserve all discrepancies and STOPs unchanged.

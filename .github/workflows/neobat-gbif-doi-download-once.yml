@@ -1,0 +1,77 @@
+name: NeoBat DOI-backed GBIF bat and plant occurrence downloads (single authorization)
+
+on:
+  push:
+    branches:
+      - design/neobat-trophic-sdm-phase1-20261119
+    paths:
+      - docs/replication/neobat/GBIF_DOI_SUBMIT_CORRECTED_ONCE_20261119.txt
+
+permissions:
+  contents: write
+
+concurrency:
+  group: neobat-gbif-doi-submit-once-20261119
+  cancel-in-progress: false
+
+jobs:
+  request_authenticated_gbif_downloads:
+    # Original commit 37c1c92 pre-job YAML parse error; zero jobs and zero GBIF POST.
+    # Quote full if expression; corrected marker creates the only actual submission attempt.
+    if: "${{ github.event.head_commit.message == 'dispatch NeoBat corrected first valid GBIF DOI bat and plant downloads' && github.run_attempt == 1 }}"
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      GBIF_USERNAME: ${{ secrets.GBIF_USERNAME }}
+      GBIF_USERNAME_VAR: ${{ vars.GBIF_USERNAME }}
+      GBIF_PASSWORD: ${{ secrets.GBIF_PASSWORD }}
+      GBIF_EMAIL: ${{ secrets.GBIF_EMAIL }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate source-only input and secret-safe request code
+        run: |
+          set -euo pipefail
+          python -m py_compile scripts/neobat_submit_gbif_doi_downloads.py
+          python -m unittest discover -s tests -p 'test_neobat_submit_gbif_doi_downloads.py' -v
+      - name: Submit exactly one bat and one plant download to GBIF
+        run: |
+          mkdir -p build/neobat
+          set +e
+          python -m scripts.neobat_submit_gbif_doi_downloads --out build/neobat/gbif_download_submission.json
+          rc=$?
+          set -e
+          echo "$rc" > build/neobat/gbif_download_submission_exit_code.txt
+          echo "GBIF_DOI_REQUEST_EXIT=$rc (0=both accepted; 3=explicit stop, inspect receipt)"
+      - name: Retain accepted keys and status, never credentials
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-first-gbif-doi-download-requests
+          path: build/neobat/
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Preserve immutable response receipt in the unmerged research branch
+        if: always()
+        run: |
+          set -euo pipefail
+          if [ ! -f build/neobat/gbif_download_submission.json ]; then
+            echo "No request receipt was produced; no claim of a submitted GBIF request"
+            exit 1
+          fi
+          mkdir -p docs/replication/neobat
+          cp build/neobat/gbif_download_submission.json docs/replication/neobat/
+          cp build/neobat/gbif_download_submission_exit_code.txt docs/replication/neobat/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: save exact first NeoBat GBIF bat/plant download keys and statuses"
+            git pull --rebase origin design/neobat-trophic-sdm-phase1-20261119
+            git push origin HEAD:design/neobat-trophic-sdm-phase1-20261119
+          fi
+      - name: Do not treat incomplete requests as scientific success
+        run: |
+          test "$(cat build/neobat/gbif_download_submission_exit_code.txt)" = "0"

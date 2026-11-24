@@ -1,0 +1,73 @@
+name: NeoBat 3-plant original DOI effort-only and intensity-conditional diagnostic once
+
+on:
+  push:
+    branches:
+      - analysis/neobat-plant-effort-confounding-20261119
+    paths:
+      - docs/replication/neobat/NEOBAT_PLANT_EFFORT_DIAGNOSTIC_ONCE_20261119.txt
+
+permissions:
+  contents: write
+concurrency:
+  group: neobat-posthoc-3plant-effort-diagnostic-20261119
+  cancel-in-progress: false
+
+jobs:
+  original_posthoc_effort_diagnostic:
+    if: github.event.head_commit.message == 'dispatch frozen NeoBat posthoc 3-plant effort diagnostic once' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 38
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: analysis/neobat-plant-effort-confounding-20261119
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned original raster numerical dependencies
+        run: |
+          python -m pip install 'numpy==2.2.6' 'scikit-learn==1.7.2' 'rasterio==1.4.3' 'pyproj==3.7.2'
+      - name: Verify separate prior posthoc freeze and source-free correctness
+        run: |
+          test -f docs/replication/NEOBAT_PLANT_GBIF_EFFORT_DIAGNOSTIC_FROZEN_20261119.md
+          test -f docs/replication/neobat/plant_colombia_crossfit_pilot.json
+          python -m unittest discover -s tests -p 'test_neobat_plant_effort_confounding_diagnostic.py' -v
+      - name: Replay original three plant models with extra frozen source-effort diagnostics
+        run: |
+          mkdir -p build/neobat
+          set +e
+          python -m scripts.neobat_plant_effort_confounding_diagnostic \
+            --out build/neobat/plant_effort_confounding_diagnostic.json
+          rc=$?
+          set -e
+          echo "$rc" > build/neobat/plant_effort_confounding_diagnostic_exit_code.txt
+          echo "NEOBAT_POSTHOC_EFFORT_SOURCE_EXIT=$rc"
+      - name: Preserve only aggregated matched-AUC diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-posthoc-3plant-effort-only-conditional-aggregate
+          path: |
+            build/neobat/plant_effort_confounding_diagnostic.json
+            build/neobat/plant_effort_confounding_diagnostic_exit_code.txt
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Commit only aggregate new diagnostic not earlier pilot
+        if: always()
+        run: |
+          set -euo pipefail
+          test -f build/neobat/plant_effort_confounding_diagnostic.json
+          cp build/neobat/plant_effort_confounding_diagnostic.json docs/replication/neobat/
+          cp build/neobat/plant_effort_confounding_diagnostic_exit_code.txt docs/replication/neobat/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/plant_effort_confounding_diagnostic*
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: replay original 3-plant AUC and isolate effort-only source bias"
+            git pull --rebase origin analysis/neobat-plant-effort-confounding-20261119
+            git push origin HEAD:analysis/neobat-plant-effort-confounding-20261119
+          fi
+      - name: Stop if any original source or repeated model changes
+        run: |
+          test "$(cat build/neobat/plant_effort_confounding_diagnostic_exit_code.txt)" = "0"

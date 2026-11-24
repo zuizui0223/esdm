@@ -1,0 +1,3542 @@
+{
+  "schema_version": 1,
+  "status": "FULL_DOI_PRECISION_CONDITIONED_INPUT_FEASIBILITY_ONLY",
+  "created_utc": "2026-11-19T11:26:08.716000+00:00",
+  "source_neobat_commit": "d25292d19be32a85a21c60384a3f2d818e8081de",
+  "source_bat_DOI": "10.15468/dl.nxu727",
+  "source_plant_DOI": "10.15468/dl.xwc5zf",
+  "initial_bats": 26,
+  "initial_plants": 255,
+  "source_frugivory_primary_rows_matched_both_accepted_taxa": 1084,
+  "plant_species_with_no_indexed_cells": [
+    "Piper gibbosum",
+    "Protium araguense",
+    "Putranjiva roxburghii",
+    "Solanum salviaefolium"
+  ],
+  "actual_plant_resource_availability_observed": false,
+  "species_country_cell_cooccurrence_tested": false,
+  "recorded_cells_are_not_verified_occurrence": true,
+  "independent_validation_not_performed": true,
+  "M3_minus_M1": null,
+  "modes": {
+    "strict": {
+      "mode": "strict",
+      "definition": "recorded cells with reported coordinateUncertainty <=12.5km",
+      "bats_with_any_country_input_possible": 19,
+      "bats_with_2plus_countries_input_possible": 18,
+      "bat_country_pairs_with_5plus_bat_cells_20plus_outside": 110,
+      "bat_country_pairs_with_source_partner_input": 86,
+      "all_26_bats": [
+        {
+          "bat": "Artibeus cinereus",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 0,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 0,
+          "country_records": []
+        },
+        {
+          "bat": "Artibeus concolor",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 0,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 0,
+          "country_records": []
+        },
+        {
+          "bat": "Artibeus gnomus",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 0,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 0,
+          "country_records": []
+        },
+        {
+          "bat": "Artibeus jamaicensis",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 13,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 11,
+          "country_records": [
+            {
+              "country": "BZ",
+              "recorded_bat_cells": 6,
+              "outside_country_bat_cells": 446,
+              "training_partner_plant_names": 58,
+              "plants_with_5plus_local_recorded_cells": 5,
+              "source_training_references_covering_local_plants": 11,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CO",
+              "recorded_bat_cells": 45,
+              "outside_country_bat_cells": 407,
+              "training_partner_plant_names": 58,
+              "plants_with_5plus_local_recorded_cells": 34,
+              "source_training_references_covering_local_plants": 24,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CR",
+              "recorded_bat_cells": 28,
+              "outside_country_bat_cells": 424,
+              "training_partner_plant_names": 43,
+              "plants_with_5plus_local_recorded_cells": 15,
+              "source_training_references_covering_local_plants": 14,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CU",
+              "recorded_bat_cells": 17,
+              "outside_country_bat_cells": 435,
+              "training_partner_plant_names": 54,
+              "plants_with_5plus_local_recorded_cells": 0,
+              "source_training_references_covering_local_plants": 0,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "DO",
+              "recorded_bat_cells": 15,
+              "outside_country_bat_cells": 437,
+              "training_partner_plant_names": 58,
+              "plants_with_5plus_local_recorded_cells": 10,
+              "source_training_references_covering_local_plants": 8,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GT",
+              "recorded_bat_cells": 15,
+              "outside_country_bat_cells": 437,
+              "training_partner_plant_names": 58,
+              "plants_with_5plus_local_recorded_cells": 8,
+              "source_training_references_covering_local_plants": 20,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "HN",
+              "recorded_bat_cells": 31,
+              "outside_country_bat_cells": 421,
+              "training_partner_plant_names": 58,
+              "plants_with_5plus_local_recorded_cells": 5,
+              "source_training_references_covering_local_plants": 11,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "JM",
+              "recorded_bat_cells": 5,
+              "outside_country_bat_cells": 447,
+              "training_partner_plant_names": 58,
+              "plants_with_5plus_local_recorded_cells": 3,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "MX",
+              "recorded_bat_cells": 232,
+              "outside_country_bat_cells": 220,
+              "training_partner_plant_names": 44,
+              "plants_with_5plus_local_recorded_cells": 31,
+              "source_training_references_covering_local_plants": 20,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "NI",
+              "recorded_bat_cells": 11,
+              "outside_country_bat_cells": 441,
+              "training_partner_plant_names": 58,
+              "plants_with_5plus_local_recorded_cells": 2,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "PA",
+              "recorded_bat_cells": 25,
+              "outside_country_bat_cells": 427,
+              "training_partner_plant_names": 50,
+              "plants_with_5plus_local_recorded_cells": 14,
+              "source_training_references_covering_local_plants": 14,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PR",
+              "recorded_bat_cells": 10,
+              "outside_country_bat_cells": 442,
+              "training_partner_plant_names": 58,
+              "plants_with_5plus_local_recorded_cells": 16,
+              "source_training_references_covering_local_plants": 11,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "SV",
+              "recorded_bat_cells": 6,
+              "outside_country_bat_cells": 446,
+              "training_partner_plant_names": 58,
+              "plants_with_5plus_local_recorded_cells": 8,
+              "source_training_references_covering_local_plants": 14,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            }
+          ]
+        },
+        {
+          "bat": "Artibeus lituratus",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 14,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 14,
+          "country_records": [
+            {
+              "country": "AR",
+              "recorded_bat_cells": 5,
+              "outside_country_bat_cells": 586,
+              "training_partner_plant_names": 97,
+              "plants_with_5plus_local_recorded_cells": 18,
+              "source_training_references_covering_local_plants": 13,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "BR",
+              "recorded_bat_cells": 102,
+              "outside_country_bat_cells": 489,
+              "training_partner_plant_names": 70,
+              "plants_with_5plus_local_recorded_cells": 32,
+              "source_training_references_covering_local_plants": 8,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "BZ",
+              "recorded_bat_cells": 5,
+              "outside_country_bat_cells": 586,
+              "training_partner_plant_names": 97,
+              "plants_with_5plus_local_recorded_cells": 15,
+              "source_training_references_covering_local_plants": 11,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CO",
+              "recorded_bat_cells": 126,
+              "outside_country_bat_cells": 465,
+              "training_partner_plant_names": 97,
+              "plants_with_5plus_local_recorded_cells": 62,
+              "source_training_references_covering_local_plants": 20,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CR",
+              "recorded_bat_cells": 26,
+              "outside_country_bat_cells": 565,
+              "training_partner_plant_names": 94,
+              "plants_with_5plus_local_recorded_cells": 37,
+              "source_training_references_covering_local_plants": 14,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "EC",
+              "recorded_bat_cells": 20,
+              "outside_country_bat_cells": 571,
+              "training_partner_plant_names": 97,
+              "plants_with_5plus_local_recorded_cells": 35,
+              "source_training_references_covering_local_plants": 18,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GF",
+              "recorded_bat_cells": 20,
+              "outside_country_bat_cells": 571,
+              "training_partner_plant_names": 96,
+              "plants_with_5plus_local_recorded_cells": 24,
+              "source_training_references_covering_local_plants": 13,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GT",
+              "recorded_bat_cells": 8,
+              "outside_country_bat_cells": 583,
+              "training_partner_plant_names": 97,
+              "plants_with_5plus_local_recorded_cells": 20,
+              "source_training_references_covering_local_plants": 17,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "HN",
+              "recorded_bat_cells": 23,
+              "outside_country_bat_cells": 568,
+              "training_partner_plant_names": 97,
+              "plants_with_5plus_local_recorded_cells": 20,
+              "source_training_references_covering_local_plants": 13,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "MX",
+              "recorded_bat_cells": 185,
+              "outside_country_bat_cells": 406,
+              "training_partner_plant_names": 92,
+              "plants_with_5plus_local_recorded_cells": 45,
+              "source_training_references_covering_local_plants": 19,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "NI",
+              "recorded_bat_cells": 18,
+              "outside_country_bat_cells": 573,
+              "training_partner_plant_names": 97,
+              "plants_with_5plus_local_recorded_cells": 11,
+              "source_training_references_covering_local_plants": 10,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PA",
+              "recorded_bat_cells": 20,
+              "outside_country_bat_cells": 571,
+              "training_partner_plant_names": 88,
+              "plants_with_5plus_local_recorded_cells": 32,
+              "source_training_references_covering_local_plants": 14,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PE",
+              "recorded_bat_cells": 14,
+              "outside_country_bat_cells": 577,
+              "training_partner_plant_names": 93,
+              "plants_with_5plus_local_recorded_cells": 19,
+              "source_training_references_covering_local_plants": 15,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "SV",
+              "recorded_bat_cells": 5,
+              "outside_country_bat_cells": 586,
+              "training_partner_plant_names": 97,
+              "plants_with_5plus_local_recorded_cells": 18,
+              "source_training_references_covering_local_plants": 14,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            }
+          ]
+        },
+        {
+          "bat": "Artibeus obscurus",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 5,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 2,
+          "country_records": [
+            {
+              "country": "BR",
+              "recorded_bat_cells": 11,
+              "outside_country_bat_cells": 93,
+              "training_partner_plant_names": 4,
+              "plants_with_5plus_local_recorded_cells": 3,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CO",
+              "recorded_bat_cells": 26,
+              "outside_country_bat_cells": 78,
+              "training_partner_plant_names": 7,
+              "plants_with_5plus_local_recorded_cells": 4,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "EC",
+              "recorded_bat_cells": 6,
+              "outside_country_bat_cells": 98,
+              "training_partner_plant_names": 7,
+              "plants_with_5plus_local_recorded_cells": 2,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "GF",
+              "recorded_bat_cells": 27,
+              "outside_country_bat_cells": 77,
+              "training_partner_plant_names": 5,
+              "plants_with_5plus_local_recorded_cells": 0,
+              "source_training_references_covering_local_plants": 0,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "PE",
+              "recorded_bat_cells": 29,
+              "outside_country_bat_cells": 75,
+              "training_partner_plant_names": 5,
+              "plants_with_5plus_local_recorded_cells": 0,
+              "source_training_references_covering_local_plants": 0,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            }
+          ]
+        },
+        {
+          "bat": "Artibeus phaeotis",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 4,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 4,
+          "country_records": [
+            {
+              "country": "CO",
+              "recorded_bat_cells": 44,
+              "outside_country_bat_cells": 107,
+              "training_partner_plant_names": 23,
+              "plants_with_5plus_local_recorded_cells": 17,
+              "source_training_references_covering_local_plants": 8,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CR",
+              "recorded_bat_cells": 16,
+              "outside_country_bat_cells": 135,
+              "training_partner_plant_names": 14,
+              "plants_with_5plus_local_recorded_cells": 7,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "MX",
+              "recorded_bat_cells": 70,
+              "outside_country_bat_cells": 81,
+              "training_partner_plant_names": 23,
+              "plants_with_5plus_local_recorded_cells": 16,
+              "source_training_references_covering_local_plants": 8,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PA",
+              "recorded_bat_cells": 8,
+              "outside_country_bat_cells": 143,
+              "training_partner_plant_names": 9,
+              "plants_with_5plus_local_recorded_cells": 4,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            }
+          ]
+        },
+        {
+          "bat": "Artibeus planirostris",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 4,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 4,
+          "country_records": [
+            {
+              "country": "BR",
+              "recorded_bat_cells": 43,
+              "outside_country_bat_cells": 123,
+              "training_partner_plant_names": 51,
+              "plants_with_5plus_local_recorded_cells": 23,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CO",
+              "recorded_bat_cells": 58,
+              "outside_country_bat_cells": 108,
+              "training_partner_plant_names": 61,
+              "plants_with_5plus_local_recorded_cells": 42,
+              "source_training_references_covering_local_plants": 7,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GF",
+              "recorded_bat_cells": 22,
+              "outside_country_bat_cells": 144,
+              "training_partner_plant_names": 60,
+              "plants_with_5plus_local_recorded_cells": 16,
+              "source_training_references_covering_local_plants": 6,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PE",
+              "recorded_bat_cells": 26,
+              "outside_country_bat_cells": 140,
+              "training_partner_plant_names": 55,
+              "plants_with_5plus_local_recorded_cells": 13,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            }
+          ]
+        },
+        {
+          "bat": "Artibeus toltecus",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 4,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 3,
+          "country_records": [
+            {
+              "country": "CR",
+              "recorded_bat_cells": 7,
+              "outside_country_bat_cells": 70,
+              "training_partner_plant_names": 3,
+              "plants_with_5plus_local_recorded_cells": 0,
+              "source_training_references_covering_local_plants": 0,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "GT",
+              "recorded_bat_cells": 10,
+              "outside_country_bat_cells": 67,
+              "training_partner_plant_names": 24,
+              "plants_with_5plus_local_recorded_cells": 4,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "HN",
+              "recorded_bat_cells": 10,
+              "outside_country_bat_cells": 67,
+              "training_partner_plant_names": 24,
+              "plants_with_5plus_local_recorded_cells": 3,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "MX",
+              "recorded_bat_cells": 37,
+              "outside_country_bat_cells": 40,
+              "training_partner_plant_names": 21,
+              "plants_with_5plus_local_recorded_cells": 12,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            }
+          ]
+        },
+        {
+          "bat": "Artibeus watsoni",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 3,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 2,
+          "country_records": [
+            {
+              "country": "CR",
+              "recorded_bat_cells": 14,
+              "outside_country_bat_cells": 22,
+              "training_partner_plant_names": 14,
+              "plants_with_5plus_local_recorded_cells": 7,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "MX",
+              "recorded_bat_cells": 8,
+              "outside_country_bat_cells": 28,
+              "training_partner_plant_names": 14,
+              "plants_with_5plus_local_recorded_cells": 10,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PA",
+              "recorded_bat_cells": 6,
+              "outside_country_bat_cells": 30,
+              "training_partner_plant_names": 1,
+              "plants_with_5plus_local_recorded_cells": 1,
+              "source_training_references_covering_local_plants": 1,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            }
+          ]
+        },
+        {
+          "bat": "Carollia brevicauda",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 5,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 5,
+          "country_records": [
+            {
+              "country": "CO",
+              "recorded_bat_cells": 103,
+              "outside_country_bat_cells": 46,
+              "training_partner_plant_names": 28,
+              "plants_with_5plus_local_recorded_cells": 16,
+              "source_training_references_covering_local_plants": 8,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "EC",
+              "recorded_bat_cells": 7,
+              "outside_country_bat_cells": 142,
+              "training_partner_plant_names": 28,
+              "plants_with_5plus_local_recorded_cells": 8,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GF",
+              "recorded_bat_cells": 9,
+              "outside_country_bat_cells": 140,
+              "training_partner_plant_names": 26,
+              "plants_with_5plus_local_recorded_cells": 8,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PA",
+              "recorded_bat_cells": 9,
+              "outside_country_bat_cells": 140,
+              "training_partner_plant_names": 27,
+              "plants_with_5plus_local_recorded_cells": 6,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PE",
+              "recorded_bat_cells": 11,
+              "outside_country_bat_cells": 138,
+              "training_partner_plant_names": 14,
+              "plants_with_5plus_local_recorded_cells": 4,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            }
+          ]
+        },
+        {
+          "bat": "Carollia castanea",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 5,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 5,
+          "country_records": [
+            {
+              "country": "CO",
+              "recorded_bat_cells": 63,
+              "outside_country_bat_cells": 46,
+              "training_partner_plant_names": 36,
+              "plants_with_5plus_local_recorded_cells": 21,
+              "source_training_references_covering_local_plants": 6,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CR",
+              "recorded_bat_cells": 11,
+              "outside_country_bat_cells": 98,
+              "training_partner_plant_names": 22,
+              "plants_with_5plus_local_recorded_cells": 8,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "EC",
+              "recorded_bat_cells": 8,
+              "outside_country_bat_cells": 101,
+              "training_partner_plant_names": 36,
+              "plants_with_5plus_local_recorded_cells": 11,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PA",
+              "recorded_bat_cells": 14,
+              "outside_country_bat_cells": 95,
+              "training_partner_plant_names": 16,
+              "plants_with_5plus_local_recorded_cells": 5,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PE",
+              "recorded_bat_cells": 7,
+              "outside_country_bat_cells": 102,
+              "training_partner_plant_names": 36,
+              "plants_with_5plus_local_recorded_cells": 5,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            }
+          ]
+        },
+        {
+          "bat": "Carollia perspicillata",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 9,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 9,
+          "country_records": [
+            {
+              "country": "BR",
+              "recorded_bat_cells": 49,
+              "outside_country_bat_cells": 282,
+              "training_partner_plant_names": 97,
+              "plants_with_5plus_local_recorded_cells": 33,
+              "source_training_references_covering_local_plants": 21,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CO",
+              "recorded_bat_cells": 140,
+              "outside_country_bat_cells": 191,
+              "training_partner_plant_names": 122,
+              "plants_with_5plus_local_recorded_cells": 68,
+              "source_training_references_covering_local_plants": 36,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CR",
+              "recorded_bat_cells": 16,
+              "outside_country_bat_cells": 315,
+              "training_partner_plant_names": 104,
+              "plants_with_5plus_local_recorded_cells": 30,
+              "source_training_references_covering_local_plants": 17,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "EC",
+              "recorded_bat_cells": 10,
+              "outside_country_bat_cells": 321,
+              "training_partner_plant_names": 123,
+              "plants_with_5plus_local_recorded_cells": 30,
+              "source_training_references_covering_local_plants": 25,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GF",
+              "recorded_bat_cells": 25,
+              "outside_country_bat_cells": 306,
+              "training_partner_plant_names": 116,
+              "plants_with_5plus_local_recorded_cells": 25,
+              "source_training_references_covering_local_plants": 24,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "MX",
+              "recorded_bat_cells": 29,
+              "outside_country_bat_cells": 302,
+              "training_partner_plant_names": 120,
+              "plants_with_5plus_local_recorded_cells": 50,
+              "source_training_references_covering_local_plants": 32,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "NI",
+              "recorded_bat_cells": 8,
+              "outside_country_bat_cells": 323,
+              "training_partner_plant_names": 123,
+              "plants_with_5plus_local_recorded_cells": 11,
+              "source_training_references_covering_local_plants": 10,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PA",
+              "recorded_bat_cells": 17,
+              "outside_country_bat_cells": 314,
+              "training_partner_plant_names": 106,
+              "plants_with_5plus_local_recorded_cells": 28,
+              "source_training_references_covering_local_plants": 23,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PE",
+              "recorded_bat_cells": 17,
+              "outside_country_bat_cells": 314,
+              "training_partner_plant_names": 114,
+              "plants_with_5plus_local_recorded_cells": 14,
+              "source_training_references_covering_local_plants": 19,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            }
+          ]
+        },
+        {
+          "bat": "Chiroderma villosum",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 6,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 3,
+          "country_records": [
+            {
+              "country": "CO",
+              "recorded_bat_cells": 5,
+              "outside_country_bat_cells": 55,
+              "training_partner_plant_names": 17,
+              "plants_with_5plus_local_recorded_cells": 10,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "EC",
+              "recorded_bat_cells": 5,
+              "outside_country_bat_cells": 55,
+              "training_partner_plant_names": 17,
+              "plants_with_5plus_local_recorded_cells": 7,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GF",
+              "recorded_bat_cells": 8,
+              "outside_country_bat_cells": 52,
+              "training_partner_plant_names": 16,
+              "plants_with_5plus_local_recorded_cells": 1,
+              "source_training_references_covering_local_plants": 1,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "MX",
+              "recorded_bat_cells": 15,
+              "outside_country_bat_cells": 45,
+              "training_partner_plant_names": 17,
+              "plants_with_5plus_local_recorded_cells": 10,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "NI",
+              "recorded_bat_cells": 7,
+              "outside_country_bat_cells": 53,
+              "training_partner_plant_names": 17,
+              "plants_with_5plus_local_recorded_cells": 0,
+              "source_training_references_covering_local_plants": 0,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "PA",
+              "recorded_bat_cells": 7,
+              "outside_country_bat_cells": 53,
+              "training_partner_plant_names": 8,
+              "plants_with_5plus_local_recorded_cells": 1,
+              "source_training_references_covering_local_plants": 1,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            }
+          ]
+        },
+        {
+          "bat": "Platyrrhinus helleri",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 7,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 4,
+          "country_records": [
+            {
+              "country": "CO",
+              "recorded_bat_cells": 57,
+              "outside_country_bat_cells": 62,
+              "training_partner_plant_names": 12,
+              "plants_with_5plus_local_recorded_cells": 9,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CR",
+              "recorded_bat_cells": 12,
+              "outside_country_bat_cells": 107,
+              "training_partner_plant_names": 8,
+              "plants_with_5plus_local_recorded_cells": 4,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GF",
+              "recorded_bat_cells": 5,
+              "outside_country_bat_cells": 114,
+              "training_partner_plant_names": 12,
+              "plants_with_5plus_local_recorded_cells": 2,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "HN",
+              "recorded_bat_cells": 10,
+              "outside_country_bat_cells": 109,
+              "training_partner_plant_names": 12,
+              "plants_with_5plus_local_recorded_cells": 2,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "MX",
+              "recorded_bat_cells": 18,
+              "outside_country_bat_cells": 101,
+              "training_partner_plant_names": 12,
+              "plants_with_5plus_local_recorded_cells": 8,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "NI",
+              "recorded_bat_cells": 5,
+              "outside_country_bat_cells": 114,
+              "training_partner_plant_names": 12,
+              "plants_with_5plus_local_recorded_cells": 0,
+              "source_training_references_covering_local_plants": 0,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "PA",
+              "recorded_bat_cells": 7,
+              "outside_country_bat_cells": 112,
+              "training_partner_plant_names": 5,
+              "plants_with_5plus_local_recorded_cells": 3,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            }
+          ]
+        },
+        {
+          "bat": "Platyrrhinus lineatus",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 0,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 0,
+          "country_records": []
+        },
+        {
+          "bat": "Rhinophylla pumilio",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 3,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 2,
+          "country_records": [
+            {
+              "country": "CO",
+              "recorded_bat_cells": 12,
+              "outside_country_bat_cells": 46,
+              "training_partner_plant_names": 12,
+              "plants_with_5plus_local_recorded_cells": 10,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GF",
+              "recorded_bat_cells": 28,
+              "outside_country_bat_cells": 30,
+              "training_partner_plant_names": 9,
+              "plants_with_5plus_local_recorded_cells": 5,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PE",
+              "recorded_bat_cells": 11,
+              "outside_country_bat_cells": 47,
+              "training_partner_plant_names": 9,
+              "plants_with_5plus_local_recorded_cells": 2,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            }
+          ]
+        },
+        {
+          "bat": "Sturnira giannae",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 0,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 0,
+          "country_records": []
+        },
+        {
+          "bat": "Sturnira lilium",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 4,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 2,
+          "country_records": [
+            {
+              "country": "BR",
+              "recorded_bat_cells": 27,
+              "outside_country_bat_cells": 85,
+              "training_partner_plant_names": 7,
+              "plants_with_5plus_local_recorded_cells": 1,
+              "source_training_references_covering_local_plants": 1,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "CO",
+              "recorded_bat_cells": 56,
+              "outside_country_bat_cells": 56,
+              "training_partner_plant_names": 35,
+              "plants_with_5plus_local_recorded_cells": 6,
+              "source_training_references_covering_local_plants": 7,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GF",
+              "recorded_bat_cells": 9,
+              "outside_country_bat_cells": 103,
+              "training_partner_plant_names": 35,
+              "plants_with_5plus_local_recorded_cells": 2,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "MX",
+              "recorded_bat_cells": 7,
+              "outside_country_bat_cells": 105,
+              "training_partner_plant_names": 35,
+              "plants_with_5plus_local_recorded_cells": 7,
+              "source_training_references_covering_local_plants": 6,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            }
+          ]
+        },
+        {
+          "bat": "Sturnira ludovici",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 1,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 0,
+          "country_records": [
+            {
+              "country": "GT",
+              "recorded_bat_cells": 6,
+              "outside_country_bat_cells": 45,
+              "training_partner_plant_names": 28,
+              "plants_with_5plus_local_recorded_cells": 3,
+              "source_training_references_covering_local_plants": 1,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            }
+          ]
+        },
+        {
+          "bat": "Sturnira parvidens",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 4,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 4,
+          "country_records": [
+            {
+              "country": "CO",
+              "recorded_bat_cells": 13,
+              "outside_country_bat_cells": 149,
+              "training_partner_plant_names": 16,
+              "plants_with_5plus_local_recorded_cells": 12,
+              "source_training_references_covering_local_plants": 7,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CR",
+              "recorded_bat_cells": 9,
+              "outside_country_bat_cells": 153,
+              "training_partner_plant_names": 8,
+              "plants_with_5plus_local_recorded_cells": 5,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "HN",
+              "recorded_bat_cells": 10,
+              "outside_country_bat_cells": 152,
+              "training_partner_plant_names": 17,
+              "plants_with_5plus_local_recorded_cells": 5,
+              "source_training_references_covering_local_plants": 6,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "MX",
+              "recorded_bat_cells": 121,
+              "outside_country_bat_cells": 41,
+              "training_partner_plant_names": 11,
+              "plants_with_5plus_local_recorded_cells": 11,
+              "source_training_references_covering_local_plants": 6,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            }
+          ]
+        },
+        {
+          "bat": "Sturnira tildae",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 2,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 1,
+          "country_records": [
+            {
+              "country": "CO",
+              "recorded_bat_cells": 18,
+              "outside_country_bat_cells": 20,
+              "training_partner_plant_names": 10,
+              "plants_with_5plus_local_recorded_cells": 3,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GF",
+              "recorded_bat_cells": 16,
+              "outside_country_bat_cells": 22,
+              "training_partner_plant_names": 5,
+              "plants_with_5plus_local_recorded_cells": 0,
+              "source_training_references_covering_local_plants": 0,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            }
+          ]
+        },
+        {
+          "bat": "Uroderma bilobatum",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 9,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 6,
+          "country_records": [
+            {
+              "country": "BR",
+              "recorded_bat_cells": 5,
+              "outside_country_bat_cells": 193,
+              "training_partner_plant_names": 7,
+              "plants_with_5plus_local_recorded_cells": 3,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CO",
+              "recorded_bat_cells": 53,
+              "outside_country_bat_cells": 145,
+              "training_partner_plant_names": 11,
+              "plants_with_5plus_local_recorded_cells": 5,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CR",
+              "recorded_bat_cells": 38,
+              "outside_country_bat_cells": 160,
+              "training_partner_plant_names": 11,
+              "plants_with_5plus_local_recorded_cells": 3,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "EC",
+              "recorded_bat_cells": 7,
+              "outside_country_bat_cells": 191,
+              "training_partner_plant_names": 11,
+              "plants_with_5plus_local_recorded_cells": 4,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GF",
+              "recorded_bat_cells": 24,
+              "outside_country_bat_cells": 174,
+              "training_partner_plant_names": 10,
+              "plants_with_5plus_local_recorded_cells": 5,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "MX",
+              "recorded_bat_cells": 8,
+              "outside_country_bat_cells": 190,
+              "training_partner_plant_names": 11,
+              "plants_with_5plus_local_recorded_cells": 4,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "NI",
+              "recorded_bat_cells": 9,
+              "outside_country_bat_cells": 189,
+              "training_partner_plant_names": 11,
+              "plants_with_5plus_local_recorded_cells": 0,
+              "source_training_references_covering_local_plants": 0,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "PA",
+              "recorded_bat_cells": 24,
+              "outside_country_bat_cells": 174,
+              "training_partner_plant_names": 11,
+              "plants_with_5plus_local_recorded_cells": 2,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "PE",
+              "recorded_bat_cells": 18,
+              "outside_country_bat_cells": 180,
+              "training_partner_plant_names": 5,
+              "plants_with_5plus_local_recorded_cells": 0,
+              "source_training_references_covering_local_plants": 0,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            }
+          ]
+        },
+        {
+          "bat": "Uroderma convexum",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 4,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 3,
+          "country_records": [
+            {
+              "country": "CO",
+              "recorded_bat_cells": 27,
+              "outside_country_bat_cells": 29,
+              "training_partner_plant_names": 16,
+              "plants_with_5plus_local_recorded_cells": 11,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CR",
+              "recorded_bat_cells": 7,
+              "outside_country_bat_cells": 49,
+              "training_partner_plant_names": 12,
+              "plants_with_5plus_local_recorded_cells": 6,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "MX",
+              "recorded_bat_cells": 12,
+              "outside_country_bat_cells": 44,
+              "training_partner_plant_names": 16,
+              "plants_with_5plus_local_recorded_cells": 10,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PA",
+              "recorded_bat_cells": 5,
+              "outside_country_bat_cells": 51,
+              "training_partner_plant_names": 5,
+              "plants_with_5plus_local_recorded_cells": 1,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            }
+          ]
+        },
+        {
+          "bat": "Vampyressa thyone",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 4,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 2,
+          "country_records": [
+            {
+              "country": "CO",
+              "recorded_bat_cells": 31,
+              "outside_country_bat_cells": 39,
+              "training_partner_plant_names": 8,
+              "plants_with_5plus_local_recorded_cells": 5,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CR",
+              "recorded_bat_cells": 11,
+              "outside_country_bat_cells": 59,
+              "training_partner_plant_names": 7,
+              "plants_with_5plus_local_recorded_cells": 3,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PA",
+              "recorded_bat_cells": 5,
+              "outside_country_bat_cells": 65,
+              "training_partner_plant_names": 1,
+              "plants_with_5plus_local_recorded_cells": 1,
+              "source_training_references_covering_local_plants": 1,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "PE",
+              "recorded_bat_cells": 10,
+              "outside_country_bat_cells": 60,
+              "training_partner_plant_names": 8,
+              "plants_with_5plus_local_recorded_cells": 0,
+              "source_training_references_covering_local_plants": 0,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            }
+          ]
+        },
+        {
+          "bat": "Vampyriscus nymphaea",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 0,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 0,
+          "country_records": []
+        }
+      ]
+    },
+    "all": {
+      "mode": "all",
+      "definition": "all GBIF indexed coordinates (including missing uncertainty)",
+      "bats_with_any_country_input_possible": 25,
+      "bats_with_2plus_countries_input_possible": 22,
+      "bat_country_pairs_with_5plus_bat_cells_20plus_outside": 204,
+      "bat_country_pairs_with_source_partner_input": 162,
+      "all_26_bats": [
+        {
+          "bat": "Artibeus cinereus",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 4,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 0,
+          "country_records": [
+            {
+              "country": "BR",
+              "recorded_bat_cells": 174,
+              "outside_country_bat_cells": 40,
+              "training_partner_plant_names": 2,
+              "plants_with_5plus_local_recorded_cells": 2,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "CO",
+              "recorded_bat_cells": 20,
+              "outside_country_bat_cells": 194,
+              "training_partner_plant_names": 3,
+              "plants_with_5plus_local_recorded_cells": 2,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "GF",
+              "recorded_bat_cells": 7,
+              "outside_country_bat_cells": 207,
+              "training_partner_plant_names": 1,
+              "plants_with_5plus_local_recorded_cells": 1,
+              "source_training_references_covering_local_plants": 1,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "GY",
+              "recorded_bat_cells": 8,
+              "outside_country_bat_cells": 206,
+              "training_partner_plant_names": 3,
+              "plants_with_5plus_local_recorded_cells": 0,
+              "source_training_references_covering_local_plants": 0,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            }
+          ]
+        },
+        {
+          "bat": "Artibeus concolor",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 5,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 1,
+          "country_records": [
+            {
+              "country": "BR",
+              "recorded_bat_cells": 61,
+              "outside_country_bat_cells": 47,
+              "training_partner_plant_names": 1,
+              "plants_with_5plus_local_recorded_cells": 1,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "CO",
+              "recorded_bat_cells": 16,
+              "outside_country_bat_cells": 92,
+              "training_partner_plant_names": 3,
+              "plants_with_5plus_local_recorded_cells": 2,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "GF",
+              "recorded_bat_cells": 9,
+              "outside_country_bat_cells": 99,
+              "training_partner_plant_names": 2,
+              "plants_with_5plus_local_recorded_cells": 2,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "GY",
+              "recorded_bat_cells": 8,
+              "outside_country_bat_cells": 100,
+              "training_partner_plant_names": 3,
+              "plants_with_5plus_local_recorded_cells": 0,
+              "source_training_references_covering_local_plants": 0,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "SR",
+              "recorded_bat_cells": 10,
+              "outside_country_bat_cells": 98,
+              "training_partner_plant_names": 3,
+              "plants_with_5plus_local_recorded_cells": 3,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            }
+          ]
+        },
+        {
+          "bat": "Artibeus gnomus",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 7,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 1,
+          "country_records": [
+            {
+              "country": "BR",
+              "recorded_bat_cells": 61,
+              "outside_country_bat_cells": 79,
+              "training_partner_plant_names": 4,
+              "plants_with_5plus_local_recorded_cells": 4,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CO",
+              "recorded_bat_cells": 41,
+              "outside_country_bat_cells": 99,
+              "training_partner_plant_names": 4,
+              "plants_with_5plus_local_recorded_cells": 3,
+              "source_training_references_covering_local_plants": 1,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "EC",
+              "recorded_bat_cells": 5,
+              "outside_country_bat_cells": 135,
+              "training_partner_plant_names": 4,
+              "plants_with_5plus_local_recorded_cells": 3,
+              "source_training_references_covering_local_plants": 1,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "GF",
+              "recorded_bat_cells": 13,
+              "outside_country_bat_cells": 127,
+              "training_partner_plant_names": 3,
+              "plants_with_5plus_local_recorded_cells": 1,
+              "source_training_references_covering_local_plants": 1,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "GY",
+              "recorded_bat_cells": 5,
+              "outside_country_bat_cells": 135,
+              "training_partner_plant_names": 4,
+              "plants_with_5plus_local_recorded_cells": 0,
+              "source_training_references_covering_local_plants": 0,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "PE",
+              "recorded_bat_cells": 8,
+              "outside_country_bat_cells": 132,
+              "training_partner_plant_names": 1,
+              "plants_with_5plus_local_recorded_cells": 0,
+              "source_training_references_covering_local_plants": 0,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "SR",
+              "recorded_bat_cells": 6,
+              "outside_country_bat_cells": 134,
+              "training_partner_plant_names": 4,
+              "plants_with_5plus_local_recorded_cells": 1,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            }
+          ]
+        },
+        {
+          "bat": "Artibeus jamaicensis",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 16,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 16,
+          "country_records": [
+            {
+              "country": "BR",
+              "recorded_bat_cells": 17,
+              "outside_country_bat_cells": 742,
+              "training_partner_plant_names": 58,
+              "plants_with_5plus_local_recorded_cells": 27,
+              "source_training_references_covering_local_plants": 22,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "BZ",
+              "recorded_bat_cells": 8,
+              "outside_country_bat_cells": 751,
+              "training_partner_plant_names": 58,
+              "plants_with_5plus_local_recorded_cells": 15,
+              "source_training_references_covering_local_plants": 15,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CO",
+              "recorded_bat_cells": 148,
+              "outside_country_bat_cells": 611,
+              "training_partner_plant_names": 58,
+              "plants_with_5plus_local_recorded_cells": 38,
+              "source_training_references_covering_local_plants": 24,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CR",
+              "recorded_bat_cells": 36,
+              "outside_country_bat_cells": 723,
+              "training_partner_plant_names": 43,
+              "plants_with_5plus_local_recorded_cells": 31,
+              "source_training_references_covering_local_plants": 15,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CU",
+              "recorded_bat_cells": 21,
+              "outside_country_bat_cells": 738,
+              "training_partner_plant_names": 54,
+              "plants_with_5plus_local_recorded_cells": 6,
+              "source_training_references_covering_local_plants": 10,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "DO",
+              "recorded_bat_cells": 28,
+              "outside_country_bat_cells": 731,
+              "training_partner_plant_names": 58,
+              "plants_with_5plus_local_recorded_cells": 14,
+              "source_training_references_covering_local_plants": 10,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "EC",
+              "recorded_bat_cells": 8,
+              "outside_country_bat_cells": 751,
+              "training_partner_plant_names": 58,
+              "plants_with_5plus_local_recorded_cells": 26,
+              "source_training_references_covering_local_plants": 22,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GT",
+              "recorded_bat_cells": 35,
+              "outside_country_bat_cells": 724,
+              "training_partner_plant_names": 58,
+              "plants_with_5plus_local_recorded_cells": 16,
+              "source_training_references_covering_local_plants": 23,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "HN",
+              "recorded_bat_cells": 34,
+              "outside_country_bat_cells": 725,
+              "training_partner_plant_names": 58,
+              "plants_with_5plus_local_recorded_cells": 9,
+              "source_training_references_covering_local_plants": 21,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "JM",
+              "recorded_bat_cells": 12,
+              "outside_country_bat_cells": 747,
+              "training_partner_plant_names": 58,
+              "plants_with_5plus_local_recorded_cells": 4,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "MX",
+              "recorded_bat_cells": 321,
+              "outside_country_bat_cells": 438,
+              "training_partner_plant_names": 44,
+              "plants_with_5plus_local_recorded_cells": 31,
+              "source_training_references_covering_local_plants": 20,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "NI",
+              "recorded_bat_cells": 23,
+              "outside_country_bat_cells": 736,
+              "training_partner_plant_names": 58,
+              "plants_with_5plus_local_recorded_cells": 37,
+              "source_training_references_covering_local_plants": 25,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PA",
+              "recorded_bat_cells": 32,
+              "outside_country_bat_cells": 727,
+              "training_partner_plant_names": 50,
+              "plants_with_5plus_local_recorded_cells": 20,
+              "source_training_references_covering_local_plants": 15,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PR",
+              "recorded_bat_cells": 14,
+              "outside_country_bat_cells": 745,
+              "training_partner_plant_names": 58,
+              "plants_with_5plus_local_recorded_cells": 16,
+              "source_training_references_covering_local_plants": 11,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "SV",
+              "recorded_bat_cells": 7,
+              "outside_country_bat_cells": 752,
+              "training_partner_plant_names": 58,
+              "plants_with_5plus_local_recorded_cells": 25,
+              "source_training_references_covering_local_plants": 25,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "TT",
+              "recorded_bat_cells": 6,
+              "outside_country_bat_cells": 753,
+              "training_partner_plant_names": 58,
+              "plants_with_5plus_local_recorded_cells": 6,
+              "source_training_references_covering_local_plants": 7,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            }
+          ]
+        },
+        {
+          "bat": "Artibeus lituratus",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 18,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 18,
+          "country_records": [
+            {
+              "country": "AR",
+              "recorded_bat_cells": 6,
+              "outside_country_bat_cells": 1448,
+              "training_partner_plant_names": 97,
+              "plants_with_5plus_local_recorded_cells": 20,
+              "source_training_references_covering_local_plants": 13,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "BO",
+              "recorded_bat_cells": 10,
+              "outside_country_bat_cells": 1444,
+              "training_partner_plant_names": 96,
+              "plants_with_5plus_local_recorded_cells": 32,
+              "source_training_references_covering_local_plants": 18,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "BR",
+              "recorded_bat_cells": 562,
+              "outside_country_bat_cells": 892,
+              "training_partner_plant_names": 70,
+              "plants_with_5plus_local_recorded_cells": 50,
+              "source_training_references_covering_local_plants": 17,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "BZ",
+              "recorded_bat_cells": 7,
+              "outside_country_bat_cells": 1447,
+              "training_partner_plant_names": 97,
+              "plants_with_5plus_local_recorded_cells": 26,
+              "source_training_references_covering_local_plants": 14,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CO",
+              "recorded_bat_cells": 306,
+              "outside_country_bat_cells": 1148,
+              "training_partner_plant_names": 97,
+              "plants_with_5plus_local_recorded_cells": 69,
+              "source_training_references_covering_local_plants": 24,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CR",
+              "recorded_bat_cells": 32,
+              "outside_country_bat_cells": 1422,
+              "training_partner_plant_names": 94,
+              "plants_with_5plus_local_recorded_cells": 57,
+              "source_training_references_covering_local_plants": 16,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "EC",
+              "recorded_bat_cells": 43,
+              "outside_country_bat_cells": 1411,
+              "training_partner_plant_names": 97,
+              "plants_with_5plus_local_recorded_cells": 49,
+              "source_training_references_covering_local_plants": 19,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GF",
+              "recorded_bat_cells": 23,
+              "outside_country_bat_cells": 1431,
+              "training_partner_plant_names": 96,
+              "plants_with_5plus_local_recorded_cells": 30,
+              "source_training_references_covering_local_plants": 17,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GT",
+              "recorded_bat_cells": 29,
+              "outside_country_bat_cells": 1425,
+              "training_partner_plant_names": 97,
+              "plants_with_5plus_local_recorded_cells": 29,
+              "source_training_references_covering_local_plants": 18,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GY",
+              "recorded_bat_cells": 17,
+              "outside_country_bat_cells": 1437,
+              "training_partner_plant_names": 97,
+              "plants_with_5plus_local_recorded_cells": 6,
+              "source_training_references_covering_local_plants": 6,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "HN",
+              "recorded_bat_cells": 24,
+              "outside_country_bat_cells": 1430,
+              "training_partner_plant_names": 97,
+              "plants_with_5plus_local_recorded_cells": 25,
+              "source_training_references_covering_local_plants": 18,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "MX",
+              "recorded_bat_cells": 274,
+              "outside_country_bat_cells": 1180,
+              "training_partner_plant_names": 92,
+              "plants_with_5plus_local_recorded_cells": 47,
+              "source_training_references_covering_local_plants": 19,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "NI",
+              "recorded_bat_cells": 32,
+              "outside_country_bat_cells": 1422,
+              "training_partner_plant_names": 97,
+              "plants_with_5plus_local_recorded_cells": 49,
+              "source_training_references_covering_local_plants": 20,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PA",
+              "recorded_bat_cells": 27,
+              "outside_country_bat_cells": 1427,
+              "training_partner_plant_names": 88,
+              "plants_with_5plus_local_recorded_cells": 40,
+              "source_training_references_covering_local_plants": 14,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PE",
+              "recorded_bat_cells": 25,
+              "outside_country_bat_cells": 1429,
+              "training_partner_plant_names": 93,
+              "plants_with_5plus_local_recorded_cells": 40,
+              "source_training_references_covering_local_plants": 18,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "SR",
+              "recorded_bat_cells": 19,
+              "outside_country_bat_cells": 1435,
+              "training_partner_plant_names": 97,
+              "plants_with_5plus_local_recorded_cells": 11,
+              "source_training_references_covering_local_plants": 13,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "SV",
+              "recorded_bat_cells": 5,
+              "outside_country_bat_cells": 1449,
+              "training_partner_plant_names": 97,
+              "plants_with_5plus_local_recorded_cells": 36,
+              "source_training_references_covering_local_plants": 20,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "TT",
+              "recorded_bat_cells": 7,
+              "outside_country_bat_cells": 1447,
+              "training_partner_plant_names": 66,
+              "plants_with_5plus_local_recorded_cells": 9,
+              "source_training_references_covering_local_plants": 10,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            }
+          ]
+        },
+        {
+          "bat": "Artibeus obscurus",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 8,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 4,
+          "country_records": [
+            {
+              "country": "BO",
+              "recorded_bat_cells": 5,
+              "outside_country_bat_cells": 526,
+              "training_partner_plant_names": 7,
+              "plants_with_5plus_local_recorded_cells": 3,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "BR",
+              "recorded_bat_cells": 277,
+              "outside_country_bat_cells": 254,
+              "training_partner_plant_names": 4,
+              "plants_with_5plus_local_recorded_cells": 4,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CO",
+              "recorded_bat_cells": 125,
+              "outside_country_bat_cells": 406,
+              "training_partner_plant_names": 7,
+              "plants_with_5plus_local_recorded_cells": 5,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "EC",
+              "recorded_bat_cells": 15,
+              "outside_country_bat_cells": 516,
+              "training_partner_plant_names": 7,
+              "plants_with_5plus_local_recorded_cells": 3,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GF",
+              "recorded_bat_cells": 28,
+              "outside_country_bat_cells": 503,
+              "training_partner_plant_names": 5,
+              "plants_with_5plus_local_recorded_cells": 0,
+              "source_training_references_covering_local_plants": 0,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "GY",
+              "recorded_bat_cells": 19,
+              "outside_country_bat_cells": 512,
+              "training_partner_plant_names": 7,
+              "plants_with_5plus_local_recorded_cells": 0,
+              "source_training_references_covering_local_plants": 0,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "PE",
+              "recorded_bat_cells": 39,
+              "outside_country_bat_cells": 492,
+              "training_partner_plant_names": 5,
+              "plants_with_5plus_local_recorded_cells": 1,
+              "source_training_references_covering_local_plants": 1,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "SR",
+              "recorded_bat_cells": 23,
+              "outside_country_bat_cells": 508,
+              "training_partner_plant_names": 7,
+              "plants_with_5plus_local_recorded_cells": 1,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            }
+          ]
+        },
+        {
+          "bat": "Artibeus phaeotis",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 6,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 6,
+          "country_records": [
+            {
+              "country": "CO",
+              "recorded_bat_cells": 118,
+              "outside_country_bat_cells": 183,
+              "training_partner_plant_names": 23,
+              "plants_with_5plus_local_recorded_cells": 18,
+              "source_training_references_covering_local_plants": 8,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CR",
+              "recorded_bat_cells": 17,
+              "outside_country_bat_cells": 284,
+              "training_partner_plant_names": 14,
+              "plants_with_5plus_local_recorded_cells": 12,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GT",
+              "recorded_bat_cells": 8,
+              "outside_country_bat_cells": 293,
+              "training_partner_plant_names": 23,
+              "plants_with_5plus_local_recorded_cells": 10,
+              "source_training_references_covering_local_plants": 8,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "MX",
+              "recorded_bat_cells": 118,
+              "outside_country_bat_cells": 183,
+              "training_partner_plant_names": 23,
+              "plants_with_5plus_local_recorded_cells": 17,
+              "source_training_references_covering_local_plants": 8,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "NI",
+              "recorded_bat_cells": 16,
+              "outside_country_bat_cells": 285,
+              "training_partner_plant_names": 23,
+              "plants_with_5plus_local_recorded_cells": 17,
+              "source_training_references_covering_local_plants": 8,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PA",
+              "recorded_bat_cells": 15,
+              "outside_country_bat_cells": 286,
+              "training_partner_plant_names": 9,
+              "plants_with_5plus_local_recorded_cells": 4,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            }
+          ]
+        },
+        {
+          "bat": "Artibeus planirostris",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 9,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 9,
+          "country_records": [
+            {
+              "country": "AR",
+              "recorded_bat_cells": 6,
+              "outside_country_bat_cells": 737,
+              "training_partner_plant_names": 61,
+              "plants_with_5plus_local_recorded_cells": 7,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "BO",
+              "recorded_bat_cells": 8,
+              "outside_country_bat_cells": 735,
+              "training_partner_plant_names": 59,
+              "plants_with_5plus_local_recorded_cells": 23,
+              "source_training_references_covering_local_plants": 6,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "BR",
+              "recorded_bat_cells": 406,
+              "outside_country_bat_cells": 337,
+              "training_partner_plant_names": 51,
+              "plants_with_5plus_local_recorded_cells": 39,
+              "source_training_references_covering_local_plants": 8,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CO",
+              "recorded_bat_cells": 195,
+              "outside_country_bat_cells": 548,
+              "training_partner_plant_names": 61,
+              "plants_with_5plus_local_recorded_cells": 45,
+              "source_training_references_covering_local_plants": 7,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "EC",
+              "recorded_bat_cells": 12,
+              "outside_country_bat_cells": 731,
+              "training_partner_plant_names": 61,
+              "plants_with_5plus_local_recorded_cells": 32,
+              "source_training_references_covering_local_plants": 7,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GF",
+              "recorded_bat_cells": 27,
+              "outside_country_bat_cells": 716,
+              "training_partner_plant_names": 60,
+              "plants_with_5plus_local_recorded_cells": 21,
+              "source_training_references_covering_local_plants": 6,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GY",
+              "recorded_bat_cells": 24,
+              "outside_country_bat_cells": 719,
+              "training_partner_plant_names": 61,
+              "plants_with_5plus_local_recorded_cells": 5,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PE",
+              "recorded_bat_cells": 39,
+              "outside_country_bat_cells": 704,
+              "training_partner_plant_names": 55,
+              "plants_with_5plus_local_recorded_cells": 25,
+              "source_training_references_covering_local_plants": 6,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "SR",
+              "recorded_bat_cells": 21,
+              "outside_country_bat_cells": 722,
+              "training_partner_plant_names": 61,
+              "plants_with_5plus_local_recorded_cells": 8,
+              "source_training_references_covering_local_plants": 8,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            }
+          ]
+        },
+        {
+          "bat": "Artibeus toltecus",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 6,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 5,
+          "country_records": [
+            {
+              "country": "CO",
+              "recorded_bat_cells": 8,
+              "outside_country_bat_cells": 136,
+              "training_partner_plant_names": 24,
+              "plants_with_5plus_local_recorded_cells": 14,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CR",
+              "recorded_bat_cells": 9,
+              "outside_country_bat_cells": 135,
+              "training_partner_plant_names": 3,
+              "plants_with_5plus_local_recorded_cells": 1,
+              "source_training_references_covering_local_plants": 1,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "GT",
+              "recorded_bat_cells": 23,
+              "outside_country_bat_cells": 121,
+              "training_partner_plant_names": 24,
+              "plants_with_5plus_local_recorded_cells": 11,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "HN",
+              "recorded_bat_cells": 11,
+              "outside_country_bat_cells": 133,
+              "training_partner_plant_names": 24,
+              "plants_with_5plus_local_recorded_cells": 5,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "MX",
+              "recorded_bat_cells": 80,
+              "outside_country_bat_cells": 64,
+              "training_partner_plant_names": 21,
+              "plants_with_5plus_local_recorded_cells": 13,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "NI",
+              "recorded_bat_cells": 6,
+              "outside_country_bat_cells": 138,
+              "training_partner_plant_names": 24,
+              "plants_with_5plus_local_recorded_cells": 13,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            }
+          ]
+        },
+        {
+          "bat": "Artibeus watsoni",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 6,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 5,
+          "country_records": [
+            {
+              "country": "CO",
+              "recorded_bat_cells": 13,
+              "outside_country_bat_cells": 64,
+              "training_partner_plant_names": 14,
+              "plants_with_5plus_local_recorded_cells": 12,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CR",
+              "recorded_bat_cells": 17,
+              "outside_country_bat_cells": 60,
+              "training_partner_plant_names": 14,
+              "plants_with_5plus_local_recorded_cells": 12,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GT",
+              "recorded_bat_cells": 7,
+              "outside_country_bat_cells": 70,
+              "training_partner_plant_names": 14,
+              "plants_with_5plus_local_recorded_cells": 5,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "MX",
+              "recorded_bat_cells": 12,
+              "outside_country_bat_cells": 65,
+              "training_partner_plant_names": 14,
+              "plants_with_5plus_local_recorded_cells": 10,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "NI",
+              "recorded_bat_cells": 17,
+              "outside_country_bat_cells": 60,
+              "training_partner_plant_names": 14,
+              "plants_with_5plus_local_recorded_cells": 10,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PA",
+              "recorded_bat_cells": 7,
+              "outside_country_bat_cells": 70,
+              "training_partner_plant_names": 1,
+              "plants_with_5plus_local_recorded_cells": 1,
+              "source_training_references_covering_local_plants": 1,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            }
+          ]
+        },
+        {
+          "bat": "Carollia brevicauda",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 9,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 8,
+          "country_records": [
+            {
+              "country": "BO",
+              "recorded_bat_cells": 5,
+              "outside_country_bat_cells": 561,
+              "training_partner_plant_names": 28,
+              "plants_with_5plus_local_recorded_cells": 9,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "BR",
+              "recorded_bat_cells": 100,
+              "outside_country_bat_cells": 466,
+              "training_partner_plant_names": 28,
+              "plants_with_5plus_local_recorded_cells": 21,
+              "source_training_references_covering_local_plants": 9,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CO",
+              "recorded_bat_cells": 306,
+              "outside_country_bat_cells": 260,
+              "training_partner_plant_names": 28,
+              "plants_with_5plus_local_recorded_cells": 24,
+              "source_training_references_covering_local_plants": 8,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "EC",
+              "recorded_bat_cells": 70,
+              "outside_country_bat_cells": 496,
+              "training_partner_plant_names": 28,
+              "plants_with_5plus_local_recorded_cells": 17,
+              "source_training_references_covering_local_plants": 8,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GF",
+              "recorded_bat_cells": 11,
+              "outside_country_bat_cells": 555,
+              "training_partner_plant_names": 26,
+              "plants_with_5plus_local_recorded_cells": 11,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GY",
+              "recorded_bat_cells": 13,
+              "outside_country_bat_cells": 553,
+              "training_partner_plant_names": 28,
+              "plants_with_5plus_local_recorded_cells": 1,
+              "source_training_references_covering_local_plants": 1,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "PA",
+              "recorded_bat_cells": 10,
+              "outside_country_bat_cells": 556,
+              "training_partner_plant_names": 27,
+              "plants_with_5plus_local_recorded_cells": 9,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PE",
+              "recorded_bat_cells": 23,
+              "outside_country_bat_cells": 543,
+              "training_partner_plant_names": 14,
+              "plants_with_5plus_local_recorded_cells": 4,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "SR",
+              "recorded_bat_cells": 17,
+              "outside_country_bat_cells": 549,
+              "training_partner_plant_names": 28,
+              "plants_with_5plus_local_recorded_cells": 4,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            }
+          ]
+        },
+        {
+          "bat": "Carollia castanea",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 7,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 7,
+          "country_records": [
+            {
+              "country": "BR",
+              "recorded_bat_cells": 11,
+              "outside_country_bat_cells": 305,
+              "training_partner_plant_names": 36,
+              "plants_with_5plus_local_recorded_cells": 20,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CO",
+              "recorded_bat_cells": 199,
+              "outside_country_bat_cells": 117,
+              "training_partner_plant_names": 36,
+              "plants_with_5plus_local_recorded_cells": 28,
+              "source_training_references_covering_local_plants": 7,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CR",
+              "recorded_bat_cells": 16,
+              "outside_country_bat_cells": 300,
+              "training_partner_plant_names": 22,
+              "plants_with_5plus_local_recorded_cells": 15,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "EC",
+              "recorded_bat_cells": 42,
+              "outside_country_bat_cells": 274,
+              "training_partner_plant_names": 36,
+              "plants_with_5plus_local_recorded_cells": 20,
+              "source_training_references_covering_local_plants": 6,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "NI",
+              "recorded_bat_cells": 10,
+              "outside_country_bat_cells": 306,
+              "training_partner_plant_names": 36,
+              "plants_with_5plus_local_recorded_cells": 16,
+              "source_training_references_covering_local_plants": 6,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PA",
+              "recorded_bat_cells": 20,
+              "outside_country_bat_cells": 296,
+              "training_partner_plant_names": 16,
+              "plants_with_5plus_local_recorded_cells": 9,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PE",
+              "recorded_bat_cells": 13,
+              "outside_country_bat_cells": 303,
+              "training_partner_plant_names": 36,
+              "plants_with_5plus_local_recorded_cells": 14,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            }
+          ]
+        },
+        {
+          "bat": "Carollia perspicillata",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 14,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 14,
+          "country_records": [
+            {
+              "country": "BO",
+              "recorded_bat_cells": 11,
+              "outside_country_bat_cells": 1337,
+              "training_partner_plant_names": 123,
+              "plants_with_5plus_local_recorded_cells": 34,
+              "source_training_references_covering_local_plants": 27,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "BR",
+              "recorded_bat_cells": 627,
+              "outside_country_bat_cells": 721,
+              "training_partner_plant_names": 97,
+              "plants_with_5plus_local_recorded_cells": 58,
+              "source_training_references_covering_local_plants": 24,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CO",
+              "recorded_bat_cells": 396,
+              "outside_country_bat_cells": 952,
+              "training_partner_plant_names": 122,
+              "plants_with_5plus_local_recorded_cells": 87,
+              "source_training_references_covering_local_plants": 38,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CR",
+              "recorded_bat_cells": 23,
+              "outside_country_bat_cells": 1325,
+              "training_partner_plant_names": 104,
+              "plants_with_5plus_local_recorded_cells": 50,
+              "source_training_references_covering_local_plants": 22,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "EC",
+              "recorded_bat_cells": 52,
+              "outside_country_bat_cells": 1296,
+              "training_partner_plant_names": 123,
+              "plants_with_5plus_local_recorded_cells": 50,
+              "source_training_references_covering_local_plants": 34,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GF",
+              "recorded_bat_cells": 30,
+              "outside_country_bat_cells": 1318,
+              "training_partner_plant_names": 116,
+              "plants_with_5plus_local_recorded_cells": 30,
+              "source_training_references_covering_local_plants": 26,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GT",
+              "recorded_bat_cells": 11,
+              "outside_country_bat_cells": 1337,
+              "training_partner_plant_names": 123,
+              "plants_with_5plus_local_recorded_cells": 32,
+              "source_training_references_covering_local_plants": 29,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GY",
+              "recorded_bat_cells": 25,
+              "outside_country_bat_cells": 1323,
+              "training_partner_plant_names": 123,
+              "plants_with_5plus_local_recorded_cells": 7,
+              "source_training_references_covering_local_plants": 7,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "MX",
+              "recorded_bat_cells": 58,
+              "outside_country_bat_cells": 1290,
+              "training_partner_plant_names": 120,
+              "plants_with_5plus_local_recorded_cells": 51,
+              "source_training_references_covering_local_plants": 32,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "NI",
+              "recorded_bat_cells": 18,
+              "outside_country_bat_cells": 1330,
+              "training_partner_plant_names": 123,
+              "plants_with_5plus_local_recorded_cells": 52,
+              "source_training_references_covering_local_plants": 30,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PA",
+              "recorded_bat_cells": 25,
+              "outside_country_bat_cells": 1323,
+              "training_partner_plant_names": 106,
+              "plants_with_5plus_local_recorded_cells": 38,
+              "source_training_references_covering_local_plants": 26,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PE",
+              "recorded_bat_cells": 29,
+              "outside_country_bat_cells": 1319,
+              "training_partner_plant_names": 114,
+              "plants_with_5plus_local_recorded_cells": 34,
+              "source_training_references_covering_local_plants": 29,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "SR",
+              "recorded_bat_cells": 23,
+              "outside_country_bat_cells": 1325,
+              "training_partner_plant_names": 123,
+              "plants_with_5plus_local_recorded_cells": 14,
+              "source_training_references_covering_local_plants": 25,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "TT",
+              "recorded_bat_cells": 6,
+              "outside_country_bat_cells": 1342,
+              "training_partner_plant_names": 106,
+              "plants_with_5plus_local_recorded_cells": 6,
+              "source_training_references_covering_local_plants": 19,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            }
+          ]
+        },
+        {
+          "bat": "Chiroderma villosum",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 10,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 7,
+          "country_records": [
+            {
+              "country": "BR",
+              "recorded_bat_cells": 66,
+              "outside_country_bat_cells": 134,
+              "training_partner_plant_names": 15,
+              "plants_with_5plus_local_recorded_cells": 8,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CO",
+              "recorded_bat_cells": 32,
+              "outside_country_bat_cells": 168,
+              "training_partner_plant_names": 17,
+              "plants_with_5plus_local_recorded_cells": 11,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "EC",
+              "recorded_bat_cells": 11,
+              "outside_country_bat_cells": 189,
+              "training_partner_plant_names": 17,
+              "plants_with_5plus_local_recorded_cells": 9,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GF",
+              "recorded_bat_cells": 11,
+              "outside_country_bat_cells": 189,
+              "training_partner_plant_names": 16,
+              "plants_with_5plus_local_recorded_cells": 2,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "GT",
+              "recorded_bat_cells": 5,
+              "outside_country_bat_cells": 195,
+              "training_partner_plant_names": 17,
+              "plants_with_5plus_local_recorded_cells": 5,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "MX",
+              "recorded_bat_cells": 26,
+              "outside_country_bat_cells": 174,
+              "training_partner_plant_names": 17,
+              "plants_with_5plus_local_recorded_cells": 10,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "NI",
+              "recorded_bat_cells": 10,
+              "outside_country_bat_cells": 190,
+              "training_partner_plant_names": 17,
+              "plants_with_5plus_local_recorded_cells": 12,
+              "source_training_references_covering_local_plants": 6,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PA",
+              "recorded_bat_cells": 7,
+              "outside_country_bat_cells": 193,
+              "training_partner_plant_names": 8,
+              "plants_with_5plus_local_recorded_cells": 2,
+              "source_training_references_covering_local_plants": 1,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "PE",
+              "recorded_bat_cells": 7,
+              "outside_country_bat_cells": 193,
+              "training_partner_plant_names": 17,
+              "plants_with_5plus_local_recorded_cells": 9,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "SR",
+              "recorded_bat_cells": 11,
+              "outside_country_bat_cells": 189,
+              "training_partner_plant_names": 17,
+              "plants_with_5plus_local_recorded_cells": 1,
+              "source_training_references_covering_local_plants": 1,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            }
+          ]
+        },
+        {
+          "bat": "Platyrrhinus helleri",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 12,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 10,
+          "country_records": [
+            {
+              "country": "BR",
+              "recorded_bat_cells": 45,
+              "outside_country_bat_cells": 312,
+              "training_partner_plant_names": 12,
+              "plants_with_5plus_local_recorded_cells": 9,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CO",
+              "recorded_bat_cells": 182,
+              "outside_country_bat_cells": 175,
+              "training_partner_plant_names": 12,
+              "plants_with_5plus_local_recorded_cells": 10,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CR",
+              "recorded_bat_cells": 16,
+              "outside_country_bat_cells": 341,
+              "training_partner_plant_names": 8,
+              "plants_with_5plus_local_recorded_cells": 7,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GF",
+              "recorded_bat_cells": 8,
+              "outside_country_bat_cells": 349,
+              "training_partner_plant_names": 12,
+              "plants_with_5plus_local_recorded_cells": 3,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GT",
+              "recorded_bat_cells": 7,
+              "outside_country_bat_cells": 350,
+              "training_partner_plant_names": 12,
+              "plants_with_5plus_local_recorded_cells": 5,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GY",
+              "recorded_bat_cells": 9,
+              "outside_country_bat_cells": 348,
+              "training_partner_plant_names": 12,
+              "plants_with_5plus_local_recorded_cells": 2,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "HN",
+              "recorded_bat_cells": 10,
+              "outside_country_bat_cells": 347,
+              "training_partner_plant_names": 12,
+              "plants_with_5plus_local_recorded_cells": 4,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "MX",
+              "recorded_bat_cells": 22,
+              "outside_country_bat_cells": 335,
+              "training_partner_plant_names": 12,
+              "plants_with_5plus_local_recorded_cells": 8,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "NI",
+              "recorded_bat_cells": 10,
+              "outside_country_bat_cells": 347,
+              "training_partner_plant_names": 12,
+              "plants_with_5plus_local_recorded_cells": 9,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PA",
+              "recorded_bat_cells": 14,
+              "outside_country_bat_cells": 343,
+              "training_partner_plant_names": 5,
+              "plants_with_5plus_local_recorded_cells": 3,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PE",
+              "recorded_bat_cells": 6,
+              "outside_country_bat_cells": 351,
+              "training_partner_plant_names": 12,
+              "plants_with_5plus_local_recorded_cells": 7,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "SR",
+              "recorded_bat_cells": 13,
+              "outside_country_bat_cells": 344,
+              "training_partner_plant_names": 12,
+              "plants_with_5plus_local_recorded_cells": 0,
+              "source_training_references_covering_local_plants": 0,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            }
+          ]
+        },
+        {
+          "bat": "Platyrrhinus lineatus",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 3,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 1,
+          "country_records": [
+            {
+              "country": "AR",
+              "recorded_bat_cells": 6,
+              "outside_country_bat_cells": 393,
+              "training_partner_plant_names": 6,
+              "plants_with_5plus_local_recorded_cells": 2,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "BR",
+              "recorded_bat_cells": 375,
+              "outside_country_bat_cells": 24,
+              "training_partner_plant_names": 1,
+              "plants_with_5plus_local_recorded_cells": 1,
+              "source_training_references_covering_local_plants": 1,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "CO",
+              "recorded_bat_cells": 7,
+              "outside_country_bat_cells": 392,
+              "training_partner_plant_names": 6,
+              "plants_with_5plus_local_recorded_cells": 3,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            }
+          ]
+        },
+        {
+          "bat": "Rhinophylla pumilio",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 7,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 6,
+          "country_records": [
+            {
+              "country": "BR",
+              "recorded_bat_cells": 128,
+              "outside_country_bat_cells": 164,
+              "training_partner_plant_names": 7,
+              "plants_with_5plus_local_recorded_cells": 5,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CO",
+              "recorded_bat_cells": 64,
+              "outside_country_bat_cells": 228,
+              "training_partner_plant_names": 12,
+              "plants_with_5plus_local_recorded_cells": 11,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "EC",
+              "recorded_bat_cells": 13,
+              "outside_country_bat_cells": 279,
+              "training_partner_plant_names": 12,
+              "plants_with_5plus_local_recorded_cells": 6,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GF",
+              "recorded_bat_cells": 30,
+              "outside_country_bat_cells": 262,
+              "training_partner_plant_names": 9,
+              "plants_with_5plus_local_recorded_cells": 5,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GY",
+              "recorded_bat_cells": 20,
+              "outside_country_bat_cells": 272,
+              "training_partner_plant_names": 12,
+              "plants_with_5plus_local_recorded_cells": 2,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "PE",
+              "recorded_bat_cells": 19,
+              "outside_country_bat_cells": 273,
+              "training_partner_plant_names": 9,
+              "plants_with_5plus_local_recorded_cells": 4,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "SR",
+              "recorded_bat_cells": 18,
+              "outside_country_bat_cells": 274,
+              "training_partner_plant_names": 12,
+              "plants_with_5plus_local_recorded_cells": 4,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            }
+          ]
+        },
+        {
+          "bat": "Sturnira giannae",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 3,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 3,
+          "country_records": [
+            {
+              "country": "CO",
+              "recorded_bat_cells": 43,
+              "outside_country_bat_cells": 30,
+              "training_partner_plant_names": 24,
+              "plants_with_5plus_local_recorded_cells": 19,
+              "source_training_references_covering_local_plants": 7,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "EC",
+              "recorded_bat_cells": 10,
+              "outside_country_bat_cells": 63,
+              "training_partner_plant_names": 24,
+              "plants_with_5plus_local_recorded_cells": 8,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PE",
+              "recorded_bat_cells": 13,
+              "outside_country_bat_cells": 60,
+              "training_partner_plant_names": 21,
+              "plants_with_5plus_local_recorded_cells": 9,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            }
+          ]
+        },
+        {
+          "bat": "Sturnira lilium",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 9,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 8,
+          "country_records": [
+            {
+              "country": "AR",
+              "recorded_bat_cells": 13,
+              "outside_country_bat_cells": 708,
+              "training_partner_plant_names": 28,
+              "plants_with_5plus_local_recorded_cells": 5,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "BR",
+              "recorded_bat_cells": 452,
+              "outside_country_bat_cells": 269,
+              "training_partner_plant_names": 7,
+              "plants_with_5plus_local_recorded_cells": 3,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CO",
+              "recorded_bat_cells": 162,
+              "outside_country_bat_cells": 559,
+              "training_partner_plant_names": 35,
+              "plants_with_5plus_local_recorded_cells": 8,
+              "source_training_references_covering_local_plants": 7,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "EC",
+              "recorded_bat_cells": 17,
+              "outside_country_bat_cells": 704,
+              "training_partner_plant_names": 35,
+              "plants_with_5plus_local_recorded_cells": 6,
+              "source_training_references_covering_local_plants": 7,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GF",
+              "recorded_bat_cells": 10,
+              "outside_country_bat_cells": 711,
+              "training_partner_plant_names": 35,
+              "plants_with_5plus_local_recorded_cells": 3,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GT",
+              "recorded_bat_cells": 12,
+              "outside_country_bat_cells": 709,
+              "training_partner_plant_names": 35,
+              "plants_with_5plus_local_recorded_cells": 4,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "MX",
+              "recorded_bat_cells": 23,
+              "outside_country_bat_cells": 698,
+              "training_partner_plant_names": 35,
+              "plants_with_5plus_local_recorded_cells": 7,
+              "source_training_references_covering_local_plants": 6,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PE",
+              "recorded_bat_cells": 5,
+              "outside_country_bat_cells": 716,
+              "training_partner_plant_names": 35,
+              "plants_with_5plus_local_recorded_cells": 9,
+              "source_training_references_covering_local_plants": 8,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "SR",
+              "recorded_bat_cells": 9,
+              "outside_country_bat_cells": 712,
+              "training_partner_plant_names": 35,
+              "plants_with_5plus_local_recorded_cells": 2,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            }
+          ]
+        },
+        {
+          "bat": "Sturnira ludovici",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 4,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 4,
+          "country_records": [
+            {
+              "country": "CO",
+              "recorded_bat_cells": 91,
+              "outside_country_bat_cells": 49,
+              "training_partner_plant_names": 28,
+              "plants_with_5plus_local_recorded_cells": 17,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "EC",
+              "recorded_bat_cells": 20,
+              "outside_country_bat_cells": 120,
+              "training_partner_plant_names": 28,
+              "plants_with_5plus_local_recorded_cells": 16,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GT",
+              "recorded_bat_cells": 12,
+              "outside_country_bat_cells": 128,
+              "training_partner_plant_names": 28,
+              "plants_with_5plus_local_recorded_cells": 8,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "MX",
+              "recorded_bat_cells": 9,
+              "outside_country_bat_cells": 131,
+              "training_partner_plant_names": 25,
+              "plants_with_5plus_local_recorded_cells": 12,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            }
+          ]
+        },
+        {
+          "bat": "Sturnira parvidens",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 7,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 5,
+          "country_records": [
+            {
+              "country": "CO",
+              "recorded_bat_cells": 77,
+              "outside_country_bat_cells": 252,
+              "training_partner_plant_names": 16,
+              "plants_with_5plus_local_recorded_cells": 12,
+              "source_training_references_covering_local_plants": 7,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CR",
+              "recorded_bat_cells": 10,
+              "outside_country_bat_cells": 319,
+              "training_partner_plant_names": 8,
+              "plants_with_5plus_local_recorded_cells": 6,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GY",
+              "recorded_bat_cells": 5,
+              "outside_country_bat_cells": 324,
+              "training_partner_plant_names": 17,
+              "plants_with_5plus_local_recorded_cells": 0,
+              "source_training_references_covering_local_plants": 0,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "HN",
+              "recorded_bat_cells": 11,
+              "outside_country_bat_cells": 318,
+              "training_partner_plant_names": 17,
+              "plants_with_5plus_local_recorded_cells": 6,
+              "source_training_references_covering_local_plants": 6,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "MX",
+              "recorded_bat_cells": 195,
+              "outside_country_bat_cells": 134,
+              "training_partner_plant_names": 11,
+              "plants_with_5plus_local_recorded_cells": 11,
+              "source_training_references_covering_local_plants": 6,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "NI",
+              "recorded_bat_cells": 15,
+              "outside_country_bat_cells": 314,
+              "training_partner_plant_names": 17,
+              "plants_with_5plus_local_recorded_cells": 15,
+              "source_training_references_covering_local_plants": 7,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "SR",
+              "recorded_bat_cells": 8,
+              "outside_country_bat_cells": 321,
+              "training_partner_plant_names": 17,
+              "plants_with_5plus_local_recorded_cells": 2,
+              "source_training_references_covering_local_plants": 1,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            }
+          ]
+        },
+        {
+          "bat": "Sturnira tildae",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 6,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 4,
+          "country_records": [
+            {
+              "country": "BR",
+              "recorded_bat_cells": 91,
+              "outside_country_bat_cells": 112,
+              "training_partner_plant_names": 5,
+              "plants_with_5plus_local_recorded_cells": 5,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CO",
+              "recorded_bat_cells": 48,
+              "outside_country_bat_cells": 155,
+              "training_partner_plant_names": 10,
+              "plants_with_5plus_local_recorded_cells": 6,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GF",
+              "recorded_bat_cells": 19,
+              "outside_country_bat_cells": 184,
+              "training_partner_plant_names": 5,
+              "plants_with_5plus_local_recorded_cells": 1,
+              "source_training_references_covering_local_plants": 1,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "GY",
+              "recorded_bat_cells": 12,
+              "outside_country_bat_cells": 191,
+              "training_partner_plant_names": 10,
+              "plants_with_5plus_local_recorded_cells": 0,
+              "source_training_references_covering_local_plants": 0,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "PE",
+              "recorded_bat_cells": 10,
+              "outside_country_bat_cells": 193,
+              "training_partner_plant_names": 10,
+              "plants_with_5plus_local_recorded_cells": 5,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "SR",
+              "recorded_bat_cells": 17,
+              "outside_country_bat_cells": 186,
+              "training_partner_plant_names": 10,
+              "plants_with_5plus_local_recorded_cells": 4,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            }
+          ]
+        },
+        {
+          "bat": "Uroderma bilobatum",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 13,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 9,
+          "country_records": [
+            {
+              "country": "BR",
+              "recorded_bat_cells": 96,
+              "outside_country_bat_cells": 401,
+              "training_partner_plant_names": 7,
+              "plants_with_5plus_local_recorded_cells": 6,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CO",
+              "recorded_bat_cells": 173,
+              "outside_country_bat_cells": 324,
+              "training_partner_plant_names": 11,
+              "plants_with_5plus_local_recorded_cells": 8,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CR",
+              "recorded_bat_cells": 47,
+              "outside_country_bat_cells": 450,
+              "training_partner_plant_names": 11,
+              "plants_with_5plus_local_recorded_cells": 5,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "EC",
+              "recorded_bat_cells": 22,
+              "outside_country_bat_cells": 475,
+              "training_partner_plant_names": 11,
+              "plants_with_5plus_local_recorded_cells": 7,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GF",
+              "recorded_bat_cells": 25,
+              "outside_country_bat_cells": 472,
+              "training_partner_plant_names": 10,
+              "plants_with_5plus_local_recorded_cells": 5,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GT",
+              "recorded_bat_cells": 10,
+              "outside_country_bat_cells": 487,
+              "training_partner_plant_names": 11,
+              "plants_with_5plus_local_recorded_cells": 3,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GY",
+              "recorded_bat_cells": 8,
+              "outside_country_bat_cells": 489,
+              "training_partner_plant_names": 11,
+              "plants_with_5plus_local_recorded_cells": 0,
+              "source_training_references_covering_local_plants": 0,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "MX",
+              "recorded_bat_cells": 20,
+              "outside_country_bat_cells": 477,
+              "training_partner_plant_names": 11,
+              "plants_with_5plus_local_recorded_cells": 5,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "NI",
+              "recorded_bat_cells": 11,
+              "outside_country_bat_cells": 486,
+              "training_partner_plant_names": 11,
+              "plants_with_5plus_local_recorded_cells": 5,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PA",
+              "recorded_bat_cells": 27,
+              "outside_country_bat_cells": 470,
+              "training_partner_plant_names": 11,
+              "plants_with_5plus_local_recorded_cells": 3,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PE",
+              "recorded_bat_cells": 27,
+              "outside_country_bat_cells": 470,
+              "training_partner_plant_names": 5,
+              "plants_with_5plus_local_recorded_cells": 2,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "SR",
+              "recorded_bat_cells": 13,
+              "outside_country_bat_cells": 484,
+              "training_partner_plant_names": 11,
+              "plants_with_5plus_local_recorded_cells": 2,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "TT",
+              "recorded_bat_cells": 7,
+              "outside_country_bat_cells": 490,
+              "training_partner_plant_names": 11,
+              "plants_with_5plus_local_recorded_cells": 2,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            }
+          ]
+        },
+        {
+          "bat": "Uroderma convexum",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 5,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 4,
+          "country_records": [
+            {
+              "country": "CO",
+              "recorded_bat_cells": 65,
+              "outside_country_bat_cells": 41,
+              "training_partner_plant_names": 16,
+              "plants_with_5plus_local_recorded_cells": 12,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CR",
+              "recorded_bat_cells": 8,
+              "outside_country_bat_cells": 98,
+              "training_partner_plant_names": 12,
+              "plants_with_5plus_local_recorded_cells": 10,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "MX",
+              "recorded_bat_cells": 13,
+              "outside_country_bat_cells": 93,
+              "training_partner_plant_names": 16,
+              "plants_with_5plus_local_recorded_cells": 10,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "NI",
+              "recorded_bat_cells": 6,
+              "outside_country_bat_cells": 100,
+              "training_partner_plant_names": 16,
+              "plants_with_5plus_local_recorded_cells": 10,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PA",
+              "recorded_bat_cells": 5,
+              "outside_country_bat_cells": 101,
+              "training_partner_plant_names": 5,
+              "plants_with_5plus_local_recorded_cells": 1,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            }
+          ]
+        },
+        {
+          "bat": "Vampyressa thyone",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 7,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 5,
+          "country_records": [
+            {
+              "country": "CO",
+              "recorded_bat_cells": 118,
+              "outside_country_bat_cells": 84,
+              "training_partner_plant_names": 8,
+              "plants_with_5plus_local_recorded_cells": 6,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CR",
+              "recorded_bat_cells": 13,
+              "outside_country_bat_cells": 189,
+              "training_partner_plant_names": 7,
+              "plants_with_5plus_local_recorded_cells": 5,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "EC",
+              "recorded_bat_cells": 21,
+              "outside_country_bat_cells": 181,
+              "training_partner_plant_names": 8,
+              "plants_with_5plus_local_recorded_cells": 4,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "GT",
+              "recorded_bat_cells": 5,
+              "outside_country_bat_cells": 197,
+              "training_partner_plant_names": 8,
+              "plants_with_5plus_local_recorded_cells": 2,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "MX",
+              "recorded_bat_cells": 11,
+              "outside_country_bat_cells": 191,
+              "training_partner_plant_names": 8,
+              "plants_with_5plus_local_recorded_cells": 6,
+              "source_training_references_covering_local_plants": 5,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PA",
+              "recorded_bat_cells": 6,
+              "outside_country_bat_cells": 196,
+              "training_partner_plant_names": 1,
+              "plants_with_5plus_local_recorded_cells": 1,
+              "source_training_references_covering_local_plants": 1,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            },
+            {
+              "country": "PE",
+              "recorded_bat_cells": 15,
+              "outside_country_bat_cells": 187,
+              "training_partner_plant_names": 8,
+              "plants_with_5plus_local_recorded_cells": 4,
+              "source_training_references_covering_local_plants": 3,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            }
+          ]
+        },
+        {
+          "bat": "Vampyriscus nymphaea",
+          "bat_countries_with_5plus_cells_and_20plus_outside": 3,
+          "countries_with_3plus_local_plant_partners_2plus_refs": 2,
+          "country_records": [
+            {
+              "country": "CO",
+              "recorded_bat_cells": 20,
+              "outside_country_bat_cells": 21,
+              "training_partner_plant_names": 14,
+              "plants_with_5plus_local_recorded_cells": 11,
+              "source_training_references_covering_local_plants": 4,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "CR",
+              "recorded_bat_cells": 5,
+              "outside_country_bat_cells": 36,
+              "training_partner_plant_names": 9,
+              "plants_with_5plus_local_recorded_cells": 8,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": true,
+              "status": "RESOURCE_SOURCE_INPUT_POSSIBLE"
+            },
+            {
+              "country": "PA",
+              "recorded_bat_cells": 7,
+              "outside_country_bat_cells": 34,
+              "training_partner_plant_names": 6,
+              "plants_with_5plus_local_recorded_cells": 2,
+              "source_training_references_covering_local_plants": 2,
+              "input_possible": false,
+              "status": "INPUT_INDETERMINATE"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

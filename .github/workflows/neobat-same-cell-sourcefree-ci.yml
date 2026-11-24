@@ -1,0 +1,25 @@
+name: NeoBat same-cell support source-free contract tests
+on:
+  push:
+    branches:
+      - analysis/neobat-25km-colocation-gate-20261119
+    paths:
+      - .github/workflows/neobat-same-cell-sourcefree-ci.yml
+      - scripts/neobat_same_cell_source_support.py
+      - tests/test_neobat_same_cell_source_support.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Source-free compile check
+        run: python -m py_compile scripts/neobat_same_cell_source_support.py tests/test_neobat_same_cell_source_support.py
+      - name: Synthetic original-shaped schema, source embargo and strict 84 roster tests
+        run: python -m unittest discover -s tests -p 'test_neobat_same_cell_source_support.py' -v

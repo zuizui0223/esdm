@@ -1,0 +1,647 @@
+{
+  "schema_version": 1,
+  "status": "PREFIT_DISCOVERY_ELIGIBILITY_FROZEN_NOT_INDEPENDENT_VALIDATION",
+  "created_date": "2026-11-19",
+  "source_bat_GBIF_DOI": "10.15468/dl.nxu727",
+  "source_plant_GBIF_DOI": "10.15468/dl.xwc5zf",
+  "bat_species_universe": 26,
+  "plant_species_universe": 255,
+  "candidate_country_universe": 29,
+  "bat_country_combinations_evaluated": 754,
+  "total_strict_candidate_combinations": 84,
+  "total_indexed_candidate_combinations": 162,
+  "strict_species_at_least_2_candidates": 16,
+  "primary_thresholds": {
+    "bat_25km_cells_inside": 5,
+    "bat_25km_cells_outside": 20,
+    "plant_25km_cells_inside": 5,
+    "plant_25km_cells_outside": 20,
+    "minimum_source_documented_fruit_partners": 3,
+    "minimum_independent_NeoBat_references": 2,
+    "coordinate_uncertainty_m_leq": 12500
+  },
+  "source_full_DOI_QC": "docs/replication/neobat/gbif_full_source_qc.json",
+  "source_full_gate_sha": "c06ee4e8b84c195ed16168af2695bdeed27af1a7",
+  "source_previous_gate_sha": "e3ccc05b1d869b94af35a8c55026e1fa6e0ac7d9",
+  "removed_by_outcountry_plant_cells_vs_previous_gate": [
+    {
+      "bat": "Artibeus obscurus",
+      "country": "BR"
+    },
+    {
+      "bat": "Vampyressa thyone",
+      "country": "CR"
+    }
+  ],
+  "all_26_species": [
+    {
+      "bat": "Artibeus cinereus",
+      "strict_holdout_countries": [],
+      "strict_candidate_count": 0,
+      "indexed_candidate_count": 0
+    },
+    {
+      "bat": "Artibeus concolor",
+      "strict_holdout_countries": [],
+      "strict_candidate_count": 0,
+      "indexed_candidate_count": 1
+    },
+    {
+      "bat": "Artibeus gnomus",
+      "strict_holdout_countries": [],
+      "strict_candidate_count": 0,
+      "indexed_candidate_count": 1
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "strict_holdout_countries": [
+        "BZ",
+        "CO",
+        "CR",
+        "DO",
+        "GT",
+        "HN",
+        "JM",
+        "MX",
+        "PA",
+        "PR",
+        "SV"
+      ],
+      "strict_candidate_count": 11,
+      "indexed_candidate_count": 16
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "strict_holdout_countries": [
+        "AR",
+        "BR",
+        "BZ",
+        "CO",
+        "CR",
+        "EC",
+        "GF",
+        "GT",
+        "HN",
+        "MX",
+        "NI",
+        "PA",
+        "PE",
+        "SV"
+      ],
+      "strict_candidate_count": 14,
+      "indexed_candidate_count": 18
+    },
+    {
+      "bat": "Artibeus obscurus",
+      "strict_holdout_countries": [
+        "CO"
+      ],
+      "strict_candidate_count": 1,
+      "indexed_candidate_count": 4
+    },
+    {
+      "bat": "Artibeus phaeotis",
+      "strict_holdout_countries": [
+        "CO",
+        "CR",
+        "MX",
+        "PA"
+      ],
+      "strict_candidate_count": 4,
+      "indexed_candidate_count": 6
+    },
+    {
+      "bat": "Artibeus planirostris",
+      "strict_holdout_countries": [
+        "BR",
+        "CO",
+        "GF",
+        "PE"
+      ],
+      "strict_candidate_count": 4,
+      "indexed_candidate_count": 9
+    },
+    {
+      "bat": "Artibeus toltecus",
+      "strict_holdout_countries": [
+        "GT",
+        "HN",
+        "MX"
+      ],
+      "strict_candidate_count": 3,
+      "indexed_candidate_count": 5
+    },
+    {
+      "bat": "Artibeus watsoni",
+      "strict_holdout_countries": [
+        "CR",
+        "MX"
+      ],
+      "strict_candidate_count": 2,
+      "indexed_candidate_count": 5
+    },
+    {
+      "bat": "Carollia brevicauda",
+      "strict_holdout_countries": [
+        "CO",
+        "EC",
+        "GF",
+        "PA",
+        "PE"
+      ],
+      "strict_candidate_count": 5,
+      "indexed_candidate_count": 8
+    },
+    {
+      "bat": "Carollia castanea",
+      "strict_holdout_countries": [
+        "CO",
+        "CR",
+        "EC",
+        "PA",
+        "PE"
+      ],
+      "strict_candidate_count": 5,
+      "indexed_candidate_count": 7
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "strict_holdout_countries": [
+        "BR",
+        "CO",
+        "CR",
+        "EC",
+        "GF",
+        "MX",
+        "NI",
+        "PA",
+        "PE"
+      ],
+      "strict_candidate_count": 9,
+      "indexed_candidate_count": 14
+    },
+    {
+      "bat": "Chiroderma villosum",
+      "strict_holdout_countries": [
+        "CO",
+        "EC",
+        "MX"
+      ],
+      "strict_candidate_count": 3,
+      "indexed_candidate_count": 7
+    },
+    {
+      "bat": "Platyrrhinus helleri",
+      "strict_holdout_countries": [
+        "CO",
+        "CR",
+        "MX",
+        "PA"
+      ],
+      "strict_candidate_count": 4,
+      "indexed_candidate_count": 10
+    },
+    {
+      "bat": "Platyrrhinus lineatus",
+      "strict_holdout_countries": [],
+      "strict_candidate_count": 0,
+      "indexed_candidate_count": 1
+    },
+    {
+      "bat": "Rhinophylla pumilio",
+      "strict_holdout_countries": [
+        "CO",
+        "GF"
+      ],
+      "strict_candidate_count": 2,
+      "indexed_candidate_count": 6
+    },
+    {
+      "bat": "Sturnira giannae",
+      "strict_holdout_countries": [],
+      "strict_candidate_count": 0,
+      "indexed_candidate_count": 3
+    },
+    {
+      "bat": "Sturnira lilium",
+      "strict_holdout_countries": [
+        "CO",
+        "MX"
+      ],
+      "strict_candidate_count": 2,
+      "indexed_candidate_count": 8
+    },
+    {
+      "bat": "Sturnira ludovici",
+      "strict_holdout_countries": [],
+      "strict_candidate_count": 0,
+      "indexed_candidate_count": 4
+    },
+    {
+      "bat": "Sturnira parvidens",
+      "strict_holdout_countries": [
+        "CO",
+        "CR",
+        "HN",
+        "MX"
+      ],
+      "strict_candidate_count": 4,
+      "indexed_candidate_count": 5
+    },
+    {
+      "bat": "Sturnira tildae",
+      "strict_holdout_countries": [
+        "CO"
+      ],
+      "strict_candidate_count": 1,
+      "indexed_candidate_count": 4
+    },
+    {
+      "bat": "Uroderma bilobatum",
+      "strict_holdout_countries": [
+        "BR",
+        "CO",
+        "CR",
+        "EC",
+        "GF",
+        "MX"
+      ],
+      "strict_candidate_count": 6,
+      "indexed_candidate_count": 9
+    },
+    {
+      "bat": "Uroderma convexum",
+      "strict_holdout_countries": [
+        "CO",
+        "CR",
+        "MX"
+      ],
+      "strict_candidate_count": 3,
+      "indexed_candidate_count": 4
+    },
+    {
+      "bat": "Vampyressa thyone",
+      "strict_holdout_countries": [
+        "CO"
+      ],
+      "strict_candidate_count": 1,
+      "indexed_candidate_count": 5
+    },
+    {
+      "bat": "Vampyriscus nymphaea",
+      "strict_holdout_countries": [],
+      "strict_candidate_count": 0,
+      "indexed_candidate_count": 2
+    }
+  ],
+  "strict_84_candidate_folds": [
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "BZ"
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "CO"
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "CR"
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "DO"
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "GT"
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "HN"
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "JM"
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "MX"
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "PA"
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "PR"
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "holdout_country": "SV"
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "AR"
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "BR"
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "BZ"
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "CO"
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "CR"
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "EC"
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "GF"
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "GT"
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "HN"
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "MX"
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "NI"
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "PA"
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "PE"
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "holdout_country": "SV"
+    },
+    {
+      "bat": "Artibeus obscurus",
+      "holdout_country": "CO"
+    },
+    {
+      "bat": "Artibeus phaeotis",
+      "holdout_country": "CO"
+    },
+    {
+      "bat": "Artibeus phaeotis",
+      "holdout_country": "CR"
+    },
+    {
+      "bat": "Artibeus phaeotis",
+      "holdout_country": "MX"
+    },
+    {
+      "bat": "Artibeus phaeotis",
+      "holdout_country": "PA"
+    },
+    {
+      "bat": "Artibeus planirostris",
+      "holdout_country": "BR"
+    },
+    {
+      "bat": "Artibeus planirostris",
+      "holdout_country": "CO"
+    },
+    {
+      "bat": "Artibeus planirostris",
+      "holdout_country": "GF"
+    },
+    {
+      "bat": "Artibeus planirostris",
+      "holdout_country": "PE"
+    },
+    {
+      "bat": "Artibeus toltecus",
+      "holdout_country": "GT"
+    },
+    {
+      "bat": "Artibeus toltecus",
+      "holdout_country": "HN"
+    },
+    {
+      "bat": "Artibeus toltecus",
+      "holdout_country": "MX"
+    },
+    {
+      "bat": "Artibeus watsoni",
+      "holdout_country": "CR"
+    },
+    {
+      "bat": "Artibeus watsoni",
+      "holdout_country": "MX"
+    },
+    {
+      "bat": "Carollia brevicauda",
+      "holdout_country": "CO"
+    },
+    {
+      "bat": "Carollia brevicauda",
+      "holdout_country": "EC"
+    },
+    {
+      "bat": "Carollia brevicauda",
+      "holdout_country": "GF"
+    },
+    {
+      "bat": "Carollia brevicauda",
+      "holdout_country": "PA"
+    },
+    {
+      "bat": "Carollia brevicauda",
+      "holdout_country": "PE"
+    },
+    {
+      "bat": "Carollia castanea",
+      "holdout_country": "CO"
+    },
+    {
+      "bat": "Carollia castanea",
+      "holdout_country": "CR"
+    },
+    {
+      "bat": "Carollia castanea",
+      "holdout_country": "EC"
+    },
+    {
+      "bat": "Carollia castanea",
+      "holdout_country": "PA"
+    },
+    {
+      "bat": "Carollia castanea",
+      "holdout_country": "PE"
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "holdout_country": "BR"
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "holdout_country": "CO"
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "holdout_country": "CR"
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "holdout_country": "EC"
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "holdout_country": "GF"
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "holdout_country": "MX"
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "holdout_country": "NI"
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "holdout_country": "PA"
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "holdout_country": "PE"
+    },
+    {
+      "bat": "Chiroderma villosum",
+      "holdout_country": "CO"
+    },
+    {
+      "bat": "Chiroderma villosum",
+      "holdout_country": "EC"
+    },
+    {
+      "bat": "Chiroderma villosum",
+      "holdout_country": "MX"
+    },
+    {
+      "bat": "Platyrrhinus helleri",
+      "holdout_country": "CO"
+    },
+    {
+      "bat": "Platyrrhinus helleri",
+      "holdout_country": "CR"
+    },
+    {
+      "bat": "Platyrrhinus helleri",
+      "holdout_country": "MX"
+    },
+    {
+      "bat": "Platyrrhinus helleri",
+      "holdout_country": "PA"
+    },
+    {
+      "bat": "Rhinophylla pumilio",
+      "holdout_country": "CO"
+    },
+    {
+      "bat": "Rhinophylla pumilio",
+      "holdout_country": "GF"
+    },
+    {
+      "bat": "Sturnira lilium",
+      "holdout_country": "CO"
+    },
+    {
+      "bat": "Sturnira lilium",
+      "holdout_country": "MX"
+    },
+    {
+      "bat": "Sturnira parvidens",
+      "holdout_country": "CO"
+    },
+    {
+      "bat": "Sturnira parvidens",
+      "holdout_country": "CR"
+    },
+    {
+      "bat": "Sturnira parvidens",
+      "holdout_country": "HN"
+    },
+    {
+      "bat": "Sturnira parvidens",
+      "holdout_country": "MX"
+    },
+    {
+      "bat": "Sturnira tildae",
+      "holdout_country": "CO"
+    },
+    {
+      "bat": "Uroderma bilobatum",
+      "holdout_country": "BR"
+    },
+    {
+      "bat": "Uroderma bilobatum",
+      "holdout_country": "CO"
+    },
+    {
+      "bat": "Uroderma bilobatum",
+      "holdout_country": "CR"
+    },
+    {
+      "bat": "Uroderma bilobatum",
+      "holdout_country": "EC"
+    },
+    {
+      "bat": "Uroderma bilobatum",
+      "holdout_country": "GF"
+    },
+    {
+      "bat": "Uroderma bilobatum",
+      "holdout_country": "MX"
+    },
+    {
+      "bat": "Uroderma convexum",
+      "holdout_country": "CO"
+    },
+    {
+      "bat": "Uroderma convexum",
+      "holdout_country": "CR"
+    },
+    {
+      "bat": "Uroderma convexum",
+      "holdout_country": "MX"
+    },
+    {
+      "bat": "Vampyressa thyone",
+      "holdout_country": "CO"
+    }
+  ],
+  "no_spatial_same_cell_bat_plant_cooccurrence_verified": true,
+  "no_diet_abundance_observed": true,
+  "no_plant_cross_fitted_sdm_estimated": true,
+  "independent_holdout_not_untouched": true,
+  "no_M3_minus_M1_empirical_result": true,
+  "mandatory_next_source_gates": [
+    "climate_and_forest_covariate_manifest",
+    "independent_species_target_group_background_observation_process",
+    "outcountry_plant_distribution_models",
+    "network_degree_preserving_n1_comparison"
+  ],
+  "claim_ceiling": "source observability only, not proof of causal resource use or transportable SDM improvement"
+}

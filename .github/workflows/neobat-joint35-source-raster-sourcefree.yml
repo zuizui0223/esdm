@@ -1,0 +1,28 @@
+name: NeoBat joint35 original-source raster source-free regression
+
+on:
+  push:
+    branches:
+      - analysis/neobat-35-source-raster-joint-gate-20261119
+    paths:
+      - scripts/neobat_joint35_source_raster_gate.py
+      - tests/test_neobat_joint35_source_raster_gate.py
+      - .github/workflows/neobat-joint35-source-raster-sourcefree.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  synthetic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Pure source-geometry, source-key embargo, raster-nodata class regression
+        run: |
+          python -m py_compile scripts/neobat_joint35_source_raster_gate.py
+          python -m unittest discover -s tests -p 'test_neobat_joint35_source_raster_gate.py' -v

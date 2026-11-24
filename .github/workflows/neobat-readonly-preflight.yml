@@ -1,0 +1,63 @@
+name: NeoBat source and GBIF read-only metadata preflight
+
+on:
+  push:
+    branches:
+      - design/neobat-trophic-sdm-phase1-20261119
+    paths:
+      - .github/workflows/neobat-readonly-preflight.yml
+      - scripts/neobat_gbif_metadata_preflight.py
+      - tests/test_neobat_gbif_metadata_preflight.py
+
+permissions:
+  contents: write
+
+jobs:
+  neobat_metadata_once:
+    if: github.ref == 'refs/heads/design/neobat-trophic-sdm-phase1-20261119'
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    concurrency:
+      group: neobat-gbif-metadata-20261119
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Synthetic-only source and metadata safeguards
+        run: |
+          python -m py_compile scripts/neobat_gbif_metadata_preflight.py
+          python -m unittest discover -s tests -p 'test_neobat_gbif_metadata_preflight.py' -v
+      - name: Verify immutable original source and query public GBIF counts only
+        run: |
+          mkdir -p build/neobat
+          set +e
+          python scripts/neobat_gbif_metadata_preflight.py --out build/neobat --gbif
+          status=$?
+          set -e
+          printf '%s\n' "$status" > build/neobat/exit_code.txt
+          echo "Read-only metadata exit code: $status"
+      - name: Archive preflight files including truthful stop states
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-source-gbif-preflight
+          path: build/neobat/
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Commit aggregate metadata receipts on isolated design branch
+        if: success()
+        run: |
+          set -euo pipefail
+          mkdir -p docs/replication/neobat
+          cp build/neobat/*.json docs/replication/neobat/
+          cp build/neobat/exit_code.txt docs/replication/neobat/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: store NeoBat source/GBIF count-only receipts"
+            git pull --rebase origin "$GITHUB_REF_NAME"
+            git push origin "HEAD:$GITHUB_REF_NAME"
+          fi

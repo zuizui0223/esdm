@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-19",
+  "status": "CONFIRMED_PREJOB_YAML_PARSE_FAILURE",
+  "workflow": ".github/workflows/neobat-gbif-doi-download-once.yml",
+  "original_marker_sha": "37c1c92ef37225c8898ed8f63a4333263f424695",
+  "original_run_id": 44474434524,
+  "original_run_conclusion": "failure",
+  "original_run_jobs": 0,
+  "original_run_artifacts": 0,
+  "offending_yaml_line": "if: github.event.head_commit.message == 'dispatch: NeoBat first DOI-bearing GBIF bat and plant downloads' && github.run_attempt == 1",
+  "failure_reason": "YAML plain scalar begins with github...; a colon followed by space later in scalar is a mapping separator even inside internal single-quote characters. PyYAML reproduces ScannerError: mapping values are not allowed here.",
+  "confirmation": "The original GitHub run had no jobs or artifacts; no GBIF submission step executed.",
+  "GBIF_POST_performed_by_original_run": false,
+  "accepted_original_GBIF_download_keys": [],
+  "external_occurrence_download_doi": null,
+  "remedy": "Quote the whole GitHub Actions job if scalar and use a distinct, once-only corrected marker path; do not rerun the malformed original marker.",
+  "ecological_analysis_result": null
+}

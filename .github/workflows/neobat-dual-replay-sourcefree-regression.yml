@@ -1,0 +1,44 @@
+name: NeoBat aggregate replay strict source-hash and 1802-fold regression
+on:
+  push:
+    branches:
+      - analysis/neobat-106x17-dual-replay-audit-20261119
+    paths:
+      - scripts/neobat_106x17_dual_replay_audit.py
+      - tests/test_neobat_106x17_dual_replay_audit.py
+      - .github/workflows/neobat-dual-replay-sourcefree-regression.yml
+permissions:
+  contents: read
+jobs:
+  source_free_hash_and_exact_comparison:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Source-free synthetic mismatch tests
+        run: |
+          python -m py_compile scripts/neobat_106x17_dual_replay_audit.py
+          python -m unittest discover -s tests -p 'test_neobat_106x17_dual_replay_audit.py' -v
+      - name: Strictly compare original saved aggregates including identical climate/elevation SHA without reloading originals
+        run: |
+          set -euo pipefail
+          mkdir -p build/neobat
+          cp docs/replication/neobat/plant_106x17_source_effort_transfer.json build/neobat/A.json
+          test "$(git hash-object build/neobat/A.json)" = "3389fda966cb3c7566ff5d249396fed725f16a05"
+          git fetch --no-tags --depth=1 origin analysis/neobat-106x17-source-intensity-diagnostic-20261119
+          test "$(git rev-parse FETCH_HEAD)" = "e940be5799bb98c59f708cb6da454f11d1f24b30"
+          git show FETCH_HEAD:docs/replication/neobat/plant_106x17_source_intensity_diagnostic.json > build/neobat/B.json
+          test "$(git hash-object build/neobat/B.json)" = "7a84042d25f4809e5169da6881242b33170be7d0"
+          python -m scripts.neobat_106x17_dual_replay_audit --a build/neobat/A.json --b build/neobat/B.json --out build/neobat/rechecked.json
+          python - <<'PY'
+          import json
+          r=json.load(open("build/neobat/rechecked.json"))
+          assert r["status"]=="FULL_1802_FOLD_TWO_IMPLEMENTATION_AGGREGATE_REPLAY_MATCH"
+          assert r["auc_or_conditional_pair_mismatches"]==0
+          print("SOURCE_AUDIT REPLAY_MATCH_AND_RASTER_SHA_MATCH")
+          PY

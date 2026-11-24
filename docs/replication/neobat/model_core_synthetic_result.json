@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "status": "SYNTHETIC_ONLY",
+  "bat": "Testus frugivorus",
+  "heldout_region": "BR",
+  "GBIF_bat_DOI": null,
+  "GBIF_plant_DOI": null,
+  "plant_universe_size": 6,
+  "trained_fruit_partner_names": 3,
+  "trained_fruit_source_references": 3,
+  "source_references_excluded_due_to_holdout": 0,
+  "training_events": 10,
+  "heldout_events": 6,
+  "presence_rank_auc": {
+    "M0": 0.5,
+    "M1": 0.5,
+    "M3": 1.0
+  },
+  "heldout_M3_minus_M1": 0.5,
+  "rewired_N1_auc_mean": 1.0,
+  "M3_minus_rewired_N1_mean": 0.0,
+  "rewire_p_upper_tail": 1.0,
+  "rewire_draws": 19,
+  "background_is_not_true_absence": true,
+  "plant_predictions_are_relative_not_probability": true,
+  "source_country_heldout_not_unopened_independent_confirmation": null,
+  "causal_interaction_established": false
+}

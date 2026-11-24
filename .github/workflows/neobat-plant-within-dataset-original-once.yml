@@ -1,0 +1,74 @@
+name: NeoBat original DOI 106x17 within-datasetKey plant source matching once
+
+on:
+  push:
+    branches:
+      - analysis/neobat-plant-within-dataset-source-gate-20261119
+    paths:
+      - docs/replication/neobat/NEOBAT_PLANT_DATASET_MATCHED_ONCE_20261119.txt
+
+permissions:
+  contents: write
+concurrency:
+  group: neobat-plant-datasetKey-106x17-once-20261119
+  cancel-in-progress: false
+
+jobs:
+  original_matched_plant_source:
+    if: github.event.head_commit.message == 'dispatch frozen NeoBat 106x17 plant datasetKey source gate once' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: analysis/neobat-plant-within-dataset-source-gate-20261119
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install exact original grid projection dependency
+        run: python -m pip install 'pyproj==3.7.2'
+      - name: Assert frozen source design and synthetic correctness
+        run: |
+          test -f docs/replication/NEOBAT_PLANT_WITHIN_DATASETKEY_SOURCE_GATE_FROZEN_20261119.md
+          test -f docs/replication/neobat/v2_106plant_reference_input_gate.json
+          python -m py_compile scripts/neobat_plant_within_dataset_source_gate.py
+          python -m unittest discover -s tests -p 'test_neobat_plant_within_dataset_source_gate.py' -v
+      - name: Stream original plant DOI SHA-pinned ZIP and compute fixed 106x17 source matching
+        run: |
+          mkdir -p build/neobat
+          set +e
+          python -m scripts.neobat_plant_within_dataset_source_gate \
+            --out build/neobat/plant_dataset_matched_106x17.json \
+            --compact build/neobat/plant_dataset_matched_106x17_compact.json
+          status=$?
+          set -e
+          echo "$status" > build/neobat/plant_dataset_matched_106x17_exit_code.txt
+          echo "NEOBAT_PLANT_SOURCE_DATASETKEY_EXIT=$status"
+      - name: Preserve aggregate-only 1802-pair and compact source reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-original-106x17-plant-dataset-source-aggregate
+          path: |
+            build/neobat/plant_dataset_matched_106x17.json
+            build/neobat/plant_dataset_matched_106x17_compact.json
+            build/neobat/plant_dataset_matched_106x17_exit_code.txt
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Commit only source aggregate and compact summary
+        if: always()
+        run: |
+          set -euo pipefail
+          test -f build/neobat/plant_dataset_matched_106x17.json
+          cp build/neobat/plant_dataset_matched_106x17* docs/replication/neobat/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/plant_dataset_matched_106x17*
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: 106x17 plant source-matched targetgroup background qualification"
+            git pull --rebase origin analysis/neobat-plant-within-dataset-source-gate-20261119
+            git push origin HEAD:analysis/neobat-plant-within-dataset-source-gate-20261119
+          fi
+      - name: Never promote an incomplete original-source gate
+        run: |
+          test "$(cat build/neobat/plant_dataset_matched_106x17_exit_code.txt)" = "0"

@@ -1,0 +1,25 @@
+name: NeoBat bat target-group background synthetic source-free regression
+on:
+  push:
+    branches:
+      - analysis/neobat-bat-targetgroup-background-20261119
+    paths:
+      - .github/workflows/neobat-bat-background-sourcefree-ci.yml
+      - scripts/neobat_bat_targetgroup_background_gate.py
+      - tests/test_neobat_bat_targetgroup_background_gate.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  targetgroup_sourcefree:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile and verify artificial bat-only source events
+        run: |
+          python -m py_compile scripts/neobat_bat_targetgroup_background_gate.py
+          python -m unittest discover -s tests -p 'test_neobat_bat_targetgroup_background_gate.py' -v

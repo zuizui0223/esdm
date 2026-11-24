@@ -1,0 +1,279 @@
+{
+  "schema_version": 1,
+  "status": "PREFIT_SOURCE_COUNTRY_INPUT_ONLY",
+  "created_utc": "2026-11-19T05:13:54.119660+00:00",
+  "source_neobat_commit": "d25292d19be32a85a21c60384a3f2d818e8081de",
+  "sampled_cell_receipt_created_utc": "2026-11-19T05:11:06.591157+00:00",
+  "bat_species_count": 4,
+  "plant_species_count": 10,
+  "bat_country_combinations": 16,
+  "sampled_bat_country_combinations": 16,
+  "countries_with_ge3_plant_links_ge2_outcountry_refs": 9,
+  "bats_with_at_least_two_resource_eligible_countries": 4,
+  "number_original_frugivore_pilot_rows": 96,
+  "country_link_only_not_25km_cell_cooccurrence": true,
+  "sampled_source_used_for_discovery_not_sealed_prediction": true,
+  "full_GBIF_download_DOI": null,
+  "M3_vs_M1_prediction_difference": null,
+  "country_result": [
+    {
+      "bat": "Carollia perspicillata",
+      "country": "CO",
+      "bat_sample_25km_cells_lower_bound": 33,
+      "training_source_partner_names_in_pilot": 6,
+      "positive_country_plant_sample_lower_bound": 5,
+      "training_references_for_eligible_plants": 16,
+      "partner_names": [
+        "Cecropia ficifolia",
+        "Cecropia obtusifolia",
+        "Ficus insipida",
+        "Piper aduncum",
+        "Solanum rugosum"
+      ],
+      "country_had_original_neobat_sites": true,
+      "eligible_resource_input": true,
+      "status": "PRELIMINARY_RESOURCE_INPUT_COMPATIBLE"
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "country": "BR",
+      "bat_sample_25km_cells_lower_bound": 24,
+      "training_source_partner_names_in_pilot": 6,
+      "positive_country_plant_sample_lower_bound": 5,
+      "training_references_for_eligible_plants": 10,
+      "partner_names": [
+        "Cecropia ficifolia",
+        "Cecropia obtusa",
+        "Ficus insipida",
+        "Piper aduncum",
+        "Solanum rugosum"
+      ],
+      "country_had_original_neobat_sites": true,
+      "eligible_resource_input": true,
+      "status": "PRELIMINARY_RESOURCE_INPUT_COMPATIBLE"
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "country": "GY",
+      "bat_sample_25km_cells_lower_bound": 15,
+      "training_source_partner_names_in_pilot": 6,
+      "positive_country_plant_sample_lower_bound": 0,
+      "training_references_for_eligible_plants": 0,
+      "partner_names": [],
+      "country_had_original_neobat_sites": false,
+      "eligible_resource_input": false,
+      "status": "INDETERMINATE_10_PLANT_PILOT"
+    },
+    {
+      "bat": "Carollia perspicillata",
+      "country": "PE",
+      "bat_sample_25km_cells_lower_bound": 25,
+      "training_source_partner_names_in_pilot": 5,
+      "positive_country_plant_sample_lower_bound": 1,
+      "training_references_for_eligible_plants": 2,
+      "partner_names": [
+        "Ficus insipida"
+      ],
+      "country_had_original_neobat_sites": true,
+      "eligible_resource_input": false,
+      "status": "INDETERMINATE_10_PLANT_PILOT"
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "country": "CO",
+      "bat_sample_25km_cells_lower_bound": 42,
+      "training_source_partner_names_in_pilot": 10,
+      "positive_country_plant_sample_lower_bound": 7,
+      "training_references_for_eligible_plants": 12,
+      "partner_names": [
+        "Cecropia ficifolia",
+        "Cecropia obtusifolia",
+        "Ficus citrifolia",
+        "Ficus insipida",
+        "Ficus yoponensis",
+        "Piper aduncum",
+        "Solanum rugosum"
+      ],
+      "country_had_original_neobat_sites": true,
+      "eligible_resource_input": true,
+      "status": "PRELIMINARY_RESOURCE_INPUT_COMPATIBLE"
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "country": "BR",
+      "bat_sample_25km_cells_lower_bound": 52,
+      "training_source_partner_names_in_pilot": 9,
+      "positive_country_plant_sample_lower_bound": 6,
+      "training_references_for_eligible_plants": 14,
+      "partner_names": [
+        "Cecropia ficifolia",
+        "Cecropia obtusa",
+        "Ficus citrifolia",
+        "Ficus insipida",
+        "Ficus trigonata",
+        "Piper aduncum"
+      ],
+      "country_had_original_neobat_sites": true,
+      "eligible_resource_input": true,
+      "status": "PRELIMINARY_RESOURCE_INPUT_COMPATIBLE"
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "country": "MX",
+      "bat_sample_25km_cells_lower_bound": 139,
+      "training_source_partner_names_in_pilot": 10,
+      "positive_country_plant_sample_lower_bound": 5,
+      "training_references_for_eligible_plants": 10,
+      "partner_names": [
+        "Cecropia obtusifolia",
+        "Ficus insipida",
+        "Ficus trigonata",
+        "Ficus yoponensis",
+        "Piper aduncum"
+      ],
+      "country_had_original_neobat_sites": true,
+      "eligible_resource_input": true,
+      "status": "PRELIMINARY_RESOURCE_INPUT_COMPATIBLE"
+    },
+    {
+      "bat": "Artibeus lituratus",
+      "country": "SR",
+      "bat_sample_25km_cells_lower_bound": 19,
+      "training_source_partner_names_in_pilot": 10,
+      "positive_country_plant_sample_lower_bound": 1,
+      "training_references_for_eligible_plants": 5,
+      "partner_names": [
+        "Cecropia obtusa"
+      ],
+      "country_had_original_neobat_sites": false,
+      "eligible_resource_input": false,
+      "status": "INDETERMINATE_10_PLANT_PILOT"
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "country": "MX",
+      "bat_sample_25km_cells_lower_bound": 95,
+      "training_source_partner_names_in_pilot": 8,
+      "positive_country_plant_sample_lower_bound": 5,
+      "training_references_for_eligible_plants": 15,
+      "partner_names": [
+        "Cecropia obtusifolia",
+        "Ficus insipida",
+        "Ficus trigonata",
+        "Ficus yoponensis",
+        "Piper aduncum"
+      ],
+      "country_had_original_neobat_sites": true,
+      "eligible_resource_input": true,
+      "status": "PRELIMINARY_RESOURCE_INPUT_COMPATIBLE"
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "country": "CO",
+      "bat_sample_25km_cells_lower_bound": 33,
+      "training_source_partner_names_in_pilot": 8,
+      "positive_country_plant_sample_lower_bound": 6,
+      "training_references_for_eligible_plants": 18,
+      "partner_names": [
+        "Cecropia obtusifolia",
+        "Ficus citrifolia",
+        "Ficus insipida",
+        "Ficus yoponensis",
+        "Piper aduncum",
+        "Solanum rugosum"
+      ],
+      "country_had_original_neobat_sites": true,
+      "eligible_resource_input": true,
+      "status": "PRELIMINARY_RESOURCE_INPUT_COMPATIBLE"
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "country": "GT",
+      "bat_sample_25km_cells_lower_bound": 35,
+      "training_source_partner_names_in_pilot": 8,
+      "positive_country_plant_sample_lower_bound": 0,
+      "training_references_for_eligible_plants": 0,
+      "partner_names": [],
+      "country_had_original_neobat_sites": false,
+      "eligible_resource_input": false,
+      "status": "INDETERMINATE_10_PLANT_PILOT"
+    },
+    {
+      "bat": "Artibeus jamaicensis",
+      "country": "NI",
+      "bat_sample_25km_cells_lower_bound": 23,
+      "training_source_partner_names_in_pilot": 8,
+      "positive_country_plant_sample_lower_bound": 2,
+      "training_references_for_eligible_plants": 5,
+      "partner_names": [
+        "Ficus popenoei",
+        "Ficus yoponensis"
+      ],
+      "country_had_original_neobat_sites": false,
+      "eligible_resource_input": false,
+      "status": "INDETERMINATE_10_PLANT_PILOT"
+    },
+    {
+      "bat": "Artibeus planirostris",
+      "country": "BR",
+      "bat_sample_25km_cells_lower_bound": 37,
+      "training_source_partner_names_in_pilot": 3,
+      "positive_country_plant_sample_lower_bound": 3,
+      "training_references_for_eligible_plants": 5,
+      "partner_names": [
+        "Cecropia ficifolia",
+        "Cecropia obtusa",
+        "Piper aduncum"
+      ],
+      "country_had_original_neobat_sites": true,
+      "eligible_resource_input": true,
+      "status": "PRELIMINARY_RESOURCE_INPUT_COMPATIBLE"
+    },
+    {
+      "bat": "Artibeus planirostris",
+      "country": "CO",
+      "bat_sample_25km_cells_lower_bound": 50,
+      "training_source_partner_names_in_pilot": 4,
+      "positive_country_plant_sample_lower_bound": 3,
+      "training_references_for_eligible_plants": 2,
+      "partner_names": [
+        "Cecropia ficifolia",
+        "Ficus citrifolia",
+        "Piper aduncum"
+      ],
+      "country_had_original_neobat_sites": true,
+      "eligible_resource_input": true,
+      "status": "PRELIMINARY_RESOURCE_INPUT_COMPATIBLE"
+    },
+    {
+      "bat": "Artibeus planirostris",
+      "country": "GY",
+      "bat_sample_25km_cells_lower_bound": 24,
+      "training_source_partner_names_in_pilot": 4,
+      "positive_country_plant_sample_lower_bound": 0,
+      "training_references_for_eligible_plants": 0,
+      "partner_names": [],
+      "country_had_original_neobat_sites": false,
+      "eligible_resource_input": false,
+      "status": "INDETERMINATE_10_PLANT_PILOT"
+    },
+    {
+      "bat": "Artibeus planirostris",
+      "country": "SR",
+      "bat_sample_25km_cells_lower_bound": 21,
+      "training_source_partner_names_in_pilot": 4,
+      "positive_country_plant_sample_lower_bound": 1,
+      "training_references_for_eligible_plants": 4,
+      "partner_names": [
+        "Cecropia obtusa"
+      ],
+      "country_had_original_neobat_sites": false,
+      "eligible_resource_input": false,
+      "status": "INDETERMINATE_10_PLANT_PILOT"
+    }
+  ],
+  "source_data_sha256": {
+    "records": "723198f850aa4ee7346122e71a3dd3eadaca176a65bfb87dc2a90f55f2acf10b",
+    "sites": "44fc3fc26a1aea37107cd2af3c97031e558890ba4366740c40ab7575e10ebfe2"
+  }
+}

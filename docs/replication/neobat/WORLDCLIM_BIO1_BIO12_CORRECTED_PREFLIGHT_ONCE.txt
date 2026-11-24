@@ -1,0 +1,6 @@
+One-shot WorldClim v2.1 source-only ZIP & GeoTIFF metadata requalification
+Official archive SHA256: 00513224583665ec0f2f955a4ec252730c4deb2004cce9e793492a3f26df4dcf
+Corrected BIO12 inner-member SHA256: 1e823e951ace0186c6eadd7368b4d0385c8f51cc952282c0f2d640bf7790fea5
+Previous manually pinned BIO12 SHA256 contained a two-nibble transposition.
+Correction provenance: docs/replication/NEOBAT_WORLDCLIM_BIO12_HASH_CORRECTION_20261119.md
+No GBIF bat/plant occurrences opened, no raster values fitted, no trophic SDM results.

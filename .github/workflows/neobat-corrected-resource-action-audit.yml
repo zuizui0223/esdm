@@ -1,0 +1,55 @@
+name: NeoBat diagnose corrected full DOI resource input gate (GET-only)
+on:
+  push:
+    branches:
+      - design/neobat-trophic-sdm-phase1-20261119
+    paths:
+      - .github/workflows/neobat-corrected-resource-action-audit.yml
+permissions:
+  actions: read
+  contents: write
+jobs:
+  inspect_corrected_precision_source_gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Read exact corrected source-gate run metadata (never run GBIF model)
+        run: |
+          python -m py_compile scripts/neobat_audit_gbif_submission_run.py
+          python -m unittest discover -s tests -p 'test_neobat_audit_gbif_submission_run.py' -v
+          set +e
+          python -m scripts.neobat_audit_gbif_submission_run \
+            --marker-sha 1b7139e3e292513642f359b5125b352381662b38 \
+            --workflow-file neobat-full-doi-resource-country-gate.yml \
+            --workflow-name "NeoBat full DOI precision-conditioned country resource input feasibility" \
+            --out docs/replication/neobat/gbif_precision_resource_corrected_action_audit.json
+          code=$?
+          set -e
+          echo "$code" > docs/replication/neobat/gbif_precision_resource_corrected_action_audit_exit_code.txt
+      - name: Store read-only operational receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-corrected-full-resource-action-audit
+          path: docs/replication/neobat/gbif_precision_resource_corrected_action_audit*
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Commit only run status, not any original GBIF record
+        if: always()
+        run: |
+          set -euo pipefail
+          test -f docs/replication/neobat/gbif_precision_resource_corrected_action_audit.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/gbif_precision_resource_corrected_action_audit*
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: corrected full DOI resource-country gate workflow diagnosis"
+            git pull --rebase origin design/neobat-trophic-sdm-phase1-20261119
+            git push origin HEAD:design/neobat-trophic-sdm-phase1-20261119
+          fi

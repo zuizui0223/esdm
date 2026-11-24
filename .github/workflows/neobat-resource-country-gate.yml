@@ -1,0 +1,68 @@
+name: NeoBat country-linked resource input preflight (source only)
+# Frozen 55-page sampled result; successive technical repeats produced identical country cell counts.
+# This job reads only pinned NeoBat source CSV and frozen aggregate GBIF preflight, not occurrence records.
+
+on:
+  push:
+    branches:
+      - design/neobat-trophic-sdm-phase1-20261119
+    paths:
+      - .github/workflows/neobat-resource-country-gate.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: neobat-resource-country-gate-20261119
+  cancel-in-progress: false
+
+jobs:
+  source_country_input_gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify fixed 14-taxon sampled-country source receipt
+        run: |
+          set -euo pipefail
+          test "$(git hash-object docs/replication/neobat/spatial_country_lb.json)" = "fcf957d0e4f4facd9239acdf69b37be9f99bd8d6"
+      - name: Synthetic-only same-reference holdout and country joining
+        run: |
+          python -m py_compile scripts/neobat_resource_country_gate.py
+          python -m unittest discover -s tests -p 'test_neobat_resource_country_gate.py' -v
+      - name: Recompute country-aligned potential fruit-resource eligibility
+        run: |
+          set -euo pipefail
+          mkdir -p build/neobat
+          set +e
+          python -m scripts.neobat_resource_country_gate --out build/neobat/country_resource_gate.json
+          code=$?
+          set -e
+          echo "$code" > build/neobat/country_resource_gate_exit_code.txt
+          echo "Source country resource gate terminal status $code"
+      - name: Retain truthful aggregate receipt or explicit stop
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-resource-country-input-gate
+          path: build/neobat/
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Commit aggregate receipt on unmerged research branch
+        if: success()
+        run: |
+          set -euo pipefail
+          mkdir -p docs/replication/neobat
+          cp build/neobat/country_resource_gate.json docs/replication/neobat/
+          cp build/neobat/country_resource_gate_exit_code.txt docs/replication/neobat/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: country-aligned bat and fruit partner input eligibility, no SDM fit"
+            git pull --rebase origin design/neobat-trophic-sdm-phase1-20261119
+            git push origin HEAD:design/neobat-trophic-sdm-phase1-20261119
+          fi

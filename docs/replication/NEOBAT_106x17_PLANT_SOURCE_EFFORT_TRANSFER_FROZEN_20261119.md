@@ -1,0 +1,26 @@
+# NeoBat 106 species × 17-country source-effort transfer: exploratory full-cohort freeze
+
+Date: 2026-11-19. This is a **post-hoc exploratory discovery program** motivated by already observed Colombia pilot results. It tests portability of *GBIF botanical recording rank*, not fruit biomass, plant true occupancy, or bat M3. The original v1 255 plant M0/M1/M3/N1 contract and its nonexistent bat AUC remain unchanged.
+
+## Source, candidate universe and fixed denominator
+
+- Source: the original 367,988-row GBIF plant download DOI `10.15468/dl.xwc5zf`, exact ZIP SHA-256 `4275ed6b9847fa9fb81a9e353ec1b9de151592f7c369b19f6145129059726c8b`; accepted 255 plant species, 2000–2025, strict known coordinateUncertainty <=12,500m, EPSG:6933 25km unique recorded cells, original species×country cell counts replayed.
+- Fixed globally trainable **106** plant names from v2 source `v2_106plant_reference_input_gate.json`, SHA-256 `41c9fc0128df6d0f3753edf4b82f6b5b36c6975c8d7c644bae4e4fd3e5bdaac6`.
+- Exactly the same **17** countries from original strict 84 bat×country candidate roster; full species×country denominator **1,802**, even when source, background, raster or class support stops. No species/country selected based on previous AUC or this future result.
+- Same original official WorldClim BIO1/BIO12 10arcmin archive SHA `00513224583665ec0f2f955a4ec252730c4deb2004cce9e793492a3f26df4dcf`; original elevation ZIP SHA `6a9f4e9a37f289d594ed1567b63be344a4dacf247f0b69756e81df031087e3bd`. These represent 1970–2000 climatology and coarse elevation, not contemporary fruit supply.
+
+## Identical fixed source/method for every pair
+
+1. Source-matched positive and pseudo-background target plant cells come from **original matching GBIF datasetKey groups** (v2 106×17 source matching gate); same dataset key **does not** imply effort-matched visits. Require at least 1 other plant taxon observed in the same 25km cell for *both* positive and background roles. Cell without focal record is NOT a true focal absence. Do not export original source IDs.
+2. Country holdout: no heldout-country plant rows in model training, scaler, or hyperparameter selection. All 25km grid cells belonging to heldout-country source plant records are embargoed from training, including cross-border cells.
+3. Predictors: WorldClim original BIO1, BIO12, ELEV sampled at cell centroid + `log1p(other GBIF plant taxa recorded in source cell, excluding focal taxon)`. Any nodata cell excluded and denominated.
+4. Regression: deterministic training-only `StandardScaler`; `LogisticRegression(C=1.0,class_weight='balanced',max_iter=400,solver='lbfgs',random_state=20261119)`, same for every fold. Fit and score **abiotic-only**, **source-intensity-only**, **abiotic+source-intensity** rank AUC against **other-plant recorded pseudo-background** in the heldout country. No outcome-responsive tuning or taxon/region substitution.
+5. After source matching and nodata, minimum training >=20 positive and >=20 background cells, minimum heldout >=5 positive and >=5 background cells; otherwise explicit per-fold STOP, keep in denominator.
+6. New exploratory source-robustness contrast: `delta_AUC = AUC(abiotic+source-intensity) - AUC(source-intensity-only)`; report signed delta for each qualified species×country, **not** significance of individual GBIF rows. Also report fixed exact-other-taxa-count within-stratum conditional AUC and fraction of comparable test positive×background pairs, but no selection on its value.
+7. Predeclare aggregation: equal weight per test-eligible plant×country for descriptive mean; equal weight across the 17 countries with >=1 eligible taxon for region-equal mean; equal weight across plant species with >=1 eligible country for species-equal mean. Country-level bootstrap 2,000 replicates with deterministic seed 20261119, resampling country means; report percentile 95% interval and leave-one-country-out mean range. This only summarizes between-country variation in the **same opened GBIF universe**, not independent-study uncertainty, causal effects, or a confirmatory p value.
+8. Replay original stricter three-species CO matched source fit `plant_CO_source_datasetmatched_pilot.json`: exact training/test denominators and AUC for *Cecropia obtusifolia*, *Ficus insipida*, *Piper aduncum* **must** agree before publishing any all-cohort aggregate. Preserve all 1,802 outcomes (STOP included) and report source/raster/modeled denominators.
+9. No raw original plant coordinates, cell IDs, dataset IDs, individual records, per-cell predictions or raster pixels may be saved in GitHub or Actions artifacts. Only plant×country aggregate model ranks and count summaries. Never fit bat M0/M1/M2/M3/N1 or treat apparent botanical source predictability as ecological resource suitability.
+
+## Interpretation ceiling
+
+Even if delta_AUC is positive broadly, this tests **forecasting reported GBIF botanical records**, not real plant abundance or feeding. If delta is near 0 across countries, it argues the existing measurement model cannot identify transferable ecological resource suitability beyond source recording intensity. True cross-study resource SDM still requires measured survey effort, independently ascertained plant ranges/abundance or fruiting observations. This test is explicitly exploratory because prior pilot results motivated it.

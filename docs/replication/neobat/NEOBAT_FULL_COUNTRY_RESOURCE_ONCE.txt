@@ -1,0 +1,6 @@
+One-shot source-only 26 bats x 29 countries GBIF DOI resource input qualification.
+Source bat DOI: 10.15468/dl.nxu727, source plant DOI: 10.15468/dl.xwc5zf
+Full original source-QC Git blob: 8faaf3fb0e5e840b7c28a05f51e16ec53d6fc855
+Holds out all NeoBat RefCode linked to original sites in each test country.
+Strict sensitivity: coordinate uncertainty reported <=12,500 m.
+This is an observability calculation only; no independent holdout model prediction, no ecological M3-M1 gain.

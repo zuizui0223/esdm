@@ -1,0 +1,60 @@
+name: NeoBat inspect synthetic model-core runner (read-only)
+
+on:
+  push:
+    branches:
+      - design/neobat-trophic-sdm-phase1-20261119
+    paths:
+      - .github/workflows/neobat-model-core-action-audit.yml
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  inspect_first_known_truth_runner:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Pure test of GitHub status metadata inspector
+        run: |
+          python -m py_compile scripts/neobat_audit_gbif_submission_run.py
+          python -m unittest discover -s tests -p 'test_neobat_audit_gbif_submission_run.py' -v
+      - name: Inspect synthetic model core run exact commit, no rerun
+        run: |
+          set +e
+          python -m scripts.neobat_audit_gbif_submission_run \
+            --marker-sha a860b93e339ff8358af2762195f84c4215327b10 \
+            --workflow-file neobat-model-core-synthetic.yml \
+            --workflow-name "NeoBat known-truth synthetic M0/M1/M3/N1 model core gate" \
+            --out docs/replication/neobat/model_core_action_audit.json
+          rc=$?
+          set -e
+          echo "$rc" > docs/replication/neobat/model_core_action_audit_exit_code.txt
+      - name: Retain exact run status and failed step identifiers only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neobat-synthetic-model-core-actions-status
+          path: docs/replication/neobat/model_core_action_audit*
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Persist status-only receipt
+        if: always()
+        run: |
+          set -euo pipefail
+          test -f docs/replication/neobat/model_core_action_audit.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/replication/neobat/model_core_action_audit*
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence: synthetic model core workflow status; no ecological result"
+            git pull --rebase origin design/neobat-trophic-sdm-phase1-20261119
+            git push origin HEAD:design/neobat-trophic-sdm-phase1-20261119
+          fi
